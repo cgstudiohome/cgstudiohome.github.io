@@ -1,0 +1,2267 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta id="meta-description" name="description" content="CG Studio Home & Labs — Aile yapımı bağımsız oyunlar ve yeni nesil mobil/web projeleri geliştirici portalı.">
+    <meta name="theme-color" content="#060814">
+    <title id="page-title" data-i18n="pageTitle">CG Studio Home &amp; Labs | Aile Yapımı Oyunlar &amp; Teknoloji Portalı</title>
+    <!-- Google tag (gtag.js) - GA4 Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3EVKLV8SM8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3EVKLV8SM8', {
+            send_page_view: true
+        });
+    </script>
+    <link rel="icon" type="image/png" href="assets/icon-192.png">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <style>
+        :root {
+            --bg-dark: #050711;
+            --bg-card: #0e1226;
+            --bg-card-hover: #141a38;
+            --cyan: #00f2fe;
+            --emerald: #06d6a0;
+            --gold: #ffd166;
+            --crimson: #ff2a85;
+            --purple: #a855f7;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-glow: rgba(0, 242, 254, 0.22);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.09) 0%, transparent 40%),
+                radial-gradient(circle at 85% 25%, rgba(255, 42, 133, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(6, 214, 160, 0.07) 0%, transparent 50%);
+            color: var(--text-main);
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        /* Top Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(5, 7, 17, 0.94);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glow);
+            padding: 14px 28px;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 20px;
+            color: #050711;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.45);
+            overflow: hidden;
+        }
+
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #ffffff, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-sub {
+            font-size: 11.5px;
+            color: var(--gold);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 5px 11px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--cyan);
+            color: #050711;
+        }
+
+        /* Hero Flagship Banner */
+        .hero-section {
+            max-width: 1280px;
+            margin: 36px auto;
+            padding: 0 24px;
+        }
+
+        .hero-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(16, 22, 54, 0.95) 0%, rgba(10, 12, 30, 0.98) 100%);
+            border: 1px solid rgba(255, 209, 102, 0.35);
+            border-radius: 26px;
+            padding: 44px;
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 36px;
+            align-items: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(0, 242, 254, 0.1);
+            overflow: hidden;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(6, 214, 160, 0.15);
+            border: 1px solid var(--emerald);
+            color: var(--emerald);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            margin-bottom: 16px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+
+        .hero-title span {
+            background: linear-gradient(90deg, var(--gold), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            color: #cbd5e1;
+            font-size: 16px;
+            margin-bottom: 24px;
+            max-width: 680px;
+        }
+
+        .hero-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .stat-pill {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 7px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 13px;
+            font-weight: 800;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            border: none;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00f2fe, #06d6a0);
+            color: #040711;
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #ffd166, #f59e0b);
+            color: #050711;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.35);
+        }
+
+        .btn-crimson {
+            background: linear-gradient(135deg, #ff2a85, #e11d48);
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(255, 42, 133, 0.4);
+        }
+
+        .btn-purple {
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-main);
+            border: 1px solid rgba(0, 242, 254, 0.45);
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 242, 254, 0.15);
+            border-color: var(--cyan);
+        }
+
+        .hero-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            position: relative;
+        }
+
+        .hero-visual-wrapper {
+            position: relative;
+            cursor: pointer;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 209, 102, 0.6);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .hero-visual-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 22px 50px rgba(0, 242, 254, 0.35);
+        }
+
+        .hero-visual-wrapper img {
+            width: 100%;
+            max-width: 440px;
+            display: block;
+        }
+
+        .hero-visual-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(5, 7, 17, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11.5px;
+            color: var(--gold);
+            font-weight: 700;
+            border: 1px solid rgba(255, 209, 102, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Studio Stats Strip */
+        .stats-strip {
+            max-width: 1280px;
+            margin: 0 auto 48px;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 18px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--cyan);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ==============================================================
+           FAMILY STORY & TEAM SECTION (CG Studio Home / Labs)
+           ============================================================== */
+        .family-section {
+            max-width: 1280px;
+            margin: 0 auto 64px;
+            padding: 0 24px;
+        }
+
+        .family-card-main {
+            background: linear-gradient(135deg, rgba(14, 18, 38, 0.95) 0%, rgba(8, 10, 24, 0.98) 100%);
+            border: 1.5px solid rgba(0, 242, 254, 0.35);
+            border-radius: 26px;
+            padding: 40px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 30px rgba(168, 85, 247, 0.15);
+        }
+
+        .family-header {
+            text-align: center;
+            max-width: 860px;
+            margin: 0 auto 36px;
+        }
+
+        .family-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(168, 85, 247, 0.18);
+            border: 1px solid var(--purple);
+            color: #d8b4fe;
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .family-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .family-title span {
+            background: linear-gradient(90deg, var(--gold), var(--crimson));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .family-desc {
+            color: #cbd5e1;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* Family Grid: Real Photos Showcase + Member Cards */
+        .family-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: center;
+            margin-bottom: 36px;
+        }
+
+        .family-photo-box {
+            position: relative;
+            background: rgba(5, 7, 17, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            overflow: hidden;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .family-main-img-wrap {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 209, 102, 0.4);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+        }
+
+        .family-main-img-wrap img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .family-main-img-wrap:hover img {
+            transform: scale(1.03);
+        }
+
+        .family-photo-tag {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(5, 7, 17, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--gold);
+            font-weight: 700;
+            border: 1px solid rgba(255, 209, 102, 0.3);
+        }
+
+        .family-thumbs-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .family-thumb-item {
+            flex: 1;
+            height: 80px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            cursor: pointer;
+            opacity: 0.65;
+            transition: all 0.2s;
+        }
+
+        .family-thumb-item.active, .family-thumb-item:hover {
+            opacity: 1;
+            border-color: var(--cyan);
+            transform: scale(1.04);
+        }
+
+        .family-thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .family-quote {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            font-style: italic;
+            text-align: center;
+            padding: 6px 12px;
+        }
+
+        /* 4 Family Member Roles */
+        .family-members-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .member-card {
+            background: rgba(5, 7, 17, 0.8);
+            border-radius: 18px;
+            padding: 18px;
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .member-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+        }
+
+        .member-card.cevat {
+            border-color: rgba(0, 242, 254, 0.4);
+        }
+        .member-card.gonul {
+            border-color: rgba(255, 209, 102, 0.4);
+        }
+        .member-card.yavuz {
+            border-color: rgba(255, 42, 133, 0.45);
+        }
+        .member-card.isranur {
+            border-color: rgba(168, 85, 247, 0.45);
+        }
+
+        .member-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .member-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .member-card.cevat .member-icon { background: rgba(0, 242, 254, 0.15); color: var(--cyan); }
+        .member-card.gonul .member-icon { background: rgba(255, 209, 102, 0.15); color: var(--gold); }
+        .member-card.yavuz .member-icon { background: rgba(255, 42, 133, 0.15); color: var(--crimson); }
+        .member-card.isranur .member-icon { background: rgba(168, 85, 247, 0.15); color: var(--purple); }
+
+        .member-name {
+            font-size: 16px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .member-role {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .member-card.cevat .member-role { color: var(--cyan); }
+        .member-card.gonul .member-role { color: var(--gold); }
+        .member-card.yavuz .member-role { color: var(--crimson); }
+        .member-card.isranur .member-role { color: var(--purple); }
+
+        .member-desc {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Full Infographic Banner Strip */
+        .family-infographic-wrap {
+            margin-top: 24px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 209, 102, 0.4);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .family-infographic-wrap:hover {
+            transform: scale(1.015);
+            box-shadow: 0 20px 48px rgba(0, 242, 254, 0.3);
+        }
+
+        .family-infographic-wrap img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Games Catalog Section */
+        .section {
+            max-width: 1280px;
+            margin: 0 auto 64px;
+            padding: 0 24px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            font-size: 30px;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .section-sub {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: linear-gradient(135deg, var(--cyan), #3b82f6);
+            color: #050711;
+            border-color: transparent;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
+        }
+
+        .game-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--cyan);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+        }
+
+        .game-card.featured {
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 30px rgba(255, 209, 102, 0.15);
+        }
+
+        .game-banner {
+            height: 195px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .game-banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .game-banner:hover .game-banner-img {
+            transform: scale(1.06);
+        }
+
+        .game-banner-icon {
+            font-size: 64px;
+            filter: drop-shadow(0 8px 18px rgba(0,0,0,0.6));
+        }
+
+        .status-tag {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        .status-live {
+            background: rgba(6, 214, 160, 0.25);
+            border: 1px solid var(--emerald);
+            color: var(--emerald);
+            backdrop-filter: blur(8px);
+        }
+
+        .status-dev {
+            background: rgba(255, 209, 102, 0.2);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            backdrop-filter: blur(8px);
+        }
+
+        .genre-tag {
+            position: absolute;
+            bottom: 12px;
+            left: 14px;
+            background: rgba(5, 7, 17, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--cyan);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            z-index: 2;
+        }
+
+        .game-body {
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .game-title {
+            font-size: 21px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .game-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+
+        .game-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .meta-chip {
+            font-size: 11.5px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 9px;
+            border-radius: 6px;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .game-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .game-actions .btn {
+            flex: 1;
+            min-width: 105px;
+            padding: 10px 12px;
+            font-size: 13px;
+        }
+
+        /* Lightbox Image Album Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(3, 5, 14, 0.96);
+            backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .album-container {
+            max-width: 1080px;
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 22px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .album-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: rgba(5, 7, 17, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .album-header-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .album-close-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 42, 133, 0.4);
+            color: var(--crimson);
+            border-radius: 10px;
+            padding: 6px 14px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .album-close-btn:hover {
+            background: var(--crimson);
+            color: #fff;
+        }
+
+        .album-body {
+            position: relative;
+            background: #020308;
+            min-height: 440px;
+            max-height: 65vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .album-body img {
+            max-width: 100%;
+            max-height: 65vh;
+            object-fit: contain;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .album-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(14, 18, 38, 0.8);
+            color: #fff;
+            border: 1px solid var(--border-glow);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .album-nav-btn:hover {
+            background: var(--cyan);
+            color: #050711;
+        }
+
+        .album-prev-btn { left: 16px; }
+        .album-next-btn { right: 16px; }
+
+        .album-footer {
+            padding: 16px 24px;
+            background: rgba(5, 7, 17, 0.85);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .album-caption-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .album-caption-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .album-thumbnails {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .album-thumb {
+            width: 80px;
+            height: 48px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .album-thumb:hover, .album-thumb.active {
+            opacity: 1;
+            border-color: var(--cyan);
+            transform: scale(1.05);
+        }
+
+        /* Video Player Modal */
+        .video-container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 22px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            background: #000;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Embedded Game Modal */
+        .game-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(3, 5, 14, 0.94);
+            display: none;
+            flex-direction: column;
+            padding: 16px;
+        }
+
+        .game-modal.open {
+            display: flex;
+        }
+
+        .game-modal-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 18px;
+            background: #0e1226;
+            border: 1px solid var(--cyan);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .game-modal-frame {
+            flex: 1;
+            width: 100%;
+            border: 1px solid var(--cyan);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            background: #000;
+        }
+
+        /* Features & Studio Info */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-box {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 24px;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .feature-box h3 {
+            font-size: 18px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .feature-box p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            background: #03040a;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 44px 24px;
+            margin-top: 60px;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .footer-links a:hover {
+            color: var(--cyan);
+        }
+
+        @media (max-width: 950px) {
+            .hero-card {
+                grid-template-columns: 1fr;
+                padding: 28px;
+            }
+            .hero-title {
+                font-size: 32px;
+            }
+            .family-grid {
+                grid-template-columns: 1fr;
+            }
+            .family-members-list {
+                grid-template-columns: 1fr;
+            }
+            .album-body {
+                min-height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand">
+                <div class="brand-logo">
+                    <img src="assets/icon-192.png" alt="CG Studio Home Logo" onerror="this.style.display='none'">
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">CG STUDIO HOME</span>
+                    <span class="brand-sub" data-i18n="studioSub">AİLE OYUN &amp; TEKNOLOJİ STÜDYOSU</span>
+                </div>
+            </a>
+
+            <div class="nav-links">
+                <a href="#flagship" data-i18n="navFlagship">Marinext 2100</a>
+                <a href="#family" data-i18n="navFamily">👨‍👩‍👧‍👦 Aile Hikayemiz &amp; Ekip</a>
+                <a href="#catalog" data-i18n="navCatalog">Oyun Kataloğu</a>
+                <a href="#tech" data-i18n="navTech">Teknoloji</a>
+                <a href="https://cevatturk.github.io/marinext2100/release-notes.html" data-i18n="navChangelog">Sürüm Notları</a>
+                <a href="https://cevatturk.github.io/privacy-policy.html" data-i18n="navPrivacy">Gizlilik Politikası</a>
+                <a href="app-ads.txt" target="_blank">app-ads.txt</a>
+                <div class="lang-switch">
+                    <button id="lang-tr" class="lang-btn active" onclick="switchLang('tr', true)">TR</button>
+                    <button id="lang-en" class="lang-btn" onclick="switchLang('en', true)">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flagship Game Hero: Marinext 2100 -->
+    <section id="flagship" class="hero-section">
+        <div class="hero-card">
+            <div>
+                <span class="hero-badge" data-i18n="heroBadge">🔥 RESMİ GOOGLE PLAY LANSMANI • 10 YAŞINDAKİ OĞLUMUZUN HAYALİYLE BAŞLADI</span>
+                <h1 class="hero-title" data-i18n="heroTitle"><span>Marinext 2100</span> — Siber Gelecek &amp; Tarihi Kahramanlar</h1>
+                <p class="hero-desc" data-i18n="heroDesc">
+                    10 yaşındaki oğlumuz Yavuz Selim'in hayal ettiği, tüm ailemizin birlikte test ettiği ve Google Play tarafından onaylanan 2D Retro Platform Macerası! Fatih Sultan Mehmet, Yavuz Sultan Selim, Kanuni Sultan Süleyman ve siber savaşçılarla 100 siber zindan, 50 trol etabı ve 120 FPS ultra akıcı motor.
+                </p>
+
+                <div class="hero-pills">
+                    <span class="stat-pill" data-i18n="pillStages">⚔️ 100 Kampanya + 50 Trol Bölümü</span>
+                    <span class="stat-pill" data-i18n="pillHeroes">👑 14 Karakter &amp; Özel Yetenek</span>
+                    <span class="stat-pill" data-i18n="pillFps">⚡ 120 FPS Ultra Akıcı Motor</span>
+                    <span class="stat-pill" data-i18n="pillLangs">🌍 9 Dilde Tam Yerelleştirme</span>
+                </div>
+
+                <div class="cta-group">
+                    <button class="btn btn-primary" onclick="openGameModal()">
+                        <span data-i18n="btnPlayInline">🎮 Sayfa İçinde Hemen Oyna</span>
+                    </button>
+                    <a href="https://cevatturk.github.io/2100-Mario/" target="_blank" class="btn btn-gold">
+                        <span data-i18n="btnPlayFull">🚀 Tam Ekran Web'de Aç</span>
+                    </a>
+                    <a href="#family" class="btn btn-purple">
+                        <span data-i18n="btnFamilyStory">👨‍👩‍👧‍👦 Aile Hikayemiz &amp; Ekip</span>
+                    </a>
+                    <button class="btn btn-outline" onclick="openAlbum('marinext')">
+                        <span data-i18n="btnAlbum">🖼️ Resim Galerisi &amp; Albüm</span>
+                    </button>
+                    <button class="btn btn-crimson" onclick="openVideoModal('marinext')">
+                        <span data-i18n="btnVideo">🎬 Video &amp; Fragman İzle</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-visual-wrapper" onclick="openAlbum('marinext')" id="hero-visual-wrap" title="Ekran görüntülerini ve albümü incelemek için tıklayın">
+                    <img id="hero-promo-img" src="assets/promo/marinext-promo-tr.png" alt="Marinext 2100 Promo Banner" onerror="this.src='assets/feature-graphic-1024x500.jpg'">
+                    <div class="hero-visual-badge">
+                        🔍 <span data-i18n="heroInspectBadge">Albümü İncele</span>
+                    </div>
+                </div>
+                <small id="hero-package-info" style="color: var(--text-muted); font-size: 12.5px;" data-i18n="heroPackageInfo">Paket Kimliği: <code>com.cgstudiohome.marinext2100</code> • Google Play Store Onaylı • Android 7.0 - 16 (API 36)</small>
+            </div>
+        </div>
+    </section>
+
+    <!-- Studio Metrics Strip -->
+    <div class="stats-strip">
+        <div class="stat-card">
+            <span class="stat-num" data-i18n="statTeamNum">4 Kişilik</span>
+            <span class="stat-label" data-i18n="statTeamLabel">Tutkulu Aile Geliştirici Ekibi</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num" data-i18n="statLevelsNum">150</span>
+            <span class="stat-label" data-i18n="statLevelsLabel">Özel Tasarım Bölüm (Marinext 2100)</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num" data-i18n="statFpsNum">120 FPS</span>
+            <span class="stat-label" data-i18n="statFpsLabel">Ultra Akıcı Oyun Motoru</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num" data-i18n="statLangsNum">9 Dil</span>
+            <span class="stat-label" data-i18n="statLangsLabel">Global Otomatik Dil Desteği</span>
+        </div>
+    </div>
+
+    <!-- ==============================================================
+         FAMILY STORY & TEAM SECTION: CG Studio Home / Labs
+         ============================================================== -->
+    <section id="family" class="family-section">
+        <div class="family-card-main">
+            <div class="family-header">
+                <span class="family-badge" data-i18n="famBadge">★ BİR AİLE İÇİ GİRİŞİMCİLİK VE TEKNOLOJİ VAKASI</span>
+                <h2 class="family-title">
+                    <span data-i18n="famTitleHighlight">CG STUDIO HOME / LABS:</span> <span data-i18n="famTitle">10 Yaşında Bir Çocuğun Fikrinden Google Play Mağazasına</span>
+                </h2>
+                <p class="family-desc" data-i18n="famDesc">
+                    Biz bir aileyiz: <strong>Cevat (Baba), Gönül (Anne), Yavuz Selim (10 Yaş) ve İsranur (6 Yaş)</strong>. Çocuklarımızın sınırsız hayal gücünü yapay zeka ve profesyonel yazılım mühendisliğiyle harmanlayarak, tüm ailenin birlikte ürettiği, oynadığı ve test ettiği küresel projeler geliştiriyoruz.
+                </p>
+            </div>
+
+            <div class="family-grid">
+                <!-- Sol Panel: Gerçek Aile & Çocuk Test Fotoğrafları Galerisi -->
+                <div class="family-photo-box">
+                    <div class="family-main-img-wrap" onclick="openAlbum('marinext', 1)" id="family-main-img-wrap" title="Büyütmek ve tüm test fotoğraflarını görmek için tıklayın">
+                        <img id="family-featured-photo" src="assets/family/family-kids-couch-3.jpg" alt="Yavuz Selim ve İsranur Oyunu Test Ederken">
+                        <div class="family-photo-tag">
+                            📸 <span data-i18n="famPhotoTag">Yavuz Selim &amp; İsranur Cihaz Başında Testte</span>
+                        </div>
+                    </div>
+                    <div class="family-thumbs-row">
+                        <div class="family-thumb-item active" onclick="setFamilyMainPhoto('assets/family/family-kids-couch-3.jpg', this)">
+                            <img src="assets/family/family-kids-couch-3.jpg" alt="Test Anı 1">
+                        </div>
+                        <div class="family-thumb-item" onclick="setFamilyMainPhoto('assets/family/family-kids-tablet-1.jpg', this)">
+                            <img src="assets/family/family-kids-tablet-1.jpg" alt="Test Anı 2">
+                        </div>
+                        <div class="family-thumb-item" onclick="setFamilyMainPhoto('assets/family/family-kids-tablet-2.jpg', this)">
+                            <img src="assets/family/family-kids-tablet-2.jpg" alt="Test Anı 3">
+                        </div>
+                    </div>
+                    <p class="family-quote" data-i18n="famQuote">
+                        "Bir oyun sadece koddan ibaret değildir; bir çocuğun gözündeki heyecan ve tüm ailenin ortak emeğidir."
+                    </p>
+                </div>
+
+                <!-- Sağ Panel: 4 Aile Bireyinin Yetki ve Görev Dağılımı -->
+                <div class="family-members-list">
+                    <!-- Cevat -->
+                    <div class="member-card cevat">
+                        <div class="member-header">
+                            <div class="member-icon">💻</div>
+                            <div>
+                                <div class="member-name" data-i18n="nameCevat">Cevat</div>
+                                <div class="member-role" data-i18n="roleCevat">Teknik Lider &amp; Operasyon</div>
+                            </div>
+                        </div>
+                        <p class="member-desc" data-i18n="descCevat">
+                            Google Antigravity ve yapay zeka iş akışları, Play Console yönetimi, ASO stratejisi, derleme mimarisi ve küresel lansman koordinasyonu.
+                        </p>
+                    </div>
+
+                    <!-- Gönül -->
+                    <div class="member-card gonul">
+                        <div class="member-header">
+                            <div class="member-icon">🛡️</div>
+                            <div>
+                                <div class="member-name" data-i18n="nameGonul">Gönül</div>
+                                <div class="member-role" data-i18n="roleGonul">Kalite Kontrol &amp; QA</div>
+                            </div>
+                        </div>
+                        <p class="member-desc" data-i18n="descGonul">
+                            Bölüm testleri, hata tespiti, çapraz jenerasyon ergonomi analizi ve veli/okul doğrudan çevre iletişim koordinasyonu.
+                        </p>
+                    </div>
+
+                    <!-- Yavuz Selim -->
+                    <div class="member-card yavuz">
+                        <div class="member-header">
+                            <div class="member-icon">🎮</div>
+                            <div>
+                                <div class="member-name" data-i18n="nameYavuz">Yavuz Selim (10 Yaş)</div>
+                                <div class="member-role" data-i18n="roleYavuz">Baş Oyun Tasarımcısı</div>
+                            </div>
+                        </div>
+                        <p class="member-desc" data-i18n="descYavuz">
+                            Oyunun fikir babası, 100 siber zindan kurgusu, 50 akıl almaz trol etabı, tarihi sultan vizyonu ve ses efektleri konsepti.
+                        </p>
+                    </div>
+
+                    <!-- İsranur -->
+                    <div class="member-card isranur">
+                        <div class="member-header">
+                            <div class="member-icon">⭐</div>
+                            <div>
+                                <div class="member-name" data-i18n="nameIsranur">İsranur (6 Yaş)</div>
+                                <div class="member-role" data-i18n="roleIsranur">Junior Testçi &amp; Deneyim</div>
+                            </div>
+                        </div>
+                        <p class="member-desc" data-i18n="descIsranur">
+                            Küçük yaş grubu oynanabilirlik testleri, sezgisel dokunmatik kontroller, zorluk dengelemesi ve doğal çocuk tepkileri.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tıklanabilir Tam Boyut Aile İnfografiği -->
+            <div class="family-infographic-wrap" onclick="openAlbum('marinext', 2)" id="family-infographic-wrap" title="Aile İnfografiğini Tam Boyutta İncelemek İçin Tıklayın">
+                <img id="family-team-infographic" src="assets/family/family-team-tr.png" alt="CG Studio Home Aile Ekibi İnfografiği" onerror="this.src='assets/family/family-kids-couch-3.jpg'">
+            </div>
+        </div>
+    </section>
+
+    <!-- Multi-Genre Game Catalog -->
+    <section id="catalog" class="section">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title" data-i18n="catalogTitle">🎮 Stüdyo Oyun Kataloğumuz</h2>
+                <p class="section-sub" data-i18n="catalogSub">Aksiyon, tarihi strateji, fütüristik yarış, zindan RPG ve zeka kategorilerindeki oyun portföyümüz.</p>
+            </div>
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filterGames('all', this)" data-i18n="filterAll">Tümü (6)</button>
+                <button class="filter-btn" onclick="filterGames('action', this)" data-i18n="filterAction">Aksiyon &amp; Platform</button>
+                <button class="filter-btn" onclick="filterGames('strategy', this)" data-i18n="filterStrategy">Strateji &amp; Tarih</button>
+                <button class="filter-btn" onclick="filterGames('racing', this)" data-i18n="filterRacing">Yarış &amp; Arcade</button>
+                <button class="filter-btn" onclick="filterGames('puzzle', this)" data-i18n="filterPuzzle">Bulmaca &amp; RPG</button>
+            </div>
+        </div>
+
+        <div class="games-grid" id="games-grid">
+            <!-- Game 1: Marinext 2100 (FLAGSHIP LIVE) -->
+            <div class="game-card featured" data-genre="action">
+                <div class="game-banner" style="background: linear-gradient(135deg, #090d26, #1e1b4b);" onclick="openAlbum('marinext')">
+                    <img src="assets/icon-192.png" alt="Marinext 2100" style="width: 110px; height: 110px; border-radius: 22px; box-shadow: 0 8px 25px rgba(0,0,0,0.6);" onerror="this.src='assets/icon-512.png'">
+                    <span class="status-tag status-live" data-i18n="tagLive">🟢 YAYINDA • OYNANABİLİR</span>
+                    <span class="genre-tag" data-i18n="genreAction">Aksiyon / 2D Platform</span>
+                </div>
+                <div class="game-body">
+                    <h3 class="game-title">Marinext 2100</h3>
+                    <p class="game-desc" data-i18n="g1Desc">
+                        100 bölüm ana sefer, 50 bölüm Trol Modu, 10 aksiyon dünyası, Play Games Liderlik Tablosu ve Fatih Sultan Mehmet'ten Siber Şövalye'ye uzanan 14 yetenekli kahraman!
+                    </p>
+                    <div class="game-meta" data-i18n="g1Chips">
+                        <span class="meta-chip">📱 Android &amp; Web</span>
+                        <span class="meta-chip">⚡ 120 FPS</span>
+                        <span class="meta-chip">🌍 9 Dil</span>
+                    </div>
+                    <div class="game-actions">
+                        <button class="btn btn-primary" onclick="openGameModal()"><span data-i18n="btnPlayNow">🎮 Hemen Oyna</span></button>
+                        <button class="btn btn-outline" onclick="openAlbum('marinext')"><span data-i18n="btnCardAlbum">🖼️ Albüm</span></button>
+                        <button class="btn btn-crimson" onclick="openVideoModal('marinext')"><span data-i18n="btnCardVideo">🎬 Video İzle</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game 2: Ottoman Conquest 1517 -->
+            <div class="game-card" data-genre="strategy">
+                <div class="game-banner" style="background: linear-gradient(135deg, #2a0a18, #451a03);" onclick="openAlbum('ottoman')">
+                    <div class="game-banner-icon">⚔️</div>
+                    <span class="status-tag status-dev" data-i18n="tagSoon">🚀 GELİŞTİRİLİYOR</span>
+                    <span class="genre-tag" data-i18n="genreStrategy">Tarihi Strateji / RTS</span>
+                </div>
+                <div class="game-body">
+                    <h3 class="game-title">Ottoman Conquest: 1517</h3>
+                    <p class="game-desc" data-i18n="g2Desc">
+                        Yavuz Sultan Selim Han ve Osmanlı ordularıyla Ridaniye ve Mercidabık meydan muharebelerini yönettiğiniz gerçek zamanlı taktik ve kuşatma strateji oyunu.
+                    </p>
+                    <div class="game-meta" data-i18n="g2Chips">
+                        <span class="meta-chip">📱 Android</span>
+                        <span class="meta-chip">🏰 Taktik &amp; Ordu Yönetimi</span>
+                    </div>
+                    <div class="game-actions">
+                        <button class="btn btn-outline" onclick="openAlbum('ottoman')"><span data-i18n="btnCardAlbum">🖼️ Albüm</span></button>
+                        <button class="btn btn-crimson" onclick="openVideoModal('ottoman')"><span data-i18n="btnCardVideo">🎬 Video İzle</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game 3: Neon Drift 2100 -->
+            <div class="game-card" data-genre="racing">
+                <div class="game-banner" style="background: linear-gradient(135deg, #042f2e, #0f172a);" onclick="openAlbum('neondrift')">
+                    <div class="game-banner-icon">🏎️</div>
+                    <span class="status-tag status-dev" data-i18n="tagSoon">🚀 GELİŞTİRİLİYOR</span>
+                    <span class="genre-tag" data-i18n="genreRacing">Siber Yarış / Arcade</span>
+                </div>
+                <div class="game-body">
+                    <h3 class="game-title">Neon Drift 2100: Cyber Horizon</h3>
+                    <p class="game-desc" data-i18n="g3Desc">
+                        2100 yılının neon otoyollarında yerçekimine meydan okuyan siber araçlarla yüksek hızlı drift, araç modifiye stüdyosu ve zamana karşı yarış deneyimi.
+                    </p>
+                    <div class="game-meta" data-i18n="g3Chips">
+                        <span class="meta-chip">📱 Android &amp; Web</span>
+                        <span class="meta-chip">⚡ 120 FPS Fizik Motoru</span>
+                    </div>
+                    <div class="game-actions">
+                        <button class="btn btn-outline" onclick="openAlbum('neondrift')"><span data-i18n="btnCardAlbum">🖼️ Albüm</span></button>
+                        <button class="btn btn-crimson" onclick="openVideoModal('neondrift')"><span data-i18n="btnCardVideo">🎬 Video İzle</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game 4: Shadow Dungeon: Emerald Relics -->
+            <div class="game-card" data-genre="puzzle">
+                <div class="game-banner" style="background: linear-gradient(135deg, #064e3b, #1e1b4b);" onclick="openAlbum('shadowdungeon')">
+                    <div class="game-banner-icon">❖</div>
+                    <span class="status-tag status-dev" data-i18n="tagSoon">🚀 GELİŞTİRİLİYOR</span>
+                    <span class="genre-tag" data-i18n="genreDungeon">Zindan RPG / Roguelike</span>
+                </div>
+                <div class="game-body">
+                    <h3 class="game-title">Shadow Dungeon: Emerald Relics</h3>
+                    <p class="game-desc" data-i18n="g4Desc">
+                        Antik Zümrüt kalıntılarını korumak için prosedürel olarak üretilen karanlık zindanlarda Boss muhafızlarına karşı verilen aksiyon-RPG mücadelesi.
+                    </p>
+                    <div class="game-meta" data-i18n="g4Chips">
+                        <span class="meta-chip">📱 Android</span>
+                        <span class="meta-chip">🗡️ Boss Savaşları &amp; Ekipman</span>
+                    </div>
+                    <div class="game-actions">
+                        <button class="btn btn-outline" onclick="openAlbum('shadowdungeon')"><span data-i18n="btnCardAlbum">🖼️ Albüm</span></button>
+                        <button class="btn btn-crimson" onclick="openVideoModal('shadowdungeon')"><span data-i18n="btnCardVideo">🎬 Video İzle</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game 5: Quantum Blocks: AI Puzzle -->
+            <div class="game-card" data-genre="puzzle">
+                <div class="game-banner" style="background: linear-gradient(135deg, #311042, #0f172a);" onclick="openAlbum('quantum')">
+                    <div class="game-banner-icon">🧩</div>
+                    <span class="status-tag status-dev" data-i18n="tagSoon">🚀 GELİŞTİRİLİYOR</span>
+                    <span class="genre-tag" data-i18n="genrePuzzle">Zeka &amp; Fizik Bulmacası</span>
+                </div>
+                <div class="game-body">
+                    <h3 class="game-title">Quantum Blocks: Gravity Lab</h3>
+                    <p class="game-desc" data-i18n="g5Desc">
+                        Solucan delikleri, lazer kırılmaları ve yerçekimi anahtarlarını kullanarak 100'den fazla kuantum laboratuvarı bulmacasını çözün.
+                    </p>
+                    <div class="game-meta" data-i18n="g5Chips">
+                        <span class="meta-chip">📱 Android &amp; Tablet</span>
+                        <span class="meta-chip">🧠 100+ Bölüm</span>
+                    </div>
+                    <div class="game-actions">
+                        <button class="btn btn-outline" onclick="openAlbum('quantum')"><span data-i18n="btnCardAlbum">🖼️ Albüm</span></button>
+                        <button class="btn btn-crimson" onclick="openVideoModal('quantum')"><span data-i18n="btnCardVideo">🎬 Video İzle</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game 6: Galactic Armada -->
+            <div class="game-card" data-genre="action">
+                <div class="game-banner" style="background: linear-gradient(135deg, #172554, #090d16);" onclick="openAlbum('armada')">
+                    <div class="game-banner-icon">🛸</div>
+                    <span class="status-tag status-dev" data-i18n="tagSoon">🚀 GELİŞTİRİLİYOR</span>
+                    <span class="genre-tag" data-i18n="genreSpace">Uzay Aksiyon / Shoot 'em up</span>
+                </div>
+                <div class="game-body">
+                    <h3 class="game-title">Galactic Armada: Star Defender</h3>
+                    <p class="game-desc" data-i18n="g6Desc">
+                        Yıldızlararası filonuzu yükseltin, plazma kalkanlarınızı kuşanın ve galaktik istilacıların dev ana gemilerine karşı uzay cephesini savunun.
+                    </p>
+                    <div class="game-meta" data-i18n="g6Chips">
+                        <span class="meta-chip">📱 Android</span>
+                        <span class="meta-chip">🔥 Sonsuz Dalga Modu</span>
+                    </div>
+                    <div class="game-actions">
+                        <button class="btn btn-outline" onclick="openAlbum('armada')"><span data-i18n="btnCardAlbum">🖼️ Albüm</span></button>
+                        <button class="btn btn-crimson" onclick="openVideoModal('armada')"><span data-i18n="btnCardVideo">🎬 Video İzle</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Studio Technology & Values Section -->
+    <section id="tech" class="section">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title" data-i18n="techTitle">⚡ Stüdyo Teknolojimiz ve Yaklaşımımız</h2>
+                <p class="section-sub" data-i18n="techSub">Oyuncu dostu tasarım, yüksek kare hızı ve küresel erişilebilirlik standartlarımız.</p>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="feature-icon">🚀</div>
+                <h3 data-i18n="f1Title">120 FPS Özel Oyun Motoru</h3>
+                <p data-i18n="f1Desc">Hem mobil cihazlarda hem de web tarayıcılarında sıfır gecikmeyle çalışan, donanım hızlandırmalı yüksek performanslı 2D/Canvas mimarisi.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">🌍</div>
+                <h3 data-i18n="f2Title">9 Dilde Otomatik Algılama</h3>
+                <p data-i18n="f2Desc">Oyuncunun telefon dilini (TR, EN, RU, IT, ES, FR, KO, ZH, JA) otomatik tanıyan akıllı yerelleştirme altyapısı.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">🤝</div>
+                <h3 data-i18n="f3Title">Kullanıcı Dostu Deneyim</h3>
+                <p data-i18n="f3Desc">Oyuncuyu yarıda kesmeyen, yalnızca ödüllü tercihlere ve dengeli bölüm geçişlerine dayanan oyuncu dostu ekonomi modeli.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon">🛡️</div>
+                <h3 data-i18n="f4Title">Gizlilik ve Güvenlik Önceliği</h3>
+                <p data-i18n="f4Desc">Google Play Store ve AdMob politikalarına tam uyumlu, kişisel verileri harici sunucularda toplamayan güvenli yerel kayıt sistemi.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Embedded Live Game Modal -->
+    <div id="game-modal" class="game-modal">
+        <div class="game-modal-bar">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <strong style="color: var(--gold); font-size: 16px;" data-i18n="gameModalTitle">🎮 Marinext 2100 — Canlı Oyun Ekranı</strong>
+                <span style="color: var(--text-muted); font-size: 13px;" data-i18n="gameModalSub">(Tam ekran için sağdaki butonu kullanabilirsiniz)</span>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <a href="https://cevatturk.github.io/2100-Mario/" target="_blank" class="btn btn-gold" style="padding: 6px 14px; font-size: 13px;" data-i18n="btnNewTab">🚀 Yeni Sekmede Tam Ekran Aç</a>
+                <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px; border-color: var(--crimson); color: var(--crimson);" onclick="closeGameModal()" data-i18n="btnClose">✕ Kapat</button>
+            </div>
+        </div>
+        <iframe id="game-iframe" class="game-modal-frame" src="" allow="autoplay; fullscreen"></iframe>
+    </div>
+
+    <!-- Lightbox Image Album Modal -->
+    <div id="album-modal" class="modal-overlay" onclick="handleModalOverlayClick(event, 'album-modal')">
+        <div class="album-container">
+            <div class="album-header">
+                <div class="album-header-title">
+                    <span id="album-title" data-i18n="defaultAlbumTitle">🖼️ Marinext 2100 Albümü</span>
+                    <span id="album-counter" style="color:var(--cyan); font-size:13px; font-weight:700;">(1 / 10)</span>
+                </div>
+                <button class="album-close-btn" onclick="closeAlbumModal()" data-i18n="btnClose">✕ Kapat</button>
+            </div>
+            <div class="album-body">
+                <button class="album-nav-btn album-prev-btn" onclick="navigateAlbum(-1)">‹</button>
+                <img id="album-current-img" src="" alt="Album Image">
+                <button class="album-nav-btn album-next-btn" onclick="navigateAlbum(1)">›</button>
+            </div>
+            <div class="album-footer">
+                <div>
+                    <div id="album-caption-title" class="album-caption-title"></div>
+                    <div id="album-caption-desc" class="album-caption-desc"></div>
+                </div>
+                <div class="album-thumbnails" id="album-thumbnails"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div id="video-modal" class="modal-overlay" onclick="handleModalOverlayClick(event, 'video-modal')">
+        <div class="video-container">
+            <div class="album-header">
+                <div class="album-header-title">
+                    <span id="video-modal-title" data-i18n="videoModalTitle">🎬 Tanıtım &amp; Oynanış Videosu</span>
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <a id="video-external-btn" href="#" target="_blank" class="btn btn-gold" style="padding:5px 12px; font-size:12px;" data-i18n="btnOpenYoutube">YouTube'da Aç ↗</a>
+                    <button class="album-close-btn" onclick="closeVideoModal()" data-i18n="btnClose">✕ Kapat</button>
+                </div>
+            </div>
+            <div class="video-wrapper">
+                <iframe id="video-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div>
+                <strong style="color: #fff; font-size: 16px;">CG Studio Home &amp; Labs</strong>
+                <p style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">
+                    <span data-i18n="footerRights">© 2026 CG Studio Home &amp; Labs. Tüm hakları saklıdır. Bir Aile İçi Teknoloji ve Girişimcilik Projesidir. | İletişim:</span> <a href="mailto:info@erpdanisman.com" style="color: var(--cyan);">info@erpdanisman.com</a>
+                </p>
+            </div>
+            <div class="footer-links">
+                <a href="#family" data-i18n="footFamily">Aile Hikayemiz</a>
+                <a href="https://cevatturk.github.io/2100-Mario/" data-i18n="footPlay">Marinext 2100 Oyna</a>
+                <a href="https://cevatturk.github.io/marinext2100/release-notes.html" data-i18n="footChangelog">Sürüm Notları (Changelog)</a>
+                <a href="https://cevatturk.github.io/marinext2100/privacy-policy.html" data-i18n="footPrivacy">Gizlilik Politikası (Privacy Policy)</a>
+                <a href="https://cevatturk.github.io/app-ads.txt" target="_blank">app-ads.txt</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'tr';
+
+        // ALBUMS DATA (Zenginleştirilmiş Hikaye, Aile ve Oyun İçi Görseller)
+        const ALBUMS = {
+            marinext: {
+                title: { tr: "Marinext 2100 — Tam Tanıtım, Aile Hikayesi & Ekran Görüntüleri Albümü", en: "Marinext 2100 — Full Showcase, Family Journey & Gameplay Album" },
+                images: [
+                    {
+                        src: { tr: "assets/story/slide-1-tr.png", en: "assets/story/slide-1-en.jpg" },
+                        title: { tr: "10 Yaşındaki Oğlumuz Bir Oyun Hayal Etti!", en: "Our 10-Year-Old Son Designed a 2D Game!" },
+                        desc: { tr: "Yavuz Selim'in hayal gücüyle başlayan, tüm ailenin test ettiği ve Google Play'in onayladığı büyük serüven.", en: "Started by Yavuz Selim's imagination, playtested by the whole family, and approved on Google Play." }
+                    },
+                    {
+                        src: { tr: "assets/family/family-kids-couch-3.jpg", en: "assets/family/family-kids-couch-3.jpg" },
+                        title: { tr: "Yavuz Selim & İsranur Test Koltuğunda!", en: "Yavuz Selim & İsranur Live Playtesting on Tablet" },
+                        desc: { tr: "10 yaşındaki tasarımcımız Yavuz Selim ve 6 yaşındaki junior testçimiz İsranur, yeni bölümleri denerken.", en: "Our 10-year-old creator Yavuz Selim and 6-year-old playtester İsranur having a blast testing new stages." }
+                    },
+                    {
+                        src: { tr: "assets/family/family-team-tr.png", en: "assets/family/family-team-en.jpg" },
+                        title: { tr: "CG Studio Home / Labs — Aile Ekip Yapımız", en: "CG Studio Home / Labs — Our Family Team Structure" },
+                        desc: { tr: "Cevat (Teknik Lider), Gönül (Kalite & QA), Yavuz Selim (Oyun Tasarımı) ve İsranur (Junior Testçi).", en: "Cevat (Tech & AI Lead), Gönül (QA & Outreach), Yavuz Selim (Game Designer), and İsranur (Junior Playtester)." }
+                    },
+                    {
+                        src: { tr: "assets/story/slide-2-tr.png", en: "assets/story/slide-2-en.jpg" },
+                        title: { tr: "14 Efsanevi Kahraman & Tarihi Sultanlar", en: "14 Legendary Heroes & Ottoman Sultans" },
+                        desc: { tr: "Fatih Sultan Mehmet, Yavuz Selim ve Kanuni 2100 yılının siber evreninde kanatlarla donatıldı!", en: "Sultan Mehmed II, Sultan Selim I, and Sultan Suleiman equipped with wings and glowing auras in 2100!" }
+                    },
+                    {
+                        src: { tr: "assets/story/slide-3-tr.png", en: "assets/story/slide-3-en.jpg" },
+                        title: { tr: "50 Akıl Almaz Özel Trol Etabı!", en: "50 Deceptive Troll & Rage Levels!" },
+                        desc: { tr: "Yavuz Selim'in özel kurguladığı yanıltıcı zeminler, sürpriz lazerler ve refleks sınavları.", en: "Deceptive floors, surprise lasers, and reverse air currents crafted by Yavuz Selim." }
+                    },
+                    {
+                        src: { tr: "assets/story/slide-4-tr.png", en: "assets/story/slide-4-en.jpg" },
+                        title: { tr: "Macera Başladı! Google Play Store'da Yayında", en: "Now Available Globally on Google Play!" },
+                        desc: { tr: "120 FPS ultra akıcılık, tamamen çevrimdışı oynanabilirlik ve 9 dilde yerelleştirme.", en: "120 FPS fluid engine, 100% offline gameplay, and 9-language localized experience." }
+                    },
+                    {
+                        src: { tr: "assets/family/family-kids-tablet-1.jpg", en: "assets/family/family-kids-tablet-1.jpg" },
+                        title: { tr: "Oyun Ekranı ve Tablet Deneyimi", en: "In-Game Experience & Tablet Action" },
+                        desc: { tr: "Tablet ve büyük ekranlarda kusursuz akıcılık ve çocukların gözünden gerçek heyecan.", en: "Flawless tablet responsiveness and pure childhood excitement on the big screen." }
+                    },
+                    {
+                        src: { tr: "assets/promo/marinext-promo-tr.png", en: "assets/promo/marinext-promo-en.jpg" },
+                        title: { tr: "Marinext 2100 Resmi Lansman Afişi", en: "Marinext 2100 Official Launch Poster" },
+                        desc: { tr: "Siber Gelecek ve Tarihi Kahramanlar: Aile Dostu Arcade Deneyimi.", en: "Cyberpunk Action & Historical Legends: Family-Friendly Arcade Experience." }
+                    },
+                    {
+                        src: { tr: "assets/screenshots/marinext-1-tr.png", en: "assets/screenshots/marinext-1-en.png" },
+                        title: { tr: "100 Sefer Bölümü & 120 FPS Akıcı Oynanış", en: "100 Campaign Levels & 120 FPS Fluid Action" },
+                        desc: { tr: "Süper trambolinler, solucan delikleri ve dinamik lazer kapılarıyla donatılmış fütüristik evren.", en: "Futuristic worlds packed with super trampolines, wormholes, and dynamic laser gates." }
+                    },
+                    {
+                        src: { tr: "assets/screenshots/marinext-3-tr.png", en: "assets/screenshots/marinext-3-en.png" },
+                        title: { tr: "Destansı Boss Savaşları & Karakter Stüdyosu", en: "Colossal Boss Battles & Character Studio" },
+                        desc: { tr: "Antik zümrütlerle kanatlar, parıltılı auralar ve zırhlar kuşanarak güçlenin.", en: "Equip gliders, glowing auras, and shields to forge your ultimate warrior." }
+                    }
+                ]
+            },
+            ottoman: {
+                title: { tr: "Ottoman Conquest: 1517 — Konsept Galerisi", en: "Ottoman Conquest: 1517 — Concept Gallery" },
+                images: [
+                    {
+                        src: { tr: "assets/screenshots/marinext-2-tr.png", en: "assets/screenshots/marinext-2-en.png" },
+                        title: { tr: "Yavuz Sultan Selim Han & Ridaniye Seferi", en: "Sultan Selim I & The Ridaniya Campaign" },
+                        desc: { tr: "Tarihi meydan muharebeleri, yeniçeri taburları ve sahra toplarıyla taktiksel ordu yönetimi.", en: "Historical battlefield command, Janissary battalions, and tactical field artillery sieges." }
+                    }
+                ]
+            },
+            neondrift: {
+                title: { tr: "Neon Drift 2100 — Konsept Galerisi", en: "Neon Drift 2100 — Concept Gallery" },
+                images: [
+                    {
+                        src: { tr: "assets/feature-graphic-1024x500.jpg", en: "assets/feature-graphic-1024x500.jpg" },
+                        title: { tr: "2100 Siber Otoyollarında Yerçekimsiz Drift", en: "Zero-G Drifting on 2100 Cyber Highways" },
+                        desc: { tr: "120 FPS fizik motoru, neon pistler, özel araç modifiye garajı ve zamana karşı yarış.", en: "120 FPS physics, neon-lit tracks, deep vehicle modification garage, and time-attack trials." }
+                    }
+                ]
+            },
+            shadowdungeon: {
+                title: { tr: "Shadow Dungeon — Konsept Galerisi", en: "Shadow Dungeon — Concept Gallery" },
+                images: [
+                    {
+                        src: { tr: "assets/screenshots/marinext-3-tr.png", en: "assets/screenshots/marinext-3-en.png" },
+                        title: { tr: "Karanlık Zindan Muhafızları & Zümrüt Kalıntılar", en: "Dark Dungeon Guardians & Emerald Relics" },
+                        desc: { tr: "Prosedürel zindanlar, antik kalıntılar ve zengin ekipman yükseltme sistemleri.", en: "Procedural dungeons, ancient relics, and deep loot crafting mechanics." }
+                    }
+                ]
+            },
+            quantum: {
+                title: { tr: "Quantum Blocks: Gravity Lab — Konsept Galerisi", en: "Quantum Blocks: Gravity Lab — Concept Gallery" },
+                images: [
+                    {
+                        src: { tr: "assets/screenshots/marinext-1-tr.png", en: "assets/screenshots/marinext-1-en.png" },
+                        title: { tr: "Solucan Delikleri & Yerçekimi Bulmacaları", en: "Wormholes & Gravity Puzzles" },
+                        desc: { tr: "Lazer kırılmaları ve kuantum labirentleriyle zihni zorlayan 100'den fazla bölüm.", en: "Laser refraction and quantum lab mazes spanning over 100 mind-bending levels." }
+                    }
+                ]
+            },
+            armada: {
+                title: { tr: "Galactic Armada — Konsept Galerisi", en: "Galactic Armada — Concept Gallery" },
+                images: [
+                    {
+                        src: { tr: "assets/feature-graphic-1024x500.jpg", en: "assets/feature-graphic-1024x500.jpg" },
+                        title: { tr: "Yıldızlararası Uzay Cephesi & Ana Gemiler", en: "Interstellar Space Front & Boss Motherships" },
+                        desc: { tr: "Plazma kalkanları, filo yükseltmeleri ve galaktik istilacılara karşı sonsuz dalga savunması.", en: "Plasma shields, fleet upgrades, and endless wave survival against colossal alien motherships." }
+                    }
+                ]
+            }
+        };
+
+        // YOUTUBE VIDEO LINKS
+        const GAME_VIDEOS = {
+            marinext: {
+                title: { tr: "Marinext 2100 — Resmi Tanıtım & Oynanış Fragmanı", en: "Marinext 2100 — Official Gameplay & Launch Trailer" },
+                embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1",
+                watchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            },
+            ottoman: {
+                title: { tr: "Ottoman Conquest: 1517 — Oynanış Tanıtımı", en: "Ottoman Conquest: 1517 — Gameplay Teaser" },
+                embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1",
+                watchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            },
+            neondrift: {
+                title: { tr: "Neon Drift 2100 — Yüksek Hız Drift Tanıtımı", en: "Neon Drift 2100 — High-Speed Drift Teaser" },
+                embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1",
+                watchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            },
+            shadowdungeon: {
+                title: { tr: "Shadow Dungeon — Zindan Oynanış Tanıtımı", en: "Shadow Dungeon — Dungeon Gameplay Teaser" },
+                embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1",
+                watchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            },
+            quantum: {
+                title: { tr: "Quantum Blocks — Bulmaca Mekanikleri Tanıtımı", en: "Quantum Blocks — Puzzle Mechanics Teaser" },
+                embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1",
+                watchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            },
+            armada: {
+                title: { tr: "Galactic Armada — Uzay Savaşı Fragmanı", en: "Galactic Armada — Space Battle Teaser" },
+                embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1",
+                watchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            }
+        };
+
+        // ALBUM STATE
+        let activeAlbumKey = 'marinext';
+        let activeImageIndex = 0;
+
+        function openAlbum(albumKey, initialIndex = 0) {
+            activeAlbumKey = albumKey || 'marinext';
+            activeImageIndex = initialIndex;
+            const album = ALBUMS[activeAlbumKey];
+            if (!album) return;
+
+            document.getElementById('album-title').textContent = '🖼️ ' + (album.title[currentLang] || album.title.tr);
+            if (typeof gtag === 'function') {
+                gtag('event', 'view_album', { album: activeAlbumKey });
+            }
+            renderAlbumSlide();
+            renderAlbumThumbnails();
+            document.getElementById('album-modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAlbumModal() {
+            document.getElementById('album-modal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function renderAlbumSlide() {
+            const album = ALBUMS[activeAlbumKey];
+            if (!album || !album.images.length) return;
+
+            if (activeImageIndex < 0) activeImageIndex = album.images.length - 1;
+            if (activeImageIndex >= album.images.length) activeImageIndex = 0;
+
+            const item = album.images[activeImageIndex];
+            const imgSrc = (typeof item.src === 'object') ? (item.src[currentLang] || item.src.tr) : item.src;
+            const imgEl = document.getElementById('album-current-img');
+            imgEl.style.opacity = '0.3';
+            setTimeout(() => {
+                imgEl.src = imgSrc;
+                imgEl.style.opacity = '1';
+            }, 100);
+
+            document.getElementById('album-counter').textContent = `(${activeImageIndex + 1} / ${album.images.length})`;
+            document.getElementById('album-caption-title').textContent = item.title[currentLang] || item.title.tr;
+            document.getElementById('album-caption-desc').textContent = item.desc[currentLang] || item.desc.tr;
+
+            // Highlight thumbnail
+            document.querySelectorAll('.album-thumb').forEach((thumb, idx) => {
+                thumb.classList.toggle('active', idx === activeImageIndex);
+            });
+        }
+
+        function renderAlbumThumbnails() {
+            const album = ALBUMS[activeAlbumKey];
+            const thumbsContainer = document.getElementById('album-thumbnails');
+            thumbsContainer.innerHTML = '';
+            album.images.forEach((item, idx) => {
+                const thumb = document.createElement('img');
+                thumb.className = 'album-thumb' + (idx === activeImageIndex ? ' active' : '');
+                thumb.src = (typeof item.src === 'object') ? (item.src[currentLang] || item.src.tr) : item.src;
+                thumb.alt = 'Thumbnail ' + (idx + 1);
+                thumb.onclick = () => {
+                    activeImageIndex = idx;
+                    renderAlbumSlide();
+                };
+                thumbsContainer.appendChild(thumb);
+            });
+        }
+
+        function navigateAlbum(delta) {
+            activeImageIndex += delta;
+            renderAlbumSlide();
+        }
+
+        // FAMILY PHOTO SWITCHER IN MAIN PAGE
+        function setFamilyMainPhoto(src, thumbEl) {
+            document.getElementById('family-featured-photo').src = src;
+            document.querySelectorAll('.family-thumb-item').forEach(el => el.classList.remove('active'));
+            if (thumbEl) thumbEl.classList.add('active');
+        }
+
+        // VIDEO MODAL
+        function openVideoModal(gameKey) {
+            const videoData = GAME_VIDEOS[gameKey] || GAME_VIDEOS.marinext;
+            const title = videoData.title[currentLang] || videoData.title.tr;
+            document.getElementById('video-modal-title').textContent = '🎬 ' + title;
+            document.getElementById('video-external-btn').href = videoData.watchUrl;
+            document.getElementById('video-iframe').src = videoData.embedUrl;
+            document.getElementById('video-modal').classList.add('open');
+            if (typeof gtag === 'function') {
+                gtag('event', 'watch_video', { game: gameKey });
+            }
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideoModal() {
+            document.getElementById('video-modal').classList.remove('open');
+            document.getElementById('video-iframe').src = '';
+            document.body.style.overflow = '';
+        }
+
+        function handleModalOverlayClick(event, modalId) {
+            if (event.target.id === modalId) {
+                if (modalId === 'album-modal') closeAlbumModal();
+                if (modalId === 'video-modal') closeVideoModal();
+            }
+        }
+
+        // KEYBOARD SHORTCUTS
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAlbumModal();
+                closeVideoModal();
+                closeGameModal();
+            } else if (document.getElementById('album-modal').classList.contains('open')) {
+                if (e.key === 'ArrowLeft') navigateAlbum(-1);
+                if (e.key === 'ArrowRight') navigateAlbum(1);
+            }
+        });
+
+        // INLINE GAME MODAL
+        function openGameModal() {
+            const modal = document.getElementById('game-modal');
+            const iframe = document.getElementById('game-iframe');
+            if (!iframe.src || iframe.src === window.location.href) {
+                iframe.src = 'https://cevatturk.github.io/2100-Mario/';
+            }
+            modal.classList.add('open');
+            if (typeof gtag === 'function') {
+                gtag('event', 'play_game_inline', { game: 'marinext2100' });
+            }
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGameModal() {
+            const modal = document.getElementById('game-modal');
+            const iframe = document.getElementById('game-iframe');
+            modal.classList.remove('open');
+            iframe.src = '';
+            document.body.style.overflow = '';
+        }
+
+        function filterGames(genre, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.game-card').forEach(card => {
+                if (genre === 'all' || card.getAttribute('data-genre') === genre) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // ==============================================================
+        // COMPLETE 100% I18N DICTIONARY (TR & EN)
+        // ==============================================================
+        const I18N = {
+            tr: {
+                pageTitle: "CG Studio Home & Labs | Aile Yapımı Oyunlar & Teknoloji Portalı",
+                metaDesc: "CG Studio Home & Labs — Aile yapımı bağımsız oyunlar ve yeni nesil mobil/web projeleri geliştirici portalı.",
+                studioSub: "AİLE OYUN & TEKNOLOJİ STÜDYOSU",
+                navFlagship: "Marinext 2100",
+                navFamily: "👨‍👩‍👧‍👦 Aile Hikayemiz & Ekip",
+                navCatalog: "Oyun Kataloğu",
+                navTech: "Teknoloji",
+                navChangelog: "Sürüm Notları",
+                navPrivacy: "Gizlilik Politikası",
+
+                // Flagship Hero
+                heroBadge: "🔥 RESMİ GOOGLE PLAY LANSMANI • 10 YAŞINDAKİ OĞLUMUZUN HAYALİYLE BAŞLADI",
+                heroTitle: "<span>Marinext 2100</span> — Siber Gelecek & Tarihi Kahramanlar",
+                heroDesc: "10 yaşındaki oğlumuz Yavuz Selim'in hayal ettiği, tüm ailemizin birlikte test ettiği ve Google Play tarafından onaylanan 2D Retro Platform Macerası! Fatih Sultan Mehmet, Yavuz Sultan Selim, Kanuni Sultan Süleyman ve siber savaşçılarla 100 siber zindan, 50 trol etabı ve 120 FPS ultra akıcı motor.",
+                pillStages: "⚔️ 100 Kampanya + 50 Trol Bölümü",
+                pillHeroes: "👑 14 Karakter & Özel Yetenek",
+                pillFps: "⚡ 120 FPS Ultra Akıcı Motor",
+                pillLangs: "🌍 9 Dilde Tam Yerelleştirme",
+                btnPlayInline: "🎮 Sayfa İçinde Hemen Oyna",
+                btnPlayFull: "🚀 Tam Ekran Web'de Aç",
+                btnFamilyStory: "👨‍👩‍👧‍👦 Aile Hikayemiz & Ekip",
+                btnAlbum: "🖼️ Resim Galerisi & Albüm",
+                btnVideo: "🎬 Video & Fragman İzle",
+                heroInspectBadge: "Albümü İncele",
+                heroPackageInfo: "Paket Kimliği: <code>com.cgstudiohome.marinext2100</code> • Google Play Store Onaylı • Android 7.0 - 16 (API 36)",
+                heroVisualTitle: "Ekran görüntülerini ve albümü incelemek için tıklayın",
+
+                // Metrics Strip
+                statTeamNum: "4 Kişilik",
+                statTeamLabel: "Tutkulu Aile Geliştirici Ekibi",
+                statLevelsNum: "150",
+                statLevelsLabel: "Özel Tasarım Bölüm (Marinext 2100)",
+                statFpsNum: "120 FPS",
+                statFpsLabel: "Ultra Akıcı Oyun Motoru",
+                statLangsNum: "9 Dil",
+                statLangsLabel: "Global Otomatik Dil Desteği",
+
+                // Family Story Section
+                famBadge: "★ BİR AİLE İÇİ GİRİŞİMCİLİK VE TEKNOLOJİ VAKASI",
+                famTitleHighlight: "CG STUDIO HOME / LABS:",
+                famTitle: "10 Yaşında Bir Çocuğun Fikrinden Google Play Mağazasına",
+                famDesc: "Biz bir aileyiz: <strong>Cevat (Baba), Gönül (Anne), Yavuz Selim (10 Yaş) ve İsranur (6 Yaş)</strong>. Çocuklarımızın sınırsız hayal gücünü yapay zeka ve profesyonel yazılım mühendisliğiyle harmanlayarak, tüm ailenin birlikte ürettiği, oynadığı ve test ettiği küresel projeler geliştiriyoruz.",
+                famPhotoTag: "Yavuz Selim & İsranur Cihaz Başında Testte",
+                famPhotoWrapTitle: "Büyütmek ve tüm test fotoğraflarını görmek için tıklayın",
+                famQuote: "\"Bir oyun sadece koddan ibaret değildir; bir çocuğun gözündeki heyecan ve tüm ailenin ortak emeğidir.\"",
+                nameCevat: "Cevat",
+                roleCevat: "Teknik Lider & Operasyon",
+                descCevat: "Google Antigravity ve yapay zeka iş akışları, Play Console yönetimi, ASO stratejisi, derleme mimarisi ve küresel lansman koordinasyonu.",
+                nameGonul: "Gönül",
+                roleGonul: "Kalite Kontrol & QA",
+                descGonul: "Bölüm testleri, hata tespiti, çapraz jenerasyon ergonomi analizi ve veli/okul doğrudan çevre iletişim koordinasyonu.",
+                nameYavuz: "Yavuz Selim (10 Yaş)",
+                roleYavuz: "Baş Oyun Tasarımcısı",
+                descYavuz: "Oyunun fikir babası, 100 siber zindan kurgusu, 50 akıl almaz trol etabı, tarihi sultan vizyonu ve ses efektleri konsepti.",
+                nameIsranur: "İsranur (6 Yaş)",
+                roleIsranur: "Junior Testçi & Deneyim",
+                descIsranur: "Küçük yaş grubu oynanabilirlik testleri, sezgisel dokunmatik kontroller, zorluk dengelemesi ve doğal çocuk tepkileri.",
+                familyInfographicTitle: "Aile İnfografiğini Tam Boyutta İncelemek İçin Tıklayın",
+
+                // Catalog Section
+                catalogTitle: "🎮 Stüdyo Oyun Kataloğumuz",
+                catalogSub: "Aksiyon, tarihi strateji, fütüristik yarış, zindan RPG ve zeka kategorilerindeki oyun portföyümüz.",
+                filterAll: "Tümü (6)",
+                filterAction: "Aksiyon & Platform",
+                filterStrategy: "Strateji & Tarih",
+                filterRacing: "Yarış & Arcade",
+                filterPuzzle: "Bulmaca & RPG",
+                tagLive: "🟢 YAYINDA • OYNANABİLİR",
+                tagSoon: "🚀 GELİŞTİRİLİYOR",
+                genreAction: "Aksiyon / 2D Platform",
+                genreStrategy: "Tarihi Strateji / RTS",
+                genreRacing: "Siber Yarış / Arcade",
+                genreDungeon: "Zindan RPG / Roguelike",
+                genrePuzzle: "Zeka & Fizik Bulmacası",
+                genreSpace: "Uzay Aksiyon / Shoot 'em up",
+                btnPlayNow: "🎮 Hemen Oyna",
+                btnCardAlbum: "🖼️ Albüm",
+                btnCardVideo: "🎬 Video İzle",
+
+                // Games
+                g1Desc: "100 bölüm ana sefer, 50 bölüm Trol Modu, 10 aksiyon dünyası, Play Games Liderlik Tablosu ve Fatih Sultan Mehmet'ten Siber Şövalye'ye uzanan 14 yetenekli kahraman!",
+                g1Chips: '<span class="meta-chip">📱 Android &amp; Web</span><span class="meta-chip">⚡ 120 FPS</span><span class="meta-chip">🌍 9 Dil</span>',
+                g2Desc: "Yavuz Sultan Selim Han ve Osmanlı ordularıyla Ridaniye ve Mercidabık meydan muharebelerini yönettiğiniz gerçek zamanlı taktik ve kuşatma strateji oyunu.",
+                g2Chips: '<span class="meta-chip">📱 Android</span><span class="meta-chip">🏰 Taktik &amp; Ordu Yönetimi</span>',
+                g3Desc: "2100 yılının neon otoyollarında yerçekimine meydan okuyan siber araçlarla yüksek hızlı drift, araç modifiye stüdyosu ve zamana karşı yarış deneyimi.",
+                g3Chips: '<span class="meta-chip">📱 Android &amp; Web</span><span class="meta-chip">⚡ 120 FPS Fizik Motoru</span>',
+                g4Desc: "Antik Zümrüt kalıntılarını korumak için prosedürel olarak üretilen karanlık zindanlarda Boss muhafızlarına karşı verilen aksiyon-RPG mücadelesi.",
+                g4Chips: '<span class="meta-chip">📱 Android</span><span class="meta-chip">🗡️ Boss Savaşları &amp; Ekipman</span>',
+                g5Desc: "Solucan delikleri, lazer kırılmaları ve yerçekimi anahtarlarını kullanarak 100'den fazla kuantum laboratuvarı bulmacasını çözün.",
+                g5Chips: '<span class="meta-chip">📱 Android &amp; Tablet</span><span class="meta-chip">🧠 100+ Bölüm</span>',
+                g6Desc: "Yıldızlararası filonuzu yükseltin, plazma kalkanlarınızı kuşanın ve galaktik istilacıların dev ana gemilerine karşı uzay cephesini savunun.",
+                g6Chips: '<span class="meta-chip">📱 Android</span><span class="meta-chip">🔥 Sonsuz Dalga Modu</span>',
+
+                // Tech Section
+                techTitle: "⚡ Stüdyo Teknolojimiz ve Yaklaşımımız",
+                techSub: "Oyuncu dostu tasarım, yüksek kare hızı ve küresel erişilebilirlik standartlarımız.",
+                f1Title: "120 FPS Özel Oyun Motoru",
+                f1Desc: "Hem mobil cihazlarda hem de web tarayıcılarında sıfır gecikmeyle çalışan, donanım hızlandırmalı yüksek performanslı 2D/Canvas mimarisi.",
+                f2Title: "9 Dilde Otomatik Algılama",
+                f2Desc: "Oyuncunun telefon dilini (TR, EN, RU, IT, ES, FR, KO, ZH, JA) otomatik tanıyan akıllı yerelleştirme altyapısı.",
+                f3Title: "Kullanıcı Dostu Deneyim",
+                f3Desc: "Oyuncuyu yarıda kesmeyen, yalnızca ödüllü tercihlere ve dengeli bölüm geçişlerine dayanan oyuncu dostu ekonomi modeli.",
+                f4Title: "Gizlilik ve Güvenlik Önceliği",
+                f4Desc: "Google Play Store ve AdMob politikalarına tam uyumlu, kişisel verileri harici sunucularda toplamayan güvenli yerel kayıt sistemi.",
+
+                // Modals & Footer
+                defaultAlbumTitle: "🖼️ Marinext 2100 Albümü",
+                gameModalTitle: "🎮 Marinext 2100 — Canlı Oyun Ekranı",
+                gameModalSub: "(Tam ekran için sağdaki butonu kullanabilirsiniz)",
+                btnNewTab: "🚀 Yeni Sekmede Tam Ekran Aç",
+                btnClose: "✕ Kapat",
+                videoModalTitle: "🎬 Tanıtım & Oynanış Videosu",
+                btnOpenYoutube: "YouTube'da Aç ↗",
+                footerRights: "© 2026 CG Studio Home & Labs. Tüm hakları saklıdır. Bir Aile İçi Teknoloji ve Girişimcilik Projesidir. | İletişim:",
+                footFamily: "Aile Hikayemiz",
+                footPlay: "Marinext 2100 Oyna",
+                footChangelog: "Sürüm Notları (Changelog)",
+                footPrivacy: "Gizlilik Politikası (Privacy Policy)"
+            },
+            en: {
+                pageTitle: "CG Studio Home & Labs | Family-Crafted Games & Tech Portal",
+                metaDesc: "CG Studio Home & Labs — Family-crafted indie games and next-generation mobile & web development portal.",
+                studioSub: "FAMILY GAME & TECH STUDIO",
+                navFlagship: "Marinext 2100",
+                navFamily: "👨‍👩‍👧‍👦 Our Family Story & Team",
+                navCatalog: "Game Catalog",
+                navTech: "Technology",
+                navChangelog: "Changelog",
+                navPrivacy: "Privacy Policy",
+
+                // Flagship Hero
+                heroBadge: "🔥 OFFICIAL GOOGLE PLAY LAUNCH • INSPIRED BY OUR 10-YEAR-OLD SON",
+                heroTitle: "<span>Marinext 2100</span> — Cyber Future & Historical Legends",
+                heroDesc: "Conceived by our 10-year-old son Yavuz Selim, playtested by our entire family, and approved on Google Play! A 2D Retro Cyberpunk Platformer featuring Sultan Mehmed II, Sultan Selim I, Sultan Suleiman, and cyber warriors across 100 cyber dungeons, 50 troll levels, and 120 FPS smoothness.",
+                pillStages: "⚔️ 100 Campaign + 50 Troll Levels",
+                pillHeroes: "👑 14 Heroes & Special Abilities",
+                pillFps: "⚡ 120 FPS Ultra-Fluid Engine",
+                pillLangs: "🌍 9 Languages Full Localization",
+                btnPlayInline: "🎮 Play Instant Web Preview",
+                btnPlayFull: "🚀 Open Fullscreen Web",
+                btnFamilyStory: "👨‍👩‍👧‍👦 Our Family Story & Team",
+                btnAlbum: "🖼️ Screenshots & Album",
+                btnVideo: "🎬 Watch Trailer & Video",
+                heroInspectBadge: "Explore Album",
+                heroPackageInfo: "Package ID: <code>com.cgstudiohome.marinext2100</code> • Google Play Approved • Android 7.0 - 16 (API 36)",
+                heroVisualTitle: "Click to explore screenshots and the full gallery",
+
+                // Metrics Strip
+                statTeamNum: "4-Member",
+                statTeamLabel: "Passionate Family Indie Team",
+                statLevelsNum: "150",
+                statLevelsLabel: "Handcrafted Stages (Marinext 2100)",
+                statFpsNum: "120 FPS",
+                statFpsLabel: "Ultra-Smooth Gaming Engine",
+                statLangsNum: "9 Languages",
+                statLangsLabel: "Global Auto-Language Detection",
+
+                // Family Story Section
+                famBadge: "★ AN INDIE FAMILY VENTURE & TECH SUCCESS",
+                famTitleHighlight: "CG STUDIO HOME / LABS:",
+                famTitle: "From a 10-Year-Old's Dream to the Google Play Store",
+                famDesc: "We are a family team: <strong>Cevat (Father), Gönül (Mother), Yavuz Selim (10-Year-Old Son), and İsranur (6-Year-Old Daughter)</strong>. We combine children's boundless imagination with modern AI workflows and software engineering to craft global digital projects created and tested together by the whole family.",
+                famPhotoTag: "Yavuz Selim & İsranur Live Playtesting",
+                famPhotoWrapTitle: "Click to enlarge and view all playtesting photos",
+                famQuote: "\"A game is more than just code; it is the spark in a child's eyes and the shared passion of an entire family.\"",
+                nameCevat: "Cevat",
+                roleCevat: "Tech & AI Lead (Father / Coordinator)",
+                descCevat: "Antigravity 2.0 AI workflows, Play Console administration, ASO roadmap, build engineering, and global launch distribution.",
+                nameGonul: "Gönül",
+                roleGonul: "QA & Outreach Lead (Mother / Quality Tester)",
+                descGonul: "Gameplay stability testing, cross-generational ergonomics, bug triaging, and family/school community outreach.",
+                nameYavuz: "Yavuz Selim (Age 10)",
+                roleYavuz: "Lead Game Designer (Son / Creator)",
+                descYavuz: "Game architect, 100 cyber dungeon stages, 50 deceptive troll puzzle mechanics, Ottoman hero lore, and audio concepts.",
+                nameIsranur: "İsranur (Age 6)",
+                roleIsranur: "Junior Playtester (Daughter / Tester)",
+                descIsranur: "Early-age usability validation, intuitive touch controls, difficulty tuning, sound effects, and genuine child feedback.",
+                familyInfographicTitle: "Click to inspect the full team infographic",
+
+                // Catalog Section
+                catalogTitle: "🎮 Our Studio Game Catalog",
+                catalogSub: "Our game portfolio spanning action platformer, historical strategy, futuristic racing, dungeon RPG, and puzzle genres.",
+                filterAll: "All (6)",
+                filterAction: "Action & Platform",
+                filterStrategy: "Strategy & History",
+                filterRacing: "Racing & Arcade",
+                filterPuzzle: "Puzzle & RPG",
+                tagLive: "🟢 LIVE • PLAYABLE",
+                tagSoon: "🚀 IN DEVELOPMENT",
+                genreAction: "Action / 2D Platform",
+                genreStrategy: "Historical Strategy / RTS",
+                genreRacing: "Cyber Racing / Arcade",
+                genreDungeon: "Dungeon RPG / Roguelike",
+                genrePuzzle: "Physics & Puzzle",
+                genreSpace: "Space Action / Shmup",
+                btnPlayNow: "🎮 Play Now",
+                btnCardAlbum: "🖼️ Album",
+                btnCardVideo: "🎬 Watch Video",
+
+                // Games
+                g1Desc: "100 campaign stages, 50 Troll Mode levels, 10 action worlds, Play Games Leaderboards, and 14 unlockable heroes with unique gameplay perks!",
+                g1Chips: '<span class="meta-chip">📱 Android &amp; Web</span><span class="meta-chip">⚡ 120 FPS</span><span class="meta-chip">🌍 9 Languages</span>',
+                g2Desc: "Command Sultan Selim I and the Ottoman armies in historic battles with real-time siege tactics and unit formations.",
+                g2Chips: '<span class="meta-chip">📱 Android</span><span class="meta-chip">🏰 Tactical Army Command</span>',
+                g3Desc: "High-speed cyber drift racing on futuristic neon highways with full vehicle customization and 120 FPS physics.",
+                g3Chips: '<span class="meta-chip">📱 Android &amp; Web</span><span class="meta-chip">⚡ 120 FPS Physics Engine</span>',
+                g4Desc: "Battle dark dungeon guardians across procedurally generated caverns to protect the Ancient Emerald relics.",
+                g4Chips: '<span class="meta-chip">📱 Android</span><span class="meta-chip">🗡️ Boss Fights &amp; Gear</span>',
+                g5Desc: "Master wormhole teleporters, laser optics, and gravity switches across 100+ brain-teasing quantum lab puzzles.",
+                g5Chips: '<span class="meta-chip">📱 Android &amp; Tablet</span><span class="meta-chip">🧠 100+ Puzzles</span>',
+                g6Desc: "Upgrade your interstellar fleet, equip plasma shields, and defend the galaxy against colossal boss motherships.",
+                g6Chips: '<span class="meta-chip">📱 Android</span><span class="meta-chip">🔥 Endless Waves Mode</span>',
+
+                // Tech Section
+                techTitle: "⚡ Studio Technology & Philosophy",
+                techSub: "Built on player-first design, ultra-high frame rates, and global accessibility.",
+                f1Title: "120 FPS Proprietary Engine",
+                f1Desc: "Hardware-accelerated 2D Canvas architecture running with zero lag across both mobile devices and desktop browsers.",
+                f2Title: "9 Languages Auto-Detected",
+                f2Desc: "Seamless localization adapting automatically to the player's device language (TR, EN, RU, IT, ES, FR, KO, ZH, JA).",
+                f3Title: "Player-First Experience",
+                f3Desc: "No intrusive interrupts; fair game progression built on optional rewarded videos and balanced checkpoints.",
+                f4Title: "Privacy & Security Assured",
+                f4Desc: "Fully compliant with Google Play Store & AdMob standards. Safe local storage without tracking personal data.",
+
+                // Modals & Footer
+                defaultAlbumTitle: "🖼️ Marinext 2100 Showcase Album",
+                gameModalTitle: "🎮 Marinext 2100 — Live Game Screen",
+                gameModalSub: "(Use the button on the right for full screen)",
+                btnNewTab: "🚀 Open Fullscreen in New Tab",
+                btnClose: "✕ Close",
+                videoModalTitle: "🎬 Gameplay & Trailer Video",
+                btnOpenYoutube: "Open in YouTube ↗",
+                footerRights: "© 2026 CG Studio Home & Labs. All rights reserved. A Family Technology & Indie Venture. | Contact:",
+                footFamily: "Our Family Story",
+                footPlay: "Play Marinext 2100",
+                footChangelog: "Changelog & Notes",
+                footPrivacy: "Privacy Policy"
+            }
+        };
+
+        function switchLang(lang, persist = false) {
+            currentLang = (lang === 'en') ? 'en' : 'tr';
+            if (persist) {
+                try { localStorage.setItem('cg_lang', currentLang); } catch (e) {}
+                if (typeof gtag === 'function') {
+                    gtag('event', 'select_language', { language: currentLang });
+                }
+            }
+            document.documentElement.lang = currentLang;
+
+            const dict = I18N[currentLang];
+
+            // Page title & meta description
+            if (dict.pageTitle) document.title = dict.pageTitle;
+            const metaEl = document.getElementById('meta-description');
+            if (metaEl && dict.metaDesc) metaEl.setAttribute('content', dict.metaDesc);
+
+            // Toggle language buttons
+            const btnTr = document.getElementById('lang-tr');
+            const btnEn = document.getElementById('lang-en');
+            if (btnTr) btnTr.classList.toggle('active', currentLang === 'tr');
+            if (btnEn) btnEn.classList.toggle('active', currentLang === 'en');
+
+            // Replace all data-i18n elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const k = el.getAttribute('data-i18n');
+                if (dict[k] !== undefined) {
+                    if (dict[k].includes('<') && dict[k].includes('>')) {
+                        el.innerHTML = dict[k];
+                    } else {
+                        el.textContent = dict[k];
+                    }
+                }
+            });
+
+            // Update tooltips / title attributes
+            const heroWrap = document.getElementById('hero-visual-wrap');
+            if (heroWrap && dict.heroVisualTitle) heroWrap.setAttribute('title', dict.heroVisualTitle);
+
+            const famPhotoWrap = document.getElementById('family-main-img-wrap');
+            if (famPhotoWrap && dict.famPhotoWrapTitle) famPhotoWrap.setAttribute('title', dict.famPhotoWrapTitle);
+
+            const famInfogWrap = document.getElementById('family-infographic-wrap');
+            if (famInfogWrap && dict.familyInfographicTitle) famInfogWrap.setAttribute('title', dict.familyInfographicTitle);
+
+            // Switch dynamic images
+            const promoImg = document.getElementById('hero-promo-img');
+            if (promoImg) {
+                promoImg.src = (currentLang === 'en') ? 'assets/promo/marinext-promo-en.jpg' : 'assets/promo/marinext-promo-tr.png';
+            }
+            const infogImg = document.getElementById('family-team-infographic');
+            if (infogImg) {
+                infogImg.src = (currentLang === 'en') ? 'assets/family/family-team-en.jpg' : 'assets/family/family-team-tr.png';
+            }
+
+            // Update open album if currently open
+            if (document.getElementById('album-modal').classList.contains('open')) {
+                const album = ALBUMS[activeAlbumKey];
+                if (album) {
+                    document.getElementById('album-title').textContent = '🖼️ ' + (album.title[currentLang] || album.title.tr);
+                    renderAlbumSlide();
+                }
+            }
+        }
+
+        // STRICT AUTO-DETECTION:
+        // 1. If user previously manually selected a language, use it.
+        // 2. If NO manual selection, check browser language:
+        //    - If language starts with 'tr' (Turkish), use Turkish.
+        //    - IF ANYTHING ELSE (English, French, German, Spanish, etc.), AUTOMATICALLY DEFAULT TO ENGLISH!
+        (function initLanguage() {
+            let saved = null;
+            try { saved = localStorage.getItem('cg_lang'); } catch (e) {}
+
+            if (saved === 'tr' || saved === 'en') {
+                switchLang(saved, false);
+                return;
+            }
+
+            const navLangs = navigator.languages || [navigator.language || ''];
+            let isTurkish = false;
+            for (const l of navLangs) {
+                if (l && l.toLowerCase().startsWith('tr')) {
+                    isTurkish = true;
+                    break;
+                }
+            }
+
+            if (isTurkish) {
+                switchLang('tr', false);
+            } else {
+                // All non-Turkish visitors get English 100% automatically!
+                switchLang('en', false);
+            }
+        })();
+    </script>
+</body>
+</html>
