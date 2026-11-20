@@ -1167,8 +1167,8 @@
                 <a href="#family" data-i18n="navFamily">👨‍👩‍👧‍👦 Aile Hikayemiz &amp; Ekip</a>
                 <a href="#catalog" data-i18n="navCatalog">Oyun Kataloğu</a>
                 <a href="#tech" data-i18n="navTech">Teknoloji</a>
-                <a href="https://cevatturk.github.io/marinext2100/release-notes.html" data-i18n="navChangelog">Sürüm Notları</a>
-                <a href="https://cevatturk.github.io/privacy-policy.html" data-i18n="navPrivacy">Gizlilik Politikası</a>
+                <a href="release-notes.html" data-i18n="navChangelog">Sürüm Notları</a>
+                <a href="privacy-policy.html" data-i18n="navPrivacy">Gizlilik Politikası</a>
                 <a href="app-ads.txt" target="_blank">app-ads.txt</a>
                 <div class="lang-switch">
                     <button id="lang-tr" class="lang-btn active" onclick="switchLang('tr', true)">TR</button>
@@ -1196,11 +1196,14 @@
                 </div>
 
                 <div class="cta-group">
+                    <a href="https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100" target="_blank" class="btn btn-emerald" style="background: linear-gradient(135deg, #06d6a0, #00b4d8); color: #050711; font-weight: 700; box-shadow: 0 0 20px rgba(6, 214, 160, 0.4);">
+                        <span data-i18n="btnGooglePlay">📱 Google Play Store'dan İndir</span>
+                    </a>
                     <button class="btn btn-primary" onclick="openGameModal()">
                         <span data-i18n="btnPlayInline">🎮 Sayfa İçinde Hemen Oyna</span>
                     </button>
-                    <a href="https://cevatturk.github.io/2100-Mario/" target="_blank" class="btn btn-gold">
-                        <span data-i18n="btnPlayFull">🚀 Tam Ekran Web'de Aç</span>
+                    <a href="play/" target="_blank" class="btn btn-gold">
+                        <span data-i18n="btnPlayFull">🚀 Web'de Tam Ekran Oyna</span>
                     </a>
                     <a href="#family" class="btn btn-purple">
                         <span data-i18n="btnFamilyStory">👨‍👩‍👧‍👦 Aile Hikayemiz &amp; Ekip</span>
@@ -1553,7 +1556,7 @@
                 <span style="color: var(--text-muted); font-size: 13px;" data-i18n="gameModalSub">(Tam ekran için sağdaki butonu kullanabilirsiniz)</span>
             </div>
             <div style="display:flex; gap:10px;">
-                <a href="https://cevatturk.github.io/2100-Mario/" target="_blank" class="btn btn-gold" style="padding: 6px 14px; font-size: 13px;" data-i18n="btnNewTab">🚀 Yeni Sekmede Tam Ekran Aç</a>
+                <a href="play/" target="_blank" class="btn btn-gold" style="padding: 6px 14px; font-size: 13px;" data-i18n="btnNewTab">🚀 Yeni Sekmede Tam Ekran Aç</a>
                 <button class="btn btn-outline" style="padding: 6px 14px; font-size: 13px; border-color: var(--crimson); color: var(--crimson);" onclick="closeGameModal()" data-i18n="btnClose">✕ Kapat</button>
             </div>
         </div>
@@ -1614,10 +1617,11 @@
             </div>
             <div class="footer-links">
                 <a href="#family" data-i18n="footFamily">Aile Hikayemiz</a>
-                <a href="https://cevatturk.github.io/2100-Mario/" data-i18n="footPlay">Marinext 2100 Oyna</a>
-                <a href="https://cevatturk.github.io/marinext2100/release-notes.html" data-i18n="footChangelog">Sürüm Notları (Changelog)</a>
-                <a href="https://cevatturk.github.io/marinext2100/privacy-policy.html" data-i18n="footPrivacy">Gizlilik Politikası (Privacy Policy)</a>
-                <a href="https://cevatturk.github.io/app-ads.txt" target="_blank">app-ads.txt</a>
+                <a href="https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100" target="_blank" data-i18n="footPlayStore">Google Play Store</a>
+                <a href="play/" data-i18n="footPlay">Web'de Oyna</a>
+                <a href="release-notes.html" data-i18n="footChangelog">Sürüm Notları (Changelog)</a>
+                <a href="privacy-policy.html" data-i18n="footPrivacy">Gizlilik Politikası (Privacy Policy)</a>
+                <a href="app-ads.txt" target="_blank">app-ads.txt</a>
             </div>
         </div>
     </footer>
@@ -1892,7 +1896,7 @@
             const modal = document.getElementById('game-modal');
             const iframe = document.getElementById('game-iframe');
             if (!iframe.src || iframe.src === window.location.href) {
-                iframe.src = 'https://cevatturk.github.io/2100-Mario/';
+                iframe.src = 'play/index.html';
             }
             modal.classList.add('open');
             if (typeof gtag === 'function') {
@@ -1944,8 +1948,9 @@
                 pillHeroes: "👑 14 Karakter & Özel Yetenek",
                 pillFps: "⚡ 120 FPS Ultra Akıcı Motor",
                 pillLangs: "🌍 9 Dilde Tam Yerelleştirme",
+                btnGooglePlay: "📱 Google Play Store'dan İndir",
                 btnPlayInline: "🎮 Sayfa İçinde Hemen Oyna",
-                btnPlayFull: "🚀 Tam Ekran Web'de Aç",
+                btnPlayFull: "🚀 Web'de Tam Ekran Oyna",
                 btnFamilyStory: "👨‍👩‍👧‍👦 Aile Hikayemiz & Ekip",
                 btnAlbum: "🖼️ Resim Galerisi & Albüm",
                 btnVideo: "🎬 Video & Fragman İzle",
@@ -2041,7 +2046,8 @@
                 btnOpenYoutube: "YouTube'da Aç ↗",
                 footerRights: "© 2026 CG Studio Home & Labs. Tüm hakları saklıdır. Bir Aile İçi Teknoloji ve Girişimcilik Projesidir. | İletişim:",
                 footFamily: "Aile Hikayemiz",
-                footPlay: "Marinext 2100 Oyna",
+                footPlayStore: "Google Play Store",
+                footPlay: "Web'de Oyna",
                 footChangelog: "Sürüm Notları (Changelog)",
                 footPrivacy: "Gizlilik Politikası (Privacy Policy)"
             },
@@ -2064,8 +2070,9 @@
                 pillHeroes: "👑 14 Heroes & Special Abilities",
                 pillFps: "⚡ 120 FPS Ultra-Fluid Engine",
                 pillLangs: "🌍 9 Languages Full Localization",
+                btnGooglePlay: "📱 Download on Google Play",
                 btnPlayInline: "🎮 Play Instant Web Preview",
-                btnPlayFull: "🚀 Open Fullscreen Web",
+                btnPlayFull: "🚀 Play Fullscreen on Web",
                 btnFamilyStory: "👨‍👩‍👧‍👦 Our Family Story & Team",
                 btnAlbum: "🖼️ Screenshots & Album",
                 btnVideo: "🎬 Watch Trailer & Video",
@@ -2161,7 +2168,8 @@
                 btnOpenYoutube: "Open in YouTube ↗",
                 footerRights: "© 2026 CG Studio Home & Labs. All rights reserved. A Family Technology & Indie Venture. | Contact:",
                 footFamily: "Our Family Story",
-                footPlay: "Play Marinext 2100",
+                footPlayStore: "Google Play Store",
+                footPlay: "Play on Web",
                 footChangelog: "Changelog & Notes",
                 footPrivacy: "Privacy Policy"
             }
