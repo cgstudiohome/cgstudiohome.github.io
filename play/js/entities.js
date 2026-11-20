@@ -1,0 +1,4335 @@
+// Articulated Character, Monster & Boss Rendering Engine + Snappy Physics
+
+const SKIN_PALETTES = {
+    cyan: {
+        primary: "#00f2fe",
+        secondary: "#0077b6",
+        armorDark: "#141b33",
+        armorLight: "#2b3868",
+        scarf: "#ff2a85",
+        eye: "#00f2fe",
+        trail: "rgba(0, 242, 254, 0.16)"
+    },
+    crimson: {
+        primary: "#ff2a85",
+        secondary: "#9b0047",
+        armorDark: "#290d1b",
+        armorLight: "#591936",
+        scarf: "#ffd166",
+        eye: "#ffd166",
+        trail: "rgba(255, 42, 133, 0.2)"
+    },
+    emerald: {
+        primary: "#06d6a0",
+        secondary: "#047857",
+        armorDark: "#0c2421",
+        armorLight: "#1b4d44",
+        scarf: "#00f2fe",
+        eye: "#06d6a0",
+        trail: "rgba(6, 214, 160, 0.2)"
+    },
+    gold: {
+        primary: "#ffd166",
+        secondary: "#d97706",
+        armorDark: "#261f10",
+        armorLight: "#57441c",
+        scarf: "#b537f2",
+        eye: "#ffffff",
+        trail: "rgba(255, 209, 102, 0.22)"
+    },
+    violet: {
+        primary: "#c77dff",
+        secondary: "#7b2cbf",
+        armorDark: "#190a28",
+        armorLight: "#3c165e",
+        scarf: "#00f2fe",
+        eye: "#ff2a85",
+        trail: "rgba(199, 125, 255, 0.22)"
+    },
+    arctic: {
+        primary: "#e0fbfc",
+        secondary: "#48cae4",
+        armorDark: "#1d3557",
+        armorLight: "#457b9d",
+        scarf: "#00f2fe",
+        eye: "#90e0ef",
+        trail: "rgba(224, 251, 252, 0.24)"
+    },
+    magma: {
+        primary: "#ff6d00",
+        secondary: "#d00000",
+        armorDark: "#1f110c",
+        armorLight: "#4a1c11",
+        scarf: "#ffd166",
+        eye: "#ffba08",
+        trail: "rgba(255, 109, 0, 0.24)"
+    },
+    toxic: {
+        primary: "#aacc00",
+        secondary: "#55a630",
+        armorDark: "#132a13",
+        armorLight: "#2b580c",
+        scarf: "#b537f2",
+        eye: "#d4d700",
+        trail: "rgba(170, 204, 0, 0.22)"
+    },
+    stealth: {
+        primary: "#adb5bd",
+        secondary: "#495057",
+        armorDark: "#0b090a",
+        armorLight: "#212529",
+        scarf: "#ef233c",
+        eye: "#ef233c",
+        trail: "rgba(173, 181, 189, 0.18)"
+    },
+    sakura: {
+        primary: "#ff85a1",
+        secondary: "#f72585",
+        armorDark: "#2b1321",
+        armorLight: "#5c2747",
+        scarf: "#ffffff",
+        eye: "#ffe5ec",
+        trail: "rgba(255, 133, 161, 0.22)"
+    },
+    galaxy: {
+        primary: "#4cc9f0",
+        secondary: "#7209b7",
+        armorDark: "#10002b",
+        armorLight: "#3a0ca3",
+        scarf: "#f72585",
+        eye: "#4cc9f0",
+        trail: "rgba(76, 201, 240, 0.22)"
+    },
+    rainbow: {
+        primary: "#00f2fe",
+        secondary: "#ff2a85",
+        armorDark: "#181828",
+        armorLight: "#323254",
+        scarf: "#ffd166",
+        eye: "#ffffff",
+        trail: "rgba(255, 255, 255, 0.25)",
+        isRainbow: true
+    }
+};
+
+class Particle {
+    constructor(x, y, vx, vy, color, size, life) {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.color = color;
+        this.size = size;
+        this.life = life;
+        this.maxLife = life;
+    }
+
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += 0.18;
+        this.life--;
+    }
+
+    draw(ctx) {
+        const alpha = Math.max(0, this.life / this.maxLife);
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size * alpha, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    }
+}
+
+class FloatingText {
+    constructor(x, y, text, color = "#00f2fe") {
+        this.x = x;
+        this.y = y;
+        this.text = typeof window.translateMarinextGameText === "function"
+            ? window.translateMarinextGameText(text)
+            : text;
+        this.color = color;
+        this.life = 45;
+        this.maxLife = 45;
+    }
+
+    update() {
+        this.y -= 1.2;
+        this.life--;
+    }
+
+    draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, this.life / this.maxLife);
+        ctx.font = "bold 16px 'Segoe UI', sans-serif";
+        ctx.strokeStyle = "rgba(0, 0, 0, 0.75)";
+        ctx.lineWidth = 3;
+        ctx.textAlign = "center";
+        ctx.strokeText(this.text, this.x, this.y);
+        ctx.fillStyle = this.color;
+        ctx.fillText(this.text, this.x, this.y);
+        ctx.restore();
+    }
+}
+
+class Fireball {
+    constructor(x, y, dir, isEnemy = false, customVy = null, speedMult = 1) {
+        this.x = x;
+        this.y = y;
+        this.r = isEnemy ? 10 : 9;
+        this.vx = dir * (isEnemy ? 7.2 * speedMult : 11.0);
+        this.vy = customVy !== null ? customVy : (isEnemy ? 0 : 2.8);
+        this.isEnemy = isEnemy;
+        this.bounces = 0;
+        this.life = 140;
+        this.dead = false;
+    }
+
+    update(solids, game) {
+        this.x += this.vx;
+        if (!this.isEnemy) {
+            this.vy += 0.55;
+        }
+        this.y += this.vy;
+        this.life--;
+        if (this.life <= 0) this.dead = true;
+
+        if (Math.random() < 0.6) {
+            game.spawnParticles(this.x, this.y, 1, this.isEnemy ? "#ff2a85" : "#00f2fe", 2);
+        }
+
+        for (const s of solids) {
+            if (
+                this.x + this.r > s.x &&
+                this.x - this.r < s.x + s.w &&
+                this.y + this.r > s.y &&
+                this.y - this.r < s.y + s.h
+            ) {
+                if (this.isEnemy) {
+                    this.dead = true;
+                    return;
+                }
+                const prevY = this.y - this.vy;
+                if (prevY + this.r <= s.y + 10 && this.vy > 0) {
+                    this.y = s.y - this.r;
+                    this.vy = -7.8;
+                    this.bounces++;
+                    if (this.bounces > 4) this.dead = true;
+                } else {
+                    this.dead = true;
+                    game.spawnParticles(this.x, this.y, 8, "#ff2a85", 3);
+                }
+            }
+        }
+    }
+
+    draw(ctx) {
+        ctx.save();
+        const color = this.isEnemy ? "#ff2a85" : "#ff7b00";
+        const core = this.isEnemy ? "#ffb3d1" : "#fff3b0";
+
+        // Flame tail
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = core;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r * 0.55, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    }
+}
+
+class PowerUpItem {
+    constructor(x, y, type) {
+        this.x = x;
+        this.y = y;
+        this.w = 32;
+        this.h = 32;
+        this.type = type;
+        this.vx = 2.2;
+        this.vy = -6.5;
+        this.bob = 0;
+    }
+
+    update(solids) {
+        this.vy = Math.min(this.vy + 0.45, 10);
+        this.x += this.vx;
+
+        for (const s of solids) {
+            if (this.intersects(s)) {
+                if (this.vx > 0) this.x = s.x - this.w;
+                else this.x = s.x + s.w;
+                this.vx *= -1;
+            }
+        }
+
+        this.y += this.vy;
+        for (const s of solids) {
+            if (this.intersects(s)) {
+                if (this.vy > 0) {
+                    this.y = s.y - this.h;
+                    this.vy = 0;
+                } else {
+                    this.y = s.y + s.h;
+                    this.vy = 0;
+                }
+            }
+        }
+        this.bob += 0.12;
+    }
+
+    intersects(r) {
+        return (
+            this.x < r.x + r.w &&
+            this.x + this.w > r.x &&
+            this.y < r.y + r.h &&
+            this.y + this.h > r.y
+        );
+    }
+
+    draw(ctx) {
+        ctx.save();
+        const cx = this.x + this.w / 2;
+        const cy = this.y + this.h / 2 + Math.sin(this.bob) * 3;
+
+        let color = "#ff7b00";
+        let symbol = "🔥";
+        if (this.type === "shield") {
+            color = "#00f2fe";
+            symbol = "🛡";
+        } else if (this.type === "speed") {
+            color = "#06d6a0";
+            symbol = "⚡";
+        }
+
+        ctx.fillStyle = "rgba(12, 16, 35, 0.9)";
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(cx, cy, 16, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.font = "16px sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(symbol, cx, cy + 1);
+        ctx.restore();
+    }
+}
+
+// Detailed Anatomical Ground Monsters
+class Enemy {
+    constructor(cfg, levelIndex = 0) {
+        this.type = cfg.type === 'bat' ? 'crawler' : cfg.type;
+        this.x = cfg.x;
+        this.y = cfg.y;
+        this.minX = cfg.minX;
+        this.maxX = cfg.maxX;
+
+        const diffMult = 1 + levelIndex * 0.05;
+
+        if (this.type === 'golem') {
+            this.w = 50;
+            this.h = 58;
+            this.vx = 1.15 * diffMult;
+            this.hp = levelIndex >= 6 ? 3 : 2;
+        } else if (this.type === 'crawler') {
+            this.w = 46;
+            this.h = 34;
+            this.vx = 2.15 * diffMult;
+            this.hp = 1;
+        } else if (this.type === 'sentinel') {
+            this.w = 44;
+            this.h = 54;
+            this.vx = 1.0 * diffMult;
+            this.hp = 2;
+        } else {
+            // 'slime' -> Fanged Shadow Stalker Beast
+            this.w = 42;
+            this.h = 36;
+            this.vx = 1.4 * diffMult;
+            this.hp = 1;
+        }
+
+        this.shootTimer = Math.floor(Math.random() * 60) + 90;
+        this.levelIndex = levelIndex;
+        this.dead = false;
+        this.anim = Math.random() * 10;
+        this.hurtFlash = 0;
+    }
+
+    update(solids, game) {
+        this.anim += 0.18;
+        if (this.hurtFlash > 0) this.hurtFlash--;
+
+        this.x += this.vx;
+        if (this.x < this.minX) {
+            this.x = this.minX;
+            this.vx = Math.abs(this.vx);
+        } else if (this.x + this.w > this.maxX) {
+            this.x = this.maxX - this.w;
+            this.vx = -Math.abs(this.vx);
+        }
+
+        this.y += 6;
+        for (const s of solids) {
+            if (
+                this.x < s.x + s.w &&
+                this.x + this.w > s.x &&
+                this.y < s.y + s.h &&
+                this.y + this.h > s.y
+            ) {
+                this.y = s.y - this.h;
+            }
+        }
+
+        if (this.type === 'sentinel' && game && game.player) {
+            this.shootTimer--;
+            const dist = Math.abs(game.player.x - this.x);
+            if (this.shootTimer <= 0 && dist < 520) {
+                const dir = game.player.x > this.x ? 1 : -1;
+                game.fireballs.push(new Fireball(this.x + this.w / 2 + dir * 16, this.y + 24, dir, true, 0, 0.95));
+                this.shootTimer = Math.max(55, 115 - this.levelIndex * 5);
+            }
+        }
+    }
+
+    draw(ctx) {
+        ctx.save();
+        if (this.hurtFlash > 0 && this.hurtFlash % 2 === 0) {
+            ctx.globalAlpha = 0.55;
+        }
+
+        const cx = this.x + this.w / 2;
+        const bottomY = this.y + this.h;
+        const dir = this.vx >= 0 ? 1 : -1;
+
+        ctx.translate(cx, bottomY);
+        ctx.scale(dir, 1);
+
+        if (this.type === 'slime') {
+            // ==========================================
+            // 1. MUTANT SHADOW HOUND / FANGED BEAST
+            // ==========================================
+            const stride = Math.sin(this.anim * 1.6) * 5;
+            const breathe = Math.sin(this.anim) * 2;
+
+            // Back legs
+            ctx.strokeStyle = "#4a154b";
+            ctx.lineWidth = 5;
+            ctx.lineCap = "round";
+            ctx.beginPath();
+            ctx.moveTo(-10, -12);
+            ctx.lineTo(-14 - stride, -2);
+            ctx.moveTo(8, -12);
+            ctx.lineTo(12 + stride, -2);
+            ctx.stroke();
+
+            // Spiked Back Carapace
+            const bodyGrad = ctx.createRadialGradient(0, -18, 4, 0, -18, 24);
+            bodyGrad.addColorStop(0, "#c77dff");
+            bodyGrad.addColorStop(0.5, "#5a189a");
+            bodyGrad.addColorStop(1, "#240046");
+
+            ctx.fillStyle = bodyGrad;
+            ctx.beginPath();
+            ctx.moveTo(-20, -10);
+            ctx.quadraticCurveTo(-18, -34 - breathe, 4, -32 - breathe);
+            ctx.quadraticCurveTo(22, -28, 20, -8);
+            ctx.closePath();
+            ctx.fill();
+
+            // Dorsal Spikes
+            ctx.fillStyle = "#ff2a85";
+            for (let i = -1; i <= 1; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * 8 - 6, -28 - breathe);
+                ctx.lineTo(i * 8 - 2, -39 - breathe);
+                ctx.lineTo(i * 8 + 3, -27 - breathe);
+                ctx.fill();
+            }
+
+            // Predatory Glowing Eye & Fanged Jaw
+            ctx.fillStyle = "#00f2fe";
+            ctx.shadowColor = "#00f2fe";
+            ctx.beginPath();
+            ctx.moveTo(6, -23);
+            ctx.lineTo(15, -20);
+            ctx.lineTo(8, -17);
+            ctx.fill();
+
+            // White Fangs
+            ctx.fillStyle = "#f8f9fa";
+            ctx.beginPath();
+            ctx.moveTo(8, -11);
+            ctx.lineTo(11, -5);
+            ctx.lineTo(14, -11);
+            ctx.moveTo(14, -11);
+            ctx.lineTo(17, -6);
+            ctx.lineTo(19, -11);
+            ctx.fill();
+
+            // Front Claws
+            ctx.strokeStyle = "#9d4edd";
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(-8, -10);
+            ctx.lineTo(-10 + stride, -1);
+            ctx.moveTo(10, -10);
+            ctx.lineTo(14 - stride, -1);
+            ctx.stroke();
+
+        } else if (this.type === 'crawler') {
+            // ==========================================
+            // 2. BIOMECHANICAL NEON SCORPION
+            // ==========================================
+            const legWave = Math.sin(this.anim * 2.2) * 5;
+
+            // 6 Articulated Scuttling Legs
+            ctx.strokeStyle = "#06d6a0";
+            ctx.lineWidth = 3;
+            for (let i = -1; i <= 1; i++) {
+                const offset = (i % 2 === 0 ? legWave : -legWave);
+                ctx.beginPath();
+                ctx.moveTo(i * 8, -12);
+                ctx.lineTo(i * 11 + offset * 0.5, -18);
+                ctx.lineTo(i * 13 + offset, -1);
+                ctx.stroke();
+            }
+
+            // Arched Segmented Scorpion Tail & Venom Stinger
+            ctx.strokeStyle = "#1b4d44";
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(-14, -14);
+            ctx.quadraticCurveTo(-26, -28, -10, -35 + Math.sin(this.anim) * 2);
+            ctx.quadraticCurveTo(2, -38, 8, -32);
+            ctx.stroke();
+
+            // Glowing Venom Stinger
+            ctx.fillStyle = "#ff2a85";
+            ctx.beginPath();
+            ctx.moveTo(6, -35);
+            ctx.lineTo(16, -29);
+            ctx.lineTo(7, -27);
+            ctx.closePath();
+            ctx.fill();
+
+            // Armored Chitin Body
+            const carapaceGrad = ctx.createLinearGradient(-18, -22, 18, -6);
+            carapaceGrad.addColorStop(0, "#0b2b26");
+            carapaceGrad.addColorStop(0.5, "#195e52");
+            carapaceGrad.addColorStop(1, "#091f1c");
+            ctx.fillStyle = carapaceGrad;
+            ctx.strokeStyle = "#06d6a0";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.ellipse(0, -13, 18, 8, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // Front Pincer Claw & Glowing Eyes
+            ctx.fillStyle = "#06d6a0";
+            ctx.beginPath();
+            ctx.arc(18, -14, 5, 0.3, Math.PI * 1.7);
+            ctx.fill();
+
+            ctx.fillStyle = "#ff2a85";
+            ctx.fillRect(11, -17, 4, 4);
+
+        } else if (this.type === 'sentinel') {
+            // ==========================================
+            // 3. DARK CYBER-SNIPER / PLASMA SENTINEL
+            // ==========================================
+            const walk = Math.sin(this.anim * 1.2) * 5;
+
+            // Legs
+            ctx.strokeStyle = "#2b2d42";
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(-5, -18);
+            ctx.lineTo(-8 + walk, -1);
+            ctx.moveTo(5, -18);
+            ctx.lineTo(8 - walk, -1);
+            ctx.stroke();
+
+            // Armored Tattered Cloak & Torso
+            const cloakGrad = ctx.createLinearGradient(0, -48, 0, -10);
+            cloakGrad.addColorStop(0, "#3c096c");
+            cloakGrad.addColorStop(1, "#10002b");
+            ctx.fillStyle = cloakGrad;
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(-14, -12);
+            ctx.lineTo(-11, -40);
+            ctx.lineTo(11, -40);
+            ctx.lineTo(13, -12);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Hooded Helmet & Glowing Sniper Visor
+            ctx.fillStyle = "#1a1423";
+            ctx.beginPath();
+            ctx.arc(0, -44, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = "#ff2a85";
+            ctx.fillRect(2, -47, 8, 4);
+
+            // Plasma Rifle / Cannon Arm
+            ctx.fillStyle = "#2b2d42";
+            ctx.strokeStyle = "#00f2fe";
+            ctx.lineWidth = 2;
+            ctx.fillRect(0, -32, 22, 7);
+            ctx.strokeRect(0, -32, 22, 7);
+
+            // Glowing Muzzle
+            ctx.fillStyle = "#00f2fe";
+            ctx.beginPath();
+            ctx.arc(22, -28.5, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+        } else if (this.type === 'golem') {
+            // ==========================================
+            // 4. HULKING ARMORED GOLEM KNIGHT + WARHAMMER
+            // ==========================================
+            const stomp = Math.sin(this.anim * 1.1) * 6;
+
+            // Heavy Armored Legs
+            ctx.fillStyle = "#1d2238";
+            ctx.strokeStyle = "#ff2a85";
+            ctx.lineWidth = 2;
+            ctx.fillRect(-13 + stomp * 0.6, -18, 9, 17);
+            ctx.strokeRect(-13 + stomp * 0.6, -18, 9, 17);
+            ctx.fillRect(4 - stomp * 0.6, -18, 9, 17);
+            ctx.strokeRect(4 - stomp * 0.6, -18, 9, 17);
+
+            // Broad Hulking Torso Plate
+            const armorGrad = ctx.createLinearGradient(-20, -48, 20, -16);
+            armorGrad.addColorStop(0, "#343a56");
+            armorGrad.addColorStop(0.5, "#1b1f33");
+            armorGrad.addColorStop(1, "#0f111c");
+            ctx.fillStyle = armorGrad;
+            ctx.strokeStyle = "#ff2a85";
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(-16, -16);
+            ctx.lineTo(-22, -44);
+            ctx.lineTo(22, -44);
+            ctx.lineTo(16, -16);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Glowing Reactor Chest Core
+            ctx.fillStyle = "#00f2fe";
+            ctx.beginPath();
+            ctx.moveTo(0, -39);
+            ctx.lineTo(7, -31);
+            ctx.lineTo(0, -23);
+            ctx.lineTo(-7, -31);
+            ctx.closePath();
+            ctx.fill();
+
+            // Horned Knight Helmet
+            ctx.fillStyle = "#22273d";
+            ctx.strokeStyle = "#ff2a85";
+            ctx.beginPath();
+            ctx.roundRect(-11, -56, 22, 14, 4);
+            ctx.fill();
+            ctx.stroke();
+
+            // Glowing Visor Slit
+            ctx.fillStyle = "#ff2a85";
+            ctx.shadowColor = "#ff2a85";
+            ctx.fillRect(0, -51, 10, 4);
+
+            // Swinging Warhammer in Front Hand
+            ctx.save();
+            ctx.translate(12, -34);
+            ctx.rotate(Math.sin(this.anim * 1.1) * 0.35);
+            // Hammer shaft
+            ctx.strokeStyle = "#adb5bd";
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(0, 8);
+            ctx.lineTo(14, -18);
+            ctx.stroke();
+            // Hammer head
+            ctx.fillStyle = "#2b2d42";
+            ctx.strokeStyle = "#ff2a85";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(6, -24, 16, 10, 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        ctx.restore();
+    }
+}
+
+// 12 Distinct World Boss Archetypes with Progressive Special Abilities, Telegraphed Hazards & Unique Anatomy
+const BOSS_PROFILES = {
+    1: {
+        title: "KRİSTAL DEV",
+        armorTop: "#0e3b5c", armorMid: "#072238", armorBot: "#03101c",
+        glow: "#00f2fe", secondary: "#90e0ef", eye: "#00f2fe",
+        specialName: "💎 KRİSTAL SARKIT YAĞMURU!"
+    },
+    2: {
+        title: "ZİNDAN CELLADI",
+        armorTop: "#3b0d26", armorMid: "#210615", armorBot: "#0f0209",
+        glow: "#ff2a85", secondary: "#ffd166", eye: "#ff2a85",
+        specialName: "🩸 GÖLGE ADIMI & İNFAZ TIRPANI!"
+    },
+    3: {
+        title: "KARANLIK İMPARATOR",
+        armorTop: "#2f1952", armorMid: "#190c2e", armorBot: "#0a0414",
+        glow: "#ffd166", secondary: "#b537f2", eye: "#ff2a85",
+        specialName: "👑 HİÇLİK SÜTUNLARI & ÜÇLÜ KÜRE!"
+    },
+    4: {
+        title: "MAGMA TİTANI",
+        armorTop: "#4a1508", armorMid: "#290a04", armorBot: "#140401",
+        glow: "#ff5400", secondary: "#ffbe0b", eye: "#ffbe0b",
+        specialName: "🌋 VOLKANİK METEOR YAĞMURU!"
+    },
+    5: {
+        title: "HİPER-MEKA KRALI",
+        armorTop: "#1f2b4d", armorMid: "#10172b", armorBot: "#070b14",
+        glow: "#00f2fe", secondary: "#b537f2", eye: "#06d6a0",
+        specialName: "🤖 KUANTUM IŞINLANMA & FÜZE BARAJI!"
+    },
+    6: {
+        title: "KOZMİK KAOS EJDERİ",
+        armorTop: "#38124a", armorMid: "#1e0829", armorBot: "#0d0212",
+        glow: "#b537f2", secondary: "#ff2a85", eye: "#ffd166",
+        specialName: "🐉 EJDERHA UÇUŞU & ALEV NEFESİ!"
+    },
+    7: {
+        title: "EBEDİ BUZ KRALI",
+        armorTop: "#163e5c", armorMid: "#0b2538", armorBot: "#05121c",
+        glow: "#90e0ef", secondary: "#00f2fe", eye: "#ffffff",
+        specialName: "❄️ KUTUP TİPİSİ İTİŞİ & BUZ MIZRAĞI!"
+    },
+    8: {
+        title: "ÖLÜMSÜZ SİBER FİRAVUN",
+        armorTop: "#47350e", armorMid: "#261c06", armorBot: "#120d02",
+        glow: "#ffd166", secondary: "#00f2fe", eye: "#06d6a0",
+        specialName: "☀️ GÜNEŞ DİSKİ LAZER SÜTUNLARI!"
+    },
+    9: {
+        title: "STRATOSFER GÖK TİTANI",
+        armorTop: "#123845", armorMid: "#091f26", armorBot: "#040e12",
+        glow: "#00f5d4", secondary: "#fee440", eye: "#fee440",
+        specialName: "🌩️ GÖKYÜZÜ YILDIRIM SÜTUNLARI!"
+    },
+    10: {
+        title: "İMPARATOR SİBER SHOGUN",
+        armorTop: "#3d0a1d", armorMid: "#210410", armorBot: "#0f0107",
+        glow: "#ff007f", secondary: "#ffd166", eye: "#00f2fe",
+        specialName: "⚔️ İAİDO İKİLİ KESİŞ & SHURIKEN!"
+    },
+    11: {
+        title: "ZIRHLI KALE KOMUTANI",
+        armorTop: "#3b2314", armorMid: "#21120a", armorBot: "#100804",
+        glow: "#ff9f1c", secondary: "#e71d36", eye: "#ff9f1c",
+        specialName: "💣 KUŞATMA HAVAN TOPU BOMBARDIMANI!"
+    },
+    12: {
+        title: "EVREN HÜKÜMDARI",
+        armorTop: "#2b1055", armorMid: "#15072b", armorBot: "#080212",
+        glow: "#ff2a85", secondary: "#00f2fe", eye: "#ffd166",
+        specialName: "🌌 KOZMİK KIYAMET: IŞINLANMA & YILDIRIM!"
+    }
+};
+
+class AbyssBoss {
+    constructor(cfg) {
+        this.name = cfg.name || "KARANLIK MUHAFIZ";
+        this.variant = cfg.variant || 1;
+        this.bossType = cfg.bossType || this.variant || 1; // 1..12 distinct boss archetypes
+        this.isWorldLord = Boolean(cfg.isWorldLord);
+        this.levelIndex = cfg.levelIndex || 0;
+
+        const sizeScale = Math.min(4, Math.floor((this.bossType - 1) / 3));
+        this.w = 96 + sizeScale * 6 + (this.isWorldLord ? 6 : 0);
+        this.h = 114 + sizeScale * 5 + (this.isWorldLord ? 6 : 0);
+        this.x = cfg.x;
+        this.y = cfg.y;
+        this.groundY = cfg.y + 110;
+        this.minX = cfg.minX;
+        this.maxX = cfg.maxX;
+        this.vx = 0;
+        this.vy = 0;
+        this.facing = -1;
+
+        this.maxHp = cfg.hp || 10;
+        this.hp = this.maxHp;
+        this.dead = false;
+
+        this.state = 'shield_patrol';
+        this.shieldActive = true;
+        this.timer = 68;
+        this.stateMaxTimer = 68;
+        this.slamsRemaining = 0;
+        this.hitsTakenInWindow = 0;
+        this.cycleCount = 0;
+        this.dashChainLeft = 0;
+        this.isFlying = false;
+        this.blizzardActive = false;
+
+        this.invuln = 0;
+        this.anim = 0;
+        this.shockwaves = [];
+        this.warnings = [];
+        this.afterimages = [];
+        this.statusText = typeof window.translateMarinextGameText === "function"
+            ? window.translateMarinextGameText("🛡 SAVUNMA & HAZIRLIK")
+            : "🛡 SAVUNMA & HAZIRLIK";
+    }
+
+    getProfile() {
+        return BOSS_PROFILES[this.bossType] || BOSS_PROFILES[1];
+    }
+
+    enterState(newState, duration, statusText = "") {
+        this.state = newState;
+        this.timer = duration;
+        this.stateMaxTimer = Math.max(1, duration);
+        if (statusText) {
+            this.statusText = typeof window.translateMarinextGameText === "function"
+                ? window.translateMarinextGameText(statusText)
+                : statusText;
+        }
+    }
+
+    pushAfterimage(color) {
+        this.afterimages.push({
+            x: this.x,
+            y: this.y,
+            w: this.w,
+            h: this.h,
+            facing: this.facing,
+            color: color || this.getProfile().glow,
+            life: 18,
+            maxLife: 18
+        });
+    }
+
+    pickSafeTeleportX(player) {
+        const leftCandidate = this.minX + 36;
+        const rightCandidate = this.maxX - this.w - 36;
+        const midCandidate = (leftCandidate + rightCandidate) * 0.5;
+        const candidates = [leftCandidate, rightCandidate, midCandidate].sort(
+            (a, b) => Math.abs(b - player.x) - Math.abs(a - player.x)
+        );
+        return Math.max(leftCandidate, Math.min(rightCandidate, candidates[0]));
+    }
+
+    triggerSpecialTelegraph(player, game, isEnraged) {
+        const prof = this.getProfile();
+        window.sfx.bossRoar();
+        this.vx = 0;
+        this.facing = player.x > this.x ? 1 : -1;
+        const countBonus = (this.isWorldLord ? 1 : 0) + (isEnraged ? 1 : 0);
+        const arenaW = Math.max(300, this.maxX - this.minX);
+
+        if (this.bossType === 1) {
+            // Crystal Behemoth: Falling Crystal Shards from Ceiling
+            const shardCount = 3 + countBonus;
+            for (let i = 0; i < shardCount; i++) {
+                const tx = i === 0
+                    ? Math.max(this.minX + 40, Math.min(this.maxX - 40, player.x + (Math.random() - 0.5) * 60))
+                    : this.minX + 50 + ((i + 0.3) / shardCount) * (arenaW - 100);
+                this.warnings.push({
+                    kind: 'crystal_warn',
+                    x: tx - 12,
+                    y: this.groundY - 380,
+                    groundY: this.groundY,
+                    w: 24,
+                    h: 380,
+                    timer: 36 + i * 6,
+                    maxTimer: 36 + i * 6,
+                    color: "#00f2fe"
+                });
+            }
+            this.enterState('special_attack', 54, prof.specialName);
+        } else if (this.bossType === 2) {
+            // Cyber Executioner: Shadow Step + Double Crescent Scythe Wave
+            this.enterState('special_attack', 52, prof.specialName);
+        } else if (this.bossType === 3) {
+            // Abyssal Emperor: Void Ground Pillars + 3-Way Dark Orb Fan
+            const pillarCount = 3 + countBonus;
+            for (let i = 0; i < pillarCount; i++) {
+                const px = i === 0
+                    ? Math.max(this.minX + 45, Math.min(this.maxX - 65, player.x))
+                    : this.minX + 60 + (i / pillarCount) * (arenaW - 120);
+                this.warnings.push({
+                    kind: 'void_pillar_warn',
+                    x: px - 18,
+                    y: this.groundY - 110,
+                    groundY: this.groundY,
+                    w: 36,
+                    h: 110,
+                    timer: 38,
+                    maxTimer: 38,
+                    color: "#b537f2"
+                });
+            }
+            this.enterState('special_attack', 58, prof.specialName);
+        } else if (this.bossType === 4) {
+            // Magma Titan: Volcanic Meteor Shower
+            const meteorCount = 4 + countBonus;
+            for (let i = 0; i < meteorCount; i++) {
+                const mx = i === 0
+                    ? Math.max(this.minX + 40, Math.min(this.maxX - 40, player.x + (Math.random() - 0.5) * 80))
+                    : this.minX + 45 + ((i + 0.25) / meteorCount) * (arenaW - 90);
+                this.warnings.push({
+                    kind: 'meteor_warn',
+                    x: mx - 16,
+                    y: this.groundY - 400,
+                    groundY: this.groundY,
+                    w: 32,
+                    h: 400,
+                    timer: 32 + i * 7,
+                    maxTimer: 32 + i * 7,
+                    color: "#ff5400"
+                });
+            }
+            this.enterState('special_attack', 64, prof.specialName);
+        } else if (this.bossType === 5) {
+            // Hyper-Mecha King: Quantum Blink Teleport + Homing Missile Pod Salvo
+            this.enterState('special_attack', 58, prof.specialName);
+        } else if (this.bossType === 6) {
+            // Cosmic Chaos Dragon: Aerial Hover Flight + Angled Dragon Breath
+            this.isFlying = true;
+            this.vy = -12.5;
+            this.enterState('special_attack', 84, prof.specialName);
+        } else if (this.bossType === 7) {
+            // Frost Giant King: Blizzard Gale Wind Push + Ice Lance Barrage
+            this.blizzardActive = true;
+            this.enterState('special_attack', 72, prof.specialName);
+        } else if (this.bossType === 8) {
+            // Cyber Pharaoh: Floating Solar Sun Disks & Vertical Sun Beams
+            const diskCount = 3 + countBonus;
+            for (let i = 0; i < diskCount; i++) {
+                const dx = i === 0
+                    ? Math.max(this.minX + 50, Math.min(this.maxX - 50, player.x))
+                    : this.minX + 60 + (i / diskCount) * (arenaW - 120);
+                this.warnings.push({
+                    kind: 'solar_disk',
+                    x: dx - 16,
+                    y: this.groundY - 390,
+                    groundY: this.groundY,
+                    w: 32,
+                    h: 390,
+                    timer: 40 + i * 5,
+                    maxTimer: 40 + i * 5,
+                    color: "#ffd166"
+                });
+            }
+            this.enterState('special_attack', 66, prof.specialName);
+        } else if (this.bossType === 9) {
+            // Stratosphere Storm Titan: Sky Lightning Columns
+            const boltCount = 4 + countBonus;
+            for (let i = 0; i < boltCount; i++) {
+                const lx = i === 0
+                    ? Math.max(this.minX + 45, Math.min(this.maxX - 45, player.x))
+                    : this.minX + 50 + ((i + 0.2) / boltCount) * (arenaW - 100);
+                this.warnings.push({
+                    kind: 'lightning_warn',
+                    x: lx - 15,
+                    y: this.groundY - 420,
+                    groundY: this.groundY,
+                    w: 30,
+                    h: 420,
+                    timer: 36 + i * 6,
+                    maxTimer: 36 + i * 6,
+                    color: "#00f5d4"
+                });
+            }
+            this.enterState('special_attack', 66, prof.specialName);
+        } else if (this.bossType === 10) {
+            // Cyber Shogun: Iaido Double-Dash & Neon Shuriken Storm
+            this.dashChainLeft = 1 + (isEnraged ? 1 : 0);
+            this.enterState('special_attack', 46, prof.specialName);
+        } else if (this.bossType === 11) {
+            // Armored Fortress Commander: Siege Mortar Barrage
+            this.enterState('special_attack', 62, prof.specialName);
+        } else {
+            // Boss 12 (Universe Emperor / Final Boss): Multi-Hazard Cosmic Apocalypse
+            const strikeCount = 3 + countBonus;
+            for (let i = 0; i < strikeCount; i++) {
+                const lx = i === 0
+                    ? Math.max(this.minX + 45, Math.min(this.maxX - 45, player.x))
+                    : this.minX + 55 + (i / strikeCount) * (arenaW - 110);
+                this.warnings.push({
+                    kind: i % 2 === 0 ? 'lightning_warn' : 'meteor_warn',
+                    x: lx - 16,
+                    y: this.groundY - 420,
+                    groundY: this.groundY,
+                    w: 32,
+                    h: 420,
+                    timer: 36 + i * 6,
+                    maxTimer: 36 + i * 6,
+                    color: i % 2 === 0 ? "#00f2fe" : "#ff2a85"
+                });
+            }
+            this.enterState('special_attack', 68, prof.specialName);
+        }
+    }
+
+    update(solids, player, game) {
+        if (this.dead) return;
+        this.anim += 0.14;
+        if (this.invuln > 0) this.invuln--;
+
+        const isEnraged = this.hp <= this.maxHp * 0.45;
+        const tierFactor = 1 + Math.min(0.42, (this.bossType - 1) * 0.035);
+        const speedMult = (isEnraged ? 1.24 : 1.0) * tierFactor;
+
+        this.timer--;
+
+        // Update Telegraphed Warnings and spawn real hazards when timer reaches 0
+        for (let i = this.warnings.length - 1; i >= 0; i--) {
+            const w = this.warnings[i];
+            w.timer--;
+            if (w.timer <= 0) {
+                if (w.kind === 'crystal_warn') {
+                    window.sfx.blockHit();
+                    this.shockwaves.push({
+                        kind: 'crystal_shard',
+                        x: w.x,
+                        y: w.y,
+                        vx: 0,
+                        vy: 7.4,
+                        w: 22,
+                        h: 38,
+                        life: 70,
+                        color: "#00f2fe"
+                    });
+                } else if (w.kind === 'void_pillar_warn') {
+                    window.sfx.bossHit();
+                    game.shakeScreen(8);
+                    game.spawnParticles(w.x + w.w / 2, w.groundY, 12, "#b537f2", 4);
+                    this.shockwaves.push({
+                        kind: 'void_pillar',
+                        x: w.x,
+                        y: w.groundY - 105,
+                        vx: 0,
+                        vy: 0,
+                        w: 34,
+                        h: 105,
+                        life: 32,
+                        color: "#b537f2"
+                    });
+                } else if (w.kind === 'meteor_warn') {
+                    window.sfx.fireball();
+                    this.shockwaves.push({
+                        kind: 'meteor',
+                        x: w.x,
+                        y: w.y,
+                        vx: (Math.random() - 0.5) * 1.4,
+                        vy: 7.2,
+                        w: 28,
+                        h: 28,
+                        life: 75,
+                        color: "#ff5400"
+                    });
+                } else if (w.kind === 'solar_disk') {
+                    window.sfx.bossHit();
+                    game.shakeScreen(9);
+                    this.shockwaves.push({
+                        kind: 'solar_beam',
+                        x: w.x,
+                        y: w.y,
+                        vx: 0,
+                        vy: 0,
+                        w: 30,
+                        h: w.h,
+                        life: 30,
+                        color: "#ffd166"
+                    });
+                } else if (w.kind === 'lightning_warn') {
+                    window.sfx.bossHit();
+                    game.shakeScreen(10);
+                    game.spawnParticles(w.x + w.w / 2, w.groundY, 14, "#00f5d4", 5);
+                    this.shockwaves.push({
+                        kind: 'lightning',
+                        x: w.x,
+                        y: w.y,
+                        vx: 0,
+                        vy: 0,
+                        w: 28,
+                        h: w.h,
+                        life: 26,
+                        color: w.color || "#00f5d4"
+                    });
+                }
+                this.warnings.splice(i, 1);
+            }
+        }
+
+        // Update Ghost Afterimages
+        for (let i = this.afterimages.length - 1; i >= 0; i--) {
+            this.afterimages[i].life--;
+            if (this.afterimages[i].life <= 0) this.afterimages.splice(i, 1);
+        }
+
+        if (this.state === 'shield_patrol') {
+            this.shieldActive = true;
+            this.isFlying = false;
+            this.blizzardActive = false;
+            this.facing = player.x > this.x ? 1 : -1;
+            this.vx = this.facing * 1.85 * speedMult;
+            this.x += this.vx;
+
+            if (this.timer <= 0) {
+                this.vx = 0;
+                const baseSlams = Math.min(3, 1 + Math.floor(this.bossType / 4));
+                this.slamsRemaining = baseSlams + (isEnraged ? 1 : 0);
+                window.sfx.bossRoar();
+                this.enterState('telegraph_slam', 38, "⚠️ ZIPLAMA & ŞOK DALGASI GELİYOR!");
+            }
+        } else if (this.state === 'telegraph_slam') {
+            this.shieldActive = true;
+            this.vx = 0;
+            this.facing = player.x > this.x ? 1 : -1;
+            if (this.timer <= 0) {
+                this.state = 'jump_slam';
+                this.statusText = typeof window.translateMarinextGameText === "function"
+                    ? window.translateMarinextGameText("💥 ŞOK DALGASI SALDIRISI!")
+                    : "💥 ŞOK DALGASI SALDIRISI!";
+                this.vy = -15.6;
+                const targetDx = (player.x - this.x);
+                this.vx = Math.max(-6.2, Math.min(6.2, targetDx * 0.025)) * speedMult;
+            }
+        } else if (this.state === 'jump_slam') {
+            this.shieldActive = true;
+            this.x += this.vx;
+        } else if (this.state === 'special_attack') {
+            this.shieldActive = true;
+            this.facing = player.x > this.x ? 1 : -1;
+
+            // Boss-specific active behaviors during special_attack
+            if (this.bossType === 2 && this.timer === 34) {
+                // Cyber Executioner: Shadow-Step teleport + Crescent Scythe Wave
+                this.pushAfterimage("#ff2a85");
+                this.x = this.pickSafeTeleportX(player);
+                this.facing = player.x > this.x ? 1 : -1;
+                game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 18, "#ff2a85", 5);
+                window.sfx.fireball();
+                this.shockwaves.push({
+                    kind: 'scythe_wave',
+                    x: this.x + this.w / 2,
+                    y: this.y + 34,
+                    vx: this.facing * 7.6 * speedMult,
+                    vy: 0,
+                    w: 34,
+                    h: 52,
+                    life: 85,
+                    color: "#ff2a85"
+                });
+            } else if (this.bossType === 3 && this.timer === 36) {
+                // Abyssal Emperor: 3-Way Dark Fireball Fan
+                window.sfx.fireball();
+                for (const vyVal of [-2.4, 0, 2.0]) {
+                    game.fireballs.push(new Fireball(this.x + this.w / 2, this.y + 44, this.facing, true, vyVal, 0.92));
+                }
+            } else if (this.bossType === 5) {
+                // Hyper-Mecha: Quantum Blink at frame 42, then Shoulder Missile Salvo at 30, 20, 10
+                if (this.timer === 44) {
+                    this.pushAfterimage("#00f2fe");
+                    this.x = this.pickSafeTeleportX(player);
+                    this.facing = player.x > this.x ? 1 : -1;
+                    game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 20, "#00f2fe", 5);
+                }
+                if (this.timer === 32 || this.timer === 20 || this.timer === 8) {
+                    window.sfx.fireball();
+                    const missileY = this.y + (this.timer === 20 ? 22 : 52);
+                    this.shockwaves.push({
+                        kind: 'plasma_missile',
+                        x: this.x + this.w / 2,
+                        y: missileY,
+                        vx: this.facing * 8.2,
+                        vy: (this.timer === 20 ? -0.6 : 0.4),
+                        w: 28,
+                        h: 14,
+                        life: 80,
+                        color: "#00f2fe"
+                    });
+                }
+            } else if (this.bossType === 6) {
+                // Cosmic Chaos Dragon: Hover across arena & rain angled dragon fireballs
+                const hoverTargetY = this.groundY - 260;
+                if (this.y > hoverTargetY) {
+                    this.vy = -5.5;
+                } else {
+                    this.vy = Math.sin(this.anim * 2) * 1.2;
+                }
+                this.vx = this.facing * 3.4 * speedMult;
+                this.x += this.vx;
+                if (this.timer % 18 === 0 && this.timer > 14) {
+                    window.sfx.fireball();
+                    game.fireballs.push(new Fireball(this.x + this.w / 2, this.y + 70, this.facing, true, 3.6, 0.95));
+                }
+                if (this.timer <= 8) {
+                    this.isFlying = false;
+                }
+            } else if (this.bossType === 7) {
+                // Frost Giant King: Blizzard wind pushes player & fires ice lances
+                const pushDir = this.facing;
+                player.vx = Math.max(-8.5, Math.min(8.5, player.vx + pushDir * 0.36));
+                if (this.timer === 48 || this.timer === 24) {
+                    window.sfx.fireball();
+                    this.shockwaves.push({
+                        kind: 'ice_lance',
+                        x: this.x + this.w / 2,
+                        y: this.y + (this.timer === 48 ? 36 : 64),
+                        vx: this.facing * 7.8,
+                        vy: 0,
+                        w: 34,
+                        h: 14,
+                        life: 85,
+                        color: "#90e0ef"
+                    });
+                }
+            } else if (this.bossType === 10 && (this.timer === 32 || this.timer === 16)) {
+                // Cyber Shogun: Throw Spinning Neon Shurikens before double Iaido dash
+                window.sfx.fireball();
+                this.shockwaves.push({
+                    kind: 'shuriken',
+                    x: this.x + this.w / 2,
+                    y: this.y + (this.timer === 32 ? 34 : 62),
+                    vx: this.facing * 8.4,
+                    vy: 0,
+                    w: 24,
+                    h: 24,
+                    life: 80,
+                    color: "#ff007f"
+                });
+            } else if (this.bossType === 11 && (this.timer === 46 || this.timer === 28 || this.timer === 12)) {
+                // Fortress Commander: Lobbed Siege Mortar Shells
+                window.sfx.fireball();
+                const distToPlayer = (player.x - this.x);
+                const lobVx = Math.max(-7.5, Math.min(7.5, distToPlayer * 0.022 + (Math.random() - 0.5) * 2.2));
+                this.shockwaves.push({
+                    kind: 'mortar',
+                    x: this.x + this.w / 2,
+                    y: this.y + 16,
+                    vx: lobVx,
+                    vy: -11.8,
+                    ay: 0.42,
+                    groundY: this.groundY,
+                    w: 22,
+                    h: 22,
+                    life: 95,
+                    color: "#ff9f1c"
+                });
+            } else if (this.bossType === 12 && this.timer === 42) {
+                // Universe Emperor: Quantum Teleport + Starburst Fan
+                this.pushAfterimage("#ff2a85");
+                this.x = this.pickSafeTeleportX(player);
+                this.facing = player.x > this.x ? 1 : -1;
+                window.sfx.fireball();
+                for (const vyVal of [-2.8, -1.0, 0.8, 2.4]) {
+                    game.fireballs.push(new Fireball(this.x + this.w / 2, this.y + 44, this.facing, true, vyVal, 0.95));
+                }
+            }
+
+            if (this.timer <= 0) {
+                this.isFlying = false;
+                this.blizzardActive = false;
+                this.enterState('telegraph_dash', 36, "⚠️ ATILMA SALDIRISINA HAZIRLANIYOR!");
+            }
+        } else if (this.state === 'telegraph_dash') {
+            this.shieldActive = true;
+            this.vx = 0;
+            this.facing = player.x > this.x ? 1 : -1;
+
+            if (this.timer === 22) {
+                window.sfx.fireball();
+                game.fireballs.push(new Fireball(this.x + this.w / 2, this.y + 48, this.facing, true, 0, 0.88));
+                if (this.bossType >= 2) {
+                    game.fireballs.push(new Fireball(this.x + this.w / 2, this.y + 30, this.facing, true, -2.1, 0.92));
+                }
+            }
+
+            if (this.timer <= 0) {
+                window.sfx.bossRoar();
+                const dashSpeed = (7.4 + Math.min(3.2, this.bossType * 0.25)) * speedMult;
+                this.vx = this.facing * dashSpeed;
+                this.enterState('dash', 68, "⚡ YILDIRIM ATILMASI!");
+            }
+        } else if (this.state === 'dash') {
+            this.shieldActive = true;
+            this.x += this.vx;
+            if (this.bossType === 10 && this.timer % 4 === 0) {
+                this.pushAfterimage("#ff007f");
+            }
+
+            if (this.x <= this.minX + 4 || this.x + this.w >= this.maxX - 4 || this.timer <= 0) {
+                if (this.dashChainLeft > 0) {
+                    // Cyber Shogun / Enraged Double-Dash Rebound!
+                    this.dashChainLeft--;
+                    this.facing = player.x > this.x ? 1 : -1;
+                    const reboundSpeed = (8.0 + Math.min(3.0, this.bossType * 0.22)) * speedMult;
+                    this.vx = this.facing * reboundSpeed;
+                    window.sfx.bossRoar();
+                    game.shakeScreen(10);
+                    this.enterState('dash', 54, "⚔️ İKİNCİ İAİDO ATILMASI!");
+                } else {
+                    this.vx = 0;
+                    game.shakeScreen(14);
+                    window.sfx.blockHit();
+                    game.spawnParticles(this.x + this.w / 2, this.y + 30, 22, "#00f2fe", 5);
+                    this.shieldActive = false;
+                    this.hitsTakenInWindow = 0;
+                    this.enterState('vulnerable', 215, "🎯 KALKAN KAPANDI! ŞİMDİ VUR!");
+                    game.floatingTexts.push(new FloatingText(this.x + this.w / 2, this.y - 12, "🎯 KALKAN KAPANDI! KAFASINA ZIPLA!", "#06d6a0"));
+                }
+            }
+        } else if (this.state === 'vulnerable') {
+            this.shieldActive = false;
+            this.vx = 0;
+
+            if (this.timer <= 0) {
+                this.shieldActive = true;
+                window.sfx.powerUpSpawn();
+                game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 18, "#ff2a85", 4);
+                this.enterState('shield_patrol', 62, "🛡 KALKAN YENİLENDİ!");
+            }
+        }
+
+        this.x = Math.max(this.minX, Math.min(this.maxX - this.w, this.x));
+
+        if (!this.isFlying) {
+            this.vy = Math.min(this.vy + 0.82, 17);
+        }
+        this.y += this.vy;
+
+        for (const s of solids) {
+            if (
+                s.type === 'ground' &&
+                this.x < s.x + s.w &&
+                this.x + this.w > s.x &&
+                this.y + this.h > s.y &&
+                this.y < s.y + s.h
+            ) {
+                this.groundY = s.y;
+                if (this.state === 'jump_slam' && this.vy > 2) {
+                    game.shakeScreen(15);
+                    window.sfx.bossHit();
+                    const prof = this.getProfile();
+                    const swSpeed = (6.0 + Math.min(3.2, this.bossType * 0.25)) * (isEnraged ? 1.15 : 1.0);
+                    this.shockwaves.push({ kind: 'shockwave', x: this.x, y: s.y - 24, vx: -swSpeed, vy: 0, w: 30, h: 24, life: 110, color: prof.glow });
+                    this.shockwaves.push({ kind: 'shockwave', x: this.x + this.w - 30, y: s.y - 24, vx: swSpeed, vy: 0, w: 30, h: 24, life: 110, color: prof.glow });
+                    game.spawnParticles(this.x + this.w / 2, s.y, 24, prof.glow, 5);
+
+                    this.slamsRemaining--;
+                    if (this.slamsRemaining > 0) {
+                        this.enterState('telegraph_slam', 25, `⚠️ ŞOK DALGASI (${this.slamsRemaining} KALDI)!`);
+                    } else {
+                        this.triggerSpecialTelegraph(player, game, isEnraged);
+                    }
+                }
+                this.y = s.y - this.h;
+                this.vy = 0;
+            }
+        }
+
+        for (let i = this.shockwaves.length - 1; i >= 0; i--) {
+            const sw = this.shockwaves[i];
+            sw.x += (sw.vx || 0);
+            sw.y += (sw.vy || 0);
+            if (sw.ay) sw.vy = (sw.vy || 0) + sw.ay;
+            sw.life--;
+
+            // Check ground impact for falling meteors, crystal shards & siege mortars
+            if ((sw.kind === 'meteor' || sw.kind === 'crystal_shard' || sw.kind === 'mortar') && sw.y + sw.h >= this.groundY) {
+                game.spawnParticles(sw.x + sw.w / 2, this.groundY, 12, sw.color || "#ff5400", 4);
+                if (sw.kind === 'mortar') {
+                    window.sfx.bossHit();
+                    game.shakeScreen(8);
+                    this.shockwaves.push({ kind: 'shockwave', x: sw.x - 10, y: this.groundY - 20, vx: -5.6, vy: 0, w: 24, h: 20, life: 45, color: "#ff9f1c" });
+                    this.shockwaves.push({ kind: 'shockwave', x: sw.x + 10, y: this.groundY - 20, vx: 5.6, vy: 0, w: 24, h: 20, life: 45, color: "#ff9f1c" });
+                }
+                this.shockwaves.splice(i, 1);
+                continue;
+            }
+
+            if (sw.life <= 0) this.shockwaves.splice(i, 1);
+        }
+    }
+
+    takeDamage(amount, game, isStomp = false) {
+        if (this.invuln > 0 || this.dead) return false;
+
+        if (this.shieldActive) {
+            window.sfx.blockHit();
+            this.invuln = 10;
+            game.spawnParticles(this.x + this.w / 2, this.y + 30, 8, "#ffd166", 3);
+            game.floatingTexts.push(new FloatingText(this.x + this.w / 2, this.y - 10, "🛡 KALKANLI! YORULMASINI BEKLE!", "#ffd166"));
+            return false;
+        }
+
+        this.hp = Math.max(0, this.hp - amount);
+        this.invuln = 18;
+        this.hitsTakenInWindow += amount;
+        window.sfx.bossHit();
+        game.shakeScreen(10);
+        game.spawnParticles(this.x + this.w / 2, this.y + 25, 14, "#06d6a0", 4.5);
+
+        if (this.hp <= 0) {
+            this.dead = true;
+            this.shockwaves = [];
+            this.warnings = [];
+            this.afterimages = [];
+            window.sfx.victory();
+            game.shakeScreen(18);
+            game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 24, "#ff2a85", 5.5);
+            game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 18, "#00f2fe", 4.5);
+            const dispBossName = (game && game.lang && game.lang !== "tr" && typeof game.getLocalizedLevelInfo === "function")
+                ? game.getLocalizedLevelInfo(game.isTrollMode ? game.selectedTrollLevel : game.selectedLevel, game.isTrollMode).shortName.toUpperCase()
+                : this.name;
+            game.floatingTexts.push(new FloatingText(this.x + this.w / 2, this.y, `${dispBossName} YENİLDİ! +2500`, "#ffd166"));
+            game.floatingTexts.push(new FloatingText(this.x + this.w / 2, this.y - 26, "🎁 BOSS HEDİYESİ: +20 ❖ ZÜMRÜT, +10 ◆ KRİSTAL, +15 🪙 COİN!", "#06d6a0"));
+            game.score += 2500;
+            game.addEmeralds(20, true);
+            game.addCrystals(10, true);
+            if (typeof game.addGoldCoins === "function") game.addGoldCoins(15, true);
+            return true;
+        }
+
+        if (isStomp || this.hitsTakenInWindow >= 3) {
+            this.shieldActive = true;
+            this.enterState('shield_patrol', 58, "🛡 KALKAN YENİLENDİ! DİKKAT!");
+        }
+        return true;
+    }
+
+    draw(ctx) {
+        if (this.dead) return;
+        ctx.save();
+        const prof = this.getProfile();
+
+        // 0. Draw Blizzard Wind Streaks for Boss 7
+        if (this.blizzardActive) {
+            ctx.save();
+            ctx.strokeStyle = "rgba(144, 224, 239, 0.45)";
+            ctx.lineWidth = 2.5;
+            for (let i = 0; i < 10; i++) {
+                const wx = this.minX + ((this.anim * 90 * (this.facing > 0 ? 1 : -1) + i * 130) % Math.max(300, this.maxX - this.minX));
+                const wy = this.groundY - 40 - (i * 32);
+                ctx.beginPath();
+                ctx.moveTo(wx, wy);
+                ctx.lineTo(wx + this.facing * 55, wy);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        // 1. Draw Telegraphed Warnings (Lightning Sightlines, Solar Disks, Meteor Reticles, Void Rifts)
+        for (const w of this.warnings) {
+            ctx.save();
+            const pulse = 0.45 + 0.35 * Math.sin(this.anim * 5);
+            ctx.strokeStyle = w.color || "#ffd166";
+            ctx.fillStyle = w.color || "#ffd166";
+            ctx.globalAlpha = pulse;
+
+            if (w.kind === 'solar_disk') {
+                // Floating Egyptian Sun Disk + vertical target beam
+                ctx.beginPath();
+                ctx.arc(w.x + w.w / 2, w.y + 24, 18, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.setLineDash([8, 6]);
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(w.x + w.w / 2, w.y + 42);
+                ctx.lineTo(w.x + w.w / 2, w.groundY);
+                ctx.stroke();
+            } else if (w.kind === 'void_pillar_warn') {
+                ctx.fillRect(w.x, w.groundY - 10, w.w, 10);
+                ctx.setLineDash([6, 6]);
+                ctx.lineWidth = 2.5;
+                ctx.strokeRect(w.x, w.groundY - w.h, w.w, w.h);
+            } else {
+                // Sky Lightning / Meteor / Crystal vertical warning line + floor target ring
+                ctx.setLineDash([10, 8]);
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(w.x + w.w / 2, w.y);
+                ctx.lineTo(w.x + w.w / 2, w.groundY);
+                ctx.stroke();
+
+                ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.ellipse(w.x + w.w / 2, w.groundY - 4, 20, 6, 0, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        // 2. Draw Active Boss Hazards & Shockwaves
+        for (const sw of this.shockwaves) {
+            ctx.save();
+            const c = sw.color || "#ff2a85";
+            ctx.fillStyle = c;
+            ctx.strokeStyle = "#ffffff";
+            if (sw.kind === 'meteor') {
+                ctx.beginPath();
+                ctx.arc(sw.x + sw.w / 2, sw.y + sw.h / 2, sw.w / 2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = "#ffbe0b";
+                ctx.beginPath();
+                ctx.moveTo(sw.x + 4, sw.y + 8);
+                ctx.lineTo(sw.x + sw.w / 2, sw.y - 22);
+                ctx.lineTo(sw.x + sw.w - 4, sw.y + 8);
+                ctx.fill();
+            } else if (sw.kind === 'crystal_shard') {
+                ctx.beginPath();
+                ctx.moveTo(sw.x, sw.y);
+                ctx.lineTo(sw.x + sw.w, sw.y);
+                ctx.lineTo(sw.x + sw.w / 2, sw.y + sw.h);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            } else if (sw.kind === 'scythe_wave') {
+                ctx.beginPath();
+                ctx.arc(sw.x + sw.w / 2, sw.y + sw.h / 2, sw.h / 2, -Math.PI * 0.45, Math.PI * 0.45);
+                ctx.lineWidth = 6;
+                ctx.strokeStyle = c;
+                ctx.stroke();
+            } else if (sw.kind === 'void_pillar' || sw.kind === 'solar_beam') {
+                ctx.fillStyle = c;
+                ctx.fillRect(sw.x, sw.y, sw.w, sw.h);
+                ctx.fillStyle = "#ffffff";
+                ctx.fillRect(sw.x + sw.w * 0.28, sw.y, sw.w * 0.44, sw.h);
+            } else if (sw.kind === 'lightning') {
+                ctx.strokeStyle = c;
+                ctx.lineWidth = 8;
+                ctx.beginPath();
+                const lx = sw.x + sw.w / 2;
+                ctx.moveTo(lx, sw.y);
+                for (let y = sw.y + 35; y <= sw.y + sw.h; y += 35) {
+                    const jag = ((Math.floor(y / 35) % 2 === 0) ? -10 : 10);
+                    ctx.lineTo(lx + jag, y);
+                }
+                ctx.stroke();
+                ctx.strokeStyle = "#ffffff";
+                ctx.lineWidth = 3;
+                ctx.stroke();
+            } else if (sw.kind === 'shuriken') {
+                ctx.translate(sw.x + sw.w / 2, sw.y + sw.h / 2);
+                ctx.rotate(this.anim * 4);
+                for (let k = 0; k < 4; k++) {
+                    ctx.rotate(Math.PI / 2);
+                    ctx.beginPath();
+                    ctx.moveTo(0, -3);
+                    ctx.lineTo(14, 0);
+                    ctx.lineTo(0, 3);
+                    ctx.fill();
+                }
+            } else if (sw.kind === 'plasma_missile' || sw.kind === 'ice_lance') {
+                ctx.beginPath();
+                ctx.roundRect(sw.x, sw.y, sw.w, sw.h, 5);
+                ctx.fill();
+                ctx.stroke();
+            } else if (sw.kind === 'mortar') {
+                ctx.beginPath();
+                ctx.arc(sw.x + sw.w / 2, sw.y + sw.h / 2, sw.w / 2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+            } else {
+                // Default Spike Shockwave
+                ctx.beginPath();
+                ctx.moveTo(sw.x, sw.y + sw.h);
+                ctx.lineTo(sw.x + sw.w / 2, sw.y);
+                ctx.lineTo(sw.x + sw.w, sw.y + sw.h);
+                ctx.closePath();
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        // 3. Draw Ghost Afterimages
+        for (const ai of this.afterimages) {
+            ctx.save();
+            ctx.globalAlpha = (ai.life / ai.maxLife) * 0.38;
+            ctx.fillStyle = ai.color;
+            ctx.beginPath();
+            ctx.roundRect(ai.x + 12, ai.y + 10, ai.w - 24, ai.h - 10, 12);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        const cx = this.x + this.w / 2;
+        const bottomY = this.y + this.h;
+        const isVulnerable = !this.shieldActive;
+        const isTelegraph = this.state === 'telegraph_slam' || this.state === 'telegraph_dash';
+
+        // Dash Laser Sight
+        if (this.state === 'telegraph_dash') {
+            ctx.save();
+            ctx.strokeStyle = "rgba(255, 42, 133, 0.65)";
+            ctx.setLineDash([12, 8]);
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(cx, this.y + 52);
+            ctx.lineTo(cx + this.facing * 520, this.y + 52);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        if (this.invuln > 0 && Math.floor(this.invuln / 2) % 2 === 0) {
+            ctx.globalAlpha = 0.5;
+        }
+
+        const crouch = isTelegraph ? 14 : (isVulnerable ? 12 : 0);
+        const walkSwing = Math.abs(this.vx) > 0.2 ? Math.sin(this.anim * 1.5) * 8 : 0;
+        const mainGlow = isVulnerable ? "#06d6a0" : (isTelegraph ? "#ffd166" : prof.glow);
+
+        // ==========================================
+        // ARTICULATED 12-ARCHETYPE BOSS ANATOMY
+        // ==========================================
+        ctx.save();
+        ctx.translate(cx, bottomY);
+        ctx.scale(this.facing, 1);
+
+        // A. BACK WINGS / HALO / THRUSTERS / BANNERS BY BOSS TYPE
+        const wingFlap = Math.sin(this.anim * 1.3) * 11;
+        if (this.bossType === 1) {
+            // Crystal Behemoth: Giant Back Crystal Clusters
+            ctx.fillStyle = "rgba(0, 242, 254, 0.45)";
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 2;
+            for (const ang of [-0.45, -0.15, 0.25, 0.55]) {
+                ctx.save();
+                ctx.translate(0, -74 + crouch);
+                ctx.rotate(ang);
+                ctx.beginPath();
+                ctx.moveTo(-8, 0);
+                ctx.lineTo(0, -48);
+                ctx.lineTo(8, 0);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+                ctx.restore();
+            }
+        } else if (this.bossType === 2 || this.bossType === 11) {
+            // Executioner / Fortress Commander: Billowing War Cape
+            ctx.fillStyle = this.bossType === 2 ? "rgba(255, 42, 133, 0.38)" : "rgba(231, 29, 54, 0.45)";
+            ctx.beginPath();
+            ctx.moveTo(-18, -82 + crouch);
+            ctx.quadraticCurveTo(-58, -50 + wingFlap * 0.5, -48, -6);
+            ctx.lineTo(-10, -18);
+            ctx.closePath();
+            ctx.fill();
+        } else if (this.bossType === 3 || this.bossType === 6 || this.bossType === 9) {
+            // Emperor / Chaos Dragon / Storm Titan: Articulated Wings
+            ctx.fillStyle = this.bossType === 9 ? "rgba(0, 245, 212, 0.38)" : "rgba(181, 55, 242, 0.38)";
+            ctx.strokeStyle = mainGlow;
+            ctx.lineWidth = 2.5;
+            for (const side of [-1, 1]) {
+                ctx.beginPath();
+                ctx.moveTo(0, -68 + crouch);
+                ctx.lineTo(side * 72, -114 + wingFlap + crouch);
+                ctx.lineTo(side * 56, -44 + crouch);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            }
+        } else if (this.bossType === 5) {
+            // Hyper-Mecha: Twin Vernier Jet Thrusters + Missile Pods
+            ctx.fillStyle = "#2b3868";
+            ctx.strokeStyle = "#00f2fe";
+            ctx.lineWidth = 2;
+            ctx.fillRect(-38, -96 + crouch, 16, 28);
+            ctx.strokeRect(-38, -96 + crouch, 16, 28);
+            ctx.fillStyle = "#00f2fe";
+            ctx.beginPath();
+            ctx.moveTo(-36, -68 + crouch);
+            ctx.lineTo(-48, -42 + wingFlap * 0.4);
+            ctx.lineTo(-24, -68 + crouch);
+            ctx.fill();
+        } else if (this.bossType === 8) {
+            // Cyber Pharaoh: Floating Golden Sun-Disk Scarab Halo
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(0, -78 + crouch, 48, Math.PI * 1.1, Math.PI * 1.9);
+            ctx.stroke();
+        } else if (this.bossType === 10) {
+            // Cyber Shogun: Twin Samurai Sashimono Back Banners
+            ctx.strokeStyle = "#ffd166";
+            ctx.fillStyle = "#210410";
+            ctx.lineWidth = 2;
+            for (const bx of [-26, -10]) {
+                ctx.fillRect(bx, -124 + crouch, 12, 42);
+                ctx.strokeRect(bx, -124 + crouch, 12, 42);
+            }
+        } else if (this.bossType === 12) {
+            // Universe Emperor: 6 Seraphim Cosmic Wings + Rotating Sacred Geometry Halo
+            ctx.save();
+            ctx.translate(0, -76 + crouch);
+            ctx.rotate(this.anim * 0.4);
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2.5;
+            ctx.strokeRect(-36, -36, 72, 72);
+            ctx.rotate(Math.PI / 4);
+            ctx.strokeStyle = "#00f2fe";
+            ctx.strokeRect(-36, -36, 72, 72);
+            ctx.restore();
+            for (const side of [-1, 1]) {
+                for (let wIdx = 0; wIdx < 3; wIdx++) {
+                    ctx.fillStyle = wIdx === 1 ? "rgba(0, 242, 254, 0.35)" : "rgba(255, 42, 133, 0.35)";
+                    ctx.beginPath();
+                    ctx.moveTo(0, -68 + crouch);
+                    ctx.lineTo(side * (64 + wIdx * 10), -118 + wIdx * 24 + wingFlap * 0.6 + crouch);
+                    ctx.lineTo(side * 42, -52 + wIdx * 16 + crouch);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+            }
+        }
+
+        // B. HEAVY ARMORED LEGS
+        ctx.fillStyle = prof.armorMid;
+        ctx.strokeStyle = mainGlow;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.roundRect(-24 - walkSwing * 0.5, -36 + crouch * 0.4, 18, 36 - crouch * 0.4, 6);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.roundRect(6 + walkSwing * 0.5, -36 + crouch * 0.4, 18, 36 - crouch * 0.4, 6);
+        ctx.fill();
+        ctx.stroke();
+
+        // C. HULKING ARMORED CHEST & TORSO
+        const torsoGrad = ctx.createLinearGradient(-38, -96 + crouch, 38, -30);
+        torsoGrad.addColorStop(0, prof.armorTop);
+        torsoGrad.addColorStop(0.5, prof.armorMid);
+        torsoGrad.addColorStop(1, prof.armorBot);
+        ctx.fillStyle = torsoGrad;
+        ctx.beginPath();
+        ctx.moveTo(-26, -32 + crouch * 0.5);
+        ctx.lineTo(-42, -84 + crouch);
+        ctx.lineTo(42, -84 + crouch);
+        ctx.lineTo(26, -32 + crouch * 0.5);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // Shoulder Pauldrons
+        ctx.fillStyle = prof.armorTop;
+        for (const side of [-1, 1]) {
+            ctx.beginPath();
+            ctx.arc(side * 38, -78 + crouch, 16, Math.PI, 0);
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        // Chest Reactor Core (Ankh for Pharaoh, Diamond for Crystal, Circle for others)
+        ctx.fillStyle = mainGlow;
+        ctx.beginPath();
+        ctx.arc(0, -60 + crouch, 13 + Math.sin(this.anim * 3) * 2.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(0, -60 + crouch, 6, 0, Math.PI * 2);
+        ctx.fill();
+
+        // D. DISTINCT HEAD, HELMET & CROWN BY BOSS TYPE
+        ctx.fillStyle = prof.armorMid;
+        ctx.beginPath();
+        ctx.roundRect(-22, -108 + crouch, 44, 28, 8);
+        ctx.fill();
+        ctx.stroke();
+
+        // Vulnerable Brain/Crown Core
+        ctx.fillStyle = isVulnerable ? "#06d6a0" : "#590d22";
+        ctx.beginPath();
+        ctx.arc(0, -108 + crouch, 15, Math.PI, 0);
+        ctx.fill();
+
+        if (this.bossType === 2) {
+            // Executioner Pointed Hood & Single Cyclops Laser Eye
+            ctx.fillStyle = "#210615";
+            ctx.beginPath();
+            ctx.moveTo(-24, -96 + crouch);
+            ctx.lineTo(0, -130 + crouch);
+            ctx.lineTo(24, -96 + crouch);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#ff2a85";
+            ctx.fillRect(-14, -97 + crouch, 28, 5);
+        } else if (this.bossType === 5) {
+            // Mecha V-Fin Antenna Crest
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 3.5;
+            ctx.beginPath();
+            ctx.moveTo(0, -106 + crouch);
+            ctx.lineTo(-28, -128 + crouch);
+            ctx.moveTo(0, -106 + crouch);
+            ctx.lineTo(28, -128 + crouch);
+            ctx.stroke();
+            ctx.fillStyle = "#06d6a0";
+            ctx.fillRect(-14, -98 + crouch, 11, 6);
+            ctx.fillRect(5, -98 + crouch, 11, 6);
+        } else if (this.bossType === 7 || this.bossType === 3 || this.bossType === 12) {
+            // Tall Jagged Ice / Emperor / Cosmic Crown
+            ctx.fillStyle = this.bossType === 7 ? "#90e0ef" : "#ffd166";
+            ctx.beginPath();
+            ctx.moveTo(-20, -108 + crouch);
+            ctx.lineTo(-24, -128 + crouch);
+            ctx.lineTo(-8, -116 + crouch);
+            ctx.lineTo(0, -134 + crouch);
+            ctx.lineTo(8, -116 + crouch);
+            ctx.lineTo(24, -128 + crouch);
+            ctx.lineTo(20, -108 + crouch);
+            ctx.closePath();
+            ctx.fill();
+            ctx.fillStyle = prof.eye;
+            ctx.fillRect(-14, -98 + crouch, 11, 6);
+            ctx.fillRect(5, -98 + crouch, 11, 6);
+        } else if (this.bossType === 8) {
+            // Egyptian Pharaoh Striped Nemes Headdress
+            ctx.fillStyle = "#ffd166";
+            ctx.beginPath();
+            ctx.moveTo(-22, -108 + crouch);
+            ctx.lineTo(-34, -82 + crouch);
+            ctx.lineTo(34, -82 + crouch);
+            ctx.lineTo(22, -108 + crouch);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#06d6a0";
+            ctx.fillRect(-14, -98 + crouch, 11, 6);
+            ctx.fillRect(5, -98 + crouch, 11, 6);
+        } else if (this.bossType === 10) {
+            // Samurai Kabuto Helmet with Golden Crescent Moon Crest
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(0, -122 + crouch, 14, 0.2 * Math.PI, 0.8 * Math.PI, true);
+            ctx.stroke();
+            ctx.fillStyle = "#ff007f";
+            ctx.fillRect(-14, -98 + crouch, 11, 6);
+            ctx.fillRect(5, -98 + crouch, 11, 6);
+        } else {
+            // Curved Demon/Bull/Dragon Horns
+            ctx.fillStyle = mainGlow;
+            for (const side of [-1, 1]) {
+                ctx.beginPath();
+                ctx.moveTo(side * 16, -102 + crouch);
+                ctx.quadraticCurveTo(side * 38, -114 + crouch, side * 30, -130 + crouch);
+                ctx.lineTo(side * 8, -106 + crouch);
+                ctx.closePath();
+                ctx.fill();
+            }
+            ctx.fillStyle = isVulnerable ? "#00f2fe" : prof.eye;
+            ctx.fillRect(-14, -98 + crouch, 11, 6);
+            ctx.fillRect(5, -98 + crouch, 11, 6);
+        }
+
+        // E. BOSS-SPECIFIC GIANT SIGNATURE WEAPONS
+        ctx.save();
+        ctx.translate(28, -68 + crouch);
+        ctx.rotate(Math.sin(this.anim * 1.4) * 0.25 + (this.state === 'dash' ? 0.5 : 0));
+        ctx.fillStyle = prof.glow;
+        ctx.strokeStyle = prof.secondary;
+        ctx.lineWidth = 2.5;
+
+        if (this.bossType === 1 || this.bossType === 4 || this.bossType === 11) {
+            // Giant Crystal Warhammer / Magma Maul / Siege Cannon Mace
+            ctx.fillRect(0, -4, 30, 8);
+            ctx.beginPath();
+            ctx.roundRect(24, -22, 22, 44, 5);
+            ctx.fill();
+            ctx.stroke();
+        } else if (this.bossType === 2 || this.bossType === 8) {
+            // Crimson Executioner Scythe / Pharaoh Was-Scepter
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(34, -28);
+            ctx.quadraticCurveTo(50, 0, 18, 30);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        } else if (this.bossType === 7) {
+            // Double-Bit Runic Frost Battleaxe
+            ctx.beginPath();
+            ctx.moveTo(18, 0);
+            ctx.lineTo(38, -26);
+            ctx.lineTo(44, 0);
+            ctx.lineTo(38, 26);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        } else if (this.bossType === 9 || this.bossType === 5) {
+            // Thunderbolt Spear / Quantum Laser Lance
+            ctx.beginPath();
+            ctx.moveTo(-6, -4);
+            ctx.lineTo(62, 0);
+            ctx.lineTo(-6, 4);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        } else {
+            // Emperor Greatsword / Samurai Neon Katana / Cosmic Twin-Blade
+            ctx.beginPath();
+            ctx.moveTo(0, -6);
+            ctx.lineTo(52, -18);
+            ctx.lineTo(62, -10);
+            ctx.lineTo(8, 8);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        }
+        ctx.restore();
+
+        ctx.restore(); // End Boss local transform
+
+        // ==========================================
+        // SHIELD OR VULNERABLE OVERLAYS
+        // ==========================================
+        const drawY = this.y + crouch;
+        if (this.shieldActive) {
+            ctx.save();
+            ctx.strokeStyle = isTelegraph ? "#ffd166" : mainGlow;
+            ctx.globalAlpha = 0.72;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(cx, this.y + this.h / 2, this.w * 0.65, 0, Math.PI * 2);
+            ctx.stroke();
+
+            ctx.fillStyle = mainGlow;
+            for (let i = -2; i <= 2; i++) {
+                ctx.beginPath();
+                ctx.moveTo(cx + i * 14 - 5, drawY + 6);
+                ctx.lineTo(cx + i * 14, drawY - 10);
+                ctx.lineTo(cx + i * 14 + 5, drawY + 6);
+                ctx.fill();
+            }
+            ctx.restore();
+        } else {
+            ctx.save();
+            const pulse = Math.sin(this.anim * 4) * 5;
+            ctx.strokeStyle = "#06d6a0";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(cx, drawY + 6, 22 + pulse, 0, Math.PI * 2);
+            ctx.stroke();
+
+            const pct = Math.max(0, this.timer / this.stateMaxTimer);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.75)";
+            ctx.fillRect(cx - 45, drawY - 38, 90, 8);
+            ctx.fillStyle = "#06d6a0";
+            ctx.fillRect(cx - 45, drawY - 38, 90 * pct, 8);
+
+            ctx.fillStyle = "#06d6a0";
+            ctx.font = "bold 13px 'Segoe UI', sans-serif";
+            ctx.textAlign = "center";
+            const hitTxt = (window.game && window.game.getHitNowText) ? window.game.getHitNowText() : "🎯 ŞİMDİ VUR!";
+            ctx.fillText(hitTxt, cx, drawY - 44);
+            ctx.restore();
+        }
+
+        ctx.restore();
+    }
+}
+
+// Articulated Humanoid Cyber-Knight Player Character (74 Customization Options!)
+class Player {
+    constructor(x, y, upgrades = {}) {
+        this.x = x;
+        this.y = y;
+        this.baseW = 34;
+        this.baseH = 48;
+        this.w = 34;
+        this.h = 48;
+        this.vx = 0;
+        this.vy = 0;
+        this.facing = 1;
+
+        this.maxHp = 3 + (upgrades.extraHearts || 0);
+        this.hp = this.maxHp;
+        this.hasShield = !!upgrades.startShield;
+        this.hasFire = !!upgrades.startFire;
+        this.maxJumps = 2 + (upgrades.extraJumps || 0);
+        this.speedMult = 1.0 + (upgrades.speedBonus || 0);
+        this.airControlBonus = upgrades.airControlBonus || 0;
+        this.jumpMult = 1.0 + (upgrades.jumpBonus || 0);
+        this.hasGlide = Boolean(upgrades.hasGlide);
+        this.invulnBonus = upgrades.invulnBonus || 0;
+        this.fireCooldownMax = Math.max(8, 18 - (upgrades.fireRateBonus || 0));
+        this.hasMagnet = !!upgrades.hasMagnet;
+        this.magnetRadius = 155 + (upgrades.magnetRadiusBonus || 0);
+        this.scoreMult = 1.0 + (upgrades.scoreBonus || 0);
+        this.coinBonusChance = upgrades.coinBonusChance || 0;
+
+        this.skinId = upgrades.skinId || "cyan";
+        this.helmetId = upgrades.helmetId || "crest";
+        this.backGearId = upgrades.backGearId || "katana";
+        this.visorId = upgrades.visorId || "slit";
+        this.auraId = upgrades.auraId || "none";
+        this.capeColor = upgrades.capeColor || "#ff2a85";
+        this.heroCharId = upgrades.heroCharId || "default";
+        this.speedTimer = 0;
+
+        this.onGround = false;
+        this.onWall = 0;
+        this.wallCoyoteTimer = 0;
+        this.lastWallDir = 0;
+        this.inLowGravity = false;
+        this.jumpsLeft = this.maxJumps;
+        this.coyoteTimer = 0;
+        this.jumpBuffer = 0;
+        this.invulnTimer = 0;
+        this.fireCooldown = 0;
+        this.teleportCooldown = 0;
+        this.springBoostTimer = 0;
+
+        this.trail = [];
+        this.animTime = 0;
+    }
+
+    applyPowerUp(type, game) {
+        window.sfx.powerUpCollect();
+        if (type === 'shield') {
+            this.hasShield = true;
+            game.floatingTexts.push(new FloatingText(this.x + 16, this.y - 10, "AETHER KALKANI AKTİF!", "#00f2fe"));
+        } else if (type === 'fire') {
+            this.hasFire = true;
+            if (game && typeof game.syncFireButtonUI === "function") {
+                game.syncFireButtonUI();
+            }
+            game.floatingTexts.push(new FloatingText(this.x + 16, this.y - 10, "PLAZMA KILICI & ATEŞ TOPU! (X / 🔥)", "#ff7b00"));
+        } else if (type === 'speed') {
+            this.speedTimer = 600;
+            game.floatingTexts.push(new FloatingText(this.x + 16, this.y - 10, "NEON HIZLANMA!", "#06d6a0"));
+        }
+    }
+
+    takeDamage(game) {
+        if (this.invulnTimer > 0) return;
+        window.sfx.hurt();
+        game.shakeScreen(10);
+
+        if (this.hasShield) {
+            this.hasShield = false;
+            this.invulnTimer = 75 + (this.invulnBonus || 0);
+            game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 20, "#00f2fe", 4);
+            game.floatingTexts.push(new FloatingText(this.x + 16, this.y - 10, "Kalkan Kırıldı!", "#00f2fe"));
+            return;
+        }
+
+        this.hp--;
+        this.invulnTimer = 75 + (this.invulnBonus || 0);
+        game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 20, "#ff2a85", 4);
+
+        if (this.hp <= 0) {
+            game.handlePlayerDeath();
+        }
+    }
+
+    update(input, solids, movingPlatforms, activeCrumbles, game) {
+        if (Math.abs(this.vx) > 0.3) {
+            this.animTime += 0.28;
+        } else {
+            this.animTime += 0.08;
+        }
+
+        if (this.invulnTimer > 0) this.invulnTimer--;
+        if (this.fireCooldown > 0) this.fireCooldown--;
+        if (this.teleportCooldown > 0) this.teleportCooldown--;
+        if (this.springBoostTimer > 0) this.springBoostTimer--;
+        if (this.speedTimer > 0) this.speedTimer--;
+        if (this.coyoteTimer > 0) this.coyoteTimer--;
+        if (this.wallCoyoteTimer > 0) this.wallCoyoteTimer--;
+        if (this.jumpBuffer > 0) this.jumpBuffer--;
+
+        this.inLowGravity = false;
+        for (const gz of game.gravityZones) {
+            if (this.intersects(gz)) {
+                this.inLowGravity = true;
+                break;
+            }
+        }
+
+        const allSolids = [...solids, ...movingPlatforms, ...activeCrumbles, ...game.mysteryBlocks];
+
+        // Proactive wall proximity sensor (4px left/right) so wall climbing works reliably while holding left/right
+        if (!this.onGround) {
+            for (const s of allSolids) {
+                if (this.y + this.h - 4 > s.y && this.y + 4 < s.y + s.h) {
+                    if (Math.abs((this.x + this.w) - s.x) <= 4) {
+                        this.onWall = 1;
+                        this.lastWallDir = 1;
+                        this.wallCoyoteTimer = 9;
+                        break;
+                    } else if (Math.abs(this.x - (s.x + s.w)) <= 4) {
+                        this.onWall = -1;
+                        this.lastWallDir = -1;
+                        this.wallCoyoteTimer = 9;
+                        break;
+                    }
+                }
+            }
+        }
+
+        const isIce = this.onGround && this.currentSurface === 'ice';
+        const isBoost = this.onGround && this.currentSurface === 'boost';
+        const surfSpeedFactor = isBoost ? 1.48 : (isIce ? 1.18 : 1.0);
+        const maxSpeed = (this.speedTimer > 0 ? 7.0 : 5.2) * this.speedMult * surfSpeedFactor;
+        const airAccelBase = 0.75 + (this.airControlBonus || 0);
+        const accel = (this.onGround ? (isIce ? 0.38 : (isBoost ? 1.35 : 0.95)) : airAccelBase) * this.speedMult;
+        const friction = this.onGround ? (isIce ? 0.965 : 0.78) : 0.86;
+
+        if (input.left) {
+            this.vx = Math.max(this.vx - accel, -maxSpeed);
+            this.facing = -1;
+        } else if (input.right) {
+            this.vx = Math.min(this.vx + accel, maxSpeed);
+            this.facing = 1;
+        } else {
+            this.vx *= friction;
+            if (!isIce && Math.abs(this.vx) < 0.1) this.vx = 0;
+            else if (isIce && Math.abs(this.vx) < 0.03) this.vx = 0;
+        }
+        if (isBoost && (input.left || input.right)) {
+            this.vx = Math.max(-maxSpeed, Math.min(maxSpeed, this.vx + this.facing * 0.35));
+        }
+
+        if (input.jumpPressed) {
+            this.jumpBuffer = 8;
+            input.jumpPressed = false;
+        }
+
+        const jumpForce = (this.inLowGravity ? -12.8 : -14.2) * (this.jumpMult || 1.0);
+        const activeWallDir = this.onWall !== 0 ? this.onWall : (this.wallCoyoteTimer > 0 ? this.lastWallDir : 0);
+
+        if (this.jumpBuffer > 0) {
+            if (this.coyoteTimer > 0) {
+                this.vy = jumpForce;
+                this.onGround = false;
+                this.coyoteTimer = 0;
+                this.jumpsLeft = this.maxJumps - 1;
+                this.jumpBuffer = 0;
+                window.sfx.jump();
+                game.spawnParticles(this.x + this.w / 2, this.y + this.h, 8, "#00f2fe", 3.5);
+            } else if (activeWallDir !== 0 && !this.onGround) {
+                const isClimbingSameWall = (activeWallDir === 1 && input.right) || (activeWallDir === -1 && input.left);
+                this.vy = isClimbingSameWall ? -14.2 : -13.6;
+                this.vx = isClimbingSameWall ? (-activeWallDir * 2.6) : (-activeWallDir * 6.8);
+                this.facing = isClimbingSameWall ? activeWallDir : -activeWallDir;
+                this.jumpsLeft = this.maxJumps - 1;
+                this.onWall = 0;
+                this.wallCoyoteTimer = 0;
+                this.jumpBuffer = 0;
+                window.sfx.wallJump();
+                game.spawnParticles(
+                    activeWallDir === 1 ? this.x + this.w : this.x,
+                    this.y + this.h / 2,
+                    12,
+                    "#b537f2",
+                    4
+                );
+                game.floatingTexts.push(new FloatingText(this.x + this.w / 2, this.y, isClimbingSameWall ? "Duvar Tırmanışı!" : "Duvar Zıplaması!", "#e0aaff"));
+            } else if (this.jumpsLeft > 0) {
+                this.vy = jumpForce * 0.94;
+                this.jumpsLeft--;
+                this.jumpBuffer = 0;
+                window.sfx.doubleJump();
+                game.spawnParticles(this.x + this.w / 2, this.y + this.h, 14, "#ff2a85", 4);
+            }
+        }
+
+        if (!input.jumpHeld && this.vy < -5.0 && (this.springBoostTimer || 0) <= 0) {
+            this.vy *= 0.75;
+        }
+
+        if (input.firePressed) {
+            input.firePressed = false;
+            if (this.hasFire && this.fireCooldown <= 0) {
+                const spawnX = this.facing === 1 ? this.x + this.w + 6 : this.x - 6;
+                game.fireballs.push(new Fireball(spawnX, this.y + this.h * 0.45, this.facing, false));
+                this.fireCooldown = this.fireCooldownMax || 18;
+                window.sfx.fireball();
+            }
+        }
+
+        let grav;
+        const isGlidingNow = Boolean(this.hasGlide && input.jumpHeld && this.vy > 0 && !this.onGround && this.onWall === 0);
+        if (isGlidingNow) {
+            grav = 0.28;
+        } else if (this.inLowGravity) {
+            grav = this.vy < 0 ? 0.42 : 0.58;
+        } else if ((this.springBoostTimer || 0) > 0 && this.vy < 0) {
+            grav = 0.46;
+        } else {
+            grav = this.vy < 0 ? 0.66 : 0.96;
+        }
+        const maxFall = (this.onWall !== 0 && this.vy > 0) ? 2.8 : (isGlidingNow ? 4.2 : (this.inLowGravity ? 8.5 : 13.8));
+        this.vy = Math.min(this.vy + grav, maxFall);
+
+        this.x += this.vx;
+        this.onWall = 0;
+
+        for (const s of allSolids) {
+            if (this.intersects(s)) {
+                if (this.vx > 0) {
+                    this.x = s.x - this.w;
+                    this.onWall = 1;
+                    this.lastWallDir = 1;
+                    this.wallCoyoteTimer = 9;
+                } else if (this.vx < 0) {
+                    this.x = s.x + s.w;
+                    this.onWall = -1;
+                    this.lastWallDir = -1;
+                    this.wallCoyoteTimer = 9;
+                }
+                this.vx = 0;
+            }
+        }
+
+        this.y += this.vy;
+        this.onGround = false;
+        this.currentSurface = 'normal';
+
+        for (const s of allSolids) {
+            if (this.intersects(s)) {
+                if (this.vy > 0) {
+                    this.y = s.y - this.h;
+                    this.vy = 0;
+                    this.onGround = true;
+                    this.currentSurface = s.surfaceType || 'normal';
+                    this.coyoteTimer = 7;
+                    this.jumpsLeft = this.maxJumps;
+                    if (s.currentVx) {
+                        this.x += s.currentVx;
+                    }
+                    if (s.isCrumble && s.state === 'idle') {
+                        s.state = 'shaking';
+                        s.timer = Math.max(14, 34 - game.selectedLevel * 2);
+                        window.sfx.crumble();
+                    }
+                } else if (this.vy < 0) {
+                    this.y = s.y + s.h;
+                    this.vy = 0;
+                    if (s.isMystery) {
+                        game.triggerMysteryBlock(s);
+                    }
+                }
+            }
+        }
+
+        if (Math.abs(this.vx) > 2 || Math.abs(this.vy) > 2 || this.speedTimer > 0 || this.auraId === "rainbow_trail") {
+            this.trail.push({ x: this.x + this.w / 2, y: this.y + this.h / 2 });
+            if (this.trail.length > 6) this.trail.shift();
+        } else if (this.trail.length > 0) {
+            this.trail.shift();
+        }
+    }
+
+    intersects(r) {
+        return (
+            this.x < r.x + r.w &&
+            this.x + this.w > r.x &&
+            this.y < r.y + r.h &&
+            this.y + this.h > r.y
+        );
+    }
+
+    draw(ctx) {
+        ctx.save();
+        const palette = SKIN_PALETTES[this.skinId] || SKIN_PALETTES.cyan;
+        const rainbowHue = (this.animTime * 28) % 360;
+        const rainbowColor = `hsl(${rainbowHue}, 100%, 60%)`;
+        const primary = this.hasFire ? "#ff7b00" : (palette.isRainbow ? rainbowColor : palette.primary);
+
+        // Draw Silhouette Motion Trail
+        for (let i = 0; i < this.trail.length; i++) {
+            const t = this.trail[i];
+            if (this.auraId === "rainbow_trail" || palette.isRainbow) {
+                ctx.fillStyle = `hsla(${(rainbowHue + i * 35) % 360}, 100%, 60%, 0.25)`;
+            } else {
+                ctx.fillStyle = this.speedTimer > 0 ? "rgba(6, 214, 160, 0.18)" : palette.trail;
+            }
+            ctx.beginPath();
+            ctx.arc(t.x, t.y, 14, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        if (this.invulnTimer > 0 && Math.floor(this.invulnTimer / 4) % 2 === 0) {
+            ctx.globalAlpha = 0.45;
+        }
+
+        const cx = this.x + this.w / 2;
+        const bottomY = this.y + this.h;
+
+        // Hexagonal Energy Shield Aura
+        if (this.hasShield) {
+            ctx.save();
+            ctx.strokeStyle = "rgba(0, 242, 254, 0.8)";
+            ctx.fillStyle = "rgba(0, 242, 254, 0.08)";
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.arc(cx, this.y + this.h / 2, 32, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // ==========================================
+        // 0. CUSTOM AURA & AMBIENT EFFECTS (10 Types!)
+        // ==========================================
+        if (this.auraId && this.auraId !== "none") {
+            ctx.save();
+            const midY = this.y + this.h / 2;
+            if (this.auraId === "fire_aura") {
+                ctx.fillStyle = "rgba(255, 109, 0, 0.55)";
+                for (let i = 0; i < 4; i++) {
+                    const ox = Math.sin(this.animTime * 1.3 + i * 1.7) * 16;
+                    const oy = ((this.animTime * 8 + i * 12) % 44) - 22;
+                    ctx.beginPath();
+                    ctx.arc(cx + ox, midY - oy, 5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            } else if (this.auraId === "lightning") {
+                ctx.strokeStyle = "#00f2fe";
+                ctx.lineWidth = 2;
+                for (let i = 0; i < 2; i++) {
+                    const angle = this.animTime * 2 + i * Math.PI;
+                    const lx = cx + Math.cos(angle) * 18;
+                    const ly = midY + Math.sin(angle) * 18;
+                    ctx.beginPath();
+                    ctx.moveTo(lx - 5, ly - 8);
+                    ctx.lineTo(lx + 4, ly);
+                    ctx.lineTo(lx - 3, ly + 4);
+                    ctx.lineTo(lx + 5, ly + 10);
+                    ctx.stroke();
+                }
+            } else if (this.auraId === "stars") {
+                ctx.fillStyle = "#ffd166";
+                for (let i = 0; i < 3; i++) {
+                    const a = this.animTime * 0.7 + (i * Math.PI * 2) / 3;
+                    ctx.beginPath();
+                    ctx.arc(cx + Math.cos(a) * 24, midY + Math.sin(a) * 18, 3.5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            } else if (this.auraId === "dark_mist") {
+                ctx.fillStyle = "rgba(123, 44, 191, 0.42)";
+                for (let i = 0; i < 3; i++) {
+                    const ox = Math.cos(this.animTime + i * 2) * 15;
+                    const oy = Math.sin(this.animTime * 0.8 + i) * 15;
+                    ctx.beginPath();
+                    ctx.arc(cx + ox, midY + oy, 9, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            } else if (this.auraId === "soul_orbs") {
+                for (let i = 0; i < 3; i++) {
+                    const a = this.animTime * 0.9 + (i * Math.PI * 2) / 3;
+                    const ox = cx + Math.cos(a) * 26;
+                    const oy = midY + Math.sin(a * 2) * 10;
+                    ctx.fillStyle = i % 2 === 0 ? "#06d6a0" : "#00f2fe";
+                    ctx.beginPath();
+                    ctx.arc(ox, oy, 4.5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            } else if (this.auraId === "emerald_rain") {
+                ctx.fillStyle = "#06d6a0";
+                for (let i = 0; i < 3; i++) {
+                    const ox = (i - 1) * 14;
+                    const oy = ((this.animTime * 6 + i * 15) % 42) - 20;
+                    ctx.fillRect(cx + ox - 2, midY - oy, 4, 6);
+                }
+            } else if (this.auraId === "sakura_petals") {
+                ctx.fillStyle = "#ff85a1";
+                for (let i = 0; i < 4; i++) {
+                    const a = this.animTime * 0.6 + i * 1.5;
+                    ctx.beginPath();
+                    ctx.ellipse(cx + Math.cos(a) * 22, midY + Math.sin(a) * 20, 4, 2, a, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            } else if (this.auraId === "cyber_rings") {
+                ctx.strokeStyle = primary;
+                ctx.lineWidth = 1.8;
+                const rOff = (this.animTime * 5) % 28;
+                ctx.beginPath();
+                ctx.ellipse(cx, bottomY - 8 - rOff, 20, 5, 0, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        ctx.translate(cx, bottomY);
+        ctx.scale(this.facing, 1);
+
+        const isMoving = Math.abs(this.vx) > 0.4;
+        const runSwing = isMoving ? Math.sin(this.animTime) * 10 : 0;
+        const airTuck = !this.onGround ? -5 : 0;
+        const bodyBob = isMoving && this.onGround ? Math.abs(Math.cos(this.animTime)) * -3 : 0;
+
+        const chosenCape = this.capeColor === "rainbow"
+            ? `hsl(${(rainbowHue + 90) % 360}, 100%, 60%)`
+            : (this.capeColor || palette.scarf);
+        const scarfColor = this.hasFire ? "#ff5400" : (this.speedTimer > 0 ? "#06d6a0" : chosenCape);
+        const eyeColor = palette.isRainbow ? rainbowColor : palette.eye;
+
+        if (this.heroCharId && this.heroCharId !== "default") {
+            // 1. Custom Cape & Custom Back Weapons/Wings rendered behind the active Hero Character!
+            if ((this.capeColor && this.capeColor !== "#ff2a85") || this.forceCustOverlay) {
+                this.drawCustomCapeLayer(ctx, bodyBob, scarfColor);
+            }
+            if ((this.backGearId && this.backGearId !== "katana") || this.forceCustOverlay) {
+                this.drawCustomBackGearLayer(ctx, bodyBob, primary, scarfColor);
+            }
+
+            // 2. Base Hero Character (Historical / Modern Outfit & Face)
+            this.drawHeroCharacter(ctx, bodyBob, runSwing, airTuck);
+
+            // 3. Custom Armor Palette Trim & Chest Core Glow on Hero Character
+            if ((this.skinId && this.skinId !== "cyan") || this.forceCustOverlay) {
+                ctx.save();
+                ctx.strokeStyle = primary;
+                ctx.fillStyle = primary;
+                ctx.shadowColor = primary;
+                ctx.shadowBlur = 8;
+                ctx.lineWidth = 1.8;
+                ctx.strokeRect(-8.5, -34 + bodyBob, 17, 17);
+                ctx.beginPath();
+                ctx.arc(1.5, -26.5 + bodyBob, 3.2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // 4. Custom Helmet / Crown / Horns / Halo on Hero Character
+            if (this.helmetId && this.helmetId !== "crest") {
+                this.drawCustomHelmetLayer(ctx, bodyBob - 5, primary, palette);
+            }
+
+            // 5. Custom Visor / Eye Effects on Hero Character
+            if (this.visorId && this.visorId !== "slit") {
+                this.drawCustomVisorLayer(ctx, bodyBob - 4.5, eyeColor);
+            }
+
+            ctx.restore();
+            return;
+        }
+
+        // 1. Flowing Multi-Segment Ninja Scarf / Cape
+        this.drawCustomCapeLayer(ctx, bodyBob, scarfColor);
+
+        // 2. Custom Back Weapons & Wings (12 Types!)
+        this.drawCustomBackGearLayer(ctx, bodyBob, primary, scarfColor);
+
+        // 3. Articulated Back Leg & Armored Boot
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.strokeStyle = palette.armorDark;
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        ctx.moveTo(-2, -18 + bodyBob);
+        ctx.lineTo(-4 - runSwing * 0.7, -9 + airTuck);
+        ctx.lineTo(-6 - runSwing, -2 + airTuck * 0.5);
+        ctx.stroke();
+
+        // 4. Articulated Front Leg & Neon Greave
+        ctx.strokeStyle = palette.armorLight;
+        ctx.lineWidth = 6.5;
+        ctx.beginPath();
+        ctx.moveTo(2, -18 + bodyBob);
+        ctx.lineTo(4 + runSwing * 0.7, -9 + airTuck);
+        ctx.lineTo(6 + runSwing, -2 + airTuck * 0.5);
+        ctx.stroke();
+
+        // Glowing Boot Trim
+        ctx.strokeStyle = primary;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(4 + runSwing, -2 + airTuck * 0.5);
+        ctx.lineTo(9 + runSwing, -2 + airTuck * 0.5);
+        ctx.stroke();
+
+        // 5. Armored Cyber-Knight Torso & Chestplate
+        const torsoGrad = ctx.createLinearGradient(-10, -36 + bodyBob, 10, -16 + bodyBob);
+        torsoGrad.addColorStop(0, palette.armorLight);
+        torsoGrad.addColorStop(1, palette.armorDark);
+        ctx.fillStyle = torsoGrad;
+        ctx.strokeStyle = primary;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(-8, -17 + bodyBob);
+        ctx.lineTo(-11, -34 + bodyBob);
+        ctx.lineTo(11, -34 + bodyBob);
+        ctx.lineTo(8, -17 + bodyBob);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        // Glowing Chest Core V-Emblem
+        ctx.fillStyle = primary;
+        ctx.beginPath();
+        ctx.arc(2, -26 + bodyBob, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 6. Sculpted Knight Helmet Base
+        ctx.fillStyle = palette.armorDark;
+        ctx.strokeStyle = primary;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(0, -40 + bodyBob, 10, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // 7. Custom Helmets & Headgear (12 Types!)
+        this.drawCustomHelmetLayer(ctx, bodyBob, primary, palette);
+
+        // 8. Custom Visors & Eyes (10 Types!)
+        this.drawCustomVisorLayer(ctx, bodyBob, eyeColor);
+
+        // 9. Articulated Front Arm & Plasma Gauntlet
+        ctx.strokeStyle = palette.armorLight;
+        ctx.lineWidth = 5.5;
+        ctx.beginPath();
+        ctx.moveTo(2, -31 + bodyBob);
+        ctx.lineTo(6 - runSwing * 0.8, -21 + bodyBob);
+        ctx.stroke();
+
+        ctx.fillStyle = this.hasFire ? "#ff7b00" : primary;
+        ctx.beginPath();
+        ctx.arc(7 - runSwing * 0.8, -20 + bodyBob, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+    }
+
+    drawCustomCapeLayer(ctx, bodyBob, scarfColor) {
+        ctx.save();
+        ctx.fillStyle = scarfColor;
+        const wave1 = Math.sin(this.animTime * 0.9) * 5;
+        const wave2 = Math.cos(this.animTime * 0.9) * 7;
+        ctx.beginPath();
+        ctx.moveTo(-6, -34 + bodyBob);
+        ctx.quadraticCurveTo(-20, -32 + wave1, -28, -22 + wave2);
+        ctx.quadraticCurveTo(-18, -16 + wave2, -5, -24 + bodyBob);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+    }
+
+    drawCustomBackGearLayer(ctx, bodyBob, primary, scarfColor) {
+        ctx.save();
+        ctx.strokeStyle = primary;
+        ctx.fillStyle = primary;
+
+        if (this.backGearId === "dual_blades") {
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(-14, -44 + bodyBob);
+            ctx.lineTo(10, -14 + bodyBob);
+            ctx.moveTo(-14, -14 + bodyBob);
+            ctx.lineTo(10, -44 + bodyBob);
+            ctx.stroke();
+        } else if (this.backGearId === "axe") {
+            ctx.lineWidth = 3.5;
+            ctx.beginPath();
+            ctx.moveTo(-12, -45 + bodyBob);
+            ctx.lineTo(8, -15 + bodyBob);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(-10, -41 + bodyBob, 9, 0.5, Math.PI * 1.4);
+            ctx.fill();
+        } else if (this.backGearId === "wings") {
+            const flap = Math.sin(this.animTime * 0.8) * 6;
+            ctx.fillStyle = scarfColor;
+            ctx.strokeStyle = primary;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(-4, -30 + bodyBob);
+            ctx.lineTo(-28, -48 + flap + bodyBob);
+            ctx.lineTo(-22, -24 + flap * 0.5 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        } else if (this.backGearId === "dragon_wings") {
+            const flap = Math.sin(this.animTime * 0.8) * 7;
+            ctx.fillStyle = "#3c096c";
+            ctx.strokeStyle = "#ff2a85";
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.moveTo(-4, -32 + bodyBob);
+            ctx.lineTo(-32, -54 + flap + bodyBob);
+            ctx.lineTo(-26, -36 + flap + bodyBob);
+            ctx.lineTo(-30, -24 + flap + bodyBob);
+            ctx.lineTo(-14, -22 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        } else if (this.backGearId === "angel_wings") {
+            const flap = Math.sin(this.animTime * 0.7) * 6;
+            ctx.fillStyle = "#ffffff";
+            ctx.strokeStyle = "#ffd166";
+            ctx.shadowColor = "#ffd166";
+            ctx.lineWidth = 2;
+            for (let i = 0; i < 3; i++) {
+                ctx.beginPath();
+                ctx.ellipse(-18 - i * 3, -38 + i * 6 + flap + bodyBob, 12 - i * 2, 4, -0.35, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+            }
+        } else if (this.backGearId === "scythe") {
+            ctx.strokeStyle = "#adb5bd";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(-12, -52 + bodyBob);
+            ctx.lineTo(10, -10 + bodyBob);
+            ctx.stroke();
+            ctx.fillStyle = "#ff2a85";
+            ctx.shadowColor = "#ff2a85";
+            ctx.beginPath();
+            ctx.moveTo(-12, -52 + bodyBob);
+            ctx.quadraticCurveTo(-34, -56 + bodyBob, -28, -36 + bodyBob);
+            ctx.quadraticCurveTo(-20, -45 + bodyBob, -10, -47 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+        } else if (this.backGearId === "greatsword") {
+            ctx.fillStyle = "#2b2d42";
+            ctx.strokeStyle = primary;
+            ctx.lineWidth = 2.2;
+            ctx.save();
+            ctx.translate(-4, -28 + bodyBob);
+            ctx.rotate(-0.65);
+            ctx.fillRect(-5, -22, 10, 38);
+            ctx.strokeRect(-5, -22, 10, 38);
+            ctx.restore();
+        } else if (this.backGearId === "jetpack") {
+            ctx.fillStyle = "#2b2d42";
+            ctx.strokeStyle = primary;
+            ctx.lineWidth = 2;
+            ctx.fillRect(-15, -36 + bodyBob, 8, 18);
+            ctx.strokeRect(-15, -36 + bodyBob, 8, 18);
+            ctx.fillStyle = "#ff6d00";
+            ctx.shadowColor = "#ff6d00";
+            ctx.beginPath();
+            ctx.moveTo(-14, -18 + bodyBob);
+            ctx.lineTo(-11, -6 + Math.sin(this.animTime * 3) * 4 + bodyBob);
+            ctx.lineTo(-8, -18 + bodyBob);
+            ctx.fill();
+        } else if (this.backGearId === "spider_legs") {
+            ctx.strokeStyle = primary;
+            ctx.lineWidth = 2.5;
+            const wv = Math.sin(this.animTime) * 4;
+            for (let side of [-1, 1]) {
+                ctx.beginPath();
+                ctx.moveTo(-6, -28 + bodyBob);
+                ctx.lineTo(-22, -38 + side * 8 + wv + bodyBob);
+                ctx.lineTo(-30, -20 + side * 12 + bodyBob);
+                ctx.stroke();
+            }
+        } else if (this.backGearId === "bow") {
+            ctx.strokeStyle = "#06d6a0";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(-8, -28 + bodyBob, 16, 1.8, 4.6);
+            ctx.stroke();
+        } else if (this.backGearId === "shuriken") {
+            ctx.save();
+            ctx.translate(-8, -30 + bodyBob);
+            ctx.rotate(this.animTime * 0.5);
+            ctx.fillStyle = primary;
+            for (let i = 0; i < 4; i++) {
+                ctx.rotate(Math.PI / 2);
+                ctx.beginPath();
+                ctx.moveTo(0, -3);
+                ctx.lineTo(16, 0);
+                ctx.lineTo(0, 3);
+                ctx.fill();
+            }
+            ctx.restore();
+        } else {
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(-12, -42 + bodyBob);
+            ctx.lineTo(10, -16 + bodyBob);
+            ctx.stroke();
+        }
+        ctx.restore();
+    }
+
+    drawCustomHelmetLayer(ctx, bodyBob, primary, palette) {
+        ctx.save();
+        if (this.helmetId === "horns") {
+            ctx.fillStyle = "#ff2a85";
+            ctx.beginPath();
+            ctx.moveTo(-4, -48 + bodyBob);
+            ctx.quadraticCurveTo(-14, -56 + bodyBob, -8, -61 + bodyBob);
+            ctx.lineTo(1, -49 + bodyBob);
+            ctx.moveTo(3, -48 + bodyBob);
+            ctx.quadraticCurveTo(12, -55 + bodyBob, 10, -60 + bodyBob);
+            ctx.lineTo(6, -47 + bodyBob);
+            ctx.fill();
+        } else if (this.helmetId === "crown") {
+            ctx.fillStyle = "#ffd166";
+            ctx.beginPath();
+            ctx.moveTo(-8, -48 + bodyBob);
+            ctx.lineTo(-9, -57 + bodyBob);
+            ctx.lineTo(-3, -52 + bodyBob);
+            ctx.lineTo(0, -59 + bodyBob);
+            ctx.lineTo(3, -52 + bodyBob);
+            ctx.lineTo(9, -57 + bodyBob);
+            ctx.lineTo(8, -48 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+        } else if (this.helmetId === "halo") {
+            ctx.strokeStyle = "#06d6a0";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.ellipse(0, -55 + bodyBob + Math.sin(this.animTime * 0.5) * 2, 11, 3.5, 0, 0, Math.PI * 2);
+            ctx.stroke();
+        } else if (this.helmetId === "viking") {
+            ctx.fillStyle = "#e0fbfc";
+            ctx.strokeStyle = primary;
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(-6, -44 + bodyBob);
+            ctx.quadraticCurveTo(-20, -48 + bodyBob, -16, -60 + bodyBob);
+            ctx.lineTo(-3, -48 + bodyBob);
+            ctx.moveTo(5, -44 + bodyBob);
+            ctx.quadraticCurveTo(18, -48 + bodyBob, 15, -60 + bodyBob);
+            ctx.lineTo(2, -48 + bodyBob);
+            ctx.fill();
+            ctx.stroke();
+        } else if (this.helmetId === "wolf") {
+            ctx.fillStyle = palette.armorLight;
+            ctx.strokeStyle = primary;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(-7, -47 + bodyBob);
+            ctx.lineTo(-9, -59 + bodyBob);
+            ctx.lineTo(-1, -49 + bodyBob);
+            ctx.moveTo(1, -49 + bodyBob);
+            ctx.lineTo(7, -59 + bodyBob);
+            ctx.lineTo(8, -46 + bodyBob);
+            ctx.fill();
+            ctx.stroke();
+        } else if (this.helmetId === "ronin") {
+            ctx.fillStyle = "#1b1f3b";
+            ctx.strokeStyle = primary;
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(-22, -45 + bodyBob);
+            ctx.lineTo(0, -56 + bodyBob);
+            ctx.lineTo(22, -45 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        } else if (this.helmetId === "spartan") {
+            ctx.fillStyle = "#ef233c";
+            ctx.beginPath();
+            ctx.arc(0, -46 + bodyBob, 14, Math.PI * 1.1, Math.PI * 1.95);
+            ctx.lineTo(0, -48 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+        } else if (this.helmetId === "wizard") {
+            ctx.fillStyle = "#3c096c";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(-16, -46 + bodyBob);
+            ctx.lineTo(16, -46 + bodyBob);
+            ctx.lineTo(2, -49 + bodyBob);
+            ctx.lineTo(-6, -65 + bodyBob);
+            ctx.lineTo(-8, -49 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        } else if (this.helmetId === "antennas") {
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(2, -47 + bodyBob);
+            ctx.lineTo(-12, -60 + bodyBob);
+            ctx.moveTo(2, -47 + bodyBob);
+            ctx.lineTo(14, -59 + bodyBob);
+            ctx.stroke();
+        } else if (this.helmetId === "skull") {
+            ctx.fillStyle = "#f8f9fa";
+            ctx.beginPath();
+            ctx.arc(1, -40 + bodyBob, 8.5, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (this.helmetId === "flames") {
+            ctx.fillStyle = "#ff6d00";
+            const flick = Math.sin(this.animTime * 2) * 3;
+            ctx.beginPath();
+            ctx.moveTo(-8, -47 + bodyBob);
+            ctx.lineTo(-10, -60 + flick + bodyBob);
+            ctx.lineTo(-3, -53 + bodyBob);
+            ctx.lineTo(1, -64 - flick + bodyBob);
+            ctx.lineTo(5, -53 + bodyBob);
+            ctx.lineTo(10, -59 + flick + bodyBob);
+            ctx.lineTo(8, -47 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+        } else {
+            ctx.fillStyle = primary;
+            ctx.beginPath();
+            ctx.moveTo(-4, -49 + bodyBob);
+            ctx.lineTo(-13, -53 + bodyBob);
+            ctx.lineTo(-8, -44 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+        }
+        ctx.restore();
+    }
+
+    drawCustomVisorLayer(ctx, bodyBob, eyeColor) {
+        ctx.save();
+        ctx.fillStyle = eyeColor;
+        ctx.strokeStyle = eyeColor;
+
+        if (this.visorId === "cyclops") {
+            ctx.fillStyle = "#ff2a85";
+            ctx.shadowColor = "#ff2a85";
+            ctx.beginPath();
+            ctx.arc(6, -40 + bodyBob, 3.8, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (this.visorId === "dual_eyes") {
+            ctx.fillRect(1, -42 + bodyBob, 3.5, 4);
+            ctx.fillRect(6, -42 + bodyBob, 3.5, 4);
+        } else if (this.visorId === "x_visor") {
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.moveTo(2, -43 + bodyBob);
+            ctx.lineTo(9, -36 + bodyBob);
+            ctx.moveTo(9, -43 + bodyBob);
+            ctx.lineTo(2, -36 + bodyBob);
+            ctx.stroke();
+        } else if (this.visorId === "sharingan") {
+            ctx.fillStyle = "#ef233c";
+            ctx.shadowColor = "#ef233c";
+            ctx.beginPath();
+            ctx.arc(5, -40 + bodyBob, 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#000";
+            ctx.beginPath();
+            ctx.arc(5, -40 + bodyBob, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (this.visorId === "shades") {
+            ctx.fillStyle = "#00f2fe";
+            ctx.beginPath();
+            ctx.moveTo(0, -43 + bodyBob);
+            ctx.lineTo(12, -42 + bodyBob);
+            ctx.lineTo(6, -36 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+        } else if (this.visorId === "flame_eyes") {
+            ctx.fillStyle = "#ffd166";
+            ctx.shadowColor = "#ff6d00";
+            ctx.beginPath();
+            ctx.arc(5, -40 + bodyBob, 3.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = "#ff6d00";
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(5, -41 + bodyBob);
+            ctx.lineTo(-6, -46 + bodyBob);
+            ctx.stroke();
+        } else if (this.visorId === "heart_visor") {
+            ctx.fillStyle = "#ff2a85";
+            ctx.font = "10px sans-serif";
+            ctx.fillText("♥", 1, -36 + bodyBob);
+        } else if (this.visorId === "robo_grid") {
+            ctx.fillStyle = "#06d6a0";
+            ctx.fillRect(1, -43 + bodyBob, 9, 2);
+            ctx.fillRect(1, -39 + bodyBob, 9, 2);
+        } else if (this.visorId === "void_gaze") {
+            ctx.fillStyle = "#ffffff";
+            ctx.shadowColor = "#ffffff";
+            ctx.beginPath();
+            ctx.arc(4, -40 + bodyBob, 5, 0, Math.PI * 2);
+            ctx.fill();
+        } else {
+            ctx.beginPath();
+            ctx.moveTo(2, -42 + bodyBob);
+            ctx.lineTo(10, -40 + bodyBob);
+            ctx.lineTo(9, -37 + bodyBob);
+            ctx.lineTo(2, -38 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+        }
+        ctx.restore();
+    }
+
+    drawHeroCharacter(ctx, bodyBob, runSwing, airTuck) {
+        const id = this.heroCharId;
+        const wave1 = Math.sin(this.animTime * 0.9) * 4;
+        const wave2 = Math.cos(this.animTime * 0.9) * 6;
+
+        // =====================================================
+        // 1. CAPE / MANTLE / BACK GEAR (Behind Character Body)
+        // =====================================================
+        if (id === "soldier_1950") {
+            // 1950s Canvas Field Pack (Sırt Çantası) & M1 Garand Wooden Rifle on Back
+            ctx.fillStyle = "#6b6343";
+            ctx.strokeStyle = "#3d3722";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.roundRect(-14, -33 + bodyBob, 9, 14, 2);
+            ctx.fill();
+            ctx.stroke();
+            // Rolled blanket on top of pack
+            ctx.fillStyle = "#4f5830";
+            ctx.beginPath();
+            ctx.roundRect(-15, -36 + bodyBob, 10, 4, 2);
+            ctx.fill();
+            // Wooden M1 Garand Rifle barrel & stock sticking out behind
+            ctx.save();
+            ctx.strokeStyle = "#6f4518";
+            ctx.lineWidth = 3.2;
+            ctx.beginPath();
+            ctx.moveTo(-12, -16 + bodyBob);
+            ctx.lineTo(-4, -44 + bodyBob);
+            ctx.stroke();
+            ctx.strokeStyle = "#2b2d42";
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.moveTo(-4, -44 + bodyBob);
+            ctx.lineTo(-1, -52 + bodyBob);
+            ctx.stroke();
+            ctx.restore();
+        } else if (id === "soldier_modern") {
+            // Modern Tactical Assault Pack + Radio Antenna + Suppressed M4 Carbine
+            ctx.fillStyle = "#5c604d";
+            ctx.strokeStyle = "#2b2f24";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.roundRect(-15, -34 + bodyBob, 10, 15, 2.5);
+            ctx.fill();
+            ctx.stroke();
+            // Long Whip Radio Antenna
+            ctx.strokeStyle = "#1f2421";
+            ctx.lineWidth = 1.4;
+            ctx.beginPath();
+            ctx.moveTo(-11, -34 + bodyBob);
+            ctx.lineTo(-15, -52 + bodyBob);
+            ctx.stroke();
+            // Suppressed Carbine Barrel
+            ctx.strokeStyle = "#1a1d24";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(-12, -15 + bodyBob);
+            ctx.lineTo(-17, -45 + bodyBob);
+            ctx.stroke();
+        } else if (id === "ottoman_pasha") {
+            // Ceremonial Crimson & Gold-Trimmed Pasha Cloak + Curved Ottoman Kilij Scabbard
+            ctx.fillStyle = "#7a0c24";
+            ctx.beginPath();
+            ctx.moveTo(-6, -34 + bodyBob);
+            ctx.quadraticCurveTo(-21, -28 + wave1, -25, -8 + wave2);
+            ctx.lineTo(-10, -8 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.6;
+            ctx.stroke();
+
+            // Curved Gold & Velvet Ottoman Scimitar (Kılıç) at hip/back
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2.8;
+            ctx.beginPath();
+            ctx.moveTo(-4, -18 + bodyBob);
+            ctx.quadraticCurveTo(-18, -14 + bodyBob, -24, -23 + bodyBob);
+            ctx.stroke();
+        } else if (id === "royal_king") {
+            // Majestic Royal Velvet Mantle with White Spotted Ermine Fur Trim
+            ctx.fillStyle = "#9b002c";
+            ctx.beginPath();
+            ctx.moveTo(-6, -35 + bodyBob);
+            ctx.quadraticCurveTo(-24, -27 + wave1, -29, -5 + wave2);
+            ctx.lineTo(-8, -5 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Ermine White Fur edge with black tail dots
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.roundRect(-12, -36 + bodyBob, 18, 5, 2.5);
+            ctx.fill();
+            ctx.fillStyle = "#111111";
+            ctx.fillRect(-9, -34 + bodyBob, 1.5, 2);
+            ctx.fillRect(-3, -34 + bodyBob, 1.5, 2);
+            ctx.fillRect(3, -34 + bodyBob, 1.5, 2);
+        } else if (id === "yavuz_sultan_selim" || id === "fatih_sultan_mehmet") {
+            // Imperial Flowing Kaftan Back Drape (Altın İşlemeli Kırmızı Hünkar Kaftanı)
+            ctx.fillStyle = id === "fatih_sultan_mehmet" ? "#7b0d1e" : "#800a1d";
+            ctx.beginPath();
+            ctx.moveTo(-7, -35 + bodyBob);
+            ctx.quadraticCurveTo(-22, -26 + wave1, -24, -6 + wave2);
+            ctx.lineTo(-7, -6 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+
+            // Imperial Ottoman Shamshir / Yatağan Sword Hilt & Curved Scabbard
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(-3, -18 + bodyBob);
+            ctx.quadraticCurveTo(-18, -13 + bodyBob, -25, -22 + bodyBob);
+            ctx.stroke();
+        } else if (id === "janissary_aga") {
+            // Janissary Felt Börk Hanging Tail (Yatırma) & Crimson Cloak
+            ctx.fillStyle = "#f8f9fa";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            ctx.moveTo(-4, -56 + bodyBob);
+            ctx.quadraticCurveTo(-18, -46 + wave1 * 0.5, -15, -31 + wave2 * 0.5);
+            ctx.lineTo(-7, -33 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        } else if (id === "mete_han") {
+            // Steppe Wolf-Fur Mantle + Quiver of Feathered Arrows
+            ctx.fillStyle = "#5c5346";
+            ctx.beginPath();
+            ctx.moveTo(-6, -35 + bodyBob);
+            ctx.quadraticCurveTo(-21, -27 + wave1, -23, -10 + wave2);
+            ctx.lineTo(-8, -10 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            // Quiver on back
+            ctx.fillStyle = "#6f4518";
+            ctx.fillRect(-13, -36 + bodyBob, 5, 15);
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(-12, -36 + bodyBob);
+            ctx.lineTo(-15, -44 + bodyBob);
+            ctx.moveTo(-10, -36 + bodyBob);
+            ctx.lineTo(-11, -45 + bodyBob);
+            ctx.stroke();
+        } else if (id === "cyber_shogun") {
+            // Cyber Sashimono War Banner & Glowing Twin Katana Scabbards
+            ctx.strokeStyle = "#ff0055";
+            ctx.lineWidth = 2.6;
+            ctx.beginPath();
+            ctx.moveTo(-4, -22 + bodyBob);
+            ctx.lineTo(-22, -36 + bodyBob);
+            ctx.moveTo(-4, -18 + bodyBob);
+            ctx.lineTo(-20, -28 + bodyBob);
+            ctx.stroke();
+        } else if (id === "cosmic_astronaut") {
+            // NASA EVA Life-Support Backpack + Dual Thruster Nozzles
+            ctx.fillStyle = "#e9ecef";
+            ctx.strokeStyle = "#00f2fe";
+            ctx.lineWidth = 1.4;
+            ctx.beginPath();
+            ctx.roundRect(-15, -36 + bodyBob, 10, 17, 3);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#00f2fe";
+            ctx.fillRect(-13, -33 + bodyBob, 6, 4);
+        } else if (id === "ice_valkyrie") {
+            // Shimmering Frost-Crystal Winged Cape
+            ctx.fillStyle = "rgba(0, 242, 254, 0.55)";
+            ctx.strokeStyle = "#caf0f8";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(-6, -34 + bodyBob);
+            ctx.quadraticCurveTo(-24, -30 + wave1, -27, -7 + wave2);
+            ctx.lineTo(-9, -8 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        } else if (id === "golden_pharaoh") {
+            // Royal Sun-God Gold & Lapis Lazuli Cape
+            ctx.fillStyle = "#1d3557";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.moveTo(-6, -34 + bodyBob);
+            ctx.quadraticCurveTo(-21, -26 + wave1, -24, -7 + wave2);
+            ctx.lineTo(-8, -7 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        } else if (id === "spartan_gladiator") {
+            // Iconic Spartan Crimson War Cloak + Round Bronze Aspis Shield on Back
+            ctx.fillStyle = "#b5171e";
+            ctx.beginPath();
+            ctx.moveTo(-6, -35 + bodyBob);
+            ctx.quadraticCurveTo(-23, -27 + wave1, -26, -6 + wave2);
+            ctx.lineTo(-8, -6 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.fillStyle = "#d4af37";
+            ctx.strokeStyle = "#7f5539";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(-9, -25 + bodyBob, 9, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        // =====================================================
+        // 2. LEGS, TROUSERS & BOOTS (Animated with Run Cycle)
+        // =====================================================
+        let pantsColor = "#4b5320";
+        let bootColor = "#3d2616";
+        let bootTrim = null;
+
+        if (id === "soldier_1950") {
+            pantsColor = "#4b5320"; // 1950 Olive Drab wool trousers
+            bootColor = "#4a2c18";  // Brown leather combat boots + canvas gaiters
+            bootTrim = "#8c7d5b";
+        } else if (id === "soldier_modern") {
+            pantsColor = "#5e6451"; // MultiCam tactical pants
+            bootColor = "#222426";  // Black/coyote tactical boots
+            bootTrim = "#3d4035";   // Tactical knee pads
+        } else if (id === "rich_tycoon") {
+            pantsColor = "#111520"; // Tailored black tuxedo trousers
+            bootColor = "#0a0b0e";  // Polished patent-leather Oxford shoes
+            bootTrim = "#ffd166";   // Gold shoe buckle
+        } else if (id === "ottoman_pasha") {
+            pantsColor = "#162447"; // Imperial dark navy trousers with gold side stripe
+            bootColor = "#121317";  // Tall black cavalry Pasha boots
+            bootTrim = "#ffd166";
+        } else if (id === "royal_king") {
+            pantsColor = "#2b0938"; // Royal purple hose
+            bootColor = "#d4af37";  // Golden royal sabatons / boots
+            bootTrim = "#ff2a85";
+        } else if (id === "yavuz_sultan_selim" || id === "fatih_sultan_mehmet") {
+            pantsColor = "#6b0918"; // Imperial crimson shalwar/kaftan lower
+            bootColor = "#b58900";  // Ottoman Moroccan yellow/gold leather boots (Sarı Çedik Papuç)
+            bootTrim = "#ffd166";
+        } else if (id === "janissary_aga") {
+            pantsColor = "#1d3557"; // Janissary navy Potur trousers
+            bootColor = "#9b002c";  // Red leather Janissary boots
+            bootTrim = "#ffd166";
+        } else if (id === "mete_han") {
+            pantsColor = "#4a3b2c"; // Steppe leather riding trousers
+            bootColor = "#2b1d12";  // Fur-trimmed steppe cavalry boots
+            bootTrim = "#8c7a5b";
+        } else if (id === "cyber_shogun") {
+            pantsColor = "#111520"; // Armored black hakama
+            bootColor = "#e63946";  // Neon crimson samurai greaves (Suneate)
+            bootTrim = "#00f2fe";
+        } else if (id === "cosmic_astronaut") {
+            pantsColor = "#f8f9fa"; // White EVA space suit legs
+            bootColor = "#adb5bd";  // Magnetic moon boots
+            bootTrim = "#00f2fe";
+        } else if (id === "ice_valkyrie") {
+            pantsColor = "#1b4965"; // Frost-steel leggings
+            bootColor = "#caf0f8";  // Silver-ice winged greaves
+            bootTrim = "#00f2fe";
+        } else if (id === "golden_pharaoh") {
+            pantsColor = "#f8f9fa"; // Royal white pleated Egyptian Shendyt kilt
+            bootColor = "#ffd166";  // Golden royal sandals
+            bootTrim = "#00f2fe";
+        } else if (id === "spartan_gladiator") {
+            pantsColor = "#7f5539"; // Leather pteruges war skirt
+            bootColor = "#b58900";  // Bronze Spartan greaves
+            bootTrim = "#9b002c";
+        }
+
+        // Back Leg
+        ctx.strokeStyle = pantsColor;
+        ctx.lineWidth = 6.5;
+        ctx.beginPath();
+        ctx.moveTo(-3, -17 + bodyBob);
+        ctx.lineTo(-4 - runSwing * 0.75, -6 + airTuck * 0.4);
+        ctx.stroke();
+        ctx.fillStyle = bootColor;
+        ctx.beginPath();
+        ctx.roundRect(-8 - runSwing * 0.75, -6 + airTuck * 0.4, 9, 6, 2);
+        ctx.fill();
+
+        // Front Leg
+        ctx.strokeStyle = pantsColor;
+        ctx.lineWidth = 6.8;
+        ctx.beginPath();
+        ctx.moveTo(3, -17 + bodyBob);
+        ctx.lineTo(4 + runSwing * 0.75, -6 - airTuck * 0.4);
+        ctx.stroke();
+        if (bootTrim) {
+            ctx.fillStyle = bootTrim;
+            ctx.fillRect(1 + runSwing * 0.5, -12 - airTuck * 0.2, 5, 3);
+        }
+        ctx.fillStyle = bootColor;
+        ctx.beginPath();
+        ctx.roundRect(0 + runSwing * 0.75, -6 - airTuck * 0.4, 10, 6, 2);
+        ctx.fill();
+
+        // =====================================================
+        // 3. TORSO / UNIFORM / SUIT / KAFTAN (Realistic Detail)
+        // =====================================================
+        if (id === "soldier_1950") {
+            // 1950s Olive Drab Wool Field Jacket
+            ctx.fillStyle = "#525b26";
+            ctx.strokeStyle = "#2f3615";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.roundRect(-9, -35 + bodyBob, 18, 19, 4);
+            ctx.fill();
+            ctx.stroke();
+
+            // Two buttoned chest pockets
+            ctx.fillStyle = "#434a1f";
+            ctx.fillRect(-6, -31 + bodyBob, 5, 5);
+            ctx.fillRect(1, -31 + bodyBob, 5, 5);
+
+            // Brown leather Sam Browne belt + diagonal cross-chest ammo strap
+            ctx.strokeStyle = "#5c3317";
+            ctx.lineWidth = 2.6;
+            ctx.beginPath();
+            ctx.moveTo(-7, -34 + bodyBob);
+            ctx.lineTo(7, -19 + bodyBob);
+            ctx.stroke();
+            ctx.fillStyle = "#4a2810";
+            ctx.fillRect(-9, -20 + bodyBob, 18, 3.5);
+            // Brass belt buckle
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(-1.5, -20.5 + bodyBob, 4, 4);
+        } else if (id === "soldier_modern") {
+            // Modern MultiCam Combat Shirt + Coyote MOLLE Plate Carrier Vest
+            ctx.fillStyle = "#6b705c";
+            ctx.beginPath();
+            ctx.roundRect(-9, -35 + bodyBob, 18, 19, 4);
+            ctx.fill();
+            // Digital camo patches on sleeves/sides
+            ctx.fillStyle = "#3f4238";
+            ctx.fillRect(-8, -33 + bodyBob, 4, 4);
+            ctx.fillRect(4, -28 + bodyBob, 4, 4);
+
+            // Tactical Plate Carrier Vest (Hücum Yeleği)
+            ctx.fillStyle = "#8c7a5b";
+            ctx.strokeStyle = "#4a3f2d";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.roundRect(-7.5, -33 + bodyBob, 15, 15, 3);
+            ctx.fill();
+            ctx.stroke();
+            // 3 Magazine Pouches & MOLLE Webbing rows
+            ctx.fillStyle = "#6e5f45";
+            ctx.fillRect(-6, -25 + bodyBob, 3.5, 6);
+            ctx.fillRect(-1.5, -25 + bodyBob, 3.5, 6);
+            ctx.fillRect(3, -25 + bodyBob, 3.5, 6);
+            // Tactical PTT radio mic on chest
+            ctx.fillStyle = "#1a1d24";
+            ctx.fillRect(2, -31 + bodyBob, 3, 3);
+        } else if (id === "rich_tycoon") {
+            // Luxury Double-Breasted Black Pinstripe Tuxedo Suit
+            ctx.fillStyle = "#111520";
+            ctx.strokeStyle = "#2b3248";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.roundRect(-9, -35 + bodyBob, 18, 19, 4);
+            ctx.fill();
+            ctx.stroke();
+
+            // Crisp White Dress Shirt V-neck
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.moveTo(-4, -35 + bodyBob);
+            ctx.lineTo(4, -35 + bodyBob);
+            ctx.lineTo(1, -24 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+
+            // Silk Red Tie + Diamond Pin
+            ctx.fillStyle = "#e63946";
+            ctx.beginPath();
+            ctx.moveTo(-0.5, -34 + bodyBob);
+            ctx.lineTo(2.5, -34 + bodyBob);
+            ctx.lineTo(2, -23 + bodyBob);
+            ctx.lineTo(0.5, -21 + bodyBob);
+            ctx.lineTo(-1, -23 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.fillStyle = "#00f2fe";
+            ctx.fillRect(0.3, -29 + bodyBob, 1.8, 1.8);
+
+            // Red Silk Pocket Square & Gold Pocket-Watch Chain
+            ctx.fillStyle = "#ff2a85";
+            ctx.beginPath();
+            ctx.moveTo(4, -30 + bodyBob);
+            ctx.lineTo(7, -32 + bodyBob);
+            ctx.lineTo(7, -29 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(-5, -21 + bodyBob);
+            ctx.quadraticCurveTo(0, -17 + bodyBob, 6, -21 + bodyBob);
+            ctx.stroke();
+        } else if (id === "ottoman_pasha") {
+            // 19th-Century Ottoman Pasha Imperial Coat (Sırma İşlemeli Paşa Üniforması)
+            ctx.fillStyle = "#14213d";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            ctx.roundRect(-9, -35 + bodyBob, 18, 19, 4);
+            ctx.fill();
+            ctx.stroke();
+
+            // Gold Braid Chest Frogs (Altın Sırma Göğüs İşlemeleri)
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.6;
+            for (let yOff of [-31, -28, -25]) {
+                ctx.beginPath();
+                ctx.moveTo(-6, yOff + bodyBob);
+                ctx.lineTo(6, yOff + bodyBob);
+                ctx.stroke();
+            }
+
+            // Crimson Silk Waist Sash (Kırmızı Paşa Kuşağı)
+            ctx.fillStyle = "#c1121f";
+            ctx.fillRect(-9, -21 + bodyBob, 18, 4);
+
+            // Gold Fringed Epaulettes (Altın Saçaklı Paşa Apoletleri)
+            ctx.fillStyle = "#ffd166";
+            ctx.beginPath();
+            ctx.ellipse(-8, -34 + bodyBob, 4.5, 2.5, 0, 0, Math.PI * 2);
+            ctx.ellipse(8, -34 + bodyBob, 4.5, 2.5, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Ottoman Mecidiye Order Star Medal on Chest
+            ctx.fillStyle = "#06d6a0";
+            ctx.beginPath();
+            ctx.arc(4.5, -30 + bodyBob, 2.2, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (id === "royal_king") {
+            // Royal Purple & Gold Brocade Tunic + Jeweled Belt
+            ctx.fillStyle = "#3c096c";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.roundRect(-9, -35 + bodyBob, 18, 19, 4);
+            ctx.fill();
+            ctx.stroke();
+
+            // Vertical Gold Embroidery Strip down center
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(-2, -35 + bodyBob, 4, 19);
+
+            // Jeweled Royal Belt
+            ctx.fillStyle = "#d4af37";
+            ctx.fillRect(-9, -21 + bodyBob, 18, 3.8);
+            ctx.fillStyle = "#ff0055";
+            ctx.beginPath();
+            ctx.arc(0, -19.1 + bodyBob, 2.2, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (id === "yavuz_sultan_selim") {
+            // Yavuz Sultan Selim's Imperial Crimson & Gold-Brocaded Kaftan with Dark Sable Fur Collar
+            // Inner Emerald/Turquoise Silk Entari
+            ctx.fillStyle = "#0a9396";
+            ctx.beginPath();
+            ctx.roundRect(-8, -35 + bodyBob, 16, 19, 3);
+            ctx.fill();
+
+            // Outer Crimson & Gold Ceremonial Kaftan Flaps
+            ctx.fillStyle = "#9b002c";
+            ctx.fillRect(-9.5, -35 + bodyBob, 6.5, 19);
+            ctx.fillRect(3, -35 + bodyBob, 6.5, 19);
+
+            // Golden Ottoman Tulip/Rumi Brocade Motifs & Trim
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.6;
+            ctx.strokeRect(-9.5, -35 + bodyBob, 6.5, 19);
+            ctx.strokeRect(3, -35 + bodyBob, 6.5, 19);
+
+            // Imperial Jeweled Belt (Cevahir Kuşak)
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(-9.5, -21 + bodyBob, 19, 3.8);
+            ctx.fillStyle = "#06d6a0";
+            ctx.beginPath();
+            ctx.arc(0, -19.1 + bodyBob, 2.2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Rich Dark Sable Fur Collar (Samur Kürklü Yaka) over shoulders
+            ctx.fillStyle = "#3d2314";
+            ctx.beginPath();
+            ctx.moveTo(-10, -35 + bodyBob);
+            ctx.lineTo(10, -35 + bodyBob);
+            ctx.lineTo(6, -27 + bodyBob);
+            ctx.lineTo(0, -31 + bodyBob);
+            ctx.lineTo(-6, -27 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+        } else if (id === "fatih_sultan_mehmet") {
+            // Fatih Sultan Mehmet's Imperial Crimson & Gold Kaftan with Royal Indigo Inner Robe
+            ctx.fillStyle = "#1d3557";
+            ctx.beginPath();
+            ctx.roundRect(-8.5, -35 + bodyBob, 17, 19, 3);
+            ctx.fill();
+            ctx.fillStyle = "#a4133c";
+            ctx.fillRect(-9.5, -35 + bodyBob, 6, 19);
+            ctx.fillRect(3.5, -35 + bodyBob, 6, 19);
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.6;
+            ctx.strokeRect(-9.5, -35 + bodyBob, 6, 19);
+            ctx.strokeRect(3.5, -35 + bodyBob, 6, 19);
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(-9.5, -21 + bodyBob, 19, 3.5);
+        } else if (id === "janissary_aga") {
+            // Ottoman Janissary Aga Crimson Dolama Coat + Gold Chest Armour & Belt
+            ctx.fillStyle = "#c1121f";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.roundRect(-9, -35 + bodyBob, 18, 19, 4);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(-9, -22 + bodyBob, 18, 4.5);
+            ctx.fillStyle = "#00f2fe";
+            ctx.beginPath();
+            ctx.arc(0, -19.8 + bodyBob, 2.2, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (id === "mete_han") {
+            // Great Hun Emperor Mete Han Steppe Lamellar Leather & Gold Armor
+            ctx.fillStyle = "#582f0e";
+            ctx.strokeStyle = "#d4af37";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.roundRect(-9, -35 + bodyBob, 18, 19, 4);
+            ctx.fill();
+            ctx.stroke();
+            // Wolf-fur shoulder trim
+            ctx.fillStyle = "#6c757d";
+            ctx.fillRect(-10, -35 + bodyBob, 20, 4.5);
+            // Golden Sun Belt Buckle
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(-9, -21 + bodyBob, 18, 3.5);
+        } else if (id === "cyber_shogun") {
+            // Neon-Armored Samurai O-Yoroi Cuirass (Do)
+            ctx.fillStyle = "#161a1d";
+            ctx.strokeStyle = "#ff0055";
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.roundRect(-9.5, -35 + bodyBob, 19, 19, 3);
+            ctx.fill();
+            ctx.stroke();
+            ctx.strokeStyle = "#00f2fe";
+            ctx.lineWidth = 1.4;
+            ctx.beginPath();
+            ctx.moveTo(-7, -30 + bodyBob);
+            ctx.lineTo(7, -30 + bodyBob);
+            ctx.moveTo(-7, -25 + bodyBob);
+            ctx.lineTo(7, -25 + bodyBob);
+            ctx.stroke();
+        } else if (id === "cosmic_astronaut") {
+            // Pressurized White EVA Space Suit Torso + Chest Control Unit
+            ctx.fillStyle = "#f8f9fa";
+            ctx.strokeStyle = "#adb5bd";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.roundRect(-9.5, -35 + bodyBob, 19, 19, 4);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#1d3557";
+            ctx.fillRect(-5, -31 + bodyBob, 10, 7);
+            ctx.fillStyle = "#00f2fe";
+            ctx.fillRect(-3.5, -29.5 + bodyBob, 3, 3);
+            ctx.fillStyle = "#ff2a85";
+            ctx.fillRect(1, -29.5 + bodyBob, 2.5, 2.5);
+        } else if (id === "ice_valkyrie") {
+            // Nordic Frost-Silver Valkyrie Breastplate & Ice Crystal Core
+            ctx.fillStyle = "#1b4965";
+            ctx.strokeStyle = "#caf0f8";
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.roundRect(-9, -35 + bodyBob, 18, 19, 4);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#00f2fe";
+            ctx.beginPath();
+            ctx.arc(0, -27 + bodyBob, 3.2, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (id === "golden_pharaoh") {
+            // Ancient Egyptian Golden Broad Collar (Usekh) & Royal Chest Pectoral
+            ctx.fillStyle = "#d9a066";
+            ctx.beginPath();
+            ctx.roundRect(-9, -35 + bodyBob, 18, 19, 4);
+            ctx.fill();
+            ctx.fillStyle = "#ffd166";
+            ctx.strokeStyle = "#00f2fe";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(0, -34 + bodyBob, 8.5, 0, Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(-9, -21 + bodyBob, 18, 4);
+        } else if (id === "spartan_gladiator") {
+            // Bronze Muscular Greek Cuirass + Crimson Baldric Strap
+            ctx.fillStyle = "#b58900";
+            ctx.strokeStyle = "#7f5539";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.roundRect(-9, -35 + bodyBob, 18, 19, 4);
+            ctx.fill();
+            ctx.stroke();
+            ctx.strokeStyle = "#9b002c";
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(-7, -34 + bodyBob);
+            ctx.lineTo(7, -18 + bodyBob);
+            ctx.stroke();
+        }
+
+        // =====================================================
+        // 4. REALISTIC HUMAN HEAD & DISTINCT FACE TYPES (YÜZ TİPLERİ)
+        // =====================================================
+        const skinTones = {
+            soldier_1950: "#e0ac84",       // Warm sun-weathered 1950s veteran skin
+            soldier_modern: "#d89e74",     // Tactical tanned skin
+            rich_tycoon: "#f3c6a4",        // Aristocratic fair-warm skin
+            ottoman_pasha: "#dfa87e",      // Noble bronze-warm Pasha skin
+            royal_king: "#eec19c",         // Regal warm skin
+            yavuz_sultan_selim: "#e5b28a"  // Historical portrait complexion
+        };
+        const faceSkin = skinTones[id] || "#e5b28a";
+
+        // Neck
+        ctx.fillStyle = faceSkin;
+        ctx.fillRect(-3, -38 + bodyBob, 6, 4);
+
+        // Sculpted Human Head with Jawline & Ear
+        ctx.fillStyle = faceSkin;
+        ctx.strokeStyle = "rgba(65, 35, 18, 0.45)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect(-8.5, -51 + bodyBob, 17.5, 15.5, [6, 6, 5, 4]);
+        ctx.fill();
+        ctx.stroke();
+
+        // Human Ear (left side)
+        ctx.fillStyle = faceSkin;
+        ctx.beginPath();
+        ctx.arc(-8.5, -43 + bodyBob, 2.6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Nose Profile (Aquiline for Yavuz & Pasha, classic for others)
+        ctx.strokeStyle = "rgba(85, 45, 22, 0.75)";
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        if (id === "yavuz_sultan_selim" || id === "ottoman_pasha") {
+            // Prominent Aquiline Nose (Kemerli Burun)
+            ctx.moveTo(6.5, -46.5 + bodyBob);
+            ctx.quadraticCurveTo(10.5, -43.5 + bodyBob, 8.5, -41 + bodyBob);
+            ctx.lineTo(6.2, -41 + bodyBob);
+        } else {
+            ctx.moveTo(6.5, -46 + bodyBob);
+            ctx.lineTo(9.2, -42 + bodyBob);
+            ctx.lineTo(6.5, -41.5 + bodyBob);
+        }
+        ctx.stroke();
+
+        // Human Eyes (White Sclera + Colored Iris + Pupil)
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.ellipse(3.5, -45 + bodyBob, 2.8, 1.8, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        const irisColor = id === "royal_king" ? "#1d63b8" : (id === "rich_tycoon" ? "#2a9d8f" : "#2b1911");
+        ctx.fillStyle = irisColor;
+        ctx.beginPath();
+        ctx.arc(4.2, -45 + bodyBob, 1.35, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "#000000";
+        ctx.beginPath();
+        ctx.arc(4.5, -45 + bodyBob, 0.7, 0, Math.PI * 2);
+        ctx.fill();
+
+        // CHARACTER-SPECIFIC FACIAL FEATURES (YÜZ TİPİ DETAYLARI)
+        if (id === "soldier_1950") {
+            // 1950 Soldier Face: Thick rugged dark eyebrows + Classic 1950s Chevron Mustache + Cleft Chin
+            ctx.strokeStyle = "#2b1d12";
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.moveTo(0.5, -47.5 + bodyBob);
+            ctx.lineTo(6.8, -47 + bodyBob);
+            ctx.stroke();
+
+            // Classic 1950s Thick Soldier Mustache
+            ctx.fillStyle = "#2b1d12";
+            ctx.beginPath();
+            ctx.moveTo(1.5, -40.5 + bodyBob);
+            ctx.quadraticCurveTo(5.5, -41.5 + bodyBob, 8.8, -39.2 + bodyBob);
+            ctx.lineTo(8.2, -37.8 + bodyBob);
+            ctx.quadraticCurveTo(5, -39 + bodyBob, 1, -38.5 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+
+            // Stern mouth & chin crease
+            ctx.strokeStyle = "#6b3e26";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(3, -36.8 + bodyBob);
+            ctx.lineTo(6.5, -36.8 + bodyBob);
+            ctx.stroke();
+        } else if (id === "soldier_modern") {
+            // Modern Soldier Face: Green/Black Camo Face Paint Stripes + Full Tactical Stubble Beard + Brow Scar
+            // Camo War-Paint Stripes on cheek
+            ctx.strokeStyle = "#2d3a22";
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.moveTo(-2, -43.5 + bodyBob);
+            ctx.lineTo(3, -42.5 + bodyBob);
+            ctx.moveTo(-2.5, -41.2 + bodyBob);
+            ctx.lineTo(2.5, -40.2 + bodyBob);
+            ctx.stroke();
+
+            // Sharp Tactical Eyebrow
+            ctx.strokeStyle = "#1f1812";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0.5, -47.2 + bodyBob);
+            ctx.lineTo(7, -46.8 + bodyBob);
+            ctx.stroke();
+
+            // Full Modern Tactical Short Beard & Jawline Stubble
+            ctx.fillStyle = "rgba(35, 26, 18, 0.85)";
+            ctx.beginPath();
+            ctx.moveTo(-6, -42 + bodyBob);
+            ctx.lineTo(-4, -36 + bodyBob);
+            ctx.lineTo(8.5, -36 + bodyBob);
+            ctx.lineTo(8.5, -40.2 + bodyBob);
+            ctx.lineTo(3, -40.2 + bodyBob);
+            ctx.lineTo(2, -38 + bodyBob);
+            ctx.lineTo(-3, -38.5 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+        } else if (id === "rich_tycoon") {
+            // Rich Tycoon Face: Raised Suave Eyebrow + Gold-Rimmed Monocle with Chain + Upturned Pencil Mustache & Smirk
+            ctx.strokeStyle = "#221814";
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(0.5, -48 + bodyBob);
+            ctx.quadraticCurveTo(4, -49.5 + bodyBob, 7, -47.5 + bodyBob);
+            ctx.stroke();
+
+            // Gold-Rimmed Monocle over Eye + Gold Chain
+            ctx.fillStyle = "rgba(0, 242, 254, 0.22)";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(4, -45 + bodyBob, 3.2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            // Monocle chain
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(1.2, -43 + bodyBob);
+            ctx.quadraticCurveTo(-2, -38 + bodyBob, -1, -34 + bodyBob);
+            ctx.stroke();
+
+            // Suave Upturned Thin Mustache & Goatee
+            ctx.strokeStyle = "#1a1412";
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(2, -39.5 + bodyBob);
+            ctx.quadraticCurveTo(6, -39.5 + bodyBob, 9.5, -41.2 + bodyBob);
+            ctx.stroke();
+            // Confident Smirk
+            ctx.strokeStyle = "#8a4236";
+            ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            ctx.moveTo(2.5, -37.5 + bodyBob);
+            ctx.quadraticCurveTo(5.5, -36.8 + bodyBob, 7.2, -38.2 + bodyBob);
+            ctx.stroke();
+        } else if (id === "ottoman_pasha") {
+            // Ottoman Pasha Face: Dignified Trimmed Full Beard + Thick Curled Handlebar Mustache (Gür Burma Pala Bıyık)
+            ctx.strokeStyle = "#1e140f";
+            ctx.lineWidth = 2.3;
+            ctx.beginPath();
+            ctx.moveTo(0, -47.8 + bodyBob);
+            ctx.lineTo(7.2, -46.8 + bodyBob);
+            ctx.stroke();
+
+            // Rounded Pasha Beard along the jaw
+            ctx.fillStyle = "#241711";
+            ctx.beginPath();
+            ctx.moveTo(-6.5, -42 + bodyBob);
+            ctx.quadraticCurveTo(-5, -34 + bodyBob, 4, -34 + bodyBob);
+            ctx.quadraticCurveTo(9, -34.5 + bodyBob, 8.8, -39 + bodyBob);
+            ctx.lineTo(2, -38.5 + bodyBob);
+            ctx.lineTo(-4, -39 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+
+            // Iconic Curled Handlebar Pasha Mustache (Uçları Kıvrık Gür Pala Bıyık)
+            ctx.strokeStyle = "#140d09";
+            ctx.lineWidth = 2.6;
+            ctx.beginPath();
+            ctx.moveTo(0.5, -39.5 + bodyBob);
+            ctx.quadraticCurveTo(6, -40.5 + bodyBob, 11.5, -42.5 + bodyBob);
+            ctx.stroke();
+        } else if (id === "royal_king") {
+            // Royal King Face: Majestic Long Golden-Brown & Silver-Streaked Royal Beard & Mustache
+            ctx.strokeStyle = "#5c3d1e";
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.moveTo(0.5, -47.8 + bodyBob);
+            ctx.lineTo(7, -47.2 + bodyBob);
+            ctx.stroke();
+
+            // Full Flowing Royal Beard reaching chest
+            ctx.fillStyle = "#6e4720";
+            ctx.beginPath();
+            ctx.moveTo(-6.5, -42 + bodyBob);
+            ctx.quadraticCurveTo(-6, -31 + bodyBob, 3.5, -30.5 + bodyBob);
+            ctx.quadraticCurveTo(10.5, -31 + bodyBob, 9.2, -40 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+
+            // Wisdom Silver Streaks in King's Beard + Royal Mustache
+            ctx.strokeStyle = "#d9d9d9";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(1, -38 + bodyBob);
+            ctx.lineTo(2, -32 + bodyBob);
+            ctx.moveTo(5, -38 + bodyBob);
+            ctx.lineTo(6, -32 + bodyBob);
+            ctx.stroke();
+
+            ctx.fillStyle = "#523416";
+            ctx.beginPath();
+            ctx.ellipse(5, -39.5 + bodyBob, 4.8, 1.8, 0.1, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (id === "yavuz_sultan_selim") {
+            // YAVUZ SULTAN SELİM FACE (Tarihi Portreye Birebir Uygun):
+            // 1) Completely Clean-Shaven Sharp Chin (Sakalsız Keskin Çene)
+            // 2) Long Downward-Sweeping Thick Selimi Mustache (Aşağı Sarkık Uzun Gür Pala Bıyık)
+            // 3) Fierce Arched Eyebrows (Çatık Gür Kaşlar)
+            // 4) Iconic Single Pearl Earring (İnci Küpe / Mengüş) on Ear!
+
+            // Fierce Arched Selimi Eyebrow
+            ctx.strokeStyle = "#140c08";
+            ctx.lineWidth = 2.3;
+            ctx.beginPath();
+            ctx.moveTo(0, -48.2 + bodyBob);
+            ctx.quadraticCurveTo(4, -49.2 + bodyBob, 7.5, -46.5 + bodyBob);
+            ctx.stroke();
+
+            // Iconic Single Gold & Pearl Drop Earring on the Ear!
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.4;
+            ctx.beginPath();
+            ctx.arc(-8.5, -40.2 + bodyBob, 2, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.arc(-8.5, -37.8 + bodyBob, 2.1, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Stern Imperial Lower Lip & Clean-Shaven Chin Contour (Sakalsız Keskin Çene)
+            ctx.strokeStyle = "#7a442a";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(4.2, -37.3 + bodyBob);
+            ctx.lineTo(7.4, -37.3 + bodyBob);
+            ctx.stroke();
+
+            // Sculpted, Voluminous Selimî Pala Bıyık (Centered directly under the Aquiline Nose at x=6.5)
+            ctx.save();
+            ctx.fillStyle = "#160d08";
+            ctx.strokeStyle = "#0b0604";
+            ctx.lineWidth = 0.8;
+
+            // 1. Front-Right Wing of Mustache (sweeping outward & down past mouth corner)
+            ctx.beginPath();
+            ctx.moveTo(6.4, -40.9 + bodyBob);
+            ctx.bezierCurveTo(9.4, -40.8 + bodyBob, 11.5, -38.2 + bodyBob, 11.2, -33.8 + bodyBob);
+            ctx.bezierCurveTo(9.5, -35.6 + bodyBob, 8.6, -38.5 + bodyBob, 6.4, -38.5 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 2. Cheek-Left Wing of Mustache (full, thick upper-lip body sweeping gracefully down past jawline)
+            ctx.beginPath();
+            ctx.moveTo(6.8, -40.9 + bodyBob);
+            ctx.bezierCurveTo(3.2, -41.3 + bodyBob, 0.2, -38.6 + bodyBob, 0.5, -33.5 + bodyBob);
+            ctx.bezierCurveTo(2.3, -35.2 + bodyBob, 3.6, -38.4 + bodyBob, 6.8, -38.5 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 3. Natural Hair-Strand Highlights on the Mustache
+            ctx.strokeStyle = "#3d2518";
+            ctx.lineWidth = 0.9;
+            ctx.beginPath();
+            ctx.moveTo(5.8, -40.0 + bodyBob);
+            ctx.quadraticCurveTo(2.4, -39.6 + bodyBob, 1.2, -35.2 + bodyBob);
+            ctx.moveTo(7.2, -40.0 + bodyBob);
+            ctx.quadraticCurveTo(9.6, -39.4 + bodyBob, 10.4, -35.4 + bodyBob);
+            ctx.stroke();
+            ctx.restore();
+        } else if (id === "fatih_sultan_mehmet") {
+            // Fatih Sultan Mehmet Face: Sharp young Sultan pointed beard + upturned mustache + fierce brow
+            ctx.strokeStyle = "#1b0f0a";
+            ctx.lineWidth = 2.1;
+            ctx.beginPath();
+            ctx.moveTo(0.2, -48 + bodyBob);
+            ctx.lineTo(7.4, -46.8 + bodyBob);
+            ctx.stroke();
+            ctx.fillStyle = "#22120b";
+            ctx.beginPath();
+            ctx.moveTo(-6, -42 + bodyBob);
+            ctx.quadraticCurveTo(-3, -34 + bodyBob, 5.5, -33.5 + bodyBob);
+            ctx.lineTo(9.2, -37.5 + bodyBob);
+            ctx.lineTo(6.5, -39.5 + bodyBob);
+            ctx.lineTo(-3, -39 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.strokeStyle = "#140b06";
+            ctx.lineWidth = 2.0;
+            ctx.beginPath();
+            ctx.moveTo(1.5, -39.8 + bodyBob);
+            ctx.quadraticCurveTo(6.5, -40.8 + bodyBob, 10.5, -42.2 + bodyBob);
+            ctx.stroke();
+        } else if (id === "janissary_aga" || id === "mete_han") {
+            // Fierce Warrior Long Steppe / Janissary Pala Mustache
+            ctx.strokeStyle = "#1a110b";
+            ctx.lineWidth = 2.4;
+            ctx.beginPath();
+            ctx.moveTo(0, -48 + bodyBob);
+            ctx.lineTo(7.5, -46.8 + bodyBob);
+            ctx.stroke();
+            ctx.strokeStyle = "#160d08";
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(0.5, -39.8 + bodyBob);
+            ctx.quadraticCurveTo(6, -40.5 + bodyBob, 11.2, -36.5 + bodyBob);
+            ctx.stroke();
+        } else if (id === "cyber_shogun") {
+            // Samurai Menpo Half-Face Armored Demon Mask + Glowing Cyber Visor Eyes
+            ctx.fillStyle = "#11151c";
+            ctx.strokeStyle = "#ff0055";
+            ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            ctx.roundRect(-7, -43 + bodyBob, 16, 8, 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#00f2fe";
+            ctx.fillRect(1, -46.5 + bodyBob, 7, 2.4);
+        } else if (id === "ice_valkyrie") {
+            // Flowing Platinum-Blonde Nordic Braids & Ice-Blue Eyes
+            ctx.fillStyle = "#00f2fe";
+            ctx.beginPath();
+            ctx.arc(4.2, -45 + bodyBob, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = "#f8edeb";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(-7, -45 + bodyBob);
+            ctx.quadraticCurveTo(-13, -38 + bodyBob, -11, -28 + bodyBob);
+            ctx.stroke();
+        } else if (id === "golden_pharaoh") {
+            // Royal Golden False Beard of the Pharaoh (Postiche) & Kohl Eye Liner
+            ctx.strokeStyle = "#111111";
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(-1, -45 + bodyBob);
+            ctx.lineTo(7, -45 + bodyBob);
+            ctx.stroke();
+            ctx.fillStyle = "#ffd166";
+            ctx.strokeStyle = "#b58900";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(4, -36 + bodyBob);
+            ctx.lineTo(7, -36 + bodyBob);
+            ctx.lineTo(6.5, -28 + bodyBob);
+            ctx.lineTo(4.5, -28 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        } else if (id === "spartan_gladiator") {
+            // Fierce Spartan Warrior Beard
+            ctx.fillStyle = "#2b1d12";
+            ctx.beginPath();
+            ctx.moveTo(-6, -42 + bodyBob);
+            ctx.lineTo(-4, -34 + bodyBob);
+            ctx.lineTo(9, -34.5 + bodyBob);
+            ctx.lineTo(8.5, -40 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        // =====================================================
+        // 5. AUTHENTIC HISTORICAL / MODERN HEADGEAR (BAŞLIKLAR)
+        // =====================================================
+        if (id === "soldier_1950") {
+            // 1950s M1 Steel Pot Helmet with Camo Netting & Chinstrap
+            ctx.fillStyle = "#3f471d";
+            ctx.strokeStyle = "#252b0f";
+            ctx.lineWidth = 1.4;
+            ctx.beginPath();
+            ctx.arc(0, -48 + bodyBob, 11, Math.PI * 0.98, Math.PI * 0.02, false);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            // Helmet Rim
+            ctx.beginPath();
+            ctx.moveTo(-12, -48 + bodyBob);
+            ctx.lineTo(12.5, -47.5 + bodyBob);
+            ctx.stroke();
+            // Netting Criss-Cross Lines + Gold Rank Insignia on Front
+            ctx.strokeStyle = "rgba(25, 30, 10, 0.55)";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(-6, -56 + bodyBob);
+            ctx.lineTo(2, -48 + bodyBob);
+            ctx.moveTo(2, -56 + bodyBob);
+            ctx.lineTo(-6, -48 + bodyBob);
+            ctx.stroke();
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(5, -53 + bodyBob, 2.5, 3.5);
+            // Leather Chinstrap
+            ctx.strokeStyle = "#4a2c18";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(-5, -47 + bodyBob);
+            ctx.lineTo(-2, -36 + bodyBob);
+            ctx.stroke();
+        } else if (id === "soldier_modern") {
+            // Modern High-Cut FAST Ballistic Helmet + Quad NVG Night-Vision Goggles
+            ctx.fillStyle = "#4d5244";
+            ctx.strokeStyle = "#262922";
+            ctx.lineWidth = 1.4;
+            ctx.beginPath();
+            ctx.arc(-0.5, -49 + bodyBob, 10.5, Math.PI * 0.95, Math.PI * 0.05, false);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            // ARC Side Rail & Velcro Patch
+            ctx.fillStyle = "#8c7a5b";
+            ctx.fillRect(-6, -53 + bodyBob, 7, 3);
+            // 4-Tube Quad NVG Night Vision Mount & Glowing Green Lenses
+            ctx.fillStyle = "#16191f";
+            ctx.fillRect(6, -54 + bodyBob, 8, 5);
+            ctx.fillStyle = "#06d6a0";
+            ctx.beginPath();
+            ctx.arc(13.5, -52.5 + bodyBob, 1.6, 0, Math.PI * 2);
+            ctx.arc(13.5, -49.8 + bodyBob, 1.6, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (id === "rich_tycoon") {
+            // Sleek Silk Luxury Top Hat with Solid Gold Band
+            ctx.fillStyle = "#10141f";
+            ctx.strokeStyle = "#2d354d";
+            ctx.lineWidth = 1.2;
+            // Top Hat Crown
+            ctx.beginPath();
+            ctx.roundRect(-8, -64 + bodyBob, 16, 15, 2);
+            ctx.fill();
+            ctx.stroke();
+            // Gold Ribbon Band
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(-8, -52.5 + bodyBob, 16, 3);
+            // Wide Curved Hat Brim
+            ctx.fillStyle = "#10141f";
+            ctx.beginPath();
+            ctx.ellipse(0, -49.5 + bodyBob, 13.5, 2.6, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+        } else if (id === "ottoman_pasha") {
+            // Authentic Maroon Ottoman Fez (Kırmızı Osmanlı Fesi) + Flowing Black Silk Tassel (Püskül)
+            ctx.fillStyle = "#8a0f2b";
+            ctx.strokeStyle = "#4d0717";
+            ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            ctx.moveTo(-8.5, -49 + bodyBob);
+            ctx.lineTo(-6.5, -61 + bodyBob);
+            ctx.lineTo(6.5, -61 + bodyBob);
+            ctx.lineTo(8.5, -49 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Golden Crescent & Star Ornament on Fez
+            ctx.fillStyle = "#ffd166";
+            ctx.beginPath();
+            ctx.arc(2.5, -55 + bodyBob, 2.2, 0.4, Math.PI * 1.6);
+            ctx.fill();
+
+            // Black Silk Tassel (Siyah Püskül) hanging from top center to back
+            ctx.strokeStyle = "#111111";
+            ctx.lineWidth = 2.4;
+            ctx.beginPath();
+            ctx.moveTo(0, -61 + bodyBob);
+            ctx.quadraticCurveTo(-9, -60 + bodyBob, -10.5, -50 + wave1 * 0.4 + bodyBob);
+            ctx.stroke();
+        } else if (id === "royal_king") {
+            // Jeweled Solid-Gold Royal Crown with Crimson Velvet Cap
+            ctx.fillStyle = "#9b002c";
+            ctx.beginPath();
+            ctx.arc(0, -51 + bodyBob, 8.5, Math.PI, 0, false);
+            ctx.fill();
+
+            ctx.fillStyle = "#ffd166";
+            ctx.strokeStyle = "#b58900";
+            ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            ctx.moveTo(-9.5, -49 + bodyBob);
+            ctx.lineTo(-10.5, -59 + bodyBob);
+            ctx.lineTo(-5, -54 + bodyBob);
+            ctx.lineTo(0, -61 + bodyBob);
+            ctx.lineTo(5, -54 + bodyBob);
+            ctx.lineTo(10.5, -59 + bodyBob);
+            ctx.lineTo(9.5, -49 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Rubies, Emeralds & Sapphires on Crown
+            ctx.fillStyle = "#ff0055";
+            ctx.beginPath();
+            ctx.arc(0, -52.5 + bodyBob, 2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#06d6a0";
+            ctx.beginPath();
+            ctx.arc(-5.5, -52.5 + bodyBob, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#00f2fe";
+            ctx.beginPath();
+            ctx.arc(5.5, -52.5 + bodyBob, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (id === "yavuz_sultan_selim") {
+            // ICONIC TAC-I SELİMİ (Yavuz Sultan Selim'in Kırmızı Külahlı Burmalı Beyaz Sarığı ve Sorgucu):
+            // 1. Tall Faceted Crimson Velvet Crown Cap (Kırmızı Tac-ı Selimi Börkü) rising in center
+            ctx.fillStyle = "#9b0a28";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(-5.5, -54 + bodyBob);
+            ctx.lineTo(-4, -67 + bodyBob);
+            ctx.lineTo(4, -67 + bodyBob);
+            ctx.lineTo(5.5, -54 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 2. Voluminous Pleated White Silk Imperial Turban (Burmalı Hünkar Sarığı)
+            ctx.fillStyle = "#f8f9fa";
+            ctx.strokeStyle = "#ced4da";
+            ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            ctx.ellipse(-4.5, -55 + bodyBob, 7.5, 6.2, -0.2, 0, Math.PI * 2);
+            ctx.ellipse(4.5, -55 + bodyBob, 7.5, 6.2, 0.2, 0, Math.PI * 2);
+            ctx.ellipse(0, -53.5 + bodyBob, 11.5, 5.5, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // Diagonal Pleat Folds across the White Turban
+            ctx.strokeStyle = "#adb5bd";
+            ctx.lineWidth = 1.1;
+            ctx.beginPath();
+            ctx.moveTo(-8, -56 + bodyBob);
+            ctx.lineTo(-1, -50 + bodyBob);
+            ctx.moveTo(-3, -58 + bodyBob);
+            ctx.lineTo(4, -50 + bodyBob);
+            ctx.moveTo(3, -58 + bodyBob);
+            ctx.lineTo(9, -51 + bodyBob);
+            ctx.stroke();
+
+            // 3. Jeweled Gold Aigrette & Sweeping White Heron Plume (Mücevherli Altın Sorguç)
+            ctx.fillStyle = "#ffd166";
+            ctx.beginPath();
+            ctx.ellipse(4.5, -57 + bodyBob, 2.8, 3.6, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#e63946";
+            ctx.beginPath();
+            ctx.arc(4.5, -57 + bodyBob, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // White Imperial Plume Feather arching upward
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 2.4;
+            ctx.beginPath();
+            ctx.moveTo(4.5, -60 + bodyBob);
+            ctx.quadraticCurveTo(8, -68 + bodyBob, 1.5, -71 + bodyBob);
+            ctx.stroke();
+        } else if (id === "fatih_sultan_mehmet") {
+            // Fatih Sultan Mehmet's Iconic Round White Imperial Destar Turban around Crimson Cap + Gold Plume
+            ctx.fillStyle = "#c1121f";
+            ctx.beginPath();
+            ctx.roundRect(-4.5, -64 + bodyBob, 9, 12, 3);
+            ctx.fill();
+            ctx.fillStyle = "#ffffff";
+            ctx.strokeStyle = "#dee2e6";
+            ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            ctx.ellipse(0, -54 + bodyBob, 11.8, 6.2, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#ffd166";
+            ctx.beginPath();
+            ctx.arc(4, -57 + bodyBob, 2.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.moveTo(4, -59 + bodyBob);
+            ctx.quadraticCurveTo(8, -67 + bodyBob, 3, -70 + bodyBob);
+            ctx.stroke();
+        } else if (id === "janissary_aga") {
+            // Iconic Tall White Felt Janissary Börk + Golden Spoon Holder (Kaşıklık / Tüylük) + Tall Plume
+            ctx.fillStyle = "#f8f9fa";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.roundRect(-8.5, -64 + bodyBob, 17, 15, 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(-9, -52 + bodyBob, 18, 3.5);
+            ctx.fillRect(2, -62 + bodyBob, 3.5, 9);
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(3.5, -62 + bodyBob);
+            ctx.quadraticCurveTo(7, -71 + bodyBob, 1, -73 + bodyBob);
+            ctx.stroke();
+        } else if (id === "mete_han") {
+            // Turkic Steppe Fur-Rimmed Conical Golden Helmet (Börk / Tolga) + Eagle Feathers
+            ctx.fillStyle = "#495057";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(-9.5, -49 + bodyBob);
+            ctx.lineTo(0, -64 + bodyBob);
+            ctx.lineTo(9.5, -49 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            // Wolf Fur Trim
+            ctx.fillStyle = "#6c757d";
+            ctx.beginPath();
+            ctx.roundRect(-10.5, -52 + bodyBob, 21, 4.5, 2);
+            ctx.fill();
+            // Twin Steppe Eagle Feathers
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.moveTo(0, -63 + bodyBob);
+            ctx.quadraticCurveTo(-7, -70 + bodyBob, -11, -67 + bodyBob);
+            ctx.stroke();
+        } else if (id === "cyber_shogun") {
+            // Samurai Kabuto Helmet with Golden Kuwagata Horns & Neon Trim
+            ctx.fillStyle = "#161a1d";
+            ctx.strokeStyle = "#ff0055";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(0, -49 + bodyBob, 11, Math.PI, 0, false);
+            ctx.lineTo(13, -45 + bodyBob);
+            ctx.lineTo(-13, -45 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            // Golden Crescent Kuwagata Horns
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2.4;
+            ctx.beginPath();
+            ctx.moveTo(3, -55 + bodyBob);
+            ctx.lineTo(9, -66 + bodyBob);
+            ctx.moveTo(1, -55 + bodyBob);
+            ctx.lineTo(-4, -65 + bodyBob);
+            ctx.stroke();
+        } else if (id === "cosmic_astronaut") {
+            // Full Bubble Space Helmet with Reflective Gold Solar Visor
+            ctx.fillStyle = "#f8f9fa";
+            ctx.strokeStyle = "#00f2fe";
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.arc(0, -45 + bodyBob, 12, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#ffd166";
+            ctx.beginPath();
+            ctx.ellipse(3, -45 + bodyBob, 7.5, 6.5, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "rgba(255,255,255,0.65)";
+            ctx.beginPath();
+            ctx.arc(5, -47.5 + bodyBob, 2.2, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (id === "ice_valkyrie") {
+            // Winged Silver-Ice Valkyrie Diadem Helmet
+            ctx.fillStyle = "#caf0f8";
+            ctx.strokeStyle = "#00f2fe";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(0, -50 + bodyBob, 9.5, Math.PI, 0, false);
+            ctx.fill();
+            ctx.stroke();
+            // White Feathered Valkyrie Helmet Wings
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.moveTo(-2, -52 + bodyBob);
+            ctx.lineTo(-12, -64 + bodyBob);
+            ctx.lineTo(-6, -49 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+        } else if (id === "golden_pharaoh") {
+            // Iconic Blue & Gold Striped Egyptian Nemes Headdress + Golden Uraeus Cobra
+            ctx.fillStyle = "#1d3557";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(-11, -36 + bodyBob);
+            ctx.lineTo(-12, -56 + bodyBob);
+            ctx.lineTo(0, -61 + bodyBob);
+            ctx.lineTo(10, -55 + bodyBob);
+            ctx.lineTo(9, -48 + bodyBob);
+            ctx.lineTo(-5, -48 + bodyBob);
+            ctx.lineTo(-6, -36 + bodyBob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            // Golden Uraeus Cobra on Brow
+            ctx.fillStyle = "#ffd166";
+            ctx.beginPath();
+            ctx.arc(5, -54 + bodyBob, 2.5, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (id === "spartan_gladiator") {
+            // Bronze Corinthian Helmet with Tall Sweeping Crimson Horsehair Crest
+            ctx.fillStyle = "#d4af37";
+            ctx.strokeStyle = "#7f5539";
+            ctx.lineWidth = 1.4;
+            ctx.beginPath();
+            ctx.arc(0, -49 + bodyBob, 10, Math.PI, 0, false);
+            ctx.fill();
+            ctx.stroke();
+            // Tall Crimson Horsehair Crest
+            ctx.fillStyle = "#d90429";
+            ctx.beginPath();
+            ctx.moveTo(-11, -54 + bodyBob);
+            ctx.quadraticCurveTo(0, -69 + bodyBob, 11, -55 + bodyBob);
+            ctx.quadraticCurveTo(0, -60 + bodyBob, -11, -54 + bodyBob);
+            ctx.fill();
+        }
+
+        // =====================================================
+        // 6. FRONT ARM & HAND-HELD WEAPON / PROP
+        // =====================================================
+        let sleeveColor = "#525b26";
+        if (id === "soldier_modern") sleeveColor = "#6b705c";
+        else if (id === "rich_tycoon" || id === "cyber_shogun") sleeveColor = "#111520";
+        else if (id === "ottoman_pasha") sleeveColor = "#14213d";
+        else if (id === "royal_king") sleeveColor = "#3c096c";
+        else if (id === "yavuz_sultan_selim" || id === "fatih_sultan_mehmet" || id === "janissary_aga") sleeveColor = "#9b002c";
+        else if (id === "mete_han") sleeveColor = "#582f0e";
+        else if (id === "cosmic_astronaut") sleeveColor = "#f8f9fa";
+        else if (id === "ice_valkyrie") sleeveColor = "#1b4965";
+        else if (id === "golden_pharaoh" || id === "spartan_gladiator") sleeveColor = "#d9a066";
+
+        const handX = 6 - runSwing * 0.7;
+        const handY = -21 + bodyBob;
+
+        ctx.strokeStyle = sleeveColor;
+        ctx.lineWidth = 5.5;
+        ctx.beginPath();
+        ctx.moveTo(2, -31 + bodyBob);
+        ctx.lineTo(handX, handY);
+        ctx.stroke();
+
+        // Hand
+        ctx.fillStyle = faceSkin;
+        ctx.beginPath();
+        ctx.arc(handX + 1, handY + 1, 3.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Hand-Held Signature Item
+        if (id === "rich_tycoon") {
+            // Gold-Topped Luxury Walking Cane (Altın Baston)
+            ctx.strokeStyle = "#1a1412";
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.moveTo(handX + 2, handY);
+            ctx.lineTo(handX + 4, -3);
+            ctx.stroke();
+            ctx.fillStyle = "#ffd166";
+            ctx.beginPath();
+            ctx.arc(handX + 2, handY - 1, 2.8, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (id === "royal_king" || id === "golden_pharaoh") {
+            // Golden Royal Scepter with Glowing Gem Orb
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2.6;
+            ctx.beginPath();
+            ctx.moveTo(handX + 1, handY + 4);
+            ctx.lineTo(handX + 5, handY - 14);
+            ctx.stroke();
+            ctx.fillStyle = id === "golden_pharaoh" ? "#00f2fe" : "#ff0055";
+            ctx.beginPath();
+            ctx.arc(handX + 5, handY - 15, 3.5, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (id === "fatih_sultan_mehmet" || id === "janissary_aga") {
+            // Curved Ottoman Conquest Sword / Yatagan
+            ctx.strokeStyle = "#f8f9fa";
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(handX + 2, handY);
+            ctx.quadraticCurveTo(handX + 12, handY - 6, handX + 15, handY - 16);
+            ctx.stroke();
+        } else if (id === "mete_han") {
+            // Turkic Composite Recurve Bow (Yay)
+            ctx.strokeStyle = "#d4af37";
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.arc(handX + 3, handY - 2, 10, -Math.PI * 0.45, Math.PI * 0.45);
+            ctx.stroke();
+        } else if (id === "cyber_shogun") {
+            // Glowing Neon Plasma Katana
+            ctx.strokeStyle = "#00f2fe";
+            ctx.lineWidth = 2.6;
+            ctx.beginPath();
+            ctx.moveTo(handX + 1, handY);
+            ctx.lineTo(handX + 16, handY - 15);
+            ctx.stroke();
+        } else if (id === "ice_valkyrie" || id === "spartan_gladiator") {
+            // Valkyrie Frost Spear / Spartan Dory Spear
+            ctx.strokeStyle = id === "ice_valkyrie" ? "#00f2fe" : "#7f5539";
+            ctx.lineWidth = 2.3;
+            ctx.beginPath();
+            ctx.moveTo(handX - 4, handY + 6);
+            ctx.lineTo(handX + 14, handY - 16);
+            ctx.stroke();
+        }
+    }
+}
+
+window.SKIN_PALETTES = SKIN_PALETTES;
+window.Particle = Particle;
+window.FloatingText = FloatingText;
+window.Fireball = Fireball;
+window.PowerUpItem = PowerUpItem;
+window.Enemy = Enemy;
+window.AbyssBoss = AbyssBoss;
+window.Player = Player;
