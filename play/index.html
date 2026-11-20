@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#070812">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Marinext 2100</title>
+    <link rel="icon" type="image/png" sizes="512x512" href="../assets/store/icon-512.png">
+    <link rel="apple-touch-icon" href="../assets/store/icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-wrapper">
+        <!-- Main Game Canvas -->
+        <canvas id="gameCanvas" width="1280" height="720"></canvas>
+
+        <!-- HUD Overlay -->
+        <div id="hud" class="hidden">
+            <div class="hud-left">
+                <button id="btn-hud-profile" class="profile-square-btn" style="padding: 3px 9px 3px 4px;" title="Oyuncu Profili">
+                    <div class="profile-frame-box hud-size" id="hud-profile-avatar">⚔️</div>
+                    <div class="profile-btn-info">
+                        <span class="profile-btn-tag" id="hud-profile-tag">PROFİL</span>
+                        <span class="profile-btn-name" id="hud-profile-name">Gölge Şövalye</span>
+                    </div>
+                </button>
+                <div class="hud-stat health-box" id="hud-hearts" title="3 Can"><span class="heart-full">♥</span><span class="heart-full">♥</span><span class="heart-full">♥</span></div>
+                <div class="hud-stat power-badge" id="hud-power">
+                    <span class="power-dot"></span>
+                    <span id="hud-power-text">Gölge Modu</span>
+                </div>
+                <div class="hud-stat checkpoint-badge hidden" id="hud-checkpoint">
+                    🚩 Kayıt Noktası Aktif
+                </div>
+                <div class="hud-stat" id="hud-fps" style="border-color: rgba(6, 214, 160, 0.5); color: #06d6a0; font-weight: 700; font-size: 12px;">
+                    ⚡ 120 FPS
+                </div>
+            </div>
+
+            <div class="hud-center">
+                <div class="hud-level-title" id="hud-level-name">Bölüm 1: Kristal Mağaralar</div>
+                <!-- Boss Health Bar -->
+                <div id="boss-hud" class="hidden">
+                    <div class="boss-name" id="boss-hud-name">KARANLIK MUHAFIZ (BOSS)</div>
+                    <div class="boss-bar-bg">
+                        <div id="boss-bar-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hud-right">
+                <button id="btn-hud-character" class="customize-btn hidden" style="display:none;" title="Karakter Değiştir (Coin ✪)">
+                    👤 Karakter
+                </button>
+                <button id="btn-hud-customize" class="customize-btn hidden" style="display:none;" title="Karakteri Kişiselleştir">
+                    🎨 Kişiselleştir
+                </button>
+                <div class="hud-stat goldcoin-stat" id="hud-goldcoin-box" style="cursor:pointer; border-color: rgba(255, 209, 102, 0.6);" title="Tıkla: Puan & Liderlik Tablosu (🏆)">
+                    <span class="icon-goldcoin" style="color:#ffd166;">✪</span>
+                    <span><span id="hud-goldcoin-label">Coin:</span> <strong id="hud-goldcoins" style="color:#ffd166;">0</strong></span>
+                </div>
+                <div class="hud-stat emerald-stat" id="hud-emerald-box" style="cursor:pointer;" title="Antik Zümrüt (❖)">
+                    <span class="icon-emerald">❖</span>
+                    <span><span id="hud-emerald-label">Zümrüt:</span> <strong id="hud-emeralds">0</strong> <small id="hud-level-emeralds">(0/0)</small></span>
+                </div>
+                <div class="hud-stat coin-stat" id="hud-crystal-box" style="cursor:pointer;" title="Toplam Kristal (◆)">
+                    <span class="icon-coin">◆</span>
+                    <span><span id="hud-coin-label">Kristal:</span> <strong id="hud-coins">0</strong></span>
+                </div>
+                <div class="hud-stat score-stat" id="hud-score-box" style="cursor:pointer; border-color: rgba(255, 209, 102, 0.65);" title="Tıkla: Puan & Liderlik Tablosu (🏆)">
+                    <span class="icon-star">🏆</span>
+                    <span id="hud-score">00000</span>
+                </div>
+                <button id="btn-hud-troll" class="troll-round-btn hud-troll-btn hidden" style="display:none;" title="Trol Modu (15 Bölüm)">
+                    <span class="troll-face-icon">😡</span>
+                    <span class="troll-badge-text" id="hud-troll-badge">TROL</span>
+                </button>
+                <button id="btn-hud-lang" class="lang-square-btn hud-lang-btn hidden" style="display:none;" title="Dil Seçimi / Language (👅)">
+                    <span class="lang-tongue-icon">👅</span>
+                    <span class="lang-code-badge" id="hud-lang-code">TR</span>
+                </button>
+                <button id="btn-mute" class="icon-btn" title="Sesi Aç/Kapat">🔊</button>
+                <button id="btn-hud-settings" class="icon-btn" title="Ayarlar Menüsü">⚙️</button>
+                <button id="btn-pause" class="icon-btn" title="Duraklat">⏸</button>
+            </div>
+        </div>
+
+        <!-- Touch Controls (Mobile / Tablet & On-Screen) -->
+        <div id="touch-controls" class="hidden">
+            <div class="dpad-group">
+                <button id="touch-left" class="touch-btn" aria-label="Sol">◀</button>
+                <button id="touch-right" class="touch-btn" aria-label="Sağ">▶</button>
+            </div>
+            <div class="action-group">
+                <button id="touch-fire" class="touch-btn btn-fire fire-passive" aria-label="Ateş Topu" aria-disabled="true">🔥</button>
+                <button id="touch-jump" class="touch-btn btn-jump" aria-label="Zıpla">▲</button>
+            </div>
+        </div>
+
+        <!-- Title & 100-Level Campaign Map Screen -->
+        <div id="screen-map" class="overlay-screen">
+            <div class="map-container">
+                <div class="map-top-bar">
+                    <div class="currencies-group">
+                        <button id="btn-map-profile" class="profile-square-btn" title="Profilini Görüntüle ve Düzenle">
+                            <div class="profile-frame-box" id="map-profile-avatar">⚔️</div>
+                            <div class="profile-btn-info">
+                                <span class="profile-btn-tag" id="map-profile-tag">OYUNCU PROFİLİ</span>
+                                <span class="profile-btn-name" id="map-profile-name">Gölge Şövalye</span>
+                            </div>
+                        </button>
+                        <div class="wallet-pill goldcoin-pill" id="map-goldcoin-pill" style="cursor:pointer; border-color: rgba(255, 209, 102, 0.7); background: rgba(255, 209, 102, 0.12);" title="Tıkla: Karakter Değiştirme Mağazası (Coin ✪)">
+                            <span class="icon-goldcoin" style="color:#ffd166;">✪</span>
+                            <span><span id="map-goldcoin-label">Coin:</span> <strong id="map-wallet-goldcoins" style="color:#ffd166;">0</strong></span>
+                        </div>
+                        <div class="wallet-pill emerald-pill" id="map-emerald-pill" style="cursor:pointer;" title="Tıkla: Karakter Kişiselleştirme Stüdyosu (Zümrüt ❖)">
+                            <span class="icon-emerald">❖</span>
+                            <span><span id="map-emerald-label">Zümrüt:</span> <strong id="map-wallet-emeralds">0</strong></span>
+                        </div>
+                        <div class="wallet-pill" id="map-crystal-pill" style="cursor:pointer;" title="Tıkla: Güçlendirme Mağazası (Kristal ◆)">
+                            <span class="icon-coin">◆</span>
+                            <span><span id="map-coin-label">Kristal:</span> <strong id="map-wallet-coins">0</strong></span>
+                        </div>
+                        <div class="wallet-pill" id="map-hearts-pill" title="Oyuncu Başlangıç Can Hakkı" style="border-color: rgba(255, 42, 133, 0.55); color: #ff2a85; font-weight: 800;">
+                            <span id="map-hearts-text">♥ ♥ ♥ 3 CAN</span>
+                        </div>
+                    </div>
+
+                    <div class="title-header">
+                        <span class="badge-tag" id="map-season-badge">100 BÖLÜM • 10 DÜNYA TAM SÜRÜM</span>
+                        <h1 id="map-game-title">Marinext 2100</h1>
+                    </div>
+
+                    <div class="top-buttons-group">
+                        <button id="btn-map-leaderboard" class="customize-btn" style="background: linear-gradient(135deg, #eab308, #ca8a04); border-color: #fef08a; color: #0f172a; font-weight: 900; box-shadow: 0 0 16px rgba(234, 179, 8, 0.45);" title="Küresel & Play Games Liderlik Tablosu">🏆 LİDERLİK</button>
+                        <button id="btn-open-character" class="customize-btn hidden" style="display:none;">👤 KARAKTER DEĞİŞTİR (✪)</button>
+                        <button id="btn-open-customize" class="customize-btn hidden" style="display:none;">🎨 KARAKTERİ KİŞİSELLEŞTİR</button>
+                        <button id="btn-map-feedback" class="customize-btn" style="background: linear-gradient(135deg, #10b981, #047857); border-color: #6ee7b7; color: #fff;" title="Oyun Hakkında Geri Bildirim & Hata Bildirimi Gönder">💬 GERİ BİLDİRİM</button>
+                        <button id="btn-map-troll" class="troll-round-btn" title="Trol Modu (15 Bölüm) - Sinirlenen Adam (😡)">
+                            <span class="troll-face-icon">😡</span>
+                            <span class="troll-badge-text" id="map-troll-badge">TROL</span>
+                        </button>
+                        <button id="btn-map-lang" class="lang-square-btn" title="Dil Seçimi / Language (👅)">
+                            <span class="lang-tongue-icon">👅</span>
+                            <span class="lang-code-badge" id="map-lang-code">TR</span>
+                        </button>
+                        <button id="btn-map-settings" class="icon-btn" style="width:42px;height:42px;font-size:20px;" title="Ayarlar Menüsü">⚙️</button>
+                    </div>
+                </div>
+
+                <!-- 10 World / Action Zone Filter Bar (Dünya 1..10 & Tümü) -->
+                <div class="world-tabs-bar" id="world-tabs-bar">
+                    <!-- Dynamically populated 10 World tabs + All tab -->
+                </div>
+
+                <!-- 100-Level Interactive Campaign Grid -->
+                <div class="world-map-grid" id="level-nodes-container">
+                    <!-- Dynamically populated 100 level nodes -->
+                </div>
+
+                <div class="map-bottom-dock">
+                    <div class="level-preview-card" id="level-info-box">
+                        <div class="preview-header">
+                            <span class="world-tag" id="preview-world">DÜNYA 1</span>
+                            <h3 id="preview-title">Bölüm 1: Kristal Mağaralar</h3>
+                        </div>
+                        <p id="preview-desc">Karanlık mağaralarda çift zıplama ve duvardan zıplama yeteneklerini keşfet.</p>
+                        <div class="mechanics-list" id="preview-features">
+                            <span>🚀 Sıçrama Trambolinleri &amp; 💨 Hava Akımları</span>
+                            <span>⚡ Zamanlamalı Lazer Kapıları</span>
+                            <span>🧊 Buz &amp; ⏩ Hız Konveyörleri</span>
+                            <span>👑 20 Efsanevi Boss Savaşı</span>
+                        </div>
+                    </div>
+
+                    <div class="map-actions">
+                        <button id="btn-character-main" class="customize-btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); border-color: #fde047; color: #fff;">👤 KARAKTERLER (✪)</button>
+                        <button id="btn-customize-main" class="customize-btn">🎨 KİŞİSELLEŞTİR (❖)</button>
+                        <button id="btn-open-shop" class="shop-btn">⚡ GÜÇLENDİRME (◆)</button>
+                        <button id="btn-play-level" class="primary-btn play-btn-guiding">BÖLÜME BAŞLA ▶</button>
+                        <button id="btn-unlock-all" class="secondary-btn hidden" style="display:none;" title="Geliştirici Test Butonu">🔓 100 Bölüm Aç</button>
+                    </div>
+                </div>
+
+                <div class="controls-hint">
+                    <span id="map-controls-hint"><strong>Kontroller:</strong> A/D veya Ok Tuşları (Koş) • W/Boşluk (Çift Zıplama & Duvar Zıplaması) • X/F/Shift (Ateş Topu / Atılma)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Character Change & Realistic Outfit + Face Studio Modal (Uses Gold Coins ✪) -->
+        <div id="screen-character" class="overlay-screen hidden">
+            <div class="customize-container" style="position: relative; border-color: rgba(255, 209, 102, 0.55); box-shadow: 0 0 40px rgba(245, 158, 11, 0.25);">
+                <button id="btn-close-character-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <div class="shop-header" style="padding-right: 48px;">
+                    <div>
+                        <h2 id="char-modal-title" style="color: #ffd166;">👤 KARAKTER DEĞİŞTİRME & GERÇEKÇİ KIYAFET / YÜZ STÜDYOSU</h2>
+                        <p class="shop-sub" id="char-modal-sub">Bölümlerde topladığın <strong>Coin (✪)</strong> ile gerçekçi tarihi ve modern kıyafetleri aç! Kıyafeti giydirince karakterin <strong>yüz tipi, bıyığı/sakalı ve duruşu</strong> da gerçekle birebir değişir!</p>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <button id="btn-ad-chest-char" class="customize-btn" style="background: linear-gradient(135deg, #10b981, #059669); border-color: #6ee7b7; color: #fff; padding: 8px 14px; font-size: 13px;">
+                            🎬 Reklam İzle (+50 ✪ Coin)
+                        </button>
+                        <div class="wallet-pill" style="border-color: rgba(255, 209, 102, 0.85); background: rgba(255, 209, 102, 0.16);">
+                            <span class="icon-goldcoin" style="color:#ffd166;">✪</span>
+                            <span><span id="char-coin-label">Coin:</span> <strong id="char-wallet-goldcoins" style="color: #ffd166;">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="customize-body">
+                    <!-- Left: Live Zoomed-In Character & Face Preview -->
+                    <div class="preview-stage" style="border-color: rgba(255, 209, 102, 0.4);">
+                        <div class="preview-stage-title" id="char-preview-title" style="color: #ffd166;">CANLI KIYAFET & YÜZ TİPİ ÖNİZLEME</div>
+                        <canvas id="charPreviewCanvas" width="250" height="245"></canvas>
+                        <div class="preview-equipped-summary" id="char-preview-summary" style="color: #ffd166; font-weight: 700;">
+                            Yavuz Sultan Selim • Tac-ı Selimi & Uzun Pala Bıyık + İnci Küpe
+                        </div>
+                        <div id="char-preview-perk-badge" style="width:100%; margin-top:4px; padding:5px 8px; border-radius:9px; background:rgba(6,214,160,0.16); border:1px solid rgba(6,214,160,0.55); color:#06d6a0; font-size:11px; font-weight:800; text-align:center;">
+                            ⚡ Pasif Yetenek: Standart Siber Çeviklik
+                        </div>
+                    </div>
+
+                    <!-- Right: Character Outfit & Face Cards + Ownership Filter Tabs -->
+                    <div class="customize-options-panel">
+                        <div class="cust-tabs" id="char-filter-tabs" style="margin-bottom: 4px;">
+                            <button type="button" class="cust-tab char-filter-tab active" data-char-filter="all" id="char-tab-all">🌟 Tüm Karakterler (15)</button>
+                            <button type="button" class="cust-tab char-filter-tab" data-char-filter="owned" id="char-tab-owned">✅ Satın Alınanlar</button>
+                            <button type="button" class="cust-tab char-filter-tab" data-char-filter="locked" id="char-tab-locked">🔒 Satın Alınabilir</button>
+                        </div>
+                        <div class="cust-grid" id="char-items-container" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; max-height: 330px;">
+                            <!-- Populated dynamically by game.js -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shop-footer">
+                    <button id="btn-close-character" class="primary-btn" style="background: linear-gradient(135deg, #f59e0b, #d97706);">SEÇİMİ KAYDET VE DÖN ✓</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Character Customization Studio Modal (Uses Ancient Emeralds ❖) -->
+        <div id="screen-customize" class="overlay-screen hidden">
+            <div class="customize-container" style="position: relative;">
+                <button id="btn-close-customize-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <div class="shop-header" style="padding-right: 48px;">
+                    <div>
+                        <h2 id="cust-modal-title">🎨 KARAKTER KİŞİSELLEŞTİRME STÜDYOSU</h2>
+                        <p class="shop-sub" id="cust-modal-sub">Bölüm başarılarıyla hediye kazan veya <strong>Antik Zümrütleri (❖)</strong> kullanarak aktif karakterine özel yetenekli ekipmanlar kuşan!</p>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <button id="btn-ad-chest-cust" class="customize-btn" style="background: linear-gradient(135deg, #10b981, #059669); border-color: #6ee7b7; color: #fff; padding: 8px 14px; font-size: 13px;">
+                            🎬 Reklam İzle (+10 ❖ Zümrüt & +50 ✪ Coin)
+                        </button>
+                        <div class="wallet-pill emerald-pill">
+                            <span class="icon-emerald">❖</span>
+                            <span><strong id="cust-wallet-emeralds">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="customize-body">
+                    <!-- Left: Live Animated Character Preview -->
+                    <div class="preview-stage">
+                        <div class="preview-stage-title" id="cust-preview-title">CANLI AKTİF KARAKTER & DONANIM ÖNİZLEME</div>
+                        <canvas id="customizePreviewCanvas" width="240" height="235"></canvas>
+                        <div class="preview-equipped-summary" id="preview-summary-text">
+                            Gölge Mavisi • Şövalye Miğferi • Plazma Katana
+                        </div>
+                        <div id="cust-preview-perk-badge" style="width:100%; margin-top:4px; padding:5px 8px; border-radius:9px; background:rgba(0,242,254,0.14); border:1px solid rgba(0,242,254,0.5); color:#00f2fe; font-size:11px; font-weight:800; text-align:center;">
+                            ⚔️ Donanım Katkısı: +10% Skor & Standart Zırh
+                        </div>
+                    </div>
+
+                    <!-- Right: Customization Categories & Options -->
+                    <div class="customize-options-panel">
+                        <div class="cust-tabs">
+                            <button class="cust-tab active" data-tab="helmet">👑 Miğfer (12)</button>
+                            <button class="cust-tab" data-tab="backGear">⚔️ Silah & Kanat (12)</button>
+                            <button class="cust-tab" data-tab="skin">🛡 Zırh (12)</button>
+                            <button class="cust-tab" data-tab="visor">👁 Göz & Vizör (10)</button>
+                            <button class="cust-tab" data-tab="aura">✨ Aura & Efekt (10)</button>
+                            <button class="cust-tab" data-tab="cape">🧣 Pelerin (10)</button>
+                            <button class="cust-tab" data-tab="upgrade">⚡ Güçlendirme (8)</button>
+                        </div>
+                        <div class="cust-grid" id="cust-items-container">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shop-footer">
+                    <button id="btn-close-customize" class="primary-btn">KAYDET VE HARİTAYA DÖN ✓</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crystal Shop & Upgrades Modal (Uses Blue Crystals ◆) -->
+        <div id="screen-shop" class="overlay-screen hidden">
+            <div class="shop-container" style="position: relative;">
+                <button id="btn-close-shop-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <div class="shop-header" style="padding-right: 48px;">
+                    <h2 id="shop-modal-title">🛒 GÜÇLENDİRME CEPHANELİĞİ (KRİSTAL MAĞAZASI)</h2>
+                    <div class="wallet-pill">
+                        <span class="icon-coin">◆</span>
+                        <strong id="shop-wallet-coins">0</strong>
+                    </div>
+                </div>
+                <p class="shop-sub" id="shop-modal-sub">Bölümlerde topladığın mavi kristallerle (◆) kalıcı can, kalkan ve ateş topu güçlendirmeleri aç!</p>
+
+                <div class="shop-grid" id="shop-items-container">
+                    <!-- Populated dynamically by game.js -->
+                </div>
+
+                <div class="shop-footer">
+                    <button id="btn-close-shop" class="primary-btn">HARİTAYA DÖN ✓</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pause / Victory / Game Over Modal -->
+        <div id="screen-modal" class="overlay-screen hidden">
+            <div class="modal-card">
+                <h2 id="modal-title">OYUN DURAKLATILDI</h2>
+                <p id="modal-subtitle">Karanlık mağaralar seni bekliyor...</p>
+                <div id="modal-stats" class="modal-stats hidden">
+                    <div><span id="modal-stat-emerald-label">Antik Zümrüt:</span> <strong id="stat-emeralds" style="color:#06d6a0">0</strong> ❖</div>
+                    <div><span id="modal-stat-coin-label">Kristal:</span> <strong id="stat-coins" style="color:#00f2fe">0</strong> ◆</div>
+                    <div><span id="modal-stat-score-label">Skor:</span> <strong id="stat-score">0</strong></div>
+                </div>
+                <div class="modal-buttons">
+                    <button id="btn-ad-revive" class="primary-btn hidden" style="background: linear-gradient(135deg, #10b981, #059669); border: 2px solid #6ee7b7; box-shadow: 0 0 22px rgba(16, 185, 129, 0.55);">
+                        🎬 REKLAM İZLE & KALDIĞIN YERDEN CANLAN (3 ♥ + 🛡)
+                    </button>
+                    <button id="btn-ad-double" class="primary-btn hidden" style="background: linear-gradient(135deg, #f59e0b, #d97706); border: 2px solid #fde047; box-shadow: 0 0 22px rgba(245, 158, 11, 0.55);">
+                        🎬 REKLAM İZLE & BÖLÜM ÖDÜLLERİNİ 2'YE KATLA (2x ✪❖◆)
+                    </button>
+                    <button id="btn-resume" class="primary-btn">DEVAM ET</button>
+                    <button id="btn-next-level" class="primary-btn hidden">SONRAKİ BÖLÜM ▶</button>
+                    <button id="btn-modal-customize" class="customize-btn">🎨 KARAKTERİ KİŞİSELLEŞTİR</button>
+                    <button id="btn-restart" class="secondary-btn">BÖLÜMÜ BAŞTAN BAŞLAT ↻</button>
+                    <button id="btn-to-map" class="secondary-btn">BÖLÜMDEN ÇIK VE HARİTAYA DÖN 🗺</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Web Preview Bonus Overlay (Never shown on Native Android where real Google AdMob SDK runs) -->
+        <div id="screen-ad-overlay" class="overlay-screen hidden" style="z-index: 9999; background: rgba(4, 6, 16, 0.96);">
+            <div class="modal-card" style="max-width: 540px; border: 2px solid #ffd166; box-shadow: 0 0 45px rgba(255, 209, 102, 0.35); text-align: center;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
+                    <span style="background: rgba(255, 209, 102, 0.2); border: 1px solid #ffd166; color: #ffd166; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 800;">
+                        🎁 OYUN İÇİ BONUS • <span id="ad-overlay-badge">ÖDÜLLÜ VİDEO</span>
+                    </span>
+                    <span id="ad-overlay-timer" style="color: #06d6a0; font-weight: 800; font-size: 14px;">⏳ 5 sn</span>
+                </div>
+                <div style="background: linear-gradient(135deg, #0f172a, #1e1b4b); border: 1px solid rgba(0, 242, 254, 0.35); border-radius: 14px; padding: 28px 18px; margin-bottom: 14px;">
+                    <div style="font-size: 46px; margin-bottom: 8px;" id="ad-overlay-icon">🎁</div>
+                    <h3 id="ad-overlay-title" style="color: #ffffff; font-size: 20px; margin-bottom: 6px;">Ödüllü Bonus Video</h3>
+                    <p id="ad-overlay-desc" style="color: #cbd5e1; font-size: 14px; margin-bottom: 14px;">Süre tamamlandığında ödülün anında hesabına eklenecek!</p>
+                    <div style="width: 100%; height: 10px; background: rgba(255,255,255,0.12); border-radius: 999px; overflow: hidden;">
+                        <div id="ad-overlay-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #06d6a0, #00f2fe, #ffd166); transition: width 0.25s linear;"></div>
+                    </div>
+                </div>
+                <button id="btn-ad-claim" class="primary-btn" disabled style="width: 100%; opacity: 0.6;">
+                    ⏳ Hazırlanıyor... (5)
+                </button>
+            </div>
+        </div>
+
+        <!-- Settings Menu Modal (Gear Button ⚙️) — Responsive 2-Column Mobile Landscape Fit -->
+        <div id="screen-settings" class="overlay-screen hidden">
+            <div class="settings-modal-card">
+                <button id="btn-close-settings-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <div class="settings-modal-header">
+                    <h2 id="settings-modal-title">⚙️ OYUN AYARLARI</h2>
+                    <p id="settings-subtitle">Ses efektlerini, performansı, kılavuzu ve kayıtları buradan yönetebilirsin.</p>
+                </div>
+
+                <div class="settings-modal-body">
+                    <!-- Sol Kolon: Ses, Performans & Sistem Tercihleri -->
+                    <div class="settings-column">
+                        <div class="settings-group-title" id="settings-group-audio">🔊 SES, PERFORMANS &amp; SİSTEM</div>
+                        <button id="btn-toggle-sfx" class="settings-row-btn" type="button">
+                            <span id="settings-sfx-label">🔊 Ses Efektleri (SFX)</span>
+                            <strong id="sfx-status-text" class="settings-badge-status status-on">AÇIK</strong>
+                        </button>
+                        <button id="btn-toggle-music" class="settings-row-btn" type="button">
+                            <span id="settings-music-label">🎵 Arka Plan Müziği</span>
+                            <strong id="music-status-text" class="settings-badge-status status-on">AÇIK</strong>
+                        </button>
+                        <button id="btn-toggle-fps" class="settings-row-btn btn-fps-row" type="button" title="120 FPS / 60 FPS / 30 FPS geçiş yap">
+                            <span id="settings-fps-label">⚡ Kare Hızı (FPS)</span>
+                            <strong id="settings-fps-text" class="settings-badge-status status-fps">120 FPS ↻</strong>
+                        </button>
+                        <button id="btn-settings-cloud-sync" class="settings-row-btn btn-cloud-row" type="button">
+                            🎮 Google Play Games &amp; Bulut Kayıt
+                        </button>
+                        <button id="btn-privacy-consent" class="settings-row-btn btn-gdpr-row" type="button">
+                            🔒 Reklam &amp; Gizlilik Tercihleri (GDPR)
+                        </button>
+                        <button id="btn-open-privacy" class="settings-row-btn btn-privacy-row" type="button">
+                            🛡️ Gizlilik Politikası / Privacy Policy
+                        </button>
+                    </div>
+
+                    <!-- Sağ Kolon: Kılavuz, Sürüm, Topluluk & İlerleme -->
+                    <div class="settings-column">
+                        <div class="settings-group-title" id="settings-group-support">📋 REHBER, İLERLEME &amp; DESTEK</div>
+                        <button id="btn-open-changelog" class="settings-row-btn btn-changelog-row" type="button">
+                            📋 Sürüm Notları &amp; Yenilikler (Changelog)
+                        </button>
+                        <button id="btn-settings-tutorial" class="settings-row-btn btn-tutorial-row" type="button">
+                            📖 Başlangıç Kılavuzu &amp; Rehberi İncele
+                        </button>
+                        <button id="btn-settings-rate-app" class="settings-row-btn btn-rate-row" type="button">
+                            ⭐ Oyunu Puanla &amp; Değerlendir (Google Play)
+                        </button>
+                        <button id="btn-settings-feedback" class="settings-row-btn btn-feedback-row" type="button">
+                            💬 Uygulama Hakkında Geri Bildirim &amp; Hata Bildir
+                        </button>
+                        <button id="btn-settings-restart-level" class="settings-row-btn btn-restart-row" type="button">
+                            🔄 Aktif Bölümü Sıfırla (Baştan Başla)
+                        </button>
+                        <button id="btn-settings-reset-all" class="settings-row-btn btn-reset-row" type="button">
+                            ⚠️ Tüm Oyun İlerlemesini Sıfırla (Reset)
+                        </button>
+                    </div>
+                </div>
+
+                <div class="settings-modal-footer">
+                    <button id="btn-toggle-channel" class="settings-channel-btn hidden" type="button" title="Dağıtım Kanalını Değiştir (Dahili / Kapalı / Kararlı)">
+                        <span id="settings-channel-prefix">Dağıtım:</span>
+                        <strong id="settings-channel-badge" class="settings-channel-badge badge-internal">🧪 DAHİLİ TEST</strong>
+                    </button>
+                    <button id="btn-test-ad" class="settings-channel-btn hidden" type="button" title="AdMob Test Reklamı Başlat (Ödüllü Video)">
+                        🎬 REKLAM TESTİ
+                    </button>
+                    <button id="btn-close-settings" class="primary-btn settings-save-btn" type="button">
+                        AYARLARI KAYDET VE DÖN ✓
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dedicated Ad & Privacy Consent Preferences Modal (Separate from Privacy Policy!) -->
+        <div id="screen-ad-consent" class="overlay-screen hidden" style="z-index: 9510;">
+            <div class="modal-card" style="max-width: 580px; max-height: 88vh; overflow-y: auto; text-align: left; position: relative; border: 1.5px solid rgba(6, 214, 160, 0.6); box-shadow: 0 0 38px rgba(6, 214, 160, 0.25);">
+                <button id="btn-close-ad-consent-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <h2 style="color: #06d6a0; margin-bottom: 6px; font-size: 21px;">🔒 Reklam &amp; Gizlilik Tercihleri (GDPR / UMP)</h2>
+                <p style="color: #94a3b8; font-size: 12.5px; margin-bottom: 12px;">Google AdMob reklam kişiselleştirme, sıklık sınırı ve veri işleme tercihlerinizi buradan yönetebilirsiniz.</p>
+
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px;">
+                    <button id="btn-toggle-personalized-ads" type="button" class="secondary-btn" style="display:flex; justify-content:space-between; align-items:center; padding: 12px 16px; font-size: 14px; border-color: rgba(6, 214, 160, 0.55);">
+                        <span>🎯 Kişiselleştirilmiş Reklamlar (İlgi Alanı)</span>
+                        <strong id="personalized-ads-status" style="color:#06d6a0;">AÇIK ✓</strong>
+                    </button>
+
+                    <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(0, 242, 254, 0.3); border-radius: 10px; padding: 10px 14px; font-size: 12.5px; color: #cbd5e1; line-height: 1.5;">
+                        <strong style="color:#00f2fe;">📺 Akıllı &amp; Kullanıcı Dostu Reklam Kuralımız:</strong><br>
+                        • Oyun sırasında asla tam ekran zorunlu reklam çıkmaz.<br>
+                        • Bölüm sonu geçiş reklamları en fazla <strong>3 bölüm zaferinde 1 kez</strong> (en az 3 dakika arayla) gösterilir.<br>
+                        • Ödüllü videolar (Canlanma, 2x Ödül, Hazine Sandığı) tamamen <strong>isteğe bağlıdır</strong>.
+                    </div>
+
+                    <div style="background: rgba(255, 209, 102, 0.08); border-left: 3px solid #ffd166; padding: 9px 12px; border-radius: 6px; font-size: 12px; color: #e2e8f0;" id="ad-consent-gdpr-box">
+                        <strong>🇪🇺 AB / AEA &amp; Birleşik Krallık (GDPR / Google UMP):</strong> Avrupa Ekonomik Alanı'nda bulunuyorsanız Google Resmi UMP İzin Formunu aşağıdaki butonla istediğiniz zaman yeniden açıp güncelleyebilirsiniz.
+                    </div>
+
+                    <div id="ad-consent-region-status" class="hidden" style="padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; background: rgba(6, 214, 160, 0.15); border: 1px solid #06d6a0; color: #6ee7b7;"></div>
+                </div>
+
+                <div class="modal-buttons" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button id="btn-open-google-ump-form" type="button" class="secondary-btn" style="flex: 1; min-width: 190px; padding: 10px 14px; border-color: #ffd166; color: #ffd166;">
+                        📋 Google UMP İzin Formunu Denetle
+                    </button>
+                    <button id="btn-close-ad-consent" type="button" class="primary-btn" style="flex: 1; min-width: 170px; padding: 10px 14px;">
+                        TERCİHLERİ KAYDET ✓
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- In-App Feedback & Bug Report Modal (Connected to Google Play Console Testing Feedback + Direct Report) -->
+        <div id="screen-feedback" class="overlay-screen hidden" style="z-index: 9520;">
+            <div class="modal-card" style="max-width: 600px; max-height: 90vh; overflow-y: auto; text-align: left; position: relative; border: 2px solid #06d6a0; box-shadow: 0 0 42px rgba(6, 214, 160, 0.3);">
+                <button id="btn-close-feedback-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <h2 style="color: #06d6a0; margin-bottom: 4px; font-size: 21px;">💬 Geri Bildirim &amp; Geliştirici Konsol Bildirimi</h2>
+                <p style="color: #cbd5e1; font-size: 12.5px; margin-bottom: 10px; line-height: 1.45;">
+                    Oyun hakkındaki öneri, hata bildirimi veya bölüm yorumlarınızı buradan gönderebilirsiniz. Gönderdiğiniz bildirimler hem <strong>Google Play Console (Puanlar ve Yorumlar &rarr; Test geri bildirimleri)</strong> ekranına düşer hem de geliştirici ekibimize iletilir!
+                </p>
+
+                <!-- 1. Star Rating -->
+                <div style="margin-bottom: 10px;">
+                    <label style="font-size: 12px; font-weight: 800; color: #ffd166; display: block; margin-bottom: 4px;">⭐ OYUN PUANINIZ:</label>
+                    <div id="feedback-stars-row" style="display: flex; gap: 8px;">
+                        <button type="button" class="feedback-star-btn active" data-star="1">★</button>
+                        <button type="button" class="feedback-star-btn active" data-star="2">★</button>
+                        <button type="button" class="feedback-star-btn active" data-star="3">★</button>
+                        <button type="button" class="feedback-star-btn active" data-star="4">★</button>
+                        <button type="button" class="feedback-star-btn active" data-star="5">★</button>
+                    </div>
+                </div>
+
+                <!-- 2. Category Selector -->
+                <div style="margin-bottom: 10px;">
+                    <label style="font-size: 12px; font-weight: 800; color: #00f2fe; display: block; margin-bottom: 4px;">📌 BİLDİRİM KONUSU:</label>
+                    <div id="feedback-category-row" style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <button type="button" class="feedback-cat-chip active" data-cat="Öneri & Yeni Fikir">💡 Öneri &amp; Fikir</button>
+                        <button type="button" class="feedback-cat-chip" data-cat="Hata / Bug Bildirimi">🐞 Hata / Bug</button>
+                        <button type="button" class="feedback-cat-chip" data-cat="Bölüm & Zorluk Yorumu">🗺️ Bölüm &amp; Zorluk</button>
+                        <button type="button" class="feedback-cat-chip" data-cat="Performans / FPS">⚡ Performans / FPS</button>
+                    </div>
+                </div>
+
+                <!-- 3. Message Textarea -->
+                <div style="margin-bottom: 10px;">
+                    <label for="feedback-message-input" style="font-size: 12px; font-weight: 800; color: #e2e8f0; display: block; margin-bottom: 4px;">✍️ MESAJINIZ (Bölüm no, cihaz veya önerinizi yazın):</label>
+                    <textarea id="feedback-message-input" rows="3" maxlength="600" placeholder="Örn: 24. bölümdeki lazer kapıları çok eğlenceli olmuş, yeni karakterler harika..." style="width: 100%; border-radius: 10px; border: 1.5px solid rgba(0, 242, 254, 0.45); background: rgba(6, 10, 24, 0.92); color: #ffffff; padding: 9px 12px; font-family: inherit; font-size: 13px; resize: vertical; user-select: text; -webkit-user-select: text;"></textarea>
+                </div>
+
+                <div id="feedback-status-banner" class="hidden" style="background: rgba(6, 214, 160, 0.16); border: 1px solid #06d6a0; color: #6ee7b7; padding: 8px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 700; margin-bottom: 10px;">
+                    ✓ Geri bildiriminiz kaydedildi!
+                </div>
+
+                <div class="modal-buttons" style="display: flex; flex-direction: column; gap: 8px;">
+                    <button id="btn-submit-feedback-playconsole" type="button" class="primary-btn" style="background: linear-gradient(135deg, #06d6a0, #059669); color: #041418; padding: 11px 16px; font-size: 13.5px;">
+                        📲 KAYDET &amp; GOOGLE PLAY CONSOLE GERİ BİLDİRİMİ GÖNDER ▶
+                    </button>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button id="btn-submit-feedback-direct" type="button" class="secondary-btn" style="flex: 1; min-width: 180px; padding: 9px 12px; font-size: 12.5px; border-color: #ffd166; color: #ffd166;">
+                            📨 Geliştiriciye Doğrudan Rapor İlet
+                        </button>
+                        <button id="btn-close-feedback" type="button" class="secondary-btn" style="flex: 1; min-width: 130px; padding: 9px 12px; font-size: 12.5px;">
+                            KAPAT ✕
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- In-App Privacy Policy Modal (Works 100% Offline & Online inside Android WebView) -->
+        <div id="screen-privacy" class="overlay-screen hidden" style="z-index: 9500;">
+            <div class="modal-card" style="max-width: 680px; max-height: 88vh; overflow-y: auto; text-align: left; position: relative; border: 1.5px solid rgba(0, 242, 254, 0.45); box-shadow: 0 0 35px rgba(0, 242, 254, 0.25);">
+                <button id="btn-close-privacy-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <h2 id="privacy-modal-title" style="color: #00f2fe; margin-bottom: 6px; font-size: 22px;">🛡️ Marinext 2100 — Gizlilik Politikası</h2>
+                <p id="privacy-modal-meta" style="color: #94a3b8; font-size: 12.5px; margin-bottom: 14px;">Geliştirici: <strong>CG Studio Home</strong> | Paket: <code>com.cgstudiohome.marinext2100</code> | İletişim: <code>info@erpdanisman.com</code></p>
+                <div id="privacy-dynamic-content" style="color: #e2e8f0; font-size: 13.5px; line-height: 1.6; display: flex; flex-direction: column; gap: 10px;">
+                    <!-- Dynamically populated in the active language (TR, EN, KO, JA, ZH, RU, IT, ES, FR) -->
+                </div>
+                <div style="margin-top: 12px; font-size: 12px; color: #94a3b8;">
+                    🌐 <span id="privacy-web-label">Resmi Web Gizlilik Politikası:</span> <strong style="color:#00f2fe;">https://cgstudiohome.github.io/marinext2100/privacy-policy.html</strong><br>
+                    📧 <span id="privacy-contact-label">İletişim / Contact:</span> <strong style="color:#ffd166;">info@erpdanisman.com</strong>
+                </div>
+                <div class="modal-buttons" style="margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a id="btn-privacy-open-web" href="https://cgstudiohome.github.io/marinext2100/privacy-policy.html" target="_blank" rel="noopener" class="secondary-btn" style="flex: 1; text-align: center; text-decoration: none; padding: 10px 14px; border-color: rgba(0, 242, 254, 0.5); color: #00f2fe;">
+                        🌐 Web Tarayıcıda Aç
+                    </a>
+                    <button id="btn-close-privacy" type="button" class="primary-btn" style="flex: 1; padding: 10px 14px;">
+                        OKUDUM VE KAPAT ✓
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Smart In-App Rating Modal (Prompt after Level 3 / Boss 1 Victory before In-App Review API) -->
+        <div id="screen-rate-app" class="overlay-screen hidden" style="z-index: 9550;">
+            <div class="modal-card" style="max-width: 520px; text-align: center; border: 2px solid #ffd166; box-shadow: 0 0 45px rgba(255, 209, 102, 0.35);">
+                <button id="btn-close-rate-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <div style="font-size: 44px; margin-bottom: 8px; filter: drop-shadow(0 0 10px rgba(255, 209, 102, 0.7));">⭐</div>
+                <h2 id="rate-modal-title" style="color: #ffd166; font-size: 22px; margin-bottom: 8px;">Marinext 2100'ü Beğendiniz mi?</h2>
+                <p id="rate-modal-desc" style="color: #cbd5e1; font-size: 14px; line-height: 1.6; margin-bottom: 18px;">
+                    Oyun deneyiminizi daha da güzelleştirmek için geliştirici ekibimize Google Play'de 5 yıldız vererek destek olabilirsiniz!
+                </p>
+                <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px;">
+                    <span style="font-size: 32px; color: #ffd166; cursor: pointer;" class="rate-star-icon">★</span>
+                    <span style="font-size: 32px; color: #ffd166; cursor: pointer;" class="rate-star-icon">★</span>
+                    <span style="font-size: 32px; color: #ffd166; cursor: pointer;" class="rate-star-icon">★</span>
+                    <span style="font-size: 32px; color: #ffd166; cursor: pointer;" class="rate-star-icon">★</span>
+                    <span style="font-size: 32px; color: #ffd166; cursor: pointer;" class="rate-star-icon">★</span>
+                </div>
+                <div class="modal-buttons" style="display: flex; flex-direction: column; gap: 10px;">
+                    <button id="btn-action-rate-now" type="button" class="primary-btn" style="background: linear-gradient(135deg, #ffd166, #ff9f1c); color: #070812; font-size: 15px; font-weight: 900; padding: 12px 18px;">
+                        ⭐ 5 YILDIZ VER &amp; PUANLA ▶
+                    </button>
+                    <div style="display: flex; gap: 10px;">
+                        <button id="btn-action-rate-feedback" type="button" class="secondary-btn" style="flex: 1; padding: 10px; font-size: 13px; border-color: rgba(6, 214, 160, 0.6); color: #6ee7b7;">
+                            💬 Öneri / Hata Bildir
+                        </button>
+                        <button id="btn-action-rate-later" type="button" class="secondary-btn" style="flex: 1; padding: 10px; font-size: 13px;">
+                            Daha Sonra ✕
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Walkthrough & New User Tutorial Modal / Overlay -->
+        <div id="screen-tutorial" class="overlay-screen hidden" style="z-index: 9600; background: rgba(5, 7, 20, 0.92); backdrop-filter: blur(8px);">
+            <div class="modal-card" style="max-width: 660px; max-height: 90vh; overflow-y: auto; text-align: left; position: relative; border: 2px solid #00f2fe; box-shadow: 0 0 50px rgba(0, 242, 254, 0.35);">
+                <button id="btn-close-tutorial-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(0, 242, 254, 0.25); padding-bottom: 10px; padding-right: 52px; margin-bottom: 14px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 28px;">🎮</span>
+                        <div>
+                            <h2 id="tutorial-modal-title" style="color: #00f2fe; margin: 0; font-size: 20px;">Başlangıç Rehberi &amp; Temel Kontroller</h2>
+                            <small id="tutorial-modal-step-badge" style="color: #ffd166; font-weight: 700;">Adım 1 / 4</small>
+                        </div>
+                    </div>
+                    <button id="btn-tutorial-skip" type="button" class="secondary-btn" style="padding: 6px 12px; font-size: 12px; border-color: rgba(255, 255, 255, 0.3); color: #94a3b8;">
+                        ⏩ Rehberi Atla
+                    </button>
+                </div>
+
+                <div id="tutorial-card-body" style="min-height: 180px; display: flex; flex-direction: column; justify-content: center;">
+                    <!-- Dynamically populated step contents -->
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 12px;">
+                    <button id="btn-tutorial-prev" type="button" class="secondary-btn" style="padding: 9px 16px; font-size: 13px;" disabled>
+                        ◀ Geri
+                    </button>
+                    <div id="tutorial-dots-row" style="display: flex; gap: 6px;">
+                        <span class="tutorial-dot active" style="width: 10px; height: 10px; border-radius: 50%; background: #00f2fe; display: inline-block;"></span>
+                        <span class="tutorial-dot" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.25); display: inline-block;"></span>
+                        <span class="tutorial-dot" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.25); display: inline-block;"></span>
+                        <span class="tutorial-dot" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.25); display: inline-block;"></span>
+                    </div>
+                    <button id="btn-tutorial-next" type="button" class="primary-btn" style="padding: 9px 20px; font-size: 13px;">
+                        İleri ▶
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- First-Run Privacy & Terms Consent Modal (Required for Google Play Store, GDPR & Families Policy) -->
+        <div id="screen-first-consent" class="overlay-screen hidden" style="z-index: 9999; background: rgba(3, 7, 18, 0.95); backdrop-filter: blur(8px);">
+            <div class="modal-card" style="max-width: 580px; max-height: 90vh; overflow-y: auto; text-align: left; position: relative; border: 2px solid #06d6a0; box-shadow: 0 0 50px rgba(6, 214, 160, 0.35);">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                    <div style="font-size: 32px; background: rgba(6, 214, 160, 0.15); border-radius: 12px; padding: 6px 12px; border: 1px solid rgba(6, 214, 160, 0.4);">🛡️</div>
+                    <div>
+                        <h2 id="first-consent-title" style="color: #06d6a0; margin: 0; font-size: 20px; font-weight: 900;">Marinext 2100'e Hoş Geldiniz!</h2>
+                        <small id="first-consent-sub" style="color: #94a3b8; font-size: 12px;">Gizlilik Politikası ve Kullanım Koşulları Bildirimi</small>
+                    </div>
+                </div>
+
+                <div id="first-consent-body" style="color: #e2e8f0; font-size: 13px; line-height: 1.6; margin-bottom: 16px; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(0, 242, 254, 0.3); border-radius: 10px; padding: 12px; font-size: 12.5px;">
+                        <strong style="color: #00f2fe;">🔒 Veri &amp; Gizlilik Güvencesi:</strong>
+                        <p style="margin: 6px 0 0 0; color: #cbd5e1;">Oyun deneyiminizi sağlamak, ilerlemenizi cihazınızda ve isteğe bağlı Google Drive bulutunda saklamak ve isteğe bağlı ödüllü reklam sunmak için Google Play Servisleri ile AdMob SDK'sı kullanılmaktadır. Kişisel kimliğiniz veya telefon numaranız asla toplanmaz.</p>
+                    </div>
+
+                    <div style="background: rgba(255, 209, 102, 0.08); border-left: 3px solid #ffd166; padding: 10px 12px; border-radius: 6px; font-size: 12px; color: #cbd5e1;">
+                        Oyuna devam ederek <strong>Gizlilik Politikamızı</strong> ve <strong>Kullanım Şartlarımızı</strong> kabul etmiş olursunuz. Bu tercihlerinizi dilediğiniz zaman <em>Ayarlar &gt; Reklam &amp; Gizlilik Tercihleri</em> ekranından güncelleyebilirsiniz.
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button id="btn-accept-first-consent" type="button" class="primary-btn" style="background: linear-gradient(135deg, #06d6a0, #059669); color: #041418; padding: 13px; font-size: 15px; font-weight: 900; box-shadow: 0 4px 18px rgba(6, 214, 160, 0.4);">
+                        KABUL EDİYORUM VE BAŞLA ▶
+                    </button>
+                    <button id="btn-read-first-privacy" type="button" class="secondary-btn" style="padding: 10px; font-size: 13px; border-color: rgba(0, 242, 254, 0.5); color: #00f2fe;">
+                        📖 Gizlilik Politikasını İncele
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Selection Modal (9 Languages: RU, TR, EN, IT, ES, FR, KO, ZH, JA) — Viewport Pinned Save Button -->
+        <div id="screen-language" class="overlay-screen hidden">
+            <div class="lang-modal-card">
+                <button id="btn-close-lang-x" class="modal-close-x" title="Dil Menüsünden Çık (ESC)">✕</button>
+                <div class="lang-modal-header">
+                    <h2 id="lang-modal-title">🌍 DİL SEÇİMİ / LANGUAGE</h2>
+                    <p id="lang-modal-sub">Oyun dilini aşağıdan seçebilirsin (9 Dil):</p>
+                </div>
+                <div class="lang-options-wrapper">
+                    <div class="lang-options-grid" id="lang-options-grid">
+                        <!-- Populated dynamically with Phone Auto + 9 languages in 3x3 grid -->
+                    </div>
+                </div>
+                <div class="lang-modal-footer">
+                    <button id="btn-close-lang" class="primary-btn lang-save-btn" type="button">
+                        DİLİ KAYDET VE ÇIK ✓
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Player Profile Modal (Spacious Phone-Friendly Layout + Dedicated Avatar Picker Popup Button) -->
+        <div id="screen-profile" class="overlay-screen hidden">
+            <div class="profile-modal-card">
+                <!-- Sağ Üst Çarpı (✕) Kapatma Butonu -->
+                <button id="btn-close-profile-x" class="modal-close-x" title="Profil Menüsünden Çık (ESC)">✕</button>
+
+                <!-- 1 & 2. Geniş Üst Bar: Profil Fotoğrafı + Fotoğraf Değiştir Butonu + Karakter İsmi + Kaydet Butonu -->
+                <div class="profile-compact-top-row">
+                    <div class="profile-top-avatar-wrap">
+                        <div class="profile-hero-square" id="profile-hero-avatar" style="cursor:pointer;" title="Profil Fotoğrafını Değiştir">⚔️</div>
+                        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:4px;">
+                            <span class="profile-avatar-title-badge" id="profile-hero-title">Siber Şövalye</span>
+                            <button type="button" id="btn-open-avatar-picker" class="customize-btn" style="padding: 5px 11px; font-size: 11.5px; background: linear-gradient(135deg, #06d6a0, #00b4d8); color: #041418; font-weight: 900;">
+                                🖼️ Fotoğraf Seç / Değiştir (30)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="profile-name-section">
+                        <label class="profile-name-label" id="profile-name-label" for="profile-name-input">✏️ KARAKTER İSMİ (İSTEDİĞİN GİBİ YAZ)</label>
+                        <input type="text" id="profile-name-input" class="profile-name-input" maxlength="24" value="Gölge Şövalye" placeholder="Karakter ismini yaz..." />
+                    </div>
+
+                    <button id="btn-close-profile" class="primary-btn profile-save-top-btn">
+                        PROFİLİ KAYDET VE ÇIK ✓
+                    </button>
+                </div>
+
+                <!-- 2.5 Google Play Games & Google Drive Bulut Kayıt Kutusu -->
+                <div id="profile-cloud-box" class="profile-attributes-box" style="border-color: rgba(16, 185, 129, 0.55); background: rgba(6, 78, 59, 0.22); margin-bottom: 4px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 4px;">
+                        <div class="profile-section-title" id="profile-cloud-title" style="color: #34d399; margin-bottom: 0;">🎮 GOOGLE PLAY GAMES &amp; GOOGLE DRIVE BULUT KAYIT</div>
+                        <span id="cloud-status-badge" style="font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 999px; background: rgba(16, 185, 129, 0.2); border: 1px solid #34d399; color: #6ee7b7;">☁️ Google Drive Yedek: AKTİF</span>
+                    </div>
+                    <p id="cloud-sync-time" class="profile-cloud-desc" style="font-size: 11.5px; color: #cbd5e1; margin: 0 0 6px 0; text-align: left;">
+                        İlerlemeniz (100 Kampanya + 15 Trol Bölümü, Coin, Zümrüt, Kristal ve Karakterler) otomatik olarak cihazınıza ve Google Drive bulut yedeğinize kaydedilir.
+                    </p>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button type="button" id="btn-cloud-sync-now" class="secondary-btn" style="flex: 1; min-width: 140px; padding: 8px 10px; font-size: 12px; font-weight: 800; border-color: #34d399; color: #6ee7b7; background: rgba(16, 185, 129, 0.16);">
+                            🎮 Play Games Senkronize Et
+                        </button>
+                        <button type="button" id="btn-cloud-export-drive" class="secondary-btn" style="flex: 1; min-width: 130px; padding: 8px 10px; font-size: 12px; font-weight: 800; border-color: #00f2fe; color: #00f2fe;">
+                            ☁️ Drive'a Yedek Kaydet
+                        </button>
+                        <button type="button" id="btn-cloud-import-drive" class="secondary-btn" style="flex: 1; min-width: 120px; padding: 8px 10px; font-size: 12px; font-weight: 800; border-color: #ffd166; color: #ffd166;">
+                            📂 Yedekten Yükle
+                        </button>
+                        <input type="file" id="input-cloud-import-file" accept=".json,application/json,text/plain" style="display: none;" />
+                    </div>
+                </div>
+
+                <!-- 3. Onun Altında Büyük & Okunaklı Karakter Özellikleri -->
+                <div class="profile-attributes-box">
+                    <div class="profile-section-title" id="profile-attr-title">⚔️ KARAKTER ÖZELLİKLERİ, YETENEKLER VE DONANIM</div>
+                    <div class="profile-stats-grid" id="profile-attributes-grid">
+                        <!-- Dynamically populated live character stats -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dedicated 30 Profile Avatar Picker Modal (Opened by Button inside Profile Modal) -->
+        <div id="screen-avatar-picker" class="overlay-screen hidden" style="z-index: 9995; background: rgba(4, 6, 16, 0.94);">
+            <div class="modal-card" style="max-width: 760px; width: 95%; max-height: 90vh; border: 2px solid #06d6a0; box-shadow: 0 0 42px rgba(6, 214, 160, 0.3); position: relative; padding: 18px 20px;">
+                <button id="btn-close-avatar-picker-x" class="modal-close-x" title="Kapat">✕</button>
+                <h2 id="profile-picker-title" style="color: #06d6a0; font-size: 19px; margin-bottom: 4px;">🖼️ PROFİL FOTOĞRAFI SEÇ (30 ÖZEL AVATAR)</h2>
+                <p style="font-size: 12.5px; color: #cbd5e1; margin-bottom: 12px;">Profilinde ve Liderlik Tablosunda görünecek kahraman amblemini seç:</p>
+                <div class="profile-avatars-grid" id="profile-avatars-grid">
+                    <!-- 30 distinct profile pictures populated by game.js -->
+                </div>
+                <button type="button" id="btn-close-avatar-picker" class="primary-btn" style="margin-top: 14px; padding: 10px 24px; background: linear-gradient(135deg, #06d6a0, #00b4d8); color: #041418;">
+                    SEÇİMİ ONAYLA ✓
+                </button>
+            </div>
+        </div>
+
+        <!-- 😡 50-Level Troll Mode Modal (Round Angry Man Button -> 50 Progressive Troll Levels) -->
+        <div id="screen-troll" class="overlay-screen hidden">
+            <div class="troll-modal-card">
+                <button id="btn-close-troll-x" class="modal-close-x" title="Trol Menüsünden Çık (ESC)">✕</button>
+
+                <div class="troll-modal-header">
+                    <div class="troll-hero-circle">😡</div>
+                    <div>
+                        <span class="troll-mode-pill" id="troll-modal-pill">🤬 ÖZEL SÜRPRİZ &amp; SİNİR KRİZİ MODU • 50 BÖLÜM</span>
+                        <h2 id="troll-modal-title">😡 TROL MODU (50 SÜRPRİZLİ BÖLÜM)</h2>
+                        <p id="troll-modal-sub">Kolaydan zora doğru kademeli zorlaşan <strong>50 Özel Trol Bölümü</strong>! İlerledikçe şaşırtıcı sürprizler artar: <strong>Çöken zeminler (-3 ♥)</strong>, <strong>Uranyum kutuları (☢️)</strong>, <strong>başa ışınlayan sahte zümrütler (❖)</strong>, <strong>kaçan bitiş portalı (🤡)</strong>, <strong>gizli yaylar</strong>, <strong>gökten pusu</strong> ve <strong>sahte kayıt bayrakları!</strong></p>
+                    </div>
+                </div>
+
+                <!-- 5 Troll Tier Filter Tabs (1-50) -->
+                <div class="world-tabs-bar" id="troll-tier-tabs-bar" style="width:100%;">
+                    <!-- Populated dynamically by game.js -->
+                </div>
+
+                <!-- 50 Troll Levels Grid -->
+                <div class="troll-map-grid" id="troll-nodes-container">
+                    <!-- Populated dynamically with 50 Troll levels -->
+                </div>
+
+                <!-- Selected Troll Level Preview -->
+                <div class="troll-preview-box">
+                    <div class="preview-header">
+                        <span class="world-tag" id="troll-preview-world" style="border-color:#ff2a85;color:#ff2a85;background:rgba(255,42,133,0.16);">😡 TROL 1/50 • ISINMA</span>
+                        <h3 id="troll-preview-title">Trol Bölüm 1: Masum Görünen Yol</h3>
+                    </div>
+                    <p id="troll-preview-desc">Isınma Trolü! Bazı zeminler basınca çöker (-3♥) ve ortadaki [?] kutusu Uranyum Bombası yağdırır! Üst güvenli platformları kullan.</p>
+                </div>
+
+                <div class="map-actions" style="width:100%;justify-content:center;">
+                    <button id="btn-play-troll" class="primary-btn" style="background:linear-gradient(135deg,#ff2a85,#ff5400);box-shadow:0 0 24px rgba(255,42,133,0.6);">
+                        😡 TROL BÖLÜMÜNE BAŞLA ▶
+                    </button>
+                    <button id="btn-unlock-all-troll" class="secondary-btn hidden" style="display:none;border-color:rgba(255,209,102,0.6);color:#ffd166;">
+                        🔓 50 Trol Bölümünün Tümünü Aç
+                    </button>
+                    <button id="btn-close-troll" class="secondary-btn">
+                        NORMAL HARİTAYA DÖN ✕
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hybrid Neon Leaderboard & Google Play Games Rankings Modal (🏆) -->
+        <div id="screen-leaderboard" class="overlay-screen hidden" style="z-index: 9997; background: rgba(4, 6, 16, 0.94);">
+            <div class="modal-card leaderboard-modal-card" style="max-width: 780px; width: 96%; max-height: 92vh; overflow-y: auto; border: 2px solid #ffd166; box-shadow: 0 0 42px rgba(255, 209, 102, 0.28); text-align: left; position: relative; padding: 16px 18px;">
+                <button id="btn-close-leaderboard-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+
+                <!-- Header Row -->
+                <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; padding-right:34px;">
+                    <div>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span style="font-size:24px;">🏆</span>
+                            <h2 id="lb-modal-title" style="color:#ffd166; font-size:20px; margin:0; letter-spacing:0.5px;">ŞAMPİYONLAR LİDERLİK TABLOSU</h2>
+                            <span id="lb-league-badge" style="background:linear-gradient(135deg,#f59e0b,#b45309); color:#fff; font-size:11px; font-weight:800; padding:3px 9px; border-radius:999px; border:1px solid #fef08a;">👑 ALTIN LİG</span>
+                        </div>
+                        <p id="lb-modal-subtitle" style="color:#94a3b8; font-size:12px; margin:3px 0 0 0;">
+                            4 profesyonel kategoride sıralamanı yükselt, lig ödüllerini topla ve Google Play Games küresel listesinde zirveye çık!
+                        </p>
+                    </div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <button id="btn-open-playgames-achievements" type="button" class="secondary-btn" style="padding:8px 13px; font-size:12px; font-weight:800; border-color:#ffd166; color:#ffd166; background:rgba(255,209,102,0.12); display:flex; align-items:center; gap:6px;">
+                            <span>🏆</span> <span id="lb-achievements-btn-text">Başarılar</span>
+                        </button>
+                        <button id="btn-open-playgames-leaderboard" type="button" class="secondary-btn" style="padding:8px 13px; font-size:12px; font-weight:800; border-color:#06d6a0; color:#06d6a0; background:rgba(6,214,160,0.12); display:flex; align-items:center; gap:6px;">
+                            <span>🎮</span> <span id="lb-playgames-btn-text">Play Games Resmi Tablosu</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4 Professional Category Tabs -->
+                <div class="lb-category-tabs" id="lb-category-tabs">
+                    <button type="button" class="lb-cat-tab active" data-lb-cat="score">🏆 Skor Krallığı</button>
+                    <button type="button" class="lb-cat-tab" data-lb-cat="progress">⚔️ 100 Bölüm &amp; Boss</button>
+                    <button type="button" class="lb-cat-tab" data-lb-cat="emerald">❖ Zümrüt &amp; Hazine</button>
+                    <button type="button" class="lb-cat-tab" data-lb-cat="speedrun">⚡ Hız Rekoru (Speedrun)</button>
+                </div>
+
+                <!-- Scope / Region Filter Bar -->
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+                    <div class="lb-scope-pills" id="lb-scope-pills">
+                        <button type="button" class="lb-scope-pill active" data-lb-scope="global">🌍 Küresel (Tüm Zamanlar)</button>
+                        <button type="button" class="lb-scope-pill" data-lb-scope="weekly">🔥 Haftalık Sezon</button>
+                        <button type="button" class="lb-scope-pill" data-lb-scope="friends">👥 Arkadaşlar</button>
+                        <button type="button" class="lb-scope-pill" data-lb-scope="tr">🇹🇷 Türkiye İlk 25</button>
+                    </div>
+                    <span id="lb-sync-status" style="font-size:11.5px; color:#06d6a0; font-weight:700;">● Play Games Senkronizasyonu Hazır</span>
+                </div>
+
+                <!-- Top 3 Podium Showcase -->
+                <div class="lb-podium-grid" id="lb-podium-container">
+                    <!-- Dynamically populated Top 3 Champions -->
+                </div>
+
+                <!-- Scrollable Leaderboard Table -->
+                <div class="lb-table-wrapper" id="lb-rows-container">
+                    <!-- Dynamically populated ranks #1..#25 -->
+                </div>
+
+                <!-- Sticky Player Live Rank & Milestone Reward Footer -->
+                <div class="lb-player-footer" id="lb-player-footer">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <div class="lb-rank-badge player-rank" id="lb-my-rank-num">#12</div>
+                        <div class="lb-avatar-box" id="lb-my-avatar">⚔️</div>
+                        <div>
+                            <div style="font-weight:800; color:#fff; font-size:13.5px;">
+                                <span id="lb-my-name">Gölge Şövalye</span>
+                                <span style="background:#00f2fe; color:#041418; font-size:10px; font-weight:900; padding:1px 6px; border-radius:99px; margin-left:5px;">SEN</span>
+                            </div>
+                            <div id="lb-my-target-hint" style="font-size:11.5px; color:#94a3b8;">Bir üst sıra için: +450 Puan</div>
+                        </div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <div style="text-align:right;">
+                            <div style="font-size:10.5px; color:#94a3b8; text-transform:uppercase;">SENİN DERECEN</div>
+                            <div id="lb-my-score-val" style="font-size:15px; font-weight:900; color:#ffd166;">0 PUAN</div>
+                        </div>
+                        <button id="btn-claim-lb-reward" type="button" class="primary-btn" style="padding:8px 13px; font-size:12px; background:linear-gradient(135deg,#06d6a0,#00b4d8); color:#041418;">
+                            🎁 Lig Ödülü Al
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Startup Update Check Modal (Strictly Centered Across All Phones & Tablets) -->
+        <div id="screen-update" class="overlay-screen hidden" style="position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 9998; background: rgba(4, 6, 16, 0.94);">
+            <div class="modal-card" style="max-width: 460px; width: 92%; margin: auto; border: 2px solid #06d6a0; box-shadow: 0 0 45px rgba(6, 214, 160, 0.35); text-align: center; position: relative;">
+                <button id="btn-close-update-x" class="modal-close-x" title="Daha Sonra">✕</button>
+                <div style="font-size: 44px; margin-bottom: 6px;">🚀</div>
+                <h2 id="update-modal-title" style="color: #06d6a0; font-size: 22px; margin-bottom: 6px;">YENİ GÜNCELLEME MEVCUT!</h2>
+                <p id="update-modal-desc" style="color: #e2e8f0; font-size: 13.5px; margin-bottom: 14px; line-height: 1.5;">
+                    <strong>Marinext 2100</strong> oyununun yeni sürümü (<strong id="update-new-version" style="color:#ffd166;">v1.2.0</strong>) yayınlandı! En yeni özellikler ve iyileştirmeler için hemen güncelleyin.
+                </p>
+                <div class="modal-buttons" style="display:flex; flex-direction:column; gap:10px;">
+                    <button id="btn-do-update" type="button" class="primary-btn" style="background: linear-gradient(135deg, #06d6a0, #00b4d8); color: #041418; font-size: 15px; padding: 13px 20px;">
+                        📲 GOOGLE PLAY'DEN GÜNCELLE ▶
+                    </button>
+                    <button id="btn-later-update" type="button" class="secondary-btn" style="padding: 10px 16px; font-size: 13px;">
+                        Daha Sonra Hatırlat
+                    </button>
+                    <a id="link-update-changelog" href="https://cgstudiohome.github.io/marinext2100/release-notes.html" target="_blank" style="color: #00f2fe; font-size: 12.5px; text-decoration: underline; margin-top: 6px; cursor: pointer;">
+                        📋 Tüm Sürüm Notlarını &amp; Yenilikleri İncele ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- What's New In This Version (Changelog Modal - Strictly Centered & Responsive) -->
+        <div id="screen-whats-new" class="overlay-screen hidden" style="position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 9995; background: rgba(4, 6, 16, 0.94); backdrop-filter: blur(8px);">
+            <div class="modal-card" style="max-width: 520px; width: 92%; max-height: 88vh; overflow-y: auto; margin: auto; border: 2px solid #00f2fe; box-shadow: 0 0 45px rgba(0, 242, 254, 0.35); text-align: left; position: relative; padding: 22px 24px; border-radius: 16px;">
+                <button id="btn-close-whats-new-x" class="modal-close-x" title="Kapat">✕</button>
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px; border-bottom: 1px solid rgba(0, 242, 254, 0.25); padding-bottom: 10px;">
+                    <div style="font-size: 32px; background: rgba(0, 242, 254, 0.15); border: 1.5px solid #00f2fe; border-radius: 12px; padding: 4px 10px;">🚀</div>
+                    <div>
+                        <h2 id="whats-new-title" style="color: #00f2fe; font-size: 19px; font-weight: 800; line-height: 1.2;">v1.3.2 İle Neler Yeni?</h2>
+                        <div id="whats-new-subtitle" style="color: #94a3b8; font-size: 12px; margin-top: 2px;">En yeni özellikler ve oynanış geliştirmeleri!</div>
+                    </div>
+                </div>
+                <div id="whats-new-list" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;">
+                    <!-- Dynamically populated in active language -->
+                </div>
+                <div class="modal-buttons" style="display: flex; flex-direction: column; gap: 8px;">
+                    <button id="btn-whats-new-ok" type="button" class="primary-btn" style="background: linear-gradient(135deg, #00f2fe, #4facfe); color: #041418; font-size: 14.5px; font-weight: 800; padding: 12px 18px; border-radius: 10px; text-align: center;">
+                        🎮 HARİKA, OYUNA BAŞLA!
+                    </button>
+                    <button id="btn-whats-new-weblink" type="button" class="secondary-btn" style="padding: 9px 14px; font-size: 12.5px; border-color: rgba(255, 209, 102, 0.5); color: #ffd166; text-align: center;">
+                        🌐 Tüm Sürüm Notlarını &amp; Geçmişi İncele ↗
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insufficient Coin / Emerald / Crystal Rewarded Ad Offer Popup (Items 10 & 11) -->
+        <div id="screen-insufficient-balance" class="overlay-screen hidden" style="position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 9996; background: rgba(4, 6, 16, 0.92);">
+            <div class="modal-card" style="max-width: 450px; width: 92%; margin: auto; border: 2px solid #ffd166; box-shadow: 0 0 42px rgba(255, 209, 102, 0.35); text-align: center; position: relative; padding: 22px 24px;">
+                <button id="btn-insuff-close-x" class="modal-close-x" title="Vazgeç">✕</button>
+                <div id="insuff-modal-icon" style="font-size: 42px; margin-bottom: 6px;">🪙</div>
+                <h2 id="insuff-modal-title" style="color: #ffd166; font-size: 20px; margin-bottom: 6px;">BAKİYE YETERSİZ!</h2>
+                <p id="insuff-modal-desc" style="color: #e2e8f0; font-size: 13.5px; margin-bottom: 16px; line-height: 1.45;">
+                    Bu ürünü açmak için yeterli bakiyen yok. Kısa bir ödüllü video izleyerek hemen hediye kazanmak ister misin?
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button id="btn-insuff-watch-ad" type="button" class="primary-btn" style="background: linear-gradient(135deg, #10b981, #059669); border: 1.5px solid #6ee7b7; color: #fff; font-size: 14px; padding: 12px 18px; box-shadow: 0 0 22px rgba(16, 185, 129, 0.5);">
+                        🎬 REKLAM İZLE &amp; +50 ✪ COİN HEDİYE AL
+                    </button>
+                    <button id="btn-insuff-cancel" type="button" class="secondary-btn" style="padding: 10px 16px; font-size: 13px;">
+                        Vazgeç
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Google Play Games Achievement In-Game Banner -->
+        <div id="achievement-toast" class="hidden" style="position: fixed; top: 12px; left: 50%; transform: translateX(-50%) translateY(-140%); transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.35s ease; z-index: 99999; pointer-events: none; max-width: 92vw; width: 440px;">
+            <div style="background: linear-gradient(135deg, rgba(6, 16, 28, 0.98), rgba(4, 30, 24, 0.98)); border: 1.5px solid #06d6a0; border-radius: 14px; box-shadow: 0 10px 30px rgba(6, 214, 160, 0.35), 0 0 15px rgba(255, 209, 102, 0.25); padding: 10px 14px; display: flex; align-items: center; gap: 12px;">
+                <div id="ach-toast-icon" style="font-size: 28px; width: 44px; height: 44px; border-radius: 10px; background: rgba(6, 214, 160, 0.15); border: 1px solid rgba(6, 214, 160, 0.4); display: flex; align-items: center; justify-content: center;">🏆</div>
+                <div style="flex: 1; min-width: 0;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px;">
+                        <span id="ach-toast-header" style="font-size: 10px; font-weight: 900; letter-spacing: 0.8px; color: #06d6a0; text-transform: uppercase;">🎮 PLAY GAMES • BAŞARIM AÇILDI!</span>
+                        <span id="ach-toast-xp" style="font-size: 10px; font-weight: 800; color: #ffd166; background: rgba(255, 209, 102, 0.15); padding: 1px 6px; border-radius: 6px;">+1000 XP</span>
+                    </div>
+                    <div id="ach-toast-title" style="font-size: 13.5px; font-weight: 900; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px;">Kristal Fatihi</div>
+                    <div id="ach-toast-desc" style="font-size: 11px; font-weight: 600; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">10. Bölümü geç ve 1. Boss'u dize getir!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Aspect-Ratio-Safe Startup Splash Screen (Item 1: Never Stretches on Any Phone or Tablet) -->
+        <div id="screen-splash-intro" class="overlay-screen" style="position: fixed; inset: 0; z-index: 10000; background: radial-gradient(circle at center, #141c42 0%, #070a1c 62%, #03040a 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px;">
+            <div class="splash-intro-card">
+                <div class="splash-emblem-frame">
+                    <img src="../assets/store/icon-512.png" alt="Marinext 2100 Emblem" class="splash-emblem-img" />
+                    <canvas id="splashHeroCanvas" width="180" height="140" class="splash-hero-canvas"></canvas>
+                </div>
+                <div class="splash-badge-pill">⚡ 120 FPS ULTRA AKICI SİBER-PLATFORM MOTORU</div>
+                <h1 class="splash-main-title">MARINEXT 2100</h1>
+                <p class="splash-sub-text">100 Kampanya Bölümü • 10 Aksiyon Dünyası • 14 Tarihi &amp; Siber Kahraman</p>
+                <div class="splash-progress-track">
+                    <div id="splash-progress-fill" class="splash-progress-fill"></div>
+                </div>
+                <div id="splash-status-label" class="splash-status-label">Dünyalar ve Kahramanlar Yükleniyor...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/audio.js"></script>
+    <script src="js/levels.js"></script>
+    <script src="js/entities.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
