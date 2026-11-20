@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marinext 2100 - Privacy Policy / Gizlilik Politikası</title>
+    <style>
+        :root {
+            --bg: #070812;
+            --card: #111428;
+            --accent: #00f2fe;
+            --gold: #ffd166;
+            --emerald: #06d6a0;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: radial-gradient(circle at top, #141836 0%, var(--bg) 70%);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 32px 16px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 18px;
+            padding: 36px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+            margin-bottom: 24px;
+        }
+        h1 {
+            font-size: 26px;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .lang-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.07);
+            color: var(--text);
+            border: 1px solid rgba(0, 242, 254, 0.35);
+            padding: 7px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: #050711;
+            border-color: transparent;
+            box-shadow: 0 2px 10px rgba(0, 242, 254, 0.4);
+        }
+        h2 {
+            color: var(--gold);
+            font-size: 19px;
+            margin: 24px 0 10px;
+        }
+        p, li {
+            color: var(--text);
+            font-size: 14.5px;
+            margin-bottom: 10px;
+        }
+        ul {
+            padding-left: 22px;
+            margin-bottom: 14px;
+        }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        a:hover { text-decoration: underline; }
+        .meta-box {
+            background: rgba(0, 242, 254, 0.07);
+            border-left: 4px solid var(--accent);
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 13.5px;
+            color: var(--muted);
+        }
+        .highlight-box {
+            background: rgba(6, 214, 160, 0.08);
+            border-left: 4px solid var(--emerald);
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        .footer {
+            margin-top: 36px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ Marinext 2100</h1>
+            <div class="lang-tabs" id="langTabs">
+                <button class="tab-btn" data-lang="tr">🇹🇷 Türkçe</button>
+                <button class="tab-btn" data-lang="en">🇬🇧 English</button>
+                <button class="tab-btn" data-lang="ko">🇰🇷 한국어</button>
+                <button class="tab-btn" data-lang="ja">🇯🇵 日本語</button>
+                <button class="tab-btn" data-lang="zh">🇨🇳 中文</button>
+                <button class="tab-btn" data-lang="ru">🇷🇺 Русский</button>
+                <button class="tab-btn" data-lang="it">🇮🇹 Italiano</button>
+                <button class="tab-btn" data-lang="es">🇪🇸 Español</button>
+                <button class="tab-btn" data-lang="fr">🇫🇷 Français</button>
+            </div>
+        </div>
+
+        <div class="meta-box" id="metaInfo">
+            <strong>Developer:</strong> CG Studio Home | 
+            <strong>Package Name:</strong> com.cgstudiohome.marinext2100 | 
+            <strong>Contact:</strong> info@erpdanisman.com
+        </div>
+
+        <div id="contentArea">
+            <!-- Dynamically populated per language -->
+        </div>
+
+        <div class="footer">
+            &copy; 2026 CG Studio Home &bull; Marinext 2100 &bull; All Rights Reserved.
+        </div>
+    </div>
+
+    <script>
+        const PRIVACY_DATA = {
+            tr: {
+                title: "Gizlilik Politikası (Privacy Policy)",
+                meta: "<strong>Geliştirici:</strong> CG Studio Home &bull; <strong>Paket Adı:</strong> com.cgstudiohome.marinext2100 &bull; <strong>İletişim:</strong> info@erpdanisman.com &bull; <strong>Son Güncelleme:</strong> Kasım 2026",
+                highlight: "<strong>Özet Güvencemiz:</strong> Marinext 2100 kişisel kimlik, telefon numarası veya rehber gibi özel verilerinizi <u>asla toplamaz</u>. Oyun ilerlemeniz cihazınızda yerel olarak ve dilerseniz kendi Google Hesabınızın (Google Play Games & Google Drive) bulutunda saklanır.",
+                sections: [
+                    {
+                        h: "1. Toplanan ve İşlenen Bilgiler",
+                        p: "Marinext 2100 oyunu doğrudan kayıt gerektirmeden oynanabilir. Oyun sırasında işlenen sınırlı veriler şunlardır:",
+                        items: [
+                            "<strong>Oyun İlerlemesi ve Kayıtlar:</strong> Geçilen bölümler, toplanan coin/zümrütler, açılan kahramanlar cihazın yerel depolama alanında saklanır.",
+                            "<strong>Google Play Games Services:</strong> Skorlarınız, başarımlarınız ve bulut kayıtlarınız Google Play Games ve Google Drive hesabınızla güvenle eşitlenir.",
+                            "<strong>Cihaz Tanımlayıcıları:</strong> Google AdMob reklamları için yaklaşık konum, reklam kimliği (AAID) ve performans tanılama verileri kullanılabilir."
+                        ]
+                    },
+                    {
+                        h: "2. Reklamlar ve Google AdMob Politikası",
+                        p: "Oyunumuz ücretsiz sunulmakta olup oyuncu dostu akıllı reklam ilkelerine uymaktadır:",
+                        items: [
+                            "Oyun oynarken asla zorunlu tam ekran reklam çıkmaz.",
+                            "Bölüm sonu geçiş reklamları en fazla 3 galibiyette bir gösterilir.",
+                            "Ödüllü videolar tamamen oyuncunun isteğine bağlıdır.",
+                            "Kişiselleştirilmiş reklam tercihlerinizi Oyun İçi Ayarlar > Reklam & Gizlilik Tercihleri ekranından istediğiniz zaman açıp kapatabilirsiniz."
+                        ]
+                    },
+                    {
+                        h: "3. Çocukların Gizliliği (COPPA ve Aile Politikası)",
+                        p: "Marinext 2100 her yaştan oyuncu için güvenli olacak şekilde tasarlanmıştır. 13 yaşından (veya bölgenizdeki yasal yaştan) küçük çocuklardan bilerek hiçbir kişisel veri toplanmaz."
+                    },
+                    {
+                        h: "4. Verilerinizi Silme Hakkı (GDPR / KVKK)",
+                        p: "Oyundaki tüm verilerinizi istediğiniz zaman <em>Ayarlar &gt; Tüm Oyun İlerlemesini Sıfırla</em> butonu ile kalıcı olarak cihazınızdan silebilirsiniz. Google bulut yedeklerinizi Google Drive 'Uygulama Verilerini Yönet' menüsünden dilediğiniz an kaldırabilirsiniz."
+                    },
+                    {
+                        h: "5. İletişim",
+                        p: "Gizlilik politikamız veya haklarınız hakkında sorularınız için bize her zaman <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a> e-posta adresinden ulaşabilirsiniz."
+                    }
+                ]
+            },
+            en: {
+                title: "Privacy Policy",
+                meta: "<strong>Developer:</strong> CG Studio Home &bull; <strong>Package:</strong> com.cgstudiohome.marinext2100 &bull; <strong>Contact:</strong> info@erpdanisman.com &bull; <strong>Last Updated:</strong> November 2026",
+                highlight: "<strong>Our Core Commitment:</strong> Marinext 2100 <u>does not collect</u> personal identity data, phone numbers, or contacts. Your progress is stored locally on your device and optionally synced with your personal Google Play Games and Google Drive cloud account.",
+                sections: [
+                    {
+                        h: "1. Information Collected & Processed",
+                        p: "Marinext 2100 can be played without any account registration. Limited data processed includes:",
+                        items: [
+                            "<strong>Game Progress:</strong> Cleared stages, collected emeralds/coins, and unlocked outfits are stored in local device storage.",
+                            "<strong>Google Play Games Services:</strong> High scores, achievements, and cloud saves are securely synced with your Google Play Games profile.",
+                            "<strong>Device Diagnostics & Ad Identifiers:</strong> Google AdMob processes non-sensitive advertising IDs (AAID), coarse location, and performance telemetry."
+                        ]
+                    },
+                    {
+                        h: "2. Advertising & Google AdMob Policy",
+                        p: "We adhere strictly to player-friendly ad principles:",
+                        items: [
+                            "Never interrupts active gameplay with forced fullscreen ads.",
+                            "End-of-stage interstitials appear at most once every 3 victories.",
+                            "Rewarded videos are 100% optional.",
+                            "You can toggle personalized ads anytime via In-Game Settings &gt; Ad &amp; Privacy Preferences."
+                        ]
+                    },
+                    {
+                        h: "3. Children's Privacy (COPPA & Family Policy)",
+                        p: "Marinext 2100 is designed to be family-safe. We do not knowingly collect personal identifiable information from children under 13 (or the legal age in your jurisdiction)."
+                    },
+                    {
+                        h: "4. Data Erasure Rights (GDPR / CCPA)",
+                        p: "You can permanently erase all local game data at any time via <em>Settings &gt; Reset All Game Progress</em>. Cloud backups can be deleted from your Google Drive 'Manage App Data' section."
+                    },
+                    {
+                        h: "5. Contact Us",
+                        p: "For any questions or privacy inquiries, contact us at <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>."
+                    }
+                ]
+            },
+            ko: {
+                title: "개인정보 처리방침 (Privacy Policy)",
+                meta: "<strong>개발자:</strong> CG Studio Home &bull; <strong>패키지:</strong> com.cgstudiohome.marinext2100 &bull; <strong>문의:</strong> info@erpdanisman.com &bull; <strong>최종 수정:</strong> 2026년 11월",
+                highlight: "<strong>핵심 약속:</strong> Marinext 2100은 사용자의 실명, 전화번호, 연락처 등의 개인정보를 <u>절대 수집하지 않습니다</u>. 게임 데이터는 기기 로컬에 저장되며, Google Play Games 및 Google Drive를 통해 안전하게 백업됩니다.",
+                sections: [
+                    {
+                        h: "1. 수집 및 처리되는 정보",
+                        p: "Marinext 2100은 별도의 회원가입 없이 플레이할 수 있습니다. 처리되는 데이터는 다음과 같습니다:",
+                        items: [
+                            "<strong>게임 진행 데이터:</strong> 클리어한 스테이지, 획득한 코인/에메랄드, 해금한 캐릭터 의상은 기기 로컬에 저장됩니다.",
+                            "<strong>Google Play Games 서비스:</strong> 최고 점수, 업적, 클라우드 저장은 사용자의 Google Play Games 계정과 동기화됩니다.",
+                            "<strong>기기 식별자 및 광고 데이터:</strong> Google AdMob을 통한 맞춤형 광고 게재를 위해 광고 ID(AAID) 및 진단 데이터가 처리될 수 있습니다."
+                        ]
+                    },
+                    {
+                        h: "2. 광고 및 Google AdMob 정책",
+                        p: "사용자 친화적인 광고 규칙을 엄격히 준수합니다:",
+                        items: [
+                            "게임 플레이 중 강제 전면 광고로 플레이를 방해하지 않습니다.",
+                            "스테이지 종료 광고는 최대 3회 클리어당 1회만 표시됩니다.",
+                            "보상형 비디오 광고는 100% 이용자의 자율적인 선택입니다.",
+                            "게임 내 설정 &gt; 광고 및 개인정보 설정에서 맞춤형 광고를 언제든 켜거나 끌 수 있습니다."
+                        ]
+                    },
+                    {
+                        h: "3. 아동의 개인정보 보호",
+                        p: "Marinext 2100은 모든 연령대를 위한 건전한 게임입니다. 만 14세 미만 아동의 개인정보를 고의로 수집하지 않습니다."
+                    },
+                    {
+                        h: "4. 데이터 삭제 및 권리 행사",
+                        p: "게임 내 <em>설정 &gt; 전체 진행도 초기화</em> 버튼을 통해 모든 로컬 데이터를 즉시 영구 삭제할 수 있습니다."
+                    },
+                    {
+                        h: "5. 문의처",
+                        p: "개인정보 처리방침에 관한 문의는 <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>으로 연락해 주시기 바랍니다."
+                    }
+                ]
+            },
+            ja: {
+                title: "プライバシーポリシー (Privacy Policy)",
+                meta: "<strong>開発元:</strong> CG Studio Home &bull; <strong>パッケージ:</strong> com.cgstudiohome.marinext2100 &bull; <strong>連絡先:</strong> info@erpdanisman.com &bull; <strong>更新日:</strong> 2026年11月",
+                highlight: "<strong>安心のお約束:</strong> Marinext 2100 は、電話番号や連絡先などの個人情報を<u>一切収集しません</u>。進行データは端末内に保存され、Google Play Games および Google ドライブと安全に同期されます。",
+                sections: [
+                    {
+                        h: "1. 収集および処理される情報",
+                        p: "アカウント登録なしで快適にプレイできます。利用される情報は以下の通りです:",
+                        items: [
+                            "<strong>ゲーム進行状況:</strong> ステージ進捗、コイン・エメラルド、解放キャラは端末ローカルに安全に保存されます。",
+                            "<strong>Google Play Games:</strong> ハイスコア、実績、クラウドセーブは Google アカウントと同期されます。",
+                            "<strong>広告識別子:</strong> Google AdMob により広告配信のための広告ID（AAID）が使用される場合があります。"
+                        ]
+                    },
+                    {
+                        h: "2. 広告ポリシー",
+                        p: "プレイヤー目線の親切な広告ルールを徹底しています:",
+                        items: [
+                            "プレイ中に強制広告でゲームを中断することはありません。",
+                            "ステージクリア後の広告は最大でも3回クリアにつき1回のみです。",
+                            "リワード広告は100%任意です。"
+                        ]
+                    },
+                    {
+                        h: "3. データの消去",
+                        p: "設定メニューの「全進行状況のリセット」からいつでもデータを完全に消去できます。"
+                    },
+                    {
+                        h: "4. お問い合わせ",
+                        p: "ご質問は <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a> までお寄せください。"
+                    }
+                ]
+            },
+            zh: {
+                title: "隐私政策 (Privacy Policy)",
+                meta: "<strong>开发者:</strong> CG Studio Home &bull; <strong>应用包名:</strong> com.cgstudiohome.marinext2100 &bull; <strong>联系方式:</strong> info@erpdanisman.com &bull; <strong>最后更新:</strong> 2026年11月",
+                highlight: "<strong>核心承诺:</strong> Marinext 2100 <u>绝不收集</u>您的真实姓名、电话号码或通讯录等敏感个人隐私。游戏数据储存于本地设备，并可通过 Google Play Games 与 Google 云端硬盘同步。",
+                sections: [
+                    {
+                        h: "1. 收集与处理的信息",
+                        p: "本游戏无需注册账号即可畅玩。所涉及的数据包括:",
+                        items: [
+                            "<strong>游戏进度:</strong> 通关记录、收集的翡翠/金币储存于本地设备。",
+                            "<strong>Google Play Games 服务:</strong> 排行榜、成就与云存档与您的 Google 账户同步。",
+                            "<strong>广告标识符:</strong> Google AdMob 用于展示广告的非敏感标识（AAID）。"
+                        ]
+                    },
+                    {
+                        h: "2. 广告与用户友好规则",
+                        p: "我们坚持尊重玩家体验的广告策略: 绝不在游戏操作中强行弹出全屏广告，激励视频完全自愿观看。",
+                        items: []
+                    },
+                    {
+                        h: "3. 数据删除权利",
+                        p: "您可随时在“设置 &gt; 重置全部游戏进度”中永久抹除本地储存的所有数据。"
+                    },
+                    {
+                        h: "4. 联系我们",
+                        p: "如有任何疑问，请发送邮件至 <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>。"
+                    }
+                ]
+            },
+            ru: {
+                title: "Политика Конфиденциальности (Privacy Policy)",
+                meta: "<strong>Разработчик:</strong> CG Studio Home &bull; <strong>Пакет:</strong> com.cgstudiohome.marinext2100 &bull; <strong>Контакты:</strong> info@erpdanisman.com &bull; <strong>Обновлено:</strong> Ноябрь 2026",
+                highlight: "<strong>Главная гарантия:</strong> Marinext 2100 <u>не собирает</u> личные данные, телефонные номера или контакты. Все данные хранятся локально на вашем устройстве и синхронизируются через Google Play Games и Google Drive.",
+                sections: [
+                    {
+                        h: "1. Собираемые данные",
+                        p: "Игра доступна без регистрации. Обрабатываемые данные:",
+                        items: [
+                            "<strong>Прогресс игры:</strong> Пройденные уровни, монеты и изумруды хранятся на устройстве.",
+                            "<strong>Google Play Games:</strong> Рекорды, достижения и облачные сохранения синхронизируются с Google.",
+                            "<strong>Реклама Google AdMob:</strong> Рекламный идентификатор (AAID) для показа релевантной рекламы."
+                        ]
+                    },
+                    {
+                        h: "2. Правила показа рекламы",
+                        p: "Реклама никогда не прерывает активный геймплей. Межстраничная реклама появляется не чаще 1 раза за 3 победы. Бонусные видео — строго по желанию.",
+                        items: []
+                    },
+                    {
+                        h: "3. Удаление данных",
+                        p: "Вы можете полностью очистить данные через меню <em>Настройки &gt; Сбросить весь прогресс</em>."
+                    },
+                    {
+                        h: "4. Контакты",
+                        p: "По всем вопросам пишите нам на <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>."
+                    }
+                ]
+            },
+            it: {
+                title: "Informativa sulla Privacy (Privacy Policy)",
+                meta: "<strong>Sviluppatore:</strong> CG Studio Home &bull; <strong>Pacchetto:</strong> com.cgstudiohome.marinext2100 &bull; <strong>Contatto:</strong> info@erpdanisman.com &bull; <strong>Aggiornato:</strong> Novembre 2026",
+                highlight: "<strong>Nessun dato personale:</strong> Marinext 2100 <u>non raccoglie</u> dati identificativi personali. I tuoi progressi sono salvati in locale e su Google Play Games / Google Drive.",
+                sections: [
+                    {
+                        h: "1. Dati Trattati",
+                        p: "Non è richiesta alcuna registrazione. Vengono gestiti solo i progressi di gioco e le preferenze pubblicitarie di Google AdMob.",
+                        items: []
+                    },
+                    {
+                        h: "2. Regole Pubblicitarie Amichevoli",
+                        p: "Nessun annuncio interrompe la partita attiva. Video premio 100% facoltativi.",
+                        items: []
+                    },
+                    {
+                        h: "3. Contatti",
+                        p: "Per informazioni, scrivi a <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>."
+                    }
+                ]
+            },
+            es: {
+                title: "Política de Privacidad (Privacy Policy)",
+                meta: "<strong>Desarrollador:</strong> CG Studio Home &bull; <strong>Paquete:</strong> com.cgstudiohome.marinext2100 &bull; <strong>Contacto:</strong> info@erpdanisman.com &bull; <strong>Actualizado:</strong> Noviembre 2026",
+                highlight: "<strong>Garantía de Privacidad:</strong> Marinext 2100 <u>no recopila</u> datos personales ni números de teléfono. Tus datos se guardan en tu dispositivo y en Google Play Games.",
+                sections: [
+                    {
+                        h: "1. Información Procesada",
+                        p: "Puedes jugar sin registrarte. Los datos incluyen niveles completados, gemas y anuncios no invasivos de Google AdMob.",
+                        items: []
+                    },
+                    {
+                        h: "2. Contacto",
+                        p: "Escríbenos a <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a> para cualquier consulta."
+                    }
+                ]
+            },
+            fr: {
+                title: "Politique de Confidentialité (Privacy Policy)",
+                meta: "<strong>Développeur :</strong> CG Studio Home &bull; <strong>Package :</strong> com.cgstudiohome.marinext2100 &bull; <strong>Contact :</strong> info@erpdanisman.com &bull; <strong>Mise à jour :</strong> Novembre 2026",
+                highlight: "<strong>Engagement :</strong> Marinext 2100 <u>ne collecte aucune</u> donnée personnelle d'identité. La progression est enregistrée localement et synchronisée avec Google Play Games.",
+                sections: [
+                    {
+                        h: "1. Données Traitées",
+                        p: "Le jeu est accessible sans inscription. Seules la progression et les publicités Google AdMob sont gérées.",
+                        items: []
+                    },
+                    {
+                        h: "2. Contact",
+                        p: "Pour toute question, contactez-nous à <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>."
+                    }
+                ]
+            }
+        };
+
+        function getInitialLang() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const pLang = urlParams.get('lang');
+            if (pLang && PRIVACY_DATA[pLang.toLowerCase()]) {
+                return pLang.toLowerCase();
+            }
+            const navLang = (navigator.language || navigator.userLanguage || 'tr').toLowerCase();
+            if (navLang.startsWith('tr')) return 'tr';
+            if (navLang.startsWith('ko')) return 'ko';
+            if (navLang.startsWith('ja')) return 'ja';
+            if (navLang.startsWith('zh')) return 'zh';
+            if (navLang.startsWith('ru')) return 'ru';
+            if (navLang.startsWith('it')) return 'it';
+            if (navLang.startsWith('es')) return 'es';
+            if (navLang.startsWith('fr')) return 'fr';
+            return 'en';
+        }
+
+        function renderPolicy(lang) {
+            const data = PRIVACY_DATA[lang] || PRIVACY_DATA.en;
+            document.documentElement.lang = lang;
+            document.title = "Marinext 2100 - " + data.title;
+
+            // Highlight active tab
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            const metaEl = document.getElementById('metaInfo');
+            if (metaEl && data.meta) metaEl.innerHTML = data.meta;
+
+            const area = document.getElementById('contentArea');
+            let html = '<div class="highlight-box">' + data.highlight + '</div>';
+            data.sections.forEach(sec => {
+                html += '<h2>' + sec.h + '</h2>';
+                html += '<p>' + sec.p + '</p>';
+                if (sec.items && sec.items.length > 0) {
+                    html += '<ul>';
+                    sec.items.forEach(it => {
+                        html += '<li>' + it + '</li>';
+                    });
+                    html += '</ul>';
+                }
+            });
+            area.innerHTML = html;
+        }
+
+        document.getElementById('langTabs').addEventListener('click', (e) => {
+            const btn = e.target.closest('.tab-btn');
+            if (btn) {
+                const lang = btn.getAttribute('data-lang');
+                if (lang) {
+                    renderPolicy(lang);
+                    // update URL without reload
+                    const url = new URL(window.location);
+                    url.searchParams.set('lang', lang);
+                    window.history.replaceState({}, '', url);
+                }
+            }
+        });
+
+        // Initialize on load
+        renderPolicy(getInitialLang());
+    </script>
+</body>
+</html>
