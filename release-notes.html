@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marinext 2100 — Resmi Sürüm Notları & Güncelleme Geçmişi (Changelog)</title>
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <style>
+        :root {
+            --bg: #070812;
+            --card: #111428;
+            --accent: #00f2fe;
+            --gold: #ffd166;
+            --emerald: #06d6a0;
+            --pink: #ff2a85;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: rgba(0, 242, 254, 0.25);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: radial-gradient(circle at top, #141836 0%, var(--bg) 70%);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 32px 16px;
+        }
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 24px;
+            margin-bottom: 28px;
+        }
+        .app-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .app-icon {
+            font-size: 38px;
+            background: rgba(0, 242, 254, 0.15);
+            border: 1.5px solid var(--accent);
+            border-radius: 14px;
+            padding: 6px 12px;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+        }
+        h1 {
+            font-size: 24px;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+        .subtitle {
+            color: var(--muted);
+            font-size: 13.5px;
+            margin-top: 4px;
+        }
+        .lang-tabs {
+            display: flex;
+            gap: 8px;
+        }
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.07);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 7px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+        .tab-btn:hover {
+            background: rgba(0, 242, 254, 0.18);
+            border-color: var(--accent);
+        }
+        .tab-btn.active {
+            background: var(--accent);
+            color: #041418;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+        }
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 28px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .quick-nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 12.5px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.15s ease;
+        }
+        .quick-nav a:hover {
+            color: var(--accent);
+            background: rgba(0, 242, 254, 0.15);
+        }
+        .version-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 24px;
+            position: relative;
+            transition: border-color 0.2s ease;
+        }
+        .version-card:hover {
+            border-color: var(--border);
+        }
+        .version-card.latest {
+            border-color: var(--emerald);
+            box-shadow: 0 0 30px rgba(6, 214, 160, 0.15);
+        }
+        .version-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+        }
+        .version-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .badge-latest {
+            background: linear-gradient(135deg, #06d6a0, #00b4d8);
+            color: #041418;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 3px 9px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .badge-code {
+            background: rgba(255, 209, 102, 0.18);
+            color: var(--gold);
+            border: 1px solid rgba(255, 209, 102, 0.35);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+        .version-date {
+            color: var(--muted);
+            font-size: 13px;
+        }
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .feature-icon {
+            font-size: 20px;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .feature-content strong {
+            color: var(--accent);
+            display: inline;
+        }
+        .feature-content p {
+            color: #cbd5e1;
+            margin-top: 2px;
+        }
+        .links-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            justify-content: center;
+        }
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+        .btn-link-primary {
+            background: linear-gradient(135deg, #06d6a0, #00b4d8);
+            color: #041418;
+            box-shadow: 0 4px 15px rgba(6, 214, 160, 0.35);
+        }
+        .btn-link-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 214, 160, 0.5);
+        }
+        .btn-link-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .btn-link-secondary:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        footer {
+            margin-top: 36px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="app-brand">
+            <div class="app-icon">🚀</div>
+            <div>
+                <h1 id="page-title">Marinext 2100 — Resmi Sürüm Notları</h1>
+                <div class="subtitle" id="page-subtitle">Tüm güncellemeler, yeni özellikler, mekanik geliştirmeleri ve hata düzeltmeleri.</div>
+            </div>
+        </div>
+        <div class="lang-tabs">
+            <button class="tab-btn active" onclick="switchLang('tr')">🇹🇷 Türkçe</button>
+            <button class="tab-btn" onclick="switchLang('en')">🇬🇧 English</button>
+        </div>
+    </div>
+
+    <div class="quick-nav">
+        <strong style="color:var(--gold); font-size:12.5px; margin-right:4px;">⚡ Hızlı Erişim:</strong>
+        <a href="#v1310">v1.3.10 (En Yeni)</a>
+        <a href="#v139">v1.3.9</a>
+        <a href="#v138">v1.3.8</a>
+        <a href="#v137">v1.3.7</a>
+        <a href="#v136">v1.3.6</a>
+        <a href="#v135">v1.3.5</a>
+        <a href="#v134">v1.3.4</a>
+        <a href="#v133">v1.3.3</a>
+        <a href="#v132">v1.3.2</a>
+        <a href="#v131">v1.3.1 (Trol Modu & ASO)</a>
+        <a href="#v130">v1.3.0 (Bulut & Liderlik)</a>
+        <a href="#v129">v1.2.9 (Asansör & Karakter)</a>
+        <a href="#v120">v1.2.0 (Boss Savaşları)</a>
+    </div>
+
+    <!-- TURKISH CONTENT -->
+    <div id="content-tr">
+        <!-- v1.3.10 -->
+        <div class="version-card latest" id="v1310">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.10</span>
+                    <span class="badge-latest">EN YENİ SÜRÜM</span>
+                    <span class="badge-code">Kod: 35</span>
+                </div>
+                <div class="version-date">📅 20 Kasım 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <div class="feature-content">
+                        <strong>Android 15 & Yeni Nesil Ekran Standardı:</strong>
+                        <p>Modern ekran çentikleri ve ön kamera yuvaları için en güncel ekran mimarisi entegre edildi. Siyah kenarlıklar ve boşluklar tamamen ortadan kalkarak her marka ve model cihazda tam sinematik görsel şölen sunar.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🖥️</span>
+                    <div class="feature-content">
+                        <strong>Tablet ve Katlanabilir Ekranlarda Tam Serbestlik:</strong>
+                        <p>Büyük ekranlı tabletlerde ve katlanabilir telefonlarda çoklu görev geçişleri, pencereli kullanım ve arka plan uygulama önizlemeleri pürüzsüzleştirildi; oyun akışı ve kontroller daima kusursuz kalır.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⭐</span>
+                    <div class="feature-content">
+                        <strong>1. Bölüm Sonu Oyun İçi Puanlama Kolaylığı:</strong>
+                        <p>1. Bölümü geçen oyuncularımız oyundan kopmadan tek tıkla bize 5 yıldız verip destek olabilir veya doğrudan fikirlerini ekibimize ulaştırabilir.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-content">
+                        <strong>120 FPS Ultra Akıcı Oyun Deneyimi:</strong>
+                        <p>Android 10'dan en yeni nesil Android 15 cihazlara kadar tüm ekranlarda sıfır takılma, anında dokunmatik tepki ve konsol kalitesinde akıcılık.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌍</span>
+                    <div class="feature-content">
+                        <strong>9 Dilde Kusursuz İletişim:</strong>
+                        <p>Tüm diyaloglar, yardım balonları ve değerlendirme ekranları seçtiğiniz dilde anında ve eksiksiz olarak karşınıza çıkar.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.3.9 -->
+        <div class="version-card" id="v139">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.9</span>
+                    <span class="badge-latest">EN YENİ SÜRÜM</span>
+                    <span class="badge-code">Kod: 34</span>
+                </div>
+                <div class="version-date">📅 20 Kasım 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">⭐</span>
+                    <div class="feature-content">
+                        <strong>Oyun İçi Hızlı Puanlama & Anında Geri Bildirim:</strong>
+                        <p>1. Bölüm zaferinizin ardından oyundan hiç çıkmadan tek dokunuşla geliştirici ekibe 5 yıldız verip destek olabilir veya fikirlerinizi iletebilirsiniz. "Daha Sonra" derseniz oyun sizi bölmeyecek, ilerleyen zaferlerinizde nazikçe tekrar hatırlatacaktır.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <div class="feature-content">
+                        <strong>Yeni Nesil Uçtan Uca Ekran Uyumu (Edge-to-Edge):</strong>
+                        <p>Android 15 ve modern geniş ekranlı telefonlarda kamera çentiği ve gezinme çubukları kusursuz hizalanır; oyun dünyası kenarlardan taşmadan veya siyah şerit oluşturmadan ekranın tamamına sinematik olarak oturur.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🖥️</span>
+                    <div class="feature-content">
+                        <strong>Büyük Ekran & Tablet Çoklu Görev Mükemmelliği:</strong>
+                        <p>Tabletlerde ve katlanabilir ekranlarda çoklu görev geçişleri, pencere boyutlandırma ve arka plan önizlemeleri pürüzsüz tam ekran kalır; oyun yatay modda asla bozulmaz veya basık görünmez.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌍</span>
+                    <div class="feature-content">
+                        <strong>9 Dilde Yerelleştirilmiş İletişim:</strong>
+                        <p>Tüm dünyadaki oyuncularımız için oyun içi puanlama ve geri bildirim pencereleri seçili aktif dilde (TR, EN, RU, IT, ES, FR, KO, ZH, JA) anında açılır.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-content">
+                        <strong>120 FPS Ultra Akıcı Oyun Motoru:</strong>
+                        <p>Android 10'dan Android 15+'e kadar tüm işletim sistemi sürümlerinde sıfır takılma, anında dokunmatik tepki süresi ve maksimum kare hızı kararlılığı sağlandı.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+<div class="version-card" id="v138">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.8</span>
+                    <span class="badge-code">Kod: 33</span>
+                </div>
+                <div class="version-date">📅 10 Kasım 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <strong>Pürüzsüz & Kesintisiz Canlanma (Donma Engeli):</strong>
+                        <p>Ödüllü video reklam izlenirken herhangi bir sebeple video erken kapansa veya bağlantı kopsa dahi oyun motoru asla kilitlenmez; butonlar anında yeniden aktifleşir ve kahraman kontrolleri her zaman akıcı kalır.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <div class="feature-content">
+                        <strong>Android 13+ Tablet & Katlanabilir Cihazlarda Kusursuz Tam Ekran:</strong>
+                        <p>Yeni nesil Android tabletlerde ve katlanabilir ekranlarda arka plandaki uygulamalar (son uygulamalar) menüsüne geçildiğinde ekran görüntüsünün yarım veya basık görünmesi tamamen engellendi; oyun her zaman sabit ve sinematik tam ekran çalışır.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">💬</span>
+                    <div class="feature-content">
+                        <strong>Akıllı Oyun İçi Bilgilendirme Bildirimleri:</strong>
+                        <p>Ödüllü video erken kapatıldığında oyuncuyu rahatsız etmeyen nazik ve şık bir bildirimle bilgilendirme yapılır; canlanma butonu bekleme süresi olmaksızın tekrar hazır hale gelir.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📐</span>
+                    <div class="feature-content">
+                        <strong>Kamera Çentiği & Ekran Kenarı Entegrasyonu:</strong>
+                        <p>Ön kamera deliği veya ekran çentiğine sahip tüm modern Android cihazlarda oyun dünyası kenarlardan kesilmeden ve siyah şerit bırakmadan ekranın tamamına mükemmel şekilde yayılır.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-content">
+                        <strong>120 FPS Ultra Kararlılık & Kusursuz Ses Geçişi:</strong>
+                        <p>Uygulamalar arası geçişlerde ve çoklu görev menüsünde sıfır kare atlaması, anında ses devamlılığı ve maksimum dokunmatik tepki hassasiyeti sağlandı.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="version-card" id="v137">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.7</span>
+                    <span class="badge-code">Kod: 32</span>
+                </div>
+                <div class="version-date">📅 10 Kasım 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">🌐</span>
+                    <div class="feature-content">
+                        <strong>9 Dilde Tam Uyumlu Güncelleme Bildirimi & Sürüm Notları:</strong>
+                        <p>Oyun açılışındaki yeni sürüm uyarı penceresi, sürüm notlarını inceleme bağlantısı ve tüm bilgilendirme butonları kullanıcının o an seçili olan aktif diline (Türkçe, İngilizce, Rusça, İtalyanca, İspanyolca, Fransızca, Korece, Çince, Japonca) %100 uyumlu hale getirildi.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <div class="feature-content">
+                        <strong>Google Analytics 4 & Measurement Protocol Entegrasyonu:</strong>
+                        <p>Oyun içi başarılar, oturum süreleri, bölüm tamamlama oranları ve oyuncu etkileşimleri arka planda doğrudan Google Analytics 4 (GA4) bulut paneline güvenli ve hafif bir ölçüm protokolüyle bağlandı.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-content">
+                        <strong>Canlı Uzaktan Yapılandırma (Remote Config) İyileştirmesi:</strong>
+                        <p>Oyun içi etkinlikler, duyurular ve analitik parametreleri mağazadan büyük boyutlu dosya indirmeye gerek kalmadan sunucu üzerinden anlık ve dinamik olarak güncelleniyor.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <strong>Üst Düzey Aile & Çocuk Güvenliği ve Reklam İnceleme Standartları:</strong>
+                        <p>Google AdMob kalite standartları doğrultusunda tüm hassas reklam kategorileri filtrelendi ve maksimum reklam derecelendirmesi genel kitleler için en güvenli seviyede ("G") koruma altına alındı.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🎮</span>
+                    <div class="feature-content">
+                        <strong>120 FPS Ultra Akıcı Performans & Sıfır Gecikme:</strong>
+                        <p>Dinamik tam ekran görüntüleme motoru tüm ekran oranlarında kesilme veya siyah şerit olmaksızın en akıcı kare hızını (120 FPS) kusursuz şekilde sunmaya devam ediyor.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+<!-- v1.3.6 -->
+        <div class="version-card" id="v136">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.6</span>
+                    <span class="badge-code">Kod: 31</span>
+                </div>
+                <div class="version-date">📅 10 Kasım 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">📺</span>
+                    <div class="feature-content">
+                        <strong>Dinamik Tam Ekran Görünümü (Sıfır Kesilme & Siyah Şerit Yok):</strong>
+                        <p>Ultra geniş ekranlı telefonlarda (20:9, 19.5:9, 21:9) ve tabletlerde sahne artık sağdan ve soldan kesilmez. Oyun dünyası ekran oranınıza göre dinamik genişleyerek karakterin etrafındaki dünyayı tam ekran ve sinematik bir açıyla sunar.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">✨</span>
+                    <div class="feature-content">
+                        <strong>Genişletilmiş & Ferah Menü Arayüzleri:</strong>
+                        <p>Profil, Ayarlar, Dil Seçimi ve Cephanelik menüleri geniş ekranlarda ferahlayarak ekranı dengeli şekilde dolduracak şekilde yenilendi. Butonlar, kartlar ve metinler çok daha rahat dokunulabilir ve okunabilir hale getirildi.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <div class="feature-content">
+                        <strong>Akıllı Oyun İçi Analitik & Yaşam Boyu Değer (LTV) Takip Motoru:</strong>
+                        <p>Oyun oturum süresi, bölüm zafer oranları ve oyuncu etkileşimleri akıllı analitik motoruyla arka planda güvenle analiz edilerek oyunun zorluk dengesi ve akıcılığı optimize edildi.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌐</span>
+                    <div class="feature-content">
+                        <strong>Uzaktan Yapılandırma (Remote Config) Altyapısı:</strong>
+                        <p>Oyun içi denge, etkinlik duyuruları ve reklam sıklığı mağazadan yeni güncelleme indirmeye gerek kalmadan sunucu üzerinden dinamik olarak anında güncellenebilir hale getirildi.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <strong>Üst Düzey AdMob Kalite ve Aile Politikası Koruması:</strong>
+                        <p>Reklam geçişleri ve ödüllü video akışları Google Ad Quality ve Aile Politikası yönergeleriyle %100 uyumlu hale getirilerek en yüksek oyuncu güvenliği sağlandı.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.3.5 -->
+        <div class="version-card" id="v135">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.5</span>
+                    <span class="badge-latest">EN YENİ SÜRÜM</span>
+                    <span class="badge-code">Kod: 30</span>
+                </div>
+                <div class="version-date">📅 10 Kasım 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <strong>Güvenli Canlanma & Koruyucu Kalkan (Kayıpsız Oyun Deneyimi):</strong>
+                        <p>Ödüllü video izledikten sonra reklam tamamen kapatılana kadar oyun güvenle duraklatılır. Oyuncu döndüğünde anında 3 tam can ve 5 saniye koruyucu kalkanla sahadaki en güvenli zeminde doğar; etraftaki tehlikeler temizlenerek haksız can kayıpları %100 önlenir.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🎬</span>
+                    <div class="feature-content">
+                        <strong>Bölüm Başı Çift Canlanma Hakkı (Dengeli Reklam Deneyimi):</strong>
+                        <p>Zorlu bölümlerde artık 2 kez ödüllü video izleyerek kaldığın yerden devam edebilirsin. İlk canlanma ve son şans hakkı buton üzerinde açıkça belirtilir; oyuncuyu boğmayan ve Google reklam politikalarıyla tam uyumlu profesyonel bir akış sunulur.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">💎</span>
+                    <div class="feature-content">
+                        <strong>Sahada Parlayan Gerçek Mavi Kristaller (◆):</strong>
+                        <p>Sahada toplanan kristaller baştan modellenerek, üst bilgi çubuğu (HUD), mağaza ve haritadaki kristal simgesiyle birebir aynı parlak ve ışıltılı elmas rhomboid tasarımına kavuşturuldu.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <div class="feature-content">
+                        <strong>Geliştirilmiş Başlangıç Rehberi & Dokunmatik Ergonomi:</strong>
+                        <p>Başlangıç rehberi penceresinde 'Rehberi Atla' butonu ile kapatma '✕' butonu arasındaki çakışma tamamen çözüldü; tüm telefon ve tablet ekranlarında ferah, rahat ve pürüzsüz bir arayüz sağlandı.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌍</span>
+                    <div class="feature-content">
+                        <strong>%100 Eksiksiz 9 Dil Uyumu (Ayarlar & Karakter Stüdyosu):</strong>
+                        <p>Ayarlar menüsü sütun başlıkları, butonlar ve Karakter Stüdyosu'ndaki tüm ekipman, yetenek ve güç açıklamaları seçili dilde (Türkçe, İngilizce, Rusça, İtalyanca, İspanyolca, Fransızca, Korece, Çince, Japonca) sıfır Türkçe sızıntısıyla eksiksiz görüntülenir.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.3.4 -->
+        <div class="version-card" id="v134">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.4</span>
+                    <span class="badge-code">Kod: 29</span>
+                </div>
+                <div class="version-date">📅 9 Kasım 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li><span class="feature-icon">🎬</span><div><strong>Kesintisiz & Garantili Ödüllü Video Deneyimi:</strong> Canlanma, 2x bölüm zafer bonusu ve ücretsiz zümrüt sandığı açma ödül akışı tüm test kanallarında %100 kesintisiz ve garantili çalışır hale getirildi.</div></li>
+                <li><span class="feature-icon">📺</span><div><strong>Oyuncu Dostu Akıllı Reklam Politikası:</strong> Oyun oynarken aktif oyun akışını bölen zorunlu reklamlar bulunmaz; reklamlar yalnızca hak ettiğiniz zaferlerde ve tamamen sizin isteğinize bağlı ödüllerde devreye girer.</div></li>
+                <li><span class="feature-icon">🧪</span><div><strong>Gizli Testçi & Dağıtım Kontrol Paneli:</strong> Ayarlar başlığına 5 kez dokunarak açılan gizli modla doğrudan test reklamı başlatabilir ve dağıtım kanalınızı anında yönetebilirsiniz.</div></li>
+                <li><span class="feature-icon">📱</span><div><strong>Kaydırmasız 2 Sütunlu Ayarlar & Dil Menüsü:</strong> Telefon dikey ve yatay ekranlarına tam oturan kompakt menü yapısıyla tüm seçeneklere tek ekranda anında erişin.</div></li>
+                <li><span class="feature-icon">⚡</span><div><strong>120 FPS Ultra Akıcı Oyun Zevki:</strong> 120 FPS, 60 FPS ve 30 FPS modlarıyla her telefonda en akıcı deneyim ve pil tasarrufu.</div></li>
+            </ul>
+        </div>
+
+        <!-- v1.3.3 -->
+        <div class="version-card" id="v133">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.3</span>
+                    <span class="badge-code">Kod: 28</span>
+                </div>
+                <div class="version-date">📅 9 Kasım 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <div class="feature-content">
+                        <strong>Telefon Ekranlarına %100 Uyumlu 2 Sütunlu Ayarlar Menüsü:</strong>
+                        <p>Oyun ayarları arayüzü modern konsol ve mobil standartlarına göre 2 sütunlu şık bir yapıyla baştan tasarlandı. Ses, FPS, Google Play Games bulut yedekleme, GDPR gizlilik tercihleri, başlangıç kılavuzu, puanlama ve sıfırlama butonları artık telefon ekranlarına kusursuz sığıyor; aşağı kaydırmaya gerek kalmadan tüm ayarlara anında erişebilir ve alt paneldeki 'Ayarları Kaydet ve Dön' butonuyla tek dokunuşla oyuna dönebilirsiniz.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌍</span>
+                    <div class="feature-content">
+                        <strong>Sabit Butonlu & Kompakt Dil Seçimi Menüsü:</strong>
+                        <p>9 farklı dil seçeneğini barındıran dil seçim ekranı kompakt ve ergonomik kart düzenine kavuşturuldu. 'Dili Kaydet ve Çık' butonu ekranın en altında sabitlendi (docked footer); böylece hangi cihazı kullanırsanız kullanın buton daima görünür kalır ve kaydırma yapmadan anında onaylayıp çıkabilirsiniz.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">💬</span>
+                    <div class="feature-content">
+                        <strong>1. Bölüm İnteraktif Konuşma Balonları & Rehber:</strong>
+                        <p>Kahramanınızı adım adım takip eden konuşma balonlarıyla koşma, zıplama, kutu kırma, trambolin ve duvardan sekme (Wall Jump) taktikleri seçtiğiniz aktif dilde öğretilir.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <strong>Güvenli Kayıt ve İlerleme Koruması:</strong>
+                        <p>Yanlışlıkla veri kaybını önleyen onay mekanizması ve Google Play Games bulut senkronizasyonu ile maceranız daima güvende.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-content">
+                        <strong>120 FPS Ultra Akıcı Performans:</strong>
+                        <p>Yüksek ekran yenileme hızlı cihazlarda gecikmesiz tepki süresi ve tereyağı kıvamında akıcı animasyonlar.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.3.2 -->
+        <div class="version-card" id="v132">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.2</span>
+                    <span class="badge-latest">EN YENİ SÜRÜM</span>
+                    <span class="badge-code">Kod: 27</span>
+                </div>
+                <div class="version-date">📅 9 Kasım 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">💬</span>
+                    <div class="feature-content">
+                        <strong>1. Bölüm İnteraktif Konuşma Balonları:</strong>
+                        <p>Oyuna yeni başlayan maceracılar için Bölüm 1'e siber konuşma balonları eklendi! Kahramanınızı adım adım takip eden yönlendirmeler; koşma, zıplama, [?] gizemli kutularını kırma, düşmanları alt etme, siber asansör, trambolin ve duvardan sekme (Wall Jump) mekaniklerini aktif seçtiğiniz dilde (9 dilde tam destek) eğlenceli ve akıcı bir şekilde öğretir.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📖</span>
+                    <div class="feature-content">
+                        <strong>Görsel Başlangıç Kılavuzu:</strong>
+                        <p>Ayarlar menüsünden veya ilk oyuna girişte açılan rehber; görsel dokunmatik kontrol şemaları, yön okları ve duvar sıçrama rotalarıyla tamamen yenilendi. Oyuna yeni başlayan oyuncular tüm taktikleri artık saniyeler içinde öğrenebilecek.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <strong>Güvenli İlerleme Sıfırlama Koruması:</strong>
+                        <p>Yanlışlıkla veri kaybını önlemek amacıyla 9 dilde güvenlik onay uyarısı eklendi. Bulut yedekleme koruması güçlendirilerek, oyunu sıfırlayıp tertemiz bir başlangıç yapmak isteyen oyuncular için süreç tamamen güvenli ve sorunsuz hale getirildi.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⭐</span>
+                    <div class="feature-content">
+                        <strong>Pratik Oyun Puanlama & Geri Bildirim:</strong>
+                        <p>Oyunu puanlamak ve yorum yazmak artık çok daha hızlı ve kolay! Oyundan ayrılmanıza gerek kalmadan, doğrudan oyun içinden tek dokunuşla puanınızı verip maceranıza anında devam edebilirsiniz.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌐</span>
+                    <div class="feature-content">
+                        <strong>Akıllı Güncelleme & Bağlantı İyileştirmeleri:</strong>
+                        <p>Oyun güncelleme ve sunucu bağlantı altyapısı optimize edildi; yeni içeriklere, etkinliklere ve iyileştirmelere her zaman kesintisiz ve en hızlı şekilde ulaşmanız sağlandı.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.3.1 -->
+        <div class="version-card" id="v131">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.1</span>
+                    <span class="badge-code">Kod: 26</span>
+                </div>
+                <div class="version-date">📅 8 Kasım 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">🤡</span>
+                    <div class="feature-content">
+                        <strong>50 Bölümlük Sürprizlerle Dolu Trol Modu:</strong>
+                        <p>Kademeli olarak zorlaşan 50 benzersiz trol seviyesi! Çöken zeminler, beklenmedik sürprizler, kaçan bitiş portalları ve heyecan dolu tuzaklarla reflekslerinizi test edin.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌍</span>
+                    <div class="feature-content">
+                        <strong>9 Farklı Dilde Eksiksiz Oyun Deneyimi:</strong>
+                        <p>Türkçe, İngilizce, Korece, Japonca, Çince, Rusça, İtalyanca, İspanyolca ve Fransızca dillerinde tüm menüler, rehberler, diyaloglar ve ipuçları kendi ana dilinizde!</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-content">
+                        <strong>120 FPS Ultra Akıcı Performans:</strong>
+                        <p>Destekleyen cihazlarda 120Hz/90Hz yüksek ekran yenileme hızıyla süper akıcı karakter hareketleri, hassas dokunmatik tepki süresi ve optimize edilmiş pil tüketimi.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.3.0 -->
+        <div class="version-card" id="v130">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.0</span>
+                    <span class="badge-code">Kod: 25</span>
+                </div>
+                <div class="version-date">📅 6 Kasım 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">☁️</span>
+                    <div class="feature-content">
+                        <strong>Bulut Kayıt & Cihazlar Arası Senkronizasyon:</strong>
+                        <p>Google Play Games ve Google Drive entegrasyonu ile tüm ilerlemeniz, altınlarınız ve açtığınız kahramanlar güvende. Telefonunuzu değiştirseniz bile maceranıza kaldığınız yerden devam edin.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🏆</span>
+                    <div class="feature-content">
+                        <strong>Canlı Liderlik Tablosu & Lig Ödülleri:</strong>
+                        <p>Dünya çapındaki oyuncularla yarışın! Haftalık liglerde yükselin (Bronz, Gümüş, Altın, Elmas, Efsane) ve en hızlı bölüm bitirme derecelerinizle zirveye adınızı yazdırın.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.2.9 -->
+        <div class="version-card" id="v129">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.2.9</span>
+                    <span class="badge-code">Kod: 24</span>
+                </div>
+                <div class="version-date">📅 4 Kasım 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">🛗</span>
+                    <div class="feature-content">
+                        <strong>Siber Asansörler & Yeraltı Görevleri:</strong>
+                        <p>Bölümlerdeki hareketli kabinlerle inilen gizli alt sektörler, bulunmayı bekleyen görev yıldızları ve devasa bonus ödüller.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🎭</span>
+                    <div class="feature-content">
+                        <strong>14 Tarihi & Modern Kahraman:</strong>
+                        <p>Fatih Sultan Mehmet, Atatürk, Samuray, Viking, Gladyatör gibi efsanevi liderlerin ve siber savaşçıların kostümleriyle oynayın.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.2.0 -->
+        <div class="version-card" id="v120">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.2.0</span>
+                    <span class="badge-code">Kod: 20</span>
+                </div>
+                <div class="version-date">📅 31 Ekim 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">⚔️</span>
+                    <div class="feature-content">
+                        <strong>20 Efsanevi Boss Savaşı:</strong>
+                        <p>Enerji kalkanlı dev düşmanlar, şok dalgaları ve lazer tuzakları! Zayıf anlarını yakalayıp stratejinizi belirleyin ve galip gelin.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ENGLISH CONTENT -->
+    <div id="content-en" class="hidden">
+        <!-- v1.3.10 -->
+        <div class="version-card latest" id="v1310-en">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.10</span>
+                    <span class="badge-latest">LATEST RELEASE</span>
+                    <span class="badge-code">Code: 35</span>
+                </div>
+                <div class="version-date">📅 November 20, 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <div class="feature-content">
+                        <strong>Android 15 & Modern Cutout Display Architecture:</strong>
+                        <p>Fully upgraded to the latest display cutout standards for Android 15 and wide screens. Enjoy a full cinematic edge-to-edge experience without black borders across all phone and tablet models.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🖥️</span>
+                    <div class="feature-content">
+                        <strong>Tablet & Foldable Multitasking Freedom:</strong>
+                        <p>Seamless app switching, dynamic window resizing, and background preview stability optimized specifically for large tablets and foldable devices.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⭐</span>
+                    <div class="feature-content">
+                        <strong>In-Game Rating & Instant Feedback:</strong>
+                        <p>Support our indie development team with a 5-star rating or send direct feedback right after completing Level 1 without ever leaving the action!</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-content">
+                        <strong>120 FPS Ultra-Fluid Engine:</strong>
+                        <p>Instantaneous touch responsiveness, zero lag, and console-grade smoothness spanning Android 10 through Android 15+.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌍</span>
+                    <div class="feature-content">
+                        <strong>Full 9-Language Localization:</strong>
+                        <p>All in-game dialogues, tutorial guides, and feedback interfaces seamlessly match your preferred language.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.3.9 -->
+        <div class="version-card" id="v139-en">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.9</span>
+                    <span class="badge-latest">LATEST RELEASE</span>
+                    <span class="badge-code">Code: 34</span>
+                </div>
+                <div class="version-date">📅 November 20, 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">⭐</span>
+                    <div class="feature-content">
+                        <strong>In-Game Quick Rating & Feedback Architecture:</strong>
+                        <p>After your Level 1 victory, support our indie dev team with a 5-star rating or share your ideas in one tap—without ever leaving the game. Choosing "Later" seamlessly saves your preference and gently reminds you on subsequent milestones.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <div class="feature-content">
+                        <strong>Next-Gen Edge-to-Edge Display Optimization:</strong>
+                        <p>Flawless notch and navigation bar alignment on Android 15 and ultra-wide screens. The futuristic world renders edge-to-edge with no cutoffs or letterboxing.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🖥️</span>
+                    <div class="feature-content">
+                        <strong>Large Screen & Tablet Multitasking Resizability:</strong>
+                        <p>Rock-solid full-screen stability during app switching, split-screen, and recent apps overview on Android tablets and foldables.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌍</span>
+                    <div class="feature-content">
+                        <strong>Full 9-Language Localized Review Experience:</strong>
+                        <p>Interactive rating and suggestions interface rendered in your chosen active in-game language (TR, EN, RU, IT, ES, FR, KO, ZH, JA).</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-content">
+                        <strong>120 FPS Ultra-Fluid Performance Engine:</strong>
+                        <p>Zero jitter, instantaneous touch response, and rock-solid 120 FPS frame pacing across all Android releases from Android 10 to Android 15+!</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+<div class="version-card" id="v138-en">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.8</span>
+                    <span class="badge-code">Code: 33</span>
+                </div>
+                <div class="version-date">📅 November 10, 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <strong>Seamless & Bulletproof Revive Architecture:</strong>
+                        <p>If a rewarded video is dismissed early or interrupted, the game engine never locks up; revive buttons re-enable instantly and touch controls remain 100% responsive without requiring a restart.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <div class="feature-content">
+                        <strong>Full-Screen Stability for Android 13+ Tablets & Foldables:</strong>
+                        <p>Fixed taskbar snapshot windowing on modern Android tablets; switching to the Recent Apps overview will never display a half-screen or letterboxed thumbnail, maintaining a true full-screen experience throughout.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">💬</span>
+                    <div class="feature-content">
+                        <strong>Smart In-Game Toast Notifications:</strong>
+                        <p>When a video is closed before completion, a friendly toast appears smoothly, informing the player while keeping the UI immediately interactive.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📐</span>
+                    <div class="feature-content">
+                        <strong>Display Cutout & Edge-to-Edge Optimization:</strong>
+                        <p>Enhanced support for punch-hole cameras, notches, and ultra-wide display ratios ensures full viewport coverage without black borders.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-content">
+                        <strong>120 FPS Rock-Solid Performance & Audio Continuity:</strong>
+                        <p>Ultra-low latency touch responsiveness, flawless audio resume when switching apps, and consistent 120 FPS high refresh rate gaming.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="version-card" id="v137-en">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.7</span>
+                    <span class="badge-code">Code: 32</span>
+                </div>
+                <div class="version-date">📅 November 10, 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">🌐</span>
+                    <div class="feature-content">
+                        <strong>100% Multi-Language Update Notification & Changelog Links:</strong>
+                        <p>The startup update notification modal, release notes link, and action buttons now dynamically render in the player's active language across all 9 supported languages (TR, EN, RU, IT, ES, FR, KO, ZH, JA).</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <div class="feature-content">
+                        <strong>Google Analytics 4 & Measurement Protocol Integration:</strong>
+                        <p>Player milestones, level completion rates, session retention, and performance metrics are securely streamed to GA4 dashboards via a lightweight asynchronous protocol.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-content">
+                        <strong>Enhanced Live Remote Config:</strong>
+                        <p>In-game parameters, event banners, and balance tweaks can be updated instantly over the cloud without requiring a full store re-download.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <strong>Family-Grade AdMob Safety & Content Rating:</strong>
+                        <p>In alignment with Google advertising guidelines, sensitive categories are blocked and the maximum ad content rating is strictly enforced at 'G' (General Audiences).</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🎮</span>
+                    <div class="feature-content">
+                        <strong>120 FPS Ultra-Smooth Performance & Zero Latency:</strong>
+                        <p>Dynamic fullscreen viewport continues delivering edge-to-edge cinematic action with zero letterboxing on any screen ratio.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+<!-- v1.3.6 -->
+        <div class="version-card">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.6</span>
+                    <span class="badge-code">Code: 31</span>
+                </div>
+                <div class="version-date">📅 November 10, 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">📺</span>
+                    <div class="feature-content">
+                        <strong>Dynamic Fullscreen Viewport (Zero Letterboxing):</strong>
+                        <p>On ultra-wide smartphones and tablets (20:9, 19.5:9, 21:9), the game scene dynamically expands edge-to-edge. No black side bars or cut-offs, providing an immersive, wide-angle cinematic view of the game world.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">✨</span>
+                    <div class="feature-content">
+                        <strong>Fluid & Spacious Menu Layouts:</strong>
+                        <p>Profile, Settings, Language Selection, and Armory Shop menus smoothly expand on wider screens with larger, highly accessible cards, comfortable buttons, and enhanced typography.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <div class="feature-content">
+                        <strong>Smart In-Game Analytics & Retention Engine:</strong>
+                        <p>Session durations, level completion rates, and player milestones are securely analyzed to continuously balance platforming difficulty and ensure maximum gameplay satisfaction.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌐</span>
+                    <div class="feature-content">
+                        <strong>Live Remote Config Support:</strong>
+                        <p>Game mechanics, seasonal bonus events, and system announcements can now be dynamically tuned over the air without requiring a full app store package download.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <strong>Superior AdMob Quality & Family Safety:</strong>
+                        <p>Rewarded videos and interstitial transitions strictly follow Google Ad Quality and General Audience safety guidelines for an uncompromising player experience.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.3.5 -->
+        <div class="version-card">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.5</span>
+                    <span class="badge-latest">LATEST RELEASE</span>
+                    <span class="badge-code">Code: 30</span>
+                </div>
+                <div class="version-date">📅 November 10, 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <strong>Safe Respawn & Extended Shield Protection:</strong>
+                        <p>After watching a rewarded video, the game remains securely paused until you close the ad. You respawn on safe solid ground with 3 full hearts and a 5-second protective invulnerability shield, clearing nearby threats for a seamless return.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🎬</span>
+                    <div class="feature-content">
+                        <strong>Double Revive Chance per Level (Player-Friendly Economy):</strong>
+                        <p>You can now revive up to 2 times via rewarded video in challenging campaign levels (1st Revive + Final Chance). Clear progress badges on the button maintain excitement while complying 100% with Google AdMob policies.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">💎</span>
+                    <div class="feature-content">
+                        <strong>Faceted Brilliant Cyan Crystals in Action (◆):</strong>
+                        <p>In-game collectible crystals have been redesigned with glowing cyan diamond facets, matching the top HUD counter, shop, and map icons perfectly.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <div class="feature-content">
+                        <strong>Optimized Tutorial Overlay & Touch Ergonomics:</strong>
+                        <p>Resolved layout collision between the 'Skip Guide' button and modal close '✕' button, providing clean and spacious controls across all smartphones and tablets.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌍</span>
+                    <div class="feature-content">
+                        <strong>100% Flawless 9-Language Localization (Settings & Studio):</strong>
+                        <p>All settings group titles, action buttons, and character customization attributes now render entirely in your selected language (TR, EN, RU, IT, ES, FR, KO, ZH, JA) with zero bleed-through.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.3.4 -->
+        <div class="version-card">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.4</span>
+                    <span class="badge-code">Code: 29</span>
+                </div>
+                <div class="version-date">📅 November 9, 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item"><span class="feature-icon">🎬</span><div class="feature-content"><strong>Guaranteed Rewarded Video Flow:</strong> 100% reliable ad-based revives, 2x victory rewards, and free emerald chests across all testing channels.</div></li>
+                <li class="feature-item"><span class="feature-icon">📺</span><div class="feature-content"><strong>Player-Friendly Ad Architecture:</strong> No forced disruptive ads during gameplay; rewarded videos only trigger upon victory or your explicit request.</div></li>
+                <li class="feature-item"><span class="feature-icon">🧪</span><div class="feature-content"><strong>Secret Tester Control Panel:</strong> Tap settings title 5 times to reveal direct ad testing and channel distribution toggle.</div></li>
+            </ul>
+        </div>
+
+        <!-- v1.3.3 -->
+        <div class="version-card">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.3</span>
+                    <span class="badge-code">Code: 28</span>
+                </div>
+                <div class="version-date">📅 November 9, 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">📱</span>
+                    <div class="feature-content">
+                        <strong>Phone-Friendly 2-Column Settings Menu:</strong>
+                        <p>Redesigned according to modern mobile gaming standards into a sleek 2-column layout. Audio, FPS, Google Play Games cloud sync, GDPR privacy preferences, tutorial guide, rating, and reset options now fit phone screens without any scrolling. Pinned bottom save button allows one-tap return to the action.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌍</span>
+                    <div class="feature-content">
+                        <strong>Compact Language Selector with Pinned Save Button:</strong>
+                        <p>Redesigned 9-language modal with ergonomic cards and a docked bottom footer. The 'Save & Exit' button is always permanently visible and accessible without scrolling across all smartphone screen sizes.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">💬</span>
+                    <div class="feature-content">
+                        <strong>Interactive Level 1 Speech Balloon Guide:</strong>
+                        <p>Dynamic in-game speech balloons hover over your hero throughout Level 1, teaching left/right running, jump, hitting [?] boxes from below, defeating enemies, riding the elevator, trampolines, wall-bouncing, and exit portal mechanics in your selected language (9 languages supported).</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <strong>Safe Progress Reset & Cloud Protection:</strong>
+                        <p>Protective confirmation shield prevents accidental data loss when restarting your adventure from scratch, with reliable Google Play Games cloud backups.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-content">
+                        <strong>120 FPS Ultra Fluidity:</strong>
+                        <p>Optimized for high refresh-rate screens with buttery-smooth platforming physics and instant touch response.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.3.2 -->
+        <div class="version-card">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.2</span>
+                    <span class="badge-latest">LATEST RELEASE</span>
+                    <span class="badge-code">Code: 27</span>
+                </div>
+                <div class="version-date">📅 November 9, 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">💬</span>
+                    <div class="feature-content">
+                        <strong>Interactive Level 1 Speech Balloon Guide:</strong>
+                        <p>Dynamic in-game speech balloons hover over your hero throughout Level 1, teaching left/right running, jump, hitting [?] boxes from below, defeating enemies, riding the elevator, trampolines, wall-bouncing, and exit portal mechanics in your selected language (9 languages supported).</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">📖</span>
+                    <div class="feature-content">
+                        <strong>Visual Onboarding Walkthrough:</strong>
+                        <p>Enhanced starter guide featuring interactive controller key diagrams, directional arrows, and wall jump trajectories. Available in Settings or shown automatically to new players.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <strong>Safe Progress Reset Protection:</strong>
+                        <p>Added a multilingual confirmation dialog to prevent accidental resets. Enhanced cloud synchronization ensures a clean, fresh start whenever you decide to reset your adventure.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⭐</span>
+                    <div class="feature-content">
+                        <strong>Fast In-Game Rating & Feedback:</strong>
+                        <p>Rating and sharing feedback is now seamless and fast! Review the game with a single tap directly within the app without ever leaving your gameplay.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌐</span>
+                    <div class="feature-content">
+                        <strong>Smart Update & Connection Enhancements:</strong>
+                        <p>Optimized game updates and server synchronization to make sure you always receive the newest features and improvements smoothly and reliably.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.3.1 -->
+        <div class="version-card">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.1</span>
+                    <span class="badge-code">Code: 26</span>
+                </div>
+                <div class="version-date">📅 November 8, 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">🤡</span>
+                    <div class="feature-content">
+                        <strong>50-Level Troll Mode Campaign:</strong>
+                        <p>Progressively challenging surprise levels with crumbling tiles, surprise traps, fleeing portals, and hilarious obstacle mechanics.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🌍</span>
+                    <div class="feature-content">
+                        <strong>Full 9-Language Localization:</strong>
+                        <p>Play completely in your native tongue across English, Turkish, Korean, Japanese, Chinese, Russian, Italian, Spanish, and French.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">⚡</span>
+                    <div class="feature-content">
+                        <strong>120 FPS Ultra Fluid Gameplay:</strong>
+                        <p>Smooth 120Hz/90Hz high refresh-rate display support with low-latency touch controls and battery optimization.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.3.0 -->
+        <div class="version-card">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.3.0</span>
+                    <span class="badge-code">Code: 25</span>
+                </div>
+                <div class="version-date">📅 November 6, 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">☁️</span>
+                    <div class="feature-content">
+                        <strong>Cloud Save & Cross-Device Sync:</strong>
+                        <p>Google Play Games and Google Drive integration protects your progress, coins, and unlocked characters across all your devices.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🏆</span>
+                    <div class="feature-content">
+                        <strong>Live Multiplayer Leaderboard & Leagues:</strong>
+                        <p>Compete globally! Climb through weekly leagues (Bronze to Legend) and claim your spot on the speedrun leaderboard.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- v1.2.9 -->
+        <div class="version-card">
+            <div class="version-header">
+                <div class="version-title">
+                    <span>v1.2.9</span>
+                    <span class="badge-code">Code: 24</span>
+                </div>
+                <div class="version-date">📅 November 4, 2026</div>
+            </div>
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <span class="feature-icon">🛗</span>
+                    <div class="feature-content">
+                        <strong>Cyber Elevators & Underground Missions:</strong>
+                        <p>Descend into secret subterranean sectors, collect Mission Stars, and unlock huge coin rewards.</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">🎭</span>
+                    <div class="feature-content">
+                        <strong>14 Historical & Modern Heroes:</strong>
+                        <p>Play as legendary heroes and cyberpunk warriors including Mehmed the Conqueror, Ataturk, Samurai, Viking, and Gladiator.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="links-bar">
+        <a href="https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100" target="_blank" class="btn-link btn-link-primary">
+            <span>🎮</span> Google Play'de Görüntüle
+        </a>
+        <a href="privacy-policy.html" class="btn-link btn-link-secondary">
+            <span>🛡️</span> Gizlilik Politikası (Privacy Policy)
+        </a>
+        <a href="mailto:info@erpdanisman.com" class="btn-link btn-link-secondary">
+            <span>✉️</span> info@erpdanisman.com
+        </a>
+    </div>
+
+    <footer>
+        <p>© 2026 CG Studio Home & Cevat Türk. Tüm hakları saklıdır.</p>
+        <p style="margin-top:4px;">Marinext 2100 — Cyberpunk Action Platformer</p>
+    </footer>
+</div>
+
+<script>
+    function switchLang(lang) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        if (lang === 'tr') {
+            document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            document.getElementById('content-tr').classList.remove('hidden');
+            document.getElementById('content-en').classList.add('hidden');
+            document.getElementById('page-title').textContent = "Marinext 2100 — Resmi Sürüm Notları";
+            document.getElementById('page-subtitle').textContent = "Tüm güncellemeler, yeni özellikler, mekanik geliştirmeleri ve hata düzeltmeleri.";
+        } else {
+            document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            document.getElementById('content-tr').classList.add('hidden');
+            document.getElementById('content-en').classList.remove('hidden');
+            document.getElementById('page-title').textContent = "Marinext 2100 — Official Release Notes";
+            document.getElementById('page-subtitle').textContent = "All game updates, new features, mechanic improvements, and bug fixes.";
+        }
+    }
+</script>
+</body>
+</html>
