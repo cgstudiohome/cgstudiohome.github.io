@@ -1,0 +1,20 @@
+{
+  "versionCode": 35,
+  "versionName": "1.3.10",
+  "channels": {
+    "production": 25,
+    "alpha": 35,
+    "internal": 37
+  },
+  "storeUrl": "https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100",
+  "notes": "v1.3.10 Google Play Modernizasyon Revizyonu: Android 15 Cutout API uyumluluğu, tablet ve katlanabilir ekranlar için dinamik pencere ve yönlendirme optimizasyonları, sıfır gecikmeli 120 FPS akıcılık.",
+  "remoteConfig": {
+    "ga4MeasurementId": "G-3EVKLV8SM8",
+    "ga4ApiSecret": "NpIfsFNeROWOFrpLWGiqMg",
+    "interstitialEveryNLevels": 3,
+    "minSecondsBetweenInterstitials": 180,
+    "skipInterstitialAfterRewardedSeconds": 120,
+    "doubleCrystalsEvent": false,
+    "bannerAnnouncement": ""
+  }
+}
