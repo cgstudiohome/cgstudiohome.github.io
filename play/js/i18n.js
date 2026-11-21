@@ -5295,28 +5295,28 @@ window.MARINEXT_TUTORIAL_DATA = {
 })();
 
 
-// Full 9-Language "What's New in v1.4.3" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.4.4" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.4.3 Anında Ödül & Tablet Akıcılığı",
-        "subtitle": "Marinext 2100 artık tüm telefon ve tabletlerde çok daha kararlı, pürüzsüz ve ödüllü bonuslarla dolu:",
+        "title": "🚀 v1.4.4 Aile Tabletleri & Anında Ödül Uyumu",
+        "subtitle": "Marinext 2100 artık tüm aile cihazlarında, tabletlerde ve telefonlarda daha akıllı ve kesintisiz çalışıyor:",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
-                "icon": "🎁",
-                "title": "Ödüllü Video Sonrası Anında Ödül Teslimatı",
-                "desc": "Bonus videoları izledikten hemen sonra kazandığınız Coin ve Antik Zümrütler cüzdanınıza tek tıkla ve gecikmesiz aktarılır."
+                "icon": "👨‍👩‍👧‍👦",
+                "title": "Aile & Çocuk Tabletleri İçin Akıllı Uyum",
+                "desc": "Gözetimli aile profillerinde ve Android 13 tabletlerde ödüllü bonus videolarının sorunsuz hazırlanması için aile uyumlu otomatik geçiş desteği eklendi."
             },
             {
-                "icon": "📱",
-                "title": "Geliştirilmiş Android Tablet & Geniş Ekran Uyumu",
-                "desc": "Farklı Android tablet modellerinde ekran yerleşimi, buton tepkisi ve video bonus uyumluluğu daha kararlı hale getirildi."
+                "icon": "🎁",
+                "title": "Ödüllü Video Sonrası Anında Ödül Teslimatı",
+                "desc": "Bonus videolarını izledikten hemen sonra kazandığınız Coin ve Antik Zümrütler cüzdanınıza gecikmesiz aktarılır."
             },
             {
                 "icon": "✨",
                 "title": "Tek Dokunuşta Akıcı Buton Geri Bildirimi",
-                "desc": "Bonus ve mağaza düğmelerine bastığınız anda bekleme durumu görsel olarak anında gösterilerek kesintisiz deneyim sunar."
+                "desc": "Tüm ödül ve mağaza düğmelerine bastığınız anda bekleme durumu görsel olarak anında gösterilir."
             },
             {
                 "icon": "⚔️",
@@ -5331,20 +5331,20 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "en": {
-        "title": "🚀 v1.4.3 Instant Rewards & Tablet Flow",
-        "subtitle": "Marinext 2100 delivers smoother bonus rewards and upgraded tablet stability across every device:",
+        "title": "🚀 v1.4.4 Family Tablets & Instant Rewards",
+        "subtitle": "Marinext 2100 brings smart adaptation for family devices alongside smooth rewards across every screen:",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
+                "icon": "👨‍👩‍👧‍👦",
+                "title": "Smart Adaptation for Family & Child Tablets",
+                "desc": "Added automatic family-safe fallback support so optional bonus videos adapt gracefully on supervised Android 13 tablets."
+            },
+            {
                 "icon": "🎁",
                 "title": "Instant Post-Video Reward Delivery",
                 "desc": "Bonus Coins and Ancient Emeralds credit reliably to your wallet the moment you finish watching any optional reward video."
-            },
-            {
-                "icon": "📱",
-                "title": "Enhanced Android Tablet Compatibility",
-                "desc": "Improved wide-screen layout responsiveness and video bonus support across diverse Android tablet families."
             },
             {
                 "icon": "✨",
@@ -5364,20 +5364,20 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "ru": {
-        "title": "🚀 v1.4.3 Мгновенные награды и планшеты",
-        "subtitle": "Marinext 2100 стал ещё стабильнее на всех телефонах и планшетах с плавным начислением наград:",
+        "title": "🚀 v1.4.4 Семейные планшеты и награды",
+        "subtitle": "Marinext 2100 получил умную адаптацию для семейных устройств и плавное начисление наград:",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
-                "icon": "🎁",
-                "title": "Надёжное начисление наград после видео",
-                "desc": "Монеты и Древние изумруды мгновенно и без сбоев зачисляются на ваш баланс сразу после просмотра бонусного ролика."
+                "icon": "👨‍👩‍👧‍👦",
+                "title": "Умная поддержка семейных планшетов",
+                "desc": "Добавлена автоматическая семейная адаптация для стабильной подготовки бонусных видео на детских и защищённых планшетах Android 13."
             },
             {
-                "icon": "📱",
-                "title": "Улучшенная совместимость с планшетами",
-                "desc": "Повышена стабильность работы бонусных видео и интерфейса на различных моделях планшетов Android."
+                "icon": "🎁",
+                "title": "Надёжное начисление наград после видео",
+                "desc": "Монеты и Древние изумруды мгновенно зачисляются на ваш баланс сразу после просмотра бонусного ролика."
             },
             {
                 "icon": "✨",
@@ -5397,20 +5397,20 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "it": {
-        "title": "🚀 v1.4.3 Ricompense Istantanee & Tablet",
-        "subtitle": "Marinext 2100 offre ricompense più fluide e maggiore stabilità su smartphone e tablet:",
+        "title": "🚀 v1.4.4 Tablet Famiglia & Premi Istantanei",
+        "subtitle": "Marinext 2100 introduce l'adattamento intelligente per i dispositivi di famiglia e ricompense fluide:",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
-                "icon": "🎁",
-                "title": "Consegna Immediata dei Premi Video",
-                "desc": "Monete e Smeraldi Antichi vengono accreditati all'istante e senza errori al termine di ogni video bonus."
+                "icon": "👨‍👩‍👧‍👦",
+                "title": "Supporto Intelligente per Tablet di Famiglia",
+                "desc": "Aggiunto adattamento automatico sicuro per la famiglia per preparare i video bonus senza problemi sui tablet Android 13."
             },
             {
-                "icon": "📱",
-                "title": "Compatibilità Tablet Android Potenziata",
-                "desc": "Maggiore stabilità per schermi ampi e video premio su un'ampia gamma di tablet Android."
+                "icon": "🎁",
+                "title": "Consegna Immediata dei Premi Video",
+                "desc": "Monete e Smeraldi Antichi vengono accreditati all'istante al termine di ogni video bonus."
             },
             {
                 "icon": "✨",
@@ -5430,20 +5430,20 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "es": {
-        "title": "🚀 v1.4.3 Recompensas al Instante y Tablets",
-        "subtitle": "Marinext 2100 ofrece entregas de premios más fluidas y mayor estabilidad en tablets y teléfonos:",
+        "title": "🚀 v1.4.4 Tablets Familiares y Premios",
+        "subtitle": "Marinext 2100 añade adaptación inteligente para dispositivos familiares y recompensas instantáneas:",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
-                "icon": "🎁",
-                "title": "Entrega Instantánea Tras Videos Bonus",
-                "desc": "Las Monedas y Esmeraldas Antiguas se acreditan de inmediato y sin errores al terminar cualquier video de recompensa."
+                "icon": "👨‍👩‍👧‍👦",
+                "title": "Compatibilidad Inteligente en Tablets Familiares",
+                "desc": "Se incorporó un ajuste automático apto para familias para optimizar la carga de videos bonus en tablets Android 13 supervisadas."
             },
             {
-                "icon": "📱",
-                "title": "Compatibilidad Reforzada para Tablets",
-                "desc": "Mayor estabilidad en pantallas grandes y mejor soporte de videos bonus en tablets Android."
+                "icon": "🎁",
+                "title": "Entrega Instantánea Tras Videos Bonus",
+                "desc": "Las Monedas y Esmeraldas Antiguas se acreditan de inmediato al terminar cualquier video de recompensa."
             },
             {
                 "icon": "✨",
@@ -5463,20 +5463,20 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "fr": {
-        "title": "🚀 v1.4.3 Récompenses Instantanées & Tablettes",
-        "subtitle": "Marinext 2100 assure une remise des récompenses encore plus fiable sur smartphones et tablettes :",
+        "title": "🚀 v1.4.4 Tablettes Famille & Récompenses",
+        "subtitle": "Marinext 2100 intègre une adaptation familiale intelligente et des récompenses instantanées :",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
-                "icon": "🎁",
-                "title": "Remise Instantanée Après Vidéo Bonus",
-                "desc": "Vos Pièces et Émeraudes Antiques sont créditées immédiatement et sans accroc dès la fin de chaque vidéo bonus."
+                "icon": "👨‍👩‍👧‍👦",
+                "title": "Adaptation Automatique Tablettes Famille",
+                "desc": "Ajout d'un mode compatible famille automatique pour optimiser l'affichage des vidéos bonus sur les tablettes Android 13."
             },
             {
-                "icon": "📱",
-                "title": "Compatibilité Tablettes Android Améliorée",
-                "desc": "Stabilité sur grands écrans et compatibilité vidéo optimisées pour différents modèles de tablettes."
+                "icon": "🎁",
+                "title": "Remise Instantanée Après Vidéo Bonus",
+                "desc": "Vos Pièces et Émeraudes Antiques sont créditées immédiatement dès la fin de chaque vidéo bonus."
             },
             {
                 "icon": "✨",
@@ -5496,25 +5496,25 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "ko": {
-        "title": "🚀 v1.4.3 즉시 보상 지급 & 태블릿 최적화",
-        "subtitle": "모든 스마트폰과 태블릿에서 한층 더 매끄럽고 안정적으로 동작하는 Marinext 2100:",
+        "title": "🚀 v1.4.4 가족 태블릿 호환 & 즉시 보상",
+        "subtitle": "모든 가족용 태블릿과 스마트폰에서 더욱 안정적이고 매끄러운 보상 경험을 제공합니다:",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
-                "icon": "🎁",
-                "title": "보너스 영상 시청 후 즉시 보상 지급",
-                "desc": "보상형 영상을 끝까지 시청하면 코인과 고대 에메랄드가 지연이나 오류 없이 즉시 지갑에 적립됩니다."
+                "icon": "👨‍👩‍👧‍👦",
+                "title": "가족 및 보호 태블릿 스마트 적응",
+                "desc": "보호 계정이 적용된 Android 13 태블릿 환경에서도 보너스 동영상이 안정적으로 준비되도록 자동 가족 안전 전환 모드를 추가했습니다."
             },
             {
-                "icon": "📱",
-                "title": "향상된 Android 태블릿 호환성",
-                "desc": "다양한 Android 태블릿 환경에서의 화면 안정성과 보너스 동영상 호환성을 한층 더 강화했습니다."
+                "icon": "🎁",
+                "title": "보너스 영상 시청 후 즉시 보상 지급",
+                "desc": "보상형 영상을 시청하면 코인과 고대 에메랄드가 지연 없이 즉시 지갑에 적립됩니다."
             },
             {
                 "icon": "✨",
                 "title": "원터치 버튼 로딩 피드백",
-                "desc": "보너스 버튼을 누르는 즉시 준비 상태를 시각적으로 안내하여 더욱 매끄러운 조작감을 제공합니다."
+                "desc": "보너스 버튼을 누르는 즉시 준비 상태를 시각적으로 안내합니다."
             },
             {
                 "icon": "⚔️",
@@ -5529,20 +5529,20 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "zh": {
-        "title": "🚀 v1.4.3 即时奖励发放 & 平板流畅体验",
-        "subtitle": "Marinext 2100 现已在各类手机与平板设备上提供更可靠的奖励结算与稳定表现：",
+        "title": "🚀 v1.4.4 家庭平板适配 & 即时奖励",
+        "subtitle": "Marinext 2100 现已支持家庭安全模式智能切换，并在手机与平板上稳定发放奖励：",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
-                "icon": "🎁",
-                "title": "奖励视频看完后即时到账",
-                "desc": "观看任意可选激励视频后，金币与古代绿宝石将稳定无延迟地直接发放到您的钱包。"
+                "icon": "👨‍👩‍👧‍👦",
+                "title": "家庭与儿童平板智能兼容模式",
+                "desc": "新增自动家庭安全回退适配，助力受监管的安卓 13 平板更稳定地准备奖励视频。"
             },
             {
-                "icon": "📱",
-                "title": "进一步提升安卓平板兼容性",
-                "desc": "全面优化了不同型号安卓平板上的大屏显示、按键反馈与激励视频兼容性。"
+                "icon": "🎁",
+                "title": "奖励视频看完后即时到账",
+                "desc": "观看任意可选激励视频后，金币与古代绿宝石将直接发放到您的钱包。"
             },
             {
                 "icon": "✨",
@@ -5562,20 +5562,20 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "ja": {
-        "title": "🚀 v1.4.3 即時報酬付与＆タブレット快適化",
-        "subtitle": "スマートフォンでもタブレットでも、より確実でスムーズに遊べる Marinext 2100 へ：",
+        "title": "🚀 v1.4.4 家族タブレット対応＆即時報酬",
+        "subtitle": "ご家族のタブレットからスマホまで、さらに安定したボーナス体験と快適動作を実現：",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
-                "icon": "🎁",
-                "title": "動画視聴後の即時報酬クレジット",
-                "desc": "ボーナス動画の視聴完了後、コインや古代エメラルドが遅延やエラーなく即座にアカウントへ届きます。"
+                "icon": "👨‍👩‍👧‍👦",
+                "title": "ファミリー向けタブレット自動最適化",
+                "desc": "保護者管理機能付きのAndroid 13タブレットでもボーナス動画がスムーズに準備されるファミリーセーフ自動切替を追加しました。"
             },
             {
-                "icon": "📱",
-                "title": "Androidタブレット互換性のさらなる向上",
-                "desc": "さまざまなAndroidタブレット端末での大画面表示とボーナス動画の安定性をさらに強化しました。"
+                "icon": "🎁",
+                "title": "動画視聴後の即時報酬クレジット",
+                "desc": "ボーナス動画の視聴完了後、コインや古代エメラルドが即座にアカウントへ届きます。"
             },
             {
                 "icon": "✨",
