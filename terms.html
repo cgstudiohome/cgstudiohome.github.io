@@ -3,33 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Service - Marinext 2100 | CG Studio Home</title>
+    <title>Terms of Service - CG Studio Home &amp; Labs</title>
     <style>
         :root {
-            --primary: #00adb5;
-            --bg: #1a1a2e;
-            --card-bg: #16213e;
-            --text: #e0e0e0;
-            --text-muted: #9ba4b5;
-            --border: #0f3460;
+            --primary: #00f2fe;
+            --gold: #ffd166;
+            --emerald: #06d6a0;
+            --bg: #070812;
+            --card-bg: #111428;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: rgba(0, 242, 254, 0.25);
         }
 
+        * { box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            background-color: var(--bg);
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.65;
+            background: radial-gradient(circle at top, #141836 0%, var(--bg) 70%);
             color: var(--text);
             margin: 0;
-            padding: 20px;
+            padding: 28px 16px;
         }
 
         .container {
-            max-width: 850px;
+            max-width: 880px;
             margin: 0 auto;
             background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
             border: 1px solid var(--border);
         }
 
@@ -37,17 +41,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 18px;
+            margin-bottom: 22px;
             flex-wrap: wrap;
             gap: 15px;
         }
 
         h1 {
-            color: #fff;
+            color: var(--primary);
             margin: 0;
-            font-size: 1.8rem;
+            font-size: 1.65rem;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -59,46 +63,89 @@
         }
 
         .lang-btn {
-            background: var(--border);
-            border: 1px solid transparent;
-            color: var(--text-muted);
-            padding: 6px 14px;
-            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(0, 242, 254, 0.35);
+            color: var(--text);
+            padding: 7px 14px;
+            border-radius: 8px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 0.88rem;
             transition: all 0.2s ease;
         }
 
         .lang-btn:hover {
-            color: #fff;
-        }
-
-        .lang-btn.active {
-            background: var(--primary);
-            color: #fff;
             border-color: var(--primary);
         }
 
+        .lang-btn.active {
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: #050711;
+            border-color: transparent;
+        }
+
         .meta-box {
-            background-color: rgba(15, 52, 96, 0.4);
+            background-color: rgba(0, 242, 254, 0.07);
             border-left: 4px solid var(--primary);
-            padding: 12px 16px;
-            border-radius: 4px;
-            margin-bottom: 25px;
-            font-size: 0.95rem;
+            padding: 13px 18px;
+            border-radius: 8px;
+            margin-bottom: 22px;
+            font-size: 0.92rem;
+            color: var(--text-muted);
         }
 
         .meta-box span {
             display: inline-block;
-            margin-right: 15px;
+            margin-right: 16px;
+        }
+
+        .app-links-card {
+            background: rgba(6, 214, 160, 0.08);
+            border: 1px solid rgba(6, 214, 160, 0.35);
+            border-left: 4px solid var(--emerald);
+            padding: 16px 18px;
+            border-radius: 10px;
+            margin: 18px 0 24px;
+        }
+
+        .app-links-card h3 {
+            margin: 0 0 8px;
+            color: var(--emerald);
+            font-size: 1.05rem;
+        }
+
+        .app-link-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .app-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 13px;
+            border-radius: 8px;
+            background: rgba(0, 242, 254, 0.12);
+            border: 1px solid rgba(0, 242, 254, 0.35);
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .app-pill:hover {
+            background: rgba(0, 242, 254, 0.22);
+            text-decoration: none;
         }
 
         h2 {
-            color: var(--primary);
-            font-size: 1.25rem;
-            margin-top: 25px;
+            color: var(--gold);
+            font-size: 1.18rem;
+            margin-top: 24px;
             margin-bottom: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
             padding-bottom: 5px;
         }
 
@@ -108,14 +155,23 @@
         }
 
         ul {
-            padding-left: 20px;
+            padding-left: 22px;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
 
         footer {
             text-align: center;
-            margin-top: 35px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
+            margin-top: 34px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-muted);
             font-size: 0.85rem;
         }
@@ -133,87 +189,116 @@
 
 <div class="container">
     <div class="header">
-        <h1>📜 Marinext 2100</h1>
+        <h1>📜 CG Studio Home &amp; Labs — Terms of Service</h1>
         <div class="lang-switch">
-            <button id="btn-lang-en" class="lang-btn active" onclick="switchLang('en', this)">English</button>
-            <button id="btn-lang-tr" class="lang-btn" onclick="switchLang('tr', this)">Türkçe</button>
+            <button id="btn-lang-en" class="lang-btn active" onclick="switchLang('en', this)">🇬🇧 English</button>
+            <button id="btn-lang-tr" class="lang-btn" onclick="switchLang('tr', this)">🇹🇷 Türkçe</button>
         </div>
     </div>
 
     <div class="meta-box">
-        <span><strong>Developer:</strong> CG Studio Home</span>
-        <span><strong>Package:</strong> com.cgstudiohome.marinext2100</span>
-        <span><strong>Contact:</strong> info@erpdanisman.com</span>
+        <span><strong>Studio:</strong> CG Studio Home &amp; Labs</span>
+        <span><strong>Portal:</strong> <a href="https://cgstudiohome.github.io/">cgstudiohome.github.io</a></span>
+        <span><strong>Contact:</strong> <a href="mailto:info@erpdanisman.com">info@erpdanisman.com</a></span>
+        <span><strong>Updated:</strong> November 2026</span>
     </div>
 
     <!-- ENGLISH CONTENT -->
     <div id="content-en" class="lang-content active">
+        <div class="app-links-card">
+            <h3>📁 App-Specific Terms of Service</h3>
+            <p style="margin:0;">These Master Terms apply across the CG Studio Home web portal and all games and apps we publish. Individual titles also maintain dedicated subfolder pages for project-specific details:</p>
+            <div class="app-link-pills">
+                <a class="app-pill" href="marinext2100/terms.html">🚀 Marinext 2100 Terms</a>
+                <a class="app-pill" href="privacy-policy.html">🛡️ Studio Privacy Policy</a>
+                <a class="app-pill" href="./">🏠 Studio Portal</a>
+            </div>
+            <p style="margin:10px 0 0; font-size:0.86rem; color:var(--text-muted);">Upcoming CG Studio Home games and projects will each publish dedicated pages under their own project subfolder.</p>
+        </div>
+
         <h2>1. Acceptance of Terms</h2>
-        <p>By downloading, installing, accessing, or playing <strong>Marinext 2100</strong>, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the application.</p>
+        <p>By accessing the <strong>CG Studio Home &amp; Labs</strong> web portal or downloading, installing, accessing, or playing any mobile or web game or application published by CG Studio Home (including <strong>Marinext 2100</strong>, package <code>com.cgstudiohome.marinext2100</code>, and future releases), you agree to be bound by these Terms of Service. If you do not agree, please do not use our website or applications.</p>
 
         <h2>2. License &amp; Intellectual Property</h2>
-        <p>CG Studio Home grants you a non-exclusive, non-transferable, revocable license to use the game for personal, non-commercial entertainment. All game titles, assets, graphic interfaces, sounds, code, and artwork are the exclusive intellectual property of CG Studio Home and are protected under copyright laws.</p>
+        <p>CG Studio Home grants you a personal, non-exclusive, non-transferable, revocable license to use our portal, games, and applications strictly for personal, non-commercial entertainment. All titles, characters, visuals, audio assets, software code, interfaces, and trademarks remain the exclusive property of CG Studio Home and are protected by applicable copyright and intellectual property laws.</p>
 
         <h2>3. Prohibited Conduct</h2>
-        <p>You agree not to:</p>
+        <p>When using any CG Studio Home website, game, or service, you agree not to:</p>
         <ul>
-            <li>Reverse engineer, decompile, or disassemble any part of the game.</li>
-            <li>Use cheats, automation software (bots), hacks, or any unauthorized third-party tools.</li>
-            <li>Exploit software bugs for unintended in-game advantages.</li>
-            <li>Disrupt or impair the game's servers, networks, or infrastructure.</li>
+            <li>Reverse engineer, decompile, disassemble, or tamper with any software binary or web bundle.</li>
+            <li>Use cheats, bots, unauthorized mods, exploits, or third-party tools to manipulate scores or leaderboards.</li>
+            <li>Abuse software bugs or attempt unauthorized access to cloud services or APIs.</li>
+            <li>Interfere with, overload, or disrupt our web portal, leaderboard integrations, or partner networks.</li>
         </ul>
 
-        <h2>4. Virtual Goods and Purchases</h2>
-        <p>Any virtual currency, cosmetic items, or gameplay unlocks earned or purchased within Marinext 2100 are virtual assets with no real-world monetary value. Transactions completed via Google Play are subject to Google Play’s billing and refund policies.</p>
+        <h2>4. Virtual Items, Advertising &amp; Purchases</h2>
+        <p>Virtual coins, emeralds, characters, or unlockables earned or unlocked inside CG Studio Home games have no real-world monetary value and cannot be transferred outside the application. Where offered, transactions via Google Play are governed by Google Play's billing and refund terms. Free-to-play titles may display optional rewarded or non-intrusive ads via Google AdMob in accordance with our <a href="privacy-policy.html">Privacy Policy</a>.</p>
 
-        <h2>5. Disclaimer of Warranties</h2>
-        <p>Marinext 2100 is provided on an "AS IS" and "AS AVAILABLE" basis. While we strive to maintain uninterrupted and stable performance, we make no warranties regarding bug-free execution, device compatibility, or continuous server availability.</p>
+        <h2>5. Age &amp; Family Guidelines</h2>
+        <p>Unless a specific application page explicitly states otherwise, CG Studio Home titles are designed for general/teen-and-up audiences (ages 13+, or with parental guidance). Parents and guardians are encouraged to review Google Play content ratings and device privacy controls.</p>
 
-        <h2>6. Limitation of Liability</h2>
-        <p>To the maximum extent permitted by law, CG Studio Home shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the access, use, or inability to use the game.</p>
+        <h2>6. Disclaimer of Warranties</h2>
+        <p>Our website, web previews, and applications are provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind regarding uninterrupted availability, hardware compatibility, or error-free execution.</p>
 
-        <h2>7. Changes to Terms</h2>
-        <p>We reserve the right to amend these Terms of Service at any time. Continued use of the game following updates constitutes acceptance of the modified terms.</p>
+        <h2>7. Limitation of Liability</h2>
+        <p>To the maximum extent permitted by applicable law, CG Studio Home shall not be liable for any direct, indirect, incidental, consequential, or special damages arising from the use or inability to use our portal, games, or services.</p>
 
-        <h2>8. Contact Us</h2>
-        <p>For questions, support, or legal inquiries regarding these terms, reach us at: <strong>info@erpdanisman.com</strong></p>
+        <h2>8. Updates to These Terms</h2>
+        <p>We may update these Master Terms of Service or add project-specific subfolder terms as new games are released. Continued use after updates constitutes acceptance of the revised terms.</p>
+
+        <h2>9. Contact</h2>
+        <p>For support, legal notices, or questions across any CG Studio Home project, contact: <strong><a href="mailto:info@erpdanisman.com">info@erpdanisman.com</a></strong></p>
     </div>
 
     <!-- TURKISH CONTENT -->
     <div id="content-tr" class="lang-content">
+        <div class="app-links-card">
+            <h3>📁 Uygulamaya Özel Hizmet Şartları</h3>
+            <p style="margin:0;">Bu Ana Hizmet Şartları, CG Studio Home web portalı ile stüdyomuzun yayınladığı tüm oyun ve uygulamalar için geçerlidir. Her proje ayrıca kendi alt klasöründe uygulamaya özel şartlar sayfası barındırır:</p>
+            <div class="app-link-pills">
+                <a class="app-pill" href="marinext2100/terms.html">🚀 Marinext 2100 Hizmet Şartları</a>
+                <a class="app-pill" href="privacy-policy.html">🛡️ Stüdyo Gizlilik Politikası</a>
+                <a class="app-pill" href="./">🏠 Stüdyo Ana Portalı</a>
+            </div>
+            <p style="margin:10px 0 0; font-size:0.86rem; color:var(--text-muted);">Gelecekte eklenecek diğer CG Studio Home oyun ve uygulamaları da aynı şekilde kendi proje alt klasörleri altında yayınlanacaktır.</p>
+        </div>
+
         <h2>1. Şartların Kabulü</h2>
-        <p><strong>Marinext 2100</strong> oyununu indirerek, yükleyerek veya oynayarak bu Hizmet Şartları'nı kabul etmiş sayılırsınız. Bu şartları kabul etmiyorsanız lütfen oyunu kullanmayınız.</p>
+        <p><strong>CG Studio Home &amp; Labs</strong> web portalını ziyaret ederek veya stüdyomuz tarafından yayınlanan mobil ve web oyun/uygulamalarını (<strong>Marinext 2100</strong> — <code>com.cgstudiohome.marinext2100</code> ve gelecek tüm projeler dahil) indirip kullanarak bu Hizmet Şartları'nı kabul etmiş sayılırsınız. Bu şartları kabul etmiyorsanız lütfen web sitemizi veya uygulamalarımızı kullanmayınız.</p>
 
         <h2>2. Lisans ve Fikri Mülkiyet</h2>
-        <p>CG Studio Home, oyunu yalnızca kişisel ve ticari olmayan eğlence amaçlı kullanmanız için devredilemez ve geri alınabilir bir lisans verir. Marinext 2100'e ait tüm grafikler, sesler, yazılım kodları, arayüzler ve oyun içi içerikler CG Studio Home'un mülkiyetindedir ve telif hakkı yasalarıyla korunmaktadır.</p>
+        <p>CG Studio Home, portalımızı, oyunlarımızı ve uygulamalarımızı yalnızca kişisel ve ticari olmayan eğlence amacıyla kullanmanız için devredilemez ve geri alınabilir bir kullanım lisansı verir. Tüm oyun adları, grafikler, karakterler, ses efektleri, yazılım kodları ve arayüzler CG Studio Home'un münhasır fikri mülkiyetidir ve telif haklarıyla korunmaktadır.</p>
 
         <h2>3. Yasaklanan Faaliyetler</h2>
-        <p>Kullanıcılar aşağıdaki eylemleri gerçekleştiremez:</p>
+        <p>CG Studio Home web sitesi, oyunları veya hizmetlerini kullanırken aşağıdaki davranışlardan kaçınmayı kabul edersiniz:</p>
         <ul>
-            <li>Oyunun kaynak kodunu çözmek, tersine mühendislik yapmak veya kopyalamak.</li>
-            <li>Hile, bot, yetkisiz üçüncü taraf modifikasyon veya haksız kazanç yazılımları kullanmak.</li>
-            <li>Oyun içi yazılım hatalarını (bug) kötüye kullanmak.</li>
-            <li>Oyun sunucularına veya ağ yapısına zarar verecek girişimlerde bulunmak.</li>
+            <li>Uygulamaların kaynak kodunu çözmek, tersine mühendislik yapmak veya paketleri kopyalamak.</li>
+            <li>Skor veya liderlik tablolarını manipüle etmek için hile, bot, yetkisiz modifikasyon veya harici araç kullanmak.</li>
+            <li>Yazılım hatalarını (bug) haksız avantaj elde etmek amacıyla kötüye kullanmak.</li>
+            <li>Web sitemize, bulut entegrasyonlarımıza veya reklam/analitik altyapımıza zarar verecek girişimlerde bulunmak.</li>
         </ul>
 
-        <h2>4. Sanal Öğeler ve Satın Alımlar</h2>
-        <p>Oyun içerisinde kazanılan veya satın alınan hiçbir sanal ögenin (puan, donanım, kozmetik vb.) gerçek dünyada parasal bir karşılığı yoktur ve başka kullanıcılara devredilemez. Google Play üzerinden yapılan tüm işlemler Google Play'in standart faturalandırma ve iade politikalarına tabidir.</p>
+        <h2>4. Sanal Öğeler, Reklamlar ve Satın Alımlar</h2>
+        <p>Oyun içi kazanılan coin, antik zümrüt, kostüm veya açılan içeriklerin gerçek dünyada parasal bir karşılığı yoktur ve başkasına devredilemez. Google Play üzerinden sunulan işlemlerde Google Play faturalandırma ve iade kuralları geçerlidir. Ücretsiz oyunlarda Google AdMob üzerinden isteğe bağlı ödüllü veya oyuncu dostu reklamlar gösterilebilir ve tercihler <a href="privacy-policy.html">Gizlilik Politikamız</a> kapsamında yönetilir.</p>
 
-        <h2>5. Sorumluluk Reddi</h2>
-        <p>Marinext 2100 "olduğu gibi" ve "mevcut olduğu şekliyle" sunulmaktadır. Kesintisiz veya hatasız çalışacağına, her cihazla kusursuz uyum sağlayacağına dair açık veya zımni garanti verilmez.</p>
+        <h2>5. Yaş ve Aile Uygunluğu</h2>
+        <p>Belirli bir proje sayfasında aksi açıkça belirtilmedikçe CG Studio Home oyunları genel ve 13+ yaş kitlelerine uygun olarak tasarlanır. Ebeveynlerin Google Play yaş derecelendirmelerini ve cihaz denetimlerini incelemeleri önerilir.</p>
 
-        <h2>6. Sorumluluğun Sınırlandırılması</h2>
-        <p>Yürürlükteki mevzuatın izin verdiği ölçüde CG Studio Home; oyunun kullanımından, kullanılamamasından veya teknik aksaklıklardan doğabilecek doğrudan ya da dolaylı zararlardan sorumlu tutulamaz.</p>
+        <h2>6. Sorumluluk Reddi</h2>
+        <p>Web sitemiz, web önizlemelerimiz ve tüm uygulamalarımız "olduğu gibi" ve "mevcut olduğu şekliyle" sunulmaktadır. Kesintisiz hizmet, hatasız çalışma veya tüm cihaz modelleriyle kusursuz uyum hakkında garanti verilmez.</p>
 
-        <h2>7. Şartlarda Değişiklik</h2>
-        <p>Bu Hizmet Şartları'nı dilediğimiz zaman güncelleme hakkımız saklıdır. Güncellemelerin ardından oyunu oynamaya devam etmeniz yeni şartları kabul ettiğiniz anlamına gelir.</p>
+        <h2>7. Sorumluluğun Sınırlandırılması</h2>
+        <p>Yürürlükteki mevzuatın izin verdiği azami ölçüde CG Studio Home; portalımızın veya oyunlarımızın kullanımından ya da kullanılamamasından doğabilecek doğrudan veya dolaylı zararlardan sorumlu tutulamaz.</p>
 
-        <h2>8. İletişim</h2>
-        <p>Hizmet Şartları ile ilgili tüm soru ve bildirimleriniz için bizimle iletişime geçebilirsiniz: <strong>info@erpdanisman.com</strong></p>
+        <h2>8. Şartlarda Değişiklik</h2>
+        <p>Yeni oyun ve projeler eklendikçe bu Ana Hizmet Şartları'nı veya proje alt klasörlerindeki özel sayfaları güncelleyebiliriz. Güncellemeler sonrasında uygulamalarımızı kullanmaya devam etmeniz yeni şartları kabul ettiğiniz anlamına gelir.</p>
+
+        <h2>9. İletişim</h2>
+        <p>Tüm CG Studio Home projeleriyle ilgili soru, destek ve yasal bildirimler için bize ulaşabilirsiniz: <strong><a href="mailto:info@erpdanisman.com">info@erpdanisman.com</a></strong></p>
     </div>
 
     <footer>
-        © 2026 CG Studio Home • Marinext 2100 • All Rights Reserved.
+        © 2026 CG Studio Home &amp; Labs • All Rights Reserved.
     </footer>
 </div>
 
@@ -230,6 +315,12 @@
     }
 
     (function initLang() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const pLang = (urlParams.get('lang') || '').toLowerCase();
+        if (pLang === 'tr' || pLang === 'en') {
+            switchLang(pLang);
+            return;
+        }
         const navLang = (navigator.language || (navigator.languages && navigator.languages[0]) || 'en').toLowerCase();
         switchLang(navLang.startsWith('tr') ? 'tr' : 'en');
     })();
