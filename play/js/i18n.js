@@ -5295,18 +5295,23 @@ window.MARINEXT_TUTORIAL_DATA = {
 })();
 
 
-// Full 9-Language "What's New in v1.4.0" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.4.1" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.4.0 Küresel Lansman Sürümü",
-        "subtitle": "Marinext 2100 evrenine hoş geldin! Resmi dünya lansmanı ile gelen yenilikler:",
+        "title": "🚀 v1.4.1 Lansman Hazırlığı & Akıcılık",
+        "subtitle": "Marinext 2100 deneyimin artık çok daha hızlı, güvenilir ve küresel açılışa hazır:",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
+                "icon": "🎁",
+                "title": "Daha Hızlı & Güvenilir Ödüllü Bonuslar",
+                "desc": "Canlanma, 2x zafer bonusu ve sandık açma ödül videoları artık çok daha hızlı yükleniyor ve zayıf bağlantılarda bile otomatik olarak yeniden deneniyor."
+            },
+            {
                 "icon": "🎉",
-                "title": "Resmi Küresel Lansman Sürümü Yayında",
-                "desc": "10 aksiyon dünyası, 100 ana hikaye bölümü, 20 dev mekanik Boss savaşı ve 50 zorlu Trol Modu bölümü tüm dünyadaki oyuncular için hazır!"
+                "title": "100 Ana Bölüm + 50 Trol Etabı Hazır",
+                "desc": "10 aksiyon dünyası, 20 mekanik Boss karşılaşması ve akıl dolu Trol Modu bölümleri küresel oyuncular için kusursuz dengelendi."
             },
             {
                 "icon": "⚔️",
@@ -5316,281 +5321,276 @@ window.MARINEXT_WHATS_NEW_DATA = {
             {
                 "icon": "🏆",
                 "title": "Küresel Liderlik Tabloları & Bulut Senkronizasyonu",
-                "desc": "Yüksek Skor, Bölüm İlerlemesi, Antik Zümrüt ve Hız Rekoru (Speedrun) sıralamalarında tüm dünyaya karşı yarış ve kaydını güvende tut."
+                "desc": "Yüksek Skor, İlerleme, Antik Zümrüt ve Speedrun sıralamalarında dünyayla yarış ve ilerlemeni bulutta güvenle koru."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra Akıcı & %100 Çevrimdışı Oyun",
-                "desc": "İnternet bağlantısı gerekmeden her yerde sıfır gecikmeli kontroller ve 120 FPS akıcılık ile kesintisiz arcade macerası."
-            },
-            {
-                "icon": "🎬",
-                "title": "Resmi Lansman Fragmanı & 9 Dilde Tam Destek",
-                "desc": "CG Studio Home aile stüdyomuzun resmi tanıtım fragmanını ve güncellemelerini 9 farklı dilde takip et, 1. Bölüm sonunda bizi 5 yıldızla destekle!"
+                "title": "120 FPS Ultra Akıcı & Resmi Stüdyo Portalı",
+                "desc": "Sıfır gecikmeli kontrollerin keyfini çıkar, resmi fragmanımızı izle ve 9 dilde tam oyun deneyimini yaşa!"
             }
         ]
     },
     "en": {
-        "title": "🚀 v1.4.0 Official Global Launch",
-        "subtitle": "Welcome to Marinext 2100! Discover everything waiting for you in our global launch edition:",
+        "title": "🚀 v1.4.1 Launch Polish & Bonus Reliability",
+        "subtitle": "Marinext 2100 is smoother, faster, and tuned to perfection for our global launch:",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
+                "icon": "🎁",
+                "title": "Faster & More Reliable Bonus Videos",
+                "desc": "Rewarded bonus videos for revives, 2x victory rewards, and treasure chests now preload smarter and retry automatically on slow networks."
+            },
+            {
                 "icon": "🎉",
-                "title": "Official Global Launch Edition Ready",
-                "desc": "Explore 10 vibrant action worlds featuring 100 campaign stages, 20 colossal mechanical bosses, and 50 brain-teasing Troll Mode levels!"
+                "title": "100 Campaign Stages + 50 Troll Levels",
+                "desc": "Explore 10 vibrant action worlds, 20 colossal mechanical bosses, and 50 brain-teasing Troll Mode challenges worldwide."
             },
             {
                 "icon": "⚔️",
                 "title": "14 Historical Legends & Customization Studio",
-                "desc": "Unlock Sultan Mehmed II, Selim I, Suleiman the Magnificent, and cyber warriors, then equip gliding wings, helmets, visors, and glowing auras."
+                "desc": "Unlock Sultan Mehmed II, Selim I, Suleiman the Magnificent, and cyber warriors with gliding wings, visors, helmets, and glowing auras."
             },
             {
                 "icon": "🏆",
-                "title": "Global Play Games Leaderboards & Cloud Sync",
-                "desc": "Compete worldwide in High Score, Campaign Progress, Ancient Emeralds, and Speedrun rankings while keeping your progress safely synced."
+                "title": "Global Leaderboards & Safe Cloud Sync",
+                "desc": "Compete worldwide in High Score, Progress, Emeralds, and Speedrun rankings with your progress safely synced."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluid & 100% Offline Play",
-                "desc": "Enjoy instantaneous touch responsiveness, ultra-smooth 120 FPS arcade motion, and uninterrupted offline play anywhere without Wi-Fi."
-            },
-            {
-                "icon": "🎬",
-                "title": "Official Launch Trailer & 9-Language Portal",
-                "desc": "Watch our family studio's official launch trailer online and enjoy every menu, guide, and boss battle in 9 global languages!"
+                "title": "120 FPS Ultra-Fluid & 9-Language Polish",
+                "desc": "Enjoy instantaneous controls, offline play anywhere, and seamless multi-language legal & studio portal links."
             }
         ]
     },
     "ru": {
-        "title": "🚀 v1.4.0 Глобальный релиз",
-        "subtitle": "Добро пожаловать в Marinext 2100! Что ждёт вас в официальной релизной версии:",
+        "title": "🚀 v1.4.1 Предрелизная полировка и надёжность",
+        "subtitle": "Marinext 2100 стал ещё быстрее, плавнее и полностью готов к глобальному запуску:",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
+                "icon": "🎁",
+                "title": "Быстрые и надёжные бонусные видео",
+                "desc": "Бонусные ролики для возрождения, 2x наград и открытия сундуков теперь загружаются быстрее и автоматически повторяются при слабом соединении."
+            },
+            {
                 "icon": "🎉",
-                "title": "Официальный мировой релиз",
-                "desc": "10 уникальных миров, 100 сюжетных уровней, 20 гигантских боссов и 50 коварных тролл-этапов теперь открыты для игроков со всего мира!"
+                "title": "100 сюжетных уровней + 50 тролл-этапов",
+                "desc": "10 уникальных миров, 20 гигантских боссов и коварный Тролл-режим идеально сбалансированы для игроков по всему миру."
             },
             {
                 "icon": "⚔️",
-                "title": "14 исторических легенд и студия кастомизации",
-                "desc": "Играйте за Султана Мехмеда, Селима I, Сулеймана Великолепного и кибер-воинов, открывайте крылья для планирования, шлемы и светящиеся ауры."
+                "title": "14 исторических легенд и кастомизация",
+                "desc": "Играйте за Султана Мехмеда, Селима I, Сулеймана Великолепного и кибер-воинов; открывайте крылья, шлемы и ауры."
             },
             {
                 "icon": "🏆",
-                "title": "Мировые таблицы лидеров и облачное сохранение",
-                "desc": "Соревнуйтесь в рейтингах очков, прогресса, изумрудов и спидрана и надёжно синхронизируйте свой прогресс в облаке."
+                "title": "Мировые рейтинги и облачное сохранение",
+                "desc": "Соревнуйтесь в очках, прогрессе, изумрудах и спидране, сохраняя прогресс в облаке."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS и 100% игра без интернета",
-                "desc": "Мгновенный отклик управления, плавнейшая частота 120 FPS и полноценный оффлайн-режим в любом месте."
-            },
-            {
-                "icon": "🎬",
-                "title": "Официальный трейлер и поддержка 9 языков",
-                "desc": "Смотрите официальный трейлер нашей семейной студии и наслаждайтесь полной локализацией на 9 языках!"
+                "title": "120 FPS и полная поддержка 9 языков",
+                "desc": "Мгновенный отклик управления, 100% оффлайн-режим и официальный трейлер на нашем семейном портале!"
             }
         ]
     },
     "it": {
-        "title": "🚀 v1.4.0 Lancio Globale Ufficiale",
-        "subtitle": "Benvenuto in Marinext 2100! Ecco tutto ciò che ti aspetta nell'edizione di lancio:",
+        "title": "🚀 v1.4.1 Rifinitura di Lancio & Affidabilità",
+        "subtitle": "Marinext 2100 è ancora più veloce, fluido e pronto per il lancio mondiale:",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
+                "icon": "🎁",
+                "title": "Video Bonus Più Rapidi e Affidabili",
+                "desc": "I video premio per rinascita, doppie ricompense e forzieri si caricano più velocemente e riprovano in automatico su reti lente."
+            },
+            {
                 "icon": "🎉",
-                "title": "Edizione Ufficiale di Lancio Globale",
-                "desc": "10 mondi d'azione, 100 livelli della storia, 20 boss meccanici colossali e 50 perfidi livelli Troll Mode pronti per giocatori di tutto il mondo!"
+                "title": "100 Livelli Storia + 50 Livelli Troll",
+                "desc": "10 mondi d'azione, 20 boss meccanici colossali e 50 perfidi livelli Troll bilanciati al meglio."
             },
             {
                 "icon": "⚔️",
-                "title": "14 Leggende Storiche e Studio di Personalizzazione",
-                "desc": "Sblocca Maometto II, Selim I, Solimano il Magnifico e guerrieri cyber; equipaggia ali per planare, elmi, visori e aure luminose."
+                "title": "14 Leggende Storiche e Personalizzazione",
+                "desc": "Sblocca Maometto II, Selim I, Solimano il Magnifico e guerrieri cyber con ali, elmi e aure luminose."
             },
             {
                 "icon": "🏆",
-                "title": "Classifiche Globali Play Games e Salvataggio Cloud",
-                "desc": "Sfida il mondo nelle classifiche Punteggio, Avanzamento, Smeraldi e Speedrun mantenendo i tuoi progressi sempre al sicuro."
+                "title": "Classifiche Globali e Salvataggio Cloud",
+                "desc": "Sfida il mondo in Punteggio, Avanzamento, Smeraldi e Speedrun proteggendo sempre i tuoi dati."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluido e 100% Offline",
-                "desc": "Controlli reattivi senza ritardi, fluidità arcade a 120 FPS e divertimento continuo anche senza connessione internet."
-            },
-            {
-                "icon": "🎬",
-                "title": "Trailer Ufficiale e Portale in 9 Lingue",
-                "desc": "Guarda il trailer di lancio del nostro studio familiare e goditi ogni guida, dialogo e sfida in 9 lingue."
+                "title": "120 FPS Ultra-Fluido & 9 Lingue",
+                "desc": "Controlli istantanei, gioco offline ovunque e portale ufficiale dello studio in 9 lingue."
             }
         ]
     },
     "es": {
-        "title": "🚀 v1.4.0 Lanzamiento Global Oficial",
-        "subtitle": "¡Bienvenido a Marinext 2100! Descubre todas las novedades de nuestra edición de lanzamiento:",
+        "title": "🚀 v1.4.1 Pulido de Lanzamiento y Fluidez",
+        "subtitle": "Marinext 2100 es aún más rápido, estable y listo para el estreno mundial:",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
+                "icon": "🎁",
+                "title": "Videos de Recompensa Más Fiables",
+                "desc": "Los videos para revivir, duplicar recompensas y abrir cofres cargan más rápido y reintentan automáticamente ante conexiones lentas."
+            },
+            {
                 "icon": "🎉",
-                "title": "Edición Oficial de Lanzamiento Global",
-                "desc": "¡10 mundos de acción, 100 niveles de campaña, 20 jefes mecánicos gigantes y 50 desafiantes fases Troll listos para todo el mundo!"
+                "title": "100 Niveles de Campaña + 50 Niveles Troll",
+                "desc": "10 mundos de acción, 20 jefes gigantes y 50 desafíos Troll perfeccionados para jugadores de todo el mundo."
             },
             {
                 "icon": "⚔️",
-                "title": "14 Héroes Históricos y Estudio de Personalización",
-                "desc": "Juega con Mehmed el Conquistador, Selim I, Solimán el Magnífico y guerreros cíber; equipa alas planeadoras, cascos y auras brillantes."
+                "title": "14 Héroes Históricos y Personalización",
+                "desc": "Juega con Mehmed II, Selim I, Solimán el Magnífico y guerreros cíber con alas, cascos y auras."
             },
             {
                 "icon": "🏆",
-                "title": "Clasificaciones Globales y Guardado en la Nube",
-                "desc": "Compite a nivel mundial en Puntuación, Progreso, Esmeraldas y Speedrun con sincronización segura en tu cuenta."
+                "title": "Clasificaciones Globales y Nube Segura",
+                "desc": "Compite en Puntuación, Progreso, Esmeraldas y Speedrun con sincronización segura."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra Fluido y 100% Sin Conexión",
-                "desc": "Controles instantáneos sin lag, acción arcade a 120 FPS y aventura completa sin necesidad de conexión a internet."
-            },
-            {
-                "icon": "🎬",
-                "title": "Tráiler Oficial y Soporte en 9 Idiomas",
-                "desc": "¡Disfruta del tráiler oficial de nuestro estudio familiar y vive la aventura completamente traducida a 9 idiomas!"
+                "title": "120 FPS Ultra Fluido y 9 Idiomas",
+                "desc": "Controles sin lag, juego 100% sin conexión y acceso al tráiler oficial en 9 idiomas."
             }
         ]
     },
     "fr": {
-        "title": "🚀 v1.4.0 Lancement Mondial Officiel",
-        "subtitle": "Bienvenue dans Marinext 2100 ! Découvrez notre édition officielle de lancement mondial :",
+        "title": "🚀 v1.4.1 Finitions de Lancement & Fiabilité",
+        "subtitle": "Marinext 2100 est encore plus fluide, réactif et prêt pour la sortie mondiale :",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
+                "icon": "🎁",
+                "title": "Vidéos Bonus Plus Rapides et Fiables",
+                "desc": "Les vidéos de réanimation, récompenses doublées et coffres se préchargent mieux et réessaient automatiquement sur réseau faible."
+            },
+            {
                 "icon": "🎉",
-                "title": "Édition Officielle de Lancement Mondial",
-                "desc": "10 mondes d'action, 100 niveaux d'histoire, 20 boss mécaniques géants et 50 niveaux Troll retors prêts pour les joueurs du monde entier !"
+                "title": "100 Niveaux Histoire + 50 Niveaux Troll",
+                "desc": "10 mondes d'action, 20 boss mécaniques géants et 50 défis Troll optimisés pour tous les joueurs."
             },
             {
                 "icon": "⚔️",
-                "title": "14 Légendes Historiques & Studio de Personnalisation",
-                "desc": "Débloquez Mehmed II, Selim Ier, Soliman le Magnifique et des guerriers cyber ; équipez ailes de planage, casques et auras lumineuses."
+                "title": "14 Légendes Historiques & Personnalisation",
+                "desc": "Débloquez Mehmed II, Selim Ier, Soliman le Magnifique et guerriers cyber avec ailes, casques et auras."
             },
             {
                 "icon": "🏆",
-                "title": "Classements Mondiaux Play Games & Sauvegarde Cloud",
-                "desc": "Affrontez le monde entier en Score, Progression, Émeraudes et Speedrun tout en protégeant vos sauvegardes."
+                "title": "Classements Mondiaux & Sauvegarde Cloud",
+                "desc": "Affrontez le monde en Score, Progression, Émeraudes et Speedrun en toute sécurité."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluide & 100% Hors-Ligne",
-                "desc": "Réactivité tactile instantanée, fluidité arcade 120 FPS et aventure jouable partout sans connexion internet."
-            },
-            {
-                "icon": "🎬",
-                "title": "Bande-Annonce Officielle & Portail en 9 Langues",
-                "desc": "Découvrez la bande-annonce de notre studio familial et profitez de chaque menu et défi traduit en 9 langues."
+                "title": "120 FPS Ultra-Fluide & 9 Langues",
+                "desc": "Réactivité instantanée, mode hors-ligne complet et portail officiel traduit en 9 langues."
             }
         ]
     },
     "ko": {
-        "title": "🚀 v1.4.0 글로벌 정식 출시 버전",
-        "subtitle": "Marinext 2100에 오신 것을 환영합니다! 정식 출시와 함께 준비된 모든 콘텐츠를 만나보세요:",
+        "title": "🚀 v1.4.1 정식 출시 최종 다듬기",
+        "subtitle": "더 빠르고 안정적이며 완벽해진 Marinext 2100을 만나보세요:",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
+                "icon": "🎁",
+                "title": "더 빠르고 안정적인 보상형 보너스",
+                "desc": "부활, 승리 2배 보상, 상자 열기 동영상 보상이 한층 빠르게 로드되며 네트워크가 불안정할 때도 자동 재시도됩니다."
+            },
+            {
                 "icon": "🎉",
-                "title": "글로벌 정식 런칭 에디션 공개",
-                "desc": "10개의 액션 월드, 100개 스토리 스테이지, 20명의 거대 메카 보스, 그리고 50개의 고난도 트롤 모드가 전 세계 플레이어를 기다립니다!"
+                "title": "100개 메인 스테이지 + 50개 트롤 모드",
+                "desc": "10개의 액션 월드와 20명의 거대 보스, 50개의 트롤 스테이지가 완벽하게 밸런싱되었습니다."
             },
             {
                 "icon": "⚔️",
-                "title": "14인의 전설적 영웅 & 커스터마이징 스튜디오",
-                "desc": "정복자 메흐메트 2세, 셀림 1세, 쉴레이만 대제와 사이버 전사를 잠금 해제하고 활공 날개, 헬멧, 화려한 오라를 장착하세요."
+                "title": "14인의 전설 영웅 & 커스터마이징",
+                "desc": "메흐메트 2세, 셀림 1세, 쉴레이만 대제와 사이버 전사를 잠금 해제하고 날개와 헬멧을 장착하세요."
             },
             {
                 "icon": "🏆",
-                "title": "글로벌 Play Games 순위표 & 클라우드 동기화",
-                "desc": "최고 점수, 진행도, 고대 에메랄드, 스피드런 부문에서 전 세계 유저와 경쟁하고 내 기록을 안전하게 보호하세요."
+                "title": "글로벌 순위표 & 안전한 클라우드 동기화",
+                "desc": "점수, 진행도, 에메랄드, 스피드런 부문에서 전 세계 플레이어와 경쟁하세요."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS 초고속 엔진 & 100% 오프라인 플레이",
-                "desc": "끊김 없는 즉각적인 조작감과 120 FPS의 부드러운 화면으로 인터넷 연결 없이도 언제 어디서나 즐길 수 있습니다."
-            },
-            {
-                "icon": "🎬",
-                "title": "공식 출시 트레일러 & 9개 언어 완벽 지원",
-                "desc": "가족 인디 스튜디오의 공식 트레일러를 감상하고, 9개 언어로 현지화된 모험을 지금 바로 시작하세요!"
+                "title": "120 FPS 초고속 엔진 & 9개 언어 지원",
+                "desc": "지연 없는 조작감, 오프라인 플레이, 그리고 스튜디오 공식 포털과 트레일러를 9개 언어로 지원합니다."
             }
         ]
     },
     "zh": {
-        "title": "🚀 v1.4.0 全球正式发布版",
-        "subtitle": "欢迎来到 Marinext 2100！探索为您准备的全球正式版全部精彩内容：",
+        "title": "🚀 v1.4.1 正式上线前优化与提速",
+        "subtitle": "Marinext 2100 带来更流畅、更稳定的全面升级，全力迎接全球发布：",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
+                "icon": "🎁",
+                "title": "激励奖励加载更快更稳",
+                "desc": "复活、双倍通关奖励和宝箱解锁视频支持智能预加载，在弱网环境下也会自动重试保障流畅体验。"
+            },
+            {
                 "icon": "🎉",
-                "title": "全球正式发布版重磅上线",
-                "desc": "10大动作世界、100个主线关卡、20场巨型机械Boss战以及50个脑洞大开的恶搞关卡已面向全球玩家全面开放！"
+                "title": "100个主线关卡 + 50个恶搞关卡",
+                "desc": "10大动作世界、20个巨型机械Boss与50个趣味恶搞挑战已全部打磨完毕。"
             },
             {
                 "icon": "⚔️",
                 "title": "14位历史传奇英雄与装扮工坊",
-                "desc": "解锁征服者穆罕默德二世、塞利姆一世、苏莱曼大帝及赛博勇士，使用宝石装备滑翔机械翼、全息头盔与炫酷光环。"
+                "desc": "解锁穆罕默德二世、塞利姆一世、苏莱曼大帝与赛博勇士，自由搭配滑翔翼、头盔与光环。"
             },
             {
                 "icon": "🏆",
-                "title": "Play Games 全球排行榜与云端存档",
-                "desc": "在高分、关卡进度、古老宝石与速通榜单上与全球玩家一较高下，云端同步确保存档安全无忧。"
+                "title": "全球排行榜 & 云端安全存档",
+                "desc": "在高分、进度、古老宝石和速通榜单与全球玩家角逐，云端同步更安心。"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS 极致丝滑 & 100% 离线畅玩",
-                "desc": "零延迟即时触控响应，120 FPS 流畅街机动作体验，无需联网也能随时随地畅玩。"
-            },
-            {
-                "icon": "🎬",
-                "title": "官方宣传片与9国语言支持",
-                "desc": "欢迎观看家庭独立工作室的官方上线宣传片，并在9种语言中畅享完整的冒险与挑战！"
+                "title": "120 FPS 极致丝滑 & 9种语言支持",
+                "desc": "零延迟操作手感、100%离线畅玩以及家庭工作室官方门户全面支持9国语言。"
             }
         ]
     },
     "ja": {
-        "title": "🚀 v1.4.0 グローバル正式リリース版",
-        "subtitle": "Marinext 2100 へようこそ！世界同時リリース版の注目ポイントをご紹介します：",
+        "title": "🚀 v1.4.1 リリース前最終調整＆快適性向上",
+        "subtitle": "より速く、より安定して進化した Marinext 2100 をお届けします：",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
+                "icon": "🎁",
+                "title": "ボーナス動画の読み込み＆安定性を強化",
+                "desc": "復活・報酬2倍・宝箱開封のリワード動画がより素早く読み込まれ、通信が不安定な時も自動で再試行されます。"
+            },
+            {
                 "icon": "🎉",
-                "title": "グローバル正式ローンチ版がついに登場",
-                "desc": "10のアクションワールド、100のストーリーステージ、20体の巨大メカボス、50の激ムズ・トロールステージが全世界のプレイヤーに解禁！"
+                "title": "100のストーリー＋50のトロールステージ",
+                "desc": "10のワールド、20体の巨大メカボス、50の高難度トロールステージを全世界向けに最適化しました。"
             },
             {
                 "icon": "⚔️",
-                "title": "14人の歴史的英雄＆カスタマイズスタジオ",
-                "desc": "メフメト2世、セリム1世、スレイマン大帝やサイバー戦士を解放し、滑空翼・ヘルメット・輝くオーラで自在に強化しよう。"
+                "title": "14人の歴史的英雄＆カスタマイズ",
+                "desc": "メフメト2世、セリム1世、スレイマン大帝やサイバー戦士を解放し、翼やヘルメットで強化しよう。"
             },
             {
                 "icon": "🏆",
-                "title": "Play Games 世界ランキング＆クラウド保存",
-                "desc": "スコア、進行度、エメラルド、スピードランの部門で世界中のプレイヤーと競い合い、セーブデータも安全に同期。"
+                "title": "世界ランキング＆安心クラウド保存",
+                "desc": "スコア、進行度、エメラルド、スピードラン部門で世界中のプレイヤーと競えます。"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS 超滑らか動作＆100% オフライン対応",
-                "desc": "遅延ゼロのレスポンスと 120 FPS の快適な操作感で、ネット環境がなくてもいつでもどこでもプレイ可能。"
-            },
-            {
-                "icon": "🎬",
-                "title": "公式トレーラー公開＆9言語フル対応",
-                "desc": "家族スタジオ制作の公式ローンチトレーラーを公開中！全9言語で極上のサイバー冒険をお楽しみください。"
+                "title": "120 FPS 超滑らか動作＆9言語対応",
+                "desc": "遅延ゼロの操作感、オフライン対応、公式スタジオポータルで充実の体験を！"
             }
         ]
     }
