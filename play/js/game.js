@@ -2046,7 +2046,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 35;
+        const CURRENT_VERSION_CODE = 36;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2100,7 +2100,7 @@ class Game {
                     nativeTrack = window.MarinextCloudBridge.getBuildTrack();
                 } catch (e) {}
             }
-            const currentTrack = nativeTrack || (localStorage.getItem("marinext_test_track") || "alpha");
+            const currentTrack = nativeTrack || (localStorage.getItem("marinext_test_track") || "production");
 
             let remoteCode = Number(remote && remote.versionCode);
             if (remote && remote.channels && typeof remote.channels === "object") {
@@ -2182,7 +2182,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "27");
+                localStorage.setItem("marinext2100_last_seen_version", "36");
             } catch (e) {}
         };
 
@@ -2211,7 +2211,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "27") {
+            if (hasConsent && lastSeenVer !== "36") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -3351,15 +3351,15 @@ class Game {
         if (btnToggleChannel) {
             btnToggleChannel.addEventListener("click", () => {
                 window.sfx.coin();
-                let curTrack = "alpha";
+                let curTrack = "";
                 if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getBuildTrack === "function") {
                     try {
                         const nat = window.MarinextCloudBridge.getBuildTrack();
                         if (nat) curTrack = nat;
                     } catch (e) {}
                 }
-                if (!curTrack || curTrack === "alpha") {
-                    curTrack = localStorage.getItem("marinext_test_track") || "alpha";
+                if (!curTrack) {
+                    curTrack = localStorage.getItem("marinext_test_track") || "production";
                 }
 
                 // Cycle: internal -> alpha -> production -> internal
@@ -3575,7 +3575,7 @@ class Game {
                 window.sfx.powerUpSpawn();
                 try {
                     localStorage.setItem("marinext_privacy_consent_v1", String(Date.now()));
-                    localStorage.setItem("marinext2100_last_seen_version", "27");
+                    localStorage.setItem("marinext2100_last_seen_version", "36");
                 } catch (e) {}
                 const fcModal = document.getElementById("screen-first-consent");
                 if (fcModal) fcModal.classList.add("hidden");
@@ -4602,15 +4602,15 @@ class Game {
         }
         const channelBadge = document.getElementById("settings-channel-badge");
         if (channelBadge) {
-            let curTrack = "alpha";
+            let curTrack = "";
             if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getBuildTrack === "function") {
                 try {
                     const nat = window.MarinextCloudBridge.getBuildTrack();
                     if (nat) curTrack = nat;
                 } catch (e) {}
             }
-            if (!curTrack || curTrack === "alpha") {
-                curTrack = localStorage.getItem("marinext_test_track") || "alpha";
+            if (!curTrack) {
+                curTrack = localStorage.getItem("marinext_test_track") || "production";
             }
             channelBadge.className = "settings-channel-badge badge-" + curTrack;
             if (curTrack === "internal") {
@@ -6320,7 +6320,7 @@ class Game {
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getBuildTrack === "function") {
             try { nativeTrack = window.MarinextCloudBridge.getBuildTrack(); } catch (e) {}
         }
-        const track = nativeTrack || (localStorage.getItem("marinext_test_track") || "alpha");
+        const track = nativeTrack || (localStorage.getItem("marinext_test_track") || "production");
         const isDev = localStorage.getItem("marinext_dev_mode") === "1";
         // Google AdMob & Play Console Policy:
         // internal & alpha tracks ALWAYS use Google official sample test ads (100% fill, zero ban risk)
