@@ -1602,6 +1602,12 @@
             </div>
             <div class="video-wrapper">
                 <iframe id="video-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <div id="video-coming-soon" style="position:absolute; inset:0; display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:32px; gap:14px; background: radial-gradient(circle at center, #141a38 0%, #050711 100%);">
+                    <div style="font-size:48px;">🎬</div>
+                    <h3 id="video-cs-title" style="color:var(--gold); font-size:20px; font-weight:700;"></h3>
+                    <p id="video-cs-desc" style="color:var(--text-muted); max-width:520px; font-size:14.5px; line-height:1.6;"></p>
+                    <a id="video-cs-btn" href="https://www.youtube.com/@CGStudioHome" target="_blank" rel="noopener" class="btn btn-crimson" style="margin-top:6px;"></a>
+                </div>
             </div>
         </div>
     </div>
@@ -1617,7 +1623,8 @@
             </div>
             <div class="footer-links">
                 <a href="#family" data-i18n="footFamily">Aile Hikayemiz</a>
-                <a href="https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100" target="_blank" data-i18n="footPlayStore">Google Play Store</a>
+                <a href="https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100" target="_blank" rel="noopener" data-i18n="footPlayStore">Google Play Store</a>
+                <a href="https://www.youtube.com/@CGStudioHome" target="_blank" rel="noopener">YouTube</a>
                 <a href="play/" data-i18n="footPlay">Web'de Oyna</a>
                 <a href="release-notes.html" data-i18n="footChangelog">Sürüm Notları (Changelog)</a>
                 <a href="privacy-policy.html" data-i18n="footPrivacy">Gizlilik Politikası (Privacy Policy)</a>
@@ -1741,34 +1748,40 @@
         // YOUTUBE VIDEO LINKS
         const GAME_VIDEOS = {
             marinext: {
-                title: { tr: "Marinext 2100 — Resmi Tanıtım & Oynanış Fragmanı", en: "Marinext 2100 — Official Gameplay & Launch Trailer" },
-                embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1",
-                watchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                title: { tr: "Marinext 2100 — Resmi Lansman Fragmanı", en: "Marinext 2100 — Official Launch Trailer" },
+                embedUrl: "https://www.youtube-nocookie.com/embed/duqH-Esyflk?autoplay=1",
+                watchUrl: "https://www.youtube.com/watch?v=duqH-Esyflk",
+                comingSoon: false
             },
             ottoman: {
-                title: { tr: "Ottoman Conquest: 1517 — Oynanış Tanıtımı", en: "Ottoman Conquest: 1517 — Gameplay Teaser" },
-                embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1",
-                watchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                title: { tr: "Ottoman Conquest: 1517 — Fragman Hazırlanıyor", en: "Ottoman Conquest: 1517 — Trailer Coming Soon" },
+                embedUrl: "",
+                watchUrl: "https://www.youtube.com/@CGStudioHome",
+                comingSoon: true
             },
             neondrift: {
-                title: { tr: "Neon Drift 2100 — Yüksek Hız Drift Tanıtımı", en: "Neon Drift 2100 — High-Speed Drift Teaser" },
-                embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1",
-                watchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                title: { tr: "Neon Drift 2100 — Fragman Hazırlanıyor", en: "Neon Drift 2100 — Trailer Coming Soon" },
+                embedUrl: "",
+                watchUrl: "https://www.youtube.com/@CGStudioHome",
+                comingSoon: true
             },
             shadowdungeon: {
-                title: { tr: "Shadow Dungeon — Zindan Oynanış Tanıtımı", en: "Shadow Dungeon — Dungeon Gameplay Teaser" },
-                embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1",
-                watchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                title: { tr: "Shadow Dungeon — Fragman Hazırlanıyor", en: "Shadow Dungeon — Trailer Coming Soon" },
+                embedUrl: "",
+                watchUrl: "https://www.youtube.com/@CGStudioHome",
+                comingSoon: true
             },
             quantum: {
-                title: { tr: "Quantum Blocks — Bulmaca Mekanikleri Tanıtımı", en: "Quantum Blocks — Puzzle Mechanics Teaser" },
-                embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1",
-                watchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                title: { tr: "Quantum Blocks — Fragman Hazırlanıyor", en: "Quantum Blocks — Trailer Coming Soon" },
+                embedUrl: "",
+                watchUrl: "https://www.youtube.com/@CGStudioHome",
+                comingSoon: true
             },
             armada: {
-                title: { tr: "Galactic Armada — Uzay Savaşı Fragmanı", en: "Galactic Armada — Space Battle Teaser" },
-                embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1",
-                watchUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                title: { tr: "Galactic Armada — Fragman Hazırlanıyor", en: "Galactic Armada — Trailer Coming Soon" },
+                embedUrl: "",
+                watchUrl: "https://www.youtube.com/@CGStudioHome",
+                comingSoon: true
             }
         };
 
@@ -1856,9 +1869,35 @@
         function openVideoModal(gameKey) {
             const videoData = GAME_VIDEOS[gameKey] || GAME_VIDEOS.marinext;
             const title = videoData.title[currentLang] || videoData.title.tr;
+            const extBtn = document.getElementById('video-external-btn');
+            const iframe = document.getElementById('video-iframe');
+            const comingSoonEl = document.getElementById('video-coming-soon');
+
             document.getElementById('video-modal-title').textContent = '🎬 ' + title;
-            document.getElementById('video-external-btn').href = videoData.watchUrl;
-            document.getElementById('video-iframe').src = videoData.embedUrl;
+            extBtn.href = videoData.watchUrl;
+
+            if (videoData.comingSoon) {
+                iframe.src = '';
+                iframe.style.display = 'none';
+                comingSoonEl.style.display = 'flex';
+                const isEn = (currentLang === 'en');
+                document.getElementById('video-cs-title').textContent = isEn
+                    ? 'Official trailer for this project is in production!'
+                    : 'Bu projenin tanıtım fragmanı hazırlanıyor!';
+                document.getElementById('video-cs-desc').textContent = isEn
+                    ? 'Subscribe to our official CGStudioHome YouTube channel for upcoming gameplay reveals and trailers.'
+                    : 'Yeni videolar ve oynanış fragmanları için resmi CGStudioHome YouTube kanalımıza abone olabilirsiniz.';
+                document.getElementById('video-cs-btn').textContent = isEn
+                    ? 'Visit Our YouTube Channel (@CGStudioHome) ↗'
+                    : 'YouTube Kanalımıza Git (@CGStudioHome) ↗';
+                extBtn.textContent = isEn ? 'Our YouTube Channel ↗' : 'YouTube Kanalımız ↗';
+            } else {
+                comingSoonEl.style.display = 'none';
+                iframe.style.display = 'block';
+                iframe.src = videoData.embedUrl;
+                extBtn.textContent = (I18N[currentLang] && I18N[currentLang].btnOpenYoutube) || "YouTube'da Aç ↗";
+            }
+
             document.getElementById('video-modal').classList.add('open');
             if (typeof gtag === 'function') {
                 gtag('event', 'watch_video', { game: gameKey });
@@ -1869,6 +1908,7 @@
         function closeVideoModal() {
             document.getElementById('video-modal').classList.remove('open');
             document.getElementById('video-iframe').src = '';
+            document.getElementById('video-coming-soon').style.display = 'none';
             document.body.style.overflow = '';
         }
 
