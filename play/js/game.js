@@ -2049,7 +2049,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 39;
+        const CURRENT_VERSION_CODE = 40;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2185,7 +2185,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "39");
+                localStorage.setItem("marinext2100_last_seen_version", "40");
             } catch (e) {}
         };
 
@@ -2214,7 +2214,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "39") {
+            if (hasConsent && lastSeenVer !== "40") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -3580,7 +3580,7 @@ class Game {
                 window.sfx.powerUpSpawn();
                 try {
                     localStorage.setItem("marinext_privacy_consent_v1", String(Date.now()));
-                    localStorage.setItem("marinext2100_last_seen_version", "39");
+                    localStorage.setItem("marinext2100_last_seen_version", "40");
                 } catch (e) {}
                 const fcModal = document.getElementById("screen-first-consent");
                 if (fcModal) fcModal.classList.add("hidden");
@@ -6352,7 +6352,7 @@ class Game {
             : ADMOB_CONFIG.interstitialAdUnitId;
     }
 
-    getAdMobInitOptions(isTesting) {
+    getAdMobInitOptions(isTesting, childSafeFallback = false) {
         let deviceHash = "";
         if (isTesting && window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAdMobTestDeviceId === "function") {
             try {
@@ -6362,9 +6362,14 @@ class Game {
                 }
             } catch (e) {}
         }
+        const useChildSafe = Boolean(childSafeFallback || this._forceChildSafeAdConfig);
         return {
             initializeForTesting: isTesting,
             ...(isTesting && deviceHash ? { testingDevices: [deviceHash] } : {}),
+            ...(useChildSafe ? {
+                tagForChildDirectedTreatment: true,
+                tagForUnderAgeOfConsent: true
+            } : {}),
             maxAdContentRating: "General"
         };
     }
@@ -6451,6 +6456,7 @@ class Game {
         this._rewardedAdPreloaded = false;
         this._rewardedAdPreloading = false;
         this._rewardedPreloadPromise = null;
+        this._forceChildSafeAdConfig = false;
         return this.initAdMob();
     }
 
@@ -7182,7 +7188,7 @@ class Game {
                 await capAdMob.prepareRewardVideoAd({
                     adId: this.getRewardedAdUnitId(),
                     isTesting: isTesting,
-                    npa: !this.personalizedAds
+                    npa: Boolean(!this.personalizedAds || this._forceChildSafeAdConfig)
                 });
                 this._rewardedAdPreloaded = true;
             } catch (e) {
@@ -7279,31 +7285,20 @@ class Game {
                         await capAdMob.prepareRewardVideoAd({
                             adId: this.getRewardedAdUnitId(),
                             isTesting: isTesting,
-                            npa: !this.personalizedAds
+                            npa: Boolean(!this.personalizedAds || this._forceChildSafeAdConfig)
                         });
                     } catch (firstErr) {
                         await new Promise((r) => setTimeout(r, 1000));
-                        if (isTesting) {
-                            try {
-                                await capAdMob.initialize({ initializeForTesting: true });
-                                await new Promise((r) => setTimeout(r, 350));
-                            } catch (reinitErr) {}
-                            await capAdMob.prepareRewardVideoAd({
-                                adId: "ca-app-pub-3940256099942544/5224354917",
-                                isTesting: true,
-                                npa: false
-                            });
-                        } else {
-                            try {
-                                await capAdMob.initialize(this.getAdMobInitOptions(false));
-                                await new Promise((r) => setTimeout(r, 350));
-                            } catch (reinitErr) {}
-                            await capAdMob.prepareRewardVideoAd({
-                                adId: this.getRewardedAdUnitId(),
-                                isTesting: false,
-                                npa: true
-                            });
-                        }
+                        try {
+                            await capAdMob.initialize(this.getAdMobInitOptions(isTesting, true));
+                            await new Promise((r) => setTimeout(r, 450));
+                        } catch (reinitErr) {}
+                        await capAdMob.prepareRewardVideoAd({
+                            adId: this.getRewardedAdUnitId(),
+                            isTesting: isTesting,
+                            npa: true
+                        });
+                        this._forceChildSafeAdConfig = true;
                     }
                 }
                 this._rewardedAdPreloaded = false;
