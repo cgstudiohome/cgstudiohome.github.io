@@ -1411,6 +1411,7 @@ class Game {
         this.adMobInitialized = false;
         this._adMobInitPromise = null;
         this._rewardedPreloadPromise = null;
+        this._lastUmpStatus = "none";
         setTimeout(() => this.initAdMob(), 1200);
         setTimeout(() => this.checkAppUpdateOnStartup(), 1600);
         setTimeout(() => this.checkStartupWhatsNew(), 2600);
@@ -2048,7 +2049,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 37;
+        const CURRENT_VERSION_CODE = 38;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2184,7 +2185,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "37");
+                localStorage.setItem("marinext2100_last_seen_version", "38");
             } catch (e) {}
         };
 
@@ -2213,7 +2214,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "37") {
+            if (hasConsent && lastSeenVer !== "38") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -3579,7 +3580,7 @@ class Game {
                 window.sfx.powerUpSpawn();
                 try {
                     localStorage.setItem("marinext_privacy_consent_v1", String(Date.now()));
-                    localStorage.setItem("marinext2100_last_seen_version", "37");
+                    localStorage.setItem("marinext2100_last_seen_version", "38");
                 } catch (e) {}
                 const fcModal = document.getElementById("screen-first-consent");
                 if (fcModal) fcModal.classList.add("hidden");
@@ -6351,6 +6352,25 @@ class Game {
             : ADMOB_CONFIG.interstitialAdUnitId;
     }
 
+    getAdMobInitOptions(isTesting) {
+        let deviceHash = "";
+        if (isTesting && window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAdMobTestDeviceId === "function") {
+            try {
+                const rawHash = window.MarinextCloudBridge.getAdMobTestDeviceId();
+                if (rawHash && /^[0-9A-Za-z]{16,}$/.test(String(rawHash).trim())) {
+                    deviceHash = String(rawHash).trim();
+                }
+            } catch (e) {}
+        }
+        return {
+            initializeForTesting: isTesting,
+            ...(isTesting && deviceHash ? { testingDevices: [deviceHash] } : {}),
+            tagForChildDirectedTreatment: false,
+            tagForUnderAgeOfConsent: false,
+            maxAdContentRating: "General"
+        };
+    }
+
     async _awaitWithTimeout(promise, timeoutMs) {
         if (!promise) return null;
         return await Promise.race([
@@ -6367,12 +6387,8 @@ class Game {
         }
         if (!this.adMobInitialized) {
             try {
-                await capAdMob.initialize({
-                    initializeForTesting: this.isAdTestingActive(),
-                    tagForChildDirectedTreatment: false,
-                    tagForUnderAgeOfConsent: false,
-                    maxAdContentRating: "General"
-                });
+                const isTesting = this.isAdTestingActive();
+                await capAdMob.initialize(this.getAdMobInitOptions(isTesting));
                 await new Promise((r) => setTimeout(r, 600));
                 this.adMobInitialized = true;
             } catch (initErr) {}
@@ -6392,6 +6408,7 @@ class Game {
                                 capAdMob.requestConsentInfo(),
                                 new Promise((_, reject) => setTimeout(() => reject(new Error("UMP timeout")), 3500))
                             ]);
+                            this._lastUmpStatus = (consentInfo && consentInfo.status) ? String(consentInfo.status) : "ok";
                             if (
                                 consentInfo &&
                                 consentInfo.isConsentFormAvailable &&
@@ -6401,17 +6418,13 @@ class Game {
                                 await capAdMob.showConsentForm();
                             }
                         } catch (consentErr) {
+                            this._lastUmpStatus = "err:" + String((consentErr && consentErr.message) || "fail").replace(/[\r\n]+/g, " ").trim().slice(0, 16);
                             // Ignore UMP errors or timeouts so AdMob initialization proceeds reliably
                         }
                     }
                     // 2. Initialize AdMob with General Audience Content Rating Compliance
                     const isTesting = this.isAdTestingActive();
-                    await capAdMob.initialize({
-                        initializeForTesting: isTesting,
-                        tagForChildDirectedTreatment: false,
-                        tagForUnderAgeOfConsent: false,
-                        maxAdContentRating: "General"
-                    });
+                    await capAdMob.initialize(this.getAdMobInitOptions(isTesting));
                     await new Promise((r) => setTimeout(r, 750));
                     this.adMobInitialized = true;
                     try {
@@ -6480,8 +6493,8 @@ class Game {
         const stars = this.feedbackStars || 5;
         const cat = this.feedbackCategory || "Öneri & Yeni Fikir";
 
-        let appVerName = "1.4.1";
-        let appVerCode = 37;
+        let appVerName = "1.4.2";
+        let appVerCode = 38;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
                 const info = JSON.parse(window.MarinextCloudBridge.getAppVersionInfo());
@@ -7270,12 +7283,7 @@ class Game {
                     } catch (firstErr) {
                         await new Promise((r) => setTimeout(r, 1000));
                         try {
-                            await capAdMob.initialize({
-                                initializeForTesting: isTesting,
-                                tagForChildDirectedTreatment: false,
-                                tagForUnderAgeOfConsent: false,
-                                maxAdContentRating: "General"
-                            });
+                            await capAdMob.initialize(this.getAdMobInitOptions(isTesting));
                             await new Promise((r) => setTimeout(r, 350));
                         } catch (reinitErr) {}
                         await capAdMob.prepareRewardVideoAd({
@@ -7360,10 +7368,20 @@ class Game {
                 if (this.isNativeAndroid()) {
                     let unavailableMsg = t("adUnavailableAlert") || "Şu anda uygun video reklam yüklenemedi veya internet bağlantınız kapalı. Lütfen birkaç saniye sonra tekrar deneyin.";
                     if (isTesting) {
-                        const rawErr = String((e && (e.message || e.errorMessage || e.code)) || e || "err").replace(/[\r\n]+/g, " ").trim().slice(0, 55);
-                        unavailableMsg += ` [${rawErr} | ${this.getCurrentBuildTrack()} | test:${isTesting}]`;
+                        const rawErr = String((e && (e.message || e.errorMessage || e.code)) || e || "err").replace(/[\r\n]+/g, " ").trim().slice(0, 40);
+                        let diagStr = "";
+                        if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAdDiagnosticsJson === "function") {
+                            try {
+                                const d = JSON.parse(window.MarinextCloudBridge.getAdDiagnosticsJson() || "{}");
+                                const wvShort = d.webView ? String(d.webView).split(".").slice(0, 2).join(".") : "na";
+                                const gmsShort = d.gms ? String(d.gms).slice(0, 8) : "na";
+                                const hashShort = d.testHash ? String(d.testHash).slice(0, 6) : "none";
+                                diagStr = ` | ump:${this._lastUmpStatus || "none"} | wv:${wvShort} | gms:${gmsShort} | dev:${hashShort}`;
+                            } catch (diagErr) {}
+                        }
+                        unavailableMsg += ` [${rawErr} | ${this.getCurrentBuildTrack()}${diagStr}]`;
                     }
-                    this.showQuickToast(unavailableMsg, "#f87171", isTesting ? 5500 : 3400);
+                    this.showQuickToast(unavailableMsg, "#f87171", isTesting ? 8000 : 3400);
                     return;
                 }
             }
