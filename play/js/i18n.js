@@ -5295,23 +5295,28 @@ window.MARINEXT_TUTORIAL_DATA = {
 })();
 
 
-// Full 9-Language "What's New in v1.4.2" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.4.3" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.4.2 Geniş Ekran & Tablet Uyumluluğu",
-        "subtitle": "Marinext 2100 artık tüm tablet ve telefonlarda daha kararlı, akıcı ve küresel açılışa hazır:",
+        "title": "🚀 v1.4.3 Anında Ödül & Tablet Akıcılığı",
+        "subtitle": "Marinext 2100 artık tüm telefon ve tabletlerde çok daha kararlı, pürüzsüz ve ödüllü bonuslarla dolu:",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Geliştirilmiş Tablet & Geniş Ekran Desteği",
-                "desc": "Farklı tablet modellerinde ödüllü bonus videoları ve ekran uyumluluğu en güncel standartlara yükseltildi."
+                "icon": "🎁",
+                "title": "Ödüllü Video Sonrası Anında Ödül Teslimatı",
+                "desc": "Bonus videoları izledikten hemen sonra kazandığınız Coin ve Antik Zümrütler cüzdanınıza tek tıkla ve gecikmesiz aktarılır."
             },
             {
-                "icon": "🎁",
-                "title": "Daha Hızlı & Güvenilir Ödüllü Bonuslar",
-                "desc": "Canlanma, 2x zafer ödülü ve hazine sandığı videoları akıllı ön-yükleme ile çok daha seri hazırlanır."
+                "icon": "📱",
+                "title": "Geliştirilmiş Android Tablet & Geniş Ekran Uyumu",
+                "desc": "Farklı Android tablet modellerinde ekran yerleşimi, buton tepkisi ve video bonus uyumluluğu daha kararlı hale getirildi."
+            },
+            {
+                "icon": "✨",
+                "title": "Tek Dokunuşta Akıcı Buton Geri Bildirimi",
+                "desc": "Bonus ve mağaza düğmelerine bastığınız anda bekleme durumu görsel olarak anında gösterilerek kesintisiz deneyim sunar."
             },
             {
                 "icon": "⚔️",
@@ -5319,32 +5324,32 @@ window.MARINEXT_WHATS_NEW_DATA = {
                 "desc": "Fatih Sultan Mehmet, Yavuz Sultan Selim, Kanuni ve siber savaşçılarla 10 aksiyon dünyasını ve 20 dev Boss'u fethet."
             },
             {
-                "icon": "🏆",
-                "title": "Küresel Liderlik Tabloları & Bulut Kaydı",
-                "desc": "Skor, İlerleme, Antik Zümrüt ve Speedrun sıralamalarında dünyayla yarışırken kaydın bulutta güvende kalsın."
-            },
-            {
                 "icon": "⚡",
-                "title": "120 FPS Ultra Akıcı & 9 Dilde Tam Deneyim",
-                "desc": "Sıfır gecikmeli kontrollerin keyfini çıkar, resmi fragmanı izle ve dilediğin yerde çevrimdışı oyna!"
+                "title": "120 FPS Ultra Akıcı & Güvenli Bulut Kaydı",
+                "desc": "Sıfır gecikmeli kontrollerin keyfini çıkar, küresel sıralamada yüksel ve kaydını 9 dilde bulutta güvende tut!"
             }
         ]
     },
     "en": {
-        "title": "🚀 v1.4.2 Tablet Harmony & Launch Polish",
-        "subtitle": "Marinext 2100 runs smoother across every phone and tablet ahead of our global launch:",
+        "title": "🚀 v1.4.3 Instant Rewards & Tablet Flow",
+        "subtitle": "Marinext 2100 delivers smoother bonus rewards and upgraded tablet stability across every device:",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Enhanced Tablet & Wide-Screen Support",
-                "desc": "Rewarded video compatibility and large-screen stability have been upgraded to the latest standards across diverse Android tablets."
+                "icon": "🎁",
+                "title": "Instant Post-Video Reward Delivery",
+                "desc": "Bonus Coins and Ancient Emeralds credit reliably to your wallet the moment you finish watching any optional reward video."
             },
             {
-                "icon": "🎁",
-                "title": "Faster & More Reliable Bonus Videos",
-                "desc": "Revive, 2x victory rewards, and treasure chest bonus videos load faster with smart preloading."
+                "icon": "📱",
+                "title": "Enhanced Android Tablet Compatibility",
+                "desc": "Improved wide-screen layout responsiveness and video bonus support across diverse Android tablet families."
+            },
+            {
+                "icon": "✨",
+                "title": "Instant Single-Tap Button Feedback",
+                "desc": "Clear visual loading feedback appears immediately when requesting optional bonus videos or treasure chests."
             },
             {
                 "icon": "⚔️",
@@ -5352,32 +5357,32 @@ window.MARINEXT_WHATS_NEW_DATA = {
                 "desc": "Conquer 10 action worlds and 20 colossal bosses with Sultan Mehmed II, Selim I, Suleiman, and cyber warriors."
             },
             {
-                "icon": "🏆",
-                "title": "Global Leaderboards & Cloud Sync",
-                "desc": "Compete worldwide in High Score, Progress, Emeralds, and Speedrun rankings with safe cloud backups."
-            },
-            {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluid & 9-Language Polish",
-                "desc": "Enjoy instantaneous touch controls, offline play anywhere, and seamless studio portal integration."
+                "title": "120 FPS Ultra-Fluid & Safe Cloud Sync",
+                "desc": "Enjoy instantaneous touch controls, offline play anywhere, and seamless 9-language cloud progression."
             }
         ]
     },
     "ru": {
-        "title": "🚀 v1.4.2 Оптимизация для планшетов и запуска",
-        "subtitle": "Marinext 2100 стал ещё стабильнее на всех телефонах и планшетах перед мировым релизом:",
+        "title": "🚀 v1.4.3 Мгновенные награды и планшеты",
+        "subtitle": "Marinext 2100 стал ещё стабильнее на всех телефонах и планшетах с плавным начислением наград:",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Улучшенная поддержка планшетов",
-                "desc": "Совместимость бонусных видео и стабильность работы на разных моделях Android-планшетов обновлены до новейших стандартов."
+                "icon": "🎁",
+                "title": "Надёжное начисление наград после видео",
+                "desc": "Монеты и Древние изумруды мгновенно и без сбоев зачисляются на ваш баланс сразу после просмотра бонусного ролика."
             },
             {
-                "icon": "🎁",
-                "title": "Быстрые и надёжные бонусные видео",
-                "desc": "Бонусные ролики для возрождения, 2x наград и сундуков загружаются быстрее и надёжнее."
+                "icon": "📱",
+                "title": "Улучшенная совместимость с планшетами",
+                "desc": "Повышена стабильность работы бонусных видео и интерфейса на различных моделях планшетов Android."
+            },
+            {
+                "icon": "✨",
+                "title": "Мгновенный отклик кнопок",
+                "desc": "При нажатии на кнопки наград сразу отображается понятный индикатор загрузки."
             },
             {
                 "icon": "⚔️",
@@ -5385,32 +5390,32 @@ window.MARINEXT_WHATS_NEW_DATA = {
                 "desc": "10 миров, 20 гигантских боссов и исторические легенды ждут вас."
             },
             {
-                "icon": "🏆",
-                "title": "Мировые рейтинги и облачное сохранение",
-                "desc": "Соревнуйтесь в очках, прогрессе, изумрудах и спидране с надёжной облачной синхронизацией."
-            },
-            {
                 "icon": "⚡",
-                "title": "120 FPS и поддержка 9 языков",
-                "desc": "Мгновенный отклик, оффлайн-режим в любом месте и полная локализация."
+                "title": "120 FPS и облачное сохранение",
+                "desc": "Мгновенный отклик, оффлайн-режим в любом месте и поддержка 9 языков."
             }
         ]
     },
     "it": {
-        "title": "🚀 v1.4.2 Ottimizzazione Tablet & Lancio",
-        "subtitle": "Marinext 2100 è ancora più stabile su smartphone e tablet in vista del lancio globale:",
+        "title": "🚀 v1.4.3 Ricompense Istantanee & Tablet",
+        "subtitle": "Marinext 2100 offre ricompense più fluide e maggiore stabilità su smartphone e tablet:",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Supporto Migliorato per Tablet",
-                "desc": "La compatibilità dei video premio e la stabilità su schermi ampi Android sono state aggiornate ai più recenti standard."
+                "icon": "🎁",
+                "title": "Consegna Immediata dei Premi Video",
+                "desc": "Monete e Smeraldi Antichi vengono accreditati all'istante e senza errori al termine di ogni video bonus."
             },
             {
-                "icon": "🎁",
-                "title": "Video Bonus Più Rapidi e Affidabili",
-                "desc": "I video per rinascita, ricompense doppie e forzieri si caricano più velocemente."
+                "icon": "📱",
+                "title": "Compatibilità Tablet Android Potenziata",
+                "desc": "Maggiore stabilità per schermi ampi e video premio su un'ampia gamma di tablet Android."
+            },
+            {
+                "icon": "✨",
+                "title": "Feedback Visivo al Primo Tocco",
+                "desc": "I pulsanti dei bonus mostrano subito lo stato di preparazione per un'esperienza fluida."
             },
             {
                 "icon": "⚔️",
@@ -5418,32 +5423,32 @@ window.MARINEXT_WHATS_NEW_DATA = {
                 "desc": "Esplora 10 mondi d'azione e 20 boss colossali con leggende storiche e guerrieri cyber."
             },
             {
-                "icon": "🏆",
-                "title": "Classifiche Globali e Salvataggio Cloud",
-                "desc": "Sfida il mondo in Punteggio, Avanzamento, Smeraldi e Speedrun al sicuro nel cloud."
-            },
-            {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluido & 9 Lingue",
-                "desc": "Controlli istantanei, gioco offline ovunque e portale studio in 9 lingue."
+                "title": "120 FPS Ultra-Fluido & Salvataggio Cloud",
+                "desc": "Controlli istantanei, gioco offline ovunque e portale ufficiale in 9 lingue."
             }
         ]
     },
     "es": {
-        "title": "🚀 v1.4.2 Mejora para Tablets y Lanzamiento",
-        "subtitle": "Marinext 2100 es aún más estable en todo tipo de teléfonos y tablets antes del estreno global:",
+        "title": "🚀 v1.4.3 Recompensas al Instante y Tablets",
+        "subtitle": "Marinext 2100 ofrece entregas de premios más fluidas y mayor estabilidad en tablets y teléfonos:",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Compatibilidad Mejorada en Tablets",
-                "desc": "La estabilidad en pantallas grandes y la compatibilidad de videos de recompensa se han actualizado para diversas tablets Android."
+                "icon": "🎁",
+                "title": "Entrega Instantánea Tras Videos Bonus",
+                "desc": "Las Monedas y Esmeraldas Antiguas se acreditan de inmediato y sin errores al terminar cualquier video de recompensa."
             },
             {
-                "icon": "🎁",
-                "title": "Videos Bonus Más Rápidos",
-                "desc": "Los videos para revivir, duplicar recompensas y abrir cofres cargan con mayor agilidad."
+                "icon": "📱",
+                "title": "Compatibilidad Reforzada para Tablets",
+                "desc": "Mayor estabilidad en pantallas grandes y mejor soporte de videos bonus en tablets Android."
+            },
+            {
+                "icon": "✨",
+                "title": "Respuesta Visual en un Solo Toque",
+                "desc": "Los botones de bonificación muestran al instante su estado de carga para una experiencia fluida."
             },
             {
                 "icon": "⚔️",
@@ -5451,32 +5456,32 @@ window.MARINEXT_WHATS_NEW_DATA = {
                 "desc": "Supera 10 mundos de acción y 20 jefes gigantes con héroes históricos y guerreros cíber."
             },
             {
-                "icon": "🏆",
-                "title": "Clasificaciones Globales y Nube",
-                "desc": "Compite en Puntuación, Progreso, Esmeraldas y Speedrun protegiendo tu avance."
-            },
-            {
                 "icon": "⚡",
-                "title": "120 FPS Fluido y 9 Idiomas",
-                "desc": "Controles sin lag, modo sin conexión completo y portal oficial en 9 idiomas."
+                "title": "120 FPS Fluido y Guardado en la Nube",
+                "desc": "Controles sin lag, modo sin conexión completo y soporte en 9 idiomas."
             }
         ]
     },
     "fr": {
-        "title": "🚀 v1.4.2 Optimisation Tablettes & Lancement",
-        "subtitle": "Marinext 2100 est encore plus stable sur smartphones et tablettes pour le lancement mondial :",
+        "title": "🚀 v1.4.3 Récompenses Instantanées & Tablettes",
+        "subtitle": "Marinext 2100 assure une remise des récompenses encore plus fiable sur smartphones et tablettes :",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Compatibilité Tablettes Renforcée",
-                "desc": "La stabilité sur grands écrans et la prise en charge des vidéos bonus sur tablettes Android ont été modernisées."
+                "icon": "🎁",
+                "title": "Remise Instantanée Après Vidéo Bonus",
+                "desc": "Vos Pièces et Émeraudes Antiques sont créditées immédiatement et sans accroc dès la fin de chaque vidéo bonus."
             },
             {
-                "icon": "🎁",
-                "title": "Vidéos Bonus Plus Rapides",
-                "desc": "Les vidéos de réanimation, récompenses doublées et coffres se préchargent plus efficacement."
+                "icon": "📱",
+                "title": "Compatibilité Tablettes Android Améliorée",
+                "desc": "Stabilité sur grands écrans et compatibilité vidéo optimisées pour différents modèles de tablettes."
+            },
+            {
+                "icon": "✨",
+                "title": "Retour Visuel Immédiat au Premier Clic",
+                "desc": "Les boutons bonus affichent aussitôt le chargement en cours pour plus de clarté."
             },
             {
                 "icon": "⚔️",
@@ -5484,32 +5489,32 @@ window.MARINEXT_WHATS_NEW_DATA = {
                 "desc": "Explorez 10 mondes d'action et 20 boss colossaux avec nos héros historiques et guerriers cyber."
             },
             {
-                "icon": "🏆",
-                "title": "Classements Mondiaux & Cloud",
-                "desc": "Affrontez le monde entier en Score, Progression, Émeraudes et Speedrun en toute sécurité."
-            },
-            {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluide & 9 Langues",
-                "desc": "Réactivité tactile instantanée, mode hors-ligne et portail du studio en 9 langues."
+                "title": "120 FPS Ultra-Fluide & Sauvegarde Cloud",
+                "desc": "Réactivité tactile instantanée, mode hors-ligne et expérience complète en 9 langues."
             }
         ]
     },
     "ko": {
-        "title": "🚀 v1.4.2 태블릿 호환성 & 출시 최종 점검",
-        "subtitle": "모든 스마트폰과 태블릿에서 한층 더 안정적으로 동작하는 Marinext 2100:",
+        "title": "🚀 v1.4.3 즉시 보상 지급 & 태블릿 최적화",
+        "subtitle": "모든 스마트폰과 태블릿에서 한층 더 매끄럽고 안정적으로 동작하는 Marinext 2100:",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "태블릿 및 대화면 호환성 강화",
-                "desc": "다양한 Android 태블릿 환경에서의 화면 안정성과 보상형 보너스 동영상 호환성을 최신 기준으로 업그레이드했습니다."
+                "icon": "🎁",
+                "title": "보너스 영상 시청 후 즉시 보상 지급",
+                "desc": "보상형 영상을 끝까지 시청하면 코인과 고대 에메랄드가 지연이나 오류 없이 즉시 지갑에 적립됩니다."
             },
             {
-                "icon": "🎁",
-                "title": "더 빠른 보상형 보너스 로딩",
-                "desc": "부활, 2배 보상, 상자 열기 동영상이 스마트 사전 로드로 빠르게 준비됩니다."
+                "icon": "📱",
+                "title": "향상된 Android 태블릿 호환성",
+                "desc": "다양한 Android 태블릿 환경에서의 화면 안정성과 보너스 동영상 호환성을 한층 더 강화했습니다."
+            },
+            {
+                "icon": "✨",
+                "title": "원터치 버튼 로딩 피드백",
+                "desc": "보너스 버튼을 누르는 즉시 준비 상태를 시각적으로 안내하여 더욱 매끄러운 조작감을 제공합니다."
             },
             {
                 "icon": "⚔️",
@@ -5517,32 +5522,32 @@ window.MARINEXT_WHATS_NEW_DATA = {
                 "desc": "메흐메트 2세, 셀림 1세, 쉴레이만 대제와 사이버 전사로 10개 월드와 20명의 보스를 정복하세요."
             },
             {
-                "icon": "🏆",
-                "title": "글로벌 순위표 & 클라우드 동기화",
-                "desc": "점수, 진행도, 에메랄드, 스피드런 부문에서 전 세계 플레이어와 경쟁하세요."
-            },
-            {
                 "icon": "⚡",
-                "title": "120 FPS 초고속 엔진 & 9개 언어",
+                "title": "120 FPS 초고속 엔진 & 클라우드 저장",
                 "desc": "지연 없는 조작감, 오프라인 플레이, 그리고 9개 언어 지원을 완벽하게 경험하세요."
             }
         ]
     },
     "zh": {
-        "title": "🚀 v1.4.2 平板兼容与全球上线优化",
-        "subtitle": "Marinext 2100 现已在各类手机与平板设备上运行得更加稳定流畅：",
+        "title": "🚀 v1.4.3 即时奖励发放 & 平板流畅体验",
+        "subtitle": "Marinext 2100 现已在各类手机与平板设备上提供更可靠的奖励结算与稳定表现：",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "全面强化安卓平板兼容性",
-                "desc": "针对不同型号平板的大屏体验与激励视频兼容性已升级至最新标准。"
+                "icon": "🎁",
+                "title": "奖励视频看完后即时到账",
+                "desc": "观看任意可选激励视频后，金币与古代绿宝石将稳定无延迟地直接发放到您的钱包。"
             },
             {
-                "icon": "🎁",
-                "title": "更快更稳的激励奖励视频",
-                "desc": "复活、双倍奖励与宝箱视频支持更智能的预加载机制。"
+                "icon": "📱",
+                "title": "进一步提升安卓平板兼容性",
+                "desc": "全面优化了不同型号安卓平板上的大屏显示、按键反馈与激励视频兼容性。"
+            },
+            {
+                "icon": "✨",
+                "title": "一键点击即时加载提示",
+                "desc": "点击任意奖励按钮后立即显示加载反馈，告别重复点击。"
             },
             {
                 "icon": "⚔️",
@@ -5550,32 +5555,32 @@ window.MARINEXT_WHATS_NEW_DATA = {
                 "desc": "与历史传奇英雄和赛博勇士一同征战10大动作世界与20位巨型Boss。"
             },
             {
-                "icon": "🏆",
-                "title": "全球排行榜 & 云端存档",
-                "desc": "在高分、进度、宝石与速通榜单角逐，确保存档安全。"
-            },
-            {
                 "icon": "⚡",
-                "title": "120 FPS 极致丝滑 & 9种语言",
+                "title": "120 FPS 极致丝滑 & 云端存档",
                 "desc": "零延迟操控、100%离线畅玩以及9国语言完整支持。"
             }
         ]
     },
     "ja": {
-        "title": "🚀 v1.4.2 タブレット最適化＆リリース調整",
-        "subtitle": "スマートフォンでもタブレットでも、より快適に遊べる Marinext 2100 へ：",
+        "title": "🚀 v1.4.3 即時報酬付与＆タブレット快適化",
+        "subtitle": "スマートフォンでもタブレットでも、より確実でスムーズに遊べる Marinext 2100 へ：",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "タブレット・大画面の安定性向上",
-                "desc": "さまざまなAndroidタブレット端末での大画面動作とボーナス動画の互換性を最新基準へ強化しました。"
+                "icon": "🎁",
+                "title": "動画視聴後の即時報酬クレジット",
+                "desc": "ボーナス動画の視聴完了後、コインや古代エメラルドが遅延やエラーなく即座にアカウントへ届きます。"
             },
             {
-                "icon": "🎁",
-                "title": "より素早いボーナス動画ロード",
-                "desc": "復活・報酬2倍・宝箱開封のリワード動画がよりスムーズに準備されます。"
+                "icon": "📱",
+                "title": "Androidタブレット互換性のさらなる向上",
+                "desc": "さまざまなAndroidタブレット端末での大画面表示とボーナス動画の安定性をさらに強化しました。"
+            },
+            {
+                "icon": "✨",
+                "title": "ワンタップでの即時ボタン反応",
+                "desc": "ボーナスボタンをタップした瞬間に読み込み状態が分かりやすく表示されます。"
             },
             {
                 "icon": "⚔️",
@@ -5583,13 +5588,8 @@ window.MARINEXT_WHATS_NEW_DATA = {
                 "desc": "歴史的英雄とサイバー戦士で10のワールドと20体の巨大ボスを制覇しよう。"
             },
             {
-                "icon": "🏆",
-                "title": "世界ランキング＆クラウド保存",
-                "desc": "スコア、進行度、エメラルド、スピードラン部門で世界中のプレイヤーと競えます。"
-            },
-            {
                 "icon": "⚡",
-                "title": "120 FPS 超滑らか動作＆9言語対応",
+                "title": "120 FPS 超滑らか動作＆クラウド保存",
                 "desc": "遅延ゼロの操作感、オフライン対応、全9言語で極上の冒険を楽しもう！"
             }
         ]
