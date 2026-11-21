@@ -5295,302 +5295,302 @@ window.MARINEXT_TUTORIAL_DATA = {
 })();
 
 
-// Full 9-Language "What's New in v1.3.3" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.4.0" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.3.10 Sürüm Yenilikleri",
-        "subtitle": "Marinext 2100 evrenine hoş geldin! Bu sürümdeki harika geliştirmeler:",
+        "title": "🚀 v1.4.0 Küresel Lansman Sürümü",
+        "subtitle": "Marinext 2100 evrenine hoş geldin! Resmi dünya lansmanı ile gelen yenilikler:",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Modern Ekran & Android 15 Uçtan Uca Tam Uyum",
-                "desc": "Android 15 ve modern geniş ekranlar için en son ekran çentiği mimarisi entegre edildi; sıfır siyah kenarlık, kusursuz tam ekran deneyimi."
+                "icon": "🎉",
+                "title": "Resmi Küresel Lansman Sürümü Yayında",
+                "desc": "10 aksiyon dünyası, 100 ana hikaye bölümü, 20 dev mekanik Boss savaşı ve 50 zorlu Trol Modu bölümü tüm dünyadaki oyuncular için hazır!"
             },
             {
-                "icon": "🖥️",
-                "title": "Tablet & Katlanabilir Cihaz Esnekliği",
-                "desc": "Tablet ve katlanabilir cihazlarda çoklu pencere, serbest boyutlandırma ve arka plan geçişleri kusursuzlaştırıldı."
+                "icon": "⚔️",
+                "title": "14 Tarihi Efsane & Karakter Stüdyosu",
+                "desc": "Fatih Sultan Mehmet, Yavuz Sultan Selim, Kanuni ve siber savaşçılarla oyna; zümrütlerle süzülme kanatları, kasklar ve parıltılı auralar kuşan."
             },
             {
-                "icon": "⭐",
-                "title": "Oyun İçi Hızlı Puanlama ve Geri Bildirim",
-                "desc": "1. Bölüm zaferinin ardından oyundan ayrılmadan tek dokunuşla ekibimize puan verebilir veya önerilerinizi paylaşabilirsiniz!"
+                "icon": "🏆",
+                "title": "Küresel Liderlik Tabloları & Bulut Senkronizasyonu",
+                "desc": "Yüksek Skor, Bölüm İlerlemesi, Antik Zümrüt ve Hız Rekoru (Speedrun) sıralamalarında tüm dünyaya karşı yarış ve kaydını güvende tut."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra Akıcı Performans",
-                "desc": "Android 10'dan Android 15+'e kadar tüm cihazlarda anında dokunmatik tepki süresi, sıfır takılma ve yüksek kare hızı."
+                "title": "120 FPS Ultra Akıcı & %100 Çevrimdışı Oyun",
+                "desc": "İnternet bağlantısı gerekmeden her yerde sıfır gecikmeli kontroller ve 120 FPS akıcılık ile kesintisiz arcade macerası."
             },
             {
-                "icon": "🌍",
-                "title": "9 Dilde Tam Kapsamlı Yerelleştirme",
-                "desc": "Tüm menüler, rehberler ve geri bildirim ekranları seçtiğiniz aktif dilde kusursuz şekilde sunulur."
+                "icon": "🎬",
+                "title": "Resmi Lansman Fragmanı & 9 Dilde Tam Destek",
+                "desc": "CG Studio Home aile stüdyomuzun resmi tanıtım fragmanını ve güncellemelerini 9 farklı dilde takip et, 1. Bölüm sonunda bizi 5 yıldızla destekle!"
             }
         ]
     },
     "en": {
-        "title": "🚀 v1.3.10 What's New",
-        "subtitle": "Welcome to Marinext 2100! Here are the latest exciting improvements:",
+        "title": "🚀 v1.4.0 Official Global Launch",
+        "subtitle": "Welcome to Marinext 2100! Discover everything waiting for you in our global launch edition:",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Android 15 Edge-to-Edge Display Optimization",
-                "desc": "Fully upgraded modern cutout architecture for Android 15 and wide screens; zero black bars and complete immersive visual fidelity."
+                "icon": "🎉",
+                "title": "Official Global Launch Edition Ready",
+                "desc": "Explore 10 vibrant action worlds featuring 100 campaign stages, 20 colossal mechanical bosses, and 50 brain-teasing Troll Mode levels!"
             },
             {
-                "icon": "🖥️",
-                "title": "Enhanced Tablet & Foldable Flexibility",
-                "desc": "Flawless multitasking, window resizing, and app-switch stability across all tablet and foldable screen configurations."
+                "icon": "⚔️",
+                "title": "14 Historical Legends & Customization Studio",
+                "desc": "Unlock Sultan Mehmed II, Selim I, Suleiman the Magnificent, and cyber warriors, then equip gliding wings, helmets, visors, and glowing auras."
             },
             {
-                "icon": "⭐",
-                "title": "In-Game Rating & Instant Feedback",
-                "desc": "After completing Level 1, support our indie team with a quick 5-star rating or share direct feedback without leaving the game!"
+                "icon": "🏆",
+                "title": "Global Play Games Leaderboards & Cloud Sync",
+                "desc": "Compete worldwide in High Score, Campaign Progress, Ancient Emeralds, and Speedrun rankings while keeping your progress safely synced."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluid Engine",
-                "desc": "Zero lag, instantaneous touch response, and rock-solid 120 FPS smoothness from Android 10 to Android 15+."
+                "title": "120 FPS Ultra-Fluid & 100% Offline Play",
+                "desc": "Enjoy instantaneous touch responsiveness, ultra-smooth 120 FPS arcade motion, and uninterrupted offline play anywhere without Wi-Fi."
             },
             {
-                "icon": "🌍",
-                "title": "Comprehensive 9-Language Localization",
-                "desc": "All in-game dialogs, prompts, and feedback systems adapt dynamically to your chosen language."
+                "icon": "🎬",
+                "title": "Official Launch Trailer & 9-Language Portal",
+                "desc": "Watch our family studio's official launch trailer online and enjoy every menu, guide, and boss battle in 9 global languages!"
             }
         ]
     },
     "ru": {
-        "title": "🚀 v1.3.10 Что нового",
-        "subtitle": "Добро пожаловать в Marinext 2100! Главные улучшения этой версии:",
+        "title": "🚀 v1.4.0 Глобальный релиз",
+        "subtitle": "Добро пожаловать в Marinext 2100! Что ждёт вас в официальной релизной версии:",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Оптимизация экрана от края до края для Android 15",
-                "desc": "Новейшая архитектура вырезов экрана для Android 15 и широкоформатных дисплеев: полное погружение без черных полос."
+                "icon": "🎉",
+                "title": "Официальный мировой релиз",
+                "desc": "10 уникальных миров, 100 сюжетных уровней, 20 гигантских боссов и 50 коварных тролл-этапов теперь открыты для игроков со всего мира!"
             },
             {
-                "icon": "🖥️",
-                "title": "Гибкость для планшетов и складных экранов",
-                "desc": "Улучшенная многозадачность, масштабирование окон и плавное переключение между приложениями на планшетах."
+                "icon": "⚔️",
+                "title": "14 исторических легенд и студия кастомизации",
+                "desc": "Играйте за Султана Мехмеда, Селима I, Сулеймана Великолепного и кибер-воинов, открывайте крылья для планирования, шлемы и светящиеся ауры."
             },
             {
-                "icon": "⭐",
-                "title": "Оценка в игре и прямой отзыв",
-                "desc": "После прохождения 1-го уровня поддержите команду 5 звездами или отправьте пожелания в один клик!"
+                "icon": "🏆",
+                "title": "Мировые таблицы лидеров и облачное сохранение",
+                "desc": "Соревнуйтесь в рейтингах очков, прогресса, изумрудов и спидрана и надёжно синхронизируйте свой прогресс в облаке."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ультра-плавный движок",
-                "desc": "Мгновенный отклик на касания, стабильная кадровая частота и надежная работа от Android 10 до Android 15+."
+                "title": "120 FPS и 100% игра без интернета",
+                "desc": "Мгновенный отклик управления, плавнейшая частота 120 FPS и полноценный оффлайн-режим в любом месте."
             },
             {
-                "icon": "🌍",
-                "title": "Полная локализация на 9 языков",
-                "desc": "Все меню, подсказки и формы обратной связи работают на выбранном вами активном языке."
+                "icon": "🎬",
+                "title": "Официальный трейлер и поддержка 9 языков",
+                "desc": "Смотрите официальный трейлер нашей семейной студии и наслаждайтесь полной локализацией на 9 языках!"
             }
         ]
     },
     "it": {
-        "title": "🚀 v1.3.10 Novità della Versione",
-        "subtitle": "Benvenuto in Marinext 2100! Ecco le ultime novità entusiasmanti:",
+        "title": "🚀 v1.4.0 Lancio Globale Ufficiale",
+        "subtitle": "Benvenuto in Marinext 2100! Ecco tutto ciò che ti aspetta nell'edizione di lancio:",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Ottimizzazione Schermo Intero Android 15",
-                "desc": "Architettura display modernizzata per Android 15 e schermi panoramici: immersione visiva totale senza barre nere."
+                "icon": "🎉",
+                "title": "Edizione Ufficiale di Lancio Globale",
+                "desc": "10 mondi d'azione, 100 livelli della storia, 20 boss meccanici colossali e 50 perfidi livelli Troll Mode pronti per giocatori di tutto il mondo!"
             },
             {
-                "icon": "🖥️",
-                "title": "Flessibilità per Tablet e Pieghevoli",
-                "desc": "Multitasking avanzato, ridimensionamento fluido e massima stabilità su tablet e dispositivi pieghevoli."
+                "icon": "⚔️",
+                "title": "14 Leggende Storiche e Studio di Personalizzazione",
+                "desc": "Sblocca Maometto II, Selim I, Solimano il Magnifico e guerrieri cyber; equipaggia ali per planare, elmi, visori e aure luminose."
             },
             {
-                "icon": "⭐",
-                "title": "Valutazione nel Gioco & Feedback Diretto",
-                "desc": "Dopo il Livello 1, sostieni il team con 5 stelle o invia i tuoi suggerimenti con un tocco senza uscire dal gioco!"
+                "icon": "🏆",
+                "title": "Classifiche Globali Play Games e Salvataggio Cloud",
+                "desc": "Sfida il mondo nelle classifiche Punteggio, Avanzamento, Smeraldi e Speedrun mantenendo i tuoi progressi sempre al sicuro."
             },
             {
                 "icon": "⚡",
-                "title": "Motore Ultra-Fluido a 120 FPS",
-                "desc": "Zero ritardi, risposta immediata ai comandi e prestazioni costanti da Android 10 ad Android 15+."
+                "title": "120 FPS Ultra-Fluido e 100% Offline",
+                "desc": "Controlli reattivi senza ritardi, fluidità arcade a 120 FPS e divertimento continuo anche senza connessione internet."
             },
             {
-                "icon": "🌍",
-                "title": "Localizzazione Completa in 9 Lingue",
-                "desc": "Tutti i menu, dialoghi e strumenti di feedback si adattano istantaneamente alla tua lingua attiva."
+                "icon": "🎬",
+                "title": "Trailer Ufficiale e Portale in 9 Lingue",
+                "desc": "Guarda il trailer di lancio del nostro studio familiare e goditi ogni guida, dialogo e sfida in 9 lingue."
             }
         ]
     },
     "es": {
-        "title": "🚀 v1.3.10 Novedades de la Versión",
-        "subtitle": "¡Bienvenido a Marinext 2100! Descubre las últimas mejoras destacadas:",
+        "title": "🚀 v1.4.0 Lanzamiento Global Oficial",
+        "subtitle": "¡Bienvenido a Marinext 2100! Descubre todas las novedades de nuestra edición de lanzamiento:",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Optimización de Pantalla Completa para Android 15",
-                "desc": "Arquitectura moderna de recorte para Android 15 y pantallas ultrapanorámicas: inmersión total sin barras negras."
+                "icon": "🎉",
+                "title": "Edición Oficial de Lanzamiento Global",
+                "desc": "¡10 mundos de acción, 100 niveles de campaña, 20 jefes mecánicos gigantes y 50 desafiantes fases Troll listos para todo el mundo!"
             },
             {
-                "icon": "🖥️",
-                "title": "Flexibilidad para Tablets y Dispositivos Plegables",
-                "desc": "Multitarea optimizada, escalado dinámico de ventanas y estabilidad total en tablets y pantallas plegables."
+                "icon": "⚔️",
+                "title": "14 Héroes Históricos y Estudio de Personalización",
+                "desc": "Juega con Mehmed el Conquistador, Selim I, Solimán el Magnífico y guerreros cíber; equipa alas planeadoras, cascos y auras brillantes."
             },
             {
-                "icon": "⭐",
-                "title": "Calificación en el Juego y Opinión Inmediata",
-                "desc": "¡Tras el Nivel 1, apoya al equipo indie con 5 estrellas o comparte comentarios directamente sin salir del juego!"
+                "icon": "🏆",
+                "title": "Clasificaciones Globales y Guardado en la Nube",
+                "desc": "Compite a nivel mundial en Puntuación, Progreso, Esmeraldas y Speedrun con sincronización segura en tu cuenta."
             },
             {
                 "icon": "⚡",
-                "title": "Motor Ultra Fluido a 120 FPS",
-                "desc": "Respuesta táctil instantánea, sin tirones y máxima compatibilidad desde Android 10 hasta Android 15+."
+                "title": "120 FPS Ultra Fluido y 100% Sin Conexión",
+                "desc": "Controles instantáneos sin lag, acción arcade a 120 FPS y aventura completa sin necesidad de conexión a internet."
             },
             {
-                "icon": "🌍",
-                "title": "Localización Integral en 9 Idiomas",
-                "desc": "Todos los menús, guías y pantallas de opinión se adaptan de inmediato a tu idioma preferido."
+                "icon": "🎬",
+                "title": "Tráiler Oficial y Soporte en 9 Idiomas",
+                "desc": "¡Disfruta del tráiler oficial de nuestro estudio familiar y vive la aventura completamente traducida a 9 idiomas!"
             }
         ]
     },
     "fr": {
-        "title": "🚀 v1.3.10 Nouveautés de la Version",
-        "subtitle": "Bienvenue dans Marinext 2100 ! Voici les dernières améliorations majeures :",
+        "title": "🚀 v1.4.0 Lancement Mondial Officiel",
+        "subtitle": "Bienvenue dans Marinext 2100 ! Découvrez notre édition officielle de lancement mondial :",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Affichage Bord à Bord Optimisé pour Android 15",
-                "desc": "Architecture d'encoche modernisée pour Android 15 et écrans panoramiques : immersion visuelle totale sans bandes noires."
+                "icon": "🎉",
+                "title": "Édition Officielle de Lancement Mondial",
+                "desc": "10 mondes d'action, 100 niveaux d'histoire, 20 boss mécaniques géants et 50 niveaux Troll retors prêts pour les joueurs du monde entier !"
             },
             {
-                "icon": "🖥️",
-                "title": "Flexibilité pour Tablettes et Écrans Pliables",
-                "desc": "Gestion multitâche avancée, redimensionnement dynamique des fenêtres et stabilité exemplaire sur tablettes."
+                "icon": "⚔️",
+                "title": "14 Légendes Historiques & Studio de Personnalisation",
+                "desc": "Débloquez Mehmed II, Selim Ier, Soliman le Magnifique et des guerriers cyber ; équipez ailes de planage, casques et auras lumineuses."
             },
             {
-                "icon": "⭐",
-                "title": "Évaluation dans le Jeu & Retours Directs",
-                "desc": "Après le Niveau 1, soutenez l'équipe avec 5 étoiles ou envoyez vos suggestions en un clic sans quitter le jeu !"
+                "icon": "🏆",
+                "title": "Classements Mondiaux Play Games & Sauvegarde Cloud",
+                "desc": "Affrontez le monde entier en Score, Progression, Émeraudes et Speedrun tout en protégeant vos sauvegardes."
             },
             {
                 "icon": "⚡",
-                "title": "Moteur Ultra Fluide 120 FPS",
-                "desc": "Zéro latence, réactivité tactile instantanée et fluidité irréprochable d'Android 10 à Android 15+."
+                "title": "120 FPS Ultra-Fluide & 100% Hors-Ligne",
+                "desc": "Réactivité tactile instantanée, fluidité arcade 120 FPS et aventure jouable partout sans connexion internet."
             },
             {
-                "icon": "🌍",
-                "title": "Localisation Intégrale en 9 Langues",
-                "desc": "Tous les dialogues, fenêtres d'aide et formulaires s'adaptent instantanément à votre langue active."
+                "icon": "🎬",
+                "title": "Bande-Annonce Officielle & Portail en 9 Langues",
+                "desc": "Découvrez la bande-annonce de notre studio familial et profitez de chaque menu et défi traduit en 9 langues."
             }
         ]
     },
     "ko": {
-        "title": "🚀 v1.3.10 버전 업데이트 안내",
-        "subtitle": "Marinext 2100에 오신 것을 환영합니다! 이번 버전의 주요 개선 사항:",
+        "title": "🚀 v1.4.0 글로벌 정식 출시 버전",
+        "subtitle": "Marinext 2100에 오신 것을 환영합니다! 정식 출시와 함께 준비된 모든 콘텐츠를 만나보세요:",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Android 15 엣지 투 엣지 디스플레이 최적화",
-                "desc": "Android 15 및 와이드 화면에 맞춘 최신 디스플레이 컷아웃 아키텍처 적용: 검은 여백 없는 완벽한 몰입감 제공."
+                "icon": "🎉",
+                "title": "글로벌 정식 런칭 에디션 공개",
+                "desc": "10개의 액션 월드, 100개 스토리 스테이지, 20명의 거대 메카 보스, 그리고 50개의 고난도 트롤 모드가 전 세계 플레이어를 기다립니다!"
             },
             {
-                "icon": "🖥️",
-                "title": "태블릿 및 폴더블 기기 멀티태스킹 유연성 강화",
-                "desc": "대화면 태블릿과 폴더블 디스플레이에서 자유로운 창 크기 조절과 끊김 없는 전체화면 안정성 확보."
+                "icon": "⚔️",
+                "title": "14인의 전설적 영웅 & 커스터마이징 스튜디오",
+                "desc": "정복자 메흐메트 2세, 셀림 1세, 쉴레이만 대제와 사이버 전사를 잠금 해제하고 활공 날개, 헬멧, 화려한 오라를 장착하세요."
             },
             {
-                "icon": "⭐",
-                "title": "인게임 원터치 평점 및 피드백",
-                "desc": "1스테이지 완료 후 게임을 종료하지 않고 바로 별 5개 평점을 남기거나 소중한 의견을 보낼 수 있습니다!"
+                "icon": "🏆",
+                "title": "글로벌 Play Games 순위표 & 클라우드 동기화",
+                "desc": "최고 점수, 진행도, 고대 에메랄드, 스피드런 부문에서 전 세계 유저와 경쟁하고 내 기록을 안전하게 보호하세요."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS 초고속 엔진",
-                "desc": "Android 10부터 Android 15+까지 즉각적인 터치 반응 속도와 부드러운 120 FPS 플레이 환경을 제공합니다."
+                "title": "120 FPS 초고속 엔진 & 100% 오프라인 플레이",
+                "desc": "끊김 없는 즉각적인 조작감과 120 FPS의 부드러운 화면으로 인터넷 연결 없이도 언제 어디서나 즐길 수 있습니다."
             },
             {
-                "icon": "🌍",
-                "title": "9개 언어 완벽 현지화",
-                "desc": "게임 내 모든 팝업, 안내 및 피드백 화면이 현재 선택된 언어로 깔끔하게 표시됩니다."
+                "icon": "🎬",
+                "title": "공식 출시 트레일러 & 9개 언어 완벽 지원",
+                "desc": "가족 인디 스튜디오의 공식 트레일러를 감상하고, 9개 언어로 현지화된 모험을 지금 바로 시작하세요!"
             }
         ]
     },
     "zh": {
-        "title": "🚀 v1.3.10 版本新特性",
-        "subtitle": "欢迎来到 Marinext 2100！本次更新带来以下精彩改进：",
+        "title": "🚀 v1.4.0 全球正式发布版",
+        "subtitle": "欢迎来到 Marinext 2100！探索为您准备的全球正式版全部精彩内容：",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Android 15 端到端全屏显示架构优化",
-                "desc": "针对 Android 15 与超宽屏设备全面升级屏幕挖孔适配标准，告别黑边与裁切，享受无缝沉浸式视效。"
+                "icon": "🎉",
+                "title": "全球正式发布版重磅上线",
+                "desc": "10大动作世界、100个主线关卡、20场巨型机械Boss战以及50个脑洞大开的恶搞关卡已面向全球玩家全面开放！"
             },
             {
-                "icon": "🖥️",
-                "title": "平板与折叠屏多任务自由缩放",
-                "desc": "优化大屏设备上的多任务窗口缩放与后台切换，确保在各类复杂屏幕比例下始终保持全屏稳定。"
+                "icon": "⚔️",
+                "title": "14位历史传奇英雄与装扮工坊",
+                "desc": "解锁征服者穆罕默德二世、塞利姆一世、苏莱曼大帝及赛博勇士，使用宝石装备滑翔机械翼、全息头盔与炫酷光环。"
             },
             {
-                "icon": "⭐",
-                "title": "游戏内一键评分与即时反馈",
-                "desc": "通关第 1 关后，无需退出游戏即可快速点赞 5 星好评或直接提交宝贵建议！"
+                "icon": "🏆",
+                "title": "Play Games 全球排行榜与云端存档",
+                "desc": "在高分、关卡进度、古老宝石与速通榜单上与全球玩家一较高下，云端同步确保存档安全无忧。"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS 极速流畅引擎",
-                "desc": "全面兼容 Android 10 至 Android 15+，触控响应零延迟，操作精准丝滑。"
+                "title": "120 FPS 极致丝滑 & 100% 离线畅玩",
+                "desc": "零延迟即时触控响应，120 FPS 流畅街机动作体验，无需联网也能随时随地畅玩。"
             },
             {
-                "icon": "🌍",
-                "title": "9 种语言深度本地化",
-                "desc": "所有菜单、提示弹窗与反馈界面均实时匹配您选定的游戏语言。"
+                "icon": "🎬",
+                "title": "官方宣传片与9国语言支持",
+                "desc": "欢迎观看家庭独立工作室的官方上线宣传片，并在9种语言中畅享完整的冒险与挑战！"
             }
         ]
     },
     "ja": {
-        "title": "🚀 v1.3.10 アップデート情報",
-        "subtitle": "Marinext 2100 へようこそ！今回の主な改善点をご紹介します：",
+        "title": "🚀 v1.4.0 グローバル正式リリース版",
+        "subtitle": "Marinext 2100 へようこそ！世界同時リリース版の注目ポイントをご紹介します：",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Android 15 エッジ・トゥ・エッジ表示最適化",
-                "desc": "Android 15 およびワイド画面に合わせた最新のディスプレイカットアウト仕様を採用し、黒帯のない全画面体験を実現。"
+                "icon": "🎉",
+                "title": "グローバル正式ローンチ版がついに登場",
+                "desc": "10のアクションワールド、100のストーリーステージ、20体の巨大メカボス、50の激ムズ・トロールステージが全世界のプレイヤーに解禁！"
             },
             {
-                "icon": "🖥️",
-                "title": "タブレット＆折りたたみ端末の柔軟性向上",
-                "desc": "大画面タブレットや折りたたみ端末におけるウィンドウのリサイズやアプリ切り替え時の安定性を強化。"
+                "icon": "⚔️",
+                "title": "14人の歴史的英雄＆カスタマイズスタジオ",
+                "desc": "メフメト2世、セリム1世、スレイマン大帝やサイバー戦士を解放し、滑空翼・ヘルメット・輝くオーラで自在に強化しよう。"
             },
             {
-                "icon": "⭐",
-                "title": "ゲーム内クイック評価＆ダイレクトフィードバック",
-                "desc": "ステージ 1 クリア後、ゲームを中断することなくワンタップで 5 つ星レビューや改善要望を送信できます！"
+                "icon": "🏆",
+                "title": "Play Games 世界ランキング＆クラウド保存",
+                "desc": "スコア、進行度、エメラルド、スピードランの部門で世界中のプレイヤーと競い合い、セーブデータも安全に同期。"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS 超高速レンダリングエンジン",
-                "desc": "Android 10 から Android 15+ まで、遅延ゼロの即時レスポンスと滑らかな 120 FPS を維持。"
+                "title": "120 FPS 超滑らか動作＆100% オフライン対応",
+                "desc": "遅延ゼロのレスポンスと 120 FPS の快適な操作感で、ネット環境がなくてもいつでもどこでもプレイ可能。"
             },
             {
-                "icon": "🌍",
-                "title": "9 言語完全ローカライズ対応",
-                "desc": "すべての UI、案内表示、フィードバック画面が設定された言語で自動的に美しく表示されます。"
+                "icon": "🎬",
+                "title": "公式トレーラー公開＆9言語フル対応",
+                "desc": "家族スタジオ制作の公式ローンチトレーラーを公開中！全9言語で極上のサイバー冒険をお楽しみください。"
             }
         ]
     }
