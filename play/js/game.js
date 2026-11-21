@@ -2049,7 +2049,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 38;
+        const CURRENT_VERSION_CODE = 39;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2185,7 +2185,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "38");
+                localStorage.setItem("marinext2100_last_seen_version", "39");
             } catch (e) {}
         };
 
@@ -2214,7 +2214,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "38") {
+            if (hasConsent && lastSeenVer !== "39") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -3419,10 +3419,10 @@ class Game {
                     "AdMob Test Videosu",
                     "+50 Coin & +10 Zümrüt",
                     () => {
-                        this.goldCoins = (this.goldCoins || 0) + 50;
-                        this.emeralds = (this.emeralds || 0) + 10;
-                        this.saveGameData();
-                        this.updateScoreUI();
+                        this.addGoldCoins(50, true);
+                        this.addEmeralds(10, true);
+                        this.updateMapUI();
+                        if (this.player) this.updateHUD();
                         this.showQuickToast("🎉 AdMob Test Reklamı Başarılı! +50 Coin & +10 Zümrüt Hesabınıza Eklendi.", "#06d6a0", 4200);
                     }
                 );
@@ -3580,7 +3580,7 @@ class Game {
                 window.sfx.powerUpSpawn();
                 try {
                     localStorage.setItem("marinext_privacy_consent_v1", String(Date.now()));
-                    localStorage.setItem("marinext2100_last_seen_version", "38");
+                    localStorage.setItem("marinext2100_last_seen_version", "39");
                 } catch (e) {}
                 const fcModal = document.getElementById("screen-first-consent");
                 if (fcModal) fcModal.classList.add("hidden");
@@ -6365,8 +6365,6 @@ class Game {
         return {
             initializeForTesting: isTesting,
             ...(isTesting && deviceHash ? { testingDevices: [deviceHash] } : {}),
-            tagForChildDirectedTreatment: false,
-            tagForUnderAgeOfConsent: false,
             maxAdContentRating: "General"
         };
     }
@@ -7213,7 +7211,8 @@ class Game {
             document.getElementById("btn-ad-double"),
             document.getElementById("btn-insuff-watch-ad"),
             document.getElementById("btn-ad-chest-char"),
-            document.getElementById("btn-ad-chest-cust")
+            document.getElementById("btn-ad-chest-cust"),
+            document.getElementById("btn-test-ad")
         ].filter((b) => b && !b.classList.contains("hidden"));
 
         const savedBtnStates = activeAdButtons.map((b) => ({
@@ -7265,6 +7264,8 @@ class Game {
             };
 
             const isTesting = this.isAdTestingActive();
+            let adSessionCompleted = false;
+            let finalRewardEarned = null;
             try {
                 await this._ensureAdMobReady();
                 if (window.sfx && typeof window.sfx.pauseForAd === "function") {
@@ -7282,15 +7283,27 @@ class Game {
                         });
                     } catch (firstErr) {
                         await new Promise((r) => setTimeout(r, 1000));
-                        try {
-                            await capAdMob.initialize(this.getAdMobInitOptions(isTesting));
-                            await new Promise((r) => setTimeout(r, 350));
-                        } catch (reinitErr) {}
-                        await capAdMob.prepareRewardVideoAd({
-                            adId: this.getRewardedAdUnitId(),
-                            isTesting: isTesting,
-                            npa: true
-                        });
+                        if (isTesting) {
+                            try {
+                                await capAdMob.initialize({ initializeForTesting: true });
+                                await new Promise((r) => setTimeout(r, 350));
+                            } catch (reinitErr) {}
+                            await capAdMob.prepareRewardVideoAd({
+                                adId: "ca-app-pub-3940256099942544/5224354917",
+                                isTesting: true,
+                                npa: false
+                            });
+                        } else {
+                            try {
+                                await capAdMob.initialize(this.getAdMobInitOptions(false));
+                                await new Promise((r) => setTimeout(r, 350));
+                            } catch (reinitErr) {}
+                            await capAdMob.prepareRewardVideoAd({
+                                adId: this.getRewardedAdUnitId(),
+                                isTesting: false,
+                                npa: true
+                            });
+                        }
                     }
                 }
                 this._rewardedAdPreloaded = false;
@@ -7347,19 +7360,8 @@ class Game {
 
                 restoreButtons();
                 setTimeout(() => this.preloadRewardedAd(), 800);
-
-                if (rewardEarned) {
-                    this.lastRewardedAdTime = performance.now();
-                    if (window.MarinextAnalytics) {
-                        window.MarinextAnalytics.logEvent('ad_rewarded_watched', { placement: adTitle || 'reward' });
-                    }
-                    onRewardGranted();
-                } else {
-                    // Ad was skipped or closed before completion: Inform player gracefully
-                    const skippedMsg = t("adSkippedNotice") || "ℹ️ Ödülü kazanmak için video sonuna kadar izlenmelidir.";
-                    this.showQuickToast(skippedMsg, "#ffd166");
-                }
-                return;
+                finalRewardEarned = rewardEarned;
+                adSessionCompleted = true;
             } catch (e) {
                 await cleanupListeners();
                 this._rewardedAdPreloaded = false;
@@ -7370,20 +7372,65 @@ class Game {
                     if (isTesting) {
                         const rawErr = String((e && (e.message || e.errorMessage || e.code)) || e || "err").replace(/[\r\n]+/g, " ").trim().slice(0, 40);
                         let diagStr = "";
+                        let gmsAvailShort = "na";
+                        let initShort = "na";
                         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAdDiagnosticsJson === "function") {
                             try {
                                 const d = JSON.parse(window.MarinextCloudBridge.getAdDiagnosticsJson() || "{}");
                                 const wvShort = d.webView ? String(d.webView).split(".").slice(0, 2).join(".") : "na";
                                 const gmsShort = d.gms ? String(d.gms).slice(0, 8) : "na";
                                 const hashShort = d.testHash ? String(d.testHash).slice(0, 6) : "none";
-                                diagStr = ` | ump:${this._lastUmpStatus || "none"} | wv:${wvShort} | gms:${gmsShort} | dev:${hashShort}`;
+                                const gmsAvail = d.gmsAvail !== undefined ? d.gmsAvail : "na";
+                                const sdkVer = d.sdkVer ? String(d.sdkVer).slice(0, 10) : "na";
+                                const initState = d.initState ? String(d.initState).slice(0, 24) : "na";
+                                const isTestDev = d.isTestDev !== undefined ? d.isTestDev : "na";
+                                const utc = d.utc ? String(d.utc) : "na";
+                                gmsAvailShort = String(gmsAvail);
+                                initShort = initState;
+                                diagStr = ` | ump:${this._lastUmpStatus || "none"} | gmsAvail:${gmsAvail} | sdk:${sdkVer} | init:${initState} | td:${isTestDev} | utc:${utc} | wv:${wvShort} | gms:${gmsShort} | dev:${hashShort}`;
                             } catch (diagErr) {}
                         }
                         unavailableMsg += ` [${rawErr} | ${this.getCurrentBuildTrack()}${diagStr}]`;
+                        if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.probeNativeAdError === "function") {
+                            try {
+                                window.onMarinextAdProbeResult = (probeJson) => {
+                                    window.onMarinextAdProbeResult = null;
+                                    try {
+                                        const p = typeof probeJson === "string" ? JSON.parse(probeJson) : (probeJson || {});
+                                        this.showQuickToast(
+                                            `[PROBE rwd:${p.rwd || "na"} | int:${p.int || "na"} | testDev:${p.testDev} | utc:${p.utc || "na"} | gA:${gmsAvailShort} | init:${initShort}]`,
+                                            "#f87171",
+                                            12000
+                                        );
+                                    } catch (parseErr) {}
+                                };
+                                window.MarinextCloudBridge.probeNativeAdError();
+                            } catch (probeErr) {}
+                        }
                     }
                     this.showQuickToast(unavailableMsg, "#f87171", isTesting ? 8000 : 3400);
                     return;
                 }
+            }
+            if (adSessionCompleted) {
+                if (finalRewardEarned) {
+                    this.lastRewardedAdTime = performance.now();
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent('ad_rewarded_watched', { placement: adTitle || 'reward' });
+                    }
+                    try {
+                        if (typeof onRewardGranted === "function") {
+                            onRewardGranted();
+                        }
+                    } catch (cbErr) {
+                        console.error("Reward callback error:", cbErr);
+                    }
+                } else {
+                    // Ad was skipped or closed before completion: Inform player gracefully
+                    const skippedMsg = t("adSkippedNotice") || "ℹ️ Ödülü kazanmak için video sonuna kadar izlenmelidir.";
+                    this.showQuickToast(skippedMsg, "#ffd166");
+                }
+                return;
             }
         } else if (this.isNativeAndroid()) {
             restoreButtons();
