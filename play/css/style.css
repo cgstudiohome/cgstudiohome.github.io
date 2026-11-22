@@ -2093,6 +2093,51 @@ html, body {
 }
 
 @media (max-width: 740px) and (min-height: 601px) {
+    .customize-container,
+    .shop-container {
+        width: calc(100vw - 12px);
+        max-width: calc(100vw - 12px);
+        padding: 10px 12px;
+        gap: 8px;
+    }
+    .customize-container .shop-header,
+    .shop-container .shop-header {
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+    }
+    .customize-container .shop-header > div:first-child,
+    .shop-container .shop-header > div:first-child {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+    .customize-container .shop-header h2,
+    .shop-container .shop-header h2 {
+        font-size: 14px;
+        line-height: 1.25;
+    }
+    .customize-container .shop-header .shop-sub {
+        display: none;
+    }
+    .customize-container .shop-header > div:last-child,
+    .shop-container .shop-header > div:last-child {
+        flex: 1 1 100%;
+        width: 100%;
+        min-width: 0;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+        gap: 6px;
+    }
+    #btn-ad-chest-char,
+    #btn-ad-chest-cust {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+    }
     .customize-body {
         grid-template-columns: 1fr;
         grid-template-rows: auto 1fr;
@@ -2142,23 +2187,6 @@ html, body {
         width: 34px;
         height: 34px;
         font-size: 17px;
-    }
-    .customize-container .shop-header,
-    .shop-container .shop-header {
-        flex-wrap: nowrap;
-        gap: 6px;
-        align-items: center;
-    }
-    .customize-container .shop-header > div:first-child,
-    .shop-container .shop-header > div:first-child {
-        min-width: 0;
-        flex: 1 1 auto;
-    }
-    .customize-container .shop-header > div:last-child,
-    .shop-container .shop-header > div:last-child {
-        flex-wrap: nowrap;
-        gap: 6px;
-        flex-shrink: 0;
     }
 }
 
