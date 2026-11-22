@@ -228,12 +228,16 @@
                     <!-- Right: Character Outfit & Face Cards + Ownership Filter Tabs -->
                     <div class="customize-options-panel">
                         <div class="cust-tabs" id="char-filter-tabs" style="margin-bottom: 4px;">
-                            <button type="button" class="cust-tab char-filter-tab active" data-char-filter="all" id="char-tab-all">🌟 Tüm Karakterler (15)</button>
+                            <button type="button" class="cust-tab char-filter-tab active" data-char-filter="all" id="char-tab-all">🌟 Tüm Karakterler (18)</button>
+                            <button type="button" class="cust-tab char-filter-tab vip-filter-tab" data-char-filter="vip" id="char-tab-vip">👑 VIP Özel (8)</button>
                             <button type="button" class="cust-tab char-filter-tab" data-char-filter="owned" id="char-tab-owned">✅ Satın Alınanlar</button>
                             <button type="button" class="cust-tab char-filter-tab" data-char-filter="locked" id="char-tab-locked">🔒 Satın Alınabilir</button>
                         </div>
-                        <div class="cust-grid" id="char-items-container" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; max-height: 330px;">
-                            <!-- Populated dynamically by game.js -->
+                        <div class="scroll-grid-wrap">
+                            <div class="cust-grid" id="char-items-container" style="grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px;">
+                                <!-- Populated dynamically by game.js -->
+                            </div>
+                            <button type="button" class="scroll-more-hint hidden" id="char-scroll-hint">⬇ Daha fazla seçenek için aşağı kaydır</button>
                         </div>
                     </div>
                 </div>
@@ -280,16 +284,19 @@
                     <!-- Right: Customization Categories & Options -->
                     <div class="customize-options-panel">
                         <div class="cust-tabs">
-                            <button class="cust-tab active" data-tab="helmet">👑 Miğfer (12)</button>
-                            <button class="cust-tab" data-tab="backGear">⚔️ Silah & Kanat (12)</button>
-                            <button class="cust-tab" data-tab="skin">🛡 Zırh (12)</button>
-                            <button class="cust-tab" data-tab="visor">👁 Göz & Vizör (10)</button>
-                            <button class="cust-tab" data-tab="aura">✨ Aura & Efekt (10)</button>
-                            <button class="cust-tab" data-tab="cape">🧣 Pelerin (10)</button>
-                            <button class="cust-tab" data-tab="upgrade">⚡ Güçlendirme (8)</button>
+                            <button class="cust-tab active" data-tab="helmet">👑 Miğfer (14)</button>
+                            <button class="cust-tab" data-tab="backGear">⚔️ Silah & Kanat (14)</button>
+                            <button class="cust-tab" data-tab="skin">🛡 Zırh (14)</button>
+                            <button class="cust-tab" data-tab="visor">👁 Göz & Vizör (12)</button>
+                            <button class="cust-tab" data-tab="aura">✨ Aura & Efekt (12)</button>
+                            <button class="cust-tab" data-tab="cape">🧣 Pelerin (12)</button>
+                            <button class="cust-tab" data-tab="upgrade">⚡ Güçlendirme (10)</button>
                         </div>
-                        <div class="cust-grid" id="cust-items-container">
-                            <!-- Populated dynamically -->
+                        <div class="scroll-grid-wrap">
+                            <div class="cust-grid" id="cust-items-container">
+                                <!-- Populated dynamically -->
+                            </div>
+                            <button type="button" class="scroll-more-hint hidden" id="cust-scroll-hint">⬇ Daha fazla seçenek için aşağı kaydır</button>
                         </div>
                     </div>
                 </div>
@@ -321,8 +328,11 @@
                     <button id="btn-shop-vip" type="button" class="vip-shop-banner-btn">Seçenekleri Gör</button>
                 </div>
 
-                <div class="shop-grid" id="shop-items-container">
-                    <!-- Populated dynamically by game.js -->
+                <div class="scroll-grid-wrap shop-scroll-wrap">
+                    <div class="shop-grid" id="shop-items-container">
+                        <!-- Populated dynamically by game.js -->
+                    </div>
+                    <button type="button" class="scroll-more-hint hidden" id="shop-scroll-hint">⬇ Daha fazla seçenek için aşağı kaydır</button>
                 </div>
 
                 <div class="shop-footer">
