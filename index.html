@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta id="meta-description" name="description" content="CG Studio Home & Labs — Aile yapımı bağımsız oyunlar ve yeni nesil mobil/web projeleri geliştirici portalı.">
     <meta name="theme-color" content="#060814">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CG Studio Home & Labs">
+    <meta property="og:title" content="CG Studio Home & Labs | Aile Yapımı Oyunlar & Teknoloji Portalı">
+    <meta property="og:description" content="10 yaşındaki oğlumuzun fikrinden Google Play'e: Cevat, Gönül, Yavuz Selim ve İsranur aile ekibimizin resmi geliştirici portalı.">
+    <meta property="og:url" content="https://cgstudiohome.github.io/">
+    <meta property="og:image" content="https://cgstudiohome.github.io/assets/family/cg-studio-family-team.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://cgstudiohome.github.io/assets/family/cg-studio-family-team.jpg">
     <title id="page-title" data-i18n="pageTitle">CG Studio Home &amp; Labs | Aile Yapımı Oyunlar &amp; Teknoloji Portalı</title>
     <!-- Google tag (gtag.js) - GA4 Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3EVKLV8SM8"></script>
@@ -468,17 +476,20 @@
             position: relative;
             border-radius: 16px;
             overflow: hidden;
-            border: 2px solid rgba(255, 209, 102, 0.4);
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 209, 102, 0.45);
+            background: radial-gradient(circle at center, rgba(16, 24, 48, 0.96), rgba(5, 7, 17, 0.99));
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
             cursor: pointer;
         }
 
         .family-main-img-wrap img {
             width: 100%;
-            height: 320px;
-            object-fit: cover;
+            max-height: 600px;
+            height: auto;
+            object-fit: contain;
             display: block;
-            transition: transform 0.3s;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
         }
 
         .family-main-img-wrap:hover img {
@@ -486,17 +497,16 @@
         }
 
         .family-photo-tag {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            background: rgba(5, 7, 17, 0.85);
-            backdrop-filter: blur(8px);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: rgba(5, 7, 17, 0.94);
+            padding: 10px 14px;
+            font-size: 12.5px;
             color: var(--gold);
             font-weight: 700;
-            border: 1px solid rgba(255, 209, 102, 0.3);
+            border-top: 1px solid rgba(255, 209, 102, 0.28);
         }
 
         .family-thumbs-row {
@@ -525,6 +535,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center 20%;
             display: block;
         }
 
@@ -1267,20 +1278,24 @@
             <div class="family-grid">
                 <!-- Sol Panel: Gerçek Aile & Çocuk Test Fotoğrafları Galerisi -->
                 <div class="family-photo-box">
-                    <div class="family-main-img-wrap" onclick="openAlbum('marinext', 1)" id="family-main-img-wrap" title="Büyütmek ve tüm test fotoğraflarını görmek için tıklayın">
-                        <img id="family-featured-photo" src="assets/family/family-kids-couch-3.jpg" alt="Yavuz Selim ve İsranur Oyunu Test Ederken">
+                    <div class="family-main-img-wrap" onclick="openFamilyFeaturedInAlbum()" id="family-main-img-wrap" title="Büyütmek ve tüm test fotoğraflarını görmek için tıklayın">
+                        <img id="family-featured-photo" src="assets/family/cg-studio-family-team.jpg" alt="CG Studio Home / Labs Çekirdek Aile Ekibi Stüdyoda">
                         <div class="family-photo-tag">
-                            📸 <span data-i18n="famPhotoTag">Yavuz Selim &amp; İsranur Cihaz Başında Testte</span>
+                            <span>📸 <span id="family-photo-tag-text" data-i18n="famPhotoTag">CG Studio Home / Labs — Çekirdek Aile Ekibimiz Stüdyoda Bir Arada</span></span>
+                            <span style="color: var(--cyan); font-size: 11.5px; white-space: nowrap;" data-i18n="famPhotoZoomHint">🔍 Tam Boyut</span>
                         </div>
                     </div>
                     <div class="family-thumbs-row">
-                        <div class="family-thumb-item active" onclick="setFamilyMainPhoto('assets/family/family-kids-couch-3.jpg', this)">
+                        <div class="family-thumb-item active" onclick="setFamilyMainPhoto('assets/family/cg-studio-family-team.jpg', this, 1, 'famPhotoTag')">
+                            <img src="assets/family/cg-studio-family-team.jpg" alt="CG Studio Home / Labs Aile Stüdyo Ekibi">
+                        </div>
+                        <div class="family-thumb-item" onclick="setFamilyMainPhoto('assets/family/family-kids-couch-3.jpg', this, 2, 'famPhotoTagKidsCouch')">
                             <img src="assets/family/family-kids-couch-3.jpg" alt="Test Anı 1">
                         </div>
-                        <div class="family-thumb-item" onclick="setFamilyMainPhoto('assets/family/family-kids-tablet-1.jpg', this)">
+                        <div class="family-thumb-item" onclick="setFamilyMainPhoto('assets/family/family-kids-tablet-1.jpg', this, 7, 'famPhotoTagTablet1')">
                             <img src="assets/family/family-kids-tablet-1.jpg" alt="Test Anı 2">
                         </div>
-                        <div class="family-thumb-item" onclick="setFamilyMainPhoto('assets/family/family-kids-tablet-2.jpg', this)">
+                        <div class="family-thumb-item" onclick="setFamilyMainPhoto('assets/family/family-kids-tablet-2.jpg', this, 8, 'famPhotoTagTablet2')">
                             <img src="assets/family/family-kids-tablet-2.jpg" alt="Test Anı 3">
                         </div>
                     </div>
@@ -1350,7 +1365,7 @@
             </div>
 
             <!-- Tıklanabilir Tam Boyut Aile İnfografiği -->
-            <div class="family-infographic-wrap" onclick="openAlbum('marinext', 2)" id="family-infographic-wrap" title="Aile İnfografiğini Tam Boyutta İncelemek İçin Tıklayın">
+            <div class="family-infographic-wrap" onclick="openAlbum('marinext', 3)" id="family-infographic-wrap" title="Aile İnfografiğini Tam Boyutta İncelemek İçin Tıklayın">
                 <img id="family-team-infographic" src="assets/family/family-team-tr.png" alt="CG Studio Home Aile Ekibi İnfografiği" onerror="this.src='assets/family/family-kids-couch-3.jpg'">
             </div>
         </div>
@@ -1648,6 +1663,11 @@
                         desc: { tr: "Yavuz Selim'in hayal gücüyle başlayan, tüm ailenin test ettiği ve Google Play'in onayladığı büyük serüven.", en: "Started by Yavuz Selim's imagination, playtested by the whole family, and approved on Google Play." }
                     },
                     {
+                        src: { tr: "assets/family/cg-studio-family-team.jpg", en: "assets/family/cg-studio-family-team.jpg" },
+                        title: { tr: "CG Studio Home / Labs — Çekirdek Aile Ekibi Stüdyoda", en: "CG Studio Home / Labs — Core Family Studio in Action" },
+                        desc: { tr: "Cevat (Baba), Gönül (Anne), Yavuz Selim (10 Yaş) ve İsranur (6 Yaş) — kodlama, seviye çizimleri ve oyun testi tek stüdyo masasında!", en: "Cevat (Father), Gönül (Mother), Yavuz Selim (Age 10), and İsranur (Age 6) — coding, level sketches, and live testing together at our family desk." }
+                    },
+                    {
                         src: { tr: "assets/family/family-kids-couch-3.jpg", en: "assets/family/family-kids-couch-3.jpg" },
                         title: { tr: "Yavuz Selim & İsranur Test Koltuğunda!", en: "Yavuz Selim & İsranur Live Playtesting on Tablet" },
                         desc: { tr: "10 yaşındaki tasarımcımız Yavuz Selim ve 6 yaşındaki junior testçimiz İsranur, yeni bölümleri denerken.", en: "Our 10-year-old creator Yavuz Selim and 6-year-old playtester İsranur having a blast testing new stages." }
@@ -1676,6 +1696,11 @@
                         src: { tr: "assets/family/family-kids-tablet-1.jpg", en: "assets/family/family-kids-tablet-1.jpg" },
                         title: { tr: "Oyun Ekranı ve Tablet Deneyimi", en: "In-Game Experience & Tablet Action" },
                         desc: { tr: "Tablet ve büyük ekranlarda kusursuz akıcılık ve çocukların gözünden gerçek heyecan.", en: "Flawless tablet responsiveness and pure childhood excitement on the big screen." }
+                    },
+                    {
+                        src: { tr: "assets/family/family-kids-tablet-2.jpg", en: "assets/family/family-kids-tablet-2.jpg" },
+                        title: { tr: "Aile İçi Tablet & Zorluk Testleri", en: "Family Tablet & Gameplay Tuning Session" },
+                        desc: { tr: "Her yeni bölüm aile cihazlarımızda doğrudan çocukların ve ebeveynlerin katılımıyla test edilir.", en: "Every new stage is playtested directly on our family devices with both kids and parents." }
                     },
                     {
                         src: { tr: "assets/promo/marinext-promo-tr.png", en: "assets/promo/marinext-promo-en.jpg" },
@@ -1860,10 +1885,27 @@
         }
 
         // FAMILY PHOTO SWITCHER IN MAIN PAGE
-        function setFamilyMainPhoto(src, thumbEl) {
-            document.getElementById('family-featured-photo').src = src;
+        let activeFamilyAlbumIndex = 1;
+        let activeFamilyTagKey = 'famPhotoTag';
+
+        function setFamilyMainPhoto(src, thumbEl, albumIdx, tagKey) {
+            const featuredEl = document.getElementById('family-featured-photo');
+            if (featuredEl) featuredEl.src = src;
             document.querySelectorAll('.family-thumb-item').forEach(el => el.classList.remove('active'));
             if (thumbEl) thumbEl.classList.add('active');
+            if (typeof albumIdx === 'number') activeFamilyAlbumIndex = albumIdx;
+            if (tagKey) {
+                activeFamilyTagKey = tagKey;
+                const dict = (typeof I18N !== 'undefined' && (I18N[currentLang] || I18N.tr)) || {};
+                const tagTextEl = document.getElementById('family-photo-tag-text');
+                if (tagTextEl && dict[tagKey]) {
+                    tagTextEl.textContent = dict[tagKey];
+                }
+            }
+        }
+
+        function openFamilyFeaturedInAlbum() {
+            openAlbum('marinext', activeFamilyAlbumIndex);
         }
 
         // VIDEO MODAL
@@ -2014,7 +2056,11 @@
                 famTitleHighlight: "CG STUDIO HOME / LABS:",
                 famTitle: "10 Yaşında Bir Çocuğun Fikrinden Google Play Mağazasına",
                 famDesc: "Biz bir aileyiz: <strong>Cevat (Baba), Gönül (Anne), Yavuz Selim (10 Yaş) ve İsranur (6 Yaş)</strong>. Çocuklarımızın sınırsız hayal gücünü yapay zeka ve profesyonel yazılım mühendisliğiyle harmanlayarak, tüm ailenin birlikte ürettiği, oynadığı ve test ettiği küresel projeler geliştiriyoruz.",
-                famPhotoTag: "Yavuz Selim & İsranur Cihaz Başında Testte",
+                famPhotoTag: "CG Studio Home / Labs — Çekirdek Aile Ekibimiz Stüdyoda Bir Arada",
+                famPhotoTagKidsCouch: "Yavuz Selim & İsranur Test Koltuğunda",
+                famPhotoTagTablet1: "Yavuz Selim & İsranur Cihaz Başında Testte",
+                famPhotoTagTablet2: "Aile İçi Tablet & Zorluk Deneyim Testi",
+                famPhotoZoomHint: "🔍 Tam Boyut",
                 famPhotoWrapTitle: "Büyütmek ve tüm test fotoğraflarını görmek için tıklayın",
                 famQuote: "\"Bir oyun sadece koddan ibaret değildir; bir çocuğun gözündeki heyecan ve tüm ailenin ortak emeğidir.\"",
                 nameCevat: "Cevat",
@@ -2137,7 +2183,11 @@
                 famTitleHighlight: "CG STUDIO HOME / LABS:",
                 famTitle: "From a 10-Year-Old's Dream to the Google Play Store",
                 famDesc: "We are a family team: <strong>Cevat (Father), Gönül (Mother), Yavuz Selim (10-Year-Old Son), and İsranur (6-Year-Old Daughter)</strong>. We combine children's boundless imagination with modern AI workflows and software engineering to craft global digital projects created and tested together by the whole family.",
-                famPhotoTag: "Yavuz Selim & İsranur Live Playtesting",
+                famPhotoTag: "CG Studio Home / Labs — Our Core Family Studio Together",
+                famPhotoTagKidsCouch: "Yavuz Selim & İsranur Playtesting on the Couch",
+                famPhotoTagTablet1: "Yavuz Selim & İsranur Live Tablet Testing",
+                famPhotoTagTablet2: "Family Tablet & Gameplay Tuning Session",
+                famPhotoZoomHint: "🔍 Full Size",
                 famPhotoWrapTitle: "Click to enlarge and view all playtesting photos",
                 famQuote: "\"A game is more than just code; it is the spark in a child's eyes and the shared passion of an entire family.\"",
                 nameCevat: "Cevat",
@@ -2252,6 +2302,12 @@
                     }
                 }
             });
+
+            // Preserve selected family photo caption in active language
+            const famTagTextEl = document.getElementById('family-photo-tag-text');
+            if (famTagTextEl && dict[activeFamilyTagKey]) {
+                famTagTextEl.textContent = dict[activeFamilyTagKey];
+            }
 
             // Update tooltips / title attributes
             const heroWrap = document.getElementById('hero-visual-wrap');
