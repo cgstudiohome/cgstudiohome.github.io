@@ -223,7 +223,8 @@ const SHOP_CATALOG = [
         icon: "🛡️",
         title: "Titanyum Zırh & +1 Ekstra Can",
         desc: "Maksimum canını +1 kalp (♥) artırır ve hasar sonrası koruyucu dokunulmazlık süresini uzatır!",
-        perkDesc: "❤️ +1 Maksimum Can & +25 Kare Dokunulmazlık",
+        perkDesc: "❤️ +1 Maksimum Can & +20 Kare Dokunulmazlık",
+        vipMk2Desc: "❤️ +1 Maksimum Can & +38 Kare Zırh Koruması",
         cost: 25
     },
     {
@@ -233,6 +234,7 @@ const SHOP_CATALOG = [
         title: "Kuantum Hava Kontrolü & Zıplama",
         desc: "Havada +%35 daha keskin manevra ve +%6 daha yüksek sıçrama dengesi sağlar!",
         perkDesc: "🚀 +%6 Yüksek Zıplama & +%35 Hava Kontrolü",
+        vipMk2Desc: "🚀 +%10 Yüksek Zıplama & +%50 Keskin Hava Kontrolü",
         cost: 55
     },
     {
@@ -240,8 +242,9 @@ const SHOP_CATALOG = [
         type: "upgrade",
         icon: "💎",
         title: "Kristal, Coin & Skor Çarpanı",
-        desc: "Toplanan her Kristal, Coin ve Zümrütten +%35 ekstra bonus skor ve ekstra Coin kazandırır!",
-        perkDesc: "💎 +%35 Skor Çarpanı & +%35 Ekstra Coin Şansı",
+        desc: "Toplanan her Kristal, Coin ve Zümrütten +%25 ekstra bonus skor ve ekstra Coin kazandırır!",
+        perkDesc: "💎 +%25 Skor Çarpanı & +%25 Ekstra Coin Şansı",
+        vipMk2Desc: "💎 +%55 Skor Çarpanı & +%55 Ekstra Coin Şansı",
         cost: 90
     },
     {
@@ -251,6 +254,7 @@ const SHOP_CATALOG = [
         title: "Başlangıç Aether Kalkanı",
         desc: "Her bölüme otomatik koruyucu kalkan ile başla!",
         perkDesc: "🛡 Her Bölüme Koruyucu Kalkan İle Başla",
+        vipMk2Desc: "🛡 Başlangıç Kalkanı + 22 Kare Ekstra Dokunulmazlık",
         cost: 40
     },
     {
@@ -260,6 +264,7 @@ const SHOP_CATALOG = [
         title: "Başlangıç Plazma Ateşi",
         desc: "Her bölüme doğrudan Ateş Topu gücüyle başla!",
         perkDesc: "🔥 Her Bölüme Ateş Topu Gücüyle Başla",
+        vipMk2Desc: "🔥 Başlangıç Ateşi + %18 Daha Seri Ateş Topu",
         cost: 65
     },
     {
@@ -267,8 +272,9 @@ const SHOP_CATALOG = [
         type: "upgrade",
         icon: "👢",
         title: "Hiper-Hız Çizmeleri",
-        desc: "Kalıcı olarak %18 daha hızlı koş!",
-        perkDesc: "👢 +%18 Kalıcı Koşu Hızı Artışı",
+        desc: "Kalıcı olarak %14 daha hızlı koş (VIP MK-II ile +%24 Süper Hız)!",
+        perkDesc: "👢 +%14 Kalıcı Koşu Hızı Artışı",
+        vipMk2Desc: "👢 +%24 Süper Koşu Hızı & Yüksek Hız Tavanı",
         cost: 50
     },
     {
@@ -277,7 +283,8 @@ const SHOP_CATALOG = [
         icon: "🧲",
         title: "Antik Zümrüt & Kristal Mıknatısı",
         desc: "Yakındaki tüm gerçek Kristal, Coin ve Antik Zümrütleri otomatik kendine çeker!",
-        perkDesc: "🧲 Geniş Alan Hazine Mıknatısı (Sahte Zümrütleri Çekmez)",
+        perkDesc: "🧲 160px Hazine Mıknatısı (Sahte Zümrütleri Çekmez)",
+        vipMk2Desc: "🧲 260px Geniş Alan Süper Hazine Mıknatısı",
         cost: 70
     },
     {
@@ -287,6 +294,7 @@ const SHOP_CATALOG = [
         title: "Üçlü Zıplama Modülü (Triple Jump)",
         desc: "Havada 2 yerine tam 3 kez zıplayabilme yeteneği!",
         perkDesc: "🚀 Havada 3 Kez Zıplama (Triple Jump)",
+        vipMk2Desc: "🚀 Üçlü Zıplama + Havada Süzülme & +%4 İvme",
         cost: 110
     },
     {
@@ -1509,6 +1517,9 @@ class Game {
         this.vipDailySkipUsed = 0;
         this.vipDailySalaryDate = "";
         this.lifetimeBonusClaimed = false;
+        this.pendingVipPostPurchaseAction = null;
+        this.levelFailStreakKey = "";
+        this.levelFailStreak = 0;
         this.initBillingSystem();
 
         setTimeout(() => this.initAdMob(), 1200);
@@ -2157,7 +2168,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 44;
+        const CURRENT_VERSION_CODE = 45;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2456,14 +2467,14 @@ class Game {
     getPlayerUpgrades() {
         let extraHearts = 0;
         let extraJumps = this.ownedItems.includes("tripleJump") ? 1 : 0;
-        let speedBonus = this.ownedItems.includes("speedBoots") ? 0.95 : 0;
+        let speedBonus = this.ownedItems.includes("speedBoots") ? 0.78 : 0;
         let airControlBonus = 0;
         let jumpMult = 1;
         let hasGlide = false;
         let invulnBonus = 0;
         let fireCooldownReduction = 0;
         let hasMagnet = this.ownedItems.includes("emeraldMagnet");
-        let magnetRadius = 175;
+        let magnetRadius = 160;
         let scoreMult = 1;
         let coinBonusChance = 0;
         let startShield = this.ownedItems.includes("startShield");
@@ -2471,20 +2482,28 @@ class Game {
         let phoenixAutoRevive = false;
         const isVipActive = this.hasVipPass();
 
-        // 1. Shop Upgrades (heart1, heart2, heart3)
+        // 1. Shop Upgrades — Sv.1 (Standard) -> Sv.2 (👑 VIP MK-II automatic evolution)
         if (this.ownedItems.includes("heart1")) {
             extraHearts += 1;
-            invulnBonus += 25;
+            invulnBonus += isVipActive ? 38 : 20;
         }
         if (this.ownedItems.includes("heart2")) {
-            airControlBonus += 0.35;
-            jumpMult += 0.06;
+            airControlBonus += isVipActive ? 0.50 : 0.35;
+            jumpMult += isVipActive ? 0.10 : 0.06;
         }
         if (this.ownedItems.includes("heart3")) {
-            scoreMult += 0.35;
-            coinBonusChance += 0.35;
+            scoreMult += isVipActive ? 0.55 : 0.25;
+            coinBonusChance += isVipActive ? 0.55 : 0.25;
         }
         if (isVipActive) {
+            if (this.ownedItems.includes("startShield")) invulnBonus += 22;
+            if (this.ownedItems.includes("startFire")) fireCooldownReduction += 4;
+            if (this.ownedItems.includes("speedBoots")) speedBonus += 0.55;
+            if (this.ownedItems.includes("emeraldMagnet")) magnetRadius += 100;
+            if (this.ownedItems.includes("tripleJump")) {
+                jumpMult += 0.04;
+                hasGlide = true;
+            }
             // Automatic VIP Power Modules (no Crystal cost while VIP Pass is active!)
             scoreMult += 0.25;
             coinBonusChance += 0.25;
@@ -2544,18 +2563,18 @@ class Game {
         }
 
         return {
-            extraHearts: Math.min(3, extraHearts),
+            extraHearts: Math.min(isVipActive ? 4 : 3, extraHearts),
             extraJumps: Math.min(2, extraJumps),
-            speedBonus: Math.min(1.65, speedBonus),
-            airControlBonus: Math.min(0.85, airControlBonus),
-            jumpMult: Math.min(1.18, jumpMult),
+            speedBonus: Math.min(isVipActive ? 2.05 : 1.65, speedBonus),
+            airControlBonus: Math.min(isVipActive ? 1.05 : 0.85, airControlBonus),
+            jumpMult: Math.min(isVipActive ? 1.24 : 1.18, jumpMult),
             hasGlide,
-            invulnBonus: Math.min(60, invulnBonus),
-            fireCooldownMax: Math.max(10, 22 - fireCooldownReduction),
+            invulnBonus: Math.min(isVipActive ? 90 : 60, invulnBonus),
+            fireCooldownMax: Math.max(isVipActive ? 7 : 10, 22 - fireCooldownReduction),
             hasMagnet,
-            magnetRadius: Math.min(320, magnetRadius),
-            scoreMult: +Math.min(3.0, scoreMult).toFixed(2),
-            coinBonusChance: Math.min(0.85, coinBonusChance),
+            magnetRadius: Math.min(isVipActive ? 400 : 320, magnetRadius),
+            scoreMult: +Math.min(isVipActive ? 3.6 : 3.0, scoreMult).toFixed(2),
+            coinBonusChance: Math.min(isVipActive ? 1.0 : 0.85, coinBonusChance),
             startShield,
             startFire,
             phoenixAutoRevive,
@@ -3704,6 +3723,39 @@ class Game {
         if (btnShopVip) btnShopVip.addEventListener("click", () => openVipWithSource("shop"));
         const btnModalVipNudge = document.getElementById("btn-modal-vip-nudge");
         if (btnModalVipNudge) btnModalVipNudge.addEventListener("click", () => openVipWithSource("post_level"));
+
+        const btnGameOverVipRevive = document.getElementById("btn-gameover-vip-revive");
+        if (btnGameOverVipRevive) {
+            btnGameOverVipRevive.addEventListener("click", () => {
+                if (window.MarinextAnalytics) {
+                    window.MarinextAnalytics.logEvent("vip_cta_click", { placement: "gameover_revive" });
+                }
+                this.pendingVipPostPurchaseAction = "revive";
+                openVipWithSource("gameover_revive");
+            });
+        }
+        const btnVictoryVipDouble = document.getElementById("btn-victory-vip-double");
+        if (btnVictoryVipDouble) {
+            btnVictoryVipDouble.addEventListener("click", () => {
+                if (window.MarinextAnalytics) {
+                    window.MarinextAnalytics.logEvent("vip_cta_click", { placement: "victory_double" });
+                }
+                this.pendingVipPostPurchaseAction = "double";
+                openVipWithSource("victory_double");
+            });
+        }
+        const btnInsuffVip = document.getElementById("btn-insuff-vip");
+        if (btnInsuffVip) {
+            btnInsuffVip.addEventListener("click", () => {
+                if (window.MarinextAnalytics) {
+                    window.MarinextAnalytics.logEvent("vip_cta_click", { placement: "insufficient_balance" });
+                }
+                this.pendingVipPostPurchaseAction = null;
+                const insuffM = document.getElementById("screen-insufficient-balance");
+                if (insuffM) insuffM.classList.add("hidden");
+                openVipWithSource("insufficient_balance");
+            });
+        }
 
         const btnCloseVipX = document.getElementById("btn-close-vip-x");
         if (btnCloseVipX) btnCloseVipX.addEventListener("click", () => this.closeVipStore());
@@ -4965,6 +5017,13 @@ class Game {
             }
         }
 
+        const insuffVipBtn = document.getElementById("btn-insuff-vip");
+        if (insuffVipBtn) {
+            const bt = (k) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k) : "");
+            insuffVipBtn.textContent = bt("btnInsuffVip") || "👑 VIP PASS • GÜNLÜK +1000 ✪ & +100 ❖ + REKLAMSIZ";
+            insuffVipBtn.classList.toggle("hidden", this.hasVipPass());
+        }
+
         modal.classList.remove("hidden");
     }
 
@@ -5024,77 +5083,9 @@ class Game {
             const isVipActive = this.hasVipPass();
             const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
             SHOP_CATALOG.forEach((rawItem) => {
-                const item = window.getLocalizedShopItem ? window.getLocalizedShopItem(rawItem, this.lang) : rawItem;
-                const isVipModule = Boolean(rawItem.vipOnly);
-                const isOwned = isVipModule ? isVipActive : this.ownedItems.includes(item.id);
-                const canAfford = this.walletCoins >= item.cost;
-                const card = document.createElement("div");
-                card.className = `shop-card ${isOwned ? "owned" : ""} ${isVipModule ? `vip-exclusive-card ${isVipActive ? "vip-ready" : "vip-locked"}` : ""}`.trim();
-
-                let btnLabel = canAfford
-                    ? (t("shopBuyBtn", { cost: item.cost }) || `SATIN AL (${item.cost} ◆ Kristal)`)
-                    : (t("shopGetCrystalBtn", { cost: item.cost }) || `🎬 KRİSTAL AL / AÇ (${item.cost} ◆)`);
-                let btnClass = "shop-buy-btn";
-                let disabled = false;
-
-                if (isVipModule) {
-                    if (isVipActive) {
-                        btnLabel = t("shopActiveUpgrade") || "✓ AKTİF GÜÇLENDİRME";
-                        btnClass += " equipped";
-                        disabled = true;
-                    } else {
-                        btnLabel = bt("btnUnlockWithVip") || "👑 VIP PASS İLE AÇ";
-                        btnClass = "shop-buy-btn vip-unlock-btn";
-                    }
-                } else if (isOwned) {
-                    btnLabel = t("shopActiveUpgrade") || "✓ AKTİF GÜÇLENDİRME";
-                    btnClass += " equipped";
-                    disabled = true;
-                }
-
-                let statusClass = isOwned ? "owned" : "locked";
-                let statusTxt = isOwned
-                    ? (t("charOwnedBadge") || "✓ SATIN ALINDI")
-                    : `${item.cost} ◆`;
-                if (isVipModule) {
-                    statusClass = isVipActive ? "vip-included" : "vip-exclusive";
-                    statusTxt = isVipActive
-                        ? (bt("vipBadgeAutoActive") || "👑 VIP AKTİF")
-                        : (bt("vipBadgeExclusive") || "👑 VIP ÖZEL");
-                }
-
-                card.innerHTML = `
-                    <div>
-                        <div class="shop-card-top">
-                            <span class="shop-icon">${item.icon}</span>
-                            <div>
-                                <h4>${item.title}</h4>
-                                <span class="char-status-badge ${statusClass}">${statusTxt}</span>
-                            </div>
-                        </div>
-                        <div class="item-perk-pill">${item.perkDesc || "⚡"}</div>
-                        <p>${item.desc}</p>
-                    </div>
-                    <button class="${btnClass}" ${disabled ? "disabled" : ""}>${btnLabel}</button>
-                `;
-
-                card.querySelector("button").addEventListener("click", () => {
-                    if (isVipModule && !isVipActive) {
-                        this.openVipStore("cust_vip_upgrade");
-                        return;
-                    }
-                    if (isOwned) return;
-                    if (this.walletCoins < item.cost) {
-                        this.openInsufficientBalanceModal("crystal", item.cost - this.walletCoins, item.title);
-                        return;
-                    }
-                    this.walletCoins -= item.cost;
-                    this.ownedItems.push(item.id);
-                    window.sfx.buy();
-                    this.saveProgress();
-                    this.renderCustomizeItems();
-                });
-                container.appendChild(card);
+                container.appendChild(
+                    this.buildShopUpgradeCard(rawItem, isVipActive, t, bt, "cust_vip_upgrade", () => this.renderCustomizeItems())
+                );
             });
             this.syncStudioScrollHint("cust-items-container", "cust-scroll-hint");
             return;
@@ -5591,6 +5582,106 @@ class Game {
         ctx.restore();
     }
 
+    buildShopUpgradeCard(rawItem, isVipActive, t, bt, vipSource, onRefresh) {
+        const item = window.getLocalizedShopItem ? window.getLocalizedShopItem(rawItem, this.lang) : rawItem;
+        const isVipModule = Boolean(rawItem.vipOnly);
+        const isOwned = isVipModule ? isVipActive : this.ownedItems.includes(item.id);
+        const canAfford = this.walletCoins >= item.cost;
+
+        const card = document.createElement("div");
+        card.className = `shop-card ${isOwned ? "owned" : ""} ${isVipModule ? `vip-exclusive-card ${isVipActive ? "vip-ready" : "vip-locked"}` : ""}`.trim();
+
+        let btnLabel = canAfford
+            ? (t("shopBuyBtn", { cost: item.cost }) || `SATIN AL (${item.cost} ◆)`)
+            : (t("shopGetCrystalBtn", { cost: item.cost }) || `🎬 KRİSTAL AL / AÇ (${item.cost} ◆)`);
+        let btnClass = "shop-buy-btn";
+        let disabled = false;
+
+        if (isVipModule) {
+            if (isVipActive) {
+                btnLabel = t("shopActiveUpgrade") || "✓ AKTİF GÜÇLENDİRME";
+                btnClass += " equipped";
+                disabled = true;
+            } else {
+                btnLabel = bt("btnUnlockWithVip") || "👑 VIP PASS İLE AÇ";
+                btnClass = "shop-buy-btn vip-unlock-btn";
+            }
+        } else if (isOwned) {
+            btnLabel = t("shopActiveUpgrade") || "✓ AKTİF GÜÇLENDİRME";
+            btnClass += " equipped";
+            disabled = true;
+        }
+
+        let statusClass = isOwned ? "owned" : "locked";
+        let statusTxt = isOwned
+            ? (t("charOwnedBadge") || "✓ SATIN ALINDI")
+            : `${item.cost} ◆`;
+        if (isVipModule) {
+            statusClass = isVipActive ? "vip-included" : "vip-exclusive";
+            statusTxt = isVipActive
+                ? (bt("vipBadgeAutoActive") || "👑 VIP AKTİF")
+                : (bt("vipBadgeExclusive") || "👑 VIP ÖZEL");
+        }
+
+        const lv1Tag = bt("tierLv1Tag") || "⚡ SV.1";
+        const lv2Tag = bt("tierLv2Tag") || "👑 SV.2 VIP MK-II";
+        const mk2ActiveTag = isVipActive ? ` (${bt("tierMk2ActiveBadge") || "✓ MK-II AKTİF"})` : "";
+
+        const perkSectionHtml = isVipModule
+            ? `<div class="item-perk-pill">${item.perkDesc || "⚡"}</div>`
+            : `<div class="upgrade-tiers-box">
+                    <div class="tier-row-lv1"><strong>${lv1Tag}:</strong> ${item.perkDesc || "⚡"}</div>
+                    <div class="tier-row-lv2 ${isVipActive ? "active" : "locked"}"><strong>${lv2Tag}${mk2ActiveTag}:</strong> ${item.vipMk2Desc || item.perkDesc || "👑"}</div>
+               </div>`;
+
+        card.innerHTML = `
+            <div>
+                <div class="shop-card-top">
+                    <span class="shop-icon">${item.icon}</span>
+                    <div>
+                        <h4>${item.title}</h4>
+                        <span class="char-status-badge ${statusClass}">${statusTxt}</span>
+                    </div>
+                </div>
+                ${perkSectionHtml}
+                <p>${item.desc}</p>
+            </div>
+            <button class="${btnClass}" ${disabled ? "disabled" : ""}>${btnLabel}</button>
+        `;
+
+        if (!isVipModule && !isVipActive) {
+            const lv2Row = card.querySelector(".tier-row-lv2");
+            if (lv2Row) {
+                lv2Row.addEventListener("click", () => {
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent("vip_cta_click", { placement: "shop_mk2_tier" });
+                    }
+                    this.openVipStore("shop_mk2_tier");
+                });
+            }
+        }
+
+        const btn = card.querySelector("button");
+        btn.addEventListener("click", () => {
+            if (isVipModule && !isVipActive) {
+                this.openVipStore(vipSource);
+                return;
+            }
+            if (isOwned) return;
+            if (this.walletCoins < item.cost) {
+                this.openInsufficientBalanceModal("crystal", item.cost - this.walletCoins, item.title);
+                return;
+            }
+            this.walletCoins -= item.cost;
+            this.ownedItems.push(item.id);
+            window.sfx.buy();
+            this.saveProgress();
+            if (typeof onRefresh === "function") onRefresh();
+        });
+
+        return card;
+    }
+
     openShop() {
         this.updateVipEntryButtonsUI();
         document.getElementById("shop-wallet-coins").textContent = this.walletCoins;
@@ -5601,80 +5692,9 @@ class Game {
         const isVipActive = this.hasVipPass();
 
         SHOP_CATALOG.forEach((rawItem) => {
-            const item = window.getLocalizedShopItem ? window.getLocalizedShopItem(rawItem, this.lang) : rawItem;
-            const isVipModule = Boolean(rawItem.vipOnly);
-            const isOwned = isVipModule ? isVipActive : this.ownedItems.includes(item.id);
-            const canAfford = this.walletCoins >= item.cost;
-
-            const card = document.createElement("div");
-            card.className = `shop-card ${isOwned ? "owned" : ""} ${isVipModule ? `vip-exclusive-card ${isVipActive ? "vip-ready" : "vip-locked"}` : ""}`.trim();
-
-            let btnLabel = canAfford
-                ? (t("shopBuyBtn", { cost: item.cost }) || `SATIN AL (${item.cost} ◆)`)
-                : (t("shopGetCrystalBtn", { cost: item.cost }) || `🎬 KRİSTAL AL / AÇ (${item.cost} ◆)`);
-            let btnClass = "shop-buy-btn";
-            let disabled = false;
-
-            if (isVipModule) {
-                if (isVipActive) {
-                    btnLabel = t("shopActiveUpgrade") || "✓ AKTİF GÜÇLENDİRME";
-                    btnClass += " equipped";
-                    disabled = true;
-                } else {
-                    btnLabel = bt("btnUnlockWithVip") || "👑 VIP PASS İLE AÇ";
-                    btnClass = "shop-buy-btn vip-unlock-btn";
-                }
-            } else if (isOwned) {
-                btnLabel = t("shopActiveUpgrade") || "✓ AKTİF GÜÇLENDİRME";
-                btnClass += " equipped";
-                disabled = true;
-            }
-
-            let statusClass = isOwned ? "owned" : "locked";
-            let statusTxt = isOwned
-                ? (t("charOwnedBadge") || "✓ SATIN ALINDI")
-                : `${item.cost} ◆`;
-            if (isVipModule) {
-                statusClass = isVipActive ? "vip-included" : "vip-exclusive";
-                statusTxt = isVipActive
-                    ? (bt("vipBadgeAutoActive") || "👑 VIP AKTİF")
-                    : (bt("vipBadgeExclusive") || "👑 VIP ÖZEL");
-            }
-
-            card.innerHTML = `
-                <div>
-                    <div class="shop-card-top">
-                        <span class="shop-icon">${item.icon}</span>
-                        <div>
-                            <h4>${item.title}</h4>
-                            <span class="char-status-badge ${statusClass}">${statusTxt}</span>
-                        </div>
-                    </div>
-                    <div class="item-perk-pill">${item.perkDesc || "⚡"}</div>
-                    <p>${item.desc}</p>
-                </div>
-                <button class="${btnClass}" ${disabled ? "disabled" : ""}>${btnLabel}</button>
-            `;
-
-            const btn = card.querySelector("button");
-            btn.addEventListener("click", () => {
-                if (isVipModule && !isVipActive) {
-                    this.openVipStore("shop_vip_upgrade");
-                    return;
-                }
-                if (isOwned) return;
-                if (this.walletCoins < item.cost) {
-                    this.openInsufficientBalanceModal("crystal", item.cost - this.walletCoins, item.title);
-                    return;
-                }
-                this.walletCoins -= item.cost;
-                this.ownedItems.push(item.id);
-                window.sfx.buy();
-                this.saveProgress();
-                this.openShop();
-            });
-
-            container.appendChild(card);
+            container.appendChild(
+                this.buildShopUpgradeCard(rawItem, isVipActive, t, bt, "shop_vip_upgrade", () => this.openShop())
+            );
         });
 
         document.getElementById("screen-shop").classList.remove("hidden");
@@ -5769,7 +5789,10 @@ class Game {
                   pipeReturn: { ...data.subChamber.pipeReturn },
                   pipeArrival: { ...data.subChamber.pipeArrival },
                   pipeOut: { ...data.subChamber.pipeOut },
-                  exitHoldTimer: 0
+                  exitHoldTimer: 0,
+                  needsExitCabin: false,
+                  activeEntryCabin: "pipeIn",
+                  activeExitCabin: "pipeOut"
               }
             : null;
         this.inSubChamber = false;
@@ -5852,6 +5875,10 @@ class Game {
         this.boss = data.bossConfig ? new window.AbyssBoss(data.bossConfig) : null;
 
         this.player = new window.Player(120, 12 * window.TILE_SIZE - 60, this.getPlayerUpgrades());
+        this.quotaResumeCredit = { em: 0, cr: 0, gc: 0 };
+        this.portalQuotaUnlockedNotified = false;
+        this.portalLockedBounceTick = -999;
+        this.portalQuotaBlockedLogged = false;
         if (
             this.savedCheckpoint &&
             Number(this.savedCheckpoint.level) === Number(levelIdx) &&
@@ -5870,6 +5897,15 @@ class Game {
                     cp.activated = true;
                 }
             }
+            const behindCoins = this.coins.filter((c) => !c.isTrollTeleport && c.y < 900 && c.x < this.activeCheckpoint.x - 24);
+            const bEm = behindCoins.filter((c) => c.type === "emerald").length;
+            const bCr = behindCoins.filter((c) => c.type === "coin" || !c.type).length;
+            const bGc = behindCoins.filter((c) => c.type === "gold_coin").length;
+            this.quotaResumeCredit = {
+                em: Math.max(Number(this.savedCheckpoint.quotaEm) || 0, Math.floor(bEm * 0.7)),
+                cr: Math.max(Number(this.savedCheckpoint.quotaCr) || 0, Math.floor(bCr * 0.7)),
+                gc: Math.max(Number(this.savedCheckpoint.quotaGc) || 0, Math.floor(bGc * 0.7))
+            };
         }
         this.player.prevX = this.player.x;
         this.player.prevY = this.player.y;
@@ -5929,24 +5965,155 @@ class Game {
 
         this.state = "playing";
         window.sfx.startBGM(this.levelInfo.isBossLevel);
+        this.computeLevelPortalQuota();
         this.updateHUD();
     }
 
-    enterSubChamber() {
+    computeLevelPortalQuota() {
+        const mainItems = (this.coins || []).filter((c) => !c.isTrollTeleport && c.y < 900);
+        const mainEmeralds = mainItems.filter((c) => c.type === "emerald").length;
+        const mainCrystals = mainItems.filter((c) => c.type === "coin" || !c.type).length;
+        const mainGold = mainItems.filter((c) => c.type === "gold_coin").length;
+
+        if (this.isTrollMode || (this.levelInfo && this.levelInfo.isBossLevel) || !this.portal) {
+            this.portalQuotaConfig = { enabled: false, reqEmeralds: 0, reqCrystals: 0, reqGold: 0, mainEmeralds, mainCrystals, mainGold };
+            return;
+        }
+
+        const idx = Number(this.selectedLevel) || 0;
+        let emR = 0.25;
+        let crR = 0.25;
+        let gcR = 0;
+        if (idx >= 69) {
+            emR = 0.68;
+            crR = 0.55;
+            gcR = 0.45;
+        } else if (idx >= 35) {
+            emR = 0.55;
+            crR = 0.45;
+            gcR = 0.35;
+        } else if (idx >= 10) {
+            emR = 0.40;
+            crR = 0.35;
+        }
+
+        const reqEmeralds = mainEmeralds >= 2 ? Math.max(1, Math.min(mainEmeralds - 1, Math.round(mainEmeralds * emR))) : 0;
+        const reqCrystals = mainCrystals >= 3 ? Math.max(1, Math.min(mainCrystals - 2, Math.round(mainCrystals * crR))) : 0;
+        const reqGold = (gcR > 0 && mainGold >= 3) ? Math.max(1, Math.min(mainGold - 2, Math.round(mainGold * gcR))) : 0;
+
+        this.portalQuotaConfig = {
+            enabled: reqEmeralds > 0 || reqCrystals > 0 || reqGold > 0,
+            reqEmeralds,
+            reqCrystals,
+            reqGold,
+            mainEmeralds,
+            mainCrystals,
+            mainGold
+        };
+        if (this.getPortalQuotaStatus().unlocked) {
+            this.portalQuotaUnlockedNotified = true;
+        }
+    }
+
+    getPortalQuotaStatus() {
+        const cfg = this.portalQuotaConfig;
+        if (!cfg || !cfg.enabled) {
+            return {
+                enabled: false,
+                unlocked: true,
+                gotEmeralds: 0,
+                reqEmeralds: 0,
+                gotCrystals: 0,
+                reqCrystals: 0,
+                gotGold: 0,
+                reqGold: 0,
+                missingEmeralds: 0,
+                missingCrystals: 0,
+                missingGold: 0
+            };
+        }
+        const credit = this.quotaResumeCredit || { em: 0, cr: 0, gc: 0 };
+        const mainCollected = (this.coins || []).filter((c) => c.collected && !c.isTrollTeleport && c.y < 900);
+        const rawEm = (credit.em || 0) + mainCollected.filter((c) => c.type === "emerald").length;
+        const rawCr = (credit.cr || 0) + mainCollected.filter((c) => c.type === "coin" || !c.type).length;
+        const rawGc = (credit.gc || 0) + mainCollected.filter((c) => c.type === "gold_coin").length;
+
+        const gotEmeralds = Math.min(cfg.mainEmeralds || rawEm, rawEm);
+        const gotCrystals = Math.min(cfg.mainCrystals || rawCr, rawCr);
+        const gotGold = Math.min(cfg.mainGold || rawGc, rawGc);
+
+        const missingEmeralds = Math.max(0, cfg.reqEmeralds - gotEmeralds);
+        const missingCrystals = Math.max(0, cfg.reqCrystals - gotCrystals);
+        const missingGold = Math.max(0, cfg.reqGold - gotGold);
+
+        return {
+            enabled: true,
+            unlocked: missingEmeralds === 0 && missingCrystals === 0 && missingGold === 0,
+            gotEmeralds,
+            reqEmeralds: cfg.reqEmeralds,
+            gotCrystals,
+            reqCrystals: cfg.reqCrystals,
+            gotGold,
+            reqGold: cfg.reqGold,
+            missingEmeralds,
+            missingCrystals,
+            missingGold
+        };
+    }
+
+    getPortalMissingSummary() {
+        const q = this.getPortalQuotaStatus();
+        const cat = (window.MARINEXT_PORTAL_QUOTA_I18N && (window.MARINEXT_PORTAL_QUOTA_I18N[this.lang] || window.MARINEXT_PORTAL_QUOTA_I18N.en)) || {};
+        if (!q.enabled || q.unlocked) {
+            return {
+                badgeLocked: "",
+                text: cat.hudOpen || "🌀 KAPI AÇIK ✓",
+                shortHud: cat.hudOpen || "🌀 KAPI AÇIK ✓",
+                gateTag: ""
+            };
+        }
+        const parts = [];
+        if (q.missingEmeralds > 0) parts.push(String(cat.itemEmerald || "{n} Antik Zümrüt (❖)").replace("{n}", q.missingEmeralds));
+        if (q.missingCrystals > 0) parts.push(String(cat.itemCrystal || "{n} Kristal (◆)").replace("{n}", q.missingCrystals));
+        if (q.missingGold > 0) parts.push(String(cat.itemGold || "{n} Altın Coin (✪)").replace("{n}", q.missingGold));
+        const itemsText = parts.join(cat.conjunction || ", ");
+        const hudParts = [];
+        if (q.reqEmeralds > 0) hudParts.push(`❖ ${Math.min(q.gotEmeralds, q.reqEmeralds)}/${q.reqEmeralds}`);
+        if (q.reqCrystals > 0) hudParts.push(`◆ ${Math.min(q.gotCrystals, q.reqCrystals)}/${q.reqCrystals}`);
+        if (q.reqGold > 0) hudParts.push(`✪ ${Math.min(q.gotGold, q.reqGold)}/${q.reqGold}`);
+        return {
+            badgeLocked: cat.badgeLocked || "🔒 BİTİRME KAPISI KİLİTLİ",
+            text: String(cat.balloonMissing || "Geçmek için {items} daha toplamalısın!").replace("{items}", itemsText),
+            shortHud: `🔒 ${hudParts.join(" • ")}`,
+            gateTag: cat.gateLockedLabel || "🔒 KİLİTLİ"
+        };
+    }
+
+    enterSubChamber(entryCabin = "pipeIn") {
         if (!this.subChamber || !this.player) return;
         const sc = this.subChamber;
         if (sc.rideState === "descending" || sc.rideState === "ascending") return;
+        const chosen = entryCabin === "pipeReturn" ? "pipeReturn" : "pipeIn";
+        const startBox = chosen === "pipeReturn" ? sc.pipeReturn : sc.pipeIn;
+        if (sc.visited && window.MarinextAnalytics) {
+            window.MarinextAnalytics.logEvent("elevator_reuse", {
+                direction: "down",
+                cabin: chosen,
+                level: (this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel) + 1
+            });
+        }
+        sc.activeEntryCabin = chosen;
         sc.rideState = "descending";
         sc.rideProgress = 0;
         sc.cooldown = 35;
         sc.exitHoldTimer = 0;
-        sc.cabinX = sc.pipeIn.x;
-        sc.cabinY = sc.pipeIn.y;
+        sc.cabinX = startBox.x;
+        sc.cabinY = startBox.y;
         sc.prevCabinX = sc.cabinX;
         sc.prevCabinY = sc.cabinY;
         sc.doorOpen = 1;
-        this.player.x = sc.cabinX + (sc.pipeIn.w - this.player.w) / 2;
-        this.player.y = sc.cabinY + sc.pipeIn.h - this.player.h - 10;
+        this.player.x = sc.cabinX + (startBox.w - this.player.w) / 2;
+        this.player.y = sc.cabinY + startBox.h - this.player.h - 10;
         this.player.prevX = this.player.x;
         this.player.prevY = this.player.y;
         this.player.vx = 0;
@@ -5967,20 +6134,30 @@ class Game {
         this.updateHUD();
     }
 
-    exitSubChamber() {
+    exitSubChamber(exitCabin = "pipeOut") {
         if (!this.subChamber || !this.player) return;
         const sc = this.subChamber;
         if (sc.rideState === "descending" || sc.rideState === "ascending") return;
+        const chosen = exitCabin === "pipeArrival" ? "pipeArrival" : "pipeOut";
+        const startBox = chosen === "pipeArrival" ? sc.pipeArrival : sc.pipeOut;
+        if (sc.visited && window.MarinextAnalytics) {
+            window.MarinextAnalytics.logEvent("elevator_reuse", {
+                direction: "up",
+                cabin: chosen,
+                level: (this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel) + 1
+            });
+        }
+        sc.activeExitCabin = chosen;
         sc.rideState = "ascending";
         sc.rideProgress = 0;
         sc.cooldown = 45;
-        sc.cabinX = sc.pipeOut.x;
-        sc.cabinY = sc.pipeOut.y;
+        sc.cabinX = startBox.x;
+        sc.cabinY = startBox.y;
         sc.prevCabinX = sc.cabinX;
         sc.prevCabinY = sc.cabinY;
         sc.doorOpen = 1;
-        this.player.x = sc.cabinX + (sc.pipeOut.w - this.player.w) / 2;
-        this.player.y = sc.cabinY + sc.pipeOut.h - this.player.h - 10;
+        this.player.x = sc.cabinX + (startBox.w - this.player.w) / 2;
+        this.player.y = sc.cabinY + startBox.h - this.player.h - 10;
         this.player.prevX = this.player.x;
         this.player.prevY = this.player.y;
         this.player.vx = 0;
@@ -6012,8 +6189,14 @@ class Game {
         const p = sc.rideProgress;
 
         const isDown = sc.rideState === "descending";
-        const startBox = isDown ? sc.pipeIn : sc.pipeOut;
-        const endBox = isDown ? sc.pipeArrival : sc.pipeReturn;
+        const downViaReturn = sc.activeEntryCabin === "pipeReturn";
+        const upViaArrival = sc.activeExitCabin === "pipeArrival";
+        const startBox = isDown
+            ? (downViaReturn ? sc.pipeReturn : sc.pipeIn)
+            : (upViaArrival ? sc.pipeArrival : sc.pipeOut);
+        const endBox = isDown
+            ? (downViaReturn ? sc.pipeOut : sc.pipeArrival)
+            : (upViaArrival ? sc.pipeIn : sc.pipeReturn);
 
         if (p < 0.12) {
             // Phase 1: Doors slide shut around the player
@@ -6052,14 +6235,21 @@ class Game {
             sc.rideState = "idle";
             sc.rideProgress = 0;
             sc.doorOpen = 1;
+            sc.needsExitCabin = true;
+            sc.cooldown = 45;
             if (isDown) {
                 this.inSubChamber = true;
-                sc.cooldown = 40;
-                this.player.x = sc.spawnX;
-                this.player.y = sc.spawnY;
+                if (downViaReturn) {
+                    this.player.x = sc.pipeOut.x - this.player.w - 14;
+                    this.player.y = sc.pipeOut.y + sc.pipeOut.h - this.player.h;
+                    this.player.vx = -1.6;
+                } else {
+                    this.player.x = sc.spawnX;
+                    this.player.y = sc.spawnY;
+                    this.player.vx = 1.6;
+                }
                 this.player.prevX = this.player.x;
                 this.player.prevY = this.player.y;
-                this.player.vx = 1.6;
                 this.player.vy = 0;
                 this.player.invulnTimer = 70;
                 window.sfx.checkpoint();
@@ -6076,13 +6266,18 @@ class Game {
             } else {
                 this.inSubChamber = false;
                 sc.visited = true;
-                sc.cooldown = 55;
-                this.player.x = sc.exitToMainX;
-                this.player.y = sc.exitToMainY;
+                if (upViaArrival) {
+                    this.player.x = Math.max(48, sc.pipeIn.x - this.player.w - 14);
+                    this.player.y = sc.pipeIn.y + sc.pipeIn.h - this.player.h;
+                    this.player.vx = -1.8;
+                } else {
+                    this.player.x = sc.exitToMainX;
+                    this.player.y = sc.exitToMainY;
+                    this.player.vx = 2.0;
+                }
                 this.player.prevX = this.player.x;
                 this.player.prevY = this.player.y;
-                this.player.vx = 2.0;
-                this.player.vy = -3.5;
+                this.player.vy = -3.0;
                 this.player.onGround = false;
                 this.player.jumpsLeft = this.player.maxJumps;
                 this.player.invulnTimer = 85;
@@ -6289,8 +6484,13 @@ class Game {
         if (revBtn) revBtn.classList.add("hidden");
         const dblBtn = document.getElementById("btn-ad-double");
         if (dblBtn) dblBtn.classList.add("hidden");
+        const vipRevBtn = document.getElementById("btn-gameover-vip-revive");
+        if (vipRevBtn) vipRevBtn.classList.add("hidden");
+        const vipDblBtn = document.getElementById("btn-victory-vip-double");
+        if (vipDblBtn) vipDblBtn.classList.add("hidden");
         const vipNudge = document.getElementById("btn-modal-vip-nudge");
         if (vipNudge) vipNudge.classList.add("hidden");
+
         modal.classList.remove("hidden");
     }
 
@@ -6314,9 +6514,17 @@ class Game {
         }
         window.sfx.hurt();
         const d = LANG_DICT[this.lang] || LANG_DICT.tr;
+        const failKey = `${this.isTrollMode ? "t" : "c"}_${this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel}`;
+        this.levelFailStreak = (this.levelFailStreakKey === failKey) ? (this.levelFailStreak + 1) : 1;
+        this.levelFailStreakKey = failKey;
+
+        const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
         const modal = document.getElementById("screen-modal");
         document.getElementById("modal-title").textContent = d.gameOverTitle;
-        document.getElementById("modal-subtitle").textContent = d.gameOverSub;
+        const repeatTip = (this.levelFailStreak >= 2 && !this.hasVipPass())
+            ? ` — ${bt("gameOverRepeatTip") || "💡 İpucu: Kalkan/Hız güçlendirmesi veya VIP MK-II (Otomatik Dirilme + Süper Mıknatıs) ile çok daha rahat geçebilirsin!"}`
+            : "";
+        document.getElementById("modal-subtitle").textContent = `${d.gameOverSub || ""}${repeatTip}`;
         document.getElementById("modal-stats").classList.remove("hidden");
         document.getElementById("stat-emeralds").textContent = `${this.collectedEmeralds}/${this.totalLevelEmeralds}`;
         document.getElementById("stat-coins").textContent = this.collectedCoins;
@@ -6325,17 +6533,18 @@ class Game {
         document.getElementById("btn-next-level").classList.add("hidden");
         const dblBtn = document.getElementById("btn-ad-double");
         if (dblBtn) dblBtn.classList.add("hidden");
+        const vipDblBtn = document.getElementById("btn-victory-vip-double");
+        if (vipDblBtn) vipDblBtn.classList.add("hidden");
+        const maxRevives = this.isTrollMode ? 1 : 2;
+        const curRevives = Number(this.reviveCountInLevel) || 0;
         const revBtn = document.getElementById("btn-ad-revive");
         if (revBtn) {
             revBtn.disabled = false;
             revBtn.style.opacity = "1";
             const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
-            const maxRevives = this.isTrollMode ? 1 : 2;
-            const curRevives = Number(this.reviveCountInLevel) || 0;
             if (curRevives < maxRevives) {
                 if (this.hasVipPass() && !this.vipReviveUsedInLevel) {
-                    revBtn.textContent = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "btnVipInstantRevive"))
-                        || "⚡ VIP ANINDA CANLAN (REKLAMSIZ • +3 ♥ + 🛡)";
+                    revBtn.textContent = bt("btnVipInstantRevive") || "⚡ VIP ANINDA CANLAN (REKLAMSIZ • +3 ♥ + 🛡)";
                     revBtn.classList.remove("hidden");
                 } else {
                     const btnKey = curRevives === 0 ? "btnReviveAd1" : "btnReviveAd2";
@@ -6350,12 +6559,17 @@ class Game {
                 revBtn.classList.add("hidden");
             }
         }
+        const vipRevBtn = document.getElementById("btn-gameover-vip-revive");
+        if (vipRevBtn) {
+            vipRevBtn.textContent = bt("btnGameOverVipRevive") || "👑 VIP OL • REKLAMSIZ ANINDA CANLAN (+4 KAHRAMAN & MK-II)";
+            vipRevBtn.classList.toggle("hidden", this.hasVipPass() || curRevives >= maxRevives);
+        }
         const vipNudge = document.getElementById("btn-modal-vip-nudge");
         if (vipNudge) {
-            vipNudge.textContent = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "modalVipNudge"))
-                || "🛡️ Reklamsız oyna • VIP ve Ömür Boyu seçenekler";
+            vipNudge.textContent = bt("modalVipNudge") || "🛡️ Reklamsız oyna • VIP ve Ömür Boyu seçenekler";
             vipNudge.classList.toggle("hidden", this.hasNoForcedAds());
         }
+
         modal.classList.remove("hidden");
     }
 
@@ -6467,6 +6681,7 @@ class Game {
     triggerVictory() {
         this.resetInputs();
         this.state = "victory";
+        this.levelFailStreak = 0;
         window.sfx.victory();
         const d = LANG_DICT[this.lang] || LANG_DICT.tr;
 
@@ -6515,6 +6730,8 @@ class Game {
         document.getElementById("btn-resume").classList.add("hidden");
         const revBtn = document.getElementById("btn-ad-revive");
         if (revBtn) revBtn.classList.add("hidden");
+        const vipRevBtn = document.getElementById("btn-gameover-vip-revive");
+        if (vipRevBtn) vipRevBtn.classList.add("hidden");
         const dblBtn = document.getElementById("btn-ad-double");
         if (dblBtn) {
             if (!this.doubleRewardUsedInLevel) {
@@ -6532,6 +6749,12 @@ class Game {
             } else {
                 dblBtn.classList.add("hidden");
             }
+        }
+        const vipDblBtn = document.getElementById("btn-victory-vip-double");
+        if (vipDblBtn) {
+            const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
+            vipDblBtn.textContent = bt("btnVictoryVipDouble") || "👑 VIP OL • HER ZAFERDE REKLAMSIZ ANINDA 2x ÖDÜL";
+            vipDblBtn.classList.toggle("hidden", this.hasVipPass() || Boolean(this.doubleRewardUsedInLevel));
         }
 
         const vipNudge = document.getElementById("btn-modal-vip-nudge");
@@ -8302,6 +8525,20 @@ class Game {
         document.getElementById("hud-emeralds").textContent = this.walletEmeralds;
         document.getElementById("hud-level-emeralds").textContent = `(${d.levelWord}: ${this.collectedEmeralds}/${this.totalLevelEmeralds})`;
 
+        const quotaPill = document.getElementById("hud-portal-quota");
+        if (quotaPill) {
+            const q = this.getPortalQuotaStatus();
+            if (q && q.enabled) {
+                const summary = this.getPortalMissingSummary();
+                quotaPill.textContent = summary.shortHud;
+                quotaPill.classList.remove("hidden");
+                quotaPill.classList.toggle("unlocked", Boolean(q.unlocked));
+                quotaPill.classList.toggle("locked", !q.unlocked);
+            } else {
+                quotaPill.classList.add("hidden");
+            }
+        }
+
         const hudGoldEl = document.getElementById("hud-goldcoins");
         if (hudGoldEl) hudGoldEl.textContent = this.walletGoldCoins || 0;
         document.getElementById("hud-coins").textContent = this.walletCoins;
@@ -8613,48 +8850,67 @@ class Game {
             }
         }
 
-        // 🛗 CYBER-ELEVATOR CABIN & UNDERGROUND SUB-PLATFORM CHAMBERS (Hareketli Asansör Kabini & Alt Platform Sahneleri)
+        // 🛗 CYBER-ELEVATOR CABIN & UNDERGROUND SUB-PLATFORM CHAMBERS (Sınırsız Çift Yönlü Asansör Kabini)
         if (this.subChamber && this.player && !isRidingSubElevator) {
-            if (this.subChamber.cooldown > 0) {
-                this.subChamber.cooldown--;
+            const sc = this.subChamber;
+            if (sc.cooldown > 0) {
+                sc.cooldown--;
             }
-            if (!this.inSubChamber && !this.subChamber.visited && this.subChamber.cooldown <= 0) {
-                if (this.player.intersects(this.subChamber.pipeIn)) {
-                    this.enterSubChamber();
-                    return;
+            const touchingAnyCabin =
+                this.player.intersects(sc.pipeIn) ||
+                this.player.intersects(sc.pipeReturn) ||
+                this.player.intersects(sc.pipeArrival) ||
+                this.player.intersects(sc.pipeOut);
+
+            if (sc.needsExitCabin) {
+                if (!touchingAnyCabin && sc.cooldown <= 0) {
+                    sc.needsExitCabin = false;
                 }
-            } else if (this.inSubChamber && this.subChamber.cooldown <= 0) {
-                if (this.player.intersects(this.subChamber.pipeOut)) {
-                    const remainingOrbs = this.coins.filter((c) => c.isSubMissionOrb && !c.collected).length;
-                    const remainingEnemies = this.enemies.filter((e) => e.isSubMissionEnemy && !e.dead).length;
-                    const needed = Math.max(0, (this.subChamber.goal || 4) - (this.subChamber.progress || 0));
-                    if (!this.subChamber.completed && (remainingOrbs + remainingEnemies) < needed) {
-                        this.subChamber.progress = this.subChamber.goal - 1;
-                        this.recordSubMissionProgress(this.subChamber.pipeOut.x + 28, this.subChamber.pipeOut.y);
-                    }
-                    if (
-                        this.subChamber.completed ||
-                        (remainingOrbs + remainingEnemies === 0) ||
-                        (this.subChamber.exitHoldTimer > 42)
-                    ) {
-                        this.exitSubChamber();
+            } else if (sc.cooldown <= 0) {
+                if (!this.inSubChamber) {
+                    if (this.player.intersects(sc.pipeIn)) {
+                        this.enterSubChamber("pipeIn");
                         return;
-                    } else {
-                        this.subChamber.exitHoldTimer = (this.subChamber.exitHoldTimer || 0) + 1;
-                        if (!this.subChamber._lastExitWarnTick || (this.levelTick - this.subChamber._lastExitWarnTick) > 75) {
-                            this.subChamber._lastExitWarnTick = this.levelTick;
-                            this.floatingTexts.push(
-                                new window.FloatingText(
-                                    this.subChamber.pipeOut.x + 28,
-                                    this.subChamber.pipeOut.y - 16,
-                                    "🎯 ÖNCE ALT BÖLÜM GÖREVİNİ TAMAMLA!",
-                                    "#ffd166"
-                                )
-                            );
-                        }
+                    } else if (this.player.intersects(sc.pipeReturn)) {
+                        this.enterSubChamber("pipeReturn");
+                        return;
                     }
                 } else {
-                    this.subChamber.exitHoldTimer = 0;
+                    if (this.player.intersects(sc.pipeArrival)) {
+                        this.exitSubChamber("pipeArrival");
+                        return;
+                    } else if (this.player.intersects(sc.pipeOut)) {
+                        const remainingOrbs = this.coins.filter((c) => c.isSubMissionOrb && !c.collected).length;
+                        const remainingEnemies = this.enemies.filter((e) => e.isSubMissionEnemy && !e.dead).length;
+                        const needed = Math.max(0, (sc.goal || 4) - (sc.progress || 0));
+                        if (!sc.completed && (remainingOrbs + remainingEnemies) < needed) {
+                            sc.progress = sc.goal - 1;
+                            this.recordSubMissionProgress(sc.pipeOut.x + 28, sc.pipeOut.y);
+                        }
+                        if (
+                            sc.completed ||
+                            (remainingOrbs + remainingEnemies === 0) ||
+                            (sc.exitHoldTimer > 42)
+                        ) {
+                            this.exitSubChamber("pipeOut");
+                            return;
+                        } else {
+                            sc.exitHoldTimer = (sc.exitHoldTimer || 0) + 1;
+                            if (!sc._lastExitWarnTick || (this.levelTick - sc._lastExitWarnTick) > 75) {
+                                sc._lastExitWarnTick = this.levelTick;
+                                this.floatingTexts.push(
+                                    new window.FloatingText(
+                                        sc.pipeOut.x + 28,
+                                        sc.pipeOut.y - 16,
+                                        "🎯 ÖNCE ALT BÖLÜM GÖREVİNİ TAMAMLA!",
+                                        "#ffd166"
+                                    )
+                                );
+                            }
+                        }
+                    } else {
+                        sc.exitHoldTimer = 0;
+                    }
                 }
             }
         }
@@ -8691,11 +8947,15 @@ class Game {
                     continue;
                 }
                 this.activeCheckpoint = { x: cp.x, y: cp.y };
+                const cpQuota = this.getPortalQuotaStatus();
                 this.savedCheckpoint = {
                     level: this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel,
                     isTroll: Boolean(this.isTrollMode),
                     x: cp.x,
-                    y: cp.y
+                    y: cp.y,
+                    quotaEm: cpQuota.gotEmeralds || 0,
+                    quotaCr: cpQuota.gotCrystals || 0,
+                    quotaGc: cpQuota.gotGold || 0
                 };
                 window.sfx.checkpoint();
                 document.getElementById("hud-checkpoint").classList.remove("hidden");
@@ -8920,6 +9180,31 @@ class Game {
                     window.sfx.coin();
                     this.spawnParticles(c.x, c.y, 8, "#00f2fe", 2.8);
                 }
+                if (!this.portalQuotaUnlockedNotified) {
+                    const qNow = this.getPortalQuotaStatus();
+                    if (qNow.enabled && qNow.unlocked) {
+                        this.portalQuotaUnlockedNotified = true;
+                        const cat = (window.MARINEXT_PORTAL_QUOTA_I18N && (window.MARINEXT_PORTAL_QUOTA_I18N[this.lang] || window.MARINEXT_PORTAL_QUOTA_I18N.en)) || {};
+                        window.sfx.checkpoint();
+                        if (this.portal) {
+                            this.spawnParticles(this.portal.x + 28, this.portal.y + 43, 28, "#06d6a0", 5.2);
+                        }
+                        this.floatingTexts.push(
+                            new window.FloatingText(
+                                this.player.x + 16,
+                                this.player.y - 24,
+                                cat.toastUnlocked || "🌀 BİTİRME KAPISI AÇILDI! GEÇEBİLİRSİN!",
+                                "#06d6a0"
+                            )
+                        );
+                        if (window.MarinextAnalytics) {
+                            window.MarinextAnalytics.logEvent("portal_quota_unlocked", {
+                                level: (this.selectedLevel || 0) + 1
+                            });
+                        }
+                    }
+                }
+                this.updateHUD();
             }
         }
 
@@ -9058,8 +9343,9 @@ class Game {
 
         const portalUnlocked = !this.portal.lockedUntilBossDead || (this.boss && this.boss.dead);
         if (portalUnlocked) {
+            const quotaState = this.getPortalQuotaStatus();
             // 🤡 TROLL TRAP #7: Dodging/Running Exit Portal!
-            if (this.isTrollMode && this.portal.trollDodgesRemaining > 0) {
+            if (quotaState.unlocked && this.isTrollMode && this.portal.trollDodgesRemaining > 0) {
                 const distToPortal = Math.hypot(
                     (this.player.x + this.player.w / 2) - (this.portal.x + 28),
                     (this.player.y + this.player.h / 2) - (this.portal.y + 43)
@@ -9075,8 +9361,29 @@ class Game {
             }
             const portalRect = { x: this.portal.x, y: this.portal.y, w: 56, h: 86 };
             if (this.player.intersects(portalRect)) {
-                this.triggerVictory();
-                return;
+                if (!quotaState.unlocked) {
+                    this.portalLockedBounceTick = this.levelTick;
+                    if (this.player.vx > 0) {
+                        this.player.vx = -2.2;
+                    }
+                    if (!this._lastPortalLockSfxTick || (this.levelTick - this._lastPortalLockSfxTick) > 55) {
+                        this._lastPortalLockSfxTick = this.levelTick;
+                        window.sfx.blockHit();
+                        this.spawnParticles(this.portal.x + 28, this.portal.y + 43, 14, "#ffd166", 3.6);
+                    }
+                    if (!this.portalQuotaBlockedLogged && window.MarinextAnalytics) {
+                        this.portalQuotaBlockedLogged = true;
+                        window.MarinextAnalytics.logEvent("portal_quota_blocked", {
+                            level: (this.selectedLevel || 0) + 1,
+                            missing_em: quotaState.missingEmeralds,
+                            missing_cr: quotaState.missingCrystals,
+                            missing_gc: quotaState.missingGold
+                        });
+                    }
+                } else {
+                    this.triggerVictory();
+                    return;
+                }
             }
         }
 
@@ -9789,10 +10096,10 @@ class Game {
         const isDesc = sc.rideState === "descending";
         const isAsc = sc.rideState === "ascending";
 
-        // Station 1: Main Stage Descent Elevator (pipeIn)
+        // Station 1: Main Stage Descent Elevator (pipeIn — always reusable)
         if (!isDesc) {
-            const inBadge = sc.visited ? "✓ ALT GÖREV TAMAMLANDI" : "🛗 ALT BÖLÜM ASANSÖRÜ ▼";
-            const inColor = sc.visited ? "#06d6a0" : "#00f2fe";
+            const inBadge = sc.completed ? "✓ ALT GÖREV TAMAM • TEKRAR İN ▼" : "🛗 ALT BÖLÜM ASANSÖRÜ ▼";
+            const inColor = sc.completed ? "#06d6a0" : "#00f2fe";
             drawCabinInterior(sc.pipeIn.x, sc.pipeIn.y, sc.pipeIn.w || 62, sc.pipeIn.h || 72, inBadge, inColor, "▼ B1", false);
         }
 
@@ -9869,7 +10176,7 @@ class Game {
             const ry = prevY + (sc.cabinY - prevY) * alpha;
             drawDoors(rx, ry, 62, 72, sc.doorOpen ?? 0, isDesc ? "#00f2fe" : "#06d6a0");
         } else {
-            drawDoors(sc.pipeIn.x, sc.pipeIn.y, sc.pipeIn.w || 62, sc.pipeIn.h || 72, sc.visited ? 0.15 : 1, sc.visited ? "#06d6a0" : "#00f2fe");
+            drawDoors(sc.pipeIn.x, sc.pipeIn.y, sc.pipeIn.w || 62, sc.pipeIn.h || 72, 1, sc.completed ? "#06d6a0" : "#00f2fe");
             drawDoors(sc.pipeReturn.x, sc.pipeReturn.y, sc.pipeReturn.w || 62, sc.pipeReturn.h || 72, 1, "#10b981");
             drawDoors(sc.pipeArrival.x, sc.pipeArrival.y, sc.pipeArrival.w || 62, sc.pipeArrival.h || 72, 1, "#00f2fe");
             drawDoors(sc.pipeOut.x, sc.pipeOut.y, sc.pipeOut.w || 62, sc.pipeOut.h || 72, sc.completed ? 1 : 0.35, sc.completed ? "#06d6a0" : "#ffd166");
@@ -10544,20 +10851,68 @@ class Game {
             ctx.save();
             const px = this.portal.x + 28;
             const py = this.portal.y + 43;
-            const isDodgingTrollPortal = this.isTrollMode && this.portal.trollDodgesRemaining > 0;
-            const pStroke = isDodgingTrollPortal ? "#ff2a85" : "#00f2fe";
-            ctx.strokeStyle = pStroke;
-            ctx.shadowColor = pStroke;
-            ctx.shadowBlur = 18;
-            ctx.lineWidth = 5;
-            ctx.beginPath();
-            ctx.ellipse(px, py, 24, 40, 0, 0, Math.PI * 2);
-            ctx.stroke();
+            const quotaState = this.getPortalQuotaStatus();
+            if (quotaState.enabled && !quotaState.unlocked) {
+                const summary = this.getPortalMissingSummary();
+                ctx.strokeStyle = "rgba(245, 158, 11, 0.72)";
+                ctx.shadowColor = "rgba(245, 158, 11, 0.45)";
+                ctx.shadowBlur = 10;
+                ctx.lineWidth = 4;
+                ctx.setLineDash([6, 4]);
+                ctx.beginPath();
+                ctx.ellipse(px, py, 24, 40, 0, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.setLineDash([]);
 
-            ctx.fillStyle = isDodgingTrollPortal ? "rgba(255, 42, 133, 0.45)" : "rgba(181, 55, 242, 0.45)";
-            ctx.beginPath();
-            ctx.ellipse(px, py, 18, 34, 0, 0, Math.PI * 2);
-            ctx.fill();
+                ctx.fillStyle = "rgba(30, 20, 12, 0.65)";
+                ctx.beginPath();
+                ctx.ellipse(px, py, 19, 35, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.strokeStyle = "rgba(255, 209, 102, 0.45)";
+                ctx.lineWidth = 2;
+                for (let by = py - 20; by <= py + 20; by += 13) {
+                    ctx.beginPath();
+                    ctx.moveTo(px - 15, by);
+                    ctx.lineTo(px + 15, by);
+                    ctx.stroke();
+                }
+
+                ctx.shadowBlur = 0;
+                ctx.font = "bold 20px 'Segoe UI Emoji', sans-serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillStyle = "#fde68a";
+                ctx.fillText("🔒", px, py);
+
+                const tagTxt = summary.shortHud || "🔒";
+                ctx.font = "bold 10.5px 'Segoe UI', sans-serif";
+                const tagW = Math.max(82, ctx.measureText(tagTxt).width + 14);
+                ctx.fillStyle = "rgba(12, 14, 28, 0.92)";
+                ctx.strokeStyle = "rgba(245, 158, 11, 0.85)";
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.roundRect(px - tagW / 2, py - 68, tagW, 19, 6);
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = "#fde68a";
+                ctx.fillText(tagTxt, px, py - 58.5);
+            } else {
+                const isDodgingTrollPortal = this.isTrollMode && this.portal.trollDodgesRemaining > 0;
+                const pStroke = isDodgingTrollPortal ? "#ff2a85" : "#00f2fe";
+                ctx.strokeStyle = pStroke;
+                ctx.shadowColor = pStroke;
+                ctx.shadowBlur = 18;
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.ellipse(px, py, 24, 40, 0, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.fillStyle = isDodgingTrollPortal ? "rgba(255, 42, 133, 0.45)" : "rgba(181, 55, 242, 0.45)";
+                ctx.beginPath();
+                ctx.ellipse(px, py, 18, 34, 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
             ctx.restore();
         }
 
@@ -10594,8 +10949,108 @@ class Game {
         this.drawSubChamberElevatorFrontOverlay(ctx, viewMinX, viewMaxX, alpha);
         for (const pt of this.particles) pt.draw(ctx);
         for (const ft of this.floatingTexts) ft.draw(ctx);
+        this.drawPortalQuotaBalloon(ctx);
         this.drawLevel1TutorialBalloon(ctx, viewMinX, viewMaxX);
 
+        ctx.restore();
+    }
+
+    drawPortalQuotaBalloon(ctx) {
+        if (!this.player || !this.portal || this.state !== "playing" || this.inSubChamber) return;
+        const bossUnlocked = !this.portal.lockedUntilBossDead || (this.boss && this.boss.dead);
+        if (!bossUnlocked) return;
+        const quotaState = this.getPortalQuotaStatus();
+        if (!quotaState.enabled || quotaState.unlocked) return;
+
+        const dist = Math.hypot(
+            (this.player.x + this.player.w / 2) - (this.portal.x + 28),
+            (this.player.y + this.player.h / 2) - (this.portal.y + 43)
+        );
+        const recentlyTouched = (this.levelTick - (this.portalLockedBounceTick || -999)) < 120;
+        if (dist > 210 && !recentlyTouched) return;
+
+        const summary = this.getPortalMissingSummary();
+        this.drawPlayerSpeechBalloon(ctx, summary.badgeLocked, summary.text, "#ffd166");
+    }
+
+    drawPlayerSpeechBalloon(ctx, badgeText, text, accentColor = "#00f2fe") {
+        if (!this.player || !text) return;
+        ctx.save();
+        const now = Date.now();
+        const bounceY = Math.sin(now * 0.005) * 3;
+        const bubbleX = this.player.x + 16;
+        const bubbleY = this.player.y - 68 + bounceY;
+        const maxBubbleW = Math.max(220, (this.canvas ? this.canvas.width : 640) - 24);
+
+        ctx.font = "bold 10px 'Segoe UI', system-ui, sans-serif";
+        const badgeW = ctx.measureText(badgeText).width + 14;
+
+        let fontPx = 12.5;
+        ctx.font = `bold ${fontPx}px 'Segoe UI', system-ui, sans-serif`;
+        let textW = ctx.measureText(text).width;
+        if (textW + 26 > maxBubbleW) {
+            fontPx = 10.5;
+            ctx.font = `bold ${fontPx}px 'Segoe UI', system-ui, sans-serif`;
+            textW = ctx.measureText(text).width;
+        }
+        const boxW = Math.min(maxBubbleW, Math.max(badgeW + 28, textW + 26));
+        const boxH = 46;
+
+        let boxX = bubbleX - boxW / 2;
+        let boxY = bubbleY - boxH;
+
+        const isNearTop = (boxY - (this.camera ? this.camera.y : 0)) < 30;
+        if (isNearTop) {
+            boxY = this.player.y + 60 + bounceY;
+        }
+
+        const camMinX = this.camera ? (this.camera.x + 10) : 10;
+        const camMaxX = this.camera ? (this.camera.x + this.canvas.width - boxW - 10) : 500;
+        boxX = Math.max(camMinX, Math.min(boxX, camMaxX));
+
+        ctx.shadowColor = accentColor;
+        ctx.shadowBlur = 14;
+        ctx.fillStyle = "rgba(4, 10, 24, 0.94)";
+        ctx.strokeStyle = accentColor;
+        ctx.lineWidth = 1.8;
+
+        ctx.beginPath();
+        ctx.roundRect(boxX, boxY, boxW, boxH, 10);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        if (isNearTop) {
+            ctx.moveTo(bubbleX - 7, boxY + 0.5);
+            ctx.lineTo(bubbleX, boxY - 8);
+            ctx.lineTo(bubbleX + 7, boxY + 0.5);
+        } else {
+            ctx.moveTo(bubbleX - 7, boxY + boxH - 0.5);
+            ctx.lineTo(bubbleX, boxY + boxH + 8);
+            ctx.lineTo(bubbleX + 7, boxY + boxH - 0.5);
+        }
+        ctx.fillStyle = "rgba(4, 10, 24, 0.94)";
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = "rgba(255, 209, 102, 0.22)";
+        ctx.strokeStyle = "rgba(255, 209, 102, 0.55)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect(boxX + 10, boxY + 6, badgeW, 14, 4);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = "#ffd166";
+        ctx.font = "bold 9.5px 'Segoe UI', system-ui, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(badgeText, boxX + 10 + badgeW / 2, boxY + 13);
+
+        ctx.fillStyle = "#f0fdff";
+        ctx.font = `bold ${fontPx}px 'Segoe UI', system-ui, sans-serif`;
+        ctx.fillText(text, boxX + boxW / 2, boxY + 31);
         ctx.restore();
     }
 
@@ -10719,90 +11174,9 @@ class Game {
         const langData = LEVEL1_BALLOON_GUIDES[this.lang] || LEVEL1_BALLOON_GUIDES.en;
         const text = langData[hintKey];
         if (!text) return;
+        if (hintKey === "portal" && !this.getPortalQuotaStatus().unlocked) return;
 
-        ctx.save();
-        const now = Date.now();
-        const bounceY = Math.sin(now * 0.005) * 3;
-        const bubbleX = this.player.x + 16;
-        let bubbleY = this.player.y - 68 + bounceY;
-
-        ctx.font = "bold 10px 'Segoe UI', system-ui, sans-serif";
-        const badgeText = langData.badge || "💡 GUIDE";
-        const badgeW = ctx.measureText(badgeText).width + 14;
-
-        ctx.font = "bold 13px 'Segoe UI', system-ui, sans-serif";
-        const textW = ctx.measureText(text).width;
-        const boxW = Math.max(badgeW + 28, textW + 26);
-        const boxH = 46;
-
-        let boxX = bubbleX - boxW / 2;
-        let boxY = bubbleY - boxH;
-
-        // If player jumps very high, position balloon below player
-        const isNearTop = (boxY - (this.camera ? this.camera.y : 0)) < 30;
-        if (isNearTop) {
-            boxY = this.player.y + 60 + bounceY;
-        }
-
-        // Clamp boxX inside screen bounds so it's never cut off
-        const camMinX = this.camera ? (this.camera.x + 10) : 10;
-        const camMaxX = this.camera ? (this.camera.x + this.canvas.width - boxW - 10) : 500;
-        boxX = Math.max(camMinX, Math.min(boxX, camMaxX));
-
-        // Draw Speech Bubble Glow & Card
-        ctx.shadowColor = "rgba(0, 242, 254, 0.4)";
-        ctx.shadowBlur = 14;
-        ctx.fillStyle = "rgba(4, 10, 24, 0.94)";
-        ctx.strokeStyle = "#00f2fe";
-        ctx.lineWidth = 1.8;
-
-        ctx.beginPath();
-        ctx.roundRect(boxX, boxY, boxW, boxH, 10);
-        ctx.fill();
-        ctx.stroke();
-
-        // Speech pointer arrow
-        ctx.beginPath();
-        if (isNearTop) {
-            // Pointer pointing UP to player
-            ctx.moveTo(bubbleX - 7, boxY + 0.5);
-            ctx.lineTo(bubbleX, boxY - 8);
-            ctx.lineTo(bubbleX + 7, boxY + 0.5);
-        } else {
-            // Pointer pointing DOWN to player
-            ctx.moveTo(bubbleX - 7, boxY + boxH - 0.5);
-            ctx.lineTo(bubbleX, boxY + boxH + 8);
-            ctx.lineTo(bubbleX + 7, boxY + boxH - 0.5);
-        }
-        ctx.fillStyle = "rgba(4, 10, 24, 0.94)";
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.shadowBlur = 0;
-
-        // Badge pill
-        ctx.fillStyle = "rgba(255, 209, 102, 0.22)";
-        ctx.strokeStyle = "rgba(255, 209, 102, 0.55)";
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.roundRect(boxX + 10, boxY + 6, badgeW, 14, 4);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = "#ffd166";
-        ctx.font = "bold 9.5px 'Segoe UI', system-ui, sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(badgeText, boxX + 10 + badgeW / 2, boxY + 13);
-
-        // Guide Text
-        ctx.fillStyle = "#f0fdff";
-        ctx.font = "bold 12.5px 'Segoe UI', system-ui, sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(text, boxX + boxW / 2, boxY + 31);
-
-        ctx.restore();
+        this.drawPlayerSpeechBalloon(ctx, langData.badge || "💡 GUIDE", text, "#00f2fe");
     }
 
     // ============================================================================
@@ -10877,6 +11251,35 @@ class Game {
                 const shopScreen = document.getElementById("screen-shop");
                 if (shopScreen && !shopScreen.classList.contains("hidden")) {
                     this.openShop();
+                }
+                const insuffScreen = document.getElementById("screen-insufficient-balance");
+                if (insuffScreen && !insuffScreen.classList.contains("hidden")) {
+                    const ivb = document.getElementById("btn-insuff-vip");
+                    if (ivb) ivb.classList.toggle("hidden", this.hasVipPass());
+                }
+                if (this.hasVipPass() && this.pendingVipPostPurchaseAction) {
+                    const action = this.pendingVipPostPurchaseAction;
+                    this.pendingVipPostPurchaseAction = null;
+                    if (vipScreen) vipScreen.classList.add("hidden");
+                    if (action === "revive" && this.state === "gameover") {
+                        this.revivePlayerWithAd();
+                        if (window.MarinextAnalytics) {
+                            window.MarinextAnalytics.logEvent("vip_post_purchase_action", { action: "revive" });
+                        }
+                    } else if (action === "double" && this.state === "victory" && !this.doubleRewardUsedInLevel) {
+                        this.doubleVictoryRewardsWithAd();
+                        if (window.MarinextAnalytics) {
+                            window.MarinextAnalytics.logEvent("vip_post_purchase_action", { action: "double" });
+                        }
+                    }
+                } else {
+                    const modalScreen = document.getElementById("screen-modal");
+                    if (modalScreen && !modalScreen.classList.contains("hidden")) {
+                        const vrb = document.getElementById("btn-gameover-vip-revive");
+                        if (vrb) vrb.classList.toggle("hidden", this.hasVipPass() || this.state !== "gameover");
+                        const vdb = document.getElementById("btn-victory-vip-double");
+                        if (vdb) vdb.classList.toggle("hidden", this.hasVipPass() || this.state !== "victory" || Boolean(this.doubleRewardUsedInLevel));
+                    }
                 }
                 if (ent.userRestore) {
                     const msgKey = this.hasNoForcedAds() ? "toastRestoreSuccess" : "toastRestoreNone";
@@ -11166,6 +11569,9 @@ class Game {
 
     closeVipStore() {
         window.sfx.coin();
+        if (!this.hasVipPass()) {
+            this.pendingVipPostPurchaseAction = null;
+        }
         const modal = document.getElementById("screen-vip-store");
         if (modal) modal.classList.add("hidden");
     }
