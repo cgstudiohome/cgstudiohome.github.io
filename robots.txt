@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://cgstudiohome.github.io/sitemap.xml
-Sitemap: https://cgstudiohome.github.io/cgstudio-sitemap.xml
