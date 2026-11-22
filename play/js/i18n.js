@@ -1886,7 +1886,9 @@
             cosmic_astronaut: { title: "Cosmic Astronaut (EVA-2100)", faceDesc: "Face: Gold-Reflective Full Sphere Space Visor", perkDesc: "🌌 Zero-G Glide: Slow Mid-Air Glide & +8% Jump Power", desc: "Pressurized white deep-space EVA suit, life-support backpack, and golden solar visor!" },
             ice_valkyrie: { title: "Northern Ice Valkyrie", faceDesc: "Face: Platinum Braided Hair & Ice-Blue Eyes", perkDesc: "🪽 Valkyrie Wings: Mid-Air Glide, Starter Shield & +12% Speed", desc: "Winged silver Valkyrie helm, crystal frost cape, Nordic armor, and freezing ice spear!" },
             golden_pharaoh: { title: "Golden Pharaoh (Sun King)", faceDesc: "Face: Kohl-Lined Eyes & Golden Pharaoh Beard", perkDesc: "☀️ Sun Treasury: Auto Emerald/Crystal Magnet & +50% Coin Chance", desc: "Cobra-crested blue-and-gold Nemes headdress, broad golden collar armor, and glowing Sun Staff!" },
-            spartan_gladiator: { title: "Spartan Commander (Leonidas)", faceDesc: "Face: Battle Beard & Strong Spartan Jaw", perkDesc: "🛡️ Spartan Shield: +1 Extra Heart (♥) & Extended Post-Hit Protection", desc: "Crimson horsehair-crested bronze Corinthian helmet, red Spartan cape, round shield, and spear!" }
+            spartan_gladiator: { title: "Spartan Commander (Leonidas)", faceDesc: "Face: Battle Beard & Strong Spartan Jaw", perkDesc: "🛡️ Spartan Shield: +1 Extra Heart (♥) & Extended Post-Hit Protection", desc: "Crimson horsehair-crested bronze Corinthian helmet, red Spartan cape, round shield, and spear!" },
+            vip_quantum_emperor: { title: "Golden Quantum Emperor", faceDesc: "Face: Holographic Quantum Visor & Imperial Gold Armor", perkDesc: "👑 VIP Emperor: Super Treasure Magnet (+110px), Starter Shield & +50% Coins/Score", desc: "Floating 3-spire holographic crown, obsidian-gold quantum armor, and Quantum Scepter!" },
+            vip_cyber_phoenix: { title: "Cyber Phoenix Knight", faceDesc: "Face: Ember-Lit Eyes & Crimson Phoenix Beak Guard", perkDesc: "🔥 Phoenix Reborn: 1x Auto-Revive Per Stage + Glide + Triple Jump + Rapid Fire", desc: "Born from flames! Automatically revives once per stage with shield & firestorm when defeated!" }
         },
         ru: {
             default: { title: "Кибер-Рыцарь Тени", faceDesc: "Лицо: Неоновая маска с лазерным визором", perkDesc: "⚡ Ловкость: +5% к скорости и кибер-броня", desc: "Стандартный бронированный костюм кибер-рыцаря будущего." },
@@ -1903,7 +1905,33 @@
             cosmic_astronaut: { title: "Космонавт (EVA-2100)", faceDesc: "Лицо: Золотой зеркальный скафандр", perkDesc: "🌌 Невесомость: Плавное планирование в воздухе и +8% прыжок", desc: "Белый космический скафандр EVA, ранец жизнеобеспечения и золотой визор!" },
             ice_valkyrie: { title: "Северная Ледяная Валькирия", faceDesc: "Лицо: Платиновые косы и ледяные глаза", perkDesc: "🪽 Крылья Валькирии: Планирование, щит и +12% скорость", desc: "Крылатый шлем Валькирии, ледяной плащ и морозное копьё!" },
             golden_pharaoh: { title: "Золотой Фараон (Царь Солнца)", faceDesc: "Лицо: Подведенные глаза и золотая борода фараона", perkDesc: "☀️ Сокровище Солнца: Авто-магнит и +50% шанс монет", desc: "Головной убор Немес с коброй, золотой воротник и Посох Солнца!" },
-            spartan_gladiator: { title: "Спартанский Полководец (Леонид)", faceDesc: "Лицо: Боевая борода спартанца", perkDesc: "🛡️ Щит Спарты: +1 Жизнь (♥) и долгая защита после удара", desc: "Бронзовый коринфский шлем с красным гребнем, плащ, щит и копьё!" }
+            spartan_gladiator: { title: "Спартанский Полководец (Леонид)", faceDesc: "Лицо: Боевая борода спартанца", perkDesc: "🛡️ Щит Спарты: +1 Жизнь (♥) и долгая защита после удара", desc: "Бронзовый коринфский шлем с красным гребнем, плащ, щит и копьё!" },
+            vip_quantum_emperor: { title: "Золотой Квантовый Император", faceDesc: "Лицо: Квантовый визор и золотые пластины", perkDesc: "👑 VIP Император: Магнит +110px, щит на старте и +50% монет/очков", desc: "Парящая квантовая корона, обсидианово-золотая броня и Императорский скипетр!" },
+            vip_cyber_phoenix: { title: "Кибер-Рыцарь Феникс", faceDesc: "Лицо: Огненные глаза и алый шлем феникса", perkDesc: "🔥 Возрождение Феникса: 1 авто-воскрешение за уровень + полёт + 3x прыжок", desc: "Легендарный VIP-воин с крыльями пламени: воскресает с щитом раз за уровень!" }
+        },
+        ko: {
+            vip_quantum_emperor: { title: "황금 양자 황제", faceDesc: "얼굴: 홀로그램 퀀텀 바이저 & 황금 아머", perkDesc: "👑 VIP 황제: 슈퍼 보물 자석(+110px), 시작 쉴드 & 코인/점수 +50%", desc: "부유하는 3봉 황금 홀로그램 왕관과 옵시디언 골드 퀀텀 아머, 양자 홀!" },
+            vip_cyber_phoenix: { title: "사이버 피닉스 나이트", faceDesc: "얼굴: 불꽃 눈빛 & 진홍 피닉스 투구", perkDesc: "🔥 불사조 부활: 스테이지당 1회 자동 부활 + 활강 + 3단 점프 + 고속 화염", desc: "패배해도 스테이지마다 1회 쉴드와 화염으로 자동 부활하는 VIP 전설 기사!" }
+        },
+        ja: {
+            vip_quantum_emperor: { title: "黄金クォンタム皇帝", faceDesc: "顔: ホログラム量子バイザー＆黄金装甲", perkDesc: "👑 VIP皇帝: 超トレジャー磁石(+110px)、初期シールド＆コイン/スコア+50%", desc: "浮遊する3尖黄金クラウンと黒金クォンタム装甲、軌道量子セプター装備！" },
+            vip_cyber_phoenix: { title: "サイバーフェニックス騎士", faceDesc: "顔: 熾火の瞳＆真紅の不死鳥兜", perkDesc: "🔥 不死鳥復活: ステージ毎1回自動蘇生＋滑空＋3段ジャンプ＋高速炎弾", desc: "倒れてもステージ毎に1度シールド付きで炎から自動復活するVIP伝説騎士！" }
+        },
+        zh: {
+            vip_quantum_emperor: { title: "黄金量子皇帝", faceDesc: "外观: 全息量子护目镜与黑金帝皇战甲", perkDesc: "👑 VIP 帝皇: 超级吸宝磁铁(+110px)、开局护盾 & 金币/得分 +50%", desc: "悬浮三尖全息皇冠、黑金量子战甲与环绕量子权杖！" },
+            vip_cyber_phoenix: { title: "赛博凤凰骑士", faceDesc: "外观: 炽焰双眸与绯红凤凰战盔", perkDesc: "🔥 凤凰涅槃: 每关1次自动复活 + 滑翔 + 三段跳 + 极速火球", desc: "VIP 专属烈焰战骑，每关战败时可携带护盾原地浴火重生 1 次！" }
+        },
+        it: {
+            vip_quantum_emperor: { title: "Imperatore Quantico d'Oro", faceDesc: "Volto: Visore Olografico Quantico & Piastre d'Oro", perkDesc: "👑 Imperatore VIP: Super Magnete (+110px), Scudo iniziale & +50% Monete/Punti", desc: "Corona olografica a 3 punte fluttuante, armatura nero-oro e Scettro Quantico!" },
+            vip_cyber_phoenix: { title: "Cavaliere Fenice Cyber", faceDesc: "Volto: Occhi Ardenti & Elmo Becco Fenice", perkDesc: "🔥 Rinascita Fenice: 1 Auto-Rinascita a livello + Planata + Triplo Salto", desc: "Leggendario cavaliere VIP: rinasce automaticamente dalle ceneri con scudo una volta per livello!" }
+        },
+        es: {
+            vip_quantum_emperor: { title: "Emperador Cuántico Dorado", faceDesc: "Rostro: Visor Holográfico Cuántico y Placas Doradas", perkDesc: "👑 Emperador VIP: Súper Imán (+110px), Escudo inicial y +50% Monedas/Puntos", desc: "¡Corona holográfica flotante de 3 puntas, armadura negro-oro y Cetro Cuántico!" },
+            vip_cyber_phoenix: { title: "Caballero Fénix Cíber", faceDesc: "Rostro: Ojos de Fuego y Yelmo Pico de Fénix", perkDesc: "🔥 Renacer Fénix: 1 Auto-Reanimación por nivel + Planeo + Triple Salto", desc: "¡Caballero VIP legendario que revive automáticamente de las cenizas con escudo una vez por nivel!" }
+        },
+        fr: {
+            vip_quantum_emperor: { title: "Empereur Quantique d'Or", faceDesc: "Visage : Visière Quantique Holographique & Plaques d'Or", perkDesc: "👑 Empereur VIP : Super Aimant (+110px), Bouclier & +50% Pièces/Score", desc: "Couronne holographique flottante à 3 pointes, armure or-obsidienne et Sceptre Quantique !" },
+            vip_cyber_phoenix: { title: "Chevalier Phénix Cyber", faceDesc: "Visage : Yeux Embrasés & Heaume Bec de Phénix", perkDesc: "🔥 Renaissance Phénix : 1 Auto-Réanimation / niveau + Vol Plané + Triple Saut", desc: "Chevalier VIP légendaire : renaît automatiquement de ses cendres avec bouclier 1 fois par niveau !" }
         }
     };
 
@@ -2006,8 +2034,7 @@
 
     window.getLocalizedHeroItem = function (item, lang) {
         if (!item || lang === "tr") return item;
-        const map = HERO_TRANSLATIONS[lang] || HERO_TRANSLATIONS.en;
-        const tr = map && map[item.id];
+        const tr = (HERO_TRANSLATIONS[lang] && HERO_TRANSLATIONS[lang][item.id]) || (HERO_TRANSLATIONS.en && HERO_TRANSLATIONS.en[item.id]);
         if (!tr) return item;
         return {
             ...item,
@@ -2097,12 +2124,54 @@
         cape_crimson: ["Blood Crimson Cape", "Noble knight crimson cape."],
         cape_white: ["Pure White Light Cape", "Radiant snow-white cape glowing in the dark."],
         cape_toxic: ["Neon Acid Cape", "Bright lime-green cyber cape."],
-        cape_rainbow: ["Rainbow Spectrum Cape", "Legendary RGB cape that shifts colors as it waves!"]
+        cape_rainbow: ["Rainbow Spectrum Cape", "Legendary RGB cape that shifts colors as it waves!"],
+        gear_vip_phoenix_wings: ["VIP Phoenix Flame Wings", "Blazing ember phoenix wings exclusive to VIP Pass (Glide + Jump Boost)."],
+        aura_vip_goldstars: ["VIP Imperial Goldstar Aura", "Orbiting 4-point star crystals & golden-cyan quantum ring."],
+        cape_vip_imperial: ["VIP Imperial Purple Cape", "Royal violet-gold trimmed quantum cape with maximum air control!"]
+    };
+
+    const VIP_CUST_I18N = {
+        ru: {
+            gear_vip_phoenix_wings: ["VIP Огненные Крылья Феникса", "Пылающие крылья для VIP Pass: плавное планирование и высокий прыжок."],
+            aura_vip_goldstars: ["VIP Золотая Императорская Аура", "Кольцо квантового золота и вращающиеся звёздные кристаллы."],
+            cape_vip_imperial: ["VIP Императорский Плащ", "Пурпурно-золотой плащ с максимальным контролем в воздухе!"]
+        },
+        ko: {
+            gear_vip_phoenix_wings: ["VIP 피닉스 불꽃 날개", "VIP 패스 전용 불타는 피닉스 날개 (활강 + 점프 강화)."],
+            aura_vip_goldstars: ["VIP 황금 황제 오라", "회전하는 4각 별 크리스탈과 황금-청록 양자 링."],
+            cape_vip_imperial: ["VIP 황실 보라 망토", "황금 테두리가 빛나는 보라빛 퀀텀 망토!"]
+        },
+        ja: {
+            gear_vip_phoenix_wings: ["VIP 不死鳥の炎翼", "VIPパス限定の灼熱フェニックス翼（滑空＋ジャンプ強化）。"],
+            aura_vip_goldstars: ["VIP 黄金皇帝オーラ", "周回する星結晶と黄金・青磁の量子リング。"],
+            cape_vip_imperial: ["VIP 皇帝インペリアルマント", "金縁が輝く高貴な紫の量子マント＆最高峰エア制御！"]
+        },
+        zh: {
+            gear_vip_phoenix_wings: ["VIP 凤凰烈焰之翼", "VIP 专属灼热凤凰羽翼（滑翔 + 跳跃增强）。"],
+            aura_vip_goldstars: ["VIP 黄金帝皇光环", "环绕星芒水晶与金青色量子光环。"],
+            cape_vip_imperial: ["VIP 帝皇紫金披风", "金边高贵紫量子披风，提供顶级空中机动！"]
+        },
+        it: {
+            gear_vip_phoenix_wings: ["Ali di Fiamma Fenice VIP", "Ali infuocate esclusive VIP Pass (Planata + Salto Extra)."],
+            aura_vip_goldstars: ["Aura Imperiale Stelle d'Oro VIP", "Cristalli stellari orbitanti e anello quantico oro-ciano."],
+            cape_vip_imperial: ["Mantello Imperiale Viola VIP", "Mantello viola-oro VIP con massimo controllo aereo!"]
+        },
+        es: {
+            gear_vip_phoenix_wings: ["Alas de Llama Fénix VIP", "Alas ardientes exclusivas Pase VIP (Planeo + Salto)."],
+            aura_vip_goldstars: ["Aura Imperial Estrellas Doradas VIP", "Cristales estelares y anillo cuántico dorado-cian."],
+            cape_vip_imperial: ["Capa Imperial Púrpura VIP", "¡Capa violeta y oro con máximo control aéreo!"]
+        },
+        fr: {
+            gear_vip_phoenix_wings: ["Ailes Flamme Phénix VIP", "Ailes ardentes exclusives Pass VIP (Vol plané + Saut)."],
+            aura_vip_goldstars: ["Aura Impériale Étoiles d'Or VIP", "Cristaux stellaires orbitaux et anneau quantique or-cyan."],
+            cape_vip_imperial: ["Cape Impériale Pourpre VIP", "Cape royale pourpre et or avec contrôle aérien maximal !"]
+        }
     };
 
     window.getLocalizedCustomizeItem = function (item, lang) {
         if (!item || lang === "tr") return item;
-        const pair = CUST_ITEM_EN[item.id];
+        const vipPair = VIP_CUST_I18N[lang] && VIP_CUST_I18N[lang][item.id];
+        const pair = vipPair || CUST_ITEM_EN[item.id];
         if (!pair) return item;
         return {
             ...item,
@@ -2114,14 +2183,14 @@
     window.getLocalizedPerkDesc = function (item, perkObj, lang) {
         if (!perkObj || lang === "tr") return perkObj ? perkObj.desc : "";
         if (!item) return "⚡ Standard Cyber Gear";
-        const tier = Math.max(1, Number(item.cost) || 1);
+        const tier = item.vipOnly ? 6 : Math.max(1, Number(item.cost) || 1);
         if (item.category === "helmet") {
             const inv = 6 + tier * 3;
             const spd = Math.round((0.08 + tier * 0.03) * 18);
             return `🛡️ Armor Protection: +${inv} Invuln Frames & +${spd}% Speed`;
         }
         if (item.category === "backGear") {
-            const isWingOrJet = ["jetpack", "wings", "dragon_wings", "angel_wings"].includes(item.value);
+            const isWingOrJet = ["jetpack", "wings", "dragon_wings", "angel_wings", "vip_phoenix_wings"].includes(item.value);
             if (isWingOrJet) {
                 return `🪽 Mid-Air Glide & +${4 + tier}% Jump Power`;
             }
@@ -2140,7 +2209,7 @@
             return `👁️ Targeting Visor: +${magBonus}px Magnet Range & +${tier * 6}% Coin Chance`;
         }
         if (item.category === "aura") {
-            if (item.cost === 0) return "⭕ Clean Look (No Extra Aura)";
+            if (item.cost === 0 && !item.vipOnly) return "⭕ Clean Look (No Extra Aura)";
             const scMult = Math.round(tier * 6);
             return `✨ Energy Aura: +${scMult}% Score Multiplier & +${tier * 12}px Magnet`;
         }
@@ -5295,302 +5364,302 @@ window.MARINEXT_TUTORIAL_DATA = {
 })();
 
 
-// Full 9-Language "What's New in v1.4.6" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.4.7" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "👑 v1.4.6 Reklamsız Deneyim & VIP Pass",
-        "subtitle": "Oyunu ücretsiz oynamaya devam edebilir veya dilersen reklamları kaldırıp VIP ayrıcalıklarla kesintisiz akışa geçebilirsin:",
+        "title": "👑 v1.4.7 VIP Efsane Kahramanlar & Atölye Efektleri",
+        "subtitle": "Altın Kuantum İmparator, küllerinden doğan Siber Anka Şövalyesi ve 3 VIP Prestij Efekti Marinext 2100'e katıldı!",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
                 "icon": "👑",
-                "title": "VIP Pass (1 / 3 / 12 Aylık Esnek Planlar)",
-                "desc": "Tüm zorunlu reklamları kapatır; her bölümde reklamsız anında canlanma, günde 5 anında ödül bileti ve günlük +1000 Coin / +100 Zümrüt kazandırır."
-            },
-            {
-                "icon": "🛡️",
-                "title": "Tek Seferlik Ömür Boyu Reklamsız Paket",
-                "desc": "Abonelik istemeyen oyuncular için tek ödemeyle zorunlu reklamları kalıcı olarak kapatır ve +1500 Coin / +50 Zümrüt hoş geldin hediyesi verir."
-            },
-            {
-                "icon": "💎",
-                "title": "Saygılı ve Kesintisiz Oynanış Dengesi",
-                "desc": "Ücretsiz oynayan oyuncular da hiçbir baskı olmadan oyunun tüm 100 ana bölümü ve 50 Trol etabını sonuna kadar oynayabilir."
-            },
-            {
-                "icon": "☁️",
-                "title": "Güvenli Bulut Kayıt & Cihazlar Arası Koruma",
-                "desc": "VIP ve Ömür Boyu paket haklarınız Google Play hesabınızla otomatik korunur; cihaz değiştirseniz bile tek dokunuşla geri yüklenir."
+                "title": "2 Yeni VIP Efsane Kahraman",
+                "desc": "Altın Kuantum İmparator (+110px dev mıknatıs & +%50 Coin/Skor) ve bölüm başı 1x Anka Otomatik Dirilişi + 3x zıplama gücüne sahip Siber Anka Şövalyesi!"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra Akıcı & 9 Dilde Macera",
-                "desc": "Fatih Sultan Mehmet, Yavuz Sultan Selim, Kanuni ve siber kahramanlarla 20 Boss savaşını sıfır gecikmeyle fethet!"
+                "title": "3 Zirve Kahramanda VIP Erken Erişim",
+                "desc": "Fatih Sultan Mehmet, Yavuz Sultan Selim ve Altın Firavun herkes için Altın Coin ile kalıcı açılabilir; VIP Pass sahipleri ise 0 Coin ile anında kuşanır!"
+            },
+            {
+                "icon": "✨",
+                "title": "3 VIP Prestij Atölye Efekti",
+                "desc": "VIP Anka Alev Kanatları, VIP Altın İmparator Aurası ve mor-altın VIP İmparatorluk Pelerini Karakter Atölyesi'nde seni bekliyor!"
+            },
+            {
+                "icon": "💎",
+                "title": "100% Adil Ücretsiz Denge Korundu",
+                "desc": "Oyundaki tüm 14 ücretsiz kahraman, 8 güçlendirme, 100 ana bölüm ve 50 Trol etabı hiçbir baskı veya ödeme duvarı olmadan açık kalmaya devam eder."
+            },
+            {
+                "icon": "☁️",
+                "title": "Google Play Senkronizasyon & 120 FPS",
+                "desc": "VIP haklarınız ve Ömür Boyu Reklamsız paketiniz Google Play ile korunur; 120 FPS ve 9 dilde kesintisiz oynanış sunar."
             }
         ]
     },
     "en": {
-        "title": "👑 v1.4.6 Ad-Free Experience & VIP Pass",
-        "subtitle": "Enjoy Marinext 2100 100% free anytime, or unlock effortless ad-free progression with our flexible options:",
+        "title": "👑 v1.4.7 VIP Legendary Heroes & Workshop FX",
+        "subtitle": "Meet Golden Quantum Emperor, Phoenix-reborn Cyber Knight, VIP Peak Hero Early Access & 3 Prestige Effects!",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
                 "icon": "👑",
-                "title": "VIP Pass (1 / 3 / 12-Month Plans)",
-                "desc": "Removes all forced ads and grants 1 instant ad-free revive per level, 5 daily instant 2x/chest skips, plus +1000 Coins / +100 Emeralds every day."
-            },
-            {
-                "icon": "🛡️",
-                "title": "One-Time Lifetime Remove Ads Pack",
-                "desc": "Prefer no recurring subscription? Remove forced interstitial ads permanently with a single purchase and receive +1500 Coins & +50 Emeralds."
-            },
-            {
-                "icon": "💎",
-                "title": "Player-First Fair Balance",
-                "desc": "Free players continue to enjoy every single one of our 100 campaign stages and 50 Troll levels with zero paywalls or nagging prompts."
-            },
-            {
-                "icon": "☁️",
-                "title": "Cross-Device Purchase & Cloud Protection",
-                "desc": "Your VIP Pass and Lifetime perks sync automatically via Google Play Billing and restore cleanly on any new phone or tablet."
+                "title": "2 New VIP-Exclusive Legendary Heroes",
+                "desc": "Golden Quantum Emperor (+110px magnet & +50% Coins/Score) and Cyber Phoenix Knight with 1x per-stage Phoenix Auto-Revive, Glide & Triple Jump!"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluid & 9 Languages",
-                "desc": "Command 14 historical and cyber heroes against 20 colossal bosses at silky-smooth 120 FPS across 9 full languages."
+                "title": "3 Peak Heroes VIP Early Access",
+                "desc": "Sultan Mehmed II, Sultan Selim I & Golden Pharaoh remain permanently unlockable with Gold Coins, or instantly playable at 0 Coins with VIP Pass!"
+            },
+            {
+                "icon": "✨",
+                "title": "3 VIP Workshop Prestige Cosmetics",
+                "desc": "VIP Phoenix Flame Wings, VIP Imperial Goldstar Aura & Purple-Gold Imperial Cape now glow live on the Workshop pedestal!"
+            },
+            {
+                "icon": "💎",
+                "title": "100% Fair Free Balance Guaranteed",
+                "desc": "All 14 earnable heroes, 8 permanent upgrades, 100 campaign stages, and 50 Troll levels stay 100% free with zero paywalls."
+            },
+            {
+                "icon": "☁️",
+                "title": "Google Play Cloud Sync & 120 FPS",
+                "desc": "Your VIP Pass & Lifetime perks stay protected across devices via Google Play at silky-smooth 120 FPS across all 9 languages."
             }
         ]
     },
     "ru": {
-        "title": "👑 v1.4.6 Без рекламы и VIP-пропуск",
-        "subtitle": "Продолжайте играть бесплатно или выберите комфортный режим без обязательной рекламы и с мгновенными VIP-бонусами:",
+        "title": "👑 v1.4.7 VIP-Герои Легенды и Эффекты Мастерской",
+        "subtitle": "Встречайте Золотого Квантового Императора, Рыцаря-Феникса с авто-воскрешением и 3 VIP-эффекта!",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
                 "icon": "👑",
-                "title": "VIP-пропуск (1 / 3 / 12 месяцев)",
-                "desc": "Полностью убирает обязательную рекламу, даёт мгновенное возрождение на уровне, 5 бонусов в день без видео и +1000 монет / +100 изумрудов ежедневно."
-            },
-            {
-                "icon": "🛡️",
-                "title": "Пакет «Навсегда без рекламы»",
-                "desc": "Разовая покупка без подписки навсегда отключает обязательную рекламу и дарит +1500 монет и +50 изумрудов."
-            },
-            {
-                "icon": "💎",
-                "title": "Честный баланс без навязчивости",
-                "desc": "Вся кампания из 100 уровней и 50 тролл-этапов по-прежнему полностью доступна бесплатно без давления на игрока."
-            },
-            {
-                "icon": "☁️",
-                "title": "Восстановление покупок и облако",
-                "desc": "Все ваши привилегии защищены аккаунтом Google Play и легко восстанавливаются на любом новом устройстве."
+                "title": "2 новых VIP-героя Легенды",
+                "desc": "Квантовый Император (магнит +110px и +50% к счёту) и Кибер-Рыцарь Феникс с автоматическим возрождением раз за уровень!"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS и 9 языков",
-                "desc": "14 героев, 20 боссов, плавное управление и мгновенная синхронизация сохранений."
+                "title": "Ранний VIP-доступ к 3 вершинам",
+                "desc": "Султан Мехмед, Султан Селим и Золотой Фараон открываются за монеты бесплатно или доступны сразу за 0 монет с VIP Pass!"
+            },
+            {
+                "icon": "✨",
+                "title": "3 престижных VIP-эффекта Мастерской",
+                "desc": "Огненные крылья Феникса, Золотая императорская аура и Пурпурно-золотой плащ уже доступны для предпросмотра и игры."
+            },
+            {
+                "icon": "💎",
+                "title": "Честный баланс для всех игроков",
+                "desc": "Все 14 основных героев, 100 уровней кампании и 50 тролл-этапов по-прежнему полностью бесплатны."
+            },
+            {
+                "icon": "☁️",
+                "title": "120 FPS и защита Google Play",
+                "desc": "Покупки и подписки надёжно синхронизируются с Google Play на всех ваших устройствах."
             }
         ]
     },
     "it": {
-        "title": "👑 v1.4.6 Esperienza Senza Pubblicità & VIP Pass",
-        "subtitle": "Gioca gratis quando vuoi oppure scegli il comfort totale senza annunci forzati e con vantaggi VIP istantanei:",
+        "title": "👑 v1.4.7 Eroi Leggendari VIP & Effetti Officina",
+        "subtitle": "Scopri l'Imperatore Quantico d'Oro, il Cavaliere Fenice con Auto-Rinascita, Accesso Anticipato ed effetti VIP!",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
                 "icon": "👑",
-                "title": "VIP Pass (Piani 1 / 3 / 12 Mesi)",
-                "desc": "Rimuove gli annunci forzati e include 1 rinascita istantanea per livello, 5 premi 2x/forziere al giorno senza video e +1000 Monete / +100 Smeraldi al giorno."
-            },
-            {
-                "icon": "🛡️",
-                "title": "Pacchetto A Vita Senza Pubblicità",
-                "desc": "Nessun abbonamento: acquisto singolo per eliminare per sempre gli annunci forzati + regalo di +1500 Monete e +50 Smeraldi."
-            },
-            {
-                "icon": "💎",
-                "title": "Equilibrio Giusto e Rispettoso",
-                "desc": "Tutti i 100 livelli della campagna e i 50 livelli Troll restano 100% giocabili gratuitamente senza pressioni."
-            },
-            {
-                "icon": "☁️",
-                "title": "Ripristino Google Play & Salvataggio Cloud",
-                "desc": "I tuoi acquisti e progressi si sincronizzano automaticamente tra smartphone e tablet tramite il tuo account Google Play."
+                "title": "2 Nuovi Eroi Leggendari VIP",
+                "desc": "Imperatore Quantico d'Oro (+110px magnete & +50% Monete/Punti) e Cavaliere Fenice con 1 Auto-Rinascita a livello e Triplo Salto!"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluido & 9 Lingue",
-                "desc": "Affronta 20 boss colossali con 14 eroi storici e cyber a 120 FPS."
+                "title": "Accesso Anticipato VIP a 3 Eroi Top",
+                "desc": "Sblocca con Monete d'Oro gratis o prova subito a 0 Monete Maometto II, Selim I e il Faraone d'Oro con VIP Pass attivo!"
+            },
+            {
+                "icon": "✨",
+                "title": "3 Effetti Esclusivi Officina VIP",
+                "desc": "Ali di Fiamma Fenice VIP, Aura Stelle d'Oro Imperiale e Mantello Imperiale Viola-Oro ti aspettano nell'Officina."
+            },
+            {
+                "icon": "💎",
+                "title": "Equilibrio 100% Giusto e Gratuito",
+                "desc": "Tutti i 14 eroi base, 8 potenziamenti, 100 livelli campagna e 50 Troll restano sempre giocabili gratuitamente."
+            },
+            {
+                "icon": "☁️",
+                "title": "120 FPS & Sincronizzazione Play",
+                "desc": "I tuoi vantaggi VIP e A vita restano al sicuro sul tuo account Google Play in 9 lingue a 120 FPS."
             }
         ]
     },
     "es": {
-        "title": "👑 v1.4.6 Experiencia Sin Anuncios y Pase VIP",
-        "subtitle": "Disfruta gratis cuando quieras o elige jugar sin anuncios forzados y con recompensas VIP instantáneas:",
+        "title": "👑 v1.4.7 Héroes VIP Legendarios y Efectos de Taller",
+        "subtitle": "¡Conoce al Emperador Cuántico Dorado, al Caballero Fénix con Auto-Reanimación y 3 cosméticos de prestigio VIP!",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
                 "icon": "👑",
-                "title": "Pase VIP (Planes de 1 / 3 / 12 Meses)",
-                "desc": "Cero anuncios forzados, 1 reanimación sin anuncios por nivel, 5 bonos diarios al instante y +1000 Monedas / +100 Esmeraldas cada día."
-            },
-            {
-                "icon": "🛡️",
-                "title": "Sin Anuncios Vitalicio (Pago Único)",
-                "desc": "Sin suscripciones mensuales: elimina para siempre los anuncios obligatorios con +1500 Monedas y +50 Esmeraldas de regalo."
-            },
-            {
-                "icon": "💎",
-                "title": "Experiencia Justa para Todos",
-                "desc": "Los 100 niveles principales y los 50 niveles Troll siguen siendo 100% accesibles gratis y sin presiones."
-            },
-            {
-                "icon": "☁️",
-                "title": "Protección en la Nube y Restauración",
-                "desc": "Tus ventajas VIP y Vitalicio se vinculan a tu cuenta de Google Play y funcionan en todos tus dispositivos."
+                "title": "2 Nuevos Héroes VIP Legendarios",
+                "desc": "¡Emperador Cuántico (+110px imán y +50% Monedas/Puntos) y Caballero Fénix con 1 Auto-Reanimación por nivel, Planeo y Triple Salto!"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Fluido en 9 Idiomas",
-                "desc": "14 héroes históricos y cíber y 20 jefes colosales con respuesta táctil instantánea."
+                "title": "Acceso Anticipado VIP a 3 Héroes Top",
+                "desc": "Mehmed II, Selim I y Faraón Dorado siguen desbloqueables con Monedas gratis o listos a 0 Monedas con tu Pase VIP."
+            },
+            {
+                "icon": "✨",
+                "title": "3 Cosméticos VIP de Prestigio",
+                "desc": "Alas de Llama Fénix VIP, Aura Estrellas Doradas y Capa Imperial Púrpura-Oro ya brillan en el Taller."
+            },
+            {
+                "icon": "💎",
+                "title": "Equilibrio Justo Garantizado",
+                "desc": "Todos los 14 héroes gratuitos, 8 mejoras, 100 niveles de campaña y 50 niveles Troll permanecen 100% libres de barreras."
+            },
+            {
+                "icon": "☁️",
+                "title": "120 FPS y Protección Google Play",
+                "desc": "Tu Pase VIP y acceso Vitalicio se sincronizan automáticamente en todos tus dispositivos Android."
             }
         ]
     },
     "fr": {
-        "title": "👑 v1.4.6 Expérience Sans Pub & Pass VIP",
-        "subtitle": "Jouez gratuitement à tout moment ou profitez d'un confort total sans publicités forcées et avec bonus VIP instantanés :",
+        "title": "👑 v1.4.7 Héros Légendaires VIP & Effets Atelier",
+        "subtitle": "Découvrez l'Empereur Quantique d'Or, le Chevalier Phénix avec Auto-Réanimation, l'Accès Anticipé & 3 effets VIP !",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
                 "icon": "👑",
-                "title": "Pass VIP (Formules 1 / 3 / 12 Mois)",
-                "desc": "Zéro pub forcée, 1 réanimation instantanée par niveau, 5 récompenses sans pub par jour et +1000 Pièces / +100 Émeraudes chaque jour."
-            },
-            {
-                "icon": "🛡️",
-                "title": "Pack Sans Pub À Vie (Achat Unique)",
-                "desc": "Sans abonnement récurrent : supprime définitivement les pubs obligatoires + cadeau de +1500 Pièces et +50 Émeraudes."
-            },
-            {
-                "icon": "💎",
-                "title": "Équilibre Respectueux du Joueur",
-                "desc": "Les 100 niveaux d'aventure et 50 niveaux Troll restent intégralement jouables gratuitement, sans aucune pression."
-            },
-            {
-                "icon": "☁️",
-                "title": "Restauration & Sauvegarde Cloud",
-                "desc": "Vos achats Google Play et votre progression se synchronisent facilement sur tous vos téléphones et tablettes."
+                "title": "2 Nouveaux Héros Légendaires VIP",
+                "desc": "Empereur Quantique (+110px aimant & +50% Pièces/Score) et Chevalier Phénix avec 1 Auto-Réanimation par niveau et Triple Saut !"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluide en 9 Langues",
-                "desc": "14 héros légendaires et 20 boss épiques avec une fluidité parfaite."
+                "title": "Accès Anticipé VIP sur 3 Héros Top",
+                "desc": "Mehmed II, Sélim Ier et Pharaon d'Or restent déblocables en Pièces d'Or ou accessibles à 0 Pièce avec le Pass VIP !"
+            },
+            {
+                "icon": "✨",
+                "title": "3 Effets Atelier de Prestige VIP",
+                "desc": "Ailes Flamme Phénix VIP, Aura Étoiles d'Or Impériale et Cape Impériale Pourpre-Or disponibles dès maintenant."
+            },
+            {
+                "icon": "💎",
+                "title": "Équilibre 100% Équitable Garanti",
+                "desc": "Les 14 héros gratuits, 8 améliorations, 100 niveaux d'aventure et 50 niveaux Troll restent intégralement jouables gratuitement."
+            },
+            {
+                "icon": "☁️",
+                "title": "120 FPS & Synchronisation Google Play",
+                "desc": "Vos avantages VIP et Sans Pub à vie suivent votre compte Google Play sur tous vos appareils."
             }
         ]
     },
     "ko": {
-        "title": "👑 v1.4.6 광고 제거 & VIP 패스 출시",
-        "subtitle": "무료로 끝까지 즐기거나, 강제 광고 없이 즉시 보상을 받는 편안한 VIP/평생 플랜을 만나보세요:",
+        "title": "👑 v1.4.7 VIP 전설 영웅 & 공방 프레스티지 효과",
+        "subtitle": "황금 양자 황제, 불사조 자동 부활을 지닌 사이버 피닉스 기사, 3영웅 조기 체험 & VIP 전용 효과가 추가되었습니다!",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
                 "icon": "👑",
-                "title": "VIP 패스 (1 / 3 / 12개월 유연 플랜)",
-                "desc": "모든 강제 광고 제거, 스테이지당 1회 광고 없는 즉시 부활, 일일 5회 즉시 보상 티켓 및 매일 +1000 코인 / +100 에메랄드 지급!"
-            },
-            {
-                "icon": "🛡️",
-                "title": "일회성 평생 광고 제거 패키지",
-                "desc": "정기 결제 없이 단 한 번 구매로 강제 광고를 영구 제거하고 +1500 코인 & +50 에메랄드 환영 선물을 받으세요."
-            },
-            {
-                "icon": "💎",
-                "title": "부담 없는 공정한 무료 플레이",
-                "desc": "결제하지 않아도 100개 메인 스테이지와 50개 트롤 스테이지를 아무 제약 없이 마음껏 즐길 수 있습니다."
-            },
-            {
-                "icon": "☁️",
-                "title": "기기 간 구매 복원 & 클라우드 보호",
-                "desc": "VIP 및 평생 광고 제거 권한은 Google Play 계정과 연동되어 새 기기에서도 즉시 복원됩니다."
+                "title": "신규 VIP 전설 영웅 2종 출시",
+                "desc": "황금 양자 황제(+110px 슈퍼 자석 & 코인/점수 +50%) 및 스테이지당 1회 자동 부활 + 3단 점프 능력을 지닌 사이버 피닉스 기사!"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS 초고속 액션 & 9개 언어",
-                "desc": "14명의 영웅과 20명의 거대 보스를 120 FPS의 부드러운 조작감으로 정복하세요."
+                "title": "최고 영웅 3종 VIP 조기 체험",
+                "desc": "메흐메트 2세, 셀림 1세, 황금 파라오는 무료 골드 코인으로 영구 해금 가능하며 VIP 패스 활성 시 0 코인으로 즉시 장착 가능!"
+            },
+            {
+                "icon": "✨",
+                "title": "VIP 전용 공방 이펙트 3종",
+                "desc": "VIP 피닉스 불꽃 날개, VIP 황금 황제 오라, VIP 황실 보라 망토를 커스터마이징 공방에서 바로 미리보고 장착하세요!"
+            },
+            {
+                "icon": "💎",
+                "title": "변함없는 공정한 무료 플레이",
+                "desc": "기존 14명의 영웅, 8개 업그레이드, 100개 캠페인 & 50개 트롤 스테이지는 모두 100% 무료 플레이가 유지됩니다."
+            },
+            {
+                "icon": "☁️",
+                "title": "120 FPS & Google Play 계정 연동",
+                "desc": "VIP 패스와 평생 광고 제거 권한은 Google Play 계정으로 안전하게 보호되며 언제든 복원할 수 있습니다."
             }
         ]
     },
     "zh": {
-        "title": "👑 v1.4.6 纯净去广告体验 & VIP 通行证",
-        "subtitle": "随时免费畅玩全关卡，也可按需开启零强制广告与 VIP 秒领特权：",
+        "title": "👑 v1.4.7 VIP 传奇英雄 & 工坊尊享特效上线",
+        "subtitle": "黄金量子皇帝、自带浴火自动重生的赛博凤凰骑士、3位巅峰英雄抢先体验及3款VIP特效现已加入！",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
                 "icon": "👑",
-                "title": "VIP 通行证（1 / 3 / 12 个月方案）",
-                "desc": "彻底关闭强制插屏广告，每关1次免广告复活、每日5次免视频领奖，外加每日 +1000 金币 / +100 翡翠。"
-            },
-            {
-                "icon": "🛡️",
-                "title": "单次买断永久去广告",
-                "desc": "不喜欢定期订阅？一次买断即可永久去除强制广告，并赠送 +1500 金币与 +50 翡翠。"
-            },
-            {
-                "icon": "💎",
-                "title": "尊重玩家的公平平衡",
-                "desc": "免费玩家依然可以零门槛、无打扰地畅玩全部 100 个主线关卡与 50 个恶搞关卡。"
-            },
-            {
-                "icon": "☁️",
-                "title": "跨设备购买恢复与云端同步",
-                "desc": "您的 VIP 与永久权益受 Google Play 账户保护，更换手机或平板均可一键恢复。"
+                "title": "2 位全新 VIP 专属传奇英雄",
+                "desc": "黄金量子皇帝（+110px超级磁铁与+50%金币得分）以及每关1次自动复活+滑翔+三段跳的赛博凤凰骑士！"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS 极致丝滑 & 9 国语言",
-                "desc": "与 14 位英雄和 20 位巨型 Boss 在 120 FPS 畅快对战。"
+                "title": "3 位巅峰英雄 VIP 抢先体验",
+                "desc": "穆罕默德二世、塞利姆一世与黄金法老继续支持免费金币永久解锁，开通 VIP 通行证更能直接 0 金币畅玩！"
+            },
+            {
+                "icon": "✨",
+                "title": "3 款 VIP 尊享工坊特效",
+                "desc": "VIP 凤凰烈焰之翼、VIP 黄金帝皇光环与金边紫帝皇披风震撼登场，支持全息底座实时预览！"
+            },
+            {
+                "icon": "💎",
+                "title": "100% 公平免费体验承诺",
+                "desc": "全部 14 位可免费获取英雄、8 项永久升级、100 个主线关卡与 50 个恶搞关卡无任何强制付费门槛。"
+            },
+            {
+                "icon": "☁️",
+                "title": "120 FPS 极致丝滑 & Play 云端保护",
+                "desc": "VIP 与永久权益通过 Google Play 自动跨设备保护，9 国语言 120 FPS 流畅运行。"
             }
         ]
     },
     "ja": {
-        "title": "👑 v1.4.6 広告非表示＆VIPパス登場",
-        "subtitle": "いつでも完全無料で遊べるほか、好みに合わせて強制広告オフ＆VIP快適プランを選べます：",
+        "title": "👑 v1.4.7 VIP伝説ヒーロー＆工房プレミアム効果",
+        "subtitle": "黄金クォンタム皇帝、自動復活を持つサイバーフェニックス騎士、最高峰3体の早期アクセス＆VIP限定エフェクト登場！",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
                 "icon": "👑",
-                "title": "VIPパス（1ヶ月 / 3ヶ月 / 12ヶ月プラン）",
-                "desc": "強制広告ゼロ、ステージ毎1回広告なし即復活、毎日5回の即時報酬スキップ、さらに毎日 +1000 コイン / +100 エメラルドを進呈！"
-            },
-            {
-                "icon": "🛡️",
-                "title": "買い切り・永久広告非表示パック",
-                "desc": "定期購入なしの一度きりの購入で強制広告を永久にオフ！＋1500 コイン＆＋50 エメラルド付き。"
-            },
-            {
-                "icon": "💎",
-                "title": "押し付けのない快適バランス",
-                "desc": "無料のままでも100のキャンペーン＆50のトロールステージすべてをストレスなく最後まで楽しめます。"
-            },
-            {
-                "icon": "☁️",
-                "title": "購入復元＆クラウドセーブ連携",
-                "desc": "VIPや永久パックの権利はGoogle Playアカウントに保護され、機種変更後もすぐ復元できます。"
+                "title": "新VIP限定伝説ヒーロー2体追加",
+                "desc": "黄金クォンタム皇帝（+110px超磁石＆+50%報酬）と、ステージ毎1回自動復活＋滑空＋3段ジャンプのサイバーフェニックス騎士！"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS 超滑らか動作＆9言語対応",
-                "desc": "14人の英雄と20体の巨大ボスとの戦いを120 FPSで爽快に攻略しよう！"
+                "title": "最高峰ヒーロー3体 VIP早期アクセス",
+                "desc": "メフメト2世・セリム1世・黄金ファラオは従来通りコインで永久解放できるほか、VIPパス有効中は0コインで即体験可能！"
+            },
+            {
+                "icon": "✨",
+                "title": "VIP専用工房エフェクト3種",
+                "desc": "VIP不死鳥の炎翼、VIP黄金皇帝オーラ、VIP皇帝インペリアルマントが工房に登場！"
+            },
+            {
+                "icon": "💎",
+                "title": "100%公正な無料バランスを維持",
+                "desc": "14体の通常ヒーロー、8種の強化、100ステージ＋50トロールステージはすべて完全無料のまま楽しめます。"
+            },
+            {
+                "icon": "☁️",
+                "title": "120 FPS 超滑らか＆Google Play保護",
+                "desc": "VIP・永久パックはGoogle Playアカウントで保護され、機種変更後もワンタップで復元できます。"
             }
         ]
     }
