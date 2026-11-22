@@ -760,11 +760,11 @@ html, body {
 .customize-container {
     width: min(96vw, 1140px);
     max-width: 1140px;
-    max-height: calc(100vh - 14px);
-    max-height: calc(100dvh - 14px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
+    height: min(92vh, 760px);
+    height: min(92dvh, 760px);
+    max-height: calc(100vh - 12px);
+    max-height: calc(100dvh - 12px);
+    overflow: hidden;
     margin: auto;
     background: var(--bg-panel);
     border: 1px solid rgba(6, 214, 160, 0.5);
@@ -777,6 +777,9 @@ html, body {
 }
 
 .customize-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
     display: grid;
     grid-template-columns: 260px 1fr;
     gap: 18px;
@@ -784,6 +787,8 @@ html, body {
 }
 
 .preview-stage {
+    min-height: 0;
+    overflow: hidden;
     background: radial-gradient(circle at center, #162044 0%, #070918 100%);
     border: 2px solid rgba(6, 214, 160, 0.45);
     border-radius: 16px;
@@ -819,15 +824,19 @@ html, body {
 }
 
 .customize-options-panel {
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 .cust-tabs {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
+    flex-shrink: 0;
 }
 
 .cust-tab {
@@ -851,26 +860,67 @@ html, body {
     box-shadow: 0 0 15px rgba(6, 214, 160, 0.3);
 }
 
+.scroll-grid-wrap {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.scroll-grid-wrap.has-more::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 6px;
+    bottom: 0;
+    height: 36px;
+    background: linear-gradient(180deg, rgba(11, 15, 34, 0) 0%, rgba(11, 15, 34, 0.92) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
 .cust-grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none !important;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
     gap: 10px;
-    max-height: 260px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
-    padding-right: 4px;
+    overscroll-behavior: contain;
+    padding: 2px 6px 38px 2px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 209, 102, 0.75) rgba(255, 255, 255, 0.08);
+}
+
+.cust-grid::-webkit-scrollbar,
+.shop-grid::-webkit-scrollbar {
+    width: 6px;
+}
+.cust-grid::-webkit-scrollbar-track,
+.shop-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+}
+.cust-grid::-webkit-scrollbar-thumb,
+.shop-grid::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(255, 209, 102, 0.85), rgba(0, 242, 254, 0.8));
+    border-radius: 6px;
 }
 
 /* Shop Modal */
 .shop-container {
     width: min(96vw, 1140px);
     max-width: 1140px;
-    max-height: calc(100vh - 14px);
-    max-height: calc(100dvh - 14px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
+    height: min(92vh, 760px);
+    height: min(92dvh, 760px);
+    max-height: calc(100vh - 12px);
+    max-height: calc(100dvh - 12px);
+    overflow: hidden;
     margin: auto;
     background: var(--bg-panel);
     border: 1px solid rgba(255, 42, 133, 0.4);
@@ -888,6 +938,7 @@ html, body {
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+    flex-shrink: 0;
 }
 
 .shop-header h2 {
@@ -898,15 +949,23 @@ html, body {
 .shop-sub {
     font-size: 12.5px;
     color: var(--text-muted);
+    flex-shrink: 0;
 }
 
 .shop-grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none !important;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 12px;
-    max-height: 55vh;
     overflow-y: auto;
-    padding-right: 4px;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    overscroll-behavior: contain;
+    padding: 2px 6px 38px 2px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 242, 254, 0.75) rgba(255, 255, 255, 0.08);
 }
 
 .shop-card {
@@ -1998,10 +2057,28 @@ html, body {
     margin-top: 4px;
 }
 
-@media (max-width: 740px) {
+@media (max-width: 740px) and (min-height: 601px) {
     .customize-body {
         grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        gap: 8px;
     }
+    .preview-stage {
+        flex-direction: row;
+        padding: 8px 10px;
+        gap: 10px;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    #charPreviewCanvas,
+    #customizePreviewCanvas {
+        width: 96px !important;
+        height: 96px !important;
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 740px) {
     .world-map-grid {
         grid-template-columns: repeat(5, 1fr);
         gap: 6px;
@@ -2043,14 +2120,12 @@ html, body {
     }
 }
 
-/* Phone Landscape & Short Mobile Viewports (Ensures Map Screen Bottom Buttons & Profile Modal 100% Fit Without Scrolling) */
-@media (max-height: 580px) {
+/* Phone Landscape & Short Mobile Viewports (Ensures Map Screen Bottom Buttons & Studio Modals 100% Fit Without Nested Scroll Traps!) */
+@media (max-height: 600px) {
     .overlay-screen {
         align-items: center;
         padding: 4px 8px;
     }
-    .customize-container,
-    .shop-container,
     .troll-modal-card,
     .modal-card {
         width: min(96vw, 1140px);
@@ -2063,6 +2138,67 @@ html, body {
         padding: 10px 16px;
         gap: 6px;
         margin: 0 auto;
+    }
+    .customize-container,
+    .shop-container {
+        width: min(96vw, 1140px);
+        max-width: 1140px;
+        height: calc(100vh - 8px);
+        height: calc(100dvh - 8px);
+        max-height: calc(100vh - 8px);
+        max-height: calc(100dvh - 8px);
+        overflow: hidden;
+        padding: 8px 12px;
+        gap: 6px;
+        margin: 0 auto;
+    }
+    .shop-header h2 {
+        font-size: 15px;
+    }
+    .shop-sub {
+        display: none;
+    }
+    .customize-body {
+        grid-template-columns: 192px 1fr;
+        gap: 10px;
+    }
+    .preview-stage {
+        padding: 8px;
+        gap: 4px;
+        justify-content: center;
+        overflow: hidden;
+    }
+    #charPreviewCanvas,
+    #customizePreviewCanvas {
+        width: 136px !important;
+        height: 132px !important;
+    }
+    .preview-equipped-summary {
+        font-size: 10px;
+        padding: 4px 6px;
+    }
+    #char-preview-perk-badge,
+    #cust-preview-perk-badge {
+        font-size: 9.5px !important;
+        padding: 3px 6px !important;
+    }
+    .cust-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 6px;
+        padding-bottom: 2px;
+        flex-shrink: 0;
+    }
+    .cust-tab {
+        flex: 0 0 auto;
+        min-width: auto;
+        padding: 6px 10px;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+    .shop-footer .primary-btn {
+        padding: 8px 16px;
+        font-size: 12.5px;
     }
     .lang-modal-card,
     .settings-modal-card {
@@ -3264,4 +3400,43 @@ html, body {
 }
 .shop-buy-btn.vip-unlock-btn:hover {
     filter: brightness(1.08);
+}
+
+.shop-footer {
+    flex-shrink: 0;
+}
+
+.cust-tab.vip-filter-tab {
+    border-color: rgba(255, 209, 102, 0.55);
+    color: #fde68a;
+    background: linear-gradient(135deg, rgba(46, 16, 101, 0.72), rgba(15, 23, 42, 0.9));
+}
+.cust-tab.vip-filter-tab.active {
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.48), rgba(245, 158, 11, 0.42));
+    border-color: #ffd166;
+    color: #fff;
+    box-shadow: 0 0 16px rgba(255, 209, 102, 0.35);
+}
+
+.scroll-more-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 6px;
+    transform: translateX(-50%);
+    z-index: 4;
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(46, 16, 101, 0.95));
+    border: 1px solid rgba(255, 209, 102, 0.7);
+    color: #fde68a;
+    font-size: 11px;
+    font-weight: 800;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.72);
+    animation: scrollHintBob 1.7s ease-in-out infinite;
+}
+@keyframes scrollHintBob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-3px); }
 }
