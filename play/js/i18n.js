@@ -5295,302 +5295,302 @@ window.MARINEXT_TUTORIAL_DATA = {
 })();
 
 
-// Full 9-Language "What's New in v1.4.5" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.4.6" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.4.5 Tam Lansman & Portal Deneyimi",
-        "subtitle": "Marinext 2100 küresel lansman öncesinde tüm cihazlarda ve resmi web portalında kusursuz hale getirildi:",
+        "title": "👑 v1.4.6 Reklamsız Deneyim & VIP Pass",
+        "subtitle": "Oyunu ücretsiz oynamaya devam edebilir veya dilersen reklamları kaldırıp VIP ayrıcalıklarla kesintisiz akışa geçebilirsin:",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
-                "icon": "🌍",
-                "title": "Küresel Lansman Hazırlığı & Akıllı Eşitleme",
-                "desc": "Oyun ilerlemeniz, rekorlarınız ve ödülleriniz tüm Android telefon ve tabletleriniz arasında daha kararlı ve akıcı eşitlenir."
+                "icon": "👑",
+                "title": "VIP Pass (1 / 3 / 12 Aylık Esnek Planlar)",
+                "desc": "Tüm zorunlu reklamları kapatır; her bölümde reklamsız anında canlanma, günde 5 anında ödül bileti ve günlük +1000 Coin / +100 Zümrüt kazandırır."
             },
             {
-                "icon": "🌐",
-                "title": "Yenilenen Resmi Portal & Tarayıcıda Oyna",
-                "desc": "CG Studio Home / Labs aile hikâyemizi keşfedin ve Marinext 2100'ü doğrudan tarayıcı üzerinden pürüzsüzce deneyimleyin."
+                "icon": "🛡️",
+                "title": "Tek Seferlik Ömür Boyu Reklamsız Paket",
+                "desc": "Abonelik istemeyen oyuncular için tek ödemeyle zorunlu reklamları kalıcı olarak kapatır ve +1500 Coin / +50 Zümrüt hoş geldin hediyesi verir."
             },
             {
-                "icon": "👨‍👩‍👧‍👦",
-                "title": "Aile Tabletleri & Anında Bonus Uyumu",
-                "desc": "Tablet ve telefonlarda isteğe bağlı bonus videoları sonrası Coin ve Antik Zümrütler cüzdanınıza gecikmesiz eklenir."
+                "icon": "💎",
+                "title": "Saygılı ve Kesintisiz Oynanış Dengesi",
+                "desc": "Ücretsiz oynayan oyuncular da hiçbir baskı olmadan oyunun tüm 100 ana bölümü ve 50 Trol etabını sonuna kadar oynayabilir."
             },
             {
-                "icon": "⚔️",
-                "title": "100 Bölüm + 50 Trol Etabı & 14 Kahraman",
-                "desc": "Fatih Sultan Mehmet, Yavuz Sultan Selim, Kanuni ve siber savaşçılarla 10 aksiyon dünyasını ve 20 dev Boss'u fethet."
+                "icon": "☁️",
+                "title": "Güvenli Bulut Kayıt & Cihazlar Arası Koruma",
+                "desc": "VIP ve Ömür Boyu paket haklarınız Google Play hesabınızla otomatik korunur; cihaz değiştirseniz bile tek dokunuşla geri yüklenir."
             },
             {
                 "icon": "⚡",
                 "title": "120 FPS Ultra Akıcı & 9 Dilde Macera",
-                "desc": "Sıfır gecikmeli kontrollerin keyfini çıkar, küresel sıralamada yüksel ve kaydını 9 dilde bulutta güvende tut!"
+                "desc": "Fatih Sultan Mehmet, Yavuz Sultan Selim, Kanuni ve siber kahramanlarla 20 Boss savaşını sıfır gecikmeyle fethet!"
             }
         ]
     },
     "en": {
-        "title": "🚀 v1.4.5 Full Launch & Portal Experience",
-        "subtitle": "Marinext 2100 is polished across all devices and our official web portal ahead of worldwide launch:",
+        "title": "👑 v1.4.6 Ad-Free Experience & VIP Pass",
+        "subtitle": "Enjoy Marinext 2100 100% free anytime, or unlock effortless ad-free progression with our flexible options:",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
-                "icon": "🌍",
-                "title": "Global Launch Readiness & Smart Sync",
-                "desc": "Your campaign progress, leaderboard scores, and rewards sync reliably and smoothly across your phones and tablets."
+                "icon": "👑",
+                "title": "VIP Pass (1 / 3 / 12-Month Plans)",
+                "desc": "Removes all forced ads and grants 1 instant ad-free revive per level, 5 daily instant 2x/chest skips, plus +1000 Coins / +100 Emeralds every day."
             },
             {
-                "icon": "🌐",
-                "title": "Polished Studio Portal & Browser Play",
-                "desc": "Explore our CG Studio Home / Labs family story, full media gallery, and play Marinext 2100 seamlessly right in your browser."
+                "icon": "🛡️",
+                "title": "One-Time Lifetime Remove Ads Pack",
+                "desc": "Prefer no recurring subscription? Remove forced interstitial ads permanently with a single purchase and receive +1500 Coins & +50 Emeralds."
             },
             {
-                "icon": "👨‍👩‍👧‍👦",
-                "title": "Family Tablet & Instant Reward Harmony",
-                "desc": "Bonus Coins and Ancient Emeralds credit smoothly right after any optional reward video on phones and tablets."
+                "icon": "💎",
+                "title": "Player-First Fair Balance",
+                "desc": "Free players continue to enjoy every single one of our 100 campaign stages and 50 Troll levels with zero paywalls or nagging prompts."
             },
             {
-                "icon": "⚔️",
-                "title": "100 Stages + 50 Troll Levels & 14 Heroes",
-                "desc": "Conquer 10 action worlds and 20 colossal bosses with Sultan Mehmed II, Selim I, Suleiman, and cyber warriors."
+                "icon": "☁️",
+                "title": "Cross-Device Purchase & Cloud Protection",
+                "desc": "Your VIP Pass and Lifetime perks sync automatically via Google Play Billing and restore cleanly on any new phone or tablet."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluid & Safe Cloud Sync",
-                "desc": "Enjoy instantaneous touch controls, offline play anywhere, and seamless 9-language cloud progression."
+                "title": "120 FPS Ultra-Fluid & 9 Languages",
+                "desc": "Command 14 historical and cyber heroes against 20 colossal bosses at silky-smooth 120 FPS across 9 full languages."
             }
         ]
     },
     "ru": {
-        "title": "🚀 v1.4.5 Полный запуск и веб-портал",
-        "subtitle": "Marinext 2100 доведён до идеала на всех устройствах и официальном сайте перед мировым релизом:",
+        "title": "👑 v1.4.6 Без рекламы и VIP-пропуск",
+        "subtitle": "Продолжайте играть бесплатно или выберите комфортный режим без обязательной рекламы и с мгновенными VIP-бонусами:",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
-                "icon": "🌍",
-                "title": "Готовность к мировому запуску",
-                "desc": "Ваш прогресс, рекорды и награды ещё стабильнее синхронизируются между смартфонами и планшетами."
+                "icon": "👑",
+                "title": "VIP-пропуск (1 / 3 / 12 месяцев)",
+                "desc": "Полностью убирает обязательную рекламу, даёт мгновенное возрождение на уровне, 5 бонусов в день без видео и +1000 монет / +100 изумрудов ежедневно."
             },
             {
-                "icon": "🌐",
-                "title": "Обновлённый портал и игра в браузере",
-                "desc": "Познакомьтесь с историей семейной студии CG Studio Home / Labs и играйте в Marinext 2100 прямо в браузере."
+                "icon": "🛡️",
+                "title": "Пакет «Навсегда без рекламы»",
+                "desc": "Разовая покупка без подписки навсегда отключает обязательную рекламу и дарит +1500 монет и +50 изумрудов."
             },
             {
-                "icon": "👨‍👩‍👧‍👦",
-                "title": "Семейные планшеты и мгновенные награды",
-                "desc": "Бонусные монеты и изумруды надёжно зачисляются сразу после просмотра любого необязательного видео."
+                "icon": "💎",
+                "title": "Честный баланс без навязчивости",
+                "desc": "Вся кампания из 100 уровней и 50 тролл-этапов по-прежнему полностью доступна бесплатно без давления на игрока."
             },
             {
-                "icon": "⚔️",
-                "title": "100 уровней + 50 тролл-этапов и 14 героев",
-                "desc": "10 миров, 20 гигантских боссов и исторические легенды ждут вас."
+                "icon": "☁️",
+                "title": "Восстановление покупок и облако",
+                "desc": "Все ваши привилегии защищены аккаунтом Google Play и легко восстанавливаются на любом новом устройстве."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS и облачное сохранение",
-                "desc": "Мгновенный отклик, оффлайн-режим в любом месте и поддержка 9 языков."
+                "title": "120 FPS и 9 языков",
+                "desc": "14 героев, 20 боссов, плавное управление и мгновенная синхронизация сохранений."
             }
         ]
     },
     "it": {
-        "title": "🚀 v1.4.5 Lancio Completo & Portale Web",
-        "subtitle": "Marinext 2100 è pronto al lancio globale con massima fluidità su dispositivi mobili e portale ufficiale:",
+        "title": "👑 v1.4.6 Esperienza Senza Pubblicità & VIP Pass",
+        "subtitle": "Gioca gratis quando vuoi oppure scegli il comfort totale senza annunci forzati e con vantaggi VIP istantanei:",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
-                "icon": "🌍",
-                "title": "Pronto per il Lancio Globale",
-                "desc": "Progressi, record e ricompense si sincronizzano in modo fluido e affidabile tra tutti i tuoi dispositivi."
+                "icon": "👑",
+                "title": "VIP Pass (Piani 1 / 3 / 12 Mesi)",
+                "desc": "Rimuove gli annunci forzati e include 1 rinascita istantanea per livello, 5 premi 2x/forziere al giorno senza video e +1000 Monete / +100 Smeraldi al giorno."
             },
             {
-                "icon": "🌐",
-                "title": "Portale Ufficiale & Gioco nel Browser",
-                "desc": "Scopri il team familiare CG Studio Home / Labs e gioca a Marinext 2100 direttamente dal browser."
+                "icon": "🛡️",
+                "title": "Pacchetto A Vita Senza Pubblicità",
+                "desc": "Nessun abbonamento: acquisto singolo per eliminare per sempre gli annunci forzati + regalo di +1500 Monete e +50 Smeraldi."
             },
             {
-                "icon": "👨‍👩‍👧‍👦",
-                "title": "Armonia su Tablet Famiglia & Premi Istantanei",
-                "desc": "Monete e Smeraldi bonus vengono accreditati subito dopo ogni video premio facoltativo."
+                "icon": "💎",
+                "title": "Equilibrio Giusto e Rispettoso",
+                "desc": "Tutti i 100 livelli della campagna e i 50 livelli Troll restano 100% giocabili gratuitamente senza pressioni."
             },
             {
-                "icon": "⚔️",
-                "title": "100 Livelli + 50 Troll & 14 Eroi",
-                "desc": "Esplora 10 mondi d'azione e 20 boss colossali con leggende storiche e guerrieri cyber."
+                "icon": "☁️",
+                "title": "Ripristino Google Play & Salvataggio Cloud",
+                "desc": "I tuoi acquisti e progressi si sincronizzano automaticamente tra smartphone e tablet tramite il tuo account Google Play."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluido & Salvataggio Cloud",
-                "desc": "Controlli istantanei, gioco offline ovunque e portale ufficiale in 9 lingue."
+                "title": "120 FPS Ultra-Fluido & 9 Lingue",
+                "desc": "Affronta 20 boss colossali con 14 eroi storici e cyber a 120 FPS."
             }
         ]
     },
     "es": {
-        "title": "🚀 v1.4.5 Lanzamiento Total y Portal Web",
-        "subtitle": "Marinext 2100 está optimizado en todos tus dispositivos y nuestro portal oficial rumbo al estreno mundial:",
+        "title": "👑 v1.4.6 Experiencia Sin Anuncios y Pase VIP",
+        "subtitle": "Disfruta gratis cuando quieras o elige jugar sin anuncios forzados y con recompensas VIP instantáneas:",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
-                "icon": "🌍",
-                "title": "Preparación Total y Sincronización Fluida",
-                "desc": "Tu progreso, puntuaciones y premios se sincronizan con mayor estabilidad entre teléfonos y tablets."
+                "icon": "👑",
+                "title": "Pase VIP (Planes de 1 / 3 / 12 Meses)",
+                "desc": "Cero anuncios forzados, 1 reanimación sin anuncios por nivel, 5 bonos diarios al instante y +1000 Monedas / +100 Esmeraldas cada día."
             },
             {
-                "icon": "🌐",
-                "title": "Portal Oficial Renovado y Juego Web",
-                "desc": "Conoce la historia familiar de CG Studio Home / Labs y disfruta de Marinext 2100 directamente en tu navegador."
+                "icon": "🛡️",
+                "title": "Sin Anuncios Vitalicio (Pago Único)",
+                "desc": "Sin suscripciones mensuales: elimina para siempre los anuncios obligatorios con +1500 Monedas y +50 Esmeraldas de regalo."
             },
             {
-                "icon": "👨‍👩‍👧‍👦",
-                "title": "Tablets Familiares y Premios al Instante",
-                "desc": "Monedas y Esmeraldas Antiguas se acreditan al instante tras ver cualquier video de recompensa opcional."
+                "icon": "💎",
+                "title": "Experiencia Justa para Todos",
+                "desc": "Los 100 niveles principales y los 50 niveles Troll siguen siendo 100% accesibles gratis y sin presiones."
             },
             {
-                "icon": "⚔️",
-                "title": "100 Niveles + 50 Troll y 14 Héroes",
-                "desc": "Supera 10 mundos de acción y 20 jefes gigantes con héroes históricos y guerreros cíber."
+                "icon": "☁️",
+                "title": "Protección en la Nube y Restauración",
+                "desc": "Tus ventajas VIP y Vitalicio se vinculan a tu cuenta de Google Play y funcionan en todos tus dispositivos."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Fluido y Guardado en la Nube",
-                "desc": "Controles sin lag, modo sin conexión completo y soporte en 9 idiomas."
+                "title": "120 FPS Fluido en 9 Idiomas",
+                "desc": "14 héroes históricos y cíber y 20 jefes colosales con respuesta táctil instantánea."
             }
         ]
     },
     "fr": {
-        "title": "🚀 v1.4.5 Lancement Complet & Portail Web",
-        "subtitle": "Marinext 2100 est fin prêt pour le lancement mondial sur mobile, tablette et portail web officiel :",
+        "title": "👑 v1.4.6 Expérience Sans Pub & Pass VIP",
+        "subtitle": "Jouez gratuitement à tout moment ou profitez d'un confort total sans publicités forcées et avec bonus VIP instantanés :",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
-                "icon": "🌍",
-                "title": "Prêt pour le Lancement Mondial",
-                "desc": "Votre progression, vos records et vos récompenses se synchronisent parfaitement entre tous vos appareils."
+                "icon": "👑",
+                "title": "Pass VIP (Formules 1 / 3 / 12 Mois)",
+                "desc": "Zéro pub forcée, 1 réanimation instantanée par niveau, 5 récompenses sans pub par jour et +1000 Pièces / +100 Émeraudes chaque jour."
             },
             {
-                "icon": "🌐",
-                "title": "Portail Studio Complet & Jeu Navigateur",
-                "desc": "Découvrez l'équipe familiale CG Studio Home / Labs et jouez à Marinext 2100 directement dans votre navigateur."
+                "icon": "🛡️",
+                "title": "Pack Sans Pub À Vie (Achat Unique)",
+                "desc": "Sans abonnement récurrent : supprime définitivement les pubs obligatoires + cadeau de +1500 Pièces et +50 Émeraudes."
             },
             {
-                "icon": "👨‍👩‍👧‍👦",
-                "title": "Tablettes Famille & Récompenses Instantanées",
-                "desc": "Vos Pièces et Émeraudes Antiques sont créditées sans délai après chaque vidéo bonus optionnelle."
+                "icon": "💎",
+                "title": "Équilibre Respectueux du Joueur",
+                "desc": "Les 100 niveaux d'aventure et 50 niveaux Troll restent intégralement jouables gratuitement, sans aucune pression."
             },
             {
-                "icon": "⚔️",
-                "title": "100 Niveaux + 50 Troll & 14 Héros",
-                "desc": "Explorez 10 mondes d'action et 20 boss colossaux avec nos héros historiques et guerriers cyber."
+                "icon": "☁️",
+                "title": "Restauration & Sauvegarde Cloud",
+                "desc": "Vos achats Google Play et votre progression se synchronisent facilement sur tous vos téléphones et tablettes."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra-Fluide & Sauvegarde Cloud",
-                "desc": "Réactivité tactile instantanée, mode hors-ligne et expérience complète en 9 langues."
+                "title": "120 FPS Ultra-Fluide en 9 Langues",
+                "desc": "14 héros légendaires et 20 boss épiques avec une fluidité parfaite."
             }
         ]
     },
     "ko": {
-        "title": "🚀 v1.4.5 글로벌 출시 준비 & 포털 완성",
-        "subtitle": "글로벌 정식 출시를 앞두고 모든 기기와 공식 웹 포털의 완성도를 한 단계 높였습니다:",
+        "title": "👑 v1.4.6 광고 제거 & VIP 패스 출시",
+        "subtitle": "무료로 끝까지 즐기거나, 강제 광고 없이 즉시 보상을 받는 편안한 VIP/평생 플랜을 만나보세요:",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
-                "icon": "🌍",
-                "title": "글로벌 출시 최적화 & 스마트 동기화",
-                "desc": "캠페인 진행도, 리더보드 기록 및 보상이 스마트폰과 태블릿 간 더욱 안정적으로 동기화됩니다."
+                "icon": "👑",
+                "title": "VIP 패스 (1 / 3 / 12개월 유연 플랜)",
+                "desc": "모든 강제 광고 제거, 스테이지당 1회 광고 없는 즉시 부활, 일일 5회 즉시 보상 티켓 및 매일 +1000 코인 / +100 에메랄드 지급!"
             },
             {
-                "icon": "🌐",
-                "title": "공식 웹 포털 & 브라우저 플레이 완성",
-                "desc": "CG Studio Home / Labs 가족 팀 이야기를 만나보고 브라우저에서도 Marinext 2100을 매끄럽게 즐겨보세요."
+                "icon": "🛡️",
+                "title": "일회성 평생 광고 제거 패키지",
+                "desc": "정기 결제 없이 단 한 번 구매로 강제 광고를 영구 제거하고 +1500 코인 & +50 에메랄드 환영 선물을 받으세요."
             },
             {
-                "icon": "👨‍👩‍👧‍👦",
-                "title": "가족 태블릿 호환 & 즉시 보상 적립",
-                "desc": "선택형 보너스 영상을 시청한 직후 코인과 고대 에메랄드가 지연 없이 지갑에 적립됩니다."
+                "icon": "💎",
+                "title": "부담 없는 공정한 무료 플레이",
+                "desc": "결제하지 않아도 100개 메인 스테이지와 50개 트롤 스테이지를 아무 제약 없이 마음껏 즐길 수 있습니다."
             },
             {
-                "icon": "⚔️",
-                "title": "100개 스테이지 + 50개 트롤 & 14인의 영웅",
-                "desc": "메흐메트 2세, 셀림 1세, 쉴레이만 대제와 사이버 전사로 10개 월드와 20명의 보스를 정복하세요."
+                "icon": "☁️",
+                "title": "기기 간 구매 복원 & 클라우드 보호",
+                "desc": "VIP 및 평생 광고 제거 권한은 Google Play 계정과 연동되어 새 기기에서도 즉시 복원됩니다."
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS 초고속 엔진 & 클라우드 저장",
-                "desc": "지연 없는 조작감, 오프라인 플레이, 그리고 9개 언어 지원을 완벽하게 경험하세요."
+                "title": "120 FPS 초고속 액션 & 9개 언어",
+                "desc": "14명의 영웅과 20명의 거대 보스를 120 FPS의 부드러운 조작감으로 정복하세요."
             }
         ]
     },
     "zh": {
-        "title": "🚀 v1.4.5 全球发布优化 & 官方门户完善",
-        "subtitle": "Marinext 2100 面向全球正式发布完成全面打磨，手机、平板与官方网页版体验焕然一新：",
+        "title": "👑 v1.4.6 纯净去广告体验 & VIP 通行证",
+        "subtitle": "随时免费畅玩全关卡，也可按需开启零强制广告与 VIP 秒领特权：",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
-                "icon": "🌍",
-                "title": "全球发布就绪 & 跨设备流畅同步",
-                "desc": "您的关卡进度、排行榜成绩与游戏奖励在多台手机和平板之间同步更稳健流畅。"
+                "icon": "👑",
+                "title": "VIP 通行证（1 / 3 / 12 个月方案）",
+                "desc": "彻底关闭强制插屏广告，每关1次免广告复活、每日5次免视频领奖，外加每日 +1000 金币 / +100 翡翠。"
             },
             {
-                "icon": "🌐",
-                "title": "官方门户焕新 & 网页即点即玩",
-                "desc": "探索 CG Studio Home / Labs 家庭工作室故事，并在浏览器中畅玩 Marinext 2100。"
+                "icon": "🛡️",
+                "title": "单次买断永久去广告",
+                "desc": "不喜欢定期订阅？一次买断即可永久去除强制广告，并赠送 +1500 金币与 +50 翡翠。"
             },
             {
-                "icon": "👨‍👩‍👧‍👦",
-                "title": "家庭平板适配 & 激励奖励即时到账",
-                "desc": "观看任意可选激励视频后，金币与古代绿宝石将直接发放到您的账户。"
+                "icon": "💎",
+                "title": "尊重玩家的公平平衡",
+                "desc": "免费玩家依然可以零门槛、无打扰地畅玩全部 100 个主线关卡与 50 个恶搞关卡。"
             },
             {
-                "icon": "⚔️",
-                "title": "100个主线 + 50个恶搞 & 14位英雄",
-                "desc": "与历史传奇英雄和赛博勇士一同征战10大动作世界与20位巨型Boss。"
+                "icon": "☁️",
+                "title": "跨设备购买恢复与云端同步",
+                "desc": "您的 VIP 与永久权益受 Google Play 账户保护，更换手机或平板均可一键恢复。"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS 极致丝滑 & 云端存档",
-                "desc": "零延迟操控、100%离线畅玩以及9国语言完整支持。"
+                "title": "120 FPS 极致丝滑 & 9 国语言",
+                "desc": "与 14 位英雄和 20 位巨型 Boss 在 120 FPS 畅快对战。"
             }
         ]
     },
     "ja": {
-        "title": "🚀 v1.4.5 世界公開準備＆公式ポータル完成",
-        "subtitle": "全世界リリースに向けて、モバイル端末と公式Webポータルの完成度をさらに高めました：",
+        "title": "👑 v1.4.6 広告非表示＆VIPパス登場",
+        "subtitle": "いつでも完全無料で遊べるほか、好みに合わせて強制広告オフ＆VIP快適プランを選べます：",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
-                "icon": "🌍",
-                "title": "グローバル公開準備＆スマート同期",
-                "desc": "ステージ進行状況やハイスコア、報酬データがスマホとタブレット間でより安定して同期されます。"
+                "icon": "👑",
+                "title": "VIPパス（1ヶ月 / 3ヶ月 / 12ヶ月プラン）",
+                "desc": "強制広告ゼロ、ステージ毎1回広告なし即復活、毎日5回の即時報酬スキップ、さらに毎日 +1000 コイン / +100 エメラルドを進呈！"
             },
             {
-                "icon": "🌐",
-                "title": "公式Webポータル＆ブラウザ版プレイ",
-                "desc": "CG Studio Home / Labs ファミリースタジオのストーリーをご覧いただき、ブラウザでもそのまま遊べます。"
+                "icon": "🛡️",
+                "title": "買い切り・永久広告非表示パック",
+                "desc": "定期購入なしの一度きりの購入で強制広告を永久にオフ！＋1500 コイン＆＋50 エメラルド付き。"
             },
             {
-                "icon": "👨‍👩‍👧‍👦",
-                "title": "家族タブレット対応＆即時報酬クレジット",
-                "desc": "ボーナス動画の視聴後、コインや古代エメラルドがスムーズにウォレットへ届きます。"
+                "icon": "💎",
+                "title": "押し付けのない快適バランス",
+                "desc": "無料のままでも100のキャンペーン＆50のトロールステージすべてをストレスなく最後まで楽しめます。"
             },
             {
-                "icon": "⚔️",
-                "title": "100ステージ＋50トロール＆14人の英雄",
-                "desc": "歴史的英雄とサイバー戦士で10のワールドと20体の巨大ボスを制覇しよう。"
+                "icon": "☁️",
+                "title": "購入復元＆クラウドセーブ連携",
+                "desc": "VIPや永久パックの権利はGoogle Playアカウントに保護され、機種変更後もすぐ復元できます。"
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS 超滑らか動作＆クラウド保存",
-                "desc": "遅延ゼロの操作感、オフライン対応、全9言語で極上の冒険を楽しもう！"
+                "title": "120 FPS 超滑らか動作＆9言語対応",
+                "desc": "14人の英雄と20体の巨大ボスとの戦いを120 FPSで爽快に攻略しよう！"
             }
         ]
     }
