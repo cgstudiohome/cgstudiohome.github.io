@@ -116,7 +116,8 @@ const HERO_CHARACTERS_CATALOG = [
         perkDesc: "🏹 Bozkır Rüzgarı: Üçlü Zıplama (3x Jump), +%15 Hız & Hızlı Atış",
         bonuses: { extraJumps: 1, speedBonus: 0.78, fireCooldownReduction: 5 },
         desc: "Kurt kürklü bozkır zırhı, çift kartal tüylü altın tolga başlık, ok sadağı ve ıslıklı Türk kurma yayı!",
-        cost: 240
+        cost: 240,
+        vipEarlyAccess: true
     },
     {
         id: "cyber_shogun",
@@ -188,6 +189,28 @@ const HERO_CHARACTERS_CATALOG = [
         perkDesc: "🔥 Anka Dirilişi: Bölüm Başı 1x Otomatik Canlanma + Süzülme + 3x Zıplama + Hızlı Ateş",
         bonuses: { phoenixAutoRevive: true, hasGlide: true, extraJumps: 1, fireCooldownReduction: 6, startFire: true, speedBonus: 0.72, airControlBonus: 0.35 },
         desc: "Küllerinden doğan ateş kanatlı efsanevi VIP şövalye! Düştüğünde veya yenildiğinde bölüm başına 1 kez kalkanıyla küllerinden dirilir!",
+        cost: 0,
+        vipOnly: true
+    },
+    {
+        id: "vip_celestial_sultan",
+        icon: "🌙",
+        title: "Yıldızlar Sultanı (Göksel Han)",
+        faceDesc: "Yüz Tipi: Gök Hilal Holografik Sarık & Haşmetli Sultan Sakalı",
+        perkDesc: "🌙 Göksel Hilal: +1 Can (♥), Kalkan + Ateş + Süper Mıknatıs (+95px) & +%45 Skor",
+        bonuses: { extraHearts: 1, startShield: true, startFire: true, hasMagnet: true, magnetRadiusBonus: 95, scoreMult: 0.45 },
+        desc: "Gece laciverti-altın kürklü kaftanı, yıldızlı uzay pelerini ve parlayan Göksel Hilal Palasıyla kozmik hükümdar!",
+        cost: 0,
+        vipOnly: true
+    },
+    {
+        id: "vip_shadow_dragon",
+        icon: "🐉",
+        title: "Gölge Ejder Lordu",
+        faceDesc: "Yüz Tipi: Obsidyen Ejderha Pulu Maske & Zümrüt Alev Gözler",
+        perkDesc: "🐉 Ejder Gücü: 3x Zıplama + Süzülme + Uzun Korumalı Zırh & Hızlı Ateş Topu",
+        bonuses: { extraJumps: 1, hasGlide: true, invulnBonus: 35, speedBonus: 0.75, fireCooldownReduction: 6, scoreMult: 0.35 },
+        desc: "Kıvrımlı zümrüt-altın ejder boynuzları, siber ejderha kanatları ve Ejder Dişi Büyük Kılıcıyla efsanevi VIP savaşçı!",
         cost: 0,
         vipOnly: true
     }
@@ -265,6 +288,26 @@ const SHOP_CATALOG = [
         desc: "Havada 2 yerine tam 3 kez zıplayabilme yeteneği!",
         perkDesc: "🚀 Havada 3 Kez Zıplama (Triple Jump)",
         cost: 110
+    },
+    {
+        id: "vip_quantum_core",
+        type: "upgrade",
+        icon: "👑",
+        title: "VIP Kuantum Güç Çekirdeği",
+        desc: "VIP Pass aktifken otomatik devreye girer: ekstra skor, coin şansı, geniş hazine mıknatısı ve zırh koruması!",
+        perkDesc: "👑 VIP Otomatik: +%25 Skor/Coin, +60px Mıknatıs & +15 Kare Koruma",
+        cost: 0,
+        vipOnly: true
+    },
+    {
+        id: "vip_plasma_overdrive",
+        type: "upgrade",
+        icon: "⚡",
+        title: "VIP Plazma Aşırı Yükleme",
+        desc: "VIP Pass aktifken otomatik devreye girer: daha yüksek koşu hızı, keskin hava manevrası ve seri ateş topu!",
+        perkDesc: "⚡ VIP Otomatik: +%10 Hız, +%15 Hava Kontrolü & -%16 Ateş Bekleme",
+        cost: 0,
+        vipOnly: true
     }
 ];
 
@@ -347,9 +390,18 @@ const CUSTOMIZE_CATALOG = [
     { id: "cape_white", category: "cape", value: "#ffffff", icon: "🕊", title: "Saf Beyaz Işık Pelerini", desc: "Karanlıkta parlayan bembeyaz pelerin.", cost: 3 },
     { id: "cape_toxic", category: "cape", value: "#aacc00", icon: "☣️", title: "Neon Asit Pelerini", desc: "Parlak fıstık yeşili siber pelerin.", cost: 3 },
     { id: "cape_rainbow", category: "cape", value: "rainbow", icon: "🌈", title: "Gökkuşağı Tayf Pelerini", desc: "Dalgalandıkça renk değiştiren efsanevi RGB pelerin!", cost: 5 },
+    { id: "helmet_vip_quantum_crown", category: "helmet", value: "vip_quantum_crown", icon: "👑", title: "VIP Kuantum İmparator Tacı", desc: "VIP Pass'e özel yüzen 3 sivri uçlu holografik altın-turkuaz taç.", cost: 0, vipOnly: true },
+    { id: "helmet_vip_dragon_helm", category: "helmet", value: "vip_dragon_helm", icon: "🐉", title: "VIP Ejder Lordu Boynuzu", desc: "VIP Pass'e özel mor-altın kıvrımlı zümrüt mücevherli ejder miğferi.", cost: 0, vipOnly: true },
     { id: "gear_vip_phoenix_wings", category: "backGear", value: "vip_phoenix_wings", icon: "🔥", title: "VIP Anka Alev Kanatları", desc: "VIP Pass'e özel köz alevli siber anka kanatları (Süzülüş + Zıplama).", cost: 0, vipOnly: true },
+    { id: "gear_vip_excalibur", category: "backGear", value: "vip_excalibur", icon: "🗡️", title: "VIP Kozmik Excalibur", desc: "VIP Pass'e özel ışık saçan altın kabzalı efsanevi Excalibur kılıcı.", cost: 0, vipOnly: true },
+    { id: "skin_vip_obsidian_gold", category: "skin", value: "vip_obsidian_gold", icon: "✨", title: "VIP Obsidyen Altın Zırh", desc: "VIP Pass'e özel derin obsidyen siyahı ve 24 ayar altın zırh kaplaması.", cost: 0, vipOnly: true },
+    { id: "skin_vip_nebula_prism", category: "skin", value: "vip_nebula_prism", icon: "🌌", title: "VIP Nebula Prizma Zırh", desc: "VIP Pass'e özel yıldız moru ve kozmik turkuaz kuantum zırh.", cost: 0, vipOnly: true },
+    { id: "visor_vip_phoenix_eyes", category: "visor", value: "vip_phoenix_eyes", icon: "🔥", title: "VIP Anka Alev Gözleri", desc: "VIP Pass'e özel arkasından alev izi saçan parlayan anka gözleri.", cost: 0, vipOnly: true },
+    { id: "visor_vip_quantum_hud", category: "visor", value: "vip_quantum_hud", icon: "💠", title: "VIP Kuantum Tarayıcı Vizör", desc: "VIP Pass'e özel altın nişangahlı holografik turkuaz vizör.", cost: 0, vipOnly: true },
     { id: "aura_vip_goldstars", category: "aura", value: "vip_goldstars", icon: "👑", title: "VIP Altın İmparator Aurası", desc: "Yörünge yıldızlı ve altın-turkuaz kuantum halkalı prestij aurası.", cost: 0, vipOnly: true },
-    { id: "cape_vip_imperial", category: "cape", value: "vip_imperial", icon: "🟣", title: "VIP İmparatorluk Pelerini", desc: "Altın kenarlı asil mor kuantum pelerin ve maksimum hava hakimiyeti!", cost: 0, vipOnly: true }
+    { id: "aura_vip_solar_flare", category: "aura", value: "vip_solar_flare", icon: "☀️", title: "VIP Güneş Patlaması Aurası", desc: "VIP Pass'e özel dönen güneş halkaları ve yükselen ateş kıvılcımları.", cost: 0, vipOnly: true },
+    { id: "cape_vip_imperial", category: "cape", value: "vip_imperial", icon: "🟣", title: "VIP İmparatorluk Pelerini", desc: "Altın kenarlı asil mor kuantum pelerin ve maksimum hava hakimiyeti!", cost: 0, vipOnly: true },
+    { id: "cape_vip_phoenix_flame", category: "cape", value: "vip_phoenix_flame", icon: "🔥", title: "VIP Anka Alev Pelerini", desc: "VIP Pass'e özel kor köz kıvılcımlı kızıl-turuncu efsanevi pelerin!", cost: 0, vipOnly: true }
 ];
 
 // 30 Distinct Profile Pictures (Portraits) with Custom Gradient Frames
@@ -511,7 +563,7 @@ const LANG_DICT = {
             "Radyoaktif Mağara", "Başa Sar!", "Görünmez Çukur", "Üçlü İhanet", "Nükleer Cellat ☠",
             "Sinir Krizi", "Atom Yağmuru", "Sabır Testi", "Son Şaka", "Trol İmparator 👑"
         ],
-        tabs: ["👑 Miğfer (12)", "⚔️ Silah & Kanat (12)", "🛡 Zırh (12)", "👁 Göz & Vizör (10)", "✨ Aura & Efekt (10)", "🧣 Pelerin (10)", "⚡ Güçlendirme (8)"]
+        tabs: ["👑 Miğfer (14)", "⚔️ Silah & Kanat (14)", "🛡 Zırh (14)", "👁 Göz & Vizör (12)", "✨ Aura & Efekt (12)", "🧣 Pelerin (12)", "⚡ Güçlendirme (10)"]
     },
     ru: {
         gameTitle: "Marinext 2100",
@@ -602,7 +654,7 @@ const LANG_DICT = {
             "Радио-Пещера", "Назад на Старт!", "Невидимая Яма", "Тройной Обман", "Ядерный Палач ☠",
             "Нервный Срыв", "Атомный Дождь", "Тест Терпения", "Последняя Шутка", "Тролль-Император 👑"
         ],
-        tabs: ["👑 Шлем (12)", "⚔️ Оружие и Крылья (12)", "🛡 Броня (12)", "👁 Визор (10)", "✨ Аура (10)", "🧣 Плащ (10)", "⚡ Улучшения (8)"]
+        tabs: ["👑 Шлем (14)", "⚔️ Оружие и Крылья (14)", "🛡 Броня (14)", "👁 Визор (12)", "✨ Аура (12)", "🧣 Плащ (12)", "⚡ Улучшения (10)"]
     },
     en: {
         gameTitle: "Marinext 2100",
@@ -693,7 +745,7 @@ const LANG_DICT = {
             "Radioactive Cave", "Back to Start!", "Hidden Pit", "Triple Betrayal", "Nuclear Boss ☠",
             "Rage Quit", "Atom Rain", "Patience Test", "Final Prank", "Troll Emperor 👑"
         ],
-        tabs: ["👑 Helmet (12)", "⚔️ Weapon & Wings (12)", "🛡 Armor (12)", "👁 Visor (10)", "✨ Aura (10)", "🧣 Cape (10)", "⚡ Upgrades (8)"]
+        tabs: ["👑 Helmet (14)", "⚔️ Weapon & Wings (14)", "🛡 Armor (14)", "👁 Visor (12)", "✨ Aura (12)", "🧣 Cape (12)", "⚡ Upgrades (10)"]
     },
     it: {
         gameTitle: "Marinext 2100",
@@ -784,7 +836,7 @@ const LANG_DICT = {
             "Grotta Radio", "Torna all'Inizio!", "Fossa Invisibile", "Triplo Inganno", "Boia Nucleare ☠",
             "Crisi di Nervi", "Pioggia Atomica", "Test Pazienza", "Ultimo Scherzo", "Imperatore Troll 👑"
         ],
-        tabs: ["👑 Elmo (12)", "⚔️ Armi e Ali (12)", "🛡 Armatura (12)", "👁 Visiera (10)", "✨ Aura (10)", "🧣 Mantello (10)", "⚡ Potenziamenti (8)"]
+        tabs: ["👑 Elmo (14)", "⚔️ Armi e Ali (14)", "🛡 Armatura (14)", "👁 Visiera (12)", "✨ Aura (12)", "🧣 Mantello (12)", "⚡ Potenziamenti (10)"]
     },
     es: {
         gameTitle: "Marinext 2100",
@@ -875,7 +927,7 @@ const LANG_DICT = {
             "Cueva Radio", "¡Al Inicio!", "Foso Oculto", "Triple Traición", "Verdugo Nuclear ☠",
             "Crisis Nerviosa", "Lluvia Atómica", "Test Paciencia", "Broma Final", "Emperador Trol 👑"
         ],
-        tabs: ["👑 Casco (12)", "⚔️ Armas y Alas (12)", "🛡 Armadura (12)", "👁 Visor (10)", "✨ Aura (10)", "🧣 Capa (10)", "⚡ Mejoras (8)"]
+        tabs: ["👑 Casco (14)", "⚔️ Armas y Alas (14)", "🛡 Armadura (14)", "👁 Visor (12)", "✨ Aura (12)", "🧣 Capa (12)", "⚡ Mejoras (10)"]
     },
     fr: {
         gameTitle: "Marinext 2100",
@@ -966,7 +1018,7 @@ const LANG_DICT = {
             "Grotte Radio", "Retour Départ !", "Fosse Cachée", "Triple Trahison", "Bourreau Nucléaire ☠",
             "Crise de Nerfs", "Pluie Atomique", "Test Patience", "Farce Finale", "Empereur Troll 👑"
         ],
-        tabs: ["👑 Casque (12)", "⚔️ Armes & Ailes (12)", "🛡 Armure (12)", "👁 Visière (10)", "✨ Aura (10)", "🧣 Cape (10)", "⚡ Améliorations (8)"]
+        tabs: ["👑 Casque (14)", "⚔️ Armes & Ailes (14)", "🛡 Armure (14)", "👁 Visière (12)", "✨ Aura (12)", "🧣 Cape (12)", "⚡ Améliorations (10)"]
     },
     ko: {
         gameTitle: "Marinext 2100",
@@ -1057,7 +1109,7 @@ const LANG_DICT = {
             "방사능 동굴", "처음으로!", "보이지 않는 구덩이", "삼중 배신", "핵 처형자 ☠",
             "분노 폭발", "우라늄 폭우", "인내심 테스트", "마지막 장난", "트롤 황제 👑"
         ],
-        tabs: ["👑 투구 (12)", "⚔️ 무기 & 날개 (12)", "🛡 갑옷 (12)", "👁 바이저 (10)", "✨ 오라 (10)", "🧣 망토 (10)", "⚡ 강화 (8)"]
+        tabs: ["👑 투구 (14)", "⚔️ 무기 & 날개 (14)", "🛡 갑옷 (14)", "👁 바이저 (12)", "✨ 오라 (12)", "🧣 망토 (12)", "⚡ 강화 (10)"]
     },
     zh: {
         gameTitle: "Marinext 2100",
@@ -1148,7 +1200,7 @@ const LANG_DICT = {
             "辐射洞穴", "回到起点！", "隐形深坑", "三重背叛", "核能行刑者 ☠",
             "暴怒崩溃", "原子暴雨", "耐心测试", "终极恶作剧", "整蛊大帝 👑"
         ],
-        tabs: ["👑 头盔 (12)", "⚔️ 武器与翅膀 (12)", "🛡 装甲 (12)", "👁 面罩 (10)", "✨ 光环 (10)", "🧣 披风 (10)", "⚡ 强化 (8)"]
+        tabs: ["👑 头盔 (14)", "⚔️ 武器与翅膀 (14)", "🛡 装甲 (14)", "👁 面罩 (12)", "✨ 光环 (12)", "🧣 披风 (12)", "⚡ 强化 (10)"]
     },
     ja: {
         gameTitle: "Marinext 2100",
@@ -1239,7 +1291,7 @@ const LANG_DICT = {
             "放射能の洞窟", "振り出しへ！", "見えない落とし穴", "三重の裏切り", "核の処刑人 ☠",
             "激怒の陸橋", "アトムの豪雨", "忍耐テスト", "最後の悪戯", "トロール皇帝 👑"
         ],
-        tabs: ["👑 兜 (12)", "⚔️ 武器＆翼 (12)", "🛡 鎧 (12)", "👁 バイザー (10)", "✨ オーラ (10)", "🧣 マント (10)", "⚡ 強化 (8)"]
+        tabs: ["👑 兜 (14)", "⚔️ 武器＆翼 (14)", "🛡 鎧 (14)", "👁 バイザー (12)", "✨ オーラ (12)", "🧣 マント (12)", "⚡ 強化 (10)"]
     }
 };
 if (typeof window !== "undefined" && typeof window.ensureFullLangDict === "function") {
@@ -2105,7 +2157,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 43;
+        const CURRENT_VERSION_CODE = 44;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2431,6 +2483,17 @@ class Game {
         if (this.ownedItems.includes("heart3")) {
             scoreMult += 0.35;
             coinBonusChance += 0.35;
+        }
+        if (isVipActive) {
+            // Automatic VIP Power Modules (no Crystal cost while VIP Pass is active!)
+            scoreMult += 0.25;
+            coinBonusChance += 0.25;
+            hasMagnet = true;
+            magnetRadius += 60;
+            invulnBonus += 15;
+            speedBonus += 0.52;
+            airControlBonus += 0.15;
+            fireCooldownReduction += 4;
         }
 
         const applyBonusObj = (b) => {
@@ -3200,9 +3263,13 @@ class Game {
                 document.querySelectorAll("#char-filter-tabs .char-filter-tab").forEach((b) => {
                     b.classList.toggle("active", b === tabBtn);
                 });
+                const cg = document.getElementById("char-items-container");
+                if (cg) cg.scrollTop = 0;
                 this.renderCharacterItems();
             });
         });
+
+        this.setupStudioScrollHints();
 
         const closeInsufficientModal = () => {
             window.sfx.coin();
@@ -3345,6 +3412,8 @@ class Game {
                 tabBtn.classList.add("active");
                 this.activeCustTab = tabBtn.getAttribute("data-tab");
                 window.sfx.coin();
+                const kg = document.getElementById("cust-items-container");
+                if (kg) kg.scrollTop = 0;
                 this.renderCustomizeItems();
             });
         });
@@ -4908,6 +4977,7 @@ class Game {
         this.updateVipEntryButtonsUI();
         this.renderCustomizeItems();
         document.getElementById("screen-customize").classList.remove("hidden");
+        this.syncStudioScrollHint("cust-items-container", "cust-scroll-hint");
     }
 
     renderCustomizeItems() {
@@ -4951,12 +5021,15 @@ class Game {
         updateCustomizeSummaryLabels();
 
         if (this.activeCustTab === "upgrade") {
+            const isVipActive = this.hasVipPass();
+            const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
             SHOP_CATALOG.forEach((rawItem) => {
                 const item = window.getLocalizedShopItem ? window.getLocalizedShopItem(rawItem, this.lang) : rawItem;
-                const isOwned = this.ownedItems.includes(item.id);
+                const isVipModule = Boolean(rawItem.vipOnly);
+                const isOwned = isVipModule ? isVipActive : this.ownedItems.includes(item.id);
                 const canAfford = this.walletCoins >= item.cost;
                 const card = document.createElement("div");
-                card.className = `shop-card ${isOwned ? "owned" : ""}`;
+                card.className = `shop-card ${isOwned ? "owned" : ""} ${isVipModule ? `vip-exclusive-card ${isVipActive ? "vip-ready" : "vip-locked"}` : ""}`.trim();
 
                 let btnLabel = canAfford
                     ? (t("shopBuyBtn", { cost: item.cost }) || `SATIN AL (${item.cost} ◆ Kristal)`)
@@ -4964,15 +5037,31 @@ class Game {
                 let btnClass = "shop-buy-btn";
                 let disabled = false;
 
-                if (isOwned) {
+                if (isVipModule) {
+                    if (isVipActive) {
+                        btnLabel = t("shopActiveUpgrade") || "✓ AKTİF GÜÇLENDİRME";
+                        btnClass += " equipped";
+                        disabled = true;
+                    } else {
+                        btnLabel = bt("btnUnlockWithVip") || "👑 VIP PASS İLE AÇ";
+                        btnClass = "shop-buy-btn vip-unlock-btn";
+                    }
+                } else if (isOwned) {
                     btnLabel = t("shopActiveUpgrade") || "✓ AKTİF GÜÇLENDİRME";
                     btnClass += " equipped";
                     disabled = true;
                 }
 
-                const statusTxt = isOwned
+                let statusClass = isOwned ? "owned" : "locked";
+                let statusTxt = isOwned
                     ? (t("charOwnedBadge") || "✓ SATIN ALINDI")
                     : `${item.cost} ◆`;
+                if (isVipModule) {
+                    statusClass = isVipActive ? "vip-included" : "vip-exclusive";
+                    statusTxt = isVipActive
+                        ? (bt("vipBadgeAutoActive") || "👑 VIP AKTİF")
+                        : (bt("vipBadgeExclusive") || "👑 VIP ÖZEL");
+                }
 
                 card.innerHTML = `
                     <div>
@@ -4980,7 +5069,7 @@ class Game {
                             <span class="shop-icon">${item.icon}</span>
                             <div>
                                 <h4>${item.title}</h4>
-                                <span class="char-status-badge ${isOwned ? "owned" : "locked"}">${statusTxt}</span>
+                                <span class="char-status-badge ${statusClass}">${statusTxt}</span>
                             </div>
                         </div>
                         <div class="item-perk-pill">${item.perkDesc || "⚡"}</div>
@@ -4990,6 +5079,10 @@ class Game {
                 `;
 
                 card.querySelector("button").addEventListener("click", () => {
+                    if (isVipModule && !isVipActive) {
+                        this.openVipStore("cust_vip_upgrade");
+                        return;
+                    }
                     if (isOwned) return;
                     if (this.walletCoins < item.cost) {
                         this.openInsufficientBalanceModal("crystal", item.cost - this.walletCoins, item.title);
@@ -5003,6 +5096,7 @@ class Game {
                 });
                 container.appendChild(card);
             });
+            this.syncStudioScrollHint("cust-items-container", "cust-scroll-hint");
             return;
         }
 
@@ -5165,6 +5259,7 @@ class Game {
         });
 
         updateCustomizeSummaryLabels();
+        this.syncStudioScrollHint("cust-items-container", "cust-scroll-hint");
     }
 
     drawCustomizePreview() {
@@ -5204,6 +5299,50 @@ class Game {
         ctx.restore();
     }
 
+    setupStudioScrollHints() {
+        if (this._studioScrollHintsBound) return;
+        this._studioScrollHintsBound = true;
+        const pairs = [
+            ["char-items-container", "char-scroll-hint"],
+            ["cust-items-container", "cust-scroll-hint"],
+            ["shop-items-container", "shop-scroll-hint"]
+        ];
+        pairs.forEach(([gridId, hintId]) => {
+            const grid = document.getElementById(gridId);
+            const hint = document.getElementById(hintId);
+            if (grid) {
+                grid.addEventListener("scroll", () => this.syncStudioScrollHint(gridId, hintId), { passive: true });
+            }
+            if (hint && grid) {
+                hint.addEventListener("click", () => {
+                    const step = Math.max(150, Math.round(grid.clientHeight * 0.65));
+                    grid.scrollBy({ top: step, behavior: "smooth" });
+                });
+            }
+        });
+        window.addEventListener("resize", () => {
+            pairs.forEach(([gridId, hintId]) => this.syncStudioScrollHint(gridId, hintId));
+        }, { passive: true });
+    }
+
+    syncStudioScrollHint(gridId, hintId) {
+        const grid = document.getElementById(gridId);
+        const hint = document.getElementById(hintId);
+        if (!grid || !hint) return;
+        const bt = (k) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k) : "");
+        const hintLabel = bt("scrollMoreHint") || "⬇ Daha fazla seçenek için aşağı kaydır";
+        if (hint.textContent !== hintLabel) {
+            hint.textContent = hintLabel;
+        }
+        window.requestAnimationFrame(() => {
+            const remaining = grid.scrollHeight - grid.scrollTop - grid.clientHeight;
+            const hasMore = grid.clientHeight > 0 && remaining > 18;
+            hint.classList.toggle("hidden", !hasMore);
+            const wrap = grid.closest(".scroll-grid-wrap");
+            if (wrap) wrap.classList.toggle("has-more", hasMore);
+        });
+    }
+
     openCharacterStudio() {
         this.charPreviewDummy = new window.Player(0, 0, this.getPlayerUpgrades());
         this.charPreviewDummy.vx = 2.2;
@@ -5212,6 +5351,7 @@ class Game {
         this.renderCharacterItems();
         const modal = document.getElementById("screen-character");
         if (modal) modal.classList.remove("hidden");
+        this.syncStudioScrollHint("char-items-container", "char-scroll-hint");
     }
 
     renderCharacterItems() {
@@ -5233,12 +5373,14 @@ class Game {
         const totalCount = HERO_CHARACTERS_CATALOG.length;
         const ownedCount = HERO_CHARACTERS_CATALOG.filter((c) => isCharAvailable(c)).length;
         const lockedCount = totalCount - ownedCount;
+        const vipCount = HERO_CHARACTERS_CATALOG.filter((c) => Boolean(c.vipOnly || c.vipEarlyAccess)).length;
 
         // Update Filter Tab Counts
         document.querySelectorAll("#char-filter-tabs .char-filter-tab").forEach((tabBtn) => {
             const f = tabBtn.getAttribute("data-char-filter");
             if (f === "all") tabBtn.textContent = t("charFilterAll", { count: totalCount }) || `🌟 Tüm Karakterler (${totalCount})`;
             else if (f === "owned") tabBtn.textContent = t("charFilterOwned", { count: ownedCount }) || `✅ Satın Alınanlar (${ownedCount})`;
+            else if (f === "vip") tabBtn.textContent = bt("charTabVip", { count: vipCount }) || `👑 VIP (${vipCount})`;
             else if (f === "locked") tabBtn.textContent = t("charFilterLocked", { count: lockedCount }) || `🔒 Satın Alınabilir (${lockedCount})`;
         });
 
@@ -5246,6 +5388,7 @@ class Game {
         const filteredList = HERO_CHARACTERS_CATALOG.filter((item) => {
             const avail = isCharAvailable(item);
             if (filterMode === "owned") return avail;
+            if (filterMode === "vip") return Boolean(item.vipOnly || item.vipEarlyAccess);
             if (filterMode === "locked") return !avail;
             return true;
         });
@@ -5408,6 +5551,7 @@ class Game {
         if (perkEl) {
             perkEl.textContent = activeItem.perkDesc || "⚡";
         }
+        this.syncStudioScrollHint("char-items-container", "char-scroll-hint");
     }
 
     drawCharacterPreview() {
@@ -5453,14 +5597,17 @@ class Game {
         const container = document.getElementById("shop-items-container");
         container.innerHTML = "";
         const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
+        const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
+        const isVipActive = this.hasVipPass();
 
         SHOP_CATALOG.forEach((rawItem) => {
             const item = window.getLocalizedShopItem ? window.getLocalizedShopItem(rawItem, this.lang) : rawItem;
-            const isOwned = this.ownedItems.includes(item.id);
+            const isVipModule = Boolean(rawItem.vipOnly);
+            const isOwned = isVipModule ? isVipActive : this.ownedItems.includes(item.id);
             const canAfford = this.walletCoins >= item.cost;
 
             const card = document.createElement("div");
-            card.className = `shop-card ${isOwned ? "owned" : ""}`;
+            card.className = `shop-card ${isOwned ? "owned" : ""} ${isVipModule ? `vip-exclusive-card ${isVipActive ? "vip-ready" : "vip-locked"}` : ""}`.trim();
 
             let btnLabel = canAfford
                 ? (t("shopBuyBtn", { cost: item.cost }) || `SATIN AL (${item.cost} ◆)`)
@@ -5468,15 +5615,31 @@ class Game {
             let btnClass = "shop-buy-btn";
             let disabled = false;
 
-            if (isOwned) {
+            if (isVipModule) {
+                if (isVipActive) {
+                    btnLabel = t("shopActiveUpgrade") || "✓ AKTİF GÜÇLENDİRME";
+                    btnClass += " equipped";
+                    disabled = true;
+                } else {
+                    btnLabel = bt("btnUnlockWithVip") || "👑 VIP PASS İLE AÇ";
+                    btnClass = "shop-buy-btn vip-unlock-btn";
+                }
+            } else if (isOwned) {
                 btnLabel = t("shopActiveUpgrade") || "✓ AKTİF GÜÇLENDİRME";
                 btnClass += " equipped";
                 disabled = true;
             }
 
-            const statusTxt = isOwned
+            let statusClass = isOwned ? "owned" : "locked";
+            let statusTxt = isOwned
                 ? (t("charOwnedBadge") || "✓ SATIN ALINDI")
                 : `${item.cost} ◆`;
+            if (isVipModule) {
+                statusClass = isVipActive ? "vip-included" : "vip-exclusive";
+                statusTxt = isVipActive
+                    ? (bt("vipBadgeAutoActive") || "👑 VIP AKTİF")
+                    : (bt("vipBadgeExclusive") || "👑 VIP ÖZEL");
+            }
 
             card.innerHTML = `
                 <div>
@@ -5484,7 +5647,7 @@ class Game {
                         <span class="shop-icon">${item.icon}</span>
                         <div>
                             <h4>${item.title}</h4>
-                            <span class="char-status-badge ${isOwned ? "owned" : "locked"}">${statusTxt}</span>
+                            <span class="char-status-badge ${statusClass}">${statusTxt}</span>
                         </div>
                     </div>
                     <div class="item-perk-pill">${item.perkDesc || "⚡"}</div>
@@ -5495,6 +5658,10 @@ class Game {
 
             const btn = card.querySelector("button");
             btn.addEventListener("click", () => {
+                if (isVipModule && !isVipActive) {
+                    this.openVipStore("shop_vip_upgrade");
+                    return;
+                }
                 if (isOwned) return;
                 if (this.walletCoins < item.cost) {
                     this.openInsufficientBalanceModal("crystal", item.cost - this.walletCoins, item.title);
@@ -5511,6 +5678,7 @@ class Game {
         });
 
         document.getElementById("screen-shop").classList.remove("hidden");
+        this.syncStudioScrollHint("shop-items-container", "shop-scroll-hint");
     }
 
     updateMapUI() {
@@ -10706,6 +10874,10 @@ class Game {
                 if (custScreen && !custScreen.classList.contains("hidden")) {
                     this.renderCustomizeItems();
                 }
+                const shopScreen = document.getElementById("screen-shop");
+                if (shopScreen && !shopScreen.classList.contains("hidden")) {
+                    this.openShop();
+                }
                 if (ent.userRestore) {
                     const msgKey = this.hasNoForcedAds() ? "toastRestoreSuccess" : "toastRestoreNone";
                     const msgColor = this.hasNoForcedAds() ? "#06d6a0" : "#ffd166";
@@ -10776,9 +10948,24 @@ class Game {
             this.equippedHeroChar = "default";
             changed = true;
         }
+        const hmItem = CUSTOMIZE_CATALOG.find((i) => i.category === "helmet" && i.value === this.equippedHelmet);
+        if (hmItem && hmItem.vipOnly) {
+            this.equippedHelmet = "crest";
+            changed = true;
+        }
         const bgItem = CUSTOMIZE_CATALOG.find((i) => i.category === "backGear" && i.value === this.equippedBackGear);
         if (bgItem && bgItem.vipOnly) {
             this.equippedBackGear = "katana";
+            changed = true;
+        }
+        const skItem = CUSTOMIZE_CATALOG.find((i) => i.category === "skin" && i.value === this.equippedSkin);
+        if (skItem && skItem.vipOnly) {
+            this.equippedSkin = "cyan";
+            changed = true;
+        }
+        const vsItem = CUSTOMIZE_CATALOG.find((i) => i.category === "visor" && i.value === this.equippedVisor);
+        if (vsItem && vsItem.vipOnly) {
+            this.equippedVisor = "slit";
             changed = true;
         }
         const auItem = CUSTOMIZE_CATALOG.find((i) => i.category === "aura" && i.value === this.equippedAura);
@@ -10794,13 +10981,19 @@ class Game {
         if (changed) {
             if (this.player) {
                 this.player.heroCharId = this.equippedHeroChar;
+                this.player.helmetId = this.equippedHelmet;
                 this.player.backGearId = this.equippedBackGear;
+                this.player.skinId = this.equippedSkin;
+                this.player.visorId = this.equippedVisor;
                 this.player.auraId = this.equippedAura;
                 this.player.capeColor = this.equippedCape;
             }
             if (this.previewDummy) {
                 this.previewDummy.heroCharId = this.equippedHeroChar;
+                this.previewDummy.helmetId = this.equippedHelmet;
                 this.previewDummy.backGearId = this.equippedBackGear;
+                this.previewDummy.skinId = this.equippedSkin;
+                this.previewDummy.visorId = this.equippedVisor;
                 this.previewDummy.auraId = this.equippedAura;
                 this.previewDummy.capeColor = this.equippedCape;
             }
