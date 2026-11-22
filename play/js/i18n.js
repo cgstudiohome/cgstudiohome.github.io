@@ -1952,50 +1952,98 @@
     // Translations for SHOP_CATALOG (8 permanent + 2 automatic VIP modules)
     const SHOP_TRANSLATIONS = {
         en: {
-            heart1: { title: "Titanium Armor & +1 Extra Heart", perkDesc: "❤️ +1 Max Heart & +25 Frames Invulnerability", desc: "Increases maximum health by +1 heart (♥) and extends post-damage protection!" },
-            heart2: { title: "Quantum Air Control & Jump", perkDesc: "🚀 +6% Higher Jump & +35% Air Control", desc: "Provides +35% sharper mid-air maneuvering and +6% higher jump boost!" },
-            heart3: { title: "Crystal, Coin & Score Multiplier", perkDesc: "💎 +35% Score Multiplier & +35% Extra Coin Chance", desc: "Grants +35% bonus score and extra Coin chance from every collected gem!" },
-            startShield: { title: "Starter Aether Shield", perkDesc: "🛡 Start Every Level with a Protective Shield", desc: "Automatically start every level protected by an Aether energy shield!" },
-            startFire: { title: "Starter Plasma Fire", perkDesc: "🔥 Start Every Level with Fireball Power", desc: "Start every level with Plasma Fireball ranged attack already active!" },
-            speedBoots: { title: "Hyper-Speed Boots", perkDesc: "👢 +18% Permanent Run Speed Boost", desc: "Run 18% faster permanently across all campaign and troll levels!" },
-            emeraldMagnet: { title: "Ancient Emerald & Crystal Magnet", perkDesc: "🧲 Wide-Area Treasure Magnet (Ignores Fake Traps)", desc: "Automatically pulls nearby real Crystals, Coins, and Ancient Emeralds to you!" },
-            tripleJump: { title: "Triple Jump Module", perkDesc: "🚀 Jump 3 Times in Mid-Air (Triple Jump)", desc: "Unlocks the ability to jump 3 times in a row while airborne!" },
+            heart1: { title: "Titanium Armor & +1 Extra Heart", perkDesc: "❤️ +1 Max Heart & +20 Frames Invulnerability", vipMk2Desc: "❤️ +1 Max Heart & +38 Frames Armor Invulnerability", desc: "Increases maximum health by +1 heart (♥) and extends post-damage protection!" },
+            heart2: { title: "Quantum Air Control & Jump", perkDesc: "🚀 +6% Higher Jump & +35% Air Control", vipMk2Desc: "🚀 +10% Higher Jump & +50% Razor Air Control", desc: "Provides +35% sharper mid-air maneuvering and higher jump boost!" },
+            heart3: { title: "Crystal, Coin & Score Multiplier", perkDesc: "💎 +25% Score Multiplier & +25% Extra Coin Chance", vipMk2Desc: "💎 +55% Score Multiplier & +55% Extra Coin Chance", desc: "Grants bonus score and extra Coin luck from every collected gem!" },
+            startShield: { title: "Starter Aether Shield", perkDesc: "🛡 Start Every Level with a Protective Shield", vipMk2Desc: "🛡 Starter Shield + Extra +22 Frames Hit Immunity", desc: "Automatically start every level protected by an Aether energy shield!" },
+            startFire: { title: "Starter Plasma Fire", perkDesc: "🔥 Start Every Level with Fireball Power", vipMk2Desc: "🔥 Starter Fire + 18% Faster Fireball Recharge", desc: "Start every level with Plasma Fireball ranged attack already active!" },
+            speedBoots: { title: "Hyper-Speed Boots", perkDesc: "👢 +14% Permanent Run Speed Boost", vipMk2Desc: "👢 +24% Super Run Speed + Raised Max Speed Cap", desc: "Run faster permanently across all campaign and troll levels!" },
+            emeraldMagnet: { title: "Ancient Emerald & Crystal Magnet", perkDesc: "🧲 160px Treasure Magnet (Ignores Fake Traps)", vipMk2Desc: "🧲 260px Wide-Area Super Treasure Magnet", desc: "Automatically pulls nearby real Crystals, Coins, and Ancient Emeralds to you!" },
+            tripleJump: { title: "Triple Jump Module", perkDesc: "🚀 Jump 3 Times in Mid-Air (Triple Jump)", vipMk2Desc: "🚀 Triple Jump + Bonus Wing Glide & +4% Lift", desc: "Unlocks the ability to jump 3 times in a row while airborne!" },
             vip_quantum_core: { title: "VIP Quantum Power Core", perkDesc: "👑 VIP Auto: +25% Score/Coin, +60px Magnet & +15 Frames Protection", desc: "Activates automatically while VIP Pass is active: extra score, coin luck, magnet range, and armor protection!" },
             vip_plasma_overdrive: { title: "VIP Plasma Overdrive", perkDesc: "⚡ VIP Auto: +10% Speed, +15% Air Control & -16% Fire Cooldown", desc: "Activates automatically while VIP Pass is active: faster run speed, sharper air control, and rapid fireball!" }
         },
         ru: {
-            heart1: { title: "Титановая Броня и +1 Жизнь", perkDesc: "❤️ +1 Макс. Жизнь и +25 кадров защиты", desc: "Увеличивает здоровье на +1 сердце (♥) и продлевает неуязвимость!" },
-            heart2: { title: "Квантовый Контроль и Прыжок", perkDesc: "🚀 +6% Высота прыжка и +35% маневр в воздухе", desc: "Обеспечивает точное управление в воздухе и усиливает прыжок!" },
-            heart3: { title: "Множитель Кристаллов и Счёта", perkDesc: "💎 +35% к Счёту и +35% шанс бонусных Монет", desc: "Дает +35% бонусных очков и шанс дополнительных монет!" },
-            startShield: { title: "Стартовый Эфирный Щит", perkDesc: "🛡 Начинай каждый уровень с защитным щитом", desc: "Автоматический энергетический щит в начале каждого уровня!" },
-            startFire: { title: "Стартовый Плазменный Огонь", perkDesc: "🔥 Начинай каждый уровень с Огненным Шаром", desc: "Сразу даёт способность метать огненные шары со старта уровня!" },
-            speedBoots: { title: "Гипер-Скоростные Ботинки", perkDesc: "👢 +18% к постоянной скорости бега", desc: "Позволяет бегать на 18% быстрее на всех уровнях!" },
-            emeraldMagnet: { title: "Магнит Изумрудов и Кристаллов", perkDesc: "🧲 Притягивает настоящие сокровища (кроме ловушек)", desc: "Автоматически притягивает ближайшие кристаллы, монеты и изумруды!" },
-            tripleJump: { title: "Модуль Тройного Прыжка", perkDesc: "🚀 3 прыжка подряд в воздухе (Triple Jump)", desc: "Позволяет прыгать 3 раза подряд в воздухе вместо двух!" },
+            heart1: { title: "Титановая Броня и +1 Жизнь", perkDesc: "❤️ +1 Макс. Жизнь и +20 кадров защиты", vipMk2Desc: "❤️ +1 Жизнь и +38 кадров защиты брони", desc: "Увеличивает здоровье на +1 сердце (♥) и продлевает неуязвимость!" },
+            heart2: { title: "Квантовый Контроль и Прыжок", perkDesc: "🚀 +6% Высота прыжка и +35% маневр", vipMk2Desc: "🚀 +10% Высота прыжка и +50% маневр в воздухе", desc: "Обеспечивает точное управление в воздухе и усиливает прыжок!" },
+            heart3: { title: "Множитель Кристаллов и Счёта", perkDesc: "💎 +25% к Счёту и +25% шанс бонусных Монет", vipMk2Desc: "💎 +55% к Счёту и +55% шанс бонусных Монет", desc: "Дает бонусные очки и повышенный шанс монет за каждый самоцвет!" },
+            startShield: { title: "Стартовый Эфирный Щит", perkDesc: "🛡 Начинай каждый уровень с защитным щитом", vipMk2Desc: "🛡 Стартовый щит + 22 доп. кадра неуязвимости", desc: "Автоматический энергетический щит в начале каждого уровня!" },
+            startFire: { title: "Стартовый Плазменный Огонь", perkDesc: "🔥 Начинай каждый уровень с Огненным Шаром", vipMk2Desc: "🔥 Стартовый огонь и +18% скорость перезарядки", desc: "Сразу даёт способность метать огненные шары со старта уровня!" },
+            speedBoots: { title: "Гипер-Скоростные Ботинки", perkDesc: "👢 +14% к постоянной скорости бега", vipMk2Desc: "👢 +24% Супер-скорость + повышенный лимит", desc: "Позволяет бегать быстрее на всех уровнях кампании и тролль-режима!" },
+            emeraldMagnet: { title: "Магнит Изумрудов и Кристаллов", perkDesc: "🧲 Магнит 160px для сокровищ (кроме ловушек)", vipMk2Desc: "🧲 Супер-магнит 260px широкого радиуса", desc: "Автоматически притягивает ближайшие кристаллы, монеты и изумруды!" },
+            tripleJump: { title: "Модуль Тройного Прыжка", perkDesc: "🚀 3 прыжка подряд в воздухе", vipMk2Desc: "🚀 3 прыжка + планерное парение и +4% тяга", desc: "Позволяет прыгать 3 раза подряд в воздухе вместо двух!" },
             vip_quantum_core: { title: "VIP Квантовое Ядро Силы", perkDesc: "👑 VIP Авто: +25% Счёт/Монеты, +60px Магнит и +15 кадров защиты", desc: "Включается автоматически с VIP Pass: больше очков, удача монет, магнит и броня!" },
             vip_plasma_overdrive: { title: "VIP Плазменный Форсаж", perkDesc: "⚡ VIP Авто: +10% Скорость, +15% Контроль в воздухе и -16% Откат огня", desc: "Включается автоматически с VIP Pass: ускорение бега, маневренность и быстрый огонь!" }
         },
         ko: {
+            heart1: { title: "티타늄 아머 & 최대 체력 +1", perkDesc: "❤️ 최대 하트 +1 & 피격 무적 +20프레임", vipMk2Desc: "❤️ 최대 하트 +1 & 슈퍼 아머 무적 +38프레임", desc: "최대 체력을 1칸 늘리고 피격 후 보호 시간을 연장합니다!" },
+            heart2: { title: "양자 공중 제어 & 점프", perkDesc: "🚀 점프력 +6% & 공중 제어 +35%", vipMk2Desc: "🚀 점프력 +10% & 초정밀 공중 제어 +50%", desc: "공중 이동 조작감을 대폭 높이고 더 높이 도약할 수 있습니다!" },
+            heart3: { title: "크리스탈·코인 & 점수 배율", perkDesc: "💎 점수 배율 +25% & 추가 코인 확률 +25%", vipMk2Desc: "💎 점수 배율 +55% & 추가 코인 확률 +55%", desc: "보석을 모을 때마다 보너스 점수와 추가 코인 획득 확률이 오릅니다!" },
+            startShield: { title: "스타터 에테르 보호막", perkDesc: "🛡 모든 스테이지를 보호막과 함께 시작", vipMk2Desc: "🛡 시작 보호막 + 피격 무적 +22프레임 추가", desc: "매 스테이지 시작 시 자동으로 에테르 보호막이 장착됩니다!" },
+            startFire: { title: "스타터 플라즈마 화염", perkDesc: "🔥 모든 스테이지를 화염구 능력으로 시작", vipMk2Desc: "🔥 시작 화염구 + 발사 쿨타임 18% 단축", desc: "스테이지 시작과 동시에 원거리 화염구 공격을 사용할 수 있습니다!" },
+            speedBoots: { title: "하이퍼 스피드 부츠", perkDesc: "👢 영구 달리기 속도 +14% 증가", vipMk2Desc: "👢 영구 속도 +24% & 최고 속도 상한 해제", desc: "모든 캠페인과 트롤 스테이지에서 더 빠르게 질주합니다!" },
+            emeraldMagnet: { title: "고대 에메랄드·크리스탈 자석", perkDesc: "🧲 160px 보물 자석 (가짜 함정 제외)", vipMk2Desc: "🧲 260px 광역 슈퍼 보물 자석", desc: "주변의 진짜 크리스탈, 코인, 에메랄드를 자동으로 끌어당깁니다!" },
+            tripleJump: { title: "트리플 점프 모듈", perkDesc: "🚀 공중에서 3회 연속 점프 가능", vipMk2Desc: "🚀 트리플 점프 + 날개 활공 & 점프력 +4%", desc: "공중에서 2회가 아닌 최대 3회까지 연속 점프합니다!" },
             vip_quantum_core: { title: "VIP 양자 파워 코어", perkDesc: "👑 VIP 자동: 점수/코인 +25%, 자석 +60px & 무적 +15프레임", desc: "VIP 패스 활성 시 자동 작동: 보너스 점수, 코인 행운, 자석 범위 및 보호 강화!" },
             vip_plasma_overdrive: { title: "VIP 플라즈마 오버드라이브", perkDesc: "⚡ VIP 자동: 속도 +10%, 공중 제어 +15% & 화염 쿨다운 -16%", desc: "VIP 패스 활성 시 자동 작동: 더 빠른 질주, 정밀한 공중 제어 & 연사 속도!" }
         },
         ja: {
+            heart1: { title: "チタンアーマー＆最大HP+1", perkDesc: "❤️ 最大ハート+1＆無敵+20フレーム", vipMk2Desc: "❤️ 最大ハート+1＆強化アーマー無敵+38フレーム", desc: "最大ライフを+1増やし、被弾後の無敵時間を延長します！" },
+            heart2: { title: "クォンタム空中制御＆ジャンプ", perkDesc: "🚀 ジャンプ+6%＆空中制御+35%", vipMk2Desc: "🚀 ジャンプ+10%＆超精密空中制御+50%", desc: "空中での方向転換を鋭くし、ジャンプの到達高を伸ばします！" },
+            heart3: { title: "クリスタル・コイン＆スコア倍率", perkDesc: "💎 スコア+25%＆追加コイン確率+25%", vipMk2Desc: "💎 スコア+55%＆追加コイン確率+55%", desc: "宝石獲得時のスコア倍率とボーナスコイン出現率をアップ！" },
+            startShield: { title: "スターター・エーテルシールド", perkDesc: "🛡 毎ステージ開始時からシールド装備", vipMk2Desc: "🛡 初期シールド＋被弾無敵+22フレーム追加", desc: "各ステージの開始時に自動で防護シールドを展開します！" },
+            startFire: { title: "スターター・プラズマファイア", perkDesc: "🔥 毎ステージ開始時から火炎弾が使用可能", vipMk2Desc: "🔥 初期火炎弾＋連射リチャージ18%高速化", desc: "ステージ最初から遠距離ファイアボール攻撃が使えます！" },
+            speedBoots: { title: "ハイパースピードブーツ", perkDesc: "👢 走行スピード恒久 +14% アップ", vipMk2Desc: "👢 超加速 +24% ＆最高速度キャップ解放", desc: "全キャンペーン・トロールモードで素早く駆け抜けられます！" },
+            emeraldMagnet: { title: "古代エメラルド＆クリスタル磁石", perkDesc: "🧲 160px 宝物マグネット（罠は吸い寄せない）", vipMk2Desc: "🧲 260px 広範囲スーパー宝物マグネット", desc: "近くの本物のクリスタル・コイン・エメラルドを自動回収します！" },
+            tripleJump: { title: "トリプルジャンプモジュール", perkDesc: "🚀 空中で3回連続ジャンプ可能", vipMk2Desc: "🚀 3段ジャンプ＋滑空グライド＆上昇力+4%", desc: "空中で2回ではなく3回連続でジャンプできるようになります！" },
             vip_quantum_core: { title: "VIP クォンタムパワーコア", perkDesc: "👑 VIP自動: スコア/コイン+25%、磁石+60px＆無敵+15F", desc: "VIPパス有効中に自動発動：獲得倍率・幸運・磁石範囲＆防御がアップ！" },
             vip_plasma_overdrive: { title: "VIP プラズマオーバードライブ", perkDesc: "⚡ VIP自動: 速度+10%、空中制御+15%＆炎クール-16%", desc: "VIPパス有効中に自動発動：走行速度・空中機動＆連射速度を強化！" }
         },
         zh: {
+            heart1: { title: "钛金装甲 & 额外 +1 生命值", perkDesc: "❤️ 生命上限 +1 心 & 受伤无敌 +20 帧", vipMk2Desc: "❤️ 生命上限 +1 心 & 护甲无敌延长至 +38 帧", desc: "永久增加 1 颗最大生命值 (♥) 并延长受伤后无敌保护！" },
+            heart2: { title: "量子空中微操 & 强力跳跃", perkDesc: "🚀 跳跃高度 +6% & 空中微操 +35%", vipMk2Desc: "🚀 跳跃高度 +10% & 极速空中转向 +50%", desc: "显著提升滞空转向灵敏度与极限跳跃高度！" },
+            heart3: { title: "晶核、金币与得分倍率", perkDesc: "💎 +25% 得分倍率 & +25% 额外金币概率", vipMk2Desc: "💎 +55% 得分倍率 & +55% 额外金币概率", desc: "每次拾取宝石都获得更高得分加成与额外金币幸运触发！" },
+            startShield: { title: "开局以太能量护盾", perkDesc: "🛡 每关开始自动装备防护护盾", vipMk2Desc: "🛡 开局护盾 + 额外 22 帧受击无敌保护", desc: "进入每个关卡时自动携带以太护盾抵挡一次致命伤害！" },
+            startFire: { title: "开局等离子火球", perkDesc: "🔥 每关开局直接激活火球攻击", vipMk2Desc: "🔥 开局火球 + 火球冷却缩短 18%", desc: "每关伊始即可发射远程等离子火球消灭前方敌人！" },
+            speedBoots: { title: "超音速疾风战靴", perkDesc: "👢 永久提升 +14% 奔跑速度", vipMk2Desc: "👢 +24% 超级疾跑 & 解锁更高速度上限", desc: "在全关卡与整蛊模式中始终以更快步伐冲刺前进！" },
+            emeraldMagnet: { title: "远古翡翠 & 晶核磁铁", perkDesc: "🧲 160px 宝藏吸附（自动避开假翡翠陷阱）", vipMk2Desc: "🧲 260px 广域超级宝藏磁力场", desc: "自动将附近的真晶核、金币与远古翡翠吸引到身边！" },
+            tripleJump: { title: "三段跳推进模块", perkDesc: "🚀 空中可连续跳跃 3 次 (Triple Jump)", vipMk2Desc: "🚀 三段跳 + 滑翔之翼与 +4% 升力", desc: "突破二段跳极限，让你在危险深渊上完成惊险三段跳！" },
             vip_quantum_core: { title: "VIP 量子能量核心", perkDesc: "👑 VIP 自动: 得分/金币 +25%、磁铁 +60px & 无敌 +15帧", desc: "VIP 通行证生效期间自动激活：提高得分倍率、金币运气、吸附范围与护甲保护！" },
             vip_plasma_overdrive: { title: "VIP 等离子超频", perkDesc: "⚡ VIP 自动: 移速 +10%、空中控制 +15% & 冷却 -16%", desc: "VIP 通行证生效期间自动激活：疾跑速度、空中微操与火球连发全面提速！" }
         },
         it: {
+            heart1: { title: "Armatura al Titanio & +1 Cuore", perkDesc: "❤️ +1 Cuore Max & +20 Frame Scudo", vipMk2Desc: "❤️ +1 Cuore Max & +38 Frame Protezione Totale", desc: "Aumenta la salute massima di +1 cuore (♥) ed estende l'invulnerabilità!" },
+            heart2: { title: "Controllo Aereo Quantico & Salto", perkDesc: "🚀 +6% Salto & +35% Controllo Aereo", vipMk2Desc: "🚀 +10% Salto & +50% Manovra Aerea Precisa", desc: "Offre manovre più reattive in volo e una spinta di salto potenziata!" },
+            heart3: { title: "Moltiplicatore Cristalli, Monete & Punti", perkDesc: "💎 +25% Punti & +25% Chance Monete Extra", vipMk2Desc: "💎 +55% Punti & +55% Chance Monete Extra", desc: "Aumenta punteggio e fortuna monete su ogni gemma raccolta!" },
+            startShield: { title: "Scudo Etere Iniziale", perkDesc: "🛡 Inizia Ogni Livello con Scudo Attivo", vipMk2Desc: "🛡 Scudo Iniziale + 22 Frame Extra Immunità", desc: "Comincia automaticamente ogni livello protetto da uno scudo energetico!" },
+            startFire: { title: "Fuoco al Plasma Iniziale", perkDesc: "🔥 Inizia Ogni Livello con Palla di Fuoco", vipMk2Desc: "🔥 Fuoco Iniziale + Ricarica Rapida del 18%", desc: "Inizia ogni livello con l'attacco a distanza al plasma già attivo!" },
+            speedBoots: { title: "Stivali Iper-Velocità", perkDesc: "👢 +14% Velocità di Corsa Permanente", vipMk2Desc: "👢 +24% Super Velocità + Limite Massimo Esteso", desc: "Corri più velocemente in tutta la campagna e modalità Troll!" },
+            emeraldMagnet: { title: "Magnete Smeraldi & Cristalli", perkDesc: "🧲 Magnete Tesori 160px (Ignora Trappole)", vipMk2Desc: "🧲 Super Magnete Tesori ad Ampio Raggio 260px", desc: "Attira automaticamente cristalli, monete e smeraldi veri vicini!" },
+            tripleJump: { title: "Modulo Triplo Salto", perkDesc: "🚀 Salta 3 Volte in Aria (Triplo Salto)", vipMk2Desc: "🚀 Triplo Salto + Planata Aerea & +4% Spinta", desc: "Sblocca la possibilità di effettuare 3 salti consecutivi in aria!" },
             vip_quantum_core: { title: "Nucleo Quantico VIP", perkDesc: "👑 VIP Auto: +25% Punti/Monete, Magnete +60px & +15 Frame Scudo", desc: "Si attiva automaticamente col VIP Pass: punteggio extra, fortuna monete, magnete e protezione!" },
             vip_plasma_overdrive: { title: "Overdrive Plasma VIP", perkDesc: "⚡ VIP Auto: +10% Velocità, +15% Controllo Aereo & -16% Ricarica", desc: "Si attiva automaticamente col VIP Pass: corsa più veloce, controllo aereo e fuoco rapido!" }
         },
         es: {
+            heart1: { title: "Armadura Titanio y +1 Corazón", perkDesc: "❤️ +1 Corazón Máx y +20 Marcos Escudo", vipMk2Desc: "❤️ +1 Corazón Máx y +38 Marcos de Protección", desc: "¡Aumenta la salud máxima en +1 corazón (♥) y extiende la protección!" },
+            heart2: { title: "Control Aéreo Cuántico y Salto", perkDesc: "🚀 +6% Salto y +35% Control en el Aire", vipMk2Desc: "🚀 +10% Salto y +50% Maniobra Aérea Precisa", desc: "¡Brinda giros aéreos más precisos y mayor impulso al saltar!" },
+            heart3: { title: "Multiplicador de Cristales y Monedas", perkDesc: "💎 +25% Puntuación y +25% Suerte Monedas", vipMk2Desc: "💎 +55% Puntuación y +55% Suerte Monedas", desc: "¡Otorga puntos extra y mayor probabilidad de monedas al recoger gemas!" },
+            startShield: { title: "Escudo Éter Inicial", perkDesc: "🛡 Empieza Cada Nivel con Escudo Protector", vipMk2Desc: "🛡 Escudo Inicial + 22 Marcos Extra Inmunidad", desc: "¡Empieza automáticamente cada nivel protegido por un escudo de éter!" },
+            startFire: { title: "Fuego Plasma Inicial", perkDesc: "🔥 Empieza Cada Nivel con Bola de Fuego", vipMk2Desc: "🔥 Fuego Inicial + Recarga 18% Más Rápida", desc: "¡Inicia cada nivel con el disparo de bola de fuego ya desbloqueado!" },
+            speedBoots: { title: "Botas Hiper-Velocidad", perkDesc: "👢 +14% Velocidad de Carrera Permanente", vipMk2Desc: "👢 +24% Súper Velocidad y Mayor Límite Tope", desc: "¡Corre permanentemente más rápido en campaña y modo Troll!" },
+            emeraldMagnet: { title: "Imán de Esmeraldas y Cristales", perkDesc: "🧲 Imán de Tesoros 160px (Evita Trampas)", vipMk2Desc: "🧲 Súper Imán de Tesoros 260px Gran Alcance", desc: "¡Atrae automáticamente cristales, monedas y esmeraldas reales cercanos!" },
+            tripleJump: { title: "Módulo Salto Triple", perkDesc: "🚀 Salta 3 Veces en el Aire (Triple Salto)", vipMk2Desc: "🚀 Triple Salto + Planeo Aéreo y +4% Impulso", desc: "¡Desbloquea la capacidad de realizar 3 saltos seguidos en el aire!" },
             vip_quantum_core: { title: "Núcleo Cuántico VIP", perkDesc: "👑 VIP Auto: +25% Puntos/Monedas, Imán +60px y +15 Marcos Escudo", desc: "Se activa automáticamente con tu Pase VIP: más puntuación, suerte en monedas, imán y protección!" },
             vip_plasma_overdrive: { title: "Sobrecarga Plasma VIP", perkDesc: "⚡ VIP Auto: +10% Velocidad, +15% Control Aéreo y -16% Recarga", desc: "Se activa automáticamente con tu Pase VIP: mayor velocidad, maniobra aérea y disparo rápido!" }
         },
         fr: {
+            heart1: { title: "Armure Titane & +1 Cœur Extra", perkDesc: "❤️ +1 Cœur Max & +20 Frames Invulnérabilité", vipMk2Desc: "❤️ +1 Cœur Max & +38 Frames Protection Totale", desc: "Augmente la santé maximale d'un cœur (♥) et prolonge l'immunité !" },
+            heart2: { title: "Contrôle Aérien Quantique & Saut", perkDesc: "🚀 +6% Saut & +35% Agilité Aérienne", vipMk2Desc: "🚀 +10% Saut & +50% Maîtrise Aérienne", desc: "Offre une précision supérieure en plein vol et un saut plus haut !" },
+            heart3: { title: "Multiplicateur Cristaux, Pièces & Score", perkDesc: "💎 +25% Score & +25% Chance Pièces Bonus", vipMk2Desc: "💎 +55% Score & +55% Chance Pièces Bonus", desc: "Accorde des points et pièces supplémentaires à chaque gemme ramassée !" },
+            startShield: { title: "Bouclier Éther de Départ", perkDesc: "🛡 Démarrez Chaque Niveau avec un Bouclier", vipMk2Desc: "🛡 Bouclier Départ + 22 Frames Immunité Bonus", desc: "Commencez automatiquement chaque niveau sous protection énergétique !" },
+            startFire: { title: "Feu Plasma de Départ", perkDesc: "🔥 Démarrez Chaque Niveau avec Boule de Feu", vipMk2Desc: "🔥 Feu de Départ + Rechargement 18% Plus Rapide", desc: "Commencez chaque niveau avec votre attaque boule de feu prête !" },
+            speedBoots: { title: "Bottes Hyper-Vitesse", perkDesc: "👢 +14% Vitesse de Course Permanente", vipMk2Desc: "👢 +24% Super Vitesse & Plafond Rehaussé", desc: "Courez plus vite en permanence dans la campagne et le mode Troll !" },
+            emeraldMagnet: { title: "Aimant Émeraudes & Cristaux", perkDesc: "🧲 Aimant Trésor 160px (Ignore les Pièges)", vipMk2Desc: "🧲 Super Aimant Trésor Longue Portée 260px", desc: "Attire automatiquement cristaux, pièces d'or et vraies émeraudes !" },
+            tripleJump: { title: "Module Triple Saut", perkDesc: "🚀 Sautez 3 Fois d'Affilée en Plein Vol", vipMk2Desc: "🚀 Triple Saut + Planage & +4% Impulsion", desc: "Débloquez le triple saut aérien pour franchir les pires précipices !" },
             vip_quantum_core: { title: "Cœur Quantique VIP", perkDesc: "👑 VIP Auto : +25% Score/Pièces, Aimant +60px & +15 Frames", desc: "Activé automatiquement avec le Pass VIP : score, chance, aimant et protection renforcée !" },
             vip_plasma_overdrive: { title: "Surcharge Plasma VIP", perkDesc: "⚡ VIP Auto : +10% Vitesse, +15% Contrôle Aérien & -16% Recharge", desc: "Activé automatiquement avec le Pass VIP : course plus rapide, agilité aérienne et tir rapide !" }
         }
@@ -2095,6 +2143,7 @@
             ...item,
             title: tr.title || item.title,
             perkDesc: tr.perkDesc || item.perkDesc,
+            vipMk2Desc: tr.vipMk2Desc || item.vipMk2Desc,
             desc: tr.desc || item.desc
         };
     };
@@ -5322,6 +5371,36 @@ window.MARINEXT_TUTORIAL_DATA = {
             zh: "🎯 请先完成地下任务目标！",
             ja: "🎯 先に地下ミッションを達成しよう！"
         },
+        "✓ ALT GÖREV TAMAM • TEKRAR İN ▼": {
+            en: "✓ MISSION DONE • RE-ENTER ▼",
+            ru: "✓ МИССИЯ ГОТОВА • ВНИЗ ▼",
+            it: "✓ COMPLETATO • SCENDI ▼",
+            es: "✓ LISTO • BAJAR DE NUEVO ▼",
+            fr: "✓ TERMINÉ • REDESCENDRE ▼",
+            ko: "✓ 완료 • 다시 내려가기 ▼",
+            zh: "✓ 已完成 • 再次下行 ▼",
+            ja: "✓ 達成済 • 再び地下へ ▼"
+        },
+        "🔒 KİLİTLİ": {
+            en: "🔒 LOCKED",
+            ru: "🔒 ЗАКРЫТО",
+            it: "🔒 BLOCCATO",
+            es: "🔒 BLOQUEADO",
+            fr: "🔒 VERROUILLÉ",
+            ko: "🔒 잠김",
+            zh: "🔒 已锁定",
+            ja: "🔒 ロック中"
+        },
+        "🌀 BİTİRME KAPISI AÇILDI! GEÇEBİLİRSİN!": {
+            en: "🌀 EXIT GATE UNLOCKED! ENTER NOW!",
+            ru: "🌀 ВЫХОД ОТКРЫТ! ПРОХОДИ!",
+            it: "🌀 PORTALE APERTO! ENTRA ORA!",
+            es: "🌀 ¡PORTAL ABIERTO! ¡PUEDES PASAR!",
+            fr: "🌀 PORTAIL DÉVERROUILLÉ ! ENTREZ !",
+            ko: "🌀 출구 게이트가 열렸습니다! 통과하세요!",
+            zh: "🌀 终点传送门已解锁！现在可以通关！",
+            ja: "🌀 出口ゲート解放！さあクリアしよう！"
+        },
         "🟢 ALT PLATFORM GÖREVİ TAMAMLANDI ✓ • SAĞDAKİ YEŞİL BORUDAN ANA BÖLÜME ÇIK ▲": {
             en: "🟢 SUB-MISSION COMPLETE ✓ • ENTER RIGHT GREEN PIPE TO RETURN UP ▲",
             ru: "🟢 МИССИЯ ВЫПОЛНЕНА ✓ • ВОЙДИ В ПРАВУЮ ТРУБУ ДЛЯ ВЫХОДА НАВЕРХ ▲",
@@ -5477,302 +5556,405 @@ window.MARINEXT_TUTORIAL_DATA = {
 })();
 
 
-// Full 9-Language "What's New in v1.4.8" (Sürüm Yenilikleri) Catalog
+// Full 9-Language Portal Collection Quota & Passive Exit Gate Warning Catalog
+window.MARINEXT_PORTAL_QUOTA_I18N = {
+    tr: {
+        badgeLocked: "🔒 BİTİRME KAPISI KİLİTLİ",
+        balloonMissing: "Geçmek için {items} daha toplamalısın!",
+        itemEmerald: "{n} Antik Zümrüt (❖)",
+        itemCrystal: "{n} Kristal (◆)",
+        itemGold: "{n} Altın Coin (✪)",
+        conjunction: ", ",
+        hudOpen: "🌀 KAPI AÇIK ✓",
+        toastUnlocked: "🌀 BİTİRME KAPISI AÇILDI! GEÇEBİLİRSİN!",
+        gateLockedLabel: "🔒 KİLİTLİ"
+    },
+    en: {
+        badgeLocked: "🔒 EXIT GATE LOCKED",
+        balloonMissing: "Collect {items} more to pass!",
+        itemEmerald: "{n} Ancient Emeralds (❖)",
+        itemCrystal: "{n} Crystals (◆)",
+        itemGold: "{n} Gold Coins (✪)",
+        conjunction: ", ",
+        hudOpen: "🌀 GATE OPEN ✓",
+        toastUnlocked: "🌀 EXIT GATE UNLOCKED! ENTER NOW!",
+        gateLockedLabel: "🔒 LOCKED"
+    },
+    ko: {
+        badgeLocked: "🔒 출구 게이트 잠김",
+        balloonMissing: "통과하려면 {items} 더 수집해야 합니다!",
+        itemEmerald: "고대 에메랄드(❖) {n}개",
+        itemCrystal: "크리스탈(◆) {n}개",
+        itemGold: "골드 코인(✪) {n}개",
+        conjunction: ", ",
+        hudOpen: "🌀 게이트 열림 ✓",
+        toastUnlocked: "🌀 출구 게이트가 열렸습니다! 통과하세요!",
+        gateLockedLabel: "🔒 잠김"
+    },
+    ja: {
+        badgeLocked: "🔒 出口ゲートロック中",
+        balloonMissing: "通過するにはあと {items} 必要です！",
+        itemEmerald: "古代エメラルド(❖) {n}個",
+        itemCrystal: "クリスタル(◆) {n}個",
+        itemGold: "ゴールドコイン(✪) {n}個",
+        conjunction: "・",
+        hudOpen: "🌀 ゲート開放 ✓",
+        toastUnlocked: "🌀 出口ゲート解放！さあクリアしよう！",
+        gateLockedLabel: "🔒 ロック"
+    },
+    zh: {
+        badgeLocked: "🔒 终点传送门已锁定",
+        balloonMissing: "还差 {items} 才能开启通关之门！",
+        itemEmerald: "{n} 颗远古翡翠(❖)",
+        itemCrystal: "{n} 个晶核(◆)",
+        itemGold: "{n} 枚金币(✪)",
+        conjunction: "、",
+        hudOpen: "🌀 大门已开启 ✓",
+        toastUnlocked: "🌀 终点传送门已解锁！现在可以通关！",
+        gateLockedLabel: "🔒 未解锁"
+    },
+    ru: {
+        badgeLocked: "🔒 ВЫХОД ЗАБЛОКИРОВАН",
+        balloonMissing: "Собери ещё {items}, чтобы открыть врата!",
+        itemEmerald: "{n} Древн. Изумрудов (❖)",
+        itemCrystal: "{n} Кристаллов (◆)",
+        itemGold: "{n} Монет (✪)",
+        conjunction: ", ",
+        hudOpen: "🌀 ВРАТА ОТКРЫТЫ ✓",
+        toastUnlocked: "🌀 ВЫХОД ОТКРЫТ! ПРОХОДИ!",
+        gateLockedLabel: "🔒 ЗАКРЫТО"
+    },
+    it: {
+        badgeLocked: "🔒 PORTALE BLOCCATO",
+        balloonMissing: "Raccogli altri {items} per passare!",
+        itemEmerald: "{n} Smeraldi Antichi (❖)",
+        itemCrystal: "{n} Cristalli (◆)",
+        itemGold: "{n} Monete d'Oro (✪)",
+        conjunction: ", ",
+        hudOpen: "🌀 PORTALE APERTO ✓",
+        toastUnlocked: "🌀 PORTALE APERTO! ENTRA ORA!",
+        gateLockedLabel: "🔒 BLOCCATO"
+    },
+    es: {
+        badgeLocked: "🔒 PORTAL BLOQUEADO",
+        balloonMissing: "¡Necesitas {items} más para poder pasar!",
+        itemEmerald: "{n} Esmeraldas Antiguas (❖)",
+        itemCrystal: "{n} Cristales (◆)",
+        itemGold: "{n} Monedas de Oro (✪)",
+        conjunction: ", ",
+        hudOpen: "🌀 PORTAL ABIERTO ✓",
+        toastUnlocked: "🌀 ¡PORTAL ABIERTO! ¡PUEDES PASAR!",
+        gateLockedLabel: "🔒 BLOQUEADO"
+    },
+    fr: {
+        badgeLocked: "🔒 PORTAIL VERROUILLÉ",
+        balloonMissing: "Collectez encore {items} pour passer !",
+        itemEmerald: "{n} Émeraudes Antiques (❖)",
+        itemCrystal: "{n} Cristaux (◆)",
+        itemGold: "{n} Pièces d'Or (✪)",
+        conjunction: ", ",
+        hudOpen: "🌀 PORTAIL OUVERT ✓",
+        toastUnlocked: "🌀 PORTAIL DÉVERROUILLÉ ! ENTREZ !",
+        gateLockedLabel: "🔒 VERROUILLÉ"
+    }
+};
+
+// Full 9-Language "What's New in v1.4.9" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "👑 v1.4.8 Dev VIP Paketi & Kusursuz Mobil Stüdyo",
-        "subtitle": "VIP Pass artık tam 4 Efsane Kahraman, 12 Atölye Ekipmanı ve 2 Otomatik Güç Modülüyle geliyor; mobil kaydırma ise pürüzsüzleştirildi!",
+        "title": "🚀 v1.4.9 Akıllı Kapı Kotası, Çift Yönlü Asansör & VIP MK-II",
+        "subtitle": "Bitiş kapısı artık nesne toplama kotasına göre açılıyor, asansörlere sınırsız inip çıkabiliyor ve güçlendirmeleri VIP MK-II'ye yükseltebiliyorsun!",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Kusursuz Mobil Stüdyo Kaydırma & Görsel İpucu",
-                "desc": "Karakter ve Kişiselleştirme ekranlarındaki kaydırma kilidi tamamen giderildi; alta doğru devam eden seçenekler için akıllı aşağı kaydır ipucu eklendi."
+                "icon": "🛗",
+                "title": "Sınırsız Çift Yönlü Alt Platform Asansörleri",
+                "desc": "Alt görev odalarına inip çıktıktan sonra istediğin kadar geri inip yukarı çıkabilir, eksik yıldız ve hazineleri rahatça toplayabilirsin!"
             },
             {
-                "icon": "👑",
-                "title": "4 VIP Efsane Kahraman & Özel VIP Filtresi",
-                "desc": "Yıldızlar Sultanı ve Gölge Ejder Lordu eklendi! 4 VIP Efsane + 4 Erken Erişim kahramanına Karakter Stüdyosu'ndaki yeni 👑 VIP sekmesinden anında ulaş!"
+                "icon": "🔒",
+                "title": "Oransal Bitirme Kapısı Kotası & Uyarı Balonu",
+                "desc": "Yeterli Antik Zümrüt, Kristal ve Coin toplanmadan kapı kilitli görünür; kapıya yaklaştığında kaç nesnenin eksik olduğunu gösteren balon açılır!"
             },
             {
-                "icon": "✨",
-                "title": "Her Kategoride 2'şer VIP Prestij Ekipmanı (12 Öğe)",
-                "desc": "Miğfer, Silah & Kanat (Kozmik Excalibur!), Zırh, Göz & Vizör, Aura (Güneş Patlaması) ve Pelerin kategorilerinin tümü yeni VIP eşyalarıyla zenginleştirildi."
+                "icon": "🗺️",
+                "title": "Uzatılmış İleri Bölümler & Tavan Savunmaları",
+                "desc": "Bölüm 26'dan 100'e kadar rotalar daha da uzadı; üstten süzülerek direkt sona atlamayı engelleyen gökyüzü bariyerleri ve lazerler eklendi."
             },
             {
                 "icon": "⚡",
-                "title": "2 Otomatik VIP Güç Modülü & Adil Ücretsiz Denge",
-                "desc": "VIP Kuantum Çekirdeği ve Plazma Aşırı Yükleme güçlendirmeleri VIP aktifken otomatik devreye girer; 14 ücretsiz kahraman ve 8 Kristal yükseltmesi %100 açık kalır!"
+                "title": "Sv.1 (Standart) ➔ Sv.2 (👑 VIP MK-II) Güçlendirme Sistemi",
+                "desc": "Tüm temel hareket ve zıplama becerileri herkese açık kalırken, aktif VIP sahipleri 8 güçlendirme kartının tamamında üst düzey MK-II tavanlarını açar!"
             },
             {
-                "icon": "☁️",
-                "title": "120 FPS Akıcılık & Google Play Güvenliği",
-                "desc": "Tüm satın alımlar Google Play hesabınızla otomatik korunur; cihaz değiştirdiğinizde tek dokunuşla geri yüklenir."
+                "icon": "👑",
+                "title": "Ölüm & Zafer Anında Hızlı VIP Devam Seçenekleri",
+                "desc": "Bölüm içinde düştüğünde veya zafer anında reklam izlemenin yanı sıra reklamsız anında VIP devam & 2x ödül seçenekleriyle tanış."
             }
         ]
     },
     "en": {
-        "title": "👑 v1.4.8 Mega VIP Upgrade & Smooth Mobile Studios",
-        "subtitle": "VIP Pass now unlocks 4 Legendary Heroes, 12 Workshop Gear items & 2 Auto Power Modules—with effortless mobile scrolling!",
+        "title": "🚀 v1.4.9 Smart Gate Quota, Unlimited Elevators & VIP MK-II",
+        "subtitle": "Exit gates now track level collection quotas, sub-stage elevators work endlessly both ways, and upgrades evolve into VIP MK-II!",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Seamless Mobile Studio Scrolling & Scroll Hints",
-                "desc": "Fixed mobile touch scrolling inside Hero & Customization Studios and added a subtle animated scroll indicator whenever more options await below."
+                "icon": "🛗",
+                "title": "Unlimited Two-Way Underground Elevators",
+                "desc": "Re-enter or ascend between main stages and underground rooms as many times as you like—both cabins remain active!"
             },
             {
-                "icon": "👑",
-                "title": "4 VIP Legendary Heroes & Dedicated 👑 VIP Tab",
-                "desc": "Meet Celestial Star Sultan & Shadow Dragon Lord! Browse all 4 VIP Legends and 4 Peak Hero Early Access picks from the new 👑 VIP filter tab."
+                "icon": "🔒",
+                "title": "Progressive Exit Gate Quota & Speech Warning",
+                "desc": "Exit portals stay sealed until you collect the stage target; approaching a locked gate shows a live speech balloon of exact missing gems!"
             },
             {
-                "icon": "✨",
-                "title": "12 VIP Workshop Gear Pieces (2 Per Category)",
-                "desc": "Every category—Helmets, Weapons & Wings (Cosmic Excalibur!), Armor, Visors, Auras, and Capes—now includes 2 signature VIP designs!"
+                "icon": "🗺️",
+                "title": "Extended Late-Game Worlds & Sky Barriers",
+                "desc": "Stages 26–100 now stretch further with overhead anti-fly-over barriers and high patrols so jumping & combat truly matter."
             },
             {
                 "icon": "⚡",
-                "title": "2 Automatic VIP Power Modules & Fair Balance",
-                "desc": "VIP Quantum Core & Plasma Overdrive activate automatically with VIP Pass, while all 14 free heroes and 8 Crystal upgrades stay 100% open to everyone."
+                "title": "Lv.1 (Standard) ➔ Lv.2 (👑 VIP MK-II) Upgrade Tiers",
+                "desc": "Core movement stays fair for all players while VIP Pass automatically evolves all 8 Shop upgrades into supercharged MK-II caps!"
             },
             {
-                "icon": "☁️",
-                "title": "120 FPS & Google Play Cloud Protection",
-                "desc": "Your VIP Pass and Lifetime perks sync cleanly via Google Play across all devices at 120 FPS in 9 languages."
+                "icon": "👑",
+                "title": "Smart Instant VIP Continue & 2x Reward Options",
+                "desc": "Alongside optional rewarded ads, enjoy effortless ad-free VIP revive & 2x bonus options right when they help most."
             }
         ]
     },
     "ru": {
-        "title": "👑 v1.4.8 Большой VIP-Пакет и Плавная Прокрутка",
-        "subtitle": "Теперь VIP Pass включает 4 Героев Легенд, 12 предметов Мастерской, 2 Авто-Модуля и идеальную прокрутку на телефонах!",
+        "title": "🚀 v1.4.9 Лифт Без Ограничений, Квота Портала и VIP MK-II",
+        "subtitle": "Финишный портал теперь требует сбор самоцветов, лифты работают бесконечно в обе стороны, а усиления растут до VIP MK-II!",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Идеальная Прокрутка на Телефонах и Подсказка",
-                "desc": "Устранена блокировка прокрутки в Студии Героев и Мастерской, а внизу появилась понятная подсказка скролла."
+                "icon": "🛗",
+                "title": "Безлимитный Двусторонний Лифт Подземелий",
+                "desc": "Спускайтесь в подземную зону и поднимайтесь обратно сколько угодно раз — лифт больше не блокируется!"
             },
             {
-                "icon": "👑",
-                "title": "4 VIP-Героя Легенды и Вкладка 👑 VIP",
-                "desc": "Добавлены Небесный Султан Звёзд и Теневой Лорд Дракон + новая вкладка фильтра 👑 VIP для быстрого доступа ко всем 8 VIP-героям."
+                "icon": "🔒",
+                "title": "Квота Выхода и Облачко-Подсказка у Портала",
+                "desc": "Портал закрыт, пока не собрана цель уровня, а при приближении подскажет, сколько именно кристаллов не хватает!"
             },
             {
-                "icon": "✨",
-                "title": "12 VIP-Предметов в Мастерской (по 2 в каждом разделе)",
-                "desc": "Шлемы, Оружие (Космический Экскалибур!), Броня, Визоры, Ауры и Плащи получили по 2 элитных VIP-облика."
+                "icon": "🗺️",
+                "title": "Длинные Поздние Уровни и Небесные Барьеры",
+                "desc": "Уровни 26–100 стали длиннее и интереснее благодаря верхним барьерам против прямого перелёта."
             },
             {
                 "icon": "⚡",
-                "title": "2 Авто-Модуля VIP и Честный Баланс",
-                "desc": "Квантовое Ядро и Плазменный Форсаж работают автоматически с VIP, а все 14 обычных героев остаются бесплатными."
+                "title": "Ур.1 (Стандарт) ➔ Ур.2 (👑 VIP MK-II)",
+                "desc": "Базовые навыки честны для всех, а с VIP Pass все 8 улучшений магазина переходят на сверхмощный уровень MK-II!"
             },
             {
-                "icon": "☁️",
-                "title": "120 FPS и Защита Google Play",
-                "desc": "Ваши привилегии надёжно сохраняются в аккаунте Google Play на любом устройстве."
+                "icon": "👑",
+                "title": "Быстрое VIP-Возрождение и 2x Награды",
+                "desc": "При поражении или победе выбирайте либо рекламу с наградой, либо мгновенное VIP-продолжение без рекламы."
             }
         ]
     },
     "it": {
-        "title": "👑 v1.4.8 Maxi Offerta VIP & Scorrimento Mobile Perfetto",
-        "subtitle": "Il VIP Pass include ora 4 Eroi Leggendari, 12 Oggetti Officina e 2 Moduli Auto con scorrimento fluido su smartphone!",
+        "title": "🚀 v1.4.9 Ascensori Illimitati, Quota Portale & VIP MK-II",
+        "subtitle": "I portali d'uscita richiedono ora la quota oggetti, gli ascensori funzionano all'infinito e i potenziamenti salgono a VIP MK-II!",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Scorrimento Fluido su Smartphone & Avviso Visivo",
-                "desc": "Risolto lo scorrimento touch negli studi su telefono e aggiunto un chiaro indicatore animato quando ci sono altri oggetti sotto."
+                "icon": "🛗",
+                "title": "Ascensori Sotterranei Bidirezionali Illimitati",
+                "desc": "Scendi e risali tutte le volte che vuoi tra il livello principale e la stanza sotterranea per raccogliere ogni tesoro!"
             },
             {
-                "icon": "👑",
-                "title": "4 Eroi VIP Leggendari & Scheda 👑 VIP",
-                "desc": "Arrivano il Sultano delle Stelle e il Signore Drago d'Ombra! Esplora tutti gli eroi VIP dalla nuova scheda dedicata."
+                "icon": "🔒",
+                "title": "Quota Portale Progressiva & Avviso a Fumetto",
+                "desc": "Il portale resta bloccato finché non raggiungi l'obiettivo del livello e ti mostra esattamente quanti smeraldi o cristalli mancano!"
             },
             {
-                "icon": "✨",
-                "title": "12 Oggetti VIP nell'Officina (2 per Categoria)",
-                "desc": "Ogni categoria (Elmi, Armi/Ali, Armature, Visori, Aure e Mantelli) ora offre 2 esclusivi design VIP."
+                "icon": "🗺️",
+                "title": "Livelli Avanzati Più Lunghi & Barriere Aeree",
+                "desc": "I livelli 26–100 si allungano con nuove barriere superiori per evitare scorciatoie in volo diretto."
             },
             {
                 "icon": "⚡",
-                "title": "2 Moduli Auto VIP & Gioco Equo al 100%",
-                "desc": "Nucleo Quantico e Overdrive Plasma si attivano automaticamente col VIP; tutti i 14 eroi gratuiti restano 100% accessibili."
+                "title": "Liv.1 (Standard) ➔ Liv.2 (👑 VIP MK-II)",
+                "desc": "I controlli base restano giusti per tutti, mentre il VIP Pass porta tutti gli 8 potenziamenti ai limiti superiori MK-II!"
             },
             {
-                "icon": "☁️",
-                "title": "120 FPS & Protezione Cloud Google Play",
-                "desc": "I tuoi vantaggi restano sincronizzati sul tuo account Google Play in 9 lingue."
+                "icon": "👑",
+                "title": "Opzioni VIP Istantanee alla Sconfitta & Vittoria",
+                "desc": "Oltre agli annunci con premio facoltativi, scegli una rinascita istantanea VIP senza annunci proprio quando serve."
             }
         ]
     },
     "es": {
-        "title": "👑 v1.4.8 Mega Paquete VIP y Scroll Móvil Fluido",
-        "subtitle": "¡El Pase VIP ahora incluye 4 Héroes Legendarios, 12 Equipos de Taller y 2 Módulos Automáticos con desplazamiento perfecto!",
+        "title": "🚀 v1.4.9 Ascensor Ilimitado, Cuota de Portal y VIP MK-II",
+        "subtitle": "¡El portal final ahora exige cuota de tesoros, los ascensores suben y bajan sin límite y las mejoras evolucionan a VIP MK-II!",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Desplazamiento Táctil Suave y Aviso Visual",
-                "desc": "Corregido el desplazamiento móvil en los estudios de Héroes y Taller, añadiendo una guía visual clara cuando hay más opciones abajo."
+                "icon": "🛗",
+                "title": "Ascensores Subterráneos Bidireccionales Ilimitados",
+                "desc": "¡Baja y sube tantas veces como quieras entre la fase principal y la sala subterránea sin bloqueos!"
             },
             {
-                "icon": "👑",
-                "title": "4 Héroes VIP Legendarios y Pestaña 👑 VIP",
-                "desc": "¡Llegan el Sultán Celestial y el Señor Dragón Sombrío! Filtra al instante los héroes exclusivos y de acceso anticipado."
+                "icon": "🔒",
+                "title": "Cuota Progresiva en el Portal y Globo de Aviso",
+                "desc": "La meta permanece cerrada hasta reunir la cuota de gemas; al acercarte verás cuántas esmeraldas o cristales te faltan."
             },
             {
-                "icon": "✨",
-                "title": "12 Cosméticos VIP en el Taller (2 por Categoría)",
-                "desc": "Cada categoría (Cascos, Armas/Alas, Armaduras, Visores, Auras y Capas) cuenta ahora con 2 diseños VIP exclusivos."
+                "icon": "🗺️",
+                "title": "Fases Avanzadas Más Largas y Barreras Aéreas",
+                "desc": "Los niveles 26–100 ahora son más extensos e incluyen defensas aéreas superiores para evitar atajos volando."
             },
             {
                 "icon": "⚡",
-                "title": "2 Módulos Automáticos VIP y Juego Justo",
-                "desc": "Núcleo Cuántico y Sobrecarga Plasma se activan automáticamente con el Pase VIP; los 14 héroes gratuitos siguen siendo 100% gratis."
+                "title": "Nv.1 (Estándar) ➔ Nv.2 (👑 VIP MK-II)",
+                "desc": "La jugabilidad base sigue siendo 100% justa y el Pase VIP desbloquea automáticamente el máximo nivel MK-II en todas las mejoras."
             },
             {
-                "icon": "☁️",
-                "title": "120 FPS y Protección Google Play",
-                "desc": "Tus ventajas se sincronizan en todos tus dispositivos Android mediante Google Play."
+                "icon": "👑",
+                "title": "Opciones VIP Inteligentes al Caer o Ganar",
+                "desc": "Junto a los anuncios opcionales con premio, disfruta de opciones VIP claras para revivir al instante sin anuncios."
             }
         ]
     },
     "fr": {
-        "title": "👑 v1.4.8 Méga Pack VIP & Défilement Mobile Parfait",
-        "subtitle": "Le Pass VIP offre désormais 4 Héros Légendaires, 12 Objets Atelier et 2 Modules Auto avec un défilement tactile fluide !",
+        "title": "🚀 v1.4.9 Ascenseurs Illimités, Quota & VIP MK-II",
+        "subtitle": "Le portail de fin vérifie désormais le quota de collecte, les ascenseurs fonctionnent à l'infini et les bonus passent au niveau MK-II !",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "Défilement Tactile Fluide & Indicateur Visuel",
-                "desc": "Correction du défilement sur mobile dans les Studios Héros et Atelier avec ajout d'une bulle d'indication vers le bas."
+                "icon": "🛗",
+                "title": "Ascenseurs Souterrains Illimités dans les 2 Sens",
+                "desc": "Descendez et remontez librement autant de fois que nécessaire entre le niveau principal et les missions souterraines !"
             },
             {
-                "icon": "👑",
-                "title": "4 Héros VIP Légendaires & Onglet 👑 VIP",
-                "desc": "Découvrez le Sultan des Étoiles et le Seigneur Dragon d'Ombre dans le nouvel onglet dédié 👑 VIP !"
+                "icon": "🔒",
+                "title": "Quota d'Ouverture du Portail & Bulle d'Alerte",
+                "desc": "La porte reste verrouillée jusqu'à atteindre l'objectif ; approchez-vous pour voir exactement combien de gemmes il vous manque."
             },
             {
-                "icon": "✨",
-                "title": "12 Équipements Atelier VIP (2 par Catégorie)",
-                "desc": "Chaque catégorie (Casques, Armes/Ailes, Armures, Visières, Auras, Capes) propose désormais 2 créations VIP."
+                "icon": "🗺️",
+                "title": "Niveaux Avancés Rallongés & Barrières Aériennes",
+                "desc": "Les niveaux 26–100 s'étendent avec des obstacles en altitude empêchant de survoler directement la fin du parcours."
             },
             {
                 "icon": "⚡",
-                "title": "2 Modules Auto VIP & Équilibre Équitable",
-                "desc": "Cœur Quantique et Surcharge Plasma s'activent automatiquement avec le Pass VIP ; les 14 héros gratuits restent 100% accessibles."
+                "title": "Niv.1 (Standard) ➔ Niv.2 (👑 VIP MK-II)",
+                "desc": "Les mouvements restent justes pour tous et le Pass VIP fait évoluer automatiquement les 8 améliorations vers le palier MK-II !"
             },
             {
-                "icon": "☁️",
-                "title": "120 FPS & Synchronisation Google Play",
-                "desc": "Vos achats et avantages sont protégés sur tous vos appareils via Google Play."
+                "icon": "👑",
+                "title": "Options VIP Claires après Défaite ou Victoire",
+                "desc": "En plus des vidéos récompensées facultatives, continuez sans publicité grâce aux boutons VIP dédiés."
             }
         ]
     },
     "ko": {
-        "title": "👑 v1.4.8 메가 VIP 확장팩 & 모바일 스크롤 완벽 개선",
-        "subtitle": "VIP 패스에 전설 영웅 4명, 공방 장비 12종, 자동 파워 모듈 2종 추가 및 모바일 터치 스크롤이 개선되었습니다!",
+        "title": "🚀 v1.4.9 무제한 엘리베이터, 포털 할당량 & VIP MK-II",
+        "subtitle": "이제 출구 포털이 목표 수집량을 확인하며, 지하 엘리베이터를 횟수 제한 없이 오갈 수 있고, 모든 강화가 VIP MK-II로 진화합니다!",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "모바일 스튜디오 스크롤 수정 & 스크롤 안내",
-                "desc": "작은 화면에서 아래 영웅이 잘리던 현상을 해결하고 아래로 더 많은 항목이 있을 때 시각적 스크롤 가이드를 제공합니다."
+                "icon": "🛗",
+                "title": "무제한 양방향 지하 엘리베이터",
+                "desc": "지하 미션을 완료한 후에도 다시 내려가거나 올라갈 수 있도록 엘리베이터 1회 제한을 완전히 해제했습니다!"
             },
             {
-                "icon": "👑",
-                "title": "VIP 전설 영웅 4종 & 전용 👑 VIP 탭 추가",
-                "desc": "천상의 별 술탄과 그림자 드래곤 로드 합류! 새로운 👑 VIP 필터 탭에서 8명의 VIP 관련 영웅을 한눈에 확인하세요."
+                "icon": "🔒",
+                "title": "스테이지별 출구 게이트 할당량 & 말풍선 안내",
+                "desc": "목표 에메랄드/크리스탈을 모아야 문이 열리며, 잠긴 문에 다가가면 부족한 개수를 말풍선으로 바로 알려줍니다!"
             },
             {
-                "icon": "✨",
-                "title": "전 카테고리 VIP 장비 12종 (카테고리당 2종)",
-                "desc": "투구·무기&날개(코스믹 엑스칼리버)·갑옷·바이저·오라·망토 모두 각 2종씩 VIP 전용 아이템으로 확장되었습니다."
+                "icon": "🗺️",
+                "title": "후반 스테이지 확장 & 공중 비행 차단 벽",
+                "desc": "26~100스테이지 길이가 더 확장되고 상단 차단 벽이 추가되어 공중 비행 스킵 대신 진정한 플랫폼 액션을 즐길 수 있습니다."
             },
             {
                 "icon": "⚡",
-                "title": "VIP 자동 강화 모듈 2종 & 공정한 무료 밸런스",
-                "desc": "VIP 패스 활성 시 양자 파워 코어와 플라즈마 오버드라이브가 자동 적용되며 기존 14명의 영웅은 100% 무료 해금이 유지됩니다."
+                "title": "LV.1 (기본) ➔ LV.2 (👑 VIP MK-II) 이중 등급 강화",
+                "desc": "기본 이동 능력은 모두에게 공정하게 유지되며, VIP 패스 보유 시 상점 8종 강화가 한계 돌파된 MK-II로 즉시 진화합니다!"
             },
             {
-                "icon": "☁️",
-                "title": "120 FPS & Google Play 계정 연동",
-                "desc": "VIP 패스와 평생 광고 제거 권한은 Google Play 계정으로 보호되어 새 기기에서도 바로 복원됩니다."
+                "icon": "👑",
+                "title": "패배 & 승리 화면 스마트 VIP 이어하기 안내",
+                "desc": "선택형 보상 광고 버튼과 함께 가장 필요한 순간에 광고 없이 바로 부활/2배 보상을 받는 VIP 버튼을 추가했습니다."
             }
         ]
     },
     "zh": {
-        "title": "👑 v1.4.8 豪华 VIP 升级 & 移动端丝滑滚动优化",
-        "subtitle": "VIP 通行证现已扩展至 4 位传奇英雄、12 款工坊装备与 2 项自动强化，全面修复手机端滑动并新增下滑提示！",
+        "title": "🚀 v1.4.9 无限双向电梯、通关门配额 & VIP MK-II",
+        "subtitle": "终点传送门现已启用宝石配额解锁机制，地下电梯支持无限往返，全部商店强化升级为双阶 VIP MK-II！",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "修复手机端工作室滚动 & 新增下滑提示",
-                "desc": "彻底解决小屏手机无法完整滑到底部英雄的问题，并在存在更多项目时显示清晰的动态下滑引导气泡。"
+                "icon": "🛗",
+                "title": "无限次双向地下任务电梯",
+                "desc": "彻底移除地下电梯单次锁定！无论何时你都可以自由往返地面主关与地下平台收集遗漏宝藏。"
             },
             {
-                "icon": "👑",
-                "title": "4 位 VIP 传奇英雄 & 全新 👑 VIP 筛选标签",
-                "desc": "星穹天辰苏丹与暗影龙王领主重磅加入！可在全新 👑 VIP 标签页一键浏览全部 8 位 VIP 专享及抢先英雄。"
+                "icon": "🔒",
+                "title": "分关渐变配额门锁 & 气泡缺口提示",
+                "desc": "集齐本关规定比例的翡翠与晶核后终点门才会解锁；靠近锁定大门时会弹出清晰气泡提示具体缺口数量！"
             },
             {
-                "icon": "✨",
-                "title": "12 款 VIP 工坊尊享装备（全分类各 2 款）",
-                "desc": "头盔、武器翅膀（宇宙誓约圣剑！）、装甲、面罩、光环与披风六大分类全面补齐双 VIP 专属外观。"
+                "icon": "🗺️",
+                "title": "后期关卡全面加长 & 空中防飞越屏障",
+                "desc": "第 26–100 关路线进一步拉长，并在高空增设顶部屏障与巡逻机关，防止直接滑翔跳过核心挑战。"
             },
             {
                 "icon": "⚡",
-                "title": "2 项 VIP 自动强化模块 & 公平免费平衡",
-                "desc": "VIP 激活期间自动启用量子核心与等离子超频；全部 14 位免费英雄与 8 项晶核升级保持 100% 免费开放。"
+                "title": "Lv.1 (标准) ➔ Lv.2 (👑 VIP MK-II) 双阶强化体系",
+                "desc": "核心操作手感对所有人保持公平；开通 VIP 后全部 8 项晶核强化自动解锁更高属性上限的 MK-II 状态！"
             },
             {
-                "icon": "☁️",
-                "title": "120 FPS & Google Play 跨设备保护",
-                "desc": "您的 VIP 权益与永久去广告通过 Google Play 自动保护，更换设备轻松一键恢复。"
+                "icon": "👑",
+                "title": "阵亡 & 胜利界面智能 VIP 尊享引导",
+                "desc": "在保留原有激励视频复活与双倍奖励按钮的同时，提供优雅无压力的 VIP 免广告即时续命与双倍选项。"
             }
         ]
     },
     "ja": {
-        "title": "👑 v1.4.8 メガVIP強化＆モバイル快適スクロール対応",
-        "subtitle": "VIPパスが伝説ヒーロー4体・工房装備12種・自動モジュール2種へ大幅増強！スマホ画面のスクロールと案内表示も改善！",
+        "title": "🚀 v1.4.9 無制限エレベーター・ゲート条件 & VIP MK-II",
+        "subtitle": "出口ゲートに宝石ノルマが導入され、地下エレベーターが何度でも往復可能に！さらに全強化がVIP MK-IIへ進化！",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
-                "icon": "📱",
-                "title": "モバイルスタジオのスクロール改善＆案内表示",
-                "desc": "スマホ画面で最下段のヒーローが見切れる問題を解消し、下に続きがある場合は分かりやすいスクロール案内を表示します。"
+                "icon": "🛗",
+                "title": "回数無制限の両方向エレベーター",
+                "desc": "地下ステージへの1回限りロックを解除！メインと地下を何度でも行き来して取り逃した星や宝箱を回収できます。"
             },
             {
-                "icon": "👑",
-                "title": "VIP伝説ヒーロー4体＆新設 👑 VIP タブ",
-                "desc": "星天のスルタン皇帝とシャドウドラゴンロード参戦！専用 👑 VIP タブで関連ヒーローを即座に一覧表示できます。"
+                "icon": "🔒",
+                "title": "出口ゲートの収集ノルマ＆吹き出しアラート",
+                "desc": "ステージ進行に応じた宝石ノルマを達成するとゲート解放！ロック中に近づくと不足数が吹き出しで一目で分かります。"
             },
             {
-                "icon": "✨",
-                "title": "全カテゴリに2種ずつのVIP工房装備（計12種）",
-                "desc": "兜・武器＆翼（エクスカリバー！）・鎧・バイザー・オーラ・マント全てにVIP専用装備を2種ずつ搭載！"
+                "icon": "🗺️",
+                "title": "終盤ステージ延長＆空中スキップ防止バリア",
+                "desc": "ステージ26〜100の道のりをさらに延長し、上空からの素通りを防ぐ天井バリア・高空ギミックを配置しました。"
             },
             {
                 "icon": "⚡",
-                "title": "自動VIP強化モジュール2種＆公正な無料バランス",
-                "desc": "VIP有効中はクォンタムコア＆オーバーが自動発動。通常14ヒーローと8種の強化は完全無料で開放できます。"
+                "title": "Lv.1 (標準) ➔ Lv.2 (👑 VIP MK-II) 二段階強化システム",
+                "desc": "基本アクションは全プレイヤーに公平なまま、VIP加入中はショップ強化8種全てが上限突破のMK-IIへ自動進化！"
             },
             {
-                "icon": "☁️",
-                "title": "120 FPS 超滑らか＆Google Play保護",
-                "desc": "VIPや永久パックの権利はGoogle Playで保護され、機種変更後もワンタップ復元できます。"
+                "icon": "👑",
+                "title": "ゲームオーバー＆勝利時のスマートVIP案内",
+                "desc": "任意のリワード広告に加えて、ゲームオーバー時やクリア時にも広告なしで即復活・2倍報酬が選べるVIP導線を追加。"
             }
         ]
     }
