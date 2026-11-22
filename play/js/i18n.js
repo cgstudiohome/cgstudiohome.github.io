@@ -5295,28 +5295,28 @@ window.MARINEXT_TUTORIAL_DATA = {
 })();
 
 
-// Full 9-Language "What's New in v1.4.4" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.4.5" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.4.4 Aile Tabletleri & Anında Ödül Uyumu",
-        "subtitle": "Marinext 2100 artık tüm aile cihazlarında, tabletlerde ve telefonlarda daha akıllı ve kesintisiz çalışıyor:",
+        "title": "🚀 v1.4.5 Tam Lansman & Portal Deneyimi",
+        "subtitle": "Marinext 2100 küresel lansman öncesinde tüm cihazlarda ve resmi web portalında kusursuz hale getirildi:",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
+                "icon": "🌍",
+                "title": "Küresel Lansman Hazırlığı & Akıllı Eşitleme",
+                "desc": "Oyun ilerlemeniz, rekorlarınız ve ödülleriniz tüm Android telefon ve tabletleriniz arasında daha kararlı ve akıcı eşitlenir."
+            },
+            {
+                "icon": "🌐",
+                "title": "Yenilenen Resmi Portal & Tarayıcıda Oyna",
+                "desc": "CG Studio Home / Labs aile hikâyemizi keşfedin ve Marinext 2100'ü doğrudan tarayıcı üzerinden pürüzsüzce deneyimleyin."
+            },
+            {
                 "icon": "👨‍👩‍👧‍👦",
-                "title": "Aile & Çocuk Tabletleri İçin Akıllı Uyum",
-                "desc": "Gözetimli aile profillerinde ve Android 13 tabletlerde ödüllü bonus videolarının sorunsuz hazırlanması için aile uyumlu otomatik geçiş desteği eklendi."
-            },
-            {
-                "icon": "🎁",
-                "title": "Ödüllü Video Sonrası Anında Ödül Teslimatı",
-                "desc": "Bonus videolarını izledikten hemen sonra kazandığınız Coin ve Antik Zümrütler cüzdanınıza gecikmesiz aktarılır."
-            },
-            {
-                "icon": "✨",
-                "title": "Tek Dokunuşta Akıcı Buton Geri Bildirimi",
-                "desc": "Tüm ödül ve mağaza düğmelerine bastığınız anda bekleme durumu görsel olarak anında gösterilir."
+                "title": "Aile Tabletleri & Anında Bonus Uyumu",
+                "desc": "Tablet ve telefonlarda isteğe bağlı bonus videoları sonrası Coin ve Antik Zümrütler cüzdanınıza gecikmesiz eklenir."
             },
             {
                 "icon": "⚔️",
@@ -5325,31 +5325,31 @@ window.MARINEXT_WHATS_NEW_DATA = {
             },
             {
                 "icon": "⚡",
-                "title": "120 FPS Ultra Akıcı & Güvenli Bulut Kaydı",
+                "title": "120 FPS Ultra Akıcı & 9 Dilde Macera",
                 "desc": "Sıfır gecikmeli kontrollerin keyfini çıkar, küresel sıralamada yüksel ve kaydını 9 dilde bulutta güvende tut!"
             }
         ]
     },
     "en": {
-        "title": "🚀 v1.4.4 Family Tablets & Instant Rewards",
-        "subtitle": "Marinext 2100 brings smart adaptation for family devices alongside smooth rewards across every screen:",
+        "title": "🚀 v1.4.5 Full Launch & Portal Experience",
+        "subtitle": "Marinext 2100 is polished across all devices and our official web portal ahead of worldwide launch:",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
+                "icon": "🌍",
+                "title": "Global Launch Readiness & Smart Sync",
+                "desc": "Your campaign progress, leaderboard scores, and rewards sync reliably and smoothly across your phones and tablets."
+            },
+            {
+                "icon": "🌐",
+                "title": "Polished Studio Portal & Browser Play",
+                "desc": "Explore our CG Studio Home / Labs family story, full media gallery, and play Marinext 2100 seamlessly right in your browser."
+            },
+            {
                 "icon": "👨‍👩‍👧‍👦",
-                "title": "Smart Adaptation for Family & Child Tablets",
-                "desc": "Added automatic family-safe fallback support so optional bonus videos adapt gracefully on supervised Android 13 tablets."
-            },
-            {
-                "icon": "🎁",
-                "title": "Instant Post-Video Reward Delivery",
-                "desc": "Bonus Coins and Ancient Emeralds credit reliably to your wallet the moment you finish watching any optional reward video."
-            },
-            {
-                "icon": "✨",
-                "title": "Instant Single-Tap Button Feedback",
-                "desc": "Clear visual loading feedback appears immediately when requesting optional bonus videos or treasure chests."
+                "title": "Family Tablet & Instant Reward Harmony",
+                "desc": "Bonus Coins and Ancient Emeralds credit smoothly right after any optional reward video on phones and tablets."
             },
             {
                 "icon": "⚔️",
@@ -5364,25 +5364,25 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "ru": {
-        "title": "🚀 v1.4.4 Семейные планшеты и награды",
-        "subtitle": "Marinext 2100 получил умную адаптацию для семейных устройств и плавное начисление наград:",
+        "title": "🚀 v1.4.5 Полный запуск и веб-портал",
+        "subtitle": "Marinext 2100 доведён до идеала на всех устройствах и официальном сайте перед мировым релизом:",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
+                "icon": "🌍",
+                "title": "Готовность к мировому запуску",
+                "desc": "Ваш прогресс, рекорды и награды ещё стабильнее синхронизируются между смартфонами и планшетами."
+            },
+            {
+                "icon": "🌐",
+                "title": "Обновлённый портал и игра в браузере",
+                "desc": "Познакомьтесь с историей семейной студии CG Studio Home / Labs и играйте в Marinext 2100 прямо в браузере."
+            },
+            {
                 "icon": "👨‍👩‍👧‍👦",
-                "title": "Умная поддержка семейных планшетов",
-                "desc": "Добавлена автоматическая семейная адаптация для стабильной подготовки бонусных видео на детских и защищённых планшетах Android 13."
-            },
-            {
-                "icon": "🎁",
-                "title": "Надёжное начисление наград после видео",
-                "desc": "Монеты и Древние изумруды мгновенно зачисляются на ваш баланс сразу после просмотра бонусного ролика."
-            },
-            {
-                "icon": "✨",
-                "title": "Мгновенный отклик кнопок",
-                "desc": "При нажатии на кнопки наград сразу отображается понятный индикатор загрузки."
+                "title": "Семейные планшеты и мгновенные награды",
+                "desc": "Бонусные монеты и изумруды надёжно зачисляются сразу после просмотра любого необязательного видео."
             },
             {
                 "icon": "⚔️",
@@ -5397,25 +5397,25 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "it": {
-        "title": "🚀 v1.4.4 Tablet Famiglia & Premi Istantanei",
-        "subtitle": "Marinext 2100 introduce l'adattamento intelligente per i dispositivi di famiglia e ricompense fluide:",
+        "title": "🚀 v1.4.5 Lancio Completo & Portale Web",
+        "subtitle": "Marinext 2100 è pronto al lancio globale con massima fluidità su dispositivi mobili e portale ufficiale:",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
+                "icon": "🌍",
+                "title": "Pronto per il Lancio Globale",
+                "desc": "Progressi, record e ricompense si sincronizzano in modo fluido e affidabile tra tutti i tuoi dispositivi."
+            },
+            {
+                "icon": "🌐",
+                "title": "Portale Ufficiale & Gioco nel Browser",
+                "desc": "Scopri il team familiare CG Studio Home / Labs e gioca a Marinext 2100 direttamente dal browser."
+            },
+            {
                 "icon": "👨‍👩‍👧‍👦",
-                "title": "Supporto Intelligente per Tablet di Famiglia",
-                "desc": "Aggiunto adattamento automatico sicuro per la famiglia per preparare i video bonus senza problemi sui tablet Android 13."
-            },
-            {
-                "icon": "🎁",
-                "title": "Consegna Immediata dei Premi Video",
-                "desc": "Monete e Smeraldi Antichi vengono accreditati all'istante al termine di ogni video bonus."
-            },
-            {
-                "icon": "✨",
-                "title": "Feedback Visivo al Primo Tocco",
-                "desc": "I pulsanti dei bonus mostrano subito lo stato di preparazione per un'esperienza fluida."
+                "title": "Armonia su Tablet Famiglia & Premi Istantanei",
+                "desc": "Monete e Smeraldi bonus vengono accreditati subito dopo ogni video premio facoltativo."
             },
             {
                 "icon": "⚔️",
@@ -5430,25 +5430,25 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "es": {
-        "title": "🚀 v1.4.4 Tablets Familiares y Premios",
-        "subtitle": "Marinext 2100 añade adaptación inteligente para dispositivos familiares y recompensas instantáneas:",
+        "title": "🚀 v1.4.5 Lanzamiento Total y Portal Web",
+        "subtitle": "Marinext 2100 está optimizado en todos tus dispositivos y nuestro portal oficial rumbo al estreno mundial:",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
+                "icon": "🌍",
+                "title": "Preparación Total y Sincronización Fluida",
+                "desc": "Tu progreso, puntuaciones y premios se sincronizan con mayor estabilidad entre teléfonos y tablets."
+            },
+            {
+                "icon": "🌐",
+                "title": "Portal Oficial Renovado y Juego Web",
+                "desc": "Conoce la historia familiar de CG Studio Home / Labs y disfruta de Marinext 2100 directamente en tu navegador."
+            },
+            {
                 "icon": "👨‍👩‍👧‍👦",
-                "title": "Compatibilidad Inteligente en Tablets Familiares",
-                "desc": "Se incorporó un ajuste automático apto para familias para optimizar la carga de videos bonus en tablets Android 13 supervisadas."
-            },
-            {
-                "icon": "🎁",
-                "title": "Entrega Instantánea Tras Videos Bonus",
-                "desc": "Las Monedas y Esmeraldas Antiguas se acreditan de inmediato al terminar cualquier video de recompensa."
-            },
-            {
-                "icon": "✨",
-                "title": "Respuesta Visual en un Solo Toque",
-                "desc": "Los botones de bonificación muestran al instante su estado de carga para una experiencia fluida."
+                "title": "Tablets Familiares y Premios al Instante",
+                "desc": "Monedas y Esmeraldas Antiguas se acreditan al instante tras ver cualquier video de recompensa opcional."
             },
             {
                 "icon": "⚔️",
@@ -5463,25 +5463,25 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "fr": {
-        "title": "🚀 v1.4.4 Tablettes Famille & Récompenses",
-        "subtitle": "Marinext 2100 intègre une adaptation familiale intelligente et des récompenses instantanées :",
+        "title": "🚀 v1.4.5 Lancement Complet & Portail Web",
+        "subtitle": "Marinext 2100 est fin prêt pour le lancement mondial sur mobile, tablette et portail web officiel :",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
+                "icon": "🌍",
+                "title": "Prêt pour le Lancement Mondial",
+                "desc": "Votre progression, vos records et vos récompenses se synchronisent parfaitement entre tous vos appareils."
+            },
+            {
+                "icon": "🌐",
+                "title": "Portail Studio Complet & Jeu Navigateur",
+                "desc": "Découvrez l'équipe familiale CG Studio Home / Labs et jouez à Marinext 2100 directement dans votre navigateur."
+            },
+            {
                 "icon": "👨‍👩‍👧‍👦",
-                "title": "Adaptation Automatique Tablettes Famille",
-                "desc": "Ajout d'un mode compatible famille automatique pour optimiser l'affichage des vidéos bonus sur les tablettes Android 13."
-            },
-            {
-                "icon": "🎁",
-                "title": "Remise Instantanée Après Vidéo Bonus",
-                "desc": "Vos Pièces et Émeraudes Antiques sont créditées immédiatement dès la fin de chaque vidéo bonus."
-            },
-            {
-                "icon": "✨",
-                "title": "Retour Visuel Immédiat au Premier Clic",
-                "desc": "Les boutons bonus affichent aussitôt le chargement en cours pour plus de clarté."
+                "title": "Tablettes Famille & Récompenses Instantanées",
+                "desc": "Vos Pièces et Émeraudes Antiques sont créditées sans délai après chaque vidéo bonus optionnelle."
             },
             {
                 "icon": "⚔️",
@@ -5496,25 +5496,25 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "ko": {
-        "title": "🚀 v1.4.4 가족 태블릿 호환 & 즉시 보상",
-        "subtitle": "모든 가족용 태블릿과 스마트폰에서 더욱 안정적이고 매끄러운 보상 경험을 제공합니다:",
+        "title": "🚀 v1.4.5 글로벌 출시 준비 & 포털 완성",
+        "subtitle": "글로벌 정식 출시를 앞두고 모든 기기와 공식 웹 포털의 완성도를 한 단계 높였습니다:",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
+                "icon": "🌍",
+                "title": "글로벌 출시 최적화 & 스마트 동기화",
+                "desc": "캠페인 진행도, 리더보드 기록 및 보상이 스마트폰과 태블릿 간 더욱 안정적으로 동기화됩니다."
+            },
+            {
+                "icon": "🌐",
+                "title": "공식 웹 포털 & 브라우저 플레이 완성",
+                "desc": "CG Studio Home / Labs 가족 팀 이야기를 만나보고 브라우저에서도 Marinext 2100을 매끄럽게 즐겨보세요."
+            },
+            {
                 "icon": "👨‍👩‍👧‍👦",
-                "title": "가족 및 보호 태블릿 스마트 적응",
-                "desc": "보호 계정이 적용된 Android 13 태블릿 환경에서도 보너스 동영상이 안정적으로 준비되도록 자동 가족 안전 전환 모드를 추가했습니다."
-            },
-            {
-                "icon": "🎁",
-                "title": "보너스 영상 시청 후 즉시 보상 지급",
-                "desc": "보상형 영상을 시청하면 코인과 고대 에메랄드가 지연 없이 즉시 지갑에 적립됩니다."
-            },
-            {
-                "icon": "✨",
-                "title": "원터치 버튼 로딩 피드백",
-                "desc": "보너스 버튼을 누르는 즉시 준비 상태를 시각적으로 안내합니다."
+                "title": "가족 태블릿 호환 & 즉시 보상 적립",
+                "desc": "선택형 보너스 영상을 시청한 직후 코인과 고대 에메랄드가 지연 없이 지갑에 적립됩니다."
             },
             {
                 "icon": "⚔️",
@@ -5529,25 +5529,25 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "zh": {
-        "title": "🚀 v1.4.4 家庭平板适配 & 即时奖励",
-        "subtitle": "Marinext 2100 现已支持家庭安全模式智能切换，并在手机与平板上稳定发放奖励：",
+        "title": "🚀 v1.4.5 全球发布优化 & 官方门户完善",
+        "subtitle": "Marinext 2100 面向全球正式发布完成全面打磨，手机、平板与官方网页版体验焕然一新：",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
+                "icon": "🌍",
+                "title": "全球发布就绪 & 跨设备流畅同步",
+                "desc": "您的关卡进度、排行榜成绩与游戏奖励在多台手机和平板之间同步更稳健流畅。"
+            },
+            {
+                "icon": "🌐",
+                "title": "官方门户焕新 & 网页即点即玩",
+                "desc": "探索 CG Studio Home / Labs 家庭工作室故事，并在浏览器中畅玩 Marinext 2100。"
+            },
+            {
                 "icon": "👨‍👩‍👧‍👦",
-                "title": "家庭与儿童平板智能兼容模式",
-                "desc": "新增自动家庭安全回退适配，助力受监管的安卓 13 平板更稳定地准备奖励视频。"
-            },
-            {
-                "icon": "🎁",
-                "title": "奖励视频看完后即时到账",
-                "desc": "观看任意可选激励视频后，金币与古代绿宝石将直接发放到您的钱包。"
-            },
-            {
-                "icon": "✨",
-                "title": "一键点击即时加载提示",
-                "desc": "点击任意奖励按钮后立即显示加载反馈，告别重复点击。"
+                "title": "家庭平板适配 & 激励奖励即时到账",
+                "desc": "观看任意可选激励视频后，金币与古代绿宝石将直接发放到您的账户。"
             },
             {
                 "icon": "⚔️",
@@ -5562,25 +5562,25 @@ window.MARINEXT_WHATS_NEW_DATA = {
         ]
     },
     "ja": {
-        "title": "🚀 v1.4.4 家族タブレット対応＆即時報酬",
-        "subtitle": "ご家族のタブレットからスマホまで、さらに安定したボーナス体験と快適動作を実現：",
+        "title": "🚀 v1.4.5 世界公開準備＆公式ポータル完成",
+        "subtitle": "全世界リリースに向けて、モバイル端末と公式Webポータルの完成度をさらに高めました：",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
+                "icon": "🌍",
+                "title": "グローバル公開準備＆スマート同期",
+                "desc": "ステージ進行状況やハイスコア、報酬データがスマホとタブレット間でより安定して同期されます。"
+            },
+            {
+                "icon": "🌐",
+                "title": "公式Webポータル＆ブラウザ版プレイ",
+                "desc": "CG Studio Home / Labs ファミリースタジオのストーリーをご覧いただき、ブラウザでもそのまま遊べます。"
+            },
+            {
                 "icon": "👨‍👩‍👧‍👦",
-                "title": "ファミリー向けタブレット自動最適化",
-                "desc": "保護者管理機能付きのAndroid 13タブレットでもボーナス動画がスムーズに準備されるファミリーセーフ自動切替を追加しました。"
-            },
-            {
-                "icon": "🎁",
-                "title": "動画視聴後の即時報酬クレジット",
-                "desc": "ボーナス動画の視聴完了後、コインや古代エメラルドが即座にアカウントへ届きます。"
-            },
-            {
-                "icon": "✨",
-                "title": "ワンタップでの即時ボタン反応",
-                "desc": "ボーナスボタンをタップした瞬間に読み込み状態が分かりやすく表示されます。"
+                "title": "家族タブレット対応＆即時報酬クレジット",
+                "desc": "ボーナス動画の視聴後、コインや古代エメラルドがスムーズにウォレットへ届きます。"
             },
             {
                 "icon": "⚔️",
