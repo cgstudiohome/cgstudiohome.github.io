@@ -5662,299 +5662,299 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
 // Full 9-Language "What's New in v1.4.9" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.4.9 Akıllı Kapı Kotası, Çift Yönlü Asansör & VIP MK-II",
-        "subtitle": "Bitiş kapısı artık nesne toplama kotasına göre açılıyor, asansörlere sınırsız inip çıkabiliyor ve güçlendirmeleri VIP MK-II'ye yükseltebiliyorsun!",
+        "title": "🚀 v1.4.10 Okunaklı Uyarı Balonu, Tek Yön Asansör & Canlı VIP Senkron",
+        "subtitle": "Kapı kotası balonu telefonlarda %50 büyütüldü, asansör yönleri netleşti, stüdyo kapatma düğmesi düzenlendi ve VIP iptal durumu canlı eklendi!",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
+                "icon": "💬",
+                "title": "%50 Büyütülmüş & Net Uyarı Balonu",
+                "desc": "Bitirme kapısındaki eksik nesne uyarı balonu telefon ekranlarında %50 büyütüldü; iki satırlı akıllı düzenle artık tek bakışta rahatça okunuyor!"
+            },
+            {
                 "icon": "🛗",
-                "title": "Sınırsız Çift Yönlü Alt Platform Asansörleri",
-                "desc": "Alt görev odalarına inip çıktıktan sonra istediğin kadar geri inip yukarı çıkabilir, eksik yıldız ve hazineleri rahatça toplayabilirsin!"
+                "title": "Kesin Tek Yönlü & Sınırsız Asansörler",
+                "desc": "İniş asansörü artık sadece alt kata iner, çıkış asansörü ise yalnızca yukarı çıkar! Alt kata istediğin kadar tekrar inip çıkabilirsin."
             },
             {
-                "icon": "🔒",
-                "title": "Oransal Bitirme Kapısı Kotası & Uyarı Balonu",
-                "desc": "Yeterli Antik Zümrüt, Kristal ve Coin toplanmadan kapı kilitli görünür; kapıya yaklaştığında kaç nesnenin eksik olduğunu gösteren balon açılır!"
-            },
-            {
-                "icon": "🗺️",
-                "title": "Uzatılmış İleri Bölümler & Tavan Savunmaları",
-                "desc": "Bölüm 26'dan 100'e kadar rotalar daha da uzadı; üstten süzülerek direkt sona atlamayı engelleyen gökyüzü bariyerleri ve lazerler eklendi."
-            },
-            {
-                "icon": "⚡",
-                "title": "Sv.1 (Standart) ➔ Sv.2 (👑 VIP MK-II) Güçlendirme Sistemi",
-                "desc": "Tüm temel hareket ve zıplama becerileri herkese açık kalırken, aktif VIP sahipleri 8 güçlendirme kartının tamamında üst düzey MK-II tavanlarını açar!"
+                "icon": "📱",
+                "title": "Mobilde Temiz Kapatma (✕) Başlık Düzeni",
+                "desc": "Karakter Kişiselleştirme, Karakter Değiştir ve Mağaza'daki (✕) kapatma düğmesi başlık satırına taşındı; artık Güçlendirme sekmesinin üstüne binmiyor."
             },
             {
                 "icon": "👑",
-                "title": "Ölüm & Zafer Anında Hızlı VIP Devam Seçenekleri",
-                "desc": "Bölüm içinde düştüğünde veya zafer anında reklam izlemenin yanı sıra reklamsız anında VIP devam & 2x ödül seçenekleriyle tanış."
+                "title": "Canlı VIP Abonelik Senkronizasyonu",
+                "desc": "Google Play aboneliği iptal edildiğinde dönem bitene kadar 'VIP (SÜRE SONUNA DEK)' görünür; süre dolduğunda oyun açıkken bile otomatik güncellenir."
+            },
+            {
+                "icon": "⚡",
+                "title": "9 Dilde Akıcı Performans & Dengeli Oynanış",
+                "desc": "Tüm menü, konuşma balonu, güçlendirme ve VIP ekranları telefonlarda sıfır taşma ve 120 FPS akıcılık için optimize edildi."
             }
         ]
     },
     "en": {
-        "title": "🚀 v1.4.9 Smart Gate Quota, Unlimited Elevators & VIP MK-II",
-        "subtitle": "Exit gates now track level collection quotas, sub-stage elevators work endlessly both ways, and upgrades evolve into VIP MK-II!",
+        "title": "🚀 v1.4.10 Larger Speech Balloon, One-Way Elevators & Live VIP Sync",
+        "subtitle": "Gate warning balloons are now 50% larger on phones, elevator directions are strictly one-way, close buttons sit cleanly in headers, and VIP sync updates live!",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
+                "icon": "💬",
+                "title": "+50% Larger, Crystal-Clear Warning Balloon",
+                "desc": "Expanded the locked gate speech bubble and fonts by 50% with clean 2-line wrapping so missing items are super easy to read on small phone screens."
+            },
+            {
                 "icon": "🛗",
-                "title": "Unlimited Two-Way Underground Elevators",
-                "desc": "Re-enter or ascend between main stages and underground rooms as many times as you like—both cabins remain active!"
+                "title": "Strict One-Way & Endless Reusable Elevators",
+                "desc": "Descent elevators strictly travel down and exit elevators strictly travel up—no mixed directions—while letting you revisit underground floors freely!"
             },
             {
-                "icon": "🔒",
-                "title": "Progressive Exit Gate Quota & Speech Warning",
-                "desc": "Exit portals stay sealed until you collect the stage target; approaching a locked gate shows a live speech balloon of exact missing gems!"
-            },
-            {
-                "icon": "🗺️",
-                "title": "Extended Late-Game Worlds & Sky Barriers",
-                "desc": "Stages 26–100 now stretch further with overhead anti-fly-over barriers and high patrols so jumping & combat truly matter."
-            },
-            {
-                "icon": "⚡",
-                "title": "Lv.1 (Standard) ➔ Lv.2 (👑 VIP MK-II) Upgrade Tiers",
-                "desc": "Core movement stays fair for all players while VIP Pass automatically evolves all 8 Shop upgrades into supercharged MK-II caps!"
+                "icon": "📱",
+                "title": "Overlap-Free Phone Header Close (✕) Layout",
+                "desc": "Moved the close (✕) button cleanly into the top header row across Studio & Shop screens so it never overlaps the Upgrade tab on mobile."
             },
             {
                 "icon": "👑",
-                "title": "Smart Instant VIP Continue & 2x Reward Options",
-                "desc": "Alongside optional rewarded ads, enjoy effortless ad-free VIP revive & 2x bonus options right when they help most."
+                "title": "Live VIP Sync & Ending-Soon Status Badge",
+                "desc": "Canceled Play Store subscriptions clearly show 'VIP (ENDING SOON)' until the period ends and automatically refresh in-game without restarting."
+            },
+            {
+                "icon": "⚡",
+                "title": "9-Language Polish & 120 FPS Responsiveness",
+                "desc": "Refined UI spacing, speech tail alignment, and ad-free state updates for seamless play on every Android phone and tablet."
             }
         ]
     },
     "ru": {
-        "title": "🚀 v1.4.9 Лифт Без Ограничений, Квота Портала и VIP MK-II",
-        "subtitle": "Финишный портал теперь требует сбор самоцветов, лифты работают бесконечно в обе стороны, а усиления растут до VIP MK-II!",
+        "title": "🚀 v1.4.10 Крупное Облачко, Точные Лифты и Живая Синхронизация VIP",
+        "subtitle": "Облачко квоты увеличено на 50% для телефонов, направления лифтов исправлены, кнопка (✕) не мешает вкладкам, а VIP обновляется в реальном времени!",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
+                "icon": "💬",
+                "title": "Облачко-Подсказка Больше на 50%",
+                "desc": "Увеличили шрифт и размер облачка квоты портала на 50% с переносом в 2 строки — теперь подсказка отлично читается на экранах телефонов!"
+            },
+            {
                 "icon": "🛗",
-                "title": "Безлимитный Двусторонний Лифт Подземелий",
-                "desc": "Спускайтесь в подземную зону и поднимайтесь обратно сколько угодно раз — лифт больше не блокируется!"
+                "title": "Строгие Направления Лифтов и Безлимитный Спуск",
+                "desc": "Лифт спуска теперь ведёт только вниз, а лифт выхода — только вверх. Путаница направлений устранена, повторный спуск по-прежнему свободный!"
             },
             {
-                "icon": "🔒",
-                "title": "Квота Выхода и Облачко-Подсказка у Портала",
-                "desc": "Портал закрыт, пока не собрана цель уровня, а при приближении подскажет, сколько именно кристаллов не хватает!"
-            },
-            {
-                "icon": "🗺️",
-                "title": "Длинные Поздние Уровни и Небесные Барьеры",
-                "desc": "Уровни 26–100 стали длиннее и интереснее благодаря верхним барьерам против прямого перелёта."
-            },
-            {
-                "icon": "⚡",
-                "title": "Ур.1 (Стандарт) ➔ Ур.2 (👑 VIP MK-II)",
-                "desc": "Базовые навыки честны для всех, а с VIP Pass все 8 улучшений магазина переходят на сверхмощный уровень MK-II!"
+                "icon": "📱",
+                "title": "Удобная Кнопка Закрытия (✕) на Телефонах",
+                "desc": "Перенесли кнопку закрытия (✕) в верхнюю панель в Мастерской, Персонажах и Магазине — больше никакого перекрытия вкладки усилений."
             },
             {
                 "icon": "👑",
-                "title": "Быстрое VIP-Возрождение и 2x Награды",
-                "desc": "При поражении или победе выбирайте либо рекламу с наградой, либо мгновенное VIP-продолжение без рекламы."
+                "title": "Живая Синхронизация VIP и Статус Истечения",
+                "desc": "При отмене подписки в Google Play до конца периода отображается «VIP (ДО КОНЦА СРОКА)», а статус проверяется автоматически при возврате в игру."
+            },
+            {
+                "icon": "⚡",
+                "title": "Плавность 120 FPS и Качество Интерфейса на 9 Языках",
+                "desc": "Улучшена адаптация текста, привязка хвостика облачка и сброс VIP-кнопок после завершения срока действия."
             }
         ]
     },
     "it": {
-        "title": "🚀 v1.4.9 Ascensori Illimitati, Quota Portale & VIP MK-II",
-        "subtitle": "I portali d'uscita richiedono ora la quota oggetti, gli ascensori funzionano all'infinito e i potenziamenti salgono a VIP MK-II!",
+        "title": "🚀 v1.4.10 Fumetto +50%, Ascensori a Senso Unico & Sync VIP Live",
+        "subtitle": "Fumetto del portale più grande del 50%, direzioni ascensori fisse, tasto (✕) pulito nell'intestazione su smartphone e stato VIP sempre aggiornato!",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
+                "icon": "💬",
+                "title": "Fumetto Quota Portale +50% Più Grande",
+                "desc": "Ingranditi testo e riquadro del 50% con testo su 2 righe per leggere subito gli oggetti mancanti anche sugli schermi piccoli."
+            },
+            {
                 "icon": "🛗",
-                "title": "Ascensori Sotterranei Bidirezionali Illimitati",
-                "desc": "Scendi e risali tutte le volte che vuoi tra il livello principale e la stanza sotterranea per raccogliere ogni tesoro!"
+                "title": "Ascensori Rigorosamente a Senso Unico e Illimitati",
+                "desc": "L'ascensore di discesa porta solo giù e quello di uscita solo su: zero inversioni di direzione, sempre riutilizzabili!"
             },
             {
-                "icon": "🔒",
-                "title": "Quota Portale Progressiva & Avviso a Fumetto",
-                "desc": "Il portale resta bloccato finché non raggiungi l'obiettivo del livello e ti mostra esattamente quanti smeraldi o cristalli mancano!"
-            },
-            {
-                "icon": "🗺️",
-                "title": "Livelli Avanzati Più Lunghi & Barriere Aeree",
-                "desc": "I livelli 26–100 si allungano con nuove barriere superiori per evitare scorciatoie in volo diretto."
-            },
-            {
-                "icon": "⚡",
-                "title": "Liv.1 (Standard) ➔ Liv.2 (👑 VIP MK-II)",
-                "desc": "I controlli base restano giusti per tutti, mentre il VIP Pass porta tutti gli 8 potenziamenti ai limiti superiori MK-II!"
+                "icon": "📱",
+                "title": "Tasto Chiudi (✕) Pulito su Smartphone",
+                "desc": "Spostato il tasto (✕) nella barra superiore in Personalizzazione, Personaggi e Negozio: non copre più la scheda Potenziamenti."
             },
             {
                 "icon": "👑",
-                "title": "Opzioni VIP Istantanee alla Sconfitta & Vittoria",
-                "desc": "Oltre agli annunci con premio facoltativi, scegli una rinascita istantanea VIP senza annunci proprio quando serve."
+                "title": "Sincronizzazione VIP Live & Avviso Scadenza",
+                "desc": "Dopo l'annullamento su Google Play vedi chiaramente 'VIP (IN SCADENZA)' fino a fine periodo e l'app si aggiorna in tempo reale."
+            },
+            {
+                "icon": "⚡",
+                "title": "Ottimizzazione UI in 9 Lingue a 120 FPS",
+                "desc": "Migliorati il puntatore del fumetto vicino al portale e il ripristino immediato dei pulsanti allo scadere del VIP."
             }
         ]
     },
     "es": {
-        "title": "🚀 v1.4.9 Ascensor Ilimitado, Cuota de Portal y VIP MK-II",
-        "subtitle": "¡El portal final ahora exige cuota de tesoros, los ascensores suben y bajan sin límite y las mejoras evolucionan a VIP MK-II!",
+        "title": "🚀 v1.4.10 Globo +50%, Ascensores de Sentido Único y Sync VIP",
+        "subtitle": "¡Globo de aviso un 50% más grande, direcciones de ascensor exactas, botón (✕) limpio en móviles y estado VIP sincronizado en vivo!",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
+                "icon": "💬",
+                "title": "Globo de Aviso de Cuota +50% Más Grande",
+                "desc": "Aumentamos un 50% el tamaño del globo y la fuente con ajuste a 2 líneas para leer fácilmente las gemas faltantes en cualquier teléfono."
+            },
+            {
                 "icon": "🛗",
-                "title": "Ascensores Subterráneos Bidireccionales Ilimitados",
-                "desc": "¡Baja y sube tantas veces como quieras entre la fase principal y la sala subterránea sin bloqueos!"
+                "title": "Ascensores de Sentido Único e Ilimitados",
+                "desc": "El ascensor de bajada solo baja y el de salida solo sube: direcciones corregidas por completo y acceso subterráneo ilimitado."
             },
             {
-                "icon": "🔒",
-                "title": "Cuota Progresiva en el Portal y Globo de Aviso",
-                "desc": "La meta permanece cerrada hasta reunir la cuota de gemas; al acercarte verás cuántas esmeraldas o cristales te faltan."
-            },
-            {
-                "icon": "🗺️",
-                "title": "Fases Avanzadas Más Largas y Barreras Aéreas",
-                "desc": "Los niveles 26–100 ahora son más extensos e incluyen defensas aéreas superiores para evitar atajos volando."
-            },
-            {
-                "icon": "⚡",
-                "title": "Nv.1 (Estándar) ➔ Nv.2 (👑 VIP MK-II)",
-                "desc": "La jugabilidad base sigue siendo 100% justa y el Pase VIP desbloquea automáticamente el máximo nivel MK-II en todas las mejoras."
+                "icon": "📱",
+                "title": "Botón Cerrar (✕) Ordenado en Teléfonos",
+                "desc": "Colocamos el botón (✕) dentro de la barra superior en Personalización, Personajes y Tienda para no tapar nunca la pestaña de Mejoras."
             },
             {
                 "icon": "👑",
-                "title": "Opciones VIP Inteligentes al Caer o Ganar",
-                "desc": "Junto a los anuncios opcionales con premio, disfruta de opciones VIP claras para revivir al instante sin anuncios."
+                "title": "Sincronización VIP en Vivo y Aviso de Fin de Periodo",
+                "desc": "Al cancelar en Google Play verás 'VIP (FIN DE PERIODO)' hasta que acabe el ciclo pagado y se actualizará automáticamente sin reiniciar."
+            },
+            {
+                "icon": "⚡",
+                "title": "Pulido General en 9 Idiomas a 120 FPS",
+                "desc": "Mejorada la lectura de avisos junto al portal y la restauración automática de botones de cofre al vencer el VIP."
             }
         ]
     },
     "fr": {
-        "title": "🚀 v1.4.9 Ascenseurs Illimités, Quota & VIP MK-II",
-        "subtitle": "Le portail de fin vérifie désormais le quota de collecte, les ascenseurs fonctionnent à l'infini et les bonus passent au niveau MK-II !",
+        "title": "🚀 v1.4.10 Bulle +50 %, Ascenseurs à Sens Unique & Sync VIP",
+        "subtitle": "Bulle d'alerte agrandie de 50 % sur mobile, directions d'ascenseur strictement à sens unique, bouton (✕) aligné et synchro VIP en direct !",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
+                "icon": "💬",
+                "title": "Bulle d'Alerte +50 % Plus Lisible",
+                "desc": "Taille et police augmentées de 50 % sur 2 lignes pour lire instantanément les gemmes manquantes devant le portail sur smartphone."
+            },
+            {
                 "icon": "🛗",
-                "title": "Ascenseurs Souterrains Illimités dans les 2 Sens",
-                "desc": "Descendez et remontez librement autant de fois que nécessaire entre le niveau principal et les missions souterraines !"
+                "title": "Ascenseurs à Sens Unique & Illimités",
+                "desc": "La cabine de descente descend uniquement et la cabine de sortie monte uniquement : fini les inversions, tout en restant réutilisable !"
             },
             {
-                "icon": "🔒",
-                "title": "Quota d'Ouverture du Portail & Bulle d'Alerte",
-                "desc": "La porte reste verrouillée jusqu'à atteindre l'objectif ; approchez-vous pour voir exactement combien de gemmes il vous manque."
-            },
-            {
-                "icon": "🗺️",
-                "title": "Niveaux Avancés Rallongés & Barrières Aériennes",
-                "desc": "Les niveaux 26–100 s'étendent avec des obstacles en altitude empêchant de survoler directement la fin du parcours."
-            },
-            {
-                "icon": "⚡",
-                "title": "Niv.1 (Standard) ➔ Niv.2 (👑 VIP MK-II)",
-                "desc": "Les mouvements restent justes pour tous et le Pass VIP fait évoluer automatiquement les 8 améliorations vers le palier MK-II !"
+                "icon": "📱",
+                "title": "Bouton Fermer (✕) Propre sur Mobile",
+                "desc": "Bouton (✕) intégré proprement dans la barre d'en-tête des écrans Personnages, Personnalisation et Boutique sans gêner les onglets."
             },
             {
                 "icon": "👑",
-                "title": "Options VIP Claires après Défaite ou Victoire",
-                "desc": "En plus des vidéos récompensées facultatives, continuez sans publicité grâce aux boutons VIP dédiés."
+                "title": "Synchro VIP en Direct & Fin de Période",
+                "desc": "Une fois l'abonnement annulé, l'état indique 'VIP (FIN DE PÉRIODE)' jusqu'à l'expiration et s'actualise automatiquement sans redémarrer."
+            },
+            {
+                "icon": "⚡",
+                "title": "Qualité d'Interface 120 FPS en 9 Langues",
+                "desc": "Meilleur ancrage de la bulle près du portail et réinitialisation immédiate des boutons après expiration du Pass VIP."
             }
         ]
     },
     "ko": {
-        "title": "🚀 v1.4.9 무제한 엘리베이터, 포털 할당량 & VIP MK-II",
-        "subtitle": "이제 출구 포털이 목표 수집량을 확인하며, 지하 엘리베이터를 횟수 제한 없이 오갈 수 있고, 모든 강화가 VIP MK-II로 진화합니다!",
+        "title": "🚀 v1.4.10 +50% 큰 말풍선, 단방향 엘리베이터 & 실시간 VIP 동기화",
+        "subtitle": "포털 안내 말풍선을 50% 확대하고, 엘리베이터 방향을 고정했으며, 모바일 닫기(✕) 버튼 겹침과 VIP 구독 동기화를 개선했습니다!",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
+                "icon": "💬",
+                "title": "스마트폰에서도 선명한 +50% 확대 말풍선",
+                "desc": "포털 앞 부족한 보석 안내 말풍선과 글자를 50% 키우고 2줄 자동 줄바꿈을 적용해 작은 화면에서도 한눈에 읽힙니다!"
+            },
+            {
                 "icon": "🛗",
-                "title": "무제한 양방향 지하 엘리베이터",
-                "desc": "지하 미션을 완료한 후에도 다시 내려가거나 올라갈 수 있도록 엘리베이터 1회 제한을 완전히 해제했습니다!"
+                "title": "정확한 단방향 & 무제한 승하차 엘리베이터",
+                "desc": "하행 전용 엘리베이터는 아래로만, 상행 전용 엘리베이터는 위로만 작동하도록 방향을 바로잡았으며 반복 이용은 무제한입니다!"
             },
             {
-                "icon": "🔒",
-                "title": "스테이지별 출구 게이트 할당량 & 말풍선 안내",
-                "desc": "목표 에메랄드/크리스탈을 모아야 문이 열리며, 잠긴 문에 다가가면 부족한 개수를 말풍선으로 바로 알려줍니다!"
-            },
-            {
-                "icon": "🗺️",
-                "title": "후반 스테이지 확장 & 공중 비행 차단 벽",
-                "desc": "26~100스테이지 길이가 더 확장되고 상단 차단 벽이 추가되어 공중 비행 스킵 대신 진정한 플랫폼 액션을 즐길 수 있습니다."
-            },
-            {
-                "icon": "⚡",
-                "title": "LV.1 (기본) ➔ LV.2 (👑 VIP MK-II) 이중 등급 강화",
-                "desc": "기본 이동 능력은 모두에게 공정하게 유지되며, VIP 패스 보유 시 상점 8종 강화가 한계 돌파된 MK-II로 즉시 진화합니다!"
+                "icon": "📱",
+                "title": "모바일 상단 닫기(✕) 버튼 겹침 해결",
+                "desc": "커스터마이징·캐릭터·상점 화면의 닫기(✕) 버튼을 제목 줄로 옮겨 더 이상 '강화' 탭을 가리지 않습니다."
             },
             {
                 "icon": "👑",
-                "title": "패배 & 승리 화면 스마트 VIP 이어하기 안내",
-                "desc": "선택형 보상 광고 버튼과 함께 가장 필요한 순간에 광고 없이 바로 부활/2배 보상을 받는 VIP 버튼을 추가했습니다."
+                "title": "실시간 VIP 구독 상태 동기화 및 만료 예정 표시",
+                "desc": "Google Play 구독 해지 시 남은 이용 기간 동안 'VIP (기간 만료 예정)'으로 표시되며, 만료되면 재시작 없이 자동 반영됩니다."
+            },
+            {
+                "icon": "⚡",
+                "title": "9개 언어 UI 정돈 및 120 FPS 최적화",
+                "desc": "포털 모서리 말풍선 위치 정렬과 VIP 만료 후 상자 버튼 텍스트 복구까지 세밀하게 다듬었습니다."
             }
         ]
     },
     "zh": {
-        "title": "🚀 v1.4.9 无限双向电梯、通关门配额 & VIP MK-II",
-        "subtitle": "终点传送门现已启用宝石配额解锁机制，地下电梯支持无限往返，全部商店强化升级为双阶 VIP MK-II！",
+        "title": "🚀 v1.4.10 气泡放大50%、单向电梯与 VIP 实时同步",
+        "subtitle": "终点门提示气泡放大50%，修复电梯上下行方向错乱，优化手机端关闭(✕)按钮布局并支持 VIP 取消状态实时同步！",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
+                "icon": "💬",
+                "title": "提示气泡与文字放大 50%，手机阅读更清晰",
+                "desc": "通关门缺口提醒气泡与字体放大 50% 并支持双行自动换行，在小屏手机上也能一眼看清！"
+            },
+            {
                 "icon": "🛗",
-                "title": "无限次双向地下任务电梯",
-                "desc": "彻底移除地下电梯单次锁定！无论何时你都可以自由往返地面主关与地下平台收集遗漏宝藏。"
+                "title": "严格单向运行 & 无限次往返电梯",
+                "desc": "修复电梯方向混乱：下行电梯只下不上，出口电梯只上不下，同时保留无限次重返地下层收集宝藏的功能！"
             },
             {
-                "icon": "🔒",
-                "title": "分关渐变配额门锁 & 气泡缺口提示",
-                "desc": "集齐本关规定比例的翡翠与晶核后终点门才会解锁；靠近锁定大门时会弹出清晰气泡提示具体缺口数量！"
-            },
-            {
-                "icon": "🗺️",
-                "title": "后期关卡全面加长 & 空中防飞越屏障",
-                "desc": "第 26–100 关路线进一步拉长，并在高空增设顶部屏障与巡逻机关，防止直接滑翔跳过核心挑战。"
-            },
-            {
-                "icon": "⚡",
-                "title": "Lv.1 (标准) ➔ Lv.2 (👑 VIP MK-II) 双阶强化体系",
-                "desc": "核心操作手感对所有人保持公平；开通 VIP 后全部 8 项晶核强化自动解锁更高属性上限的 MK-II 状态！"
+                "icon": "📱",
+                "title": "优化手机端顶部关闭 (✕) 按钮位置",
+                "desc": "将自定义工坊、角色更换与商店的关闭 (✕) 按钮融入标题栏右侧，不再遮挡手机端强化标签。"
             },
             {
                 "icon": "👑",
-                "title": "阵亡 & 胜利界面智能 VIP 尊享引导",
-                "desc": "在保留原有激励视频复活与双倍奖励按钮的同时，提供优雅无压力的 VIP 免广告即时续命与双倍选项。"
+                "title": "VIP 订阅实时同步 & 到期状态标识",
+                "desc": "在 Google Play 取消订阅后，主界面按钮清晰提示“VIP (到期后关闭)”，并在切回游戏时及后台自动刷新权益。"
+            },
+            {
+                "icon": "⚡",
+                "title": "9 国语言细节打磨 & 120 FPS 稳定体验",
+                "desc": "优化大门旁气泡尾标定位以及 VIP 到期后宝箱按钮文案自动还原。"
             }
         ]
     },
     "ja": {
-        "title": "🚀 v1.4.9 無制限エレベーター・ゲート条件 & VIP MK-II",
-        "subtitle": "出口ゲートに宝石ノルマが導入され、地下エレベーターが何度でも往復可能に！さらに全強化がVIP MK-IIへ進化！",
+        "title": "🚀 v1.4.10 吹き出し50%拡大・単方向エレベーター & VIPリアルタイム同期",
+        "subtitle": "ポータル警告の吹き出しを50%大きく見やすくし、エレベーター方向とモバイル閉じる(✕)配置・VIP同期を改善しました！",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
+                "icon": "💬",
+                "title": "吹き出し＆文字を50%拡大して見やすさ向上",
+                "desc": "ポータル前の不足アイテム警告を50%拡大し2行折り返しに対応。スマホの小さな画面でもくっきり読めます！"
+            },
+            {
                 "icon": "🛗",
-                "title": "回数無制限の両方向エレベーター",
-                "desc": "地下ステージへの1回限りロックを解除！メインと地下を何度でも行き来して取り逃した星や宝箱を回収できます。"
+                "title": "明確な単方向＆何度でも乗れる昇降エレベーター",
+                "desc": "下降エレベーターは下りのみ、出口エレベーターは上りのみに方向を完全修正。地下室への再訪問は何度でも可能です！"
             },
             {
-                "icon": "🔒",
-                "title": "出口ゲートの収集ノルマ＆吹き出しアラート",
-                "desc": "ステージ進行に応じた宝石ノルマを達成するとゲート解放！ロック中に近づくと不足数が吹き出しで一目で分かります。"
-            },
-            {
-                "icon": "🗺️",
-                "title": "終盤ステージ延長＆空中スキップ防止バリア",
-                "desc": "ステージ26〜100の道のりをさらに延長し、上空からの素通りを防ぐ天井バリア・高空ギミックを配置しました。"
-            },
-            {
-                "icon": "⚡",
-                "title": "Lv.1 (標準) ➔ Lv.2 (👑 VIP MK-II) 二段階強化システム",
-                "desc": "基本アクションは全プレイヤーに公平なまま、VIP加入中はショップ強化8種全てが上限突破のMK-IIへ自動進化！"
+                "icon": "📱",
+                "title": "スマホ画面の閉じる(✕)ボタン重なり解消",
+                "desc": "カスタマイズ・キャラ変更・ショップ画面の(✕)をヘッダー行に整理し、強化タブに重ならないように修正しました。"
             },
             {
                 "icon": "👑",
-                "title": "ゲームオーバー＆勝利時のスマートVIP案内",
-                "desc": "任意のリワード広告に加えて、ゲームオーバー時やクリア時にも広告なしで即復活・2倍報酬が選べるVIP導線を追加。"
+                "title": "VIP定期購入のライブ同期＆解約予定表示",
+                "desc": "Google Playで解約した後は期間終了まで「VIP (期間終了まで)」と表示し、復帰時やプレイ中も自動で最新状態を反映します。"
+            },
+            {
+                "icon": "⚡",
+                "title": "9言語UI調整 & 120 FPS快適プレイ",
+                "desc": "ポータル付近の吹き出し位置とVIP期限切れ時の宝箱ボタン表示復元を改善しました。"
             }
         ]
     }
