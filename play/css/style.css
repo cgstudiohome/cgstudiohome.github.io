@@ -2814,3 +2814,402 @@ html, body {
     font-size: 10.5px;
     font-weight: 800;
 }
+
+
+/* ============================================================================
+   VIP PASS & LIFETIME REMOVE ADS STORE (RESPECTFUL CYBERPUNK UI)
+   ============================================================================ */
+.vip-top-pill-btn {
+    background: linear-gradient(135deg, rgba(255, 209, 102, 0.18), rgba(245, 158, 11, 0.14));
+    border: 1.5px solid rgba(255, 209, 102, 0.65);
+    color: #ffd166;
+    font-weight: 800;
+    font-size: 12px;
+    padding: 7px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.16s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.vip-top-pill-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 14px rgba(255, 209, 102, 0.35);
+    background: linear-gradient(135deg, rgba(255, 209, 102, 0.28), rgba(245, 158, 11, 0.22));
+}
+
+.vip-top-pill-btn.vip-state-vip {
+    background: linear-gradient(135deg, #ffd166, #f59e0b);
+    color: #070812;
+    border-color: #fef08a;
+}
+
+.vip-top-pill-btn.vip-state-lifetime {
+    background: linear-gradient(135deg, rgba(6, 214, 160, 0.24), rgba(0, 242, 254, 0.18));
+    border-color: #06d6a0;
+    color: #6ee7b7;
+}
+
+.btn-vip-row {
+    border-color: rgba(255, 209, 102, 0.5) !important;
+    color: #ffd166 !important;
+    background: rgba(255, 209, 102, 0.08) !important;
+}
+
+.btn-vip-row:hover {
+    background: rgba(255, 209, 102, 0.16) !important;
+}
+
+.vip-shop-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255, 209, 102, 0.12), rgba(0, 242, 254, 0.08));
+    border: 1px solid rgba(255, 209, 102, 0.4);
+}
+
+.vip-shop-banner-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+    min-width: 0;
+}
+
+.vip-shop-banner-text strong {
+    color: #ffd166;
+    font-size: 13px;
+}
+
+.vip-shop-banner-text span {
+    color: #cbd5e1;
+    font-size: 11.5px;
+    line-height: 1.35;
+}
+
+.vip-shop-banner-btn {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    border-radius: 9px;
+    border: 1px solid #ffd166;
+    background: rgba(255, 209, 102, 0.18);
+    color: #ffd166;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.18s ease;
+}
+
+.vip-shop-banner-btn:hover {
+    background: rgba(255, 209, 102, 0.3);
+}
+
+.vip-soft-link-btn {
+    margin-top: 2px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 209, 102, 0.35);
+    background: rgba(255, 209, 102, 0.07);
+    color: #fde68a;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    align-self: center;
+    transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.vip-soft-link-btn:hover {
+    background: rgba(255, 209, 102, 0.15);
+    border-color: rgba(255, 209, 102, 0.7);
+}
+
+.vip-modal-card {
+    position: relative;
+    width: 95%;
+    max-width: 940px;
+    max-height: 92vh;
+    overflow-y: auto;
+    margin: auto;
+    padding: 18px 22px 16px;
+    border-radius: 18px;
+    background: linear-gradient(165deg, rgba(12, 16, 38, 0.98) 0%, rgba(7, 8, 18, 0.99) 100%);
+    border: 1.5px solid rgba(255, 209, 102, 0.55);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.72), 0 0 34px rgba(0, 242, 254, 0.14);
+    text-align: left;
+}
+
+.vip-modal-header {
+    padding-right: 44px;
+    margin-bottom: 10px;
+}
+
+.vip-modal-header h2 {
+    margin: 0 0 4px 0;
+    font-size: 20px;
+    font-weight: 900;
+    color: #ffd166;
+    letter-spacing: 0.4px;
+}
+
+.vip-modal-sub {
+    margin: 0;
+    font-size: 12.5px;
+    color: #cbd5e1;
+    line-height: 1.45;
+}
+
+.vip-active-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 9px 13px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(6, 214, 160, 0.16), rgba(0, 242, 254, 0.1));
+    border: 1px solid rgba(6, 214, 160, 0.55);
+    color: #a7f3d0;
+    font-size: 12.5px;
+    font-weight: 700;
+}
+
+.vip-perks-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+    margin-bottom: 12px;
+}
+
+.vip-perk-chip {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 9px 11px;
+    border-radius: 11px;
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(0, 242, 254, 0.24);
+}
+
+.vip-perk-icon {
+    font-size: 18px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.vip-perk-chip strong {
+    display: block;
+    color: #00f2fe;
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.vip-perk-chip span {
+    display: block;
+    color: #94a3b8;
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+.vip-plans-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 11px;
+}
+
+.vip-plan-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.88);
+    border: 1.5px solid rgba(148, 163, 184, 0.28);
+    transition: transform 0.18s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vip-plan-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 242, 254, 0.65);
+}
+
+.vip-plan-card.plan-yearly {
+    background: linear-gradient(165deg, rgba(30, 27, 75, 0.92), rgba(15, 23, 42, 0.95));
+    border-color: rgba(255, 209, 102, 0.85);
+    box-shadow: 0 0 22px rgba(255, 209, 102, 0.16);
+}
+
+.vip-plan-card.plan-lifetime {
+    background: linear-gradient(165deg, rgba(6, 55, 50, 0.72), rgba(15, 23, 42, 0.95));
+    border-color: rgba(6, 214, 160, 0.75);
+}
+
+.vip-plan-card.plan-owned {
+    border-color: #06d6a0;
+    box-shadow: 0 0 18px rgba(6, 214, 160, 0.22);
+}
+
+.vip-plan-tag {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 9.5px;
+    font-weight: 900;
+    letter-spacing: 0.4px;
+    margin-bottom: 7px;
+    background: rgba(0, 242, 254, 0.15);
+    color: #67e8f9;
+    border: 1px solid rgba(0, 242, 254, 0.35);
+}
+
+.plan-yearly .vip-plan-tag {
+    background: rgba(255, 209, 102, 0.2);
+    color: #ffd166;
+    border-color: rgba(255, 209, 102, 0.65);
+}
+
+.plan-lifetime .vip-plan-tag {
+    background: rgba(6, 214, 160, 0.2);
+    color: #6ee7b7;
+    border-color: rgba(6, 214, 160, 0.6);
+}
+
+.vip-plan-title {
+    margin: 0 0 6px 0;
+    font-size: 14.5px;
+    font-weight: 900;
+    color: #f8fafc;
+}
+
+.vip-plan-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 7px;
+}
+
+.vip-plan-price {
+    font-size: 20px;
+    font-weight: 900;
+    color: #ffd166;
+}
+
+.plan-lifetime .vip-plan-price {
+    color: #06d6a0;
+}
+
+.vip-plan-period {
+    font-size: 11.5px;
+    color: #94a3b8;
+    font-weight: 700;
+}
+
+.vip-plan-desc {
+    margin: 0 0 11px 0;
+    font-size: 11.5px;
+    color: #cbd5e1;
+    line-height: 1.42;
+    flex: 1;
+}
+
+.vip-plan-cta {
+    width: 100%;
+    padding: 9px 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    background: linear-gradient(135deg, #00f2fe, #38bdf8);
+    color: #041418;
+    transition: opacity 0.16s ease, transform 0.15s ease;
+}
+
+.plan-yearly .vip-plan-cta {
+    background: linear-gradient(135deg, #ffd166, #f59e0b);
+    color: #070812;
+}
+
+.plan-lifetime .vip-plan-cta {
+    background: linear-gradient(135deg, #06d6a0, #10b981);
+    color: #041418;
+}
+
+.vip-plan-cta:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.vip-plan-cta:disabled {
+    opacity: 0.72;
+    cursor: default;
+}
+
+.vip-legal-note {
+    margin: 0 0 10px 0;
+    padding: 8px 11px;
+    border-radius: 9px;
+    background: rgba(15, 23, 42, 0.62);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    color: #94a3b8;
+    font-size: 10.5px;
+    line-height: 1.42;
+}
+
+.vip-footer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.vip-footer-btn {
+    padding: 7px 12px;
+    border-radius: 9px;
+    border: 1px solid rgba(0, 242, 254, 0.38);
+    background: rgba(0, 242, 254, 0.08);
+    color: #67e8f9;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.vip-footer-link {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 11.5px;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 5px 6px;
+}
+
+.vip-footer-link:hover {
+    color: #e2e8f0;
+}
+
+@media (max-width: 780px) {
+    .vip-perks-row {
+        grid-template-columns: 1fr;
+    }
+    .vip-plans-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 460px) {
+    .vip-plans-grid {
+        grid-template-columns: 1fr;
+    }
+    .vip-shop-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
