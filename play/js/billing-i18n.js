@@ -98,7 +98,14 @@
             toastVipExpiredRevert: "ℹ️ VIP süresi dolduğu için VIP ekipmanlar varsayılana döndürüldü.",
             scrollMoreHint: "⬇ Daha fazla seçenek için aşağı kaydır",
             charTabVip: "👑 VIP ({count})",
-            vipBadgeAutoActive: "👑 VIP AKTİF (OTOMATİK)"
+            vipBadgeAutoActive: "👑 VIP AKTİF (OTOMATİK)",
+            tierLv1Tag: "⚡ SV.1",
+            tierLv2Tag: "👑 SV.2 VIP MK-II",
+            tierMk2ActiveBadge: "✓ MK-II AKTİF",
+            btnGameOverVipRevive: "👑 VIP OL • REKLAMSIZ ANINDA CANLAN (+4 KAHRAMAN & MK-II)",
+            btnVictoryVipDouble: "👑 VIP OL • HER ZAFERDE REKLAMSIZ ANINDA 2x ÖDÜL",
+            btnInsuffVip: "👑 VIP PASS • GÜNLÜK +1000 ✪ & +100 ❖ + REKLAMSIZ",
+            gameOverRepeatTip: "💡 İpucu: Kalkan/Hız güçlendirmesi veya VIP MK-II (Otomatik Dirilme + Süper Mıknatıs) ile çok daha rahat geçebilirsin!"
         },
         en: {
             btnMapVip: "👑 VIP / NO ADS",
@@ -170,7 +177,14 @@
             toastVipExpiredRevert: "ℹ️ VIP Pass expired — VIP-only equipment reverted to default.",
             scrollMoreHint: "⬇ Scroll down for more options",
             charTabVip: "👑 VIP ({count})",
-            vipBadgeAutoActive: "👑 VIP AUTO-ACTIVE"
+            vipBadgeAutoActive: "👑 VIP AUTO-ACTIVE",
+            tierLv1Tag: "⚡ LV.1",
+            tierLv2Tag: "👑 LV.2 VIP MK-II",
+            tierMk2ActiveBadge: "✓ MK-II ACTIVE",
+            btnGameOverVipRevive: "👑 GET VIP • INSTANT AD-FREE REVIVE (+4 HEROES & MK-II)",
+            btnVictoryVipDouble: "👑 GET VIP • INSTANT AD-FREE 2x REWARDS ON EVERY WIN",
+            btnInsuffVip: "👑 VIP PASS • DAILY +1000 ✪ & +100 ❖ + NO FORCED ADS",
+            gameOverRepeatTip: "💡 Tip: Shield/Speed upgrades or VIP MK-II (Phoenix Auto-Revive & Super Magnet) make this stage much easier!"
         },
         ko: {
             btnMapVip: "👑 VIP / 광고 제거",
@@ -242,7 +256,14 @@
             toastVipExpiredRevert: "ℹ️ VIP 패스가 만료되어 VIP 전용 장비가 기본값으로 복원되었습니다.",
             scrollMoreHint: "⬇ 아래로 스크롤하여 더 보기",
             charTabVip: "👑 VIP ({count})",
-            vipBadgeAutoActive: "👑 VIP 자동 활성"
+            vipBadgeAutoActive: "👑 VIP 자동 활성",
+            tierLv1Tag: "⚡ LV.1",
+            tierLv2Tag: "👑 LV.2 VIP MK-II",
+            tierMk2ActiveBadge: "✓ MK-II 활성",
+            btnGameOverVipRevive: "👑 VIP 가입 • 광고 없이 즉시 부활 (+4 영웅 & MK-II)",
+            btnVictoryVipDouble: "👑 VIP 가입 • 매 승리마다 광고 없이 즉시 2배 보상",
+            btnInsuffVip: "👑 VIP 패스 • 매일 +1000 ✪ & +100 ❖ + 강제 광고 제거",
+            gameOverRepeatTip: "💡 팁: 보호막/속도 강화 또는 VIP MK-II(불사조 부활 & 슈퍼 자석)로 훨씬 쉽게 클리어하세요!"
         },
         ja: {
             btnMapVip: "👑 VIP / 広告非表示",
@@ -314,7 +335,14 @@
             toastVipExpiredRevert: "ℹ️ VIPパスの期限が切れたため、VIP専用装備が初期状態に戻りました。",
             scrollMoreHint: "⬇ 下にスクロールしてさらに表示",
             charTabVip: "👑 VIP ({count})",
-            vipBadgeAutoActive: "👑 VIP 自動有効"
+            vipBadgeAutoActive: "👑 VIP 自動有効",
+            tierLv1Tag: "⚡ LV.1",
+            tierLv2Tag: "👑 LV.2 VIP MK-II",
+            tierMk2ActiveBadge: "✓ MK-II 有効",
+            btnGameOverVipRevive: "👑 VIPになる • 広告なしで即復活 (+4英雄 & MK-II)",
+            btnVictoryVipDouble: "👑 VIPになる • 勝利ごとに広告なしで即2倍報酬",
+            btnInsuffVip: "👑 VIPパス • 毎日 +1000 ✪ & +100 ❖ + 強制広告ゼロ",
+            gameOverRepeatTip: "💡 ヒント: シールド・加速強化やVIP MK-II（自動復活・超磁石）で楽に突破できます！"
         },
         zh: {
             btnMapVip: "👑 VIP / 去广告",
@@ -386,7 +414,14 @@
             toastVipExpiredRevert: "ℹ️ VIP 已到期，VIP 专属装备已恢复为默认配置。",
             scrollMoreHint: "⬇ 向下滑动查看更多选项",
             charTabVip: "👑 VIP ({count})",
-            vipBadgeAutoActive: "👑 VIP 自动激活"
+            vipBadgeAutoActive: "👑 VIP 自动激活",
+            tierLv1Tag: "⚡ LV.1",
+            tierLv2Tag: "👑 LV.2 VIP MK-II",
+            tierMk2ActiveBadge: "✓ MK-II 已激活",
+            btnGameOverVipRevive: "👑 开通 VIP • 免广告立即复活 (+4位英雄 & MK-II)",
+            btnVictoryVipDouble: "👑 开通 VIP • 每次通关免广告立即领 2 倍奖励",
+            btnInsuffVip: "👑 VIP 通行证 • 每日 +1000 ✪ & +100 ❖ + 零强制广告",
+            gameOverRepeatTip: "💡 提示：升级护盾/移速或开启 VIP MK-II（凤凰复活 + 超级磁铁）可更轻松通关！"
         },
         ru: {
             btnMapVip: "👑 VIP / БЕЗ РЕКЛАМЫ",
@@ -458,7 +493,14 @@
             toastVipExpiredRevert: "ℹ️ Срок VIP истёк — VIP-предметы заменены на стандартные.",
             scrollMoreHint: "⬇ Листайте вниз для других вариантов",
             charTabVip: "👑 VIP ({count})",
-            vipBadgeAutoActive: "👑 VIP АВТО-АКТИВНО"
+            vipBadgeAutoActive: "👑 VIP АВТО-АКТИВНО",
+            tierLv1Tag: "⚡ УР.1",
+            tierLv2Tag: "👑 УР.2 VIP MK-II",
+            tierMk2ActiveBadge: "✓ MK-II АКТИВЕН",
+            btnGameOverVipRevive: "👑 СТАТЬ VIP • ОЖИТЬ БЕЗ РЕКЛАМЫ (+4 ГЕРОЯ И MK-II)",
+            btnVictoryVipDouble: "👑 СТАТЬ VIP • 2x НАГРАДА БЕЗ РЕКЛАМЫ КАЖДЫЙ РАЗ",
+            btnInsuffVip: "👑 VIP ПРОПУСК • +1000 ✪ И +100 ❖ В ДЕНЬ + БЕЗ РЕКЛАМЫ",
+            gameOverRepeatTip: "💡 Совет: Усиления щита/скорости или VIP MK-II (авто-возрождение и супермагнит) заметно облегчат уровень!"
         },
         it: {
             btnMapVip: "👑 VIP / NO ADS",
@@ -530,7 +572,14 @@
             toastVipExpiredRevert: "ℹ️ VIP Pass scaduto — oggetti VIP ripristinati ai valori predefiniti.",
             scrollMoreHint: "⬇ Scorri verso il basso per altre opzioni",
             charTabVip: "👑 VIP ({count})",
-            vipBadgeAutoActive: "👑 VIP AUTO-ATTIVO"
+            vipBadgeAutoActive: "👑 VIP AUTO-ATTIVO",
+            tierLv1Tag: "⚡ LV.1",
+            tierLv2Tag: "👑 LV.2 VIP MK-II",
+            tierMk2ActiveBadge: "✓ MK-II ATTIVO",
+            btnGameOverVipRevive: "👑 DIVENTA VIP • RINASCITA SENZA ANNUNCI (+4 EROI & MK-II)",
+            btnVictoryVipDouble: "👑 DIVENTA VIP • PREMI 2x ISTANTANEI SENZA ANNUNCI",
+            btnInsuffVip: "👑 VIP PASS • +1000 ✪ E +100 ❖ AL GIORNO + NO ADS",
+            gameOverRepeatTip: "💡 Consiglio: Potenziamenti Scudo/Velocità o VIP MK-II (Auto-Rinascita & Super Magnete) rendono questo livello più semplice!"
         },
         es: {
             btnMapVip: "👑 VIP / SIN ANUNCIOS",
@@ -602,7 +651,14 @@
             toastVipExpiredRevert: "ℹ️ Pase VIP vencido — el equipo VIP volvió al estándar.",
             scrollMoreHint: "⬇ Desliza abajo para ver más opciones",
             charTabVip: "👑 VIP ({count})",
-            vipBadgeAutoActive: "👑 VIP AUTO-ACTIVO"
+            vipBadgeAutoActive: "👑 VIP AUTO-ACTIVO",
+            tierLv1Tag: "⚡ NV.1",
+            tierLv2Tag: "👑 NV.2 VIP MK-II",
+            tierMk2ActiveBadge: "✓ MK-II ACTIVO",
+            btnGameOverVipRevive: "👑 HAZTE VIP • REVIVIR AL INSTANTE SIN ANUNCIOS (+MK-II)",
+            btnVictoryVipDouble: "👑 HAZTE VIP • PREMIO 2x AL INSTANTE EN CADA VICTORIA",
+            btnInsuffVip: "👑 PASE VIP • +1000 ✪ Y +100 ❖ DIARIOS + SIN ANUNCIOS",
+            gameOverRepeatTip: "💡 Consejo: ¡Mejoras de Escudo/Velocidad o VIP MK-II (Auto-Revivir Fénix y Súper Imán) facilitan mucho esta fase!"
         },
         fr: {
             btnMapVip: "👑 VIP / SANS PUB",
@@ -674,7 +730,14 @@
             toastVipExpiredRevert: "ℹ️ Pass VIP expiré — équipement VIP réinitialisé par défaut.",
             scrollMoreHint: "⬇ Faites défiler vers le bas pour plus d'options",
             charTabVip: "👑 VIP ({count})",
-            vipBadgeAutoActive: "👑 VIP AUTO-ACTIF"
+            vipBadgeAutoActive: "👑 VIP AUTO-ACTIF",
+            tierLv1Tag: "⚡ NIV.1",
+            tierLv2Tag: "👑 NIV.2 VIP MK-II",
+            tierMk2ActiveBadge: "✓ MK-II ACTIF",
+            btnGameOverVipRevive: "👑 PASSER VIP • RÉANIMATION SANS PUB (+4 HÉROS & MK-II)",
+            btnVictoryVipDouble: "👑 PASSER VIP • RÉCOMPENSES 2x SANS PUB À CHAQUE VICTOIRE",
+            btnInsuffVip: "👑 PASS VIP • +1000 ✪ & +100 ❖ PAR JOUR + ZÉRO PUB",
+            gameOverRepeatTip: "💡 Astuce : Les améliorations Bouclier/Vitesse ou VIP MK-II (Résurrection & Super Aimant) facilitent grandement ce niveau !"
         }
     };
 
