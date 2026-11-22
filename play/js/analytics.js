@@ -8,6 +8,7 @@
 
     const STORAGE_KEY_EVENTS = 'marinext2100_analytics_events';
     const STORAGE_KEY_STATS = 'marinext2100_analytics_stats';
+    const STORAGE_KEY_CLIENT_ID = 'marinext2100_ga4_client_id';
     const REMOTE_CONFIG_URL = 'https://cgstudiohome.github.io/marinext2100/version.json';
     const FALLBACK_CONFIG_URL = 'https://cevatturk.github.io/marinext2100/version.json';
     const DEFAULT_GA4_MEASUREMENT_ID = 'G-3EVKLV8SM8';
@@ -15,15 +16,32 @@
 
     // 1. Akıllı Oyun İçi Analitik Motoru
     const MarinextAnalytics = {
+        clientId: null,
         sessionId: 'sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+        numericSessionId: Math.floor(Date.now() / 1000),
         sessionStartTime: Date.now(),
         stats: null,
 
+        getOrCreateClientId() {
+            try {
+                const existing = localStorage.getItem(STORAGE_KEY_CLIENT_ID);
+                if (existing && typeof existing === 'string' && existing.trim().length > 0) {
+                    return existing.trim();
+                }
+            } catch (e) {}
+            const generated = 'cid_' + Date.now() + '_' + Math.random().toString(36).substring(2, 10);
+            try {
+                localStorage.setItem(STORAGE_KEY_CLIENT_ID, generated);
+            } catch (e) {}
+            return generated;
+        },
+
         init() {
+            this.clientId = this.getOrCreateClientId();
             this.loadStats();
             this.trackSessionStart();
             window.addEventListener('beforeunload', () => this.trackSessionEnd());
-            console.log('[MarinextAnalytics] Başlatıldı. Oturum ID:', this.sessionId);
+            console.log('[MarinextAnalytics] Başlatıldı. Oturum ID:', this.sessionId, 'Client ID:', this.clientId);
         },
 
         loadStats() {
@@ -132,34 +150,56 @@
                 window.dispatchEvent(new CustomEvent('marinext:analytics', { detail: eventPayload }));
             } catch (e) {}
 
-            // 4. Google Analytics 4 (GA4) / Firebase Measurement Protocol Otomatik İletimi
-            // (Remote Config üzerinden dinamik beslenir, varsayılan olarak canlı Marinext 2100 GA4 mülkü devrededir)
-            const rc = window.MarinextRemoteConfig && window.MarinextRemoteConfig.config;
-            const measurementId = (rc && rc.ga4MeasurementId) || DEFAULT_GA4_MEASUREMENT_ID;
-            const apiSecret = (rc && rc.ga4ApiSecret) || DEFAULT_GA4_API_SECRET;
+            // 4. Native Firebase Analytics (Android) veya Google Analytics 4 (GA4) / Measurement Protocol İletimi
+            const hasNativeFirebase = !!(window.MarinextCloudBridge && typeof window.MarinextCloudBridge.logAnalyticsEvent === 'function');
+            const ga4EventName = eventName === 'session_start' ? 'app_session_start' :
+                                 (eventName === 'session_end' ? 'app_session_end' : eventName);
 
-            if (measurementId && apiSecret) {
-                try {
-                    // GA4 Measurement Protocol ayrılmış isim koruması (session_start -> app_session_start)
-                    const ga4EventName = eventName === 'session_start' ? 'app_session_start' :
-                                         (eventName === 'session_end' ? 'app_session_end' : eventName);
-                    const ga4Url = `https://www.google-analytics.com/mp/collect?measurement_id=${measurementId}&api_secret=${apiSecret}`;
-                    fetch(ga4Url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            client_id: this.sessionId,
-                            events: [{
-                                name: ga4EventName,
-                                params: {
-                                    ...params,
-                                    session_id: this.sessionId,
-                                    engagement_time_msec: 100
-                                }
-                            }]
-                        })
-                    }).catch(() => {});
-                } catch (e) {}
+            if (hasNativeFirebase) {
+                // Native FirebaseAnalytics SDK already tracks first_open, session_start, and user_engagement automatically.
+                if (eventName !== 'session_start') {
+                    try {
+                        window.MarinextCloudBridge.logAnalyticsEvent(
+                            ga4EventName,
+                            JSON.stringify({
+                                ...params,
+                                session_id: this.numericSessionId
+                            })
+                        );
+                    } catch (e) {}
+                }
+            } else {
+                const rc = window.MarinextRemoteConfig && window.MarinextRemoteConfig.config;
+                const measurementId = (rc && rc.ga4MeasurementId) || DEFAULT_GA4_MEASUREMENT_ID;
+                const apiSecret = (rc && rc.ga4ApiSecret) || DEFAULT_GA4_API_SECRET;
+
+                if (typeof window.gtag === 'function') {
+                    try {
+                        window.gtag('event', ga4EventName, {
+                            ...params,
+                            session_id: this.numericSessionId
+                        });
+                    } catch (e) {}
+                } else if (measurementId && apiSecret) {
+                    try {
+                        const ga4Url = `https://www.google-analytics.com/mp/collect?measurement_id=${measurementId}&api_secret=${apiSecret}`;
+                        fetch(ga4Url, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                client_id: this.clientId || this.getOrCreateClientId(),
+                                events: [{
+                                    name: ga4EventName,
+                                    params: {
+                                        ...params,
+                                        session_id: this.numericSessionId,
+                                        engagement_time_msec: 100
+                                    }
+                                }]
+                            })
+                        }).catch(() => {});
+                    } catch (e) {}
+                }
             }
 
             // Geliştirici konsoluna logla
