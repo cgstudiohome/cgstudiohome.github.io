@@ -31,6 +31,7 @@
         tr: {
             btnMapVip: "👑 VIP / REKLAMSIZ",
             btnMapVipActive: "👑 VIP AKTİF",
+            btnMapVipCanceling: "👑 VIP (SÜRE SONUNA DEK)",
             btnMapNoAdsActive: "🛡️ REKLAMSIZ",
             btnSettingsVip: "👑 VIP Pass & Reklamları Kaldır",
             btnSettingsVipActive: "👑 VIP / Reklamsız Durumu (Aktif ✓)",
@@ -110,6 +111,7 @@
         en: {
             btnMapVip: "👑 VIP / NO ADS",
             btnMapVipActive: "👑 VIP ACTIVE",
+            btnMapVipCanceling: "👑 VIP (ENDING SOON)",
             btnMapNoAdsActive: "🛡️ AD-FREE",
             btnSettingsVip: "👑 VIP Pass & Remove Ads",
             btnSettingsVipActive: "👑 VIP / Ad-Free Status (Active ✓)",
@@ -189,6 +191,7 @@
         ko: {
             btnMapVip: "👑 VIP / 광고 제거",
             btnMapVipActive: "👑 VIP 활성",
+            btnMapVipCanceling: "👑 VIP (기간 만료 예정)",
             btnMapNoAdsActive: "🛡️ 광고 없음",
             btnSettingsVip: "👑 VIP 패스 및 광고 제거",
             btnSettingsVipActive: "👑 VIP / 광고 제거 상태 (활성 ✓)",
@@ -268,6 +271,7 @@
         ja: {
             btnMapVip: "👑 VIP / 広告非表示",
             btnMapVipActive: "👑 VIP有効",
+            btnMapVipCanceling: "👑 VIP (期間終了まで)",
             btnMapNoAdsActive: "🛡️ 広告なし",
             btnSettingsVip: "👑 VIPパス＆広告非表示",
             btnSettingsVipActive: "👑 VIP / 広告非表示ステータス (有効 ✓)",
@@ -347,6 +351,7 @@
         zh: {
             btnMapVip: "👑 VIP / 去广告",
             btnMapVipActive: "👑 VIP 已开启",
+            btnMapVipCanceling: "👑 VIP (到期后关闭)",
             btnMapNoAdsActive: "🛡️ 无广告",
             btnSettingsVip: "👑 VIP 通行证与去广告",
             btnSettingsVipActive: "👑 VIP / 去广告状态（已激活 ✓）",
@@ -426,6 +431,7 @@
         ru: {
             btnMapVip: "👑 VIP / БЕЗ РЕКЛАМЫ",
             btnMapVipActive: "👑 VIP АКТИВЕН",
+            btnMapVipCanceling: "👑 VIP (ДО КОНЦА СРОКА)",
             btnMapNoAdsActive: "🛡️ БЕЗ РЕКЛАМЫ",
             btnSettingsVip: "👑 VIP-пропуск и отключение рекламы",
             btnSettingsVipActive: "👑 Статус VIP / Без рекламы (Активен ✓)",
@@ -505,6 +511,7 @@
         it: {
             btnMapVip: "👑 VIP / NO ADS",
             btnMapVipActive: "👑 VIP ATTIVO",
+            btnMapVipCanceling: "👑 VIP (IN SCADENZA)",
             btnMapNoAdsActive: "🛡️ SENZA PUBBLICITÀ",
             btnSettingsVip: "👑 VIP Pass e Rimuovi Pubblicità",
             btnSettingsVipActive: "👑 Stato VIP / Senza Pubblicità (Attivo ✓)",
@@ -584,6 +591,7 @@
         es: {
             btnMapVip: "👑 VIP / SIN ANUNCIOS",
             btnMapVipActive: "👑 VIP ACTIVO",
+            btnMapVipCanceling: "👑 VIP (FIN DE PERIODO)",
             btnMapNoAdsActive: "🛡️ SIN ANUNCIOS",
             btnSettingsVip: "👑 Pase VIP y Quitar Anuncios",
             btnSettingsVipActive: "👑 Estado VIP / Sin Anuncios (Activo ✓)",
@@ -663,6 +671,7 @@
         fr: {
             btnMapVip: "👑 VIP / SANS PUB",
             btnMapVipActive: "👑 VIP ACTIF",
+            btnMapVipCanceling: "👑 VIP (FIN DE PÉRIODE)",
             btnMapNoAdsActive: "🛡️ SANS PUB",
             btnSettingsVip: "👑 Pass VIP & Supprimer les Pubs",
             btnSettingsVipActive: "👑 Statut VIP / Sans Pub (Actif ✓)",
