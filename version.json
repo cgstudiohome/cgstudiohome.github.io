@@ -4,7 +4,7 @@
   "channels": {
     "production": 25,
     "alpha": 35,
-    "internal": 46
+    "internal": 47
   },
   "storeUrl": "https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100",
   "notes": "v1.3.10 Google Play Modernizasyon Revizyonu: Android 15 Cutout API uyumluluğu, tablet ve katlanabilir ekranlar için dinamik pencere ve yönlendirme optimizasyonları, sıfır gecikmeli 120 FPS akıcılık.",
