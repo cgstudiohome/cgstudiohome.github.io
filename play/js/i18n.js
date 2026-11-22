@@ -123,7 +123,7 @@
             fps30: "30 FPS (GÜÇ TASARRUFU) 🔋",
             btnSettingsFeedback: "💬 Uygulama Hakkında Geri Bildirim & Hata Bildir",
             btnSettingsCloud: "🎮 Google Play Games & Google Drive Bulut Kayıt",
-            btnSettingsPrivacy: "🛡️ Gizlilik Politikası / Privacy Policy",
+            btnSettingsPrivacy: "🛡️ Gizlilik Politikası",
             btnSettingsConsent: "🔒 Reklam & Gizlilik Tercihleri (GDPR / UMP)",
             channelPrefix: "Dağıtım:",
             channelInternal: "🧪 DAHİLİ TEST",
@@ -634,7 +634,7 @@
         it: {
             coinLabel: "Monete:",
             btnLeaderboard: "🏆 CLASSIFICA",
-            btnFeedback: "💬 FEEDBACK",
+            btnFeedback: "💬 SEGNALA",
             worldAll: "🌍 Tutti (1-100)",
             worldTabPrefix: "Mondo",
             worldRegions10: [
@@ -1114,7 +1114,7 @@
             lbMetricEmerald: "{val} ❖ Pts Trésor",
             lbMetricNoSpeed: "⏱️ Aucun Record",
             lbMetricSpeed: "⚡ {sec} s",
-            lbMetricScore: "{val} Pts",
+            lbMetricScore: "{val} Points",
             lbLeagueImperial: "👑 CHAMPION IMPÉRIAL (#1)",
             lbLeagueGrandmaster: "💎 LIGUE GRAND MAÎTRE (TOP 3)",
             lbLeagueDiamond: "💠 LIGUE DIAMANT (TOP 7)",
@@ -1133,7 +1133,7 @@
             cloudBadgeConnected: "🎮 Play Games & GDrive : CONNECTÉ{name}",
             cloudBadgeActive: "☁️ Sauvegarde Google Drive : ACTIVE",
             cloudSyncStatusLine: "Dernière sauv. : {time} • Niveau : {lvl}/100 (Troll : {troll}/15) • Pièces : {coins} ✪{extra}",
-            btnCloudSyncNow: "🎮 Sync Play Games",
+            btnCloudSyncNow: "🎮 Synchro Play Games",
             btnCloudExport: "☁️ Sauver sur Drive",
             btnCloudImport: "📂 Charger Sauvegarde",
             profileLevelWord: "Niveau",
@@ -1162,7 +1162,7 @@
             channelPrefix: "Canal :",
             channelInternal: "🧪 TEST INTERNE",
             channelAlpha: "🎯 TEST FERMÉ",
-            channelProduction: "🌐 PRODUCTION",
+            channelProduction: "🌐 PRODUCTION (PUBLIC)",
             channelToastInternal: "🧪 Test interne actif ! Vérification instantanée des versions.",
             channelToastAlpha: "🎯 Test fermé actif !",
             channelToastProduction: "🌐 Canal de production actif !",
@@ -1182,7 +1182,7 @@
             fbCat1: "💡 Idée & Suggestion",
             fbCat2: "🐞 Bug / Problème",
             fbCat3: "🗺️ Niveau & Difficulté",
-            fbCat4: "⚡ Performance / FPS",
+            fbCat4: "⚡ Performance / IPS",
             fbMsgLabel: "✍️ TON MESSAGE :",
             fbMsgPlaceholder: "Ex : Les portes laser du niveau 24 sont super fun...",
             btnSubmitPlayConsole: "📲 ENREGISTRER ET ENVOYER SUR GOOGLE PLAY ▶",
@@ -1569,7 +1569,7 @@
             fps30: "30 FPS (省电模式) 🔋",
             btnSettingsFeedback: "💬 提交反馈与问题报告",
             btnSettingsCloud: "🎮 Google Play Games 与 Google Drive 云存档",
-            btnSettingsPrivacy: "🛡️ 隐私政策 / Privacy Policy",
+            btnSettingsPrivacy: "🛡️ 隐私政策",
             btnSettingsConsent: "🔒 广告与隐私偏好 (GDPR / UMP)",
             channelPrefix: "分发渠道:",
             channelInternal: "🧪 内部测试",
@@ -1869,7 +1869,7 @@
         }
     };
 
-    // Translations for all 15 Characters in HERO_CHARACTERS_CATALOG
+    // Translations for all 19 Characters in HERO_CHARACTERS_CATALOG
     const HERO_TRANSLATIONS = {
         en: {
             default: { title: "Cyber Shadow Knight (Default)", faceDesc: "Face: Neon Laser Visor Cyber Mask", perkDesc: "⚡ Balanced Agility: +5% Run Speed & Standard Cyber Armor", desc: "Standard future-era armored cyber knight outfit." },
@@ -1888,7 +1888,9 @@
             golden_pharaoh: { title: "Golden Pharaoh (Sun King)", faceDesc: "Face: Kohl-Lined Eyes & Golden Pharaoh Beard", perkDesc: "☀️ Sun Treasury: Auto Emerald/Crystal Magnet & +50% Coin Chance", desc: "Cobra-crested blue-and-gold Nemes headdress, broad golden collar armor, and glowing Sun Staff!" },
             spartan_gladiator: { title: "Spartan Commander (Leonidas)", faceDesc: "Face: Battle Beard & Strong Spartan Jaw", perkDesc: "🛡️ Spartan Shield: +1 Extra Heart (♥) & Extended Post-Hit Protection", desc: "Crimson horsehair-crested bronze Corinthian helmet, red Spartan cape, round shield, and spear!" },
             vip_quantum_emperor: { title: "Golden Quantum Emperor", faceDesc: "Face: Holographic Quantum Visor & Imperial Gold Armor", perkDesc: "👑 VIP Emperor: Super Treasure Magnet (+110px), Starter Shield & +50% Coins/Score", desc: "Floating 3-spire holographic crown, obsidian-gold quantum armor, and Quantum Scepter!" },
-            vip_cyber_phoenix: { title: "Cyber Phoenix Knight", faceDesc: "Face: Ember-Lit Eyes & Crimson Phoenix Beak Guard", perkDesc: "🔥 Phoenix Reborn: 1x Auto-Revive Per Stage + Glide + Triple Jump + Rapid Fire", desc: "Born from flames! Automatically revives once per stage with shield & firestorm when defeated!" }
+            vip_cyber_phoenix: { title: "Cyber Phoenix Knight", faceDesc: "Face: Ember-Lit Eyes & Crimson Phoenix Beak Guard", perkDesc: "🔥 Phoenix Reborn: 1x Auto-Revive Per Stage + Glide + Triple Jump + Rapid Fire", desc: "Born from flames! Automatically revives once per stage with shield & firestorm when defeated!" },
+            vip_celestial_sultan: { title: "Celestial Star Sultan", faceDesc: "Face: Crescent Holographic Turban & Majestic Sultan Beard", perkDesc: "🌙 Celestial Crescent: +1 Heart (♥), Shield + Fire, Super Magnet (+95px) & +45% Score", desc: "Cosmic sovereign clad in midnight navy & gold fur kaftan, starry cape, and Celestial Crescent Saber!" },
+            vip_shadow_dragon: { title: "Shadow Dragon Lord", faceDesc: "Face: Obsidian Dragonscale Mask & Emerald Flame Eyes", perkDesc: "🐉 Dragon Might: Triple Jump + Glide + Extended Armor & Rapid Fireball", desc: "Sweeping emerald-gold dragon horns, cyber dragon wings, and Dragonfang Greatsword—VIP legend!" }
         },
         ru: {
             default: { title: "Кибер-Рыцарь Тени", faceDesc: "Лицо: Неоновая маска с лазерным визором", perkDesc: "⚡ Ловкость: +5% к скорости и кибер-броня", desc: "Стандартный бронированный костюм кибер-рыцаря будущего." },
@@ -1912,36 +1914,126 @@
             vip_shadow_dragon: { title: "Теневой Лорд Дракон", faceDesc: "Лицо: Драконья маска и изумрудные глаза", perkDesc: "🐉 Сила Дракона: 3x прыжок + полёт + долгая броня и быстрый огонь", desc: "Обсидианово-изумрудные рога и крылья дракона с гигантским плазменным мечом!" }
         },
         ko: {
+            default: { title: "사이버 그림자 기사 (기본)", faceDesc: "얼굴: 네온 레이저 바이저 사이버 마스크", perkDesc: "⚡ 균형 잡힌 민첩성: 이동 속도 +5% & 표준 사이버 갑옷", desc: "미래 시대의 표준 장갑 사이버 기사 의상입니다." },
+            soldier_1950: { title: "1950년대 베테랑 병사", faceDesc: "얼굴: 두꺼운 콧수염 & 강인한 턱선의 베테랑", perkDesc: "🛡️ 베테랑 불굴: 피격 후 무적 시간 +30% 연장", desc: "1950년대 카키 모직 군복, 가죽 크로스 스트랩, 그물망 M1 철모와 소총." },
+            soldier_modern: { title: "현대 특수부대 코만도", faceDesc: "얼굴: 위장 페이스 페인팅 & 전술 수염", perkDesc: "🔥 전술 코만도: 화염구 재충전 +20% 단축 & 속도 +8%", desc: "현대 디지털 위장복, MOLLE 전술 조끼, 무전 안테나 및 4안 야간투시 헬멧." },
+            rich_tycoon: { title: "억만장자 재벌", faceDesc: "얼굴: 황금 단안경 & 세련된 콧수염", perkDesc: "🪙 황금 자석: 추가 코인 확률 +45% & 점수 배율 +25%", desc: "맞춤형 더블 브레스트 턱시도, 진홍 실크 넥타이, 금 회중시계와 실크 햇." },
+            ottoman_pasha: { title: "오스만 파샤 지휘관", faceDesc: "얼굴: 풍성하게 말린 콧수염 & 파샤 수염", perkDesc: "🛡️ 파샤의 방패: 매 스테이지 시작 시 보호막 & 점수 +20%", desc: "금실 자수 예복, 황금 견장, 오스만 훈장, 사브르 검과 자주색 페즈 모자." },
+            royal_king: { title: "로열 대왕", faceDesc: "얼굴: 풍성한 왕실 수염 & 푸른 눈의 군주", perkDesc: "👑 왕실 국고: 추가 하트 +1 (♥) & 보물/점수 배율 +35%", desc: "담비 털 진홍 망토, 금자수 자주색 튜닉, 왕실 홀과 보석 박힌 황금 왕관." },
+            yavuz_sultan_selim: { title: "술탄 셀림 1세 (야부즈)", faceDesc: "얼굴: 날카로운 턱선, 긴 콧수염 & 진주 귀걸이", perkDesc: "🔥 제국의 위엄: +1♥, 시작 시 플라즈마 화염 & 속도 +12%", desc: "역사 초상화 고증: 흑담비 모피 진홍 카프탄과 깃털 장식 술탄 터번!" },
+            fatih_sultan_mehmet: { title: "정복왕 메흐메드 2세", faceDesc: "얼굴: 매부리코, 젊은 술탄 수염 & 말린 콧수염", perkDesc: "👑 정복자: +1♥, 시작 보호막 + 화염 & 점수 +40%", desc: "금자수 진홍·남색 카프탄, 백색 제국 터번과 정복자의 성검!" },
+            janissary_aga: { title: "예니체리 지휘관 아가", faceDesc: "얼굴: 긴 핸들바 콧수염 & 예리한 눈빛", perkDesc: "⚔️ 야타간 민첩성: 달리기 속도 +14% & 점프력 +6%", desc: "황금 깃털이 달린 흰 펠트 예니체리 모자, 진홍 코트와 예리한 야타간 검!" },
+            mete_han: { title: "묵특 선우 (초원의 칸)", faceDesc: "얼굴: 초원 전사의 콧수염 & 매의 눈빛", perkDesc: "🏹 초원의 바람: 3단 점프(3x), 속도 +15% & 빠른 화염구", desc: "늑대 모피 초원 갑옷, 쌍독수리 황금 투구, 화살통과 휘파람 합성궁!" },
+            cyber_shogun: { title: "사이버 쇼군 사무라이", faceDesc: "얼굴: 적흑 멘포 전쟁 가면 & 레이저 눈빛", perkDesc: "⚡ 플라즈마 반사신경: 예리한 공중 제어, 속도 +12% & 시작 쉴드", desc: "황금 뿔 카부토 투구, 네온 오요로이 갑옷과 빛나는 플라즈마 카타나!" },
+            cosmic_astronaut: { title: "우주 비행사 (EVA-2100)", faceDesc: "얼굴: 황금 반사 구형 우주 바이저", perkDesc: "🌌 무중력 활강: 공중 저속 활강 & 점프력 +8%", desc: "심우주 가압 백색 EVA 우주복, 생명 유지 백팩과 황금 태양 바이저!" },
+            ice_valkyrie: { title: "북방의 얼음 발키리", faceDesc: "얼굴: 백금 땋은 머리 & 얼음빛 푸른 눈", perkDesc: "🪽 발키리 날개: 공중 활강, 시작 보호막 & 속도 +12%", desc: "날개 달린 은빛 발키리 투구, 서리 망토, 북유럽 갑옷과 빙결 얼음 창!" },
+            golden_pharaoh: { title: "황금 파라오 (태양왕)", faceDesc: "얼굴: 콜 아이 메이크업 & 황금 파라오 수염", perkDesc: "☀️ 태양의 보물: 에메랄드/크리스탈 자동 자석 & 코인 확률 +50%", desc: "코브라 문양 청금 네메스 두건, 황금 목갑옷과 빛나는 태양의 지팡이!" },
+            spartan_gladiator: { title: "스파르타 사령관 (레오니다스)", faceDesc: "얼굴: 전투 수염 & 강인한 스파르타 턱선", perkDesc: "🛡️ 스파르타 방패: 추가 하트 +1 (♥) & 피격 후 장기 보호", desc: "진홍 말총 장식 청동 코린트 투구, 붉은 망토, 원형 방패와 창!" },
             vip_quantum_emperor: { title: "황금 양자 황제", faceDesc: "얼굴: 홀로그램 퀀텀 바이저 & 황금 아머", perkDesc: "👑 VIP 황제: 슈퍼 보물 자석(+110px), 시작 쉴드 & 코인/점수 +50%", desc: "부유하는 3봉 황금 홀로그램 왕관과 옵시디언 골드 퀀텀 아머, 양자 홀!" },
             vip_cyber_phoenix: { title: "사이버 피닉스 나이트", faceDesc: "얼굴: 불꽃 눈빛 & 진홍 피닉스 투구", perkDesc: "🔥 불사조 부활: 스테이지당 1회 자동 부활 + 활강 + 3단 점프 + 고속 화염", desc: "패배해도 스테이지마다 1회 쉴드와 화염으로 자동 부활하는 VIP 전설 기사!" },
             vip_celestial_sultan: { title: "천상의 별 술탄", faceDesc: "얼굴: 초승달 홀로그램 터번 & 위엄 있는 수염", perkDesc: "🌙 천상의 초승달: +1♥, 시작 쉴드+화염, +95px 자석 & 점수 +45%", desc: "우주 남색 황금 카프탄과 찬란한 천상 플라즈마 시미터를 든 VIP 술탄!" },
             vip_shadow_dragon: { title: "그림자 드래곤 로드", faceDesc: "얼굴: 드래곤 비늘 마스크 & 에메랄드 눈빛", perkDesc: "🐉 드래곤의 힘: 3단 점프 + 활강 + 긴 무적 시간 & 고속 화염구", desc: "곡선형 에메랄드 황금 드래곤 뿔, 사이버 드래곤 날개와 거대 대검!" }
         },
         ja: {
+            default: { title: "サイバーシャドウ騎士 (標準)", faceDesc: "顔: ネオンレーザーバイザー電脳マスク", perkDesc: "⚡ 均衡の敏捷性: 走行速度+5%＆標準サイバー装甲", desc: "標準的な未来時代の装甲サイバーナイトスーツです。" },
+            soldier_1950: { title: "1950年代ベテラン兵士", faceDesc: "顔: 1950年代風の太い口髭＆剛健な顎", perkDesc: "🛡️ 老兵の根性: 被弾後の無敵時間+30%延長", desc: "1950年代カーキ毛織軍服、革ベルト、ネット付M1鉄兜と木銃。" },
+            soldier_modern: { title: "現代特殊部隊コマンド", faceDesc: "顔: 迷彩フェイスペイント＆タクティカル髭", perkDesc: "🔥 戦術コマンド: 火炎弾リチャージ+20%高速＆速度+8%", desc: "最新デジタル迷彩、MOLLEベスト、無線アンテナ＆4眼NVGヘルメット。" },
+            rich_tycoon: { title: "億万長者の大富豪", faceDesc: "顔: 黄金の片眼鏡＆上品な口髭", perkDesc: "🪙 黄金マグネット: 追加コイン率+45%＆スコア倍率+25%", desc: "仕立ての黒タキシード、深紅ネクタイ、金時計鎖、杖とシルクハット。" },
+            ottoman_pasha: { title: "オスマン帝国パシャ", faceDesc: "顔: 立派な巻き髭＆パシャの威厳ある髭", perkDesc: "🛡️ パシャの盾: 毎ステージ開始時シールド＆スコア+20%", desc: "金糸刺繍の儀礼軍服、黄金肩章、オスマン勲章、サーベルと赤フェズ帽。" },
+            royal_king: { title: "ロイヤル大王", faceDesc: "顔: 威厳ある王の髭＆蒼き瞳の君主", perkDesc: "👑 王室の財宝: 最大ハート+1 (♥)＆宝物/スコア倍率+35%", desc: "アーミン毛皮の真紅マント、金刺繍の紫チュニック、王笏と宝石王冠。" },
+            yavuz_sultan_selim: { title: "スルタン・セリム1世", faceDesc: "顔: 鋭い顎、長い垂れ髭＆真珠の耳飾り", perkDesc: "🔥 帝王の威光: +1♥、初期プラズマ炎弾＆移動速度+12%", desc: "歴史肖像再現：黒貂毛皮の真紅カフタンと羽飾りタージ・セリミ冠！" },
+            fatih_sultan_mehmet: { title: "征服王メフメト2世", faceDesc: "顔: 鷲鼻、若きスルタンの髭＆巻き口髭", perkDesc: "👑 征服王: +1♥、初期シールド+炎＆スコア倍率+40%", desc: "金糸刺繍の真紅・紺カフタン、白帝王ターバンと征服の聖剣装備！" },
+            janissary_aga: { title: "イェニチェリ指揮官", faceDesc: "顔: 長いハンドルバー口髭＆鋭い眼光", perkDesc: "⚔️ ヤタガンの俊敏: 走行速度+14%＆ハイジャンプ力+6%", desc: "金羽根付き白フェルトのブルク帽、真紅コートと鋭利なヤタガン剣！" },
+            mete_han: { title: "冒頓単于 (草原の大汗)", faceDesc: "顔: 草原戦士の口髭＆鷹の眼光", perkDesc: "🏹 草原の風: 3段ジャンプ(3x)、速度+15%＆連射ファイア", desc: "狼毛皮の草原鎧、双鷲羽の黄金兜、矢筒と鳴り鏑の複合弓装備！" },
+            cyber_shogun: { title: "サイバー将軍サムライ", faceDesc: "顔: 朱黒の面頬戦面＆レーザーの瞳", perkDesc: "⚡ プラズマ反射: 鋭い空中制御、速度+12%＆初期シールド", desc: "金角の兜、ネオン大鎧と光り輝くプラズマ刀を携えた電脳将軍！" },
+            cosmic_astronaut: { title: "宇宙飛行士 (EVA-2100)", faceDesc: "顔: 黄金反射フルスフィア宇宙バイザー", perkDesc: "🌌 無重力滑空: 空中スローグライド＆ジャンプ力+8%", desc: "深宇宙与圧式ホワイトEVAスーツ、生命維持装置＆黄金ソーラーバイザー！" },
+            ice_valkyrie: { title: "北欧の氷戦乙女", faceDesc: "顔: プラチナ三つ編み＆氷蒼の瞳", perkDesc: "🪽 戦乙女の翼: 空中滑空、初期シールド＆移動速度+12%", desc: "翼付銀兜、結晶フロストマント、北欧鎧と凍てつく氷の槍装備！" },
+            golden_pharaoh: { title: "黄金のファラオ (太陽王)", faceDesc: "顔: コールアイ＆黄金ファラオ顎髭", perkDesc: "☀️ 太陽の秘宝: 宝石自動マグネット＆コイン獲得率+50%", desc: "コブラ飾りの青金ネメス頭巾、黄金首鎧と輝く太陽の杖！" },
+            spartan_gladiator: { title: "スパルタ司令官 (レオニダス)", faceDesc: "顔: 戦士の髭＆屈強なスパルタの顎", perkDesc: "🛡️ スパルタの盾: +1♥＆被弾後の長時間プロテクション", desc: "真紅馬毛飾りの青銅コリント兜、赤マント、円盾と長槍を装備！" },
             vip_quantum_emperor: { title: "黄金クォンタム皇帝", faceDesc: "顔: ホログラム量子バイザー＆黄金装甲", perkDesc: "👑 VIP皇帝: 超トレジャー磁石(+110px)、初期シールド＆コイン/スコア+50%", desc: "浮遊する3尖黄金クラウンと黒金クォンタム装甲、軌道量子セプター装備！" },
             vip_cyber_phoenix: { title: "サイバーフェニックス騎士", faceDesc: "顔: 熾火の瞳＆真紅の不死鳥兜", perkDesc: "🔥 不死鳥復活: ステージ毎1回自動蘇生＋滑空＋3段ジャンプ＋高速炎弾", desc: "倒れてもステージ毎に1度シールド付きで炎から自動復活するVIP伝説騎士！" },
             vip_celestial_sultan: { title: "星天のスルタン皇帝", faceDesc: "顔: 三日月星ホログラムターバン＆威厳の髭", perkDesc: "🌙 星天の三日月: +1♥、初期盾+炎、+95px磁石＆スコア+45%", desc: "宇宙紺金の帝王カフタンと星天プラズマ曲刀を携えた伝説のVIP王！" },
             vip_shadow_dragon: { title: "シャドウドラゴンロード", faceDesc: "顔: 黒曜竜鱗マスク＆翠炎の瞳", perkDesc: "🐉 竜王の力: 3段ジャンプ＋滑空＋長時間無敵＆高速ファイア", desc: "翠金の双竜角とサイバー竜翼、竜牙の大剣を振るうVIP伝説戦士！" }
         },
         zh: {
+            default: { title: "赛博暗影骑士（默认）", faceDesc: "面容: 霓虹激光护目镜赛博面甲", perkDesc: "⚡ 均衡敏捷: 奔跑速度 +5% & 标准赛博护甲", desc: "未来纪元标准装甲赛博骑士战衣。" },
+            soldier_1950: { title: "1950年代老兵战衣", faceDesc: "面容: 1950年代浓密八字胡与坚毅下颌", perkDesc: "🛡️ 老兵意志: 受伤后无敌时间延长 +30%", desc: "1950年代卡其毛呢军装、皮革斜挎带、网罩 M1 钢盔与步枪。" },
+            soldier_modern: { title: "现代特种部队战衣", faceDesc: "面容: 迷彩油彩与战术胡须特战面孔", perkDesc: "🔥 战术特勤: 火球冷却缩减 +20% & 移速 +8%", desc: "现代数码迷彩、MOLLE 战术背心、电台天线及四目夜视头盔。" },
+            rich_tycoon: { title: "亿万富豪礼服", faceDesc: "面容: 金边单片眼镜与精致小胡子", perkDesc: "🪙 黄金磁力: 额外金币触发率 +45% & 得分倍率 +25%", desc: "定制双排扣黑色燕尾服、绯红真丝领带、金怀表链、手杖与高顶礼帽。" },
+            ottoman_pasha: { title: "奥斯曼帕夏将军装", faceDesc: "面容: 浓密卷曲八字胡与帕夏长须", perkDesc: "🛡️ 帕夏神盾: 每关开局自带护盾 & 得分 +20%", desc: "金线刺绣礼服长袍、金色流苏肩章、勋章、马刀与黑穗红毡帽。" },
+            royal_king: { title: "皇家至尊国王装", faceDesc: "面容: 威严王室浓须与蔚蓝双眸", perkDesc: "👑 皇家宝库: 额外 +1 生命值 (♥) & 宝藏/得分倍率 +35%", desc: "貂毛镶边深红王袍、金绣紫袍、皇家权杖与宝石黄金王冠。" },
+            yavuz_sultan_selim: { title: "塞利姆一世苏丹礼服", faceDesc: "面容: 锐利下颌、长垂八字胡与珍珠耳环", perkDesc: "🔥 帝国神威: +1♥、开局自带等离子火焰 & 速度 +12%", desc: "历史肖像还原：黑貂毛领绯红长袍与羽饰塞利姆头巾王冠！" },
+            fatih_sultan_mehmet: { title: "征服者穆罕默德礼服", faceDesc: "面容: 鹰钩鼻、年轻苏丹胡须与翘八字胡", perkDesc: "👑 征服者: +1♥、开局护盾 + 火焰 & 得分 +40%", desc: "金丝刺绣红蓝礼袍、白色帝国头巾与征服圣剑！" },
+            janissary_aga: { title: "禁卫军统领战衣", faceDesc: "面容: 长翘八字胡与犀利眼神", perkDesc: "⚔️ 弯刀灵动: 奔跑速度 +14% & 强力跳跃 +6%", desc: "金羽白毡禁卫军高帽、深红战袍与锋利土耳其弯刀！" },
+            mete_han: { title: "冒顿单于（草原可汗）", faceDesc: "面容: 草原勇士胡须与鹰隼锐目", perkDesc: "🏹 草原之风: 三段跳 (3x)、移速 +15% & 快速火球", desc: "狼皮草原战甲、双鹰羽黄金头盔、箭袋与响箭复合弓！" },
+            cyber_shogun: { title: "赛博幕府将军武士", faceDesc: "面容: 黑红鬼面具与激光双瞳", perkDesc: "⚡ 等离子反射: 极速空中微操、速度 +12% & 开局护盾", desc: "金角兜盔、霓虹大铠甲与发光等离子武士刀！" },
+            cosmic_astronaut: { title: "宇宙宇航员 (EVA-2100)", faceDesc: "面容: 金色反光全向球形太空面罩", perkDesc: "🌌 失重滑翔: 空中缓降滑翔 & 跳跃高度 +8%", desc: "深空加压白色 EVA 宇航服、维生背包与金色遮阳面罩！" },
+            ice_valkyrie: { title: "北欧寒冰女武神", faceDesc: "面容: 铂金麻花辫与冰蓝双眸", perkDesc: "🪽 女武神之翼: 空中滑翔、开局护盾 & 速度 +12%", desc: "飞翼银质女武神头盔、霜晶披风、北欧战甲与极寒冰矛！" },
+            golden_pharaoh: { title: "黄金法老（太阳王）", faceDesc: "面容: 古埃及描眼与黄金法老圣须", perkDesc: "☀️ 太阳宝藏: 自动吸附翡翠/晶核 & 金币概率 +50%", desc: "圣蛇蓝金头巾、黄金胸甲与璀璨发光的太阳权杖！" },
+            spartan_gladiator: { title: "斯巴达统帅（列奥尼达）", faceDesc: "面容: 战神络腮胡与硬朗下颌", perkDesc: "🛡️ 斯巴达之盾: 额外 +1 生命值 (♥) & 受击后超长无敌", desc: "红马鬃青铜科林斯头盔、猩红战袍、圆盾与长矛！" },
             vip_quantum_emperor: { title: "黄金量子皇帝", faceDesc: "外观: 全息量子护目镜与黑金帝皇战甲", perkDesc: "👑 VIP 帝皇: 超级吸宝磁铁(+110px)、开局护盾 & 金币/得分 +50%", desc: "悬浮三尖全息皇冠、黑金量子战甲与环绕量子权杖！" },
             vip_cyber_phoenix: { title: "赛博凤凰骑士", faceDesc: "外观: 炽焰双眸与绯红凤凰战盔", perkDesc: "🔥 凤凰涅槃: 每关1次自动复活 + 滑翔 + 三段跳 + 极速火球", desc: "VIP 专属烈焰战骑，每关战败时可携带护盾原地浴火重生 1 次！" },
             vip_celestial_sultan: { title: "星穹天辰苏丹", faceDesc: "外观: 星月全息头巾与威严帝王胡须", perkDesc: "🌙 星月圣佑: +1♥、开局护盾+火焰、+95px磁铁 & 得分 +45%", desc: "身披星空蓝金毛领礼袍、手持星辰等离子弯刀的 VIP 传说统帅！" },
             vip_shadow_dragon: { title: "暗影龙王领主", faceDesc: "外观: 龙鳞面甲与翡翠龙焰双眼", perkDesc: "🐉 真龙之力: 三段跳 + 滑翔 + 长效无敌护甲 & 极速火球", desc: "弯曲翡金双龙角、赛博龙翼与龙牙等离子巨剑的 VIP 传说战神！" }
         },
         it: {
+            default: { title: "Cavaliere Cyber d'Ombra (Base)", faceDesc: "Volto: Maschera Cyber con Visore Laser Neon", perkDesc: "⚡ Agilità Bilanciata: +5% Velocità & Armatura Cyber Base", desc: "Armatura standard da cavaliere cyber del futuro." },
+            soldier_1950: { title: "Soldato Veterano Anni '50", faceDesc: "Volto: Baffi Folti Anni '50 & Mascella da Veterano", perkDesc: "🛡️ Tempra del Veterano: +30% Invulnerabilità dopo un Colpo", desc: "Uniforme in lana cachi anni '50, cinghia in pelle, elmetto M1 e fucile." },
+            soldier_modern: { title: "Forze Speciali Moderne", faceDesc: "Volto: Pittura Mimetica & Barba Tattica Commando", perkDesc: "🔥 Commando Tattico: Ricarica Fuoco +20% & Velocità +8%", desc: "Mimetica digitale moderna, giubbotto MOLLE, radio ed elmetto NVG." },
+            rich_tycoon: { title: "Magnate Miliardario", faceDesc: "Volto: Monocolo d'Oro & Baffi Sottili", perkDesc: "🪙 Magnete d'Oro: +45% Chance Monete Extra & +25% Punteggio", desc: "Smoking doppiopetto su misura, cravatta cremisi, orologio d'oro e cilindro." },
+            ottoman_pasha: { title: "Pascià Ottomano", faceDesc: "Volto: Grandi Baffi Arricciati & Barba da Pascià", perkDesc: "🛡️ Scudo del Pascià: Scudo Iniziale a Ogni Livello & +20% Punti", desc: "Tunica cerimoniale ricamata in oro, spalline dorate, sciabola e fez bordeaux." },
+            royal_king: { title: "Reale Monarca", faceDesc: "Volto: Maestosa Barba Reale & Occhi Azzurri", perkDesc: "👑 Tesoro Reale: +1 Cuore Extra (♥) & +35% Tesori/Punteggio", desc: "Mantello reale cremisi con ermellino, tunica viola oro, scettro e corona." },
+            yavuz_sultan_selim: { title: "Sultano Selim I (Yavuz)", faceDesc: "Volto: Mascella Affilata, Baffi Lunghi & Orecchino di Perla", perkDesc: "🔥 Potenza Imperiale: +1♥, Fuoco al Plasma Iniziale & +12% Velocità", desc: "Fedele al ritratto storico: Caffettano cremisi con zibellino e turbante imperiale!" },
+            fatih_sultan_mehmet: { title: "Maometto il Conquistatore", faceDesc: "Volto: Naso Aquilino, Barba Giovane & Baffi Arricciati", perkDesc: "👑 Conquistatore: +1♥, Scudo + Fuoco Iniziali & +40% Punteggio", desc: "Caffettano cremisi-blu ricamato in oro, Turbante Imperiale e Spada della Conquista!" },
+            janissary_aga: { title: "Comandante Giannizzero", faceDesc: "Volto: Baffi a Manubrio & Sguardo Fiero", perkDesc: "⚔️ Agilità Yataghan: +14% Velocità di Corsa & +6% Salto Alto", desc: "Copricapo Bork bianco piumato d'oro, tunica cremisi e spada Yataghan affilata!" },
+            mete_han: { title: "Modu Chanyu (Kagan delle Steppe)", faceDesc: "Volto: Baffi da Guerriero delle Steppe & Occhi d'Aquila", perkDesc: "🏹 Vento delle Steppe: Triplo Salto (3x), +15% Velocità & Fuoco Rapido", desc: "Armatura in pelliccia di lupo, elmo d'oro con piume d'aquila e arco!" },
+            cyber_shogun: { title: "Shogun Samurai Cyber", faceDesc: "Volto: Maschera Menpo Rosso-Nera & Occhi Laser", perkDesc: "⚡ Riflesso Plasma: Controllo Aereo Preciso, +12% Velocità & Scudo", desc: "Elmo samurai Kabuto con corna d'oro, armatura neon O-Yoroi e katana plasma!" },
+            cosmic_astronaut: { title: "Astronauta Cosmico (EVA-2100)", faceDesc: "Volto: Visore Spaziale Sferico Riflettente Oro", perkDesc: "🌌 Planata Zero-G: Planata Lenta in Volo & +8% Potenza di Salto", desc: "Tuta spaziale bianca EVA pressurizzata, zaino vitale e visiera solare dorata!" },
+            ice_valkyrie: { title: "Valchiria dei Ghiacci del Nord", faceDesc: "Volto: Trecce Platino & Occhi Blu Ghiaccio", perkDesc: "🪽 Ali di Valchiria: Planata in Volo, Scudo Iniziale & +12% Velocità", desc: "Elmo alato d'argento, mantello di brina, armatura nordica e lancia glaciale!" },
+            golden_pharaoh: { title: "Faraone d'Oro (Re del Sole)", faceDesc: "Volto: Occhi Bistrati & Barba d'Oro Faraonica", perkDesc: "☀️ Tesoro del Sole: Magnete Gemme Auto & +50% Chance Monete", desc: "Copricapo Nemes blu e oro con cobra, collare dorato e Scettro del Sole!" },
+            spartan_gladiator: { title: "Comandante Spartano (Leonida)", faceDesc: "Volto: Barba da Battaglia & Mascella Spartana", perkDesc: "🛡️ Scudo di Sparta: +1 Cuore Extra (♥) & Lunga Protezione Post-Colpo", desc: "Elmo corinzio in bronzo crestato cremisi, mantello rosso, scudo e lancia!" },
             vip_quantum_emperor: { title: "Imperatore Quantico d'Oro", faceDesc: "Volto: Visore Olografico Quantico & Piastre d'Oro", perkDesc: "👑 Imperatore VIP: Super Magnete (+110px), Scudo iniziale & +50% Monete/Punti", desc: "Corona olografica a 3 punte fluttuante, armatura nero-oro e Scettro Quantico!" },
             vip_cyber_phoenix: { title: "Cavaliere Fenice Cyber", faceDesc: "Volto: Occhi Ardenti & Elmo Becco Fenice", perkDesc: "🔥 Rinascita Fenice: 1 Auto-Rinascita a livello + Planata + Triplo Salto", desc: "Leggendario cavaliere VIP: rinasce automaticamente dalle ceneri con scudo una volta per livello!" },
             vip_celestial_sultan: { title: "Sultano delle Stelle", faceDesc: "Volto: Turbante Stellare con Mezzaluna & Barba Regale", perkDesc: "🌙 Mezzaluna Celeste: +1♥, Scudo + Fuoco, Magnete +95px & +45% Punti", desc: "Sovrano VIP con caffettano indaco-oro e Scimitarra Plasma Celeste!" },
             vip_shadow_dragon: { title: "Signore Drago d'Ombra", faceDesc: "Volto: Maschera Scaglie di Drago & Occhi Smeraldo", perkDesc: "🐉 Potere del Drago: Triplo Salto + Planata + Scudo Lungo & Fuoco Rapido", desc: "Ali di drago cyber-smeraldo, corna dorate e Spadone Zanna di Drago!" }
         },
         es: {
+            default: { title: "Caballero Cíber Sombrío (Base)", faceDesc: "Rostro: Máscara Cíber con Visor Láser Neón", perkDesc: "⚡ Agilidad Equilibrada: +5% Velocidad y Armadura Cíber Base", desc: "Traje estándar de caballero cíber blindado del futuro." },
+            soldier_1950: { title: "Soldado Veterano 1950", faceDesc: "Rostro: Bigote Espeso de los 50 y Mandíbula Firme", perkDesc: "🛡️ Temple de Veterano: +30% Más Invulnerabilidad tras Daño", desc: "Uniforme caqui de lana de 1950, correa de cuero, casco de acero M1 y rifle." },
+            soldier_modern: { title: "Fuerzas Especiales Modernas", faceDesc: "Rostro: Pintura Camuflaje y Barba Táctica Comando", perkDesc: "🔥 Comando Táctico: +20% Recarga de Fuego y +8% Velocidad", desc: "Camuflaje digital moderno, chaleco táctico MOLLE, antena y casco NVG." },
+            rich_tycoon: { title: "Magnate Multimillonario", faceDesc: "Rostro: Monóculo de Oro y Bigote Fino", perkDesc: "🪙 Imán de Oro: +45% Suerte en Monedas y +25% Multiplicador", desc: "Esmoquin cruzado a medida, corbata carmesí, reloj de oro, bastón y chistera." },
+            ottoman_pasha: { title: "Pachá Otomano", faceDesc: "Rostro: Gran Bigote Rizado y Barba de Pachá", perkDesc: "🛡️ Escudo de Pachá: Empieza Cada Nivel con Escudo y +20% Puntos", desc: "Túnica ceremonial bordada en oro, charreteras doradas, sable y fez burdeos." },
+            royal_king: { title: "Monarca Real", faceDesc: "Rostro: Majestad Real de Barba Densa y Ojos Azules", perkDesc: "👑 Tesoro Real: +1 Corazón Extra (♥) y +35% Tesoro/Puntuación", desc: "Manto real carmesí con armiño, túnica púrpura bordada, cetro y corona." },
+            yavuz_sultan_selim: { title: "Sultán Selim I (Yavuz)", faceDesc: "Rostro: Mandíbula Afilada, Bigote Largo y Arete de Perla", perkDesc: "🔥 Poder Imperial: +1♥, Empieza con Fuego Plasma y +12% Velocidad", desc: "¡Fiel al retrato histórico: Caftán imperial carmesí de marta y turbante real!" },
+            fatih_sultan_mehmet: { title: "Mehmed el Conquistador", faceDesc: "Rostro: Nariz Aguileña, Barba Joven y Bigote Rizado", perkDesc: "👑 Conquistador: +1♥, Escudo + Fuego Iniciales y +40% Puntuación", desc: "¡Caftán carmesí-azul bordado en oro, Turbante Imperial y Espada de Conquista!" },
+            janissary_aga: { title: "Comandante Jenízaro", faceDesc: "Rostro: Bigote Largo de Guía y Mirada Aguda", perkDesc: "⚔️ Agilidad Yatagán: +14% Velocidad y +6% Potencia de Salto", desc: "¡Gorro Bork blanco con pluma dorada, abrigo carmesí y sable Yatagán afilado!" },
+            mete_han: { title: "Modu Chanyu (Kagan Estepario)", faceDesc: "Rostro: Bigote de Guerrero Estepario y Ojos de Águila", perkDesc: "🏹 Viento Estepario: Triple Salto (3x), +15% Velocidad y Fuego Rápido", desc: "¡Armadura esteparia de piel de lobo, yelmo dorado con plumas y arco compuesto!" },
+            cyber_shogun: { title: "Samurái Shogun Cíber", faceDesc: "Rostro: Máscara de Guerra Menpo Carmesí y Ojos Láser", perkDesc: "⚡ Reflejo Plasma: Control Aéreo Agudo, +12% Velocidad y Escudo", desc: "¡Yelmo samurái Kabuto con cuernos de oro, armadura neón O-Yoroi y katana!" },
+            cosmic_astronaut: { title: "Astronauta Cósmico (EVA-2100)", faceDesc: "Rostro: Visor Espacial Esférico Reflectante Dorado", perkDesc: "🌌 Planeo Gravedad Cero: Planeo Lento en el Aire y +8% Salto", desc: "¡Traje espacial EVA blanco presurizado, mochila vital y visor solar dorado!" },
+            ice_valkyrie: { title: "Valquiria del Hielo Nórdico", faceDesc: "Rostro: Trenzas Platino y Ojos Azul Hielo", perkDesc: "🪽 Alas de Valquiria: Planeo Aéreo, Escudo Inicial y +12% Velocidad", desc: "¡Yelmo alado de plata, capa de escarcha, armadura nórdica y lanza glacial!" },
+            golden_pharaoh: { title: "Faraón Dorado (Rey Sol)", faceDesc: "Rostro: Ojos Delineados y Barba Faraónica Dorada", perkDesc: "☀️ Tesoro Solar: Imán Automático de Gemas y +50% Monedas", desc: "¡Tocado Nemes azul y oro con cobra, collar dorado y Cetro del Sol brillante!" },
+            spartan_gladiator: { title: "Comandante Espartano (Leónidas)", faceDesc: "Rostro: Barba de Batalla y Fuerte Mandíbula Espartana", perkDesc: "🛡️ Escudo Espartano: +1 Corazón Extra (♥) y Protección Extendida", desc: "¡Yelmo corintio de bronce con cresta roja, capa espartana, escudo y lanza!" },
             vip_quantum_emperor: { title: "Emperador Cuántico Dorado", faceDesc: "Rostro: Visor Holográfico Cuántico y Placas Doradas", perkDesc: "👑 Emperador VIP: Súper Imán (+110px), Escudo inicial y +50% Monedas/Puntos", desc: "¡Corona holográfica flotante de 3 puntas, armadura negro-oro y Cetro Cuántico!" },
             vip_cyber_phoenix: { title: "Caballero Fénix Cíber", faceDesc: "Rostro: Ojos de Fuego y Yelmo Pico de Fénix", perkDesc: "🔥 Renacer Fénix: 1 Auto-Reanimación por nivel + Planeo + Triple Salto", desc: "¡Caballero VIP legendario que revive automáticamente de las cenizas con escudo una vez por nivel!" },
             vip_celestial_sultan: { title: "Sultán Celestial de Estrellas", faceDesc: "Rostro: Turbante Creciente Estelar y Barba Real", perkDesc: "🌙 Media Luna Celestial: +1♥, Escudo + Fuego, Imán +95px y +45% Puntos", desc: "¡Soberano VIP con caftán índigo-oro y Cimitarra de Plasma Celestial!" },
             vip_shadow_dragon: { title: "Señor Dragón Sombrío", faceDesc: "Rostro: Máscara de Escamas de Dragón y Ojos Esmeralda", perkDesc: "🐉 Poder del Dragón: Triple Salto + Planeo + Larga Protección y Fuego Rápido", desc: "¡Alas de dragón cíber-esmeralda, cuernos dorados y Espadón Colmillo de Dragón!" }
         },
         fr: {
+            default: { title: "Chevalier Cyber d'Ombre (Base)", faceDesc: "Visage : Masque Cyber à Visière Laser Néon", perkDesc: "⚡ Agilité Équilibrée : +5% Vitesse & Armure Cyber Standard", desc: "Tenue standard de chevalier cyber blindé du futur." },
+            soldier_1950: { title: "Soldat Vétéran des Années 50", faceDesc: "Visage : Moustache Épaisse Années 50 & Mâchoire Ferme", perkDesc: "🛡️ Cran du Vétéran : +30% d'Immunité après Dégâts", desc: "Uniforme kaki des années 50, sangle en cuir, casque d'acier M1 et fusil." },
+            soldier_modern: { title: "Forces Spéciales Modernes", faceDesc: "Visage : Camouflage Facial & Barbe Tactique Commando", perkDesc: "🔥 Commando Tactique : Tir +20% Plus Rapide & +8% Vitesse", desc: "Treillis camouflage digital, gilet tactique MOLLE, radio et casque NVG." },
+            rich_tycoon: { title: "Magnat Milliardaire", faceDesc: "Visage : Monocle d'Or & Moustache Raffinée", perkDesc: "🪙 Aimant d'Or : +45% Chance Pièces & +25% Multiplicateur Score", desc: "Smoking croisé sur mesure, cravate pourpre, montre à gousset d'or et haut-de-forme." },
+            ottoman_pasha: { title: "Pacha Ottoman", faceDesc: "Visage : Grandes Moustaches Courbées & Barbe de Pacha", perkDesc: "🛡️ Bouclier du Pacha : Bouclier au Départ & +20% Score", desc: "Tunique de cérémonie brodée d'or, épaulettes dorées, sabre et fez bordeaux." },
+            royal_king: { title: "Roi Souverain", faceDesc: "Visage : Barbe Royale Majestueuse & Yeux Bleus", perkDesc: "👑 Trésor Royal : +1 Cœur Extra (♥) & +35% Trésor/Score", desc: "Manteau royal pourpre bordé d'hermine, tunique violette, sceptre et couronne." },
+            yavuz_sultan_selim: { title: "Sultan Sélim Ier (Yavuz)", faceDesc: "Visage : Mâchoire Fine, Longue Moustache & Boucle en Perle", perkDesc: "🔥 Puissance Impériale : +1♥, Feu Plasma au Départ & +12% Vitesse", desc: "Fidèle au portrait historique : Caftan pourpre en zibeline et turban impérial !" },
+            fatih_sultan_mehmet: { title: "Mehmed le Conquérant", faceDesc: "Visage : Nez Aquilin, Jeune Barbe & Moustache Courbée", perkDesc: "👑 Conquérant : +1♥, Bouclier + Feu au Départ & +40% Score", desc: "Caftan pourpre-indigo brodé d'or, Turban Impérial et Épée de la Conquête !" },
+            janissary_aga: { title: "Commandant Janissaire", faceDesc: "Visage : Longue Moustache en Guidon & Regard Perçant", perkDesc: "⚔️ Agilité Yatagan : +14% Vitesse & +6% Hauteur de Saut", desc: "Coiffe blanche Bork à plume d'or, manteau pourpre et sabre Yatagan acéré !" },
+            mete_han: { title: "Modu Chanyu (Khagan des Steppes)", faceDesc: "Visage : Moustache de Guerrier & Yeux d'Aigle", perkDesc: "🏹 Vent des Steppes : Triple Saut (3x), +15% Vitesse & Tir Rapide", desc: "Armure en fourrure de loup, casque doré à plumes d'aigle et arc composite !" },
+            cyber_shogun: { title: "Samouraï Shogun Cyber", faceDesc: "Visage : Masque de Guerre Menpo & Yeux Laser", perkDesc: "⚡ Réflexe Plasma : Contrôle Aérien Précis, +12% Vitesse & Bouclier", desc: "Casque samouraï Kabuto cornu d'or, armure néon O-Yoroi et katana plasma !" },
+            cosmic_astronaut: { title: "Astronaute Cosmique (EVA-2100)", faceDesc: "Visage : Visière Spatiale Sphérique Dorée Réfléchissante", perkDesc: "🌌 Vol Plané Zéro-G : Planage Lent en Vol & +8% Saut", desc: "Combinaison spatiale blanche EVA pressurisée, pack de survie et visière solaire !" },
+            ice_valkyrie: { title: "Valkyrie des Glaces du Nord", faceDesc: "Visage : Tresses Platine & Yeux Bleu Glace", perkDesc: "🪽 Ailes de Valkyrie : Vol Plané, Bouclier Initial & +12% Vitesse", desc: "Heaume ailé d'argent, cape de givre, armure nordique et lance glaciale !" },
+            golden_pharaoh: { title: "Pharaon d'Or (Roi Soleil)", faceDesc: "Visage : Yeux Soulignés & Barbe d'Or Pharaonique", perkDesc: "☀️ Trésor Solaire : Aimant Gemmes Auto & +50% Chance Pièces", desc: "Coiffe Némès bleu et or au cobra, collier royal et Sceptre Solaire brillant !" },
+            spartan_gladiator: { title: "Commandant Spartiate (Léonidas)", faceDesc: "Visage : Barbe de Combat & Mâchoire Puissante", perkDesc: "🛡️ Bouclier de Sparte : +1 Cœur Extra (♥) & Longue Immunité", desc: "Casque corinthien en bronze à crête rouge, cape spartiate, bouclier et lance !" },
             vip_quantum_emperor: { title: "Empereur Quantique d'Or", faceDesc: "Visage : Visière Quantique Holographique & Plaques d'Or", perkDesc: "👑 Empereur VIP : Super Aimant (+110px), Bouclier & +50% Pièces/Score", desc: "Couronne holographique flottante à 3 pointes, armure or-obsidienne et Sceptre Quantique !" },
             vip_cyber_phoenix: { title: "Chevalier Phénix Cyber", faceDesc: "Visage : Yeux Embrasés & Heaume Bec de Phénix", perkDesc: "🔥 Renaissance Phénix : 1 Auto-Réanimation / niveau + Vol Plané + Triple Saut", desc: "Chevalier VIP légendaire : renaît automatiquement de ses cendres avec bouclier 1 fois par niveau !" },
             vip_celestial_sultan: { title: "Sultan des Étoiles", faceDesc: "Visage : Turban Croissant Stellaire & Barbe Royale", perkDesc: "🌙 Croissant Céleste : +1♥, Bouclier + Feu, Aimant +95px & +45% Score", desc: "Souverain VIP en caftan indigo-or armé du Cimeterre Plasma Céleste !" },
@@ -1972,8 +2064,8 @@
             speedBoots: { title: "Гипер-Скоростные Ботинки", perkDesc: "👢 +14% к постоянной скорости бега", vipMk2Desc: "👢 +24% Супер-скорость + повышенный лимит", desc: "Позволяет бегать быстрее на всех уровнях кампании и тролль-режима!" },
             emeraldMagnet: { title: "Магнит Изумрудов и Кристаллов", perkDesc: "🧲 Магнит 160px для сокровищ (кроме ловушек)", vipMk2Desc: "🧲 Супер-магнит 260px широкого радиуса", desc: "Автоматически притягивает ближайшие кристаллы, монеты и изумруды!" },
             tripleJump: { title: "Модуль Тройного Прыжка", perkDesc: "🚀 3 прыжка подряд в воздухе", vipMk2Desc: "🚀 3 прыжка + планерное парение и +4% тяга", desc: "Позволяет прыгать 3 раза подряд в воздухе вместо двух!" },
-            vip_quantum_core: { title: "VIP Квантовое Ядро Силы", perkDesc: "👑 VIP Авто: +25% Счёт/Монеты, +60px Магнит и +15 кадров защиты", desc: "Включается автоматически с VIP Pass: больше очков, удача монет, магнит и броня!" },
-            vip_plasma_overdrive: { title: "VIP Плазменный Форсаж", perkDesc: "⚡ VIP Авто: +10% Скорость, +15% Контроль в воздухе и -16% Откат огня", desc: "Включается автоматически с VIP Pass: ускорение бега, маневренность и быстрый огонь!" }
+            vip_quantum_core: { title: "VIP Квантовое Ядро Силы", perkDesc: "👑 VIP Авто: +25% Счёт/Монеты, +60px Магнит и +15 кадров защиты", desc: "Включается автоматически с VIP-пропуском: больше очков, удача монет, магнит и броня!" },
+            vip_plasma_overdrive: { title: "VIP Плазменный Форсаж", perkDesc: "⚡ VIP Авто: +10% Скорость, +15% Контроль в воздухе и -16% Откат огня", desc: "Включается автоматически с VIP-пропуском: ускорение бега, маневренность и быстрый огонь!" }
         },
         ko: {
             heart1: { title: "티타늄 아머 & 최대 체력 +1", perkDesc: "❤️ 최대 하트 +1 & 피격 무적 +20프레임", vipMk2Desc: "❤️ 최대 하트 +1 & 슈퍼 아머 무적 +38프레임", desc: "최대 체력을 1칸 늘리고 피격 후 보호 시간을 연장합니다!" },
@@ -2007,7 +2099,7 @@
             startFire: { title: "开局等离子火球", perkDesc: "🔥 每关开局直接激活火球攻击", vipMk2Desc: "🔥 开局火球 + 火球冷却缩短 18%", desc: "每关伊始即可发射远程等离子火球消灭前方敌人！" },
             speedBoots: { title: "超音速疾风战靴", perkDesc: "👢 永久提升 +14% 奔跑速度", vipMk2Desc: "👢 +24% 超级疾跑 & 解锁更高速度上限", desc: "在全关卡与整蛊模式中始终以更快步伐冲刺前进！" },
             emeraldMagnet: { title: "远古翡翠 & 晶核磁铁", perkDesc: "🧲 160px 宝藏吸附（自动避开假翡翠陷阱）", vipMk2Desc: "🧲 260px 广域超级宝藏磁力场", desc: "自动将附近的真晶核、金币与远古翡翠吸引到身边！" },
-            tripleJump: { title: "三段跳推进模块", perkDesc: "🚀 空中可连续跳跃 3 次 (Triple Jump)", vipMk2Desc: "🚀 三段跳 + 滑翔之翼与 +4% 升力", desc: "突破二段跳极限，让你在危险深渊上完成惊险三段跳！" },
+            tripleJump: { title: "三段跳推进模块", perkDesc: "🚀 空中可连续跳跃 3 次", vipMk2Desc: "🚀 三段跳 + 滑翔之翼与 +4% 升力", desc: "突破二段跳极限，让你在危险深渊上完成惊险三段跳！" },
             vip_quantum_core: { title: "VIP 量子能量核心", perkDesc: "👑 VIP 自动: 得分/金币 +25%、磁铁 +60px & 无敌 +15帧", desc: "VIP 通行证生效期间自动激活：提高得分倍率、金币运气、吸附范围与护甲保护！" },
             vip_plasma_overdrive: { title: "VIP 等离子超频", perkDesc: "⚡ VIP 自动: 移速 +10%、空中控制 +15% & 冷却 -16%", desc: "VIP 通行证生效期间自动激活：疾跑速度、空中微操与火球连发全面提速！" }
         },
@@ -2233,7 +2325,7 @@
         ru: {
             helmet_vip_quantum_crown: ["VIP Квантовая Корона", "Парящая 3-лучевая голографическая корона."],
             helmet_vip_dragon_helm: ["VIP Шлем Лорда Дракона", "Пурпурно-золотые рога дракона с изумрудом."],
-            gear_vip_phoenix_wings: ["VIP Огненные Крылья Феникса", "Пылающие крылья для VIP Pass: плавное планирование и высокий прыжок."],
+            gear_vip_phoenix_wings: ["VIP Огненные Крылья Феникса", "Пылающие крылья для VIP-пропуска: плавное планирование и высокий прыжок."],
             gear_vip_excalibur: ["VIP Космический Экскалибур", "Светящийся золотой легендарный меч Экскалибур."],
             skin_vip_obsidian_gold: ["VIP Обсидианово-Золотая Броня", "Обсидиановая броня с имперским 24-каратным золотом."],
             skin_vip_nebula_prism: ["VIP Небула Призма", "Космическая фиолетово-бирюзовая броня туманности."],
@@ -2330,10 +2422,490 @@
         }
     };
 
+    const CUST_ITEM_I18N = {
+        ru: {
+            helmet_crest: ["Гребень Рыцаря", "Классический аэродинамичный шлем кибер-рыцаря."],
+            helmet_horns: ["Рога Самурая", "Изогнутые неоновые рога для воинов тени."],
+            helmet_viking: ["Рога Викинга", "Широкие костяные боевые рога Севера."],
+            helmet_ronin: ["Шляпа Тёмного Ронина", "Широкополая неоновая бамбуковая шляпа убийцы."],
+            helmet_wolf: ["Шлем Кибер-Волка", "Остроухий механический шлем альфа-волка."],
+            helmet_spartan: ["Гребень Спартанца", "Пышный алый плюмаж гладиаторского шлема."],
+            helmet_antennas: ["Кибер-Антенны Меха", "Двойные меха-антенны со светящимися энергосферами."],
+            helmet_crown: ["Имперская Корона", "Сияющая королевская корона из чистого золота и рубинов."],
+            helmet_wizard: ["Шляпа Тёмного Мага", "Мистическая волшебная шляпа с золотой пряжкой."],
+            helmet_skull: ["Маска Призрачного Черепа", "Устрашающий костяной шлем рыцаря смерти."],
+            helmet_halo: ["Нимб Кибер-Архангела", "Священное энергетическое кольцо, парящее над шлемом."],
+            helmet_flames: ["Корона Адского Пламени", "Живое плазменное пламя, охватывающее голову!"],
+            gear_katana: ["Плазменная Катана", "Острый энергетический клинок за спиной."],
+            gear_dual: ["Парные Лазерные Кинжалы", "Перекрёстные клинки скрытного ассасина."],
+            gear_bow: ["Неоновый Лук Охотника", "Кибер-лук с энергетической тетивой."],
+            gear_axe: ["Гигантская Боевая Секира", "Двусторонняя секира палача, крушащая броню."],
+            gear_greatsword: ["Двуручный Меч Титана", "Огромный рыцарский меч с древними рунами."],
+            gear_scythe: ["Коса Жнеца", "Гигантская полумесячная коса тёмной энергии."],
+            gear_shuriken: ["Вращающийся Гигантский Сюрикен", "Непрерывно вращающаяся звезда ниндзя!"],
+            gear_jetpack: ["Двухтурбинный Джетпак", "Реактивный ранец с сине-оранжевыми соплами плазмы!"],
+            gear_spider: ["Механические Лапы Паука", "4 подвижные биомеханические клешни на спине!"],
+            gear_wings: ["Кибер-Энерго Крылья", "Плазменные крылья, машущие при беге и прыжке."],
+            gear_dragon: ["Алые Крылья Дракона", "Могучие когтистые крылья тёмного дракона."],
+            gear_angel: ["Священные Крылья Архангела", "Величественные крылья из золота и белоснежных перьев."],
+            skin_cyan: ["Теневой Синий", "Классическая синяя неоновая броня пещерного рыцаря."],
+            skin_crimson: ["Алый Барон", "Алое неоновое покрытие и тёмно-рубиновая броня."],
+            skin_emerald: ["Изумрудный Убийца", "Броня хранителя леса с древним изумрудным свечением."],
+            skin_arctic: ["Ледниковый Рыцарь", "Белоснежно-ледяная кристаллическая броня."],
+            skin_toxic: ["Радиоактивная Био-Броня", "Кибер-симбиот кислотно-зелёного свечения."],
+            skin_sakura: ["Сакура Самурай", "Броня самурая цвета вишнёвого цвета и бордо."],
+            skin_stealth: ["Ночной Призрак (Скрытность)", "Матовая углеродно-чёрная броня спецназа."],
+            skin_violet: ["Страж Пустоты", "Тёмно-фиолетовая неоновая энергетическая броня."],
+            skin_magma: ["Титан Магмы", "Броня из расплавленной лавы и вулканической породы."],
+            skin_galaxy: ["Космическая Галактика", "Броня со звёздной пылью и глубинным синим космосом."],
+            skin_gold: ["Золотой Владыка", "Легендарная императорская броня из 24-каратного золота."],
+            skin_rainbow: ["RGB Радуга (Живой Цвет)", "Легендарная броня, плавно меняющая цвета каждую секунду!"],
+            visor_slit: ["Классический Визор Рыцаря", "Острая горизонтальная линия лазерного визора."],
+            visor_cyclops: ["Лазерная Линза Циклопа", "Единый светящийся прицельный сенсор по центру."],
+            visor_dual: ["Парные Глаза Охотника", "Хищные светящиеся глаза во тьме."],
+            visor_x: ["X-Визор Убийцы", "Перечёркнутый неоновый знак X."],
+            visor_shades: ["Кибер-Очки", "Стильные зеркальные киберпанк-очки."],
+            visor_robo: ["Цифровая Матричная Сетка", "Четырёхточечный тактический сенсорный дисплей."],
+            visor_heart: ["Неоновый Визор-Сердце", "Светящийся розовый визор в форме сердца."],
+            visor_sharingan: ["Алый Мистический Глаз", "Гипнотический глаз с алым кольцом."],
+            visor_flame: ["Пылающие Глаза", "Яростные огненные языки из визора."],
+            visor_void: ["Тройной Взор Пустоты", "Взгляд тёмной энергии с третьим глазом на лбу."],
+            aura_none: ["Без Ауры", "Чистый классический вид без лишних эффектов."],
+            aura_stars: ["Звёздная Пыльца", "Золотые звёздные кристаллы вокруг героя."],
+            aura_sakura: ["Вихрь Лепестков Сакуры", "Кружащиеся розовые лепестки цветущей сакуры."],
+            aura_dark: ["Тёмный Теневой Туман", "Загадочный фиолетово-чёрный дым у ног."],
+            aura_emerald: ["Дождь Древних Изумрудов", "Мини-кристаллы изумруда, парящие вокруг героя."],
+            aura_fire: ["Супер-Пламенная Аура", "Восходящие волны живого плазменного пламени!"],
+            aura_lightning: ["Поле Молний и Тесла", "Высоковольтные разряды молний вокруг брони!"],
+            aura_souls: ["Мистические Сферы Душ", "3 защитные сферы духов на орбите вокруг героя."],
+            aura_cyber: ["Голографические Кибер-Кольца", "Двойные сканирующие неоновые энергокольца."],
+            aura_rainbow: ["Космическая Радужная Аура", "Переливающееся тройное призматическое кольцо!"],
+            cape_pink: ["Неоновый Розовый Плащ", "Классический контрастный розовый плащ."],
+            cape_gold: ["Плащ Золотого Пламени", "Сияющий королевский золотой плащ."],
+            cape_emerald: ["Изумрудно-Зелёный Плащ", "Биолюминесцентный изумрудный плащ."],
+            cape_cyan: ["Ледяной Голубой Плащ", "Холодный плазменно-бирюзовый плащ."],
+            cape_purple: ["Плащ Фиолетового Шторма", "Фиолетовый плащ тёмной энергии."],
+            cape_orange: ["Вулканический Оранжевый Плащ", "Раскалённый лавовый плащ."],
+            cape_crimson: ["Кроваво-Алый Плащ", "Благородный алый рыцарский плащ."],
+            cape_white: ["Белоснежный Плащ Света", "Сияющий в темноте чистый белый плащ."],
+            cape_toxic: ["Неоновый Кислотный Плащ", "Яркий лаймовый кибер-плащ."],
+            cape_rainbow: ["Радужный Спектр Плащ", "Легендарный RGB-плащ, меняющий цвет на ветру!"]
+        },
+        ko: {
+            helmet_crest: ["기사 볏 투구", "클래식하고 공기역학적인 사이버 기사 투구입니다."],
+            helmet_horns: ["사무라이 뿔", "어둠의 전사를 위한 휘어진 네온 뿔 장식."],
+            helmet_viking: ["북방 바이킹 뿔", "북유럽의 웅장한 거대 뼈 전투 뿔."],
+            helmet_ronin: ["그림자 로닌 삿갓", "넓은 챙의 네온 대나무 암살자 삿갓."],
+            helmet_wolf: ["사이버 늑대 투구", "날카로운 귀를 가진 기계 알파 울프 투구."],
+            helmet_spartan: ["스파르타 사령관 장식", "풍성한 진홍빛 깃털이 달린 검투사 볏 투구."],
+            helmet_antennas: ["사이버 메카 안테나", "빛나는 에너지 구슬이 달린 이중 메카 안테나."],
+            helmet_crown: ["제국의 황금 왕관", "순금과 루비로 빛나는 화려한 황실 왕관."],
+            helmet_wizard: ["어둠의 마법사 모자", "황금 버클이 달린 신비로운 마도사 모자."],
+            helmet_skull: ["유령 해골 가면", "위협적인 뼈 갑옷 데스 나이트 해골 투구."],
+            helmet_halo: ["사이버 대천사 후광", "투구 위에 부유하는 신성한 에너지 고리."],
+            helmet_flames: ["지옥불 왕관", "머리 전체를 감싸 타오르는 살아있는 플라즈마 불꽃!"],
+            gear_katana: ["플라즈마 카타나", "등에 메는 날카로운 에너지 일본도."],
+            gear_dual: ["이중 레이저 단검", "등에 교차 장착된 쌍둥이 암살 단검."],
+            gear_bow: ["네온 사냥꾼 활", "에너지 시위가 빛나는 사이버 궁수의 활."],
+            gear_axe: ["거대 전투 도끼", "무거운 갑옷도 부수는 양날 처형자 도끼."],
+            gear_greatsword: ["타이탄 대검", "신보다 큰 고대 룬 문양의 거대한 기사 대검."],
+            gear_scythe: ["사신의 낫", "어둠의 기운을 뿜는 거대한 초승달 사신 낫."],
+            gear_shuriken: ["회전 거대 표창", "등 뒤에서 계속 회전하는 초대형 에너지 수리검!"],
+            gear_jetpack: ["트윈 터빈 제트팩", "청색·주황색 플라즈마 화염을 내뿜는 로켓 팩!"],
+            gear_spider: ["기계 거미 다리", "등에서 뻗어 나오는 4개의 관절형 생체 기계 집게 다리!"],
+            gear_wings: ["사이버 에너지 날개", "달리고 점프할 때 퍼덕이는 플라즈마 날개."],
+            gear_dragon: ["진홍 드래곤 날개", "발톱과 피막이 돋보이는 거대한 어둠의 용 날개."],
+            gear_angel: ["신성한 대천사 날개", "황금과 순백의 깃털로 이루어진 장엄한 천사 날개."],
+            skin_cyan: ["그림자 블루", "클래식한 네온 블루 동굴 기사 갑옷."],
+            skin_crimson: ["진홍빛 남작", "진홍 네온과 다크 루비 도금 갑옷."],
+            skin_emerald: ["에메랄드 암살자", "고대 에메랄드 빛이 감도는 숲의 수호자 갑옷."],
+            skin_arctic: ["빙하의 기사", "순백색과 얼음 파랑 크리스탈 갑옷."],
+            skin_toxic: ["방사능 바이오 아머", "형광 산성 그린 사이버 심비오트 갑옷."],
+            skin_sakura: ["사쿠라 사무라이", "벚꽃 핑크와 버건디 빛 사무라이 갑옷."],
+            skin_stealth: ["나이트 고스트 (은신)", "무광 카본 블랙과 실버 은밀 작전 갑옷."],
+            skin_violet: ["공허의 수호자", "깊은 보라색 네온 에너지 갑옷."],
+            skin_magma: ["마그마 타이탄", "녹아내린 용암 오렌지와 화산암 갑옷."],
+            skin_galaxy: ["코스믹 갤럭시", "별가루 핑크와 심우주 남색이 어우러진 갑옷."],
+            skin_gold: ["황금빛 군주", "전설의 24K 순금 도금 황제 갑옷."],
+            skin_rainbow: ["RGB 무지개 (실시간 색상)", "매초 색상이 변하는 전설의 실시간 RGB 갑옷!"],
+            visor_slit: ["클래식 기사 바이저", "날카로운 수평 레이저 바이저 슬릿."],
+            visor_cyclops: ["사이클롭스 레이저 렌즈", "중앙에서 빛나는 단일 조준 센서 렌즈."],
+            visor_dual: ["이중 사냥꾼의 눈", "어둠 속에서 번뜩이는 맹수의 쌍안."],
+            visor_x: ["X-암살자 바이저", "엇갈리게 그어진 강렬한 네온 X 마크."],
+            visor_shades: ["사이버 선글라스", "빛을 반사하는 멋진 사이버펑크 선글라스."],
+            visor_robo: ["디지털 매트릭스 격자", "4점 전술 로봇 센서 디스플레이."],
+            visor_heart: ["네온 하트 바이저", "빛나는 핑크 하트 모양 바이저."],
+            visor_sharingan: ["진홍 신비안", "최면을 거는 듯한 붉은 고리 눈."],
+            visor_flame: ["타오르는 눈빛", "바이저 밖으로 뿜어져 나오는 분노의 불꽃 궤적."],
+            visor_void: ["삼중 공허의 시선", "이마에 제3의 눈을 뜨게 하는 암흑 에너지 시선."],
+            aura_none: ["오라 없음", "추가 입자 효과 없는 깔끔한 기본 스타일."],
+            aura_stars: ["별가루 반짝임", "캐릭터 주위를 맴도는 황금 별 크리스탈."],
+            aura_sakura: ["벚꽃 잎 폭풍", "주변에 흩날리는 분홍빛 벚꽃 꽃잎."],
+            aura_dark: ["어둠의 그림자 안개", "발밑에서 피어오르는 신비한 보라·검은 그림자 연기."],
+            aura_emerald: ["고대 에메랄드 비", "주변에 떠다니는 미니 에메랄드 보석 조각."],
+            aura_fire: ["슈퍼 플레임 오라", "영웅 전체를 휘감고 치솟는 플라즈마 불길 파동!"],
+            aura_lightning: ["번개 & 테슬라 필드", "갑옷 주변에 튀는 고전압 번개 방전!"],
+            aura_souls: ["신비한 영혼 구슬", "영웅 주위를 궤도 비행하는 3개의 수호 영혼 구체."],
+            aura_cyber: ["홀로그램 사이버 링", "캐릭터를 스캔하는 이중 네온 에너지 고리."],
+            aura_rainbow: ["우주 무지개 오라", "빛이 변하는 3중 프리즘 에너지 고리!"],
+            cape_pink: ["네온 핑크 망토", "클래식하고 선명한 네온 핑크 망토."],
+            cape_gold: ["황금 불꽃 망토", "찬란히 빛나는 황금빛 왕실 망토."],
+            cape_emerald: ["에메랄드 그린 망토", "생체 발광 에메랄드 빛 망토."],
+            cape_cyan: ["얼음 시안 망토", "차가운 플라즈마 블루 빛 망토."],
+            cape_purple: ["보라 폭풍 망토", "어둠의 기운이 흐르는 보라색 망토."],
+            cape_orange: ["화산 오렌지 망토", "뜨거운 용암 오렌지 빛 망토."],
+            cape_crimson: ["블러드 크림슨 망토", "고귀한 기사의 진홍빛 망토."],
+            cape_white: ["순백의 빛 망토", "어둠 속에서 환하게 빛나는 순백 망토."],
+            cape_toxic: ["네온 애시드 망토", "선명한 라임 그린 사이버 망토."],
+            cape_rainbow: ["무지개 스펙트럼 망토", "펄럭일 때마다 색이 변하는 전설의 RGB 망토!"]
+        },
+        ja: {
+            helmet_crest: ["ナイトクレスト兜", "空力に優れたクラシック電脳騎士ヘルム。"],
+            helmet_horns: ["サムライの角", "影の戦士専用の湾曲したネオン角飾り。"],
+            helmet_viking: ["北欧ヴァイキングの角", "左右に広がる豪快な骨の戦角。"],
+            helmet_ronin: ["影浪人の笠", "広いつばのネオン竹製暗殺者笠。"],
+            helmet_wolf: ["サイバーウルフ兜", "鋭い耳を持つ機械アルファ狼のヘルム。"],
+            helmet_spartan: ["スパルタ指揮官羽飾り", "豊かな深紅の馬毛飾りが映える闘士兜。"],
+            helmet_antennas: ["サイバーメカアンテナ", "光るエネルギー球が付いた対のメカアンテナ。"],
+            helmet_crown: ["帝国インペリアル王冠", "純金とルビーが輝く絢爛たる王家の冠。"],
+            helmet_wizard: ["闇魔導士の三角帽", "黄金のバックルが付いた神秘的な魔術帽。"],
+            helmet_skull: ["ファントム骸骨仮面", "骨装甲をまとった恐るべき死神騎士の頭蓋兜。"],
+            helmet_halo: ["サイバー大天使の輪", "兜の上空に浮かぶ聖なるエネルギーの光輪。"],
+            helmet_flames: ["獄炎の王冠", "頭全体を包み込む生きたプラズマの炎！"],
+            gear_katana: ["プラズマ刀", "背中に携える鋭利なエネルギー日本刀。"],
+            gear_dual: ["双レーザー短刀", "背中に交差装備された対のアサシン短剣。"],
+            gear_bow: ["ネオンハンター弓", "光の弦を備えたサイバー射手の名弓。"],
+            gear_axe: ["巨人の戦斧", "重装甲をも叩き砕く両刃の処刑大斧。"],
+            gear_greatsword: ["タイタン大剣", "ルーンが刻まれた圧倒的質量の巨大騎士剣。"],
+            gear_scythe: ["死神の大鎌", "闇の波動を放つ巨大な三日月型サイズ。"],
+            gear_shuriken: ["回転巨大手裏剣", "背中で常に高速回転する超大エネルギー手裏剣！"],
+            gear_jetpack: ["双発ジェットパック", "青と橙のプラズマ噴射を放つロケット推進機！"],
+            gear_spider: ["機械蜘蛛アーム", "背中から伸びる4本の生体機械クロー脚！"],
+            gear_wings: ["電脳エネルギー翼", "走る・跳ぶたびに羽ばたくプラズマの翼。"],
+            gear_dragon: ["真紅の竜翼", "鋭い爪と翼膜を持つ巨大な闇ドラゴンの翼。"],
+            gear_angel: ["聖なる大天使の翼", "黄金と純白の羽根からなる荘厳な天使の翼。"],
+            skin_cyan: ["シャドウブルー", "クラシックなネオンブルーの洞窟騎士装甲。"],
+            skin_crimson: ["真紅の男爵", "深紅ネオンと濃ルビーの重厚な装甲板。"],
+            skin_emerald: ["エメラルド暗殺者", "古代エメラルドが輝く森の守護者アーマー。"],
+            skin_arctic: ["氷河の騎士", "純白と氷青が美しいクリスタル装甲。"],
+            skin_toxic: ["放射能バイオ装甲", "蛍光アシッドグリーンの生体シンビオート鎧。"],
+            skin_sakura: ["桜サムライ", "桜ピンクと臙脂色の雅なサムライ装甲。"],
+            skin_stealth: ["ナイトゴースト (隠密)", "艶消しカーボンブラック＆銀の隠密作戦装甲。"],
+            skin_violet: ["ヴォイド守護者", "深紫のネオンエネルギーが巡る装甲。"],
+            skin_magma: ["マグマタイタン", "溶岩オレンジと火山岩の灼熱装甲。"],
+            skin_galaxy: ["コズミック銀河", "星屑ピンクと深宇宙インディゴの星雲鎧。"],
+            skin_gold: ["黄金の覇王", "伝説の24金メッキを纏う皇帝アーマー。"],
+            skin_rainbow: ["RGB 虹色 (ライブ変色)", "毎秒色が移り変わる伝説のプリズムRGB鎧！"],
+            visor_slit: ["クラシック騎士バイザー", "鋭利な水平レーザー光のスリット。"],
+            visor_cyclops: ["サイクロプス単眼レンズ", "中央で煌めく単一ターゲット照準センサー。"],
+            visor_dual: ["双狩人の瞳", "闇夜で鋭く光る猛獣のような双眸。"],
+            visor_x: ["X-アサシンバイザー", "斜めに交差したネオンX字スラッシュ。"],
+            visor_shades: ["サイバーサングラス", "光を反射するクールな電脳サングラス。"],
+            visor_robo: ["デジタルマトリクス格子", "4点戦術ロボットセンサーディスプレイ。"],
+            visor_heart: ["ネオンハートバイザー", "愛らしく輝くピンク色のハート型バイザー。"],
+            visor_sharingan: ["深紅の神秘眼", "催眠の力を秘めた真紅の輪紋アイ。"],
+            visor_flame: ["烈火の眼光", "バイザーから溢れ出る激しい炎の軌跡。"],
+            visor_void: ["三重虚無の眼光", "額に第三の目を開く漆黒エネルギーの視線。"],
+            aura_none: ["オーラなし", "追加粒子エフェクトなしのシンプルな外観。"],
+            aura_stars: ["星屑のきらめき", "周囲を舞い踊る黄金の星クリスタル。"],
+            aura_sakura: ["桜吹雪オーラ", "周りで優雅に舞うピンクの桜の花びら。"],
+            aura_dark: ["暗黒の影霧", "足元から立ち昇る神秘的な紫黒の影煙。"],
+            aura_emerald: ["古代エメラルドの雨", "周囲に浮遊するミニエメラルド結晶。"],
+            aura_fire: ["超火炎オーラ", "全身を包み込んで燃え上がるプラズマ炎波！"],
+            aura_lightning: ["雷撃＆テスラ磁場", "装甲の周りで激しく弾ける高電圧電撃！"],
+            aura_souls: ["神秘の魂オーブ", "騎士を守護しながら周回する3つの精霊球。"],
+            aura_cyber: ["ホログラム電脳リング", "キャラクターを走査する二重ネオン輪。"],
+            aura_rainbow: ["宇宙レインボーオーラ", "色彩が変化し続ける三重プリズム光輪！"],
+            cape_pink: ["ネオンピンクマント", "鮮やかで高コントラストな定番ピンクマント。"],
+            cape_gold: ["黄金炎マント", "まばゆく輝く王家の純金マント。"],
+            cape_emerald: ["エメラルドグリーンマント", "生体発光する深緑のエメラルドマント。"],
+            cape_cyan: ["アイスシアンマント", "冷徹なプラズマシアン色のマント。"],
+            cape_purple: ["紫嵐マント", "闇のエネルギーを纏うバイオレットマント。"],
+            cape_orange: ["火山オレンジマント", "煮えたぎる溶岩オレンジのマント。"],
+            cape_crimson: ["ブラッドクリムゾンマント", "高貴な騎士のための深紅マント。"],
+            cape_white: ["純白の光マント", "暗闇の中で神々しく輝く純白マント。"],
+            cape_toxic: ["ネオンアシッドマント", "鮮烈なライムグリーンの電脳マント。"],
+            cape_rainbow: ["虹色スペクトルマント", "たなびくたびに七色に輝く伝説のRGBマント！"]
+        },
+        zh: {
+            helmet_crest: ["骑士羽冠头盔", "经典流线型空气动力学赛博骑士头盔。"],
+            helmet_horns: ["武士霓虹战角", "暗影武士专属弯曲霓虹双角饰。"],
+            helmet_viking: ["北欧维京战角", "向两侧张开的北方巨大骨质战斗号角。"],
+            helmet_ronin: ["暗影浪人斗笠", "宽檐霓虹竹编刺客斗笠。"],
+            helmet_wolf: ["赛博狼王头盔", "尖耳机械阿尔法苍狼战盔。"],
+            helmet_spartan: ["斯巴达统帅羽冠", "厚实绯红马鬃羽毛装饰的角斗士头盔。"],
+            helmet_antennas: ["赛博机甲天线", "顶端闪烁能量球体的双机甲雷达天线。"],
+            helmet_crown: ["帝国至高皇冠", "纯金与红宝石交相辉映的皇家王冠。"],
+            helmet_wizard: ["暗黑法师尖帽", "镶嵌金色搭扣的神秘巫师尖顶帽。"],
+            helmet_skull: ["幽灵骷髅面具", "冷峻森然的骨甲死亡骑士骷髅战盔。"],
+            helmet_halo: ["赛博大天使光环", "悬浮于头盔上方的神圣能量光环。"],
+            helmet_flames: ["地狱烈焰之冠", "熊熊燃烧并包裹头部的活性等离子火焰！"],
+            gear_katana: ["等离子武士刀", "背负于身后的锋锐激光能量武士刀。"],
+            gear_dual: ["双持激光匕首", "背部交叉佩带的刺客双能量短刃。"],
+            gear_bow: ["霓虹猎手长弓", "搭载高能光弦的赛博游侠战弓。"],
+            gear_axe: ["泰坦巨型战斧", "轻松劈裂重甲的双刃处刑战斧。"],
+            gear_greatsword: ["泰坦神纹巨剑", "比身形更雄伟的古代符文骑士重剑。"],
+            gear_scythe: ["死神镰刀", "散发暗影能量的巨型新月死神长镰。"],
+            gear_shuriken: ["旋转巨型手里剑", "在背后高速旋转不止的巨型能量忍者飞镖！"],
+            gear_jetpack: ["双涡轮喷气背包", "持续喷射蓝橙双色等离子烈焰的火箭背包！"],
+            gear_spider: ["机械蜘蛛战臂", "从背部伸出的 4 只可动生化机械螯足！"],
+            gear_wings: ["赛博能量光翼", "奔跑与跳跃时动态扇动的等离子羽翼。"],
+            gear_dragon: ["绯红巨龙双翼", "带有锐爪与薄膜的威严暗黑巨龙之翼。"],
+            gear_angel: ["神圣大天使羽翼", "黄金骨架与纯白羽毛织就的圣洁天使双翼。"],
+            skin_cyan: ["暗影幽蓝", "经典霓虹蔚蓝深渊骑士护甲。"],
+            skin_crimson: ["绯红男爵", "绯红霓虹灯条与深红宝石镶嵌战甲。"],
+            skin_emerald: ["翡翠刺客", "流淌远古翡翠微光的森林守卫护甲。"],
+            skin_arctic: ["极地冰川骑士", "纯白与冰蓝晶石构筑的寒霜战甲。"],
+            skin_toxic: ["辐射生化战甲", "荧光酸液绿配色的赛博共生体护甲。"],
+            skin_sakura: ["樱花武士", "樱花粉与酒红优雅交织的武士战甲。"],
+            skin_stealth: ["夜魅幽灵（潜行）", "哑光碳黑配银灰的隐秘特种作战甲。"],
+            skin_violet: ["虚空守望者", "幽深紫罗兰高能霓虹护甲。"],
+            skin_magma: ["熔岩泰坦", "沸腾熔岩橙与火山黑岩铸就的战甲。"],
+            skin_galaxy: ["宇宙星系", "星尘粉点缀深空靛蓝的星云战甲。"],
+            skin_gold: ["黄金主宰", "传说级 24K 纯金镀层帝皇圣甲。"],
+            skin_rainbow: ["RGB 幻彩（动态变色）", "每秒随光影实时变幻色彩的传说级 RGB 圣甲！"],
+            visor_slit: ["经典骑士护目缝", "锐利的水平一线激光战术目镜。"],
+            visor_cyclops: ["独眼巨人激光镜", "正中闪耀的单一锁定激光光学镜片。"],
+            visor_dual: ["猎手双瞳", "黑夜中闪烁凶猛光芒的炽烈双眼。"],
+            visor_x: ["X 字刺客目镜", "交叉斩痕造型的霓虹 X 印记。"],
+            visor_shades: ["赛博潮酷墨镜", "反光金属镜面的高街赛博朋克墨镜。"],
+            visor_robo: ["数字矩阵网格", "四点式战术机械传感器电子屏。"],
+            visor_heart: ["霓虹爱心目镜", "散发甜美荧光粉光的爱心造型面罩。"],
+            visor_sharingan: ["绯红秘瞳", "令人目眩神迷的绯红环纹魔瞳。"],
+            visor_flame: ["烈焰双眸", "从面甲中喷涌而出的怒火尾焰轨迹。"],
+            visor_void: ["三重虚空凝视", "在额间开启第三只眼的暗黑能量凝视。"],
+            aura_none: ["无光环", "清爽利落的纯正外观，无额外粒子。"],
+            aura_stars: ["星尘流光", "围绕英雄优雅旋转的金色星芒晶体。"],
+            aura_sakura: ["樱花飞舞风暴", "周身萦绕飘落的浪漫粉色樱花瓣。"],
+            aura_dark: ["暗夜幽影迷雾", "自脚下袅袅升腾的神秘紫黑暗影烟雾。"],
+            aura_emerald: ["远古翡翠之雨", "在角色四周轻盈浮动的迷你翡翠晶石。"],
+            aura_fire: ["超级烈焰光环", "熊熊席卷全身、节节攀升的等离子火浪！"],
+            aura_lightning: ["雷霆特斯拉力场", "围绕战甲噼啪作响的高压闪电电弧！"],
+            aura_souls: ["神秘灵珠环绕", "沿轨道环绕守护你的 3 颗幽灵能量球。"],
+            aura_cyber: ["全息赛博双环", "上下扫描英雄身体的双层霓虹全息圆环。"],
+            aura_rainbow: ["宇宙彩虹光环", "流光溢彩、三棱镜实时变色的能量光环！"],
+            cape_pink: ["霓虹粉披风", "经典高对比度亮眼霓虹粉色披风。"],
+            cape_gold: ["黄金烈焰披风", "流金溢彩的皇室荣耀金黄色披风。"],
+            cape_emerald: ["翡翠碧绿披风", "散发自然荧光的生机翡翠绿披风。"],
+            cape_cyan: ["冰霜青蓝披风", "凛冽冷酷的等离子冰青色披风。"],
+            cape_purple: ["紫罗兰风暴披风", "蕴含暗影风暴之力的深紫色披风。"],
+            cape_orange: ["火山熔岩披风", "炽热滚烫的熔岩亮橙色披风。"],
+            cape_crimson: ["猩红鲜血披风", "高贵铁血骑士专属深红战袍披风。"],
+            cape_white: ["圣光纯白披风", "在漆黑洞窟中依然皎洁发光的纯白披风。"],
+            cape_toxic: ["霓虹酸液披风", "醒目亮眼的青柠荧光绿赛博披风。"],
+            cape_rainbow: ["虹彩光谱披风", "随风飘扬实时变幻七彩颜色的传说 RGB 披风！"]
+        },
+        it: {
+            helmet_crest: ["Cimiero del Cavaliere", "Elmo aerodinamico classico da cavaliere cyber."],
+            helmet_horns: ["Corna da Samurai", "Corna neon ricurve per guerrieri dell'ombra."],
+            helmet_viking: ["Corna Vichinghe del Nord", "Grandi corna da battaglia nordiche in osso."],
+            helmet_ronin: ["Cappello Ronin d'Ombra", "Ampio cappello neon in bambù da assassino."],
+            helmet_wolf: ["Elmo Cyber Lupo", "Elmo meccanico da lupo alfa dalle orecchie aguzze."],
+            helmet_spartan: ["Cresta Comandante Spartano", "Folto cimiero cremisi da gladiatore antico."],
+            helmet_antennas: ["Antenne Cyber Mecha", "Doppie antenne mecha con sfere energetiche."],
+            helmet_crown: ["Corona Imperiale", "Corona reale luminosa in oro puro e rubini."],
+            helmet_wizard: ["Cappello Mago Oscuro", "Cappello mistico da stregone con fibbia d'oro."],
+            helmet_skull: ["Maschera Teschio Fantasma", "Elmo d'ossa terrificante da cavaliere della morte."],
+            helmet_halo: ["Aureola Cyber Arcangelo", "Anello di energia sacra fluttuante sopra l'elmo."],
+            helmet_flames: ["Corona Fuoco Infernale", "Fiamme al plasma viventi che avvolgono il capo!"],
+            gear_katana: ["Katana al Plasma", "Lama energetica affilata portata sulla schiena."],
+            gear_dual: ["Doppie Daghe Laser", "Lame gemelle incrociate da assassino."],
+            gear_bow: ["Arco Neon del Cacciatore", "Arco cyber con corda energetica."],
+            gear_axe: ["Ascia da Guerra Gigante", "Ascia bipenne da boia che frantuma le armature."],
+            gear_greatsword: ["Spadone del Titano", "Colossale spadone da cavaliere inciso con rune."],
+            gear_scythe: ["Falce del Mietitore", "Enorme falce a mezzaluna che irradia energia oscura."],
+            gear_shuriken: ["Shuriken Gigante Rotante", "Stella ninja gigante rotante a energia continua!"],
+            gear_jetpack: ["Jetpack a Doppia Turbina", "Zaino a razzo con propulsori al plasma blu-arancio!"],
+            gear_spider: ["Braccia Meccaniche Ragno", "4 zampe biomeccaniche articolate sulla schiena!"],
+            gear_wings: ["Ali Cyber Energetiche", "Ali al plasma che sbattono in corsa e salto."],
+            gear_dragon: ["Ali Drago Cremisi", "Enormi ali di drago oscuro dotate di artigli."],
+            gear_angel: ["Sacre Ali d'Arcangelo", "Maestose ali in oro e piume bianco candido."],
+            skin_cyan: ["Blu Ombra", "Classica armatura blu neon da cavaliere delle caverne."],
+            skin_crimson: ["Barone Cremisi", "Corazza neon cremisi con piastre rubino scuro."],
+            skin_emerald: ["Assassino Smeraldo", "Armatura del guardiano della foresta color smeraldo."],
+            skin_arctic: ["Cavaliere Glaciale", "Armatura cristallina bianco puro e blu ghiaccio."],
+            skin_toxic: ["Bio-Armatura Radioattiva", "Armatura cyber-simbionte verde acido fosforescente."],
+            skin_sakura: ["Samurai Sakura", "Armatura da samurai rosa ciliegio e bordeaux."],
+            skin_stealth: ["Fantasma Notturno (Furtivo)", "Corazza nera carbonio opaco e argento tattico."],
+            skin_violet: ["Guardiano del Vuoto", "Armatura viola intenso ad alta energia neon."],
+            skin_magma: ["Titano di Magma", "Armatura in lava fusa arancione e roccia vulcanica."],
+            skin_galaxy: ["Galassia Cosmica", "Armatura indaco spaziale e polvere di stelle rosa."],
+            skin_gold: ["Sovrano d'Oro", "Leggendaria armatura imperiale placcata oro 24k."],
+            skin_rainbow: ["Arcobaleno RGB (Colore Vivo)", "Armatura leggendaria RGB che cambia colore ogni secondo!"],
+            visor_slit: ["Visiera Classica Cavaliere", "Fessura laser orizzontale dal taglio netto."],
+            visor_cyclops: ["Lente Laser Ciclope", "Singolo obiettivo luminoso centrale di puntamento."],
+            visor_dual: ["Doppi Occhi da Cacciatore", "Fieri occhi gemelli che brillano nell'oscurità."],
+            visor_x: ["Visiera X-Assassino", "Segno X al neon incrociato stile killer."],
+            visor_shades: ["Occhiali Cyber", "Eleganti occhiali cyberpunk a specchio riflettente."],
+            visor_robo: ["Griglia Matrix Digitale", "Display tattico robotico a 4 sensori luminosi."],
+            visor_heart: ["Visiera Cuore Neon", "Visiera luminosa rosa a forma di cuore."],
+            visor_sharingan: ["Occhio Mistico Cremisi", "Occhio ipnotico con anello cremisi scarlatto."],
+            visor_flame: ["Occhi Ardenti", "Scie di fuoco furioso che erompono dalla visiera."],
+            visor_void: ["Triplo Sguardo del Vuoto", "Energie oscure che aprono un terzo occhio sulla fronte."],
+            aura_none: ["Nessuna Aura", "Aspetto pulito e lineare senza particelle extra."],
+            aura_stars: ["Scintilla Polvere di Stelle", "Cristalli stellari dorati in orbita attorno all'eroe."],
+            aura_sakura: ["Tempesta Petali di Sakura", "Vortice di petali rosa di ciliegio giapponese."],
+            aura_dark: ["Nebbia d'Ombra Oscura", "Misteriosa foschia nero-viola che sale dai piedi."],
+            aura_emerald: ["Pioggia Smeraldi Antichi", "Piccoli smeraldi luminosi fluttuanti attorno all'eroe."],
+            aura_fire: ["Aura Super Fiamma", "Fiamme al plasma che avvolgono interamente l'eroe!"],
+            aura_lightning: ["Campo Fulmini & Tesla", "Scariche elettriche ad alta tensione attorno all'armatura!"],
+            aura_souls: ["Sfere Mistiche delle Anime", "3 sfere spirituali protettive in orbita costante."],
+            aura_cyber: ["Anelli Ologramma Cyber", "Doppi anelli neon che scansionano il cavaliere."],
+            aura_rainbow: ["Aura Arcobaleno Cosmica", "Triplo anello prismatico cangiante di energia!"],
+            cape_pink: ["Mantello Rosa Neon", "Classico mantello rosa ad alto contrasto."],
+            cape_gold: ["Mantello Fiamma d'Oro", "Splendente mantello reale color oro puro."],
+            cape_emerald: ["Mantello Verde Smeraldo", "Mantello smeraldo bioluminescente."],
+            cape_cyan: ["Mantello Ciano Ghiaccio", "Mantello azzurro plasma glaciale."],
+            cape_purple: ["Mantello Tempesta Viola", "Mantello viola intriso di energia oscura."],
+            cape_orange: ["Mantello Arancio Vulcanico", "Mantello color lava incandescente."],
+            cape_crimson: ["Mantello Rosso Sangue", "Nobile mantello cremisi da cavaliere."],
+            cape_white: ["Mantello Luce Bianco Puro", "Mantello candido che risplende nel buio."],
+            cape_toxic: ["Mantello Acido Neon", "Mantello cyber verde lime brillante."],
+            cape_rainbow: ["Mantello Spettro Arcobaleno", "Mantello RGB leggendario cangiante ad ogni onda!"]
+        },
+        es: {
+            helmet_crest: ["Cresta de Caballero", "Yelmo aerodinámico clásico de caballero cíber."],
+            helmet_horns: ["Cuernos de Samurái", "Cuernos de neón curvos para guerreros sombríos."],
+            helmet_viking: ["Cuernos Vikingos Nórdicos", "Amplios cuernos de guerra de hueso del Norte."],
+            helmet_ronin: ["Sombrero Ronin Sombrío", "Sombrero ancho de bambú neón de asesino."],
+            helmet_wolf: ["Yelmo Lobo Cíber", "Casco mecánico de lobo alfa con orejas afiladas."],
+            helmet_spartan: ["Cresta Espartana", "Tupido penacho carmesí de gladiador antiguo."],
+            helmet_antennas: ["Antenas Mecha Cíber", "Doble antena mecha con orbes de energía."],
+            helmet_crown: ["Corona Imperial", "Radiante corona real de oro puro y rubíes."],
+            helmet_wizard: ["Sombrero de Mago Oscuro", "Sombrero místico de hechicero con hebilla dorada."],
+            helmet_skull: ["Máscara Calavera Fantasma", "Aterrador yelmo de hueso de caballero mortal."],
+            helmet_halo: ["Halo Arcángel Cíber", "Aro sagrado de energía flotando sobre el casco."],
+            helmet_flames: ["Corona Fuego Infernal", "¡Llamas de plasma vivas rodeando la cabeza!"],
+            gear_katana: ["Katana de Plasma", "Afilada espada energética portada en la espalda."],
+            gear_dual: ["Dagas Láser Dobles", "Cuchillas gemelas cruzadas de asesino."],
+            gear_bow: ["Arco Cazador Neón", "Arco cíber con cuerda de energía pura."],
+            gear_axe: ["Hacha de Batalla Gigante", "Hacha doble de verdugo capaz de partir armaduras."],
+            gear_greatsword: ["Espadón del Titán", "Colosal espadón rúnico de caballero."],
+            gear_scythe: ["Guadaña Segadora", "Gigantesca guadaña creciente de energía oscura."],
+            gear_shuriken: ["Shuriken Gigante Giratorio", "¡Estrella ninja gigante de energía siempre girando!"],
+            gear_jetpack: ["Jetpack Doble Turbina", "¡Mochila cohete que dispara plasma azul y naranja!"],
+            gear_spider: ["Brazos Araña Mecánicos", "¡4 patas biomecánicas articuladas en la espalda!"],
+            gear_wings: ["Alas Cíber de Energía", "Alas de plasma que aletean al correr y saltar."],
+            gear_dragon: ["Alas de Dragón Carmesí", "Enormes alas oscuras de dragón con garras."],
+            gear_angel: ["Alas Sagradas de Arcángel", "Gloriosas alas de oro y plumas blanco puro."],
+            skin_cyan: ["Azul Sombrío", "Clásica armadura neón azul de caballero cavernícola."],
+            skin_crimson: ["Barón Carmesí", "Placas carmesí neón y rubí oscuro."],
+            skin_emerald: ["Asesino Esmeralda", "Armadura de guardián del bosque con brillo esmeralda."],
+            skin_arctic: ["Caballero Glacial", "Armadura cristalina blanco puro y azul hielo."],
+            skin_toxic: ["Bio-Armadura Radiactiva", "Armadura simbionte cíber verde ácido fosforescente."],
+            skin_sakura: ["Samurái Sakura", "Armadura samurái rosa flor de cerezo y burdeos."],
+            skin_stealth: ["Fantasma Nocturno (Sigilo)", "Armadura negro carbono mate y plata táctica."],
+            skin_violet: ["Guardián del Vacío", "Armadura de energía neón púrpura profunda."],
+            skin_magma: ["Titán de Magma", "Armadura de lava fundida naranja y roca volcánica."],
+            skin_galaxy: ["Galaxia Cósmica", "Armadura índigo espacial con polvo de estrellas rosa."],
+            skin_gold: ["Soberano Dorado", "Legendaria armadura imperial bañada en oro de 24k."],
+            skin_rainbow: ["Arcoíris RGB (Color Vivo)", "¡Armadura legendaria RGB que cambia de color cada segundo!"],
+            visor_slit: ["Visor Clásico de Caballero", "Rendija láser horizontal de corte afilado."],
+            visor_cyclops: ["Lente Láser Cíclope", "Lente única de puntería luminosa al centro."],
+            visor_dual: ["Ojos Gemelos de Cazador", "Fieros ojos que brillan en plena oscuridad."],
+            visor_x: ["Visor X-Asesino", "Marca X de neón cruzada sobre el visor."],
+            visor_shades: ["Gafas Cíber", "Elegantes gafas cyberpunk con reflejo espejo."],
+            visor_robo: ["Rejilla Matrix Digital", "Pantalla táctica robótica de 4 sensores."],
+            visor_heart: ["Visor Corazón Neón", "Luminoso visor rosa en forma de corazón."],
+            visor_sharingan: ["Ojo Místico Carmesí", "Hipnótico ojo de anillo escarlata."],
+            visor_flame: ["Ojos en Llamas", "Fieras estelas de fuego brotando del visor."],
+            visor_void: ["Triple Mirada del Vacío", "Energía oscura que abre un tercer ojo en la frente."],
+            aura_none: ["Sin Aura", "Aspecto limpio sin efectos de partículas extra."],
+            aura_stars: ["Destello Polvo Estelar", "Cristales dorados de estrella orbitando al héroe."],
+            aura_sakura: ["Tormenta de Pétalos Sakura", "Pétalos rosas de cerezo girando alrededor."],
+            aura_dark: ["Niebla Sombría Oscura", "Misterioso humo morado y negro desde los pies."],
+            aura_emerald: ["Lluvia de Esmeraldas Antiguas", "Pequeñas esmeraldas flotando en torno al héroe."],
+            aura_fire: ["Aura Súper Llama", "¡Olas ascendentes de plasma ígneo alrededor del cuerpo!"],
+            aura_lightning: ["Campo Rayos y Tesla", "¡Relámpagos de alto voltaje chispeando en la armadura!"],
+            aura_souls: ["Orbes Místicos de Almas", "3 esferas protectoras espirituales en órbita."],
+            aura_cyber: ["Anillos Holograma Cíber", "Doble anillo neón escaneando al héroe."],
+            aura_rainbow: ["Aura Arcoíris Cósmica", "¡Triple anillo de energía prismática multicolor!"],
+            cape_pink: ["Capa Rosa Neón", "Clásica capa rosa de alto contraste."],
+            cape_gold: ["Capa Llama Dorada", "Reluciente capa real de color oro."],
+            cape_emerald: ["Capa Verde Esmeralda", "Capa verde bioluminiscente esmeralda."],
+            cape_cyan: ["Capa Cian Hielo", "Fría capa azul cian de plasma."],
+            cape_purple: ["Capa Tormenta Púrpura", "Capa violeta cargada de energía oscura."],
+            cape_orange: ["Capa Naranja Volcánica", "Capa ardiente naranja lava."],
+            cape_crimson: ["Capa Carmesí Sangre", "Noble capa carmesí de caballero."],
+            cape_white: ["Capa Luz Blanco Puro", "Capa nívea radiante que brilla en la oscuridad."],
+            cape_toxic: ["Capa Ácido Neón", "Brillante capa cíber verde lima."],
+            cape_rainbow: ["Capa Espectro Arcoíris", "¡Legendaria capa RGB que cambia de color al ondear!"]
+        },
+        fr: {
+            helmet_crest: ["Crête de Chevalier", "Casque aérodynamique classique de chevalier cyber."],
+            helmet_horns: ["Cornes de Samouraï", "Cornes néon courbées pour guerriers de l'ombre."],
+            helmet_viking: ["Cornes Viking du Nord", "Larges cornes de bataille en os du Grand Nord."],
+            helmet_ronin: ["Chapeau Ronin de l'Ombre", "Large chapeau d'assassin en bambou néon."],
+            helmet_wolf: ["Heaume Cyber Loup", "Casque mécanique de loup alpha aux oreilles pointues."],
+            helmet_spartan: ["Cimier Commandant Spartiate", "Épais panache pourpre de gladiateur antique."],
+            helmet_antennas: ["Antennes Cyber Mecha", "Doubles antennes mecha à sphères lumineuses."],
+            helmet_crown: ["Couronne Impériale", "Couronne royale étincelante d'or pur et de rubis."],
+            helmet_wizard: ["Chapeau Mage Noir", "Chapeau mystique de sorcier à boucle d'or."],
+            helmet_skull: ["Masque Crâne Fantôme", "Heaume macabre en os de chevalier de la mort."],
+            helmet_halo: ["Halo Archange Cyber", "Anneau d'énergie sacrée flottant au-dessus du casque."],
+            helmet_flames: ["Couronne Flammes Infernales", "Flammes de plasma vivantes enveloppant la tête !"],
+            gear_katana: ["Katana Plasma", "Lame énergétique acérée portée dans le dos."],
+            gear_dual: ["Doubles Dagues Laser", "Lames jumelles d'assassin croisées dans le dos."],
+            gear_bow: ["Arc Chasseur Néon", "Arc cyber d'archer à corde énergétique."],
+            gear_axe: ["Hache de Guerre Géante", "Double hache de bourreau brisant les armures."],
+            gear_greatsword: ["Espadon du Titan", "Colossal espadon runique de chevalier."],
+            gear_scythe: ["Faux de la Faucheuse", "Immense faux en croissant rayonnant d'énergie noire."],
+            gear_shuriken: ["Shuriken Géant Rotatif", "Étoile ninja géante tournoyant sans arrêt dans le dos !"],
+            gear_jetpack: ["Jetpack Double Turbine", "Réacteur dorsal crachant du plasma bleu et orange !"],
+            gear_spider: ["Bras Araignée Mécaniques", "4 pattes biomécaniques articulées dans le dos !"],
+            gear_wings: ["Ailes Énergétiques Cyber", "Ailes plasma qui battent en courant et sautant."],
+            gear_dragon: ["Ailes de Dragon Pourpre", "Immenses ailes griffues de dragon des ténèbres."],
+            gear_angel: ["Ailes Sacrées d'Archange", "Ailes majestueuses d'or et de plumes d'un blanc pur."],
+            skin_cyan: ["Bleu d'Ombre", "Armure classique bleu néon de chevalier des cavernes."],
+            skin_crimson: ["Baron Cramoisi", "Blindage néon cramoisi et rubis sombre."],
+            skin_emerald: ["Assassin Émeraude", "Armure de gardien sylvestre à lueur émeraude."],
+            skin_arctic: ["Chevalier Glacial", "Armure cristalline blanc pur et bleu glacier."],
+            skin_toxic: ["Bio-Armure Radioactive", "Armure symbiote cyber vert acide phosphorescent."],
+            skin_sakura: ["Samouraï Sakura", "Armure samouraï rose fleur de cerisier et bordeaux."],
+            skin_stealth: ["Fantôme Nocturne (Furtif)", "Armure noir carbone mat et argent d'opération secrète."],
+            skin_violet: ["Gardien du Néant", "Armure d'énergie néon violet profond."],
+            skin_magma: ["Titan de Magma", "Armure de lave en fusion et roche volcanique."],
+            skin_galaxy: ["Galaxie Cosmique", "Armure indigo stellaire et poussière d'étoiles rose."],
+            skin_gold: ["Souverain d'Or", "Légendaire armure impériale plaquée or 24 carats."],
+            skin_rainbow: ["Arc-en-ciel RGB (Couleur Vive)", "Armure RGB légendaire changeant de teinte chaque seconde !"],
+            visor_slit: ["Visière Classique Chevalier", "Fente laser horizontale acérée."],
+            visor_cyclops: ["Lentille Laser Cyclope", "Viseur optique unique luisant au centre."],
+            visor_dual: ["Doubles Yeux de Chasseur", "Regards féroces brillant dans les ténèbres."],
+            visor_x: ["Visière X-Assassin", "Marque X croisée en néon vif."],
+            visor_shades: ["Lunettes Cyber", "Lunettes cyberpunk élégantes à verres miroir."],
+            visor_robo: ["Grille Matrix Numérique", "Écran tactile robotique à 4 capteurs."],
+            visor_heart: ["Visière Cœur Néon", "Visière rose éclatante en forme de cœur."],
+            visor_sharingan: ["Œil Mystique Cramoisi", "Regard hypnotique cerclé de rouge carmin."],
+            visor_flame: ["Yeux Embrasés", "Traînées de feu furieuses jaillissant du masque."],
+            visor_void: ["Triple Regard du Néant", "Énergie sombre ouvrant un troisième œil sur le front."],
+            aura_none: ["Aucune Aura", "Aspect épuré sans particules supplémentaires."],
+            aura_stars: ["Éclat Poussière d'Étoiles", "Cristaux d'étoiles dorées orbitant autour du héros."],
+            aura_sakura: ["Tempête Pétales de Sakura", "Tourbillon de pétales roses de cerisier."],
+            aura_dark: ["Brume d'Ombre Sombre", "Fumée mystérieuse noir et violet montant du sol."],
+            aura_emerald: ["Pluie d'Émeraudes Antiques", "Petites émeraudes flottant autour du chevalier."],
+            aura_fire: ["Aura Super Flammes", "Vagues montantes de feu plasma enveloppant le héros !"],
+            aura_lightning: ["Champ Éclairs & Tesla", "Arcs électriques haute tension crépitant autour de vous !"],
+            aura_souls: ["Orbes Mystiques d'Âmes", "3 sphères spirituelles protectrices en orbite."],
+            aura_cyber: ["Anneaux Hologramme Cyber", "Double anneau néon scannant le chevalier."],
+            aura_rainbow: ["Aura Arc-en-ciel Cosmique", "Triple anneau prismatique changeant de couleur !"],
+            cape_pink: ["Cape Rose Néon", "Classique cape rose haute visibilité."],
+            cape_gold: ["Cape Flamme d'Or", "Resplendissante cape royale couleur or."],
+            cape_emerald: ["Cape Vert Émeraude", "Cape bioluminescente vert émeraude."],
+            cape_cyan: ["Cape Cyan Glacier", "Cape froide bleu cyan plasma."],
+            cape_purple: ["Cape Tempête Violette", "Cape violette imprégnée d'énergie sombre."],
+            cape_orange: ["Cape Orange Volcanique", "Cape ardente couleur lave en fusion."],
+            cape_crimson: ["Cape Rouge Sang", "Noble cape carmin de chevalier."],
+            cape_white: ["Cape Lumière Blanc Pur", "Cape neigeuse rayonnante dans l'obscurité."],
+            cape_toxic: ["Cape Acide Néon", "Cape cyber vert citron éclatant."],
+            cape_rainbow: ["Cape Spectre Arc-en-ciel", "Légendaire cape RGB aux reflets multicolores animés !"]
+        }
+    };
+
     window.getLocalizedCustomizeItem = function (item, lang) {
         if (!item || lang === "tr") return item;
         const vipPair = VIP_CUST_I18N[lang] && VIP_CUST_I18N[lang][item.id];
-        const pair = vipPair || CUST_ITEM_EN[item.id];
+        const custPair = CUST_ITEM_I18N[lang] && CUST_ITEM_I18N[lang][item.id];
+        const pair = vipPair || custPair || CUST_ITEM_EN[item.id];
         if (!pair) return item;
         return {
             ...item,
@@ -2342,62 +2914,234 @@
         };
     };
 
+    const PERK_TEMPLATES = {
+        en: {
+            defaultGear: "⚡ Standard Cyber Gear",
+            helmet: "🛡️ Armor Protection: +{inv} Invuln Frames & +{spd}% Speed",
+            wings: "🪽 Mid-Air Glide & +{jmp}% Jump Power",
+            weapon: "⚔️ Attack Speed: -{cd}% Fire Cooldown & +{sc}% Score",
+            skinLegend: "❤️ Legendary Armor: +1 Max Heart (♥) & +{inv} Protection",
+            skinStd: "🛡️ Cyber Plating: +{inv} Protection & +{sc}% Score",
+            visor: "👁️ Targeting Visor: +{mag}px Magnet Range & +{coin}% Coin Chance",
+            auraNone: "⭕ Clean Look (No Extra Aura)",
+            auraActive: "✨ Energy Aura: +{sc}% Score Multiplier & +{mag}px Magnet",
+            cape: "🧣 Aerodynamic Cape: +{air}% Air Control & +{jmp}% Jump"
+        },
+        ru: {
+            defaultGear: "⚡ Стандартное Кибер-Снаряжение",
+            helmet: "🛡️ Броня и Защита: +{inv} кадров защиты и +{spd}% к скорости",
+            wings: "🪽 Планирование в воздухе и +{jmp}% к высоте прыжка",
+            weapon: "⚔️ Скорость Атаки: -{cd}% к откату огня и +{sc}% к счёту",
+            skinLegend: "❤️ Легендарная Броня: +1 Макс. Жизнь (♥) и +{inv} к защите",
+            skinStd: "🛡️ Кибер-Покрытие: +{inv} к защите и +{sc}% к счёту",
+            visor: "👁️ Визор Наведения: +{mag}px радиус магнита и +{coin}% шанс монет",
+            auraNone: "⭕ Чистый Вид (Без дополнительной ауры)",
+            auraActive: "✨ Энерго-Аура: +{sc}% множитель счёта и +{mag}px магнит",
+            cape: "🧣 Аэро-Плащ: +{air}% контроль в воздухе и +{jmp}% прыжок"
+        },
+        ko: {
+            defaultGear: "⚡ 기본 사이버 장비",
+            helmet: "🛡️ 방어구 보호: 피격 무적 +{inv}프레임 & 속도 +{spd}%",
+            wings: "🪽 공중 활강 & 점프력 +{jmp}% 상승",
+            weapon: "⚔️ 공격 속도: 화염구 대기시간 -{cd}% & 점수 +{sc}%",
+            skinLegend: "❤️ 전설 갑옷: 최대 하트 +1 (♥) & +{inv}프레임 보호",
+            skinStd: "🛡️ 사이버 장갑: +{inv}프레임 보호 & 점수 +{sc}%",
+            visor: "👁️ 조준 바이저: 자석 범위 +{mag}px & 코인 확률 +{coin}%",
+            auraNone: "⭕ 깔끔한 외형 (추가 오라 없음)",
+            auraActive: "✨ 에너지 오라: 점수 배율 +{sc}% & 자석 범위 +{mag}px",
+            cape: "🧣 에어로 망토: 공중 제어 +{air}% & 점프 +{jmp}%"
+        },
+        ja: {
+            defaultGear: "⚡ 標準サイバー装備",
+            helmet: "🛡️ 装甲保護: 無敵+{inv}フレーム＆移動速度+{spd}%",
+            wings: "🪽 空中滑空＆ジャンプ力+{jmp}%アップ",
+            weapon: "⚔️ 攻撃速度: 火炎弾待機-{cd}%＆スコア+{sc}%",
+            skinLegend: "❤️ 伝説の鎧: 最大ハート+1 (♥)＆無敵+{inv}F",
+            skinStd: "🛡️ 電脳装甲板: +{inv}F防護＆スコア+{sc}%",
+            visor: "👁️ 照準バイザー: 磁石範囲+{mag}px＆コイン率+{coin}%",
+            auraNone: "⭕ シンプル外観（追加オーラなし）",
+            auraActive: "✨ エネルギーオーラ: スコア倍率+{sc}%＆磁石+{mag}px",
+            cape: "🧣 空力マント: 空中制御+{air}%＆ジャンプ+{jmp}%"
+        },
+        zh: {
+            defaultGear: "⚡ 标准赛博装备",
+            helmet: "🛡️ 护甲保护: 无敌 +{inv} 帧 & 移速 +{spd}%",
+            wings: "🪽 空中滑翔 & 跳跃高度 +{jmp}%",
+            weapon: "⚔️ 攻击速度: 火球冷却 -{cd}% & 得分 +{sc}%",
+            skinLegend: "❤️ 传奇神甲: 最大生命 +1 (♥) & 无敌 +{inv} 帧",
+            skinStd: "🛡️ 赛博镀层: +{inv} 帧防护 & 得分 +{sc}%",
+            visor: "👁️ 瞄准面罩: 磁铁范围 +{mag}px & 金币概率 +{coin}%",
+            auraNone: "⭕ 纯净外观（无额外光环）",
+            auraActive: "✨ 能量光环: 得分倍率 +{sc}% & 磁铁范围 +{mag}px",
+            cape: "🧣 气动披风: 空中操控 +{air}% & 跳跃 +{jmp}%"
+        },
+        it: {
+            defaultGear: "⚡ Equipaggiamento Cyber Standard",
+            helmet: "🛡️ Protezione Corazza: +{inv} Frame Invuln. & +{spd}% Velocità",
+            wings: "🪽 Planata in Volo & +{jmp}% Potenza di Salto",
+            weapon: "⚔️ Velocità Attacco: -{cd}% Ricarica Fuoco & +{sc}% Punti",
+            skinLegend: "❤️ Corazza Leggendaria: +1 Cuore Max (♥) & +{inv} Protezione",
+            skinStd: "🛡️ Rivestimento Cyber: +{inv} Protezione & +{sc}% Punti",
+            visor: "👁️ Visore di Puntamento: +{mag}px Magnete & +{coin}% Chance Monete",
+            auraNone: "⭕ Aspetto Pulito (Nessuna Aura Extra)",
+            auraActive: "✨ Aura Energetica: +{sc}% Moltiplicatore & +{mag}px Magnete",
+            cape: "🧣 Mantello Aerodinamico: +{air}% Controllo Aereo & +{jmp}% Salto"
+        },
+        es: {
+            defaultGear: "⚡ Equipo Cíber Estándar",
+            helmet: "🛡️ Protección Blindada: +{inv} Marcos Inmunes y +{spd}% Velocidad",
+            wings: "🪽 Planeo Aéreo y +{jmp}% Potencia de Salto",
+            weapon: "⚔️ Velocidad Ataque: -{cd}% Recarga Fuego y +{sc}% Puntos",
+            skinLegend: "❤️ Armadura Legendaria: +1 Corazón Máx (♥) y +{inv} Protección",
+            skinStd: "🛡️ Blindaje Cíber: +{inv} Protección y +{sc}% Puntos",
+            visor: "👁️ Visor de Puntería: +{mag}px Imán y +{coin}% Suerte Monedas",
+            auraNone: "⭕ Aspecto Limpio (Sin Aura Extra)",
+            auraActive: "✨ Aura de Energía: +{sc}% Puntuación y +{mag}px Imán",
+            cape: "🧣 Capa Aerodinámica: +{air}% Control Aéreo y +{jmp}% Salto"
+        },
+        fr: {
+            defaultGear: "⚡ Équipement Cyber Standard",
+            helmet: "🛡️ Protection Blindée : +{inv} Frames & +{spd}% Vitesse",
+            wings: "🪽 Vol Plané & +{jmp}% Puissance de Saut",
+            weapon: "⚔️ Vitesse d'Attaque : -{cd}% Recharge Feu & +{sc}% Score",
+            skinLegend: "❤️ Armure Légendaire : +1 Cœur Max (♥) & +{inv} Protection",
+            skinStd: "🛡️ Blindage Cyber : +{inv} Protection & +{sc}% Score",
+            visor: "👁️ Visière de Ciblage : +{mag}px Aimant & +{coin}% Chance Pièces",
+            auraNone: "⭕ Look Épuré (Aucune Aura)",
+            auraActive: "✨ Aura d'Énergie : +{sc}% Score & +{mag}px Aimant",
+            cape: "🧣 Cape Aérodynamique : +{air}% Contrôle Aérien & +{jmp}% Saut"
+        }
+    };
+
     window.getLocalizedPerkDesc = function (item, perkObj, lang) {
         if (!perkObj || lang === "tr") return perkObj ? perkObj.desc : "";
-        if (!item) return "⚡ Standard Cyber Gear";
+        const pt = PERK_TEMPLATES[lang] || PERK_TEMPLATES.en;
+        if (!item) return pt.defaultGear;
         const tier = item.vipOnly ? 6 : Math.max(1, Number(item.cost) || 1);
         if (item.category === "helmet") {
             const inv = 6 + tier * 3;
             const spd = Math.round((0.08 + tier * 0.03) * 18);
-            return `🛡️ Armor Protection: +${inv} Invuln Frames & +${spd}% Speed`;
+            return formatTemplate(pt.helmet, { inv, spd });
         }
         if (item.category === "backGear") {
             const isWingOrJet = ["jetpack", "wings", "dragon_wings", "angel_wings", "vip_phoenix_wings"].includes(item.value);
             if (isWingOrJet) {
-                return `🪽 Mid-Air Glide & +${4 + tier}% Jump Power`;
+                return formatTemplate(pt.wings, { jmp: 4 + tier });
             }
             const cdRed = Math.min(6, 1 + Math.floor(tier * 0.8));
-            return `⚔️ Attack Speed: -${cdRed * 4}% Fire Cooldown & +${tier * 5}% Score`;
+            return formatTemplate(pt.weapon, { cd: cdRed * 4, sc: tier * 5 });
         }
         if (item.category === "skin") {
             const extraHp = tier >= 5 ? 1 : 0;
             const inv = 8 + tier * 3;
             return extraHp > 0
-                ? `❤️ Legendary Armor: +1 Max Heart (♥) & +${inv} Protection`
-                : `🛡️ Cyber Plating: +${inv} Protection & +${tier * 4}% Score`;
+                ? formatTemplate(pt.skinLegend, { inv })
+                : formatTemplate(pt.skinStd, { inv, sc: tier * 4 });
         }
         if (item.category === "visor") {
-            const magBonus = 20 + tier * 12;
-            return `👁️ Targeting Visor: +${magBonus}px Magnet Range & +${tier * 6}% Coin Chance`;
+            const mag = 20 + tier * 12;
+            return formatTemplate(pt.visor, { mag, coin: tier * 6 });
         }
         if (item.category === "aura") {
-            if (item.cost === 0 && !item.vipOnly) return "⭕ Clean Look (No Extra Aura)";
-            const scMult = Math.round(tier * 6);
-            return `✨ Energy Aura: +${scMult}% Score Multiplier & +${tier * 12}px Magnet`;
+            if (item.cost === 0 && !item.vipOnly) return pt.auraNone;
+            const sc = Math.round(tier * 6);
+            return formatTemplate(pt.auraActive, { sc, mag: tier * 12 });
         }
         if (item.category === "cape") {
-            const airBonus = Math.round((0.12 + tier * 0.04) * 100);
+            const air = Math.round((0.12 + tier * 0.04) * 100);
             const jmp = Math.round((0.02 + tier * 0.008) * 100);
-            return `🧣 Aerodynamic Cape: +${airBonus}% Air Control & +${jmp}% Jump`;
+            return formatTemplate(pt.cape, { air, jmp });
         }
         return perkObj.desc;
     };
 
-    const AVATAR_TITLES_EN = {
-        av_1: "Shadow Ninja", av_2: "Cyber Knight", av_3: "Crimson Samurai", av_4: "Alpha Cyber Wolf",
-        av_5: "Golden Emperor", av_6: "Emerald Dragon", av_7: "Void Mage", av_8: "Phantom Skull",
-        av_9: "Mecha Commander", av_10: "Hellfire Knight", av_11: "Glacial Guardian", av_12: "Lightning Lord",
-        av_13: "Storm Eagle", av_14: "Lionheart", av_15: "White Tiger", av_16: "Night Fox",
-        av_17: "Cyber Spider", av_18: "Neon Scorpion", av_19: "Night Hunter", av_20: "Deep Shark",
-        av_21: "Mystic Owl", av_22: "Venom Cobra", av_23: "Cosmic Legend", av_24: "Galaxy Explorer",
-        av_25: "Dark Count", av_26: "Aether Spirit", av_27: "Space Pirate", av_28: "Titan Guardian",
-        av_29: "Crystal King", av_30: "RGB Legend"
+    const AVATAR_TITLES_I18N = {
+        en: {
+            av_1: "Shadow Ninja", av_2: "Cyber Knight", av_3: "Crimson Samurai", av_4: "Alpha Cyber Wolf",
+            av_5: "Golden Emperor", av_6: "Emerald Dragon", av_7: "Void Mage", av_8: "Phantom Skull",
+            av_9: "Mecha Commander", av_10: "Hellfire Knight", av_11: "Glacial Guardian", av_12: "Lightning Lord",
+            av_13: "Storm Eagle", av_14: "Lionheart", av_15: "White Tiger", av_16: "Night Fox",
+            av_17: "Cyber Spider", av_18: "Neon Scorpion", av_19: "Night Hunter", av_20: "Deep Shark",
+            av_21: "Mystic Owl", av_22: "Venom Cobra", av_23: "Cosmic Legend", av_24: "Galaxy Explorer",
+            av_25: "Dark Count", av_26: "Aether Spirit", av_27: "Space Pirate", av_28: "Titan Guardian",
+            av_29: "Crystal King", av_30: "RGB Legend"
+        },
+        ru: {
+            av_1: "Ниндзя Тени", av_2: "Кибер-Рыцарь", av_3: "Алый Самурай", av_4: "Альфа Кибер-Волк",
+            av_5: "Золотой Император", av_6: "Изумрудный Дракон", av_7: "Маг Пустоты", av_8: "Призрачный Череп",
+            av_9: "Меха Командир", av_10: "Рыцарь Адского Пламени", av_11: "Ледниковый Страж", av_12: "Лорд Молний",
+            av_13: "Буревестный Орёл", av_14: "Львиное Сердце", av_15: "Белый Тигр", av_16: "Ночная Лиса",
+            av_17: "Кибер-Паук", av_18: "Неоновый Скорпион", av_19: "Ночной Охотник", av_20: "Глубинная Акула",
+            av_21: "Мистическая Сова", av_22: "Ядовитая Кобра", av_23: "Космическая Легенда", av_24: "Исследователь Галактики",
+            av_25: "Тёмный Граф", av_26: "Дух Эфира", av_27: "Космический Пират", av_28: "Страж Титан",
+            av_29: "Король Кристаллов", av_30: "RGB Легенда"
+        },
+        ko: {
+            av_1: "그림자 닌자", av_2: "사이버 기사", av_3: "진홍 사무라이", av_4: "알파 사이버 늑대",
+            av_5: "황금 황제", av_6: "에메랄드 드래곤", av_7: "공허의 마법사", av_8: "유령 해골",
+            av_9: "메카 사령관", av_10: "지옥불 기사", av_11: "빙하 수호자", av_12: "번개 군주",
+            av_13: "폭풍 독수리", av_14: "사자심장", av_15: "백호", av_16: "밤의 여우",
+            av_17: "사이버 거미", av_18: "네온 전갈", av_19: "밤의 사냥꾼", av_20: "심해 상어",
+            av_21: "신비의 부엉이", av_22: "독사 코브라", av_23: "우주 전설", av_24: "은하 탐험가",
+            av_25: "어둠의 백작", av_26: "에테르 정령", av_27: "우주 해적", av_28: "타이탄 수호자",
+            av_29: "크리스탈 왕", av_30: "RGB 전설"
+        },
+        ja: {
+            av_1: "影の忍者", av_2: "サイバー騎士", av_3: "紅の侍", av_4: "アルファ電脳狼",
+            av_5: "黄金皇帝", av_6: "翠玉の龍", av_7: "虚無の魔導士", av_8: "幽霊骸骨",
+            av_9: "メカ司令官", av_10: "獄炎騎士", av_11: "氷河の守護者", av_12: "雷鳴の王",
+            av_13: "嵐の大鷲", av_14: "獅子心", av_15: "白虎", av_16: "夜狐",
+            av_17: "電脳蜘蛛", av_18: "ネオン蠍", av_19: "夜の狩人", av_20: "深海鮫",
+            av_21: "神秘の梟", av_22: "猛毒コブラ", av_23: "宇宙の伝説", av_24: "銀河探検家",
+            av_25: "闇の伯爵", av_26: "エーテル精霊", av_27: "宇宙海賊", av_28: "タイタン守護者",
+            av_29: "水晶王", av_30: "RGB伝説"
+        },
+        zh: {
+            av_1: "暗影忍者", av_2: "赛博骑士", av_3: "绯红武士", av_4: "阿尔法狼王",
+            av_5: "黄金皇帝", av_6: "翡翠巨龙", av_7: "虚空法师", av_8: "幽灵骷髅",
+            av_9: "机甲统帅", av_10: "狱火骑士", av_11: "冰川守卫", av_12: "雷霆领主",
+            av_13: "风暴之鹰", av_14: "狮心战魂", av_15: "圣洁白虎", av_16: "暗夜灵狐",
+            av_17: "赛博蜘蛛", av_18: "霓虹天蝎", av_19: "夜行猎手", av_20: "深海狂鲨",
+            av_21: "神秘猫头鹰", av_22: "剧毒眼镜蛇", av_23: "宇宙传奇", av_24: "银河探索者",
+            av_25: "暗夜伯爵", av_26: "以太之灵", av_27: "太空海盗", av_28: "泰坦守护者",
+            av_29: "水晶之王", av_30: "RGB 传奇"
+        },
+        it: {
+            av_1: "Ninja d'Ombra", av_2: "Cavaliere Cyber", av_3: "Samurai Cremisi", av_4: "Lupo Cyber Alfa",
+            av_5: "Imperatore d'Oro", av_6: "Drago di Smeraldo", av_7: "Mago del Vuoto", av_8: "Teschio Fantasma",
+            av_9: "Comandante Mecha", av_10: "Cavaliere Infernale", av_11: "Guardiano Glaciale", av_12: "Signore dei Fulmini",
+            av_13: "Aquila della Tempesta", av_14: "Cuor di Leone", av_15: "Tigre Bianca", av_16: "Volpe Notturna",
+            av_17: "Ragno Cyber", av_18: "Scorpione Neon", av_19: "Cacciatore Notturno", av_20: "Squalo degli Abissi",
+            av_21: "Gufo Mistico", av_22: "Cobra Velenoso", av_23: "Leggenda Cosmica", av_24: "Esploratore Galattico",
+            av_25: "Conte Oscuro", av_26: "Spirito d'Etere", av_27: "Pirata Spaziale", av_28: "Guardiano Titano",
+            av_29: "Re dei Cristalli", av_30: "Leggenda RGB"
+        },
+        es: {
+            av_1: "Ninja Sombrío", av_2: "Caballero Cíber", av_3: "Samurái Carmesí", av_4: "Lobo Cíber Alfa",
+            av_5: "Emperador Dorado", av_6: "Dragón Esmeralda", av_7: "Mago del Vacío", av_8: "Calavera Fantasma",
+            av_9: "Comandante Mecha", av_10: "Caballero Infernal", av_11: "Guardián Glacial", av_12: "Señor del Rayo",
+            av_13: "Águila de Tormenta", av_14: "Corazón de León", av_15: "Tigre Blanco", av_16: "Zorro Nocturno",
+            av_17: "Araña Cíber", av_18: "Escorpión Neón", av_19: "Cazador Nocturno", av_20: "Tiburón Abismal",
+            av_21: "Búho Místico", av_22: "Cobra Venenosa", av_23: "Leyenda Cósmica", av_24: "Explorador Galáctico",
+            av_25: "Conde Oscuro", av_26: "Espíritu de Éter", av_27: "Pirata Espacial", av_28: "Guardián Titán",
+            av_29: "Rey de Cristal", av_30: "Leyenda RGB"
+        },
+        fr: {
+            av_1: "Ninja de l'Ombre", av_2: "Chevalier Cyber", av_3: "Samouraï Pourpre", av_4: "Loup Cyber Alpha",
+            av_5: "Empereur d'Or", av_6: "Dragon Émeraude", av_7: "Mage du Néant", av_8: "Crâne Fantôme",
+            av_9: "Commandant Mecha", av_10: "Chevalier Infernal", av_11: "Gardien Glacial", av_12: "Seigneur Foudre",
+            av_13: "Aigle Tempête", av_14: "Cœur de Lion", av_15: "Tigre Blanc", av_16: "Renard Nocturne",
+            av_17: "Araignée Cyber", av_18: "Scorpion Néon", av_19: "Chasseur Nocturne", av_20: "Requin Abyssal",
+            av_21: "Hibou Mystique", av_22: "Cobra Venimeux", av_23: "Légende Cosmique", av_24: "Explorateur Galactique",
+            av_25: "Comte Sombre", av_26: "Esprit d'Éther", av_27: "Pirate Spatial", av_28: "Gardien Titan",
+            av_29: "Roi des Cristaux", av_30: "Légende RGB"
+        }
     };
 
     window.getLocalizedAvatarTitle = function (av, lang) {
         if (!av) return "";
         if (lang === "tr") return av.title;
-        return AVATAR_TITLES_EN[av.id] || av.title;
+        return (AVATAR_TITLES_I18N[lang] && AVATAR_TITLES_I18N[lang][av.id]) || AVATAR_TITLES_I18N.en[av.id] || av.title;
     };
 
     // Full multi-language level short names (Levels 41..100) and Troll (1..50) for all supported languages
@@ -4292,26 +5036,53 @@ window.MARINEXT_TUTORIAL_DATA = {
             }
         }
 
-        // Ad Consent Rules & GDPR Box
-        if (adConsentScreen) {
-            const boxes = adConsentScreen.querySelectorAll("div > div");
-            boxes.forEach((box) => {
-                if (box.innerHTML && (box.innerHTML.includes("📺") || box.innerHTML.includes("AdMob") || box.innerHTML.includes("3x") || box.innerHTML.includes("2x"))) {
-                    if (box.style && box.style.borderLeft && box.style.borderLeft.includes("ffd166")) {
-                        box.innerHTML = window.translateMarinextGameText("GDPR_UMP_BOX_HTML", lang);
-                    } else if (box.style && box.style.borderRadius === "10px") {
-                        box.innerHTML = window.translateMarinextGameText("AD_RULES_BOX_HTML", lang);
-                    }
-                }
-            });
+        // Ad Consent Rules & GDPR Box (always populate in active language including tr)
+        setHtml("ad-consent-rules-box", window.translateMarinextGameText("AD_RULES_BOX_HTML", lang));
+        setHtml("ad-consent-gdpr-box", window.translateMarinextGameText("GDPR_UMP_BOX_HTML", lang));
+
+        // Privacy Policy Modal (#screen-privacy)
+        const privData = (window.MARINEXT_PRIVACY_SUMMARIES && (window.MARINEXT_PRIVACY_SUMMARIES[lang] || window.MARINEXT_PRIVACY_SUMMARIES.en)) || null;
+        if (privData) {
+            setTxt("privacy-modal-title", privData.title);
+            setHtml("privacy-modal-meta", privData.meta);
+            const privBoxesEl = document.getElementById("privacy-dynamic-content");
+            if (privBoxesEl && Array.isArray(privData.boxes)) {
+                privBoxesEl.innerHTML = privData.boxes.map((b) =>
+                    `<div style="background:${b.bg}; border-left:3px solid ${b.border}; padding:10px 12px; border-radius:8px;">${b.html}</div>`
+                ).join("");
+            }
+            setTxt("privacy-web-label", privData.webLabel);
+            setTxt("privacy-contact-label", privData.contactLabel);
+            setTxt("btn-privacy-open-web", privData.openWebBtn);
+            setTxt("btn-close-privacy", privData.closeBtn);
+        } else {
+            const privScreen = document.getElementById("screen-privacy");
+            if (privScreen) {
+                const openWebLink = privScreen.querySelector("a.secondary-btn");
+                if (openWebLink) openWebLink.textContent = window.translateMarinextGameText("🌐 Web Tarayıcıda Aç", lang);
+                setTxt("btn-close-privacy", window.translateMarinextGameText("OKUDUM VE KAPAT ✓", lang));
+            }
         }
 
-        // Privacy Modal Header & Buttons
-        const privScreen = document.getElementById("screen-privacy");
-        if (privScreen) {
-            const openWebLink = privScreen.querySelector("a.secondary-btn");
-            if (openWebLink) openWebLink.textContent = window.translateMarinextGameText("🌐 Web Tarayıcıda Aç", lang);
-            setTxt("btn-close-privacy", window.translateMarinextGameText("OKUDUM VE KAPAT ✓", lang));
+        // First-Run Consent Modal (#screen-first-consent)
+        const fcData = (window.MARINEXT_FIRST_CONSENT_TEXTS && (window.MARINEXT_FIRST_CONSENT_TEXTS[lang] || window.MARINEXT_FIRST_CONSENT_TEXTS.en)) || null;
+        if (fcData) {
+            setTxt("first-consent-title", fcData.title);
+            setTxt("first-consent-sub", fcData.sub);
+            const fcBody = document.getElementById("first-consent-body");
+            if (fcBody) {
+                fcBody.innerHTML = `
+                    <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(0, 242, 254, 0.3); border-radius: 10px; padding: 12px; font-size: 12.5px;">
+                        <strong style="color: #00f2fe;">${fcData.card1Title}</strong>
+                        <p style="margin: 6px 0 0 0; color: #cbd5e1;">${fcData.card1Text}</p>
+                    </div>
+                    <div style="background: rgba(255, 209, 102, 0.08); border-left: 3px solid #ffd166; padding: 10px 12px; border-radius: 6px; font-size: 12px; color: #cbd5e1;">
+                        ${fcData.card2Text}
+                    </div>
+                `;
+            }
+            setTxt("btn-accept-first-consent", fcData.acceptBtn);
+            setTxt("btn-read-first-privacy", fcData.readBtn);
         }
 
         // Close X Button Tooltips
@@ -4319,6 +5090,245 @@ window.MARINEXT_TUTORIAL_DATA = {
         document.querySelectorAll(".modal-close-x").forEach((btn) => {
             btn.setAttribute("title", closeHint);
         });
+
+        // Localized element tooltips & accessibility labels (Zero Turkish leakage on hover/screen readers)
+        const TOOLTIPS = {
+            tr: {
+                profile: "Profilini Görüntüle ve Düzenle",
+                goldPill: "Tıkla: Karakter Değiştirme Mağazası (Coin ✪)",
+                emPill: "Tıkla: Karakter Kişiselleştirme Stüdyosu (Zümrüt ❖)",
+                crPill: "Tıkla: Güçlendirme Mağazası (Kristal ◆)",
+                heartsPill: "Oyuncu Başlangıç Can Hakkı",
+                vipBtn: "VIP Pass & Reklamsız Deneyim",
+                lbBtn: "Küresel & Play Games Liderlik Tablosu",
+                fbBtn: "Oyun Hakkında Geri Bildirim & Hata Bildirimi Gönder",
+                trollBtn: "Trol Modu (50 Bölüm) - Sinirlenen Adam (😡)",
+                langBtn: "Dil Seçimi",
+                settingsBtn: "Ayarlar Menüsü",
+                muteBtn: "Sesi Aç/Kapat",
+                pauseBtn: "Duraklat",
+                fpsBtn: "120 FPS / 60 FPS / 30 FPS geçiş yap",
+                channelBtn: "Dağıtım Kanalını Değiştir",
+                testAdBtn: "AdMob Test Reklamı Başlat (Ödüllü Video)",
+                avatarEdit: "Profil Fotoğrafını Değiştir",
+                hudScore: "Tıkla: Puan & Liderlik Tablosu (🏆)",
+                tLeft: "Sol", tRight: "Sağ", tFire: "Ateş Topu", tJump: "Zıpla",
+                unlockAll: "Geliştirici Test Butonu"
+            },
+            en: {
+                profile: "View and Edit Profile",
+                goldPill: "Click: Character Studio (Coins ✪)",
+                emPill: "Click: Customization Studio (Emeralds ❖)",
+                crPill: "Click: Upgrade Armory (Crystals ◆)",
+                heartsPill: "Starting Hero Hearts",
+                vipBtn: "VIP Pass & Ad-Free Experience",
+                lbBtn: "Global & Play Games Leaderboard",
+                fbBtn: "Send Feedback & Bug Report",
+                trollBtn: "Troll Mode (50 Levels)",
+                langBtn: "Language Selection",
+                settingsBtn: "Settings Menu",
+                muteBtn: "Mute / Unmute",
+                pauseBtn: "Pause",
+                fpsBtn: "Switch 120 / 60 / 30 FPS",
+                channelBtn: "Switch Release Channel",
+                testAdBtn: "Launch AdMob Test Ad (Rewarded Video)",
+                avatarEdit: "Change Profile Avatar",
+                hudScore: "Click: Score & Leaderboard (🏆)",
+                tLeft: "Left", tRight: "Right", tFire: "Fireball", tJump: "Jump",
+                unlockAll: "Developer Test Button"
+            },
+            ko: {
+                profile: "프로필 보기 및 편집",
+                goldPill: "클릭: 캐릭터 상점 (코인 ✪)",
+                emPill: "클릭: 커스터마이즈 스튜디오 (에메랄드 ❖)",
+                crPill: "클릭: 강화 상점 (크리스탈 ◆)",
+                heartsPill: "기본 시작 하트 수",
+                vipBtn: "VIP 패스 & 광고 제거 혜택",
+                lbBtn: "글로벌 & Play Games 리더보드",
+                fbBtn: "피드백 및 버그 제보 보내기",
+                trollBtn: "트롤 모드 (50 스테이지)",
+                langBtn: "언어 선택",
+                settingsBtn: "설정 메뉴",
+                muteBtn: "소리 켜기/끄기",
+                pauseBtn: "일시정지",
+                fpsBtn: "120 / 60 / 30 FPS 전환",
+                channelBtn: "배포 채널 전환",
+                testAdBtn: "AdMob 테스트 광고 실행",
+                avatarEdit: "프로필 아바타 변경",
+                hudScore: "클릭: 점수 & 리더보드 (🏆)",
+                tLeft: "왼쪽", tRight: "오른쪽", tFire: "화염구", tJump: "점프",
+                unlockAll: "개발자 테스트 버튼"
+            },
+            ja: {
+                profile: "プロフィールの表示・編集",
+                goldPill: "クリック: キャラ変更スタジオ (コイン ✪)",
+                emPill: "クリック: カスタマイズスタジオ (エメラルド ❖)",
+                crPill: "クリック: 強化ショップ (クリスタル ◆)",
+                heartsPill: "初期ライフ数",
+                vipBtn: "VIPパス＆広告非表示体験",
+                lbBtn: "グローバル＆Play Gamesランキング",
+                fbBtn: "フィードバック＆不具合報告",
+                trollBtn: "トロールモード (全50ステージ)",
+                langBtn: "言語選択",
+                settingsBtn: "設定メニュー",
+                muteBtn: "サウンド切替",
+                pauseBtn: "一時停止",
+                fpsBtn: "120 / 60 / 30 FPS 切替",
+                channelBtn: "配信トラック切替",
+                testAdBtn: "AdMob テスト広告を起動",
+                avatarEdit: "アバターを変更",
+                hudScore: "クリック: スコア＆ランキング (🏆)",
+                tLeft: "左", tRight: "右", tFire: "ファイアボール", tJump: "ジャンプ",
+                unlockAll: "開発者テストボタン"
+            },
+            zh: {
+                profile: "查看并编辑个人资料",
+                goldPill: "点击打开：角色更换商店 (金币 ✪)",
+                emPill: "点击打开：角色个性化工坊 (翡翠 ❖)",
+                crPill: "点击打开：强化军械库 (晶核 ◆)",
+                heartsPill: "初始生命值",
+                vipBtn: "VIP 通行证与免广告体验",
+                lbBtn: "全球与 Play Games 排行榜",
+                fbBtn: "发送游戏反馈与问题报告",
+                trollBtn: "整蛊模式 (50 关卡)",
+                langBtn: "语言选择",
+                settingsBtn: "设置菜单",
+                muteBtn: "静音 / 开启声音",
+                pauseBtn: "暂停",
+                fpsBtn: "切换 120 / 60 / 30 FPS",
+                channelBtn: "切换分发渠道",
+                testAdBtn: "启动 AdMob 测试激励广告",
+                avatarEdit: "更换个人头像",
+                hudScore: "点击查看：得分与排行榜 (🏆)",
+                tLeft: "向左", tRight: "向右", tFire: "火球", tJump: "跳跃",
+                unlockAll: "开发者测试按钮"
+            },
+            ru: {
+                profile: "Просмотр и правка профиля",
+                goldPill: "Открыть студию героев (Монеты ✪)",
+                emPill: "Открыть мастерскую стиля (Изумруды ❖)",
+                crPill: "Открыть магазин улучшений (Кристаллы ◆)",
+                heartsPill: "Начальный запас сердец",
+                vipBtn: "VIP-пропуск и режим без рекламы",
+                lbBtn: "Глобальный рейтинг Play Games",
+                fbBtn: "Отправить отзыв или отчет об ошибке",
+                trollBtn: "Тролль-режим (50 уровней)",
+                langBtn: "Выбор языка",
+                settingsBtn: "Меню настроек",
+                muteBtn: "Вкл/Выкл звук",
+                pauseBtn: "Пауза",
+                fpsBtn: "Переключить 120 / 60 / 30 FPS",
+                channelBtn: "Сменить канал релиза",
+                testAdBtn: "Запустить тестовую рекламу AdMob",
+                avatarEdit: "Сменить аватар профиля",
+                hudScore: "Счёт и таблица лидеров (🏆)",
+                tLeft: "Влево", tRight: "Вправо", tFire: "Огненный шар", tJump: "Прыжок",
+                unlockAll: "Кнопка тестирования разработчика"
+            },
+            es: {
+                profile: "Ver y editar perfil",
+                goldPill: "Abrir tienda de personajes (Monedas ✪)",
+                emPill: "Abrir estudio de personalización (Esmeraldas ❖)",
+                crPill: "Abrir tienda de mejoras (Cristales ◆)",
+                heartsPill: "Vidas iniciales del héroe",
+                vipBtn: "Pase VIP y juego sin anuncios",
+                lbBtn: "Clasificación global y Play Games",
+                fbBtn: "Enviar opinión o reportar error",
+                trollBtn: "Modo Troll (50 niveles)",
+                langBtn: "Selección de idioma",
+                settingsBtn: "Menú de ajustes",
+                muteBtn: "Silenciar / Activar sonido",
+                pauseBtn: "Pausa",
+                fpsBtn: "Cambiar 120 / 60 / 30 FPS",
+                channelBtn: "Cambiar canal de distribución",
+                testAdBtn: "Iniciar anuncio de prueba AdMob",
+                avatarEdit: "Cambiar avatar de perfil",
+                hudScore: "Puntuación y clasificación (🏆)",
+                tLeft: "Izquierda", tRight: "Derecha", tFire: "Bola de fuego", tJump: "Saltar",
+                unlockAll: "Botón de prueba de desarrollador"
+            },
+            fr: {
+                profile: "Voir et modifier le profil",
+                goldPill: "Ouvrir le studio des héros (Pièces ✪)",
+                emPill: "Ouvrir l'atelier de personnalisation (Émeraudes ❖)",
+                crPill: "Ouvrir la boutique d'améliorations (Cristaux ◆)",
+                heartsPill: "Cœurs de départ du héros",
+                vipBtn: "Pass VIP et jeu sans publicité",
+                lbBtn: "Classement mondial & Play Games",
+                fbBtn: "Envoyer un avis ou signaler un bug",
+                trollBtn: "Mode Troll (50 niveaux)",
+                langBtn: "Choix de la langue",
+                settingsBtn: "Menu paramètres",
+                muteBtn: "Activer / Couper le son",
+                pauseBtn: "Pause",
+                fpsBtn: "Basculer 120 / 60 / 30 IPS",
+                channelBtn: "Changer de canal",
+                testAdBtn: "Lancer une annonce test AdMob",
+                avatarEdit: "Changer l'avatar du profil",
+                hudScore: "Score & Classement (🏆)",
+                tLeft: "Gauche", tRight: "Droite", tFire: "Boule de feu", tJump: "Sauter",
+                unlockAll: "Bouton de test développeur"
+            },
+            it: {
+                profile: "Visualizza e modifica profilo",
+                goldPill: "Apri studio personaggi (Monete ✪)",
+                emPill: "Apri studio personalizzazione (Smeraldi ❖)",
+                crPill: "Apri negozio potenziamenti (Cristalli ◆)",
+                heartsPill: "Cuori iniziali dell'eroe",
+                vipBtn: "VIP Pass e esperienza senza annunci",
+                lbBtn: "Classifica globale & Play Games",
+                fbBtn: "Invia feedback o segnala bug",
+                trollBtn: "Modalità Troll (50 livelli)",
+                langBtn: "Scelta lingua",
+                settingsBtn: "Menu impostazioni",
+                muteBtn: "Attiva / Disattiva audio",
+                pauseBtn: "Pausa",
+                fpsBtn: "Cambia 120 / 60 / 30 FPS",
+                channelBtn: "Cambia canale di rilascio",
+                testAdBtn: "Avvia annuncio di test AdMob",
+                avatarEdit: "Cambia avatar profilo",
+                hudScore: "Punteggio e classifica (🏆)",
+                tLeft: "Sinistra", tRight: "Destra", tFire: "Sfera di fuoco", tJump: "Salta",
+                unlockAll: "Pulsante di test sviluppatore"
+            }
+        };
+        const tp = TOOLTIPS[lang] || TOOLTIPS.en;
+        const setAttr = (id, attr, val) => {
+            const el = document.getElementById(id);
+            if (el && val) el.setAttribute(attr, val);
+        };
+        setTxt("feedback-status-banner", window.translateMarinextGameText("✓ Geri bildiriminiz kaydedildi!", lang));
+        setAttr("btn-unlock-all", "title", tp.unlockAll);
+        setAttr("btn-map-profile", "title", tp.profile);
+        setAttr("map-goldcoin-pill", "title", tp.goldPill);
+        setAttr("map-emerald-pill", "title", tp.emPill);
+        setAttr("map-crystal-pill", "title", tp.crPill);
+        setAttr("map-hearts-pill", "title", tp.heartsPill);
+        setAttr("btn-map-vip", "title", tp.vipBtn);
+        setAttr("btn-map-leaderboard", "title", tp.lbBtn);
+        setAttr("btn-map-feedback", "title", tp.fbBtn);
+        setAttr("btn-map-troll", "title", tp.trollBtn);
+        setAttr("btn-hud-troll", "title", tp.trollBtn);
+        setAttr("btn-map-lang", "title", tp.langBtn);
+        setAttr("btn-hud-lang", "title", tp.langBtn);
+        setAttr("btn-map-settings", "title", tp.settingsBtn);
+        setAttr("btn-hud-settings", "title", tp.settingsBtn);
+        setAttr("btn-mute", "title", tp.muteBtn);
+        setAttr("btn-pause", "title", tp.pauseBtn);
+        setAttr("btn-toggle-fps", "title", tp.fpsBtn);
+        setAttr("btn-toggle-channel", "title", tp.channelBtn);
+        setAttr("btn-test-ad", "title", tp.testAdBtn);
+        setAttr("profile-hero-avatar", "title", tp.avatarEdit);
+        setAttr("btn-hud-character", "title", tp.goldPill);
+        setAttr("btn-hud-customize", "title", tp.emPill);
+        setAttr("hud-emerald-box", "title", tp.emPill);
+        setAttr("hud-crystal-box", "title", tp.crPill);
+        setAttr("hud-goldcoin-box", "title", tp.hudScore);
+        setAttr("hud-score-box", "title", tp.hudScore);
+        setAttr("touch-left", "aria-label", tp.tLeft);
+        setAttr("touch-right", "aria-label", tp.tRight);
+        setAttr("touch-fire", "aria-label", tp.tFire);
+        setAttr("touch-jump", "aria-label", tp.tJump);
     };
 
     // ============================================================================
@@ -5410,6 +6420,76 @@ window.MARINEXT_TUTORIAL_DATA = {
             ko: "🟢 지하 미션 완료 ✓ • 오른쪽 초록 파이프로 들어가 메인 스테이지로 복귀하세요 ▲",
             zh: "🟢 地下任务已完成 ✓ • 进入右侧绿色管道返回主关卡 ▲",
             ja: "🟢 地下ミッション完了 ✓ • 右の緑の土管からメインステージへ戻ろう ▲"
+        },
+        "AdMob Test Videosu": {
+            en: "AdMob Test Video",
+            ru: "Тестовое видео AdMob",
+            it: "Video di test AdMob",
+            es: "Video de prueba AdMob",
+            fr: "Vidéo test AdMob",
+            ko: "AdMob 테스트 동영상",
+            zh: "AdMob 测试视频",
+            ja: "AdMob テスト動画"
+        },
+        "+50 Coin & +10 Zümrüt": {
+            en: "+50 Coins & +10 Emeralds",
+            ru: "+50 Монет и +10 Изумрудов",
+            it: "+50 Monete e +10 Smeraldi",
+            es: "+50 Monedas y +10 Esmeraldas",
+            fr: "+50 Pièces & +10 Émeraudes",
+            ko: "+50 코인 & +10 에메랄드",
+            zh: "+50 金币 & +10 翡翠",
+            ja: "+50 コイン & +10 エメラルド"
+        },
+        "🎉 AdMob Test Reklamı Başarılı! +50 Coin & +10 Zümrüt Hesabınıza Eklendi.": {
+            en: "🎉 AdMob Test Ad Succeeded! +50 Coins & +10 Emeralds added to your wallet.",
+            ru: "🎉 Тестовая реклама AdMob просмотрена! +50 Монет и +10 Изумрудов начислено.",
+            it: "🎉 Annuncio di test AdMob completato! +50 Monete e +10 Smeraldi aggiunti.",
+            es: "🎉 ¡Anuncio de prueba AdMob completado! +50 Monedas y +10 Esmeraldas añadidos.",
+            fr: "🎉 Pub test AdMob réussie ! +50 Pièces & +10 Émeraudes ajoutées.",
+            ko: "🎉 AdMob 테스트 광고 완료! +50 코인 & +10 에메랄드가 지급되었습니다.",
+            zh: "🎉 AdMob 测试广告完成！已向您的账户添加 +50 金币 & +10 翡翠。",
+            ja: "🎉 AdMob テスト広告完了！+50 コイン＆+10 エメラルドを獲得しました。"
+        },
+        "Google Drive Yedek Dosyası": {
+            en: "Google Drive Backup File",
+            ru: "Резервная копия Google Drive",
+            it: "File di backup Google Drive",
+            es: "Archivo de respaldo de Google Drive",
+            fr: "Fichier de sauvegarde Google Drive",
+            ko: "Google 드라이브 백업 파일",
+            zh: "Google 云端硬盘备份文件",
+            ja: "Google ドライブバックアップファイル"
+        },
+        "✓ Geri bildiriminiz kaydedildi!": {
+            en: "✓ Your feedback has been saved!",
+            ru: "✓ Ваш отзыв сохранён!",
+            it: "✓ Il tuo feedback è stato salvato!",
+            es: "✓ ¡Tu opinión ha sido guardada!",
+            fr: "✓ Votre avis a bien été enregistré !",
+            ko: "✓ 피드백이 저장되었습니다!",
+            zh: "✓ 您的反馈已保存！",
+            ja: "✓ フィードバックが保存されました！"
+        },
+        "Marinext 2100 Oyuncusu": {
+            en: "Marinext 2100 Player",
+            ru: "Игрок Marinext 2100",
+            it: "Giocatore di Marinext 2100",
+            es: "Jugador de Marinext 2100",
+            fr: "Joueur Marinext 2100",
+            ko: "Marinext 2100 플레이어",
+            zh: "Marinext 2100 玩家",
+            ja: "Marinext 2100 プレイヤー"
+        },
+        "Google Play Games Oyuncusu": {
+            en: "Google Play Games Player",
+            ru: "Игрок Google Play Games",
+            it: "Giocatore Google Play Games",
+            es: "Jugador de Google Play Games",
+            fr: "Joueur Google Play Games",
+            ko: "Google Play Games 플레이어",
+            zh: "Google Play Games 玩家",
+            ja: "Google Play Games プレイヤー"
         }
     };
 
@@ -5488,7 +6568,7 @@ window.MARINEXT_TUTORIAL_DATA = {
             const map = {
                 en: `+${c} ✪ COINS!`,
                 ru: `+${c} ✪ МОНЕТ!`,
-                it: `+${c} ✪ COIN!`,
+                it: `+${c} ✪ MONETE!`,
                 es: `¡+${c} ✪ MONEDAS!`,
                 fr: `+${c} ✪ PIÈCES !`,
                 ko: `+${c} ✪ 코인!`,
@@ -5501,7 +6581,8 @@ window.MARINEXT_TUTORIAL_DATA = {
         // Dynamic Pattern 5: "${sourceLabel} senkronize edildi ✓"
         const syncMatch = str.match(/^(.+) senkronize edildi ✓$/);
         if (syncMatch) {
-            const src = syncMatch[1];
+            const rawSrc = syncMatch[1];
+            const src = (INGAME_TEXT_TABLE[rawSrc] && (INGAME_TEXT_TABLE[rawSrc][lang] || INGAME_TEXT_TABLE[rawSrc].en)) || rawSrc;
             const map = {
                 en: `${src} synced ✓`,
                 ru: `${src} синхронизировано ✓`,
@@ -5659,302 +6740,302 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.4.9" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.4.11" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.4.10 Okunaklı Uyarı Balonu, Tek Yön Asansör & Canlı VIP Senkron",
-        "subtitle": "Kapı kotası balonu telefonlarda %50 büyütüldü, asansör yönleri netleşti, stüdyo kapatma düğmesi düzenlendi ve VIP iptal durumu canlı eklendi!",
+        "title": "🚀 v1.4.11 Tüm 9 Dilde %100 Eksiksiz Çeviri & Stüdyo Güncellemesi",
+        "subtitle": "Karakter Değiştir, Karakter Kişiselleştir, ekipman güç etkileri, avatarlar ve gizlilik ekranları artık seçili aktif dilinizle %100 uyumlu!",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
-                "icon": "💬",
-                "title": "%50 Büyütülmüş & Net Uyarı Balonu",
-                "desc": "Bitirme kapısındaki eksik nesne uyarı balonu telefon ekranlarında %50 büyütüldü; iki satırlı akıllı düzenle artık tek bakışta rahatça okunuyor!"
+                "icon": "🎭",
+                "title": "Tam Yerelleştirilmiş Karakter Değiştirme Stüdyosu",
+                "desc": "19 kahramanın tamamının adı, yüz tarifi, özel pasif gücü ve kıyafet açıklaması artık seçtiğiniz aktif dilde eksiksiz görüntüleniyor."
             },
             {
-                "icon": "🛗",
-                "title": "Kesin Tek Yönlü & Sınırsız Asansörler",
-                "desc": "İniş asansörü artık sadece alt kata iner, çıkış asansörü ise yalnızca yukarı çıkar! Alt kata istediğin kadar tekrar inip çıkabilirsin."
+                "icon": "🎨",
+                "title": "78 Ekipman & Güç Etkisi Seçili Dilde",
+                "desc": "Miğfer, silah, kanat, zırh, vizör, aura ve pelerin kartlarındaki tüm isim, açıklama ve oynanış bonusları 9 dile kusursuz uyarlandı."
             },
             {
-                "icon": "📱",
-                "title": "Mobilde Temiz Kapatma (✕) Başlık Düzeni",
-                "desc": "Karakter Kişiselleştirme, Karakter Değiştir ve Mağaza'daki (✕) kapatma düğmesi başlık satırına taşındı; artık Güçlendirme sekmesinin üstüne binmiyor."
+                "icon": "🏆",
+                "title": "Profil Amblemleri, Başarımlar & Liderlik Tablosu",
+                "desc": "30 kahraman avatarı, tüm oyun içi başarımlar, lig ödülü mesajları ve Trol Modu sekme başlıkları artık her dilde pürüzsüz çalışıyor."
             },
             {
-                "icon": "👑",
-                "title": "Canlı VIP Abonelik Senkronizasyonu",
-                "desc": "Google Play aboneliği iptal edildiğinde dönem bitene kadar 'VIP (SÜRE SONUNA DEK)' görünür; süre dolduğunda oyun açıkken bile otomatik güncellenir."
+                "icon": "🛡️",
+                "title": "Gizlilik, Reklam Tercihleri & Hoş Geldiniz Ekranları",
+                "desc": "İlk açılış onay ekranı, gizlilik politikası özeti ve reklam tercihleri penceresi dil değiştirildiğinde anında kendi dilinize geçer."
             },
             {
                 "icon": "⚡",
-                "title": "9 Dilde Akıcı Performans & Dengeli Oynanış",
-                "desc": "Tüm menü, konuşma balonu, güçlendirme ve VIP ekranları telefonlarda sıfır taşma ve 120 FPS akıcılık için optimize edildi."
+                "title": "Anında Dil Geçişi & 120 FPS Akıcılık",
+                "desc": "Hangi dili seçerseniz seçin başka dilden tek bir metin görmeden 100 ana bölüm ve 50 trol bölümünde 120 FPS keyfini yaşayın!"
             }
         ]
     },
     "en": {
-        "title": "🚀 v1.4.10 Larger Speech Balloon, One-Way Elevators & Live VIP Sync",
-        "subtitle": "Gate warning balloons are now 50% larger on phones, elevator directions are strictly one-way, close buttons sit cleanly in headers, and VIP sync updates live!",
+        "title": "🚀 v1.4.11 100% Native 9-Language Studio & Game Overhaul",
+        "subtitle": "Character Change, Customize Studio, item perk badges, 30 hero avatars, achievements, and privacy screens now match your active language 100%!",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
-                "icon": "💬",
-                "title": "+50% Larger, Crystal-Clear Warning Balloon",
-                "desc": "Expanded the locked gate speech bubble and fonts by 50% with clean 2-line wrapping so missing items are super easy to read on small phone screens."
+                "icon": "🎭",
+                "title": "100% Localized Character Studio (All 19 Heroes)",
+                "desc": "Every hero's title, face description, passive power pill, and outfit bio—including the Celestial Sultan and Shadow Dragon VIP heroes—now appear in your chosen language."
             },
             {
-                "icon": "🛗",
-                "title": "Strict One-Way & Endless Reusable Elevators",
-                "desc": "Descent elevators strictly travel down and exit elevators strictly travel up—no mixed directions—while letting you revisit underground floors freely!"
+                "icon": "🎨",
+                "title": "All 78 Customize Gear Pieces & Perk Pills Translated",
+                "desc": "Helmets, weapons, wings, armors, visors, auras, capes, and every gameplay bonus stat badge are now fully translated across all 9 languages."
             },
             {
-                "icon": "📱",
-                "title": "Overlap-Free Phone Header Close (✕) Layout",
-                "desc": "Moved the close (✕) button cleanly into the top header row across Studio & Shop screens so it never overlaps the Upgrade tab on mobile."
+                "icon": "🏆",
+                "title": "Hero Avatars, Achievements & Live Leaderboard",
+                "desc": "All 30 profile emblems, achievement unlocks, league reward announcements, and Troll Mode filter tabs adapt cleanly to your selected language."
             },
             {
-                "icon": "👑",
-                "title": "Live VIP Sync & Ending-Soon Status Badge",
-                "desc": "Canceled Play Store subscriptions clearly show 'VIP (ENDING SOON)' until the period ends and automatically refresh in-game without restarting."
+                "icon": "🛡️",
+                "title": "Welcome Notice, Privacy Policy & Ad Preferences",
+                "desc": "First-launch notice, privacy policy summaries, and player-friendly ad preference screens dynamically switch to your active language."
             },
             {
                 "icon": "⚡",
-                "title": "9-Language Polish & 120 FPS Responsiveness",
-                "desc": "Refined UI spacing, speech tail alignment, and ad-free state updates for seamless play on every Android phone and tablet."
+                "title": "Zero Mixed-Language Text & 120 FPS Polish",
+                "desc": "Enjoy seamless switching between all 9 languages with zero leftover foreign labels across every screen at silky-smooth 120 FPS."
             }
         ]
     },
     "ru": {
-        "title": "🚀 v1.4.10 Крупное Облачко, Точные Лифты и Живая Синхронизация VIP",
-        "subtitle": "Облачко квоты увеличено на 50% для телефонов, направления лифтов исправлены, кнопка (✕) не мешает вкладкам, а VIP обновляется в реальном времени!",
+        "title": "🚀 v1.4.11 Полная Локализация на 9 Языков во Всей Игре",
+        "subtitle": "Студия героев, мастерская стиля, бонусы экипировки, 30 аватаров, достижения и экраны конфиденциальности теперь полностью на выбранном вами языке!",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
-                "icon": "💬",
-                "title": "Облачко-Подсказка Больше на 50%",
-                "desc": "Увеличили шрифт и размер облачка квоты портала на 50% с переносом в 2 строки — теперь подсказка отлично читается на экранах телефонов!"
+                "icon": "🎭",
+                "title": "Студия Героев на Вашем Языке (Все 19 Персонажей)",
+                "desc": "Названия, черты лица, пассивные способности и описания костюмов всех 19 героев теперь полностью переведены без пропусков."
             },
             {
-                "icon": "🛗",
-                "title": "Строгие Направления Лифтов и Безлимитный Спуск",
-                "desc": "Лифт спуска теперь ведёт только вниз, а лифт выхода — только вверх. Путаница направлений устранена, повторный спуск по-прежнему свободный!"
+                "icon": "🎨",
+                "title": "Все 78 Предметов Мастерской и Их Бонусы",
+                "desc": "Шлемы, оружие, крылья, броня, визоры, ауры, плащи и характеристики усиления отображаются исключительно на активном языке игры."
             },
             {
-                "icon": "📱",
-                "title": "Удобная Кнопка Закрытия (✕) на Телефонах",
-                "desc": "Перенесли кнопку закрытия (✕) в верхнюю панель в Мастерской, Персонажах и Магазине — больше никакого перекрытия вкладки усилений."
+                "icon": "🏆",
+                "title": "Аватары Профиля, Достижения и Лидерборд",
+                "desc": "Все 30 эмблем профиля, уведомления о достижениях, награды лиги и вкладки Тролль-режима полностью адаптированы для каждого языка."
             },
             {
-                "icon": "👑",
-                "title": "Живая Синхронизация VIP и Статус Истечения",
-                "desc": "При отмене подписки в Google Play до конца периода отображается «VIP (ДО КОНЦА СРОКА)», а статус проверяется автоматически при возврате в игру."
+                "icon": "🛡️",
+                "title": "Приветствие, Политика Конфиденциальности и Реклама",
+                "desc": "Экран первого запуска, краткая политика конфиденциальности и настройки рекламы мгновенно обновляются при смене языка."
             },
             {
                 "icon": "⚡",
-                "title": "Плавность 120 FPS и Качество Интерфейса на 9 Языках",
-                "desc": "Улучшена адаптация текста, привязка хвостика облачка и сброс VIP-кнопок после завершения срока действия."
+                "title": "Ни Одного Лишнего Слова и Плавность 120 FPS",
+                "desc": "Мгновенное переключение между 9 языками без смешения текстов во всех меню, 100 уровнях кампании и 50 тролль-уровнях."
             }
         ]
     },
     "it": {
-        "title": "🚀 v1.4.10 Fumetto +50%, Ascensori a Senso Unico & Sync VIP Live",
-        "subtitle": "Fumetto del portale più grande del 50%, direzioni ascensori fisse, tasto (✕) pulito nell'intestazione su smartphone e stato VIP sempre aggiornato!",
+        "title": "🚀 v1.4.11 Traduzione Completa al 100% in Tutte e 9 le Lingue",
+        "subtitle": "Cambio Personaggio, Studio Personalizzazione, bonus degli oggetti, 30 avatar, obiettivi e schermate privacy ora seguono perfettamente la tua lingua!",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
-                "icon": "💬",
-                "title": "Fumetto Quota Portale +50% Più Grande",
-                "desc": "Ingranditi testo e riquadro del 50% con testo su 2 righe per leggere subito gli oggetti mancanti anche sugli schermi piccoli."
+                "icon": "🎭",
+                "title": "Studio Personaggi Completo nella Tua Lingua (19 Eroi)",
+                "desc": "Nomi, descrizioni del volto, abilità passive e costumi di tutti i 19 eroi sono ora tradotti in tutte le lingue supportate."
             },
             {
-                "icon": "🛗",
-                "title": "Ascensori Rigorosamente a Senso Unico e Illimitati",
-                "desc": "L'ascensore di discesa porta solo giù e quello di uscita solo su: zero inversioni di direzione, sempre riutilizzabili!"
+                "icon": "🎨",
+                "title": "Tutti i 78 Oggetti di Personalizzazione e i Loro Bonus",
+                "desc": "Elmi, armi, ali, armature, visiere, aure, mantelli e bonus di gioco sono finalmente tradotti senza alcun testo estraneo."
             },
             {
-                "icon": "📱",
-                "title": "Tasto Chiudi (✕) Pulito su Smartphone",
-                "desc": "Spostato il tasto (✕) nella barra superiore in Personalizzazione, Personaggi e Negozio: non copre più la scheda Potenziamenti."
+                "icon": "🏆",
+                "title": "Avatar Profilo, Obiettivi e Classifica Live",
+                "desc": "Tutti i 30 stemmi del profilo, gli obiettivi Play Games, i premi di lega e le schede Modalità Troll parlano la tua lingua."
             },
             {
-                "icon": "👑",
-                "title": "Sincronizzazione VIP Live & Avviso Scadenza",
-                "desc": "Dopo l'annullamento su Google Play vedi chiaramente 'VIP (IN SCADENZA)' fino a fine periodo e l'app si aggiorna in tempo reale."
+                "icon": "🛡️",
+                "title": "Schermata Iniziale, Privacy e Preferenze Annunci",
+                "desc": "L'informativa sulla privacy, l'avviso iniziale e le preferenze pubblicitarie si aggiornano all'istante al cambio lingua."
             },
             {
                 "icon": "⚡",
-                "title": "Ottimizzazione UI in 9 Lingue a 120 FPS",
-                "desc": "Migliorati il puntatore del fumetto vicino al portale e il ripristino immediato dei pulsanti allo scadere del VIP."
+                "title": "Cambio Lingua Istantaneo e Fluidità a 120 FPS",
+                "desc": "Zero testi in lingue diverse in ogni menu e finestra, con la consueta fluidità a 120 FPS in tutti i 150 livelli."
             }
         ]
     },
     "es": {
-        "title": "🚀 v1.4.10 Globo +50%, Ascensores de Sentido Único y Sync VIP",
-        "subtitle": "¡Globo de aviso un 50% más grande, direcciones de ascensor exactas, botón (✕) limpio en móviles y estado VIP sincronizado en vivo!",
+        "title": "🚀 v1.4.11 Traducción Completa al 100% en los 9 Idiomas",
+        "subtitle": "¡Estudio de Personajes, Personalización, ventajas de equipo, 30 avatares, logros y privacidad ahora se muestran íntegramente en tu idioma activo!",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
-                "icon": "💬",
-                "title": "Globo de Aviso de Cuota +50% Más Grande",
-                "desc": "Aumentamos un 50% el tamaño del globo y la fuente con ajuste a 2 líneas para leer fácilmente las gemas faltantes en cualquier teléfono."
+                "icon": "🎭",
+                "title": "Estudio de Personajes 100% Localizado (19 Héroes)",
+                "desc": "Todos los nombres, rasgos faciales, poderes pasivos y descripciones de los 19 héroes aparecen por completo en tu idioma."
             },
             {
-                "icon": "🛗",
-                "title": "Ascensores de Sentido Único e Ilimitados",
-                "desc": "El ascensor de bajada solo baja y el de salida solo sube: direcciones corregidas por completo y acceso subterráneo ilimitado."
+                "icon": "🎨",
+                "title": "78 Piezas de Equipo y Ventajas Traducidas",
+                "desc": "Cascos, armas, alas, armaduras, visores, auras, capas y sus bonificaciones muestran cada detalle en el idioma elegido."
             },
             {
-                "icon": "📱",
-                "title": "Botón Cerrar (✕) Ordenado en Teléfonos",
-                "desc": "Colocamos el botón (✕) dentro de la barra superior en Personalización, Personajes y Tienda para no tapar nunca la pestaña de Mejoras."
+                "icon": "🏆",
+                "title": "Avatares, Logros y Clasificación en Vivo",
+                "desc": "Los 30 emblemas de perfil, todos los logros desbloqueables, avisos de liga y pestañas del Modo Troll están totalmente localizados."
             },
             {
-                "icon": "👑",
-                "title": "Sincronización VIP en Vivo y Aviso de Fin de Periodo",
-                "desc": "Al cancelar en Google Play verás 'VIP (FIN DE PERIODO)' hasta que acabe el ciclo pagado y se actualizará automáticamente sin reiniciar."
+                "icon": "🛡️",
+                "title": "Bienvenida, Privacidad y Preferencias de Anuncios",
+                "desc": "El aviso inicial, el resumen de privacidad y las opciones de anuncios cambian al instante al elegir otro idioma."
             },
             {
                 "icon": "⚡",
-                "title": "Pulido General en 9 Idiomas a 120 FPS",
-                "desc": "Mejorada la lectura de avisos junto al portal y la restauración automática de botones de cofre al vencer el VIP."
+                "title": "Cero Mezclas de Idioma y 120 FPS Fluidos",
+                "desc": "Disfruta los 100 niveles principales y 50 niveles Troll a 120 FPS sin textos en otro idioma."
             }
         ]
     },
     "fr": {
-        "title": "🚀 v1.4.10 Bulle +50 %, Ascenseurs à Sens Unique & Sync VIP",
-        "subtitle": "Bulle d'alerte agrandie de 50 % sur mobile, directions d'ascenseur strictement à sens unique, bouton (✕) aligné et synchro VIP en direct !",
+        "title": "🚀 v1.4.11 Localisation Intégrale 100 % en 9 Langues",
+        "subtitle": "Studio des Héros, Personnalisation, bonus d'équipement, 30 avatars, succès et écrans de confidentialité s'affichent désormais dans votre langue !",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
-                "icon": "💬",
-                "title": "Bulle d'Alerte +50 % Plus Lisible",
-                "desc": "Taille et police augmentées de 50 % sur 2 lignes pour lire instantanément les gemmes manquantes devant le portail sur smartphone."
+                "icon": "🎭",
+                "title": "Studio des Héros 100 % Traduit (Les 19 Héros)",
+                "desc": "Les noms, visages, pouvoirs passifs et tenues des 19 héros s'affichent intégralement dans la langue choisie."
             },
             {
-                "icon": "🛗",
-                "title": "Ascenseurs à Sens Unique & Illimités",
-                "desc": "La cabine de descente descend uniquement et la cabine de sortie monte uniquement : fini les inversions, tout en restant réutilisable !"
+                "icon": "🎨",
+                "title": "78 Équipements & Bonus d'Atelier Traduits",
+                "desc": "Casques, armes, ailes, armures, visières, auras, capes et statistiques bonus sont traduits avec précision en 9 langues."
             },
             {
-                "icon": "📱",
-                "title": "Bouton Fermer (✕) Propre sur Mobile",
-                "desc": "Bouton (✕) intégré proprement dans la barre d'en-tête des écrans Personnages, Personnalisation et Boutique sans gêner les onglets."
+                "icon": "🏆",
+                "title": "Avatars de Profil, Succès & Classement en Direct",
+                "desc": "Les 30 emblèmes de profil, tous les succès, récompenses de ligue et filtres du Mode Troll parlent désormais votre langue."
             },
             {
-                "icon": "👑",
-                "title": "Synchro VIP en Direct & Fin de Période",
-                "desc": "Une fois l'abonnement annulé, l'état indique 'VIP (FIN DE PÉRIODE)' jusqu'à l'expiration et s'actualise automatiquement sans redémarrer."
+                "icon": "🛡️",
+                "title": "Accueil, Confidentialité & Préférences Publicitaires",
+                "desc": "L'écran de bienvenue, la politique de confidentialité et les choix publicitaires s'adaptent instantanément à la langue active."
             },
             {
                 "icon": "⚡",
-                "title": "Qualité d'Interface 120 FPS en 9 Langues",
-                "desc": "Meilleur ancrage de la bulle près du portail et réinitialisation immédiate des boutons après expiration du Pass VIP."
+                "title": "Changement de Langue Fluide & 120 IPS",
+                "desc": "Aucun texte étranger résiduel dans aucun menu, toujours avec la fluidité 120 IPS sur les 150 niveaux."
             }
         ]
     },
     "ko": {
-        "title": "🚀 v1.4.10 +50% 큰 말풍선, 단방향 엘리베이터 & 실시간 VIP 동기화",
-        "subtitle": "포털 안내 말풍선을 50% 확대하고, 엘리베이터 방향을 고정했으며, 모바일 닫기(✕) 버튼 겹침과 VIP 구독 동기화를 개선했습니다!",
+        "title": "🚀 v1.4.11 9개 언어 100% 완벽 현지화 & 스튜디오 전면 개선",
+        "subtitle": "캐릭터 변경, 커스터마이즈, 장비 능력치, 30종 아바타, 업적 및 개인정보 화면까지 이제 선택한 언어로 100% 표시됩니다!",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
-                "icon": "💬",
-                "title": "스마트폰에서도 선명한 +50% 확대 말풍선",
-                "desc": "포털 앞 부족한 보석 안내 말풍선과 글자를 50% 키우고 2줄 자동 줄바꿈을 적용해 작은 화면에서도 한눈에 읽힙니다!"
+                "icon": "🎭",
+                "title": "19명 전체 영웅 스튜디오 완벽 번역",
+                "desc": "모든 영웅의 이름, 얼굴 특징, 고유 능력 및 의상 설명이 이제 한국어를 비롯한 9개 언어로 빠짐없이 표시됩니다."
             },
             {
-                "icon": "🛗",
-                "title": "정확한 단방향 & 무제한 승하차 엘리베이터",
-                "desc": "하행 전용 엘리베이터는 아래로만, 상행 전용 엘리베이터는 위로만 작동하도록 방향을 바로잡았으며 반복 이용은 무제한입니다!"
+                "icon": "🎨",
+                "title": "78종 장비 & 모든 능력치 효과 문구 현지화",
+                "desc": "투구, 무기, 날개, 갑옷, 바이저, 오라, 망토의 이름과 설명은 물론 카드 상단 능력치 효과까지 모두 모국어로 제공됩니다."
             },
             {
-                "icon": "📱",
-                "title": "모바일 상단 닫기(✕) 버튼 겹침 해결",
-                "desc": "커스터마이징·캐릭터·상점 화면의 닫기(✕) 버튼을 제목 줄로 옮겨 더 이상 '강화' 탭을 가리지 않습니다."
+                "icon": "🏆",
+                "title": "프로필 아바타, 업적 & 실시간 리더보드 정비",
+                "desc": "30개 프로필 엠블럼, 업적 알림, 리그 보상 안내, 트롤 모드 전체 필터 탭이 활성 언어에 맞춰 깔끔하게 표시됩니다."
             },
             {
-                "icon": "👑",
-                "title": "실시간 VIP 구독 상태 동기화 및 만료 예정 표시",
-                "desc": "Google Play 구독 해지 시 남은 이용 기간 동안 'VIP (기간 만료 예정)'으로 표시되며, 만료되면 재시작 없이 자동 반영됩니다."
+                "icon": "🛡️",
+                "title": "첫 실행 동의, 개인정보 처리방침 & 광고 설정 연동",
+                "desc": "언어를 바꾸면 개인정보 처리방침, 첫 실행 안내 및 광고 설정 화면까지 즉시 선택한 언어로 전환됩니다."
             },
             {
                 "icon": "⚡",
-                "title": "9개 언어 UI 정돈 및 120 FPS 최적화",
-                "desc": "포털 모서리 말풍선 위치 정렬과 VIP 만료 후 상자 버튼 텍스트 복구까지 세밀하게 다듬었습니다."
+                "title": "타 언어 혼용 없는 쾌적한 120 FPS 플레이",
+                "desc": "어느 언어로 플레이해도 다른 언어가 섞이지 않으며 100개 캠페인과 50개 트롤 스테이지를 부드럽게 즐길 수 있습니다."
             }
         ]
     },
     "zh": {
-        "title": "🚀 v1.4.10 气泡放大50%、单向电梯与 VIP 实时同步",
-        "subtitle": "终点门提示气泡放大50%，修复电梯上下行方向错乱，优化手机端关闭(✕)按钮布局并支持 VIP 取消状态实时同步！",
+        "title": "🚀 v1.4.11 全球 9 国语言 100% 全界面无缝本地化升级",
+        "subtitle": "角色更换、角色自定义工坊、装备属性加成、30款头像、成就与隐私设置现已 100% 按您当前选择的语言完整呈现！",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
-                "icon": "💬",
-                "title": "提示气泡与文字放大 50%，手机阅读更清晰",
-                "desc": "通关门缺口提醒气泡与字体放大 50% 并支持双行自动换行，在小屏手机上也能一眼看清！"
+                "icon": "🎭",
+                "title": "角色更换工作室 19 位英雄全面中文化",
+                "desc": "所有 19 位历史与赛博英雄的名称、面容描述、专属被动技能与服饰简介均已完整翻译，不再混杂英文。"
             },
             {
-                "icon": "🛗",
-                "title": "严格单向运行 & 无限次往返电梯",
-                "desc": "修复电梯方向混乱：下行电梯只下不上，出口电梯只上不下，同时保留无限次重返地下层收集宝藏的功能！"
+                "icon": "🎨",
+                "title": "78 款装扮道具与属性加成条全面本地化",
+                "desc": "头盔、武器、翅膀、装甲、面罩、光环、披风的名称简介及每张卡片的实战属性提示均已精确翻译至 9 国语言。"
             },
             {
-                "icon": "📱",
-                "title": "优化手机端顶部关闭 (✕) 按钮位置",
-                "desc": "将自定义工坊、角色更换与商店的关闭 (✕) 按钮融入标题栏右侧，不再遮挡手机端强化标签。"
+                "icon": "🏆",
+                "title": "头像徽章、成就系统与实时排行榜全语种适配",
+                "desc": "30 个个人头像名称、成就提示、联赛领奖提示及整蛊模式筛选标签均已同步至您所选的游戏语言。"
             },
             {
-                "icon": "👑",
-                "title": "VIP 订阅实时同步 & 到期状态标识",
-                "desc": "在 Google Play 取消订阅后，主界面按钮清晰提示“VIP (到期后关闭)”，并在切回游戏时及后台自动刷新权益。"
+                "icon": "🛡️",
+                "title": "首次引导、隐私政策与广告偏好即时切换",
+                "desc": "切换游戏语言后，欢迎弹窗、隐私政策摘要及广告偏好窗口均会同步切换为对应语种。"
             },
             {
                 "icon": "⚡",
-                "title": "9 国语言细节打磨 & 120 FPS 稳定体验",
-                "desc": "优化大门旁气泡尾标定位以及 VIP 到期后宝箱按钮文案自动还原。"
+                "title": "纯净零混杂语言体验与 120 FPS 丝滑手感",
+                "desc": "确保任何界面均不出现其他语种文本，在 100 个主线关卡与 50 个整蛊关卡中畅享 120 FPS 流畅动作。"
             }
         ]
     },
     "ja": {
-        "title": "🚀 v1.4.10 吹き出し50%拡大・単方向エレベーター & VIPリアルタイム同期",
-        "subtitle": "ポータル警告の吹き出しを50%大きく見やすくし、エレベーター方向とモバイル閉じる(✕)配置・VIP同期を改善しました！",
+        "title": "🚀 v1.4.11 全9言語 100%完全ローカライズ＆スタジオ全面対応",
+        "subtitle": "キャラ変更・カスタマイズ・装備効果バッジ・アバター30種・実績・プライバシー画面まで、選択中の言語で100%表示されるようになりました！",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
-                "icon": "💬",
-                "title": "吹き出し＆文字を50%拡大して見やすさ向上",
-                "desc": "ポータル前の不足アイテム警告を50%拡大し2行折り返しに対応。スマホの小さな画面でもくっきり読めます！"
+                "icon": "🎭",
+                "title": "全19ヒーローのキャラ変更スタジオを完全翻訳",
+                "desc": "すべてのヒーロー名・顔タイプ説明・固有パッシブ効果・衣装解説が、選択した言語で漏れなく表示されます。"
             },
             {
-                "icon": "🛗",
-                "title": "明確な単方向＆何度でも乗れる昇降エレベーター",
-                "desc": "下降エレベーターは下りのみ、出口エレベーターは上りのみに方向を完全修正。地下室への再訪問は何度でも可能です！"
+                "icon": "🎨",
+                "title": "78種のカスタム装備＆効果バッジを9言語対応",
+                "desc": "兜・武器・翼・鎧・バイザー・オーラ・マントの名称と解説、さらに各カードのゲーム内効果バッジまで完全に翻訳しました。"
             },
             {
-                "icon": "📱",
-                "title": "スマホ画面の閉じる(✕)ボタン重なり解消",
-                "desc": "カスタマイズ・キャラ変更・ショップ画面の(✕)をヘッダー行に整理し、強化タブに重ならないように修正しました。"
+                "icon": "🏆",
+                "title": "アバター・実績・リアルタイムランキング整備",
+                "desc": "30種のプロフィール画像名、実績通知、リーグ報酬メッセージ、トロールモードのタブ表記まで選択言語に完全追従します。"
             },
             {
-                "icon": "👑",
-                "title": "VIP定期購入のライブ同期＆解約予定表示",
-                "desc": "Google Playで解約した後は期間終了まで「VIP (期間終了まで)」と表示し、復帰時やプレイ中も自動で最新状態を反映します。"
+                "icon": "🛡️",
+                "title": "初回同意・プライバシー・広告設定の即時切替",
+                "desc": "言語を切り替えるとプライバシーポリシー要約や広告設定ウィンドウの内容も即座に現在の言語へ切り替わります。"
             },
             {
                 "icon": "⚡",
-                "title": "9言語UI調整 & 120 FPS快適プレイ",
-                "desc": "ポータル付近の吹き出し位置とVIP期限切れ時の宝箱ボタン表示復元を改善しました。"
+                "title": "他言語の混在ゼロ＆120 FPS快適プレイ",
+                "desc": "どの言語を選んでも他言語の文字が混ざることはなく、100の通常ステージと50のトロールステージを快適に楽しめます。"
             }
         ]
     }
