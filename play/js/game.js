@@ -2038,6 +2038,15 @@ class Game {
                     window.sfx.resumeAfterAd();
                 }
             }
+            const now = Date.now();
+            if (
+                window.MarinextCloudBridge &&
+                typeof window.MarinextCloudBridge.queryBillingPurchases === "function" &&
+                now - (this._lastResumeBillingSync || 0) > 3000
+            ) {
+                this._lastResumeBillingSync = now;
+                try { window.MarinextCloudBridge.queryBillingPurchases(false); } catch (e) {}
+            }
         };
 
         window.onMarinextPlayGamesAuth = (authed, playerName, playerId, statusMsg) => {
@@ -2168,7 +2177,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 45;
+        const CURRENT_VERSION_CODE = 46;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -6089,20 +6098,19 @@ class Game {
         };
     }
 
-    enterSubChamber(entryCabin = "pipeIn") {
+    enterSubChamber() {
         if (!this.subChamber || !this.player) return;
         const sc = this.subChamber;
         if (sc.rideState === "descending" || sc.rideState === "ascending") return;
-        const chosen = entryCabin === "pipeReturn" ? "pipeReturn" : "pipeIn";
-        const startBox = chosen === "pipeReturn" ? sc.pipeReturn : sc.pipeIn;
+        const startBox = sc.pipeIn;
         if (sc.visited && window.MarinextAnalytics) {
             window.MarinextAnalytics.logEvent("elevator_reuse", {
                 direction: "down",
-                cabin: chosen,
+                cabin: "pipeIn",
                 level: (this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel) + 1
             });
         }
-        sc.activeEntryCabin = chosen;
+        sc.activeEntryCabin = "pipeIn";
         sc.rideState = "descending";
         sc.rideProgress = 0;
         sc.cooldown = 35;
@@ -6134,20 +6142,19 @@ class Game {
         this.updateHUD();
     }
 
-    exitSubChamber(exitCabin = "pipeOut") {
+    exitSubChamber() {
         if (!this.subChamber || !this.player) return;
         const sc = this.subChamber;
         if (sc.rideState === "descending" || sc.rideState === "ascending") return;
-        const chosen = exitCabin === "pipeArrival" ? "pipeArrival" : "pipeOut";
-        const startBox = chosen === "pipeArrival" ? sc.pipeArrival : sc.pipeOut;
+        const startBox = sc.pipeOut;
         if (sc.visited && window.MarinextAnalytics) {
             window.MarinextAnalytics.logEvent("elevator_reuse", {
                 direction: "up",
-                cabin: chosen,
+                cabin: "pipeOut",
                 level: (this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel) + 1
             });
         }
-        sc.activeExitCabin = chosen;
+        sc.activeExitCabin = "pipeOut";
         sc.rideState = "ascending";
         sc.rideProgress = 0;
         sc.cooldown = 45;
@@ -6189,14 +6196,8 @@ class Game {
         const p = sc.rideProgress;
 
         const isDown = sc.rideState === "descending";
-        const downViaReturn = sc.activeEntryCabin === "pipeReturn";
-        const upViaArrival = sc.activeExitCabin === "pipeArrival";
-        const startBox = isDown
-            ? (downViaReturn ? sc.pipeReturn : sc.pipeIn)
-            : (upViaArrival ? sc.pipeArrival : sc.pipeOut);
-        const endBox = isDown
-            ? (downViaReturn ? sc.pipeOut : sc.pipeArrival)
-            : (upViaArrival ? sc.pipeIn : sc.pipeReturn);
+        const startBox = isDown ? sc.pipeIn : sc.pipeOut;
+        const endBox = isDown ? sc.pipeArrival : sc.pipeReturn;
 
         if (p < 0.12) {
             // Phase 1: Doors slide shut around the player
@@ -6239,15 +6240,9 @@ class Game {
             sc.cooldown = 45;
             if (isDown) {
                 this.inSubChamber = true;
-                if (downViaReturn) {
-                    this.player.x = sc.pipeOut.x - this.player.w - 14;
-                    this.player.y = sc.pipeOut.y + sc.pipeOut.h - this.player.h;
-                    this.player.vx = -1.6;
-                } else {
-                    this.player.x = sc.spawnX;
-                    this.player.y = sc.spawnY;
-                    this.player.vx = 1.6;
-                }
+                this.player.x = sc.spawnX;
+                this.player.y = sc.spawnY;
+                this.player.vx = 1.6;
                 this.player.prevX = this.player.x;
                 this.player.prevY = this.player.y;
                 this.player.vy = 0;
@@ -6266,15 +6261,9 @@ class Game {
             } else {
                 this.inSubChamber = false;
                 sc.visited = true;
-                if (upViaArrival) {
-                    this.player.x = Math.max(48, sc.pipeIn.x - this.player.w - 14);
-                    this.player.y = sc.pipeIn.y + sc.pipeIn.h - this.player.h;
-                    this.player.vx = -1.8;
-                } else {
-                    this.player.x = sc.exitToMainX;
-                    this.player.y = sc.exitToMainY;
-                    this.player.vx = 2.0;
-                }
+                this.player.x = sc.exitToMainX;
+                this.player.y = sc.exitToMainY;
+                this.player.vx = 2.0;
                 this.player.prevX = this.player.x;
                 this.player.prevY = this.player.y;
                 this.player.vy = -3.0;
@@ -8869,17 +8858,11 @@ class Game {
             } else if (sc.cooldown <= 0) {
                 if (!this.inSubChamber) {
                     if (this.player.intersects(sc.pipeIn)) {
-                        this.enterSubChamber("pipeIn");
-                        return;
-                    } else if (this.player.intersects(sc.pipeReturn)) {
-                        this.enterSubChamber("pipeReturn");
+                        this.enterSubChamber();
                         return;
                     }
                 } else {
-                    if (this.player.intersects(sc.pipeArrival)) {
-                        this.exitSubChamber("pipeArrival");
-                        return;
-                    } else if (this.player.intersects(sc.pipeOut)) {
+                    if (this.player.intersects(sc.pipeOut)) {
                         const remainingOrbs = this.coins.filter((c) => c.isSubMissionOrb && !c.collected).length;
                         const remainingEnemies = this.enemies.filter((e) => e.isSubMissionEnemy && !e.dead).length;
                         const needed = Math.max(0, (sc.goal || 4) - (sc.progress || 0));
@@ -8892,7 +8875,7 @@ class Game {
                             (remainingOrbs + remainingEnemies === 0) ||
                             (sc.exitHoldTimer > 42)
                         ) {
-                            this.exitSubChamber("pipeOut");
+                            this.exitSubChamber();
                             return;
                         } else {
                             sc.exitHoldTimer = (sc.exitHoldTimer || 0) + 1;
@@ -10979,55 +10962,96 @@ class Game {
         const now = Date.now();
         const bounceY = Math.sin(now * 0.005) * 3;
         const bubbleX = this.player.x + 16;
-        const bubbleY = this.player.y - 68 + bounceY;
-        const maxBubbleW = Math.max(220, (this.canvas ? this.canvas.width : 640) - 24);
+        const bubbleY = this.player.y - 74 + bounceY;
+        const maxBubbleW = Math.max(280, (this.canvas ? this.canvas.width : 640) - 24);
+        const maxLineW = maxBubbleW - 40;
 
-        ctx.font = "bold 10px 'Segoe UI', system-ui, sans-serif";
-        const badgeW = ctx.measureText(badgeText).width + 14;
+        ctx.font = "bold 14.5px 'Segoe UI', system-ui, sans-serif";
+        const badgeW = ctx.measureText(badgeText).width + 20;
 
-        let fontPx = 12.5;
+        const wrapSpeechText = (str, limitW) => {
+            const words = String(str || "").trim().split(/\s+/).filter(Boolean);
+            if (words.length <= 1) {
+                if (ctx.measureText(str).width <= limitW) return [str];
+                const mid = Math.ceil(str.length / 2);
+                return [str.slice(0, mid), str.slice(mid)];
+            }
+            const midTarget = str.length / 2;
+            let bestSplit = -1;
+            let bestScore = Infinity;
+            for (let i = 1; i < words.length; i++) {
+                const l1 = words.slice(0, i).join(" ");
+                const l2 = words.slice(i).join(" ");
+                const w1 = ctx.measureText(l1).width;
+                const w2 = ctx.measureText(l2).width;
+                if (w1 <= limitW && w2 <= limitW) {
+                    const score = Math.abs(l1.length - midTarget) + Math.abs(w1 - w2) * 0.25;
+                    if (score < bestScore) {
+                        bestScore = score;
+                        bestSplit = i;
+                    }
+                }
+            }
+            if (bestSplit > 0) {
+                return [words.slice(0, bestSplit).join(" "), words.slice(bestSplit).join(" ")];
+            }
+            const splitAt = Math.max(1, Math.ceil(words.length / 2));
+            return [words.slice(0, splitAt).join(" "), words.slice(splitAt).join(" ")];
+        };
+
+        let fontPx = 19;
         ctx.font = `bold ${fontPx}px 'Segoe UI', system-ui, sans-serif`;
-        let textW = ctx.measureText(text).width;
-        if (textW + 26 > maxBubbleW) {
-            fontPx = 10.5;
+        let lines = [text];
+        let maxLineWidth = ctx.measureText(text).width;
+        if (maxLineWidth > maxLineW) {
+            fontPx = 18;
             ctx.font = `bold ${fontPx}px 'Segoe UI', system-ui, sans-serif`;
-            textW = ctx.measureText(text).width;
+            lines = wrapSpeechText(text, maxLineW);
+            maxLineWidth = Math.max(...lines.map((ln) => ctx.measureText(ln).width));
+            if (maxLineWidth > maxLineW) {
+                fontPx = 16.5;
+                ctx.font = `bold ${fontPx}px 'Segoe UI', system-ui, sans-serif`;
+                lines = wrapSpeechText(text, maxLineW);
+                maxLineWidth = Math.max(...lines.map((ln) => ctx.measureText(ln).width));
+            }
         }
-        const boxW = Math.min(maxBubbleW, Math.max(badgeW + 28, textW + 26));
-        const boxH = 46;
+
+        const boxW = Math.min(maxBubbleW, Math.max(badgeW + 36, maxLineWidth + 40));
+        const boxH = lines.length > 1 ? 88 : 69;
 
         let boxX = bubbleX - boxW / 2;
         let boxY = bubbleY - boxH;
 
-        const isNearTop = (boxY - (this.camera ? this.camera.y : 0)) < 30;
+        const isNearTop = (boxY - (this.camera ? this.camera.y : 0)) < 16;
         if (isNearTop) {
-            boxY = this.player.y + 60 + bounceY;
+            boxY = this.player.y + 62 + bounceY;
         }
 
         const camMinX = this.camera ? (this.camera.x + 10) : 10;
         const camMaxX = this.camera ? (this.camera.x + this.canvas.width - boxW - 10) : 500;
         boxX = Math.max(camMinX, Math.min(boxX, camMaxX));
+        const tailX = Math.max(boxX + 20, Math.min(bubbleX, boxX + boxW - 20));
 
         ctx.shadowColor = accentColor;
-        ctx.shadowBlur = 14;
+        ctx.shadowBlur = 18;
         ctx.fillStyle = "rgba(4, 10, 24, 0.94)";
         ctx.strokeStyle = accentColor;
-        ctx.lineWidth = 1.8;
+        ctx.lineWidth = 2.6;
 
         ctx.beginPath();
-        ctx.roundRect(boxX, boxY, boxW, boxH, 10);
+        ctx.roundRect(boxX, boxY, boxW, boxH, 15);
         ctx.fill();
         ctx.stroke();
 
         ctx.beginPath();
         if (isNearTop) {
-            ctx.moveTo(bubbleX - 7, boxY + 0.5);
-            ctx.lineTo(bubbleX, boxY - 8);
-            ctx.lineTo(bubbleX + 7, boxY + 0.5);
+            ctx.moveTo(tailX - 11, boxY + 0.5);
+            ctx.lineTo(tailX, boxY - 12);
+            ctx.lineTo(tailX + 11, boxY + 0.5);
         } else {
-            ctx.moveTo(bubbleX - 7, boxY + boxH - 0.5);
-            ctx.lineTo(bubbleX, boxY + boxH + 8);
-            ctx.lineTo(bubbleX + 7, boxY + boxH - 0.5);
+            ctx.moveTo(tailX - 11, boxY + boxH - 0.5);
+            ctx.lineTo(tailX, boxY + boxH + 12);
+            ctx.lineTo(tailX + 11, boxY + boxH - 0.5);
         }
         ctx.fillStyle = "rgba(4, 10, 24, 0.94)";
         ctx.fill();
@@ -11036,21 +11060,26 @@ class Game {
         ctx.shadowBlur = 0;
         ctx.fillStyle = "rgba(255, 209, 102, 0.22)";
         ctx.strokeStyle = "rgba(255, 209, 102, 0.55)";
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 1.2;
         ctx.beginPath();
-        ctx.roundRect(boxX + 10, boxY + 6, badgeW, 14, 4);
+        ctx.roundRect(boxX + 14, boxY + 9, badgeW, 22, 6);
         ctx.fill();
         ctx.stroke();
 
         ctx.fillStyle = "#ffd166";
-        ctx.font = "bold 9.5px 'Segoe UI', system-ui, sans-serif";
+        ctx.font = "bold 14.5px 'Segoe UI', system-ui, sans-serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(badgeText, boxX + 10 + badgeW / 2, boxY + 13);
+        ctx.fillText(badgeText, boxX + 14 + badgeW / 2, boxY + 20);
 
         ctx.fillStyle = "#f0fdff";
         ctx.font = `bold ${fontPx}px 'Segoe UI', system-ui, sans-serif`;
-        ctx.fillText(text, boxX + boxW / 2, boxY + 31);
+        if (lines.length > 1) {
+            ctx.fillText(lines[0], boxX + boxW / 2, boxY + 47);
+            ctx.fillText(lines[1], boxX + boxW / 2, boxY + 70);
+        } else {
+            ctx.fillText(lines[0], boxX + boxW / 2, boxY + 48);
+        }
         ctx.restore();
     }
 
@@ -11328,6 +11357,18 @@ class Game {
                 try { window.MarinextCloudBridge.queryBillingPurchases(false); } catch (e) {}
             }
         }, 1400);
+
+        if (!this._billingSyncInterval) {
+            this._billingSyncInterval = setInterval(() => {
+                if (
+                    this.hasVipPass() &&
+                    window.MarinextCloudBridge &&
+                    typeof window.MarinextCloudBridge.queryBillingPurchases === "function"
+                ) {
+                    try { window.MarinextCloudBridge.queryBillingPurchases(false); } catch (e) {}
+                }
+            }, 45000);
+        }
     }
 
     hasNoForcedAds() {
@@ -11404,6 +11445,12 @@ class Game {
                 this.charPreviewDummy.heroCharId = this.equippedHeroChar;
             }
             this.saveProgress();
+            if (typeof this.updateProfileDisplay === "function") {
+                this.updateProfileDisplay();
+            }
+            if (typeof this.updateMapUI === "function") {
+                this.updateMapUI();
+            }
             const msg = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "toastVipExpiredRevert"))
                 || "ℹ️ VIP süresi dolduğu için VIP ekipmanlar varsayılana döndürüldü.";
             this.showQuickToast(msg, "#94a3b8");
@@ -11518,7 +11565,10 @@ class Game {
         if (btnMapVip) {
             btnMapVip.classList.remove("vip-state-vip", "vip-state-lifetime");
             if (this.hasVipPass()) {
-                btnMapVip.textContent = bt("btnMapVipActive") || "👑 VIP AKTİF";
+                const isCanceling = Boolean(this.billingEntitlements.verifiedOnline && !this.billingEntitlements.autoRenewing);
+                btnMapVip.textContent = isCanceling
+                    ? (bt("btnMapVipCanceling") || "👑 VIP (SÜRE SONUNA DEK)")
+                    : (bt("btnMapVipActive") || "👑 VIP AKTİF");
                 btnMapVip.classList.add("vip-state-vip");
             } else if (this.hasNoForcedAds()) {
                 btnMapVip.textContent = bt("btnMapNoAdsActive") || "🛡️ REKLAMSIZ";
@@ -11552,6 +11602,11 @@ class Game {
             const chestTxt = bt("btnVipInstantChest", { left, max: maxQuota }) || `⚡ VIP Hazine Sandığı (${left}/${maxQuota} Reklamsız)`;
             if (btnChestChar) btnChestChar.textContent = chestTxt;
             if (btnChestCust) btnChestCust.textContent = chestTxt;
+        } else {
+            const defaultChar = (window.getMarinextUiText && window.getMarinextUiText(this.lang, "btnAdChestChar")) || "🎬 Reklam İzle (+50 ✪ Coin)";
+            const defaultCust = (window.getMarinextUiText && window.getMarinextUiText(this.lang, "btnAdChestCust")) || "🎬 Reklam İzle (+10 ❖ Zümrüt & +50 ✪ Coin)";
+            if (btnChestChar) btnChestChar.textContent = defaultChar;
+            if (btnChestCust) btnChestCust.textContent = defaultCust;
         }
     }
 
@@ -11561,6 +11616,9 @@ class Game {
         }
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.queryBillingCatalog === "function") {
             try { window.MarinextCloudBridge.queryBillingCatalog(); } catch (e) {}
+        }
+        if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.queryBillingPurchases === "function") {
+            try { window.MarinextCloudBridge.queryBillingPurchases(false); } catch (e) {}
         }
         this.renderVipStoreUI();
         const modal = document.getElementById("screen-vip-store");
