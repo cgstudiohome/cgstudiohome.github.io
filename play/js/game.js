@@ -1412,6 +1412,25 @@ class Game {
         this._adMobInitPromise = null;
         this._rewardedPreloadPromise = null;
         this._lastUmpStatus = "none";
+
+        // Google Play Billing v7 (Hybrid VIP Pass Subscriptions + Lifetime Remove Ads)
+        this.billingEntitlements = {
+            removeAdsLifetime: false,
+            vipPassActive: false,
+            autoRenewing: false,
+            activeProductId: "",
+            activeBasePlanId: "",
+            purchaseTime: 0,
+            verifiedOnline: false
+        };
+        this.billingCatalog = { ready: false, products: {} };
+        this.vipReviveUsedInLevel = false;
+        this.vipDailySkipDate = "";
+        this.vipDailySkipUsed = 0;
+        this.vipDailySalaryDate = "";
+        this.lifetimeBonusClaimed = false;
+        this.initBillingSystem();
+
         setTimeout(() => this.initAdMob(), 1200);
         setTimeout(() => this.checkAppUpdateOnStartup(), 1600);
         setTimeout(() => this.checkStartupWhatsNew(), 2600);
@@ -1774,6 +1793,10 @@ class Game {
         this.totalCampaignScore = Math.max(0, Number(data.totalCampaignScore) || 0);
         this.bestSpeedrunMs = Math.max(0, Number(data.bestSpeedrunMs) || 0);
         this.claimedLbLeagues = Array.isArray(data.claimedLbLeagues) ? data.claimedLbLeagues : [];
+        this.vipDailySkipDate = typeof data.vipDailySkipDate === "string" ? data.vipDailySkipDate : "";
+        this.vipDailySkipUsed = Math.max(0, Number(data.vipDailySkipUsed) || 0);
+        this.vipDailySalaryDate = typeof data.vipDailySalaryDate === "string" ? data.vipDailySalaryDate : "";
+        this.lifetimeBonusClaimed = Boolean(data.lifetimeBonusClaimed);
         this.savedCheckpoint = (data.savedCheckpoint && typeof data.savedCheckpoint === "object") ? data.savedCheckpoint : null;
     }
 
@@ -1826,6 +1849,7 @@ class Game {
             claimedLbLeagues: claimedLeagues,
             ownedCharacters: chars,
             ownedItems: items,
+            lifetimeBonusClaimed: Boolean(a.lifetimeBonusClaimed || b.lifetimeBonusClaimed),
             savedCheckpoint: newer.savedCheckpoint || a.savedCheckpoint || b.savedCheckpoint || null,
             updatedAt: Math.max(Number(a.updatedAt) || 0, Number(b.updatedAt) || 0, Date.now())
         };
@@ -1860,6 +1884,10 @@ class Game {
             unlockedTrollLevels: this.unlockedTrollLevels,
             starsPerTrollLevel: this.starsPerTrollLevel,
             savedCheckpoint: this.savedCheckpoint || null,
+            vipDailySkipDate: this.vipDailySkipDate || "",
+            vipDailySkipUsed: this.vipDailySkipUsed || 0,
+            vipDailySalaryDate: this.vipDailySalaryDate || "",
+            lifetimeBonusClaimed: Boolean(this.lifetimeBonusClaimed),
             unlockedAchievements: Array.from(this.unlockedAchievements || [])
         };
     }
@@ -2049,7 +2077,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 41;
+        const CURRENT_VERSION_CODE = 42;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2766,6 +2794,11 @@ class Game {
 
     handleBackAction() {
         this.clearAdPauseState();
+        const vipScreen = document.getElementById("screen-vip-store");
+        if (vipScreen && !vipScreen.classList.contains("hidden")) {
+            this.closeVipStore();
+            return true;
+        }
         const insuffScreen = document.getElementById("screen-insufficient-balance");
         if (insuffScreen && !insuffScreen.classList.contains("hidden")) {
             insuffScreen.classList.add("hidden");
@@ -3549,6 +3582,51 @@ class Game {
             btnOpenChangelog.addEventListener("click", () => {
                 window.sfx.coin();
                 this.showWhatsNewModal(true);
+            });
+        }
+
+        // 👑 VIP Pass & Lifetime Remove Ads Store Handlers
+        const openVipWithSource = (src) => {
+            window.sfx.coin();
+            this.openVipStore(src);
+        };
+        const btnMapVip = document.getElementById("btn-map-vip");
+        if (btnMapVip) btnMapVip.addEventListener("click", () => openVipWithSource("map"));
+        const btnSettingsVip = document.getElementById("btn-settings-vip");
+        if (btnSettingsVip) btnSettingsVip.addEventListener("click", () => openVipWithSource("settings"));
+        const btnShopVip = document.getElementById("btn-shop-vip");
+        if (btnShopVip) btnShopVip.addEventListener("click", () => openVipWithSource("shop"));
+        const btnModalVipNudge = document.getElementById("btn-modal-vip-nudge");
+        if (btnModalVipNudge) btnModalVipNudge.addEventListener("click", () => openVipWithSource("post_level"));
+
+        const btnCloseVipX = document.getElementById("btn-close-vip-x");
+        if (btnCloseVipX) btnCloseVipX.addEventListener("click", () => this.closeVipStore());
+        const vipOverlayEl = document.getElementById("screen-vip-store");
+        if (vipOverlayEl) {
+            vipOverlayEl.addEventListener("click", (e) => {
+                if (e.target === vipOverlayEl) this.closeVipStore();
+            });
+        }
+        const btnVipRestore = document.getElementById("btn-vip-restore");
+        if (btnVipRestore) btnVipRestore.addEventListener("click", () => this.restoreBillingPurchases());
+        const btnVipManageSub = document.getElementById("btn-vip-manage-sub");
+        if (btnVipManageSub) btnVipManageSub.addEventListener("click", () => this.openPlaySubscriptionManager());
+        const btnVipPrivacy = document.getElementById("btn-vip-privacy");
+        if (btnVipPrivacy) {
+            btnVipPrivacy.addEventListener("click", () => {
+                window.sfx.coin();
+                if (typeof window.applyMarinextExtendedUI === "function") {
+                    window.applyMarinextExtendedUI(this);
+                }
+                const privModal = document.getElementById("screen-privacy");
+                if (privModal) privModal.classList.remove("hidden");
+            });
+        }
+        const btnVipTerms = document.getElementById("btn-vip-terms");
+        if (btnVipTerms) {
+            btnVipTerms.addEventListener("click", () => {
+                window.sfx.coin();
+                window.open("https://cgstudiohome.github.io/marinext2100/terms.html", "_blank", "noopener");
             });
         }
 
@@ -4411,6 +4489,11 @@ class Game {
         }
 
         this.applyRateModalLanguage();
+        this.updateVipEntryButtonsUI();
+        const vipScreen = document.getElementById("screen-vip-store");
+        if (vipScreen && !vipScreen.classList.contains("hidden")) {
+            this.renderVipStoreUI();
+        }
         if (this.player) {
             this.updateHUD();
         }
@@ -4676,6 +4759,11 @@ class Game {
 
         window.sfx.blockHit();
 
+        const vipInstantReady = this.hasVipPass() && this.getRemainingVipAdSkips() > 0;
+        const vipSuffix = vipInstantReady
+            ? ` (⚡ VIP ${this.getRemainingVipAdSkips()}/${(window.MARINEXT_BILLING_CONFIG && window.MARINEXT_BILLING_CONFIG.dailySkipQuota) || 5})`
+            : "";
+
         if (currencyType === "emerald") {
             if (iconEl) iconEl.textContent = "❖";
             if (titleEl) titleEl.textContent = t("insuffEmeraldTitle") || "ANTİK ZÜMRÜT (❖) BAKİYESİ YETERSİZ!";
@@ -4686,9 +4774,12 @@ class Game {
             if (watchBtn) {
                 watchBtn.disabled = false;
                 watchBtn.style.opacity = "1";
-                watchBtn.textContent = t("insuffEmeraldBtn") || "🎬 Reklam İzle & +10 ❖ Zümrüt Hediye Al";
+                watchBtn.textContent = vipInstantReady
+                    ? ((t("insuffEmeraldBtn") || "🎬 Reklam İzle & +10 ❖ Zümrüt Hediye Al").replace(/^🎬\s*/, "⚡ ") + vipSuffix)
+                    : (t("insuffEmeraldBtn") || "🎬 Reklam İzle & +10 ❖ Zümrüt Hediye Al");
                 watchBtn.onclick = () => {
-                    this.showRewardedAd(
+                    this.triggerOptionalRewardOrVipSkip(
+                        "insufficient_emerald",
                         t("adRewardEmeraldTitle") || "🎁 Hediye Antik Zümrüt Paketi (+10 ❖ Zümrüt & +25 ✪ Coin)",
                         t("adRewardEmeraldDesc") || "Reklam tamamlandığında anında +10 ❖ Antik Zümrüt ve +25 ✪ Coin hesabına eklenecek!",
                         () => {
@@ -4713,9 +4804,12 @@ class Game {
             if (watchBtn) {
                 watchBtn.disabled = false;
                 watchBtn.style.opacity = "1";
-                watchBtn.textContent = t("insuffCrystalBtn") || "🎬 Reklam İzle & +80 ◆ Kristal Hediye Al";
+                watchBtn.textContent = vipInstantReady
+                    ? ((t("insuffCrystalBtn") || "🎬 Reklam İzle & +80 ◆ Kristal Hediye Al").replace(/^🎬\s*/, "⚡ ") + vipSuffix)
+                    : (t("insuffCrystalBtn") || "🎬 Reklam İzle & +80 ◆ Kristal Hediye Al");
                 watchBtn.onclick = () => {
-                    this.showRewardedAd(
+                    this.triggerOptionalRewardOrVipSkip(
+                        "insufficient_crystal",
                         t("adRewardCrystalTitle") || "🎁 Hediye Kristal Paketi (+80 ◆ Kristal & +5 ❖ Zümrüt)",
                         t("adRewardCrystalDesc") || "Reklam tamamlandığında anında +80 ◆ Mavi Kristal ve +5 ❖ Antik Zümrüt hesabına eklenecek!",
                         () => {
@@ -4743,9 +4837,12 @@ class Game {
             if (watchBtn) {
                 watchBtn.disabled = false;
                 watchBtn.style.opacity = "1";
-                watchBtn.textContent = t("insuffGoldBtn") || "🎬 Reklam İzle & +50 ✪ Coin Hediye Al";
+                watchBtn.textContent = vipInstantReady
+                    ? ((t("insuffGoldBtn") || "🎬 Reklam İzle & +50 ✪ Coin Hediye Al").replace(/^🎬\s*/, "⚡ ") + vipSuffix)
+                    : (t("insuffGoldBtn") || "🎬 Reklam İzle & +50 ✪ Coin Hediye Al");
                 watchBtn.onclick = () => {
-                    this.showRewardedAd(
+                    this.triggerOptionalRewardOrVipSkip(
+                        "insufficient_gold",
                         t("adRewardGoldTitle") || "🪙 Hediye Karakter Coin Paketi (+50 ✪ Coin & +5 ❖ Zümrüt)",
                         t("adRewardGoldDesc") || "Reklam tamamlandığında anında +50 ✪ Altın Coin ve +5 ❖ Antik Zümrüt cüzdanına eklenecek!",
                         () => {
@@ -4771,6 +4868,7 @@ class Game {
         this.previewDummy.vx = 2.5;
         this.previewDummy.onGround = true;
         this.previewDummy.forceCustOverlay = true;
+        this.updateVipEntryButtonsUI();
         this.renderCustomizeItems();
         document.getElementById("screen-customize").classList.remove("hidden");
     }
@@ -5058,6 +5156,7 @@ class Game {
         this.charPreviewDummy = new window.Player(0, 0, this.getPlayerUpgrades());
         this.charPreviewDummy.vx = 2.2;
         this.charPreviewDummy.onGround = true;
+        this.updateVipEntryButtonsUI();
         this.renderCharacterItems();
         const modal = document.getElementById("screen-character");
         if (modal) modal.classList.remove("hidden");
@@ -5258,6 +5357,7 @@ class Game {
     }
 
     openShop() {
+        this.updateVipEntryButtonsUI();
         document.getElementById("shop-wallet-coins").textContent = this.walletCoins;
         const container = document.getElementById("shop-items-container");
         container.innerHTML = "";
@@ -5528,6 +5628,7 @@ class Game {
         this.collectedGoldCoins = 0;
         this.reviveUsedInLevel = false;
         this.reviveCountInLevel = 0;
+        this.vipReviveUsedInLevel = false;
         this.doubleRewardUsedInLevel = false;
         this.score = 0;
         this.camera.x = Math.max(0, this.player.x - this.canvas.width * 0.35);
@@ -5539,7 +5640,7 @@ class Game {
         this.lastTime = performance.now();
         this.levelStartTimeMs = performance.now();
 
-        ["screen-map", "screen-shop", "screen-customize", "screen-character", "screen-modal", "screen-settings", "screen-profile", "screen-avatar-picker", "screen-insufficient-balance", "screen-language", "screen-troll", "screen-ad-overlay", "screen-ad-consent", "screen-feedback", "screen-leaderboard", "screen-rate-app", "screen-tutorial"].forEach((id) => {
+        ["screen-map", "screen-shop", "screen-customize", "screen-character", "screen-modal", "screen-settings", "screen-profile", "screen-avatar-picker", "screen-insufficient-balance", "screen-language", "screen-troll", "screen-ad-overlay", "screen-ad-consent", "screen-feedback", "screen-leaderboard", "screen-rate-app", "screen-tutorial", "screen-vip-store"].forEach((id) => {
             const el = document.getElementById(id);
             if (el) el.classList.add("hidden");
         });
@@ -5861,6 +5962,8 @@ class Game {
         if (revBtn) revBtn.classList.add("hidden");
         const dblBtn = document.getElementById("btn-ad-double");
         if (dblBtn) dblBtn.classList.add("hidden");
+        const vipNudge = document.getElementById("btn-modal-vip-nudge");
+        if (vipNudge) vipNudge.classList.add("hidden");
         modal.classList.remove("hidden");
     }
 
@@ -5903,16 +6006,28 @@ class Game {
             const maxRevives = this.isTrollMode ? 1 : 2;
             const curRevives = Number(this.reviveCountInLevel) || 0;
             if (curRevives < maxRevives) {
-                const btnKey = curRevives === 0 ? "btnReviveAd1" : "btnReviveAd2";
-                const fallbackText = curRevives === 0
-                    ? "🎬 Reklam İzle & Canlan (1/2) (+3 ♥ + 🛡)"
-                    : "🎬 Reklam İzle & Son Şans Canlan (2/2) (+3 ♥ + 🛡)";
-                revBtn.textContent = t(btnKey, { cur: curRevives + 1, max: maxRevives }) || fallbackText;
-                revBtn.classList.remove("hidden");
-                this.preloadRewardedAd();
+                if (this.hasVipPass() && !this.vipReviveUsedInLevel) {
+                    revBtn.textContent = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "btnVipInstantRevive"))
+                        || "⚡ VIP ANINDA CANLAN (REKLAMSIZ • +3 ♥ + 🛡)";
+                    revBtn.classList.remove("hidden");
+                } else {
+                    const btnKey = curRevives === 0 ? "btnReviveAd1" : "btnReviveAd2";
+                    const fallbackText = curRevives === 0
+                        ? "🎬 Reklam İzle & Canlan (1/2) (+3 ♥ + 🛡)"
+                        : "🎬 Reklam İzle & Son Şans Canlan (2/2) (+3 ♥ + 🛡)";
+                    revBtn.textContent = t(btnKey, { cur: curRevives + 1, max: maxRevives }) || fallbackText;
+                    revBtn.classList.remove("hidden");
+                    this.preloadRewardedAd();
+                }
             } else {
                 revBtn.classList.add("hidden");
             }
+        }
+        const vipNudge = document.getElementById("btn-modal-vip-nudge");
+        if (vipNudge) {
+            vipNudge.textContent = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "modalVipNudge"))
+                || "🛡️ Reklamsız oyna • VIP ve Ömür Boyu seçenekler";
+            vipNudge.classList.toggle("hidden", this.hasNoForcedAds());
         }
         modal.classList.remove("hidden");
     }
@@ -6076,10 +6191,27 @@ class Game {
         const dblBtn = document.getElementById("btn-ad-double");
         if (dblBtn) {
             if (!this.doubleRewardUsedInLevel) {
+                if (this.hasVipPass() && this.getRemainingVipAdSkips() > 0) {
+                    const maxQuota = (window.MARINEXT_BILLING_CONFIG && window.MARINEXT_BILLING_CONFIG.dailySkipQuota) || 5;
+                    dblBtn.textContent = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "btnVipInstantDouble", {
+                        left: this.getRemainingVipAdSkips(),
+                        max: maxQuota
+                    })) || `⚡ VIP ANINDA 2x ÖDÜL AL (REKLAMSIZ • ${this.getRemainingVipAdSkips()}/${maxQuota})`;
+                } else {
+                    const tUi = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
+                    dblBtn.textContent = tUi("btnDoubleAd") || "🎬 REKLAM İZLE & BÖLÜM ÖDÜLLERİNİ 2'YE KATLA (2x ✪❖◆)";
+                }
                 dblBtn.classList.remove("hidden");
             } else {
                 dblBtn.classList.add("hidden");
             }
+        }
+
+        const vipNudge = document.getElementById("btn-modal-vip-nudge");
+        if (vipNudge) {
+            vipNudge.textContent = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "modalVipNudge"))
+                || "🛡️ Reklamsız oyna • VIP ve Ömür Boyu seçenekler";
+            vipNudge.classList.toggle("hidden", this.hasNoForcedAds());
         }
 
         const nextBtn = document.getElementById("btn-next-level");
@@ -7454,6 +7586,7 @@ class Game {
     }
 
     async checkSmartInterstitialOnVictory() {
+        if (this.hasNoForcedAds()) return;
         const now = performance.now();
         const isTesting = this.isAdTestingActive();
         const reqLevels = isTesting ? 1 : ADMOB_CONFIG.interstitialEveryNLevels;
@@ -7582,72 +7715,86 @@ class Game {
         const maxRevives = this.isTrollMode ? 1 : 2;
         if ((this.reviveCountInLevel || 0) >= maxRevives || !this.player) return;
         const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
+        const executeReviveGrant = () => {
+            this.reviveCountInLevel = (this.reviveCountInLevel || 0) + 1;
+            this.reviveUsedInLevel = (this.reviveCountInLevel >= maxRevives);
+            document.getElementById("screen-modal").classList.add("hidden");
+
+            // Find the closest safe solid surface near the player's current X so they don't spawn over lava
+            let safeX = this.player.x;
+            let safeY = 12 * window.TILE_SIZE - 64;
+            if (this.inSubChamber && this.subChamber) {
+                safeX = this.subChamber.spawnX;
+                safeY = this.subChamber.spawnY;
+            } else if (this.activeCheckpoint) {
+                safeX = this.activeCheckpoint.x;
+                safeY = this.activeCheckpoint.y - 12;
+            } else if (this.solids && this.solids.length > 0) {
+                const walkable = this.solids.filter((s) => s.type !== "wall" && !s.isTrollTrapFloor && s.y <= 12.5 * window.TILE_SIZE);
+                let best = walkable[0];
+                let bestDist = Infinity;
+                for (const s of walkable) {
+                    const cx = s.x + s.w / 2;
+                    const d = Math.abs(this.player.x - cx);
+                    if (d < bestDist) {
+                        bestDist = d;
+                        best = s;
+                    }
+                }
+                if (best) {
+                    safeX = Math.max(best.x + 24, Math.min(best.x + best.w - 48, this.player.x));
+                    safeY = best.y - this.player.h - 6;
+                }
+            }
+
+            this.player.x = safeX;
+            this.player.y = safeY;
+            this.player.prevX = safeX;
+            this.player.prevY = safeY;
+            this.player.vx = 0;
+            this.player.vy = 0;
+            this.player.hp = 3;
+            this.player.hasShield = true;
+            this.player.invulnTimer = 360;
+            this.pendingTrollDeathTimer = 0;
+            this.uraniumBombs = [];
+
+            // Clear nearby enemies within 350px so player is 100% safe
+            if (this.enemies && this.enemies.length > 0) {
+                for (const en of this.enemies) {
+                    if (Math.hypot(en.x - safeX, en.y - safeY) < 350) {
+                        en.dead = true;
+                        this.spawnParticles(en.x + (en.w || 24) / 2, en.y + (en.h || 24) / 2, 12, "#00f2fe", 4);
+                    }
+                }
+            }
+
+            this.state = "playing";
+            this.spawnParticles(safeX + 16, safeY + 20, 32, "#06d6a0", 5);
+            const reviveMsg = window.translateMarinextGameText ? window.translateMarinextGameText("❤️ CANLANDIN! + KALKAN AKTİF 🛡️", this.lang) : "❤️ CANLANDIN! + KALKAN AKTİF 🛡️";
+            this.floatingTexts.push(new window.FloatingText(safeX + 16, safeY - 20, reviveMsg, "#06d6a0"));
+            if (window.sfx && typeof window.sfx.powerup === "function") {
+                window.sfx.powerup();
+            }
+            this.updateHUD();
+        };
+
+        if (this.hasVipPass() && !this.vipReviveUsedInLevel) {
+            this.vipReviveUsedInLevel = true;
+            executeReviveGrant();
+            const vipMsg = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "toastVipInstantUsed"))
+                || "👑 VIP ayrıcalığı kullanıldı! Reklamsız anında ödül hesaba eklendi.";
+            this.showQuickToast(vipMsg, "#ffd166");
+            if (window.MarinextAnalytics) {
+                window.MarinextAnalytics.logEvent("vip_instant_reward_used", { placement: "revive" });
+            }
+            return;
+        }
+
         this.showRewardedAd(
             t("adReviveTitle") || "❤️ Kaldığın Yerden 3 Can + Kalkanla Canlan",
             t("adReviveDesc") || "Reklam sonunda 3 Tam Can (♥♥♥) ve Aether Kalkanı (🛡) ile kaldığın yerden devam edeceksin!",
-            () => {
-                this.reviveCountInLevel = (this.reviveCountInLevel || 0) + 1;
-                this.reviveUsedInLevel = (this.reviveCountInLevel >= maxRevives);
-                document.getElementById("screen-modal").classList.add("hidden");
-
-                // Find the closest safe solid surface near the player's current X so they don't spawn over lava
-                let safeX = this.player.x;
-                let safeY = 12 * window.TILE_SIZE - 64;
-                if (this.inSubChamber && this.subChamber) {
-                    safeX = this.subChamber.spawnX;
-                    safeY = this.subChamber.spawnY;
-                } else if (this.activeCheckpoint) {
-                    safeX = this.activeCheckpoint.x;
-                    safeY = this.activeCheckpoint.y - 12;
-                } else if (this.solids && this.solids.length > 0) {
-                    const walkable = this.solids.filter((s) => s.type !== "wall" && !s.isTrollTrapFloor && s.y <= 12.5 * window.TILE_SIZE);
-                    let best = walkable[0];
-                    let bestDist = Infinity;
-                    for (const s of walkable) {
-                        const cx = s.x + s.w / 2;
-                        const d = Math.abs(this.player.x - cx);
-                        if (d < bestDist) {
-                            bestDist = d;
-                            best = s;
-                        }
-                    }
-                    if (best) {
-                        safeX = Math.max(best.x + 24, Math.min(best.x + best.w - 48, this.player.x));
-                        safeY = best.y - this.player.h - 6;
-                    }
-                }
-
-                this.player.x = safeX;
-                this.player.y = safeY;
-                this.player.prevX = safeX;
-                this.player.prevY = safeY;
-                this.player.vx = 0;
-                this.player.vy = 0;
-                this.player.hp = 3;
-                this.player.hasShield = true;
-                this.player.invulnTimer = 360;
-                this.pendingTrollDeathTimer = 0;
-                this.uraniumBombs = [];
-
-                // Clear nearby enemies within 350px so player is 100% safe
-                if (this.enemies && this.enemies.length > 0) {
-                    for (const en of this.enemies) {
-                        if (Math.hypot(en.x - safeX, en.y - safeY) < 350) {
-                            en.dead = true;
-                            this.spawnParticles(en.x + (en.w || 24) / 2, en.y + (en.h || 24) / 2, 12, "#00f2fe", 4);
-                        }
-                    }
-                }
-
-                this.state = "playing";
-                this.spawnParticles(safeX + 16, safeY + 20, 32, "#06d6a0", 5);
-                const reviveMsg = window.translateMarinextGameText ? window.translateMarinextGameText("❤️ CANLANDIN! + KALKAN AKTİF 🛡️", this.lang) : "❤️ CANLANDIN! + KALKAN AKTİF 🛡️";
-                this.floatingTexts.push(new window.FloatingText(safeX + 16, safeY - 20, reviveMsg, "#06d6a0"));
-                if (window.sfx && typeof window.sfx.powerup === "function") {
-                    window.sfx.powerup();
-                }
-                this.updateHUD();
-            }
+            executeReviveGrant
         );
     }
 
@@ -7658,7 +7805,8 @@ class Game {
         const bonusCrystals = Math.max(10, this.collectedCoins || 10);
         const bonusGoldCoins = Math.max(25, (this.collectedGoldCoins || 10) + 15);
 
-        this.showRewardedAd(
+        this.triggerOptionalRewardOrVipSkip(
+            "victory_double",
             t("adDoubleTitle") || "✪ Bölüm Ödüllerini 2'ye Katla (2x Bonus)",
             t("adDoubleDesc", { coins: bonusGoldCoins, emeralds: bonusEmeralds, crystals: bonusCrystals }) ||
                 `Ekstra +${bonusGoldCoins} ✪ Coin, +${bonusEmeralds} ❖ Antik Zümrüt ve +${bonusCrystals} ◆ Kristal kazanacaksın!`,
@@ -7681,7 +7829,8 @@ class Game {
 
     claimChestRewardWithAd() {
         const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
-        this.showRewardedAd(
+        this.triggerOptionalRewardOrVipSkip(
+            "chest",
             t("adChestTitle") || "🎁 Ücretsiz Hazine Sandığı (+50 ✪ Coin & +10 ❖ Zümrüt)",
             t("adChestDesc") || "Tamamlandığında anında +50 ✪ Coin ve +10 ❖ Antik Zümrüt cüzdanına eklenecek!",
             () => {
@@ -10327,6 +10476,486 @@ class Game {
         ctx.fillText(text, boxX + boxW / 2, boxY + 31);
 
         ctx.restore();
+    }
+
+    // ============================================================================
+    // 👑 GOOGLE PLAY BILLING v7 — VIP PASS SUBSCRIPTIONS & LIFETIME NO-ADS STORE
+    // ============================================================================
+    initBillingSystem() {
+        try {
+            const rawLocal = localStorage.getItem("marinext2100_billing_cache_v1");
+            if (rawLocal) {
+                const parsed = JSON.parse(rawLocal);
+                if (parsed && typeof parsed === "object") {
+                    this.billingEntitlements = { ...this.billingEntitlements, ...parsed };
+                }
+            }
+        } catch (e) {}
+
+        if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getCachedBillingEntitlementsJson === "function") {
+            try {
+                const nativeCached = JSON.parse(window.MarinextCloudBridge.getCachedBillingEntitlementsJson() || "{}");
+                if (nativeCached && typeof nativeCached === "object") {
+                    this.billingEntitlements = { ...this.billingEntitlements, ...nativeCached };
+                }
+            } catch (e) {}
+        }
+
+        window.onMarinextBillingCatalog = (jsonStr) => {
+            try {
+                const data = typeof jsonStr === "string" ? JSON.parse(jsonStr) : (jsonStr || {});
+                this.billingCatalog = {
+                    ready: Boolean(data.ready),
+                    products: data.products || {},
+                    error: data.error || ""
+                };
+                const vipScreen = document.getElementById("screen-vip-store");
+                if (vipScreen && !vipScreen.classList.contains("hidden")) {
+                    this.renderVipStoreUI();
+                }
+            } catch (e) {}
+        };
+
+        window.onMarinextBillingEntitlements = (jsonStr) => {
+            try {
+                const ent = typeof jsonStr === "string" ? JSON.parse(jsonStr) : (jsonStr || {});
+                this.billingEntitlements = {
+                    removeAdsLifetime: Boolean(ent.removeAdsLifetime),
+                    vipPassActive: Boolean(ent.vipPassActive),
+                    autoRenewing: Boolean(ent.autoRenewing),
+                    activeProductId: ent.activeProductId || "",
+                    activeBasePlanId: ent.activeBasePlanId || "",
+                    purchaseTime: Number(ent.purchaseTime) || 0,
+                    verifiedOnline: Boolean(ent.verifiedOnline)
+                };
+                try {
+                    localStorage.setItem("marinext2100_billing_cache_v1", JSON.stringify(this.billingEntitlements));
+                } catch (e) {}
+
+                this.checkAndGrantEntitlementBonuses();
+                this.updateVipEntryButtonsUI();
+                const vipScreen = document.getElementById("screen-vip-store");
+                if (vipScreen && !vipScreen.classList.contains("hidden")) {
+                    this.renderVipStoreUI();
+                }
+                if (ent.userRestore) {
+                    const msgKey = this.hasNoForcedAds() ? "toastRestoreSuccess" : "toastRestoreNone";
+                    const msgColor = this.hasNoForcedAds() ? "#06d6a0" : "#ffd166";
+                    const fallback = this.hasNoForcedAds()
+                        ? "✅ Satın alımların Google Play hesabından başarıyla senkronlandı!"
+                        : "ℹ️ Bu Google hesabında aktif VIP veya Ömür Boyu Reklamsız paket bulunamadı.";
+                    this.showQuickToast(
+                        (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, msgKey)) || fallback,
+                        msgColor
+                    );
+                }
+            } catch (e) {}
+        };
+
+        window.onMarinextBillingResult = (jsonStr) => {
+            try {
+                const res = typeof jsonStr === "string" ? JSON.parse(jsonStr) : (jsonStr || {});
+                const bt = (k) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k) : "");
+                if (res.status === "purchased" || res.status === "already_owned") {
+                    if (window.sfx && typeof window.sfx.buy === "function") window.sfx.buy();
+                    this.showQuickToast(bt("toastPurchaseSuccess") || "🎉 İşlem tamamlandı! Ayrıcalıkların hesabına tanımlandı.", "#06d6a0");
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent("purchase_completed", {
+                            product_id: this.billingEntitlements.activeProductId || "vip_or_lifetime"
+                        });
+                    }
+                } else if (res.status === "pending") {
+                    this.showQuickToast(bt("toastPurchasePending") || "⏳ Ödeme Google Play tarafından onaylanıyor.", "#ffd166");
+                } else if (res.status === "canceled") {
+                    this.showQuickToast(bt("toastPurchaseCanceled") || "ℹ️ Satın alma iptal edildi.", "#94a3b8");
+                } else if (res.status === "error") {
+                    this.showQuickToast(bt("toastPurchaseError") || "⚠️ Google Play mağaza bağlantısı şu anda yanıt vermiyor.", "#f87171");
+                }
+                this.renderVipStoreUI();
+            } catch (e) {}
+        };
+
+        setTimeout(() => {
+            this.checkAndGrantEntitlementBonuses();
+            this.updateVipEntryButtonsUI();
+            if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.queryBillingCatalog === "function") {
+                try { window.MarinextCloudBridge.queryBillingCatalog(); } catch (e) {}
+            }
+            if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.queryBillingPurchases === "function") {
+                try { window.MarinextCloudBridge.queryBillingPurchases(false); } catch (e) {}
+            }
+        }, 1400);
+    }
+
+    hasNoForcedAds() {
+        return Boolean(
+            this.billingEntitlements &&
+            (this.billingEntitlements.removeAdsLifetime || this.billingEntitlements.vipPassActive)
+        );
+    }
+
+    hasVipPass() {
+        return Boolean(this.billingEntitlements && this.billingEntitlements.vipPassActive);
+    }
+
+    getLocalDateKey() {
+        const d = new Date();
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        return `${y}-${m}-${day}`;
+    }
+
+    getRemainingVipAdSkips() {
+        const quota = (window.MARINEXT_BILLING_CONFIG && window.MARINEXT_BILLING_CONFIG.dailySkipQuota) || 5;
+        const today = this.getLocalDateKey();
+        if (this.vipDailySkipDate !== today) return quota;
+        return Math.max(0, quota - (Number(this.vipDailySkipUsed) || 0));
+    }
+
+    consumeVipAdSkip() {
+        const today = this.getLocalDateKey();
+        if (this.vipDailySkipDate !== today) {
+            this.vipDailySkipDate = today;
+            this.vipDailySkipUsed = 0;
+        }
+        this.vipDailySkipUsed = (Number(this.vipDailySkipUsed) || 0) + 1;
+        this.saveProgress();
+        this.updateVipEntryButtonsUI();
+    }
+
+    triggerOptionalRewardOrVipSkip(placement, adTitle, adDesc, onGrant) {
+        if (this.hasVipPass() && this.getRemainingVipAdSkips() > 0) {
+            this.consumeVipAdSkip();
+            if (window.sfx && typeof window.sfx.emerald === "function") {
+                window.sfx.emerald();
+            }
+            if (typeof onGrant === "function") {
+                onGrant();
+            }
+            const msg = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "toastVipInstantUsed"))
+                || "👑 VIP ayrıcalığı kullanıldı! Reklamsız anında ödül hesaba eklendi.";
+            this.showQuickToast(msg, "#ffd166");
+            if (window.MarinextAnalytics) {
+                window.MarinextAnalytics.logEvent("vip_instant_reward_used", { placement: placement || "reward" });
+            }
+            this.updateVipEntryButtonsUI();
+            return;
+        }
+        this.showRewardedAd(adTitle, adDesc, onGrant);
+    }
+
+    checkAndGrantEntitlementBonuses() {
+        const cfg = window.MARINEXT_BILLING_CONFIG || {
+            vipDailyCoins: 1000,
+            vipDailyEmeralds: 100,
+            lifetimeCoins: 1500,
+            lifetimeEmeralds: 50
+        };
+        let grantedAny = false;
+
+        if (this.billingEntitlements && this.billingEntitlements.removeAdsLifetime && !this.lifetimeBonusClaimed) {
+            this.lifetimeBonusClaimed = true;
+            this.addGoldCoins(cfg.lifetimeCoins || 1500, false);
+            this.addEmeralds(cfg.lifetimeEmeralds || 50, false);
+            grantedAny = true;
+            const msg = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "toastLifetimeBonus", {
+                coins: cfg.lifetimeCoins || 1500,
+                emeralds: cfg.lifetimeEmeralds || 50
+            })) || `🛡️ Ömür Boyu Reklamsız Paket aktif! +${cfg.lifetimeCoins} ✪ Coin & +${cfg.lifetimeEmeralds} ❖ Zümrüt!`;
+            setTimeout(() => this.showQuickToast(msg, "#06d6a0"), 600);
+        }
+
+        const today = this.getLocalDateKey();
+        if (this.hasVipPass() && this.vipDailySalaryDate !== today) {
+            this.vipDailySalaryDate = today;
+            this.addGoldCoins(cfg.vipDailyCoins || 1000, false);
+            this.addEmeralds(cfg.vipDailyEmeralds || 100, false);
+            grantedAny = true;
+            const msg = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "toastVipDailySalary", {
+                coins: cfg.vipDailyCoins || 1000,
+                emeralds: cfg.vipDailyEmeralds || 100
+            })) || `👑 Günlük VIP Maaşı yattı: +${cfg.vipDailyCoins} ✪ Coin & +${cfg.vipDailyEmeralds} ❖ Zümrüt!`;
+            setTimeout(() => this.showQuickToast(msg, "#ffd166"), 1100);
+        }
+
+        if (grantedAny) {
+            this.saveProgress(true);
+            this.updateMapUI();
+            if (this.player) this.updateHUD();
+        }
+    }
+
+    getVipPriceDisplay(planKey) {
+        const products = (this.billingCatalog && this.billingCatalog.products) || {};
+        if (products[planKey] && products[planKey].price) {
+            return products[planKey].price;
+        }
+        const cfg = window.MARINEXT_BILLING_CONFIG || {};
+        const fallbacks = (cfg.fallbackPrices && ((this.lang === "tr" ? cfg.fallbackPrices.tr : cfg.fallbackPrices.global))) || {};
+        return fallbacks[planKey] || "...";
+    }
+
+    updateVipEntryButtonsUI() {
+        const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
+        const maxQuota = (window.MARINEXT_BILLING_CONFIG && window.MARINEXT_BILLING_CONFIG.dailySkipQuota) || 5;
+        const left = this.getRemainingVipAdSkips();
+
+        const btnMapVip = document.getElementById("btn-map-vip");
+        if (btnMapVip) {
+            btnMapVip.classList.remove("vip-state-vip", "vip-state-lifetime");
+            if (this.hasVipPass()) {
+                btnMapVip.textContent = bt("btnMapVipActive") || "👑 VIP AKTİF";
+                btnMapVip.classList.add("vip-state-vip");
+            } else if (this.hasNoForcedAds()) {
+                btnMapVip.textContent = bt("btnMapNoAdsActive") || "🛡️ REKLAMSIZ";
+                btnMapVip.classList.add("vip-state-lifetime");
+            } else {
+                btnMapVip.textContent = bt("btnMapVip") || "👑 VIP / REKLAMSIZ";
+            }
+        }
+
+        const btnSettingsVip = document.getElementById("btn-settings-vip");
+        if (btnSettingsVip) {
+            btnSettingsVip.textContent = this.hasNoForcedAds()
+                ? (bt("btnSettingsVipActive") || "👑 VIP / Reklamsız Durumu (Aktif ✓)")
+                : (bt("btnSettingsVip") || "👑 VIP Pass & Reklamları Kaldır");
+        }
+
+        const shopBanner = document.getElementById("shop-vip-banner");
+        if (shopBanner) {
+            shopBanner.classList.toggle("hidden", this.hasVipPass());
+            const bTitle = document.getElementById("shop-vip-banner-title");
+            const bDesc = document.getElementById("shop-vip-banner-desc");
+            const bBtn = document.getElementById("btn-shop-vip");
+            if (bTitle) bTitle.textContent = bt("shopVipBannerTitle") || "🛡️ Kesintisiz Reklamsız Oynanış & VIP Ayrıcalıklar";
+            if (bDesc) bDesc.textContent = bt("shopVipBannerDesc") || "";
+            if (bBtn) bBtn.textContent = bt("shopVipBannerBtn") || "Seçenekleri Gör";
+        }
+
+        const btnChestChar = document.getElementById("btn-ad-chest-char");
+        const btnChestCust = document.getElementById("btn-ad-chest-cust");
+        if (this.hasVipPass() && left > 0) {
+            const chestTxt = bt("btnVipInstantChest", { left, max: maxQuota }) || `⚡ VIP Hazine Sandığı (${left}/${maxQuota} Reklamsız)`;
+            if (btnChestChar) btnChestChar.textContent = chestTxt;
+            if (btnChestCust) btnChestCust.textContent = chestTxt;
+        }
+    }
+
+    openVipStore(source = "map") {
+        if (window.MarinextAnalytics) {
+            window.MarinextAnalytics.logEvent("vip_store_opened", { source });
+        }
+        if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.queryBillingCatalog === "function") {
+            try { window.MarinextCloudBridge.queryBillingCatalog(); } catch (e) {}
+        }
+        this.renderVipStoreUI();
+        const modal = document.getElementById("screen-vip-store");
+        if (modal) modal.classList.remove("hidden");
+    }
+
+    closeVipStore() {
+        window.sfx.coin();
+        const modal = document.getElementById("screen-vip-store");
+        if (modal) modal.classList.add("hidden");
+    }
+
+    renderVipStoreUI() {
+        const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
+        const maxQuota = (window.MARINEXT_BILLING_CONFIG && window.MARINEXT_BILLING_CONFIG.dailySkipQuota) || 5;
+        const left = this.getRemainingVipAdSkips();
+
+        const titleEl = document.getElementById("vip-modal-title");
+        const subEl = document.getElementById("vip-modal-sub");
+        if (titleEl) titleEl.textContent = bt("modalTitle") || "👑 REKLAMSIZ DENEYİM & VIP PASS";
+        if (subEl) subEl.textContent = bt("modalSub") || "";
+
+        const activeBanner = document.getElementById("vip-active-banner");
+        const activeBannerTxt = document.getElementById("vip-active-banner-text");
+        if (activeBanner && activeBannerTxt) {
+            if (this.hasVipPass()) {
+                const renewSuffix = this.billingEntitlements.autoRenewing
+                    ? (bt("activeBannerRenewOn") || "Otomatik yenileme açık")
+                    : (bt("activeBannerRenewOff") || "Dönem sonunda yenilenmeyecek");
+                activeBannerTxt.textContent = `${bt("activeBannerVip", { left, max: maxQuota })} (${renewSuffix})`;
+                activeBanner.classList.remove("hidden");
+            } else if (this.billingEntitlements.removeAdsLifetime) {
+                activeBannerTxt.textContent = bt("activeBannerLifetime") || "🛡️ Ömür Boyu Reklamsız Paket Aktif";
+                activeBanner.classList.remove("hidden");
+            } else {
+                activeBanner.classList.add("hidden");
+            }
+        }
+
+        const perksRow = document.getElementById("vip-perks-row");
+        if (perksRow) {
+            const perks = [
+                { icon: "🚫", title: bt("perkNoAdsTitle"), desc: bt("perkNoAdsDesc") },
+                { icon: "⚡", title: bt("perkVipInstantTitle"), desc: bt("perkVipInstantDesc") },
+                { icon: "🛡️", title: bt("perkLifetimeTitle"), desc: bt("perkLifetimeDesc") }
+            ];
+            perksRow.innerHTML = perks.map((p) => `
+                <div class="vip-perk-chip">
+                    <span class="vip-perk-icon">${p.icon}</span>
+                    <div>
+                        <strong>${p.title}</strong>
+                        <span>${p.desc}</span>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        const grid = document.getElementById("vip-plans-grid");
+        if (grid) {
+            const vipActive = this.hasVipPass();
+            const activeBase = this.billingEntitlements.activeBasePlanId || "";
+            const lifetimeOwned = Boolean(this.billingEntitlements.removeAdsLifetime);
+
+            const plans = [
+                {
+                    key: "vip-monthly-1m",
+                    productId: "marinext_vip_pass",
+                    productType: "subs",
+                    basePlanId: "vip-monthly-1m",
+                    cls: "plan-monthly",
+                    tag: bt("tagFlexible"),
+                    title: bt("planMonthlyTitle"),
+                    period: bt("planMonthlyPeriod"),
+                    desc: bt("planMonthlyDesc"),
+                    owned: vipActive && activeBase === "vip-monthly-1m",
+                    disabled: vipActive && activeBase === "vip-monthly-1m",
+                    cta: (vipActive && activeBase === "vip-monthly-1m") ? bt("btnActivePlan") : bt("btnSubscribe")
+                },
+                {
+                    key: "vip-quarterly-3m",
+                    productId: "marinext_vip_pass",
+                    productType: "subs",
+                    basePlanId: "vip-quarterly-3m",
+                    cls: "plan-quarterly",
+                    tag: bt("tagPopular"),
+                    title: bt("planQuarterlyTitle"),
+                    period: bt("planQuarterlyPeriod"),
+                    desc: bt("planQuarterlyDesc"),
+                    owned: vipActive && activeBase === "vip-quarterly-3m",
+                    disabled: vipActive && activeBase === "vip-quarterly-3m",
+                    cta: (vipActive && activeBase === "vip-quarterly-3m") ? bt("btnActivePlan") : bt("btnSubscribe")
+                },
+                {
+                    key: "vip-yearly-12m",
+                    productId: "marinext_vip_pass",
+                    productType: "subs",
+                    basePlanId: "vip-yearly-12m",
+                    cls: "plan-yearly",
+                    tag: bt("tagBestValue"),
+                    title: bt("planYearlyTitle"),
+                    period: bt("planYearlyPeriod"),
+                    desc: bt("planYearlyDesc"),
+                    owned: vipActive && activeBase === "vip-yearly-12m",
+                    disabled: vipActive && activeBase === "vip-yearly-12m",
+                    cta: (vipActive && activeBase === "vip-yearly-12m") ? bt("btnActivePlan") : bt("btnSubscribe")
+                },
+                {
+                    key: "marinext_remove_ads_lifetime",
+                    productId: "marinext_remove_ads_lifetime",
+                    productType: "inapp",
+                    basePlanId: "",
+                    cls: "plan-lifetime",
+                    tag: bt("tagNoSub"),
+                    title: bt("planLifetimeTitle"),
+                    period: bt("planLifetimePeriod"),
+                    desc: bt("planLifetimeDesc"),
+                    owned: lifetimeOwned,
+                    disabled: lifetimeOwned,
+                    cta: lifetimeOwned ? bt("btnOwned") : bt("btnBuyOnce")
+                }
+            ];
+
+            grid.innerHTML = "";
+            plans.forEach((plan) => {
+                const card = document.createElement("div");
+                card.className = `vip-plan-card ${plan.cls} ${plan.owned ? "plan-owned" : ""}`;
+                const priceText = this.getVipPriceDisplay(plan.key);
+                card.innerHTML = `
+                    <div>
+                        <span class="vip-plan-tag">${plan.tag}</span>
+                        <h3 class="vip-plan-title">${plan.title}</h3>
+                        <div class="vip-plan-price-row">
+                            <span class="vip-plan-price">${priceText}</span>
+                            <span class="vip-plan-period">${plan.period}</span>
+                        </div>
+                        <p class="vip-plan-desc">${plan.desc}</p>
+                    </div>
+                    <button type="button" class="vip-plan-cta" ${plan.disabled ? "disabled" : ""}>${plan.cta}</button>
+                `;
+                const btn = card.querySelector("button");
+                if (btn && !plan.disabled) {
+                    btn.addEventListener("click", () => {
+                        this.startBillingPurchase(plan.productId, plan.productType, plan.basePlanId);
+                    });
+                }
+                grid.appendChild(card);
+            });
+        }
+
+        const legalEl = document.getElementById("vip-legal-note");
+        if (legalEl) legalEl.textContent = bt("legalNoticeSubs") || "";
+
+        const setElTxt = (id, txt) => {
+            const el = document.getElementById(id);
+            if (el && txt) el.textContent = txt;
+        };
+        setElTxt("btn-vip-restore", bt("btnRestore"));
+        setElTxt("btn-vip-manage-sub", bt("btnManageSub"));
+        setElTxt("btn-vip-privacy", bt("btnPrivacy"));
+        setElTxt("btn-vip-terms", bt("btnTerms"));
+
+        const manageBtn = document.getElementById("btn-vip-manage-sub");
+        if (manageBtn) {
+            manageBtn.style.display = this.hasVipPass() || this.isNativeAndroid() ? "inline-flex" : "none";
+        }
+    }
+
+    startBillingPurchase(productId, productType, basePlanId = "") {
+        if (window.MarinextAnalytics) {
+            window.MarinextAnalytics.logEvent("purchase_initiated", {
+                product_id: productId,
+                base_plan: basePlanId || "lifetime"
+            });
+        }
+        if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.launchBillingPurchase === "function") {
+            try {
+                window.MarinextCloudBridge.launchBillingPurchase(productId, productType, basePlanId || "");
+                return;
+            } catch (e) {}
+        }
+        const msg = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "toastWebPreviewOnly"))
+            || "ℹ️ Satın alma ve abonelik işlemleri Android cihazda Google Play Store üzerinden gerçekleştirilir.";
+        this.showQuickToast(msg, "#00f2fe", 4200);
+    }
+
+    restoreBillingPurchases() {
+        if (window.MarinextAnalytics) {
+            window.MarinextAnalytics.logEvent("purchase_restored", { source: "vip_store" });
+        }
+        if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.queryBillingPurchases === "function") {
+            try {
+                window.MarinextCloudBridge.queryBillingPurchases(true);
+                return;
+            } catch (e) {}
+        }
+        const msg = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "toastWebPreviewOnly"))
+            || "ℹ️ Satın alma ve abonelik işlemleri Android cihazda Google Play Store üzerinden gerçekleştirilir.";
+        this.showQuickToast(msg, "#00f2fe", 4200);
+    }
+
+    openPlaySubscriptionManager() {
+        if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.openSubscriptionManagement === "function") {
+            try {
+                window.MarinextCloudBridge.openSubscriptionManagement("marinext_vip_pass");
+                return;
+            } catch (e) {}
+        }
+        window.open("https://play.google.com/store/account/subscriptions?package=com.cgstudiohome.marinext2100", "_blank", "noopener");
     }
 
     start120HzEngine() {
