@@ -135,6 +135,7 @@
                     </div>
 
                     <div class="top-buttons-group">
+                        <button id="btn-map-vip" class="vip-top-pill-btn" type="button" title="VIP Pass &amp; Reklamsız Deneyim">👑 VIP / REKLAMSIZ</button>
                         <button id="btn-map-leaderboard" class="customize-btn" style="background: linear-gradient(135deg, #eab308, #ca8a04); border-color: #fef08a; color: #0f172a; font-weight: 900; box-shadow: 0 0 16px rgba(234, 179, 8, 0.45);" title="Küresel & Play Games Liderlik Tablosu">🏆 LİDERLİK</button>
                         <button id="btn-open-character" class="customize-btn hidden" style="display:none;">👤 KARAKTER DEĞİŞTİR (✪)</button>
                         <button id="btn-open-customize" class="customize-btn hidden" style="display:none;">🎨 KARAKTERİ KİŞİSELLEŞTİR</button>
@@ -312,6 +313,14 @@
                 </div>
                 <p class="shop-sub" id="shop-modal-sub">Bölümlerde topladığın mavi kristallerle (◆) kalıcı can, kalkan ve ateş topu güçlendirmeleri aç!</p>
 
+                <div id="shop-vip-banner" class="vip-shop-banner">
+                    <div class="vip-shop-banner-text">
+                        <strong id="shop-vip-banner-title">🛡️ Kesintisiz Reklamsız Oynanış &amp; VIP Ayrıcalıklar</strong>
+                        <span id="shop-vip-banner-desc">İstersen tek seferlik reklamları kaldır veya VIP Pass ile reklam izlemeden anında canlan &amp; ödülleri al.</span>
+                    </div>
+                    <button id="btn-shop-vip" type="button" class="vip-shop-banner-btn">Seçenekleri Gör</button>
+                </div>
+
                 <div class="shop-grid" id="shop-items-container">
                     <!-- Populated dynamically by game.js -->
                 </div>
@@ -344,6 +353,7 @@
                     <button id="btn-modal-customize" class="customize-btn">🎨 KARAKTERİ KİŞİSELLEŞTİR</button>
                     <button id="btn-restart" class="secondary-btn">BÖLÜMÜ BAŞTAN BAŞLAT ↻</button>
                     <button id="btn-to-map" class="secondary-btn">BÖLÜMDEN ÇIK VE HARİTAYA DÖN 🗺</button>
+                    <button id="btn-modal-vip-nudge" class="vip-soft-link-btn hidden" type="button">🛡️ Reklamsız oyna • VIP ve Ömür Boyu seçenekler</button>
                 </div>
             </div>
         </div>
@@ -398,6 +408,9 @@
                         </button>
                         <button id="btn-settings-cloud-sync" class="settings-row-btn btn-cloud-row" type="button">
                             🎮 Google Play Games &amp; Bulut Kayıt
+                        </button>
+                        <button id="btn-settings-vip" class="settings-row-btn btn-vip-row" type="button">
+                            👑 VIP Pass &amp; Reklamları Kaldır
                         </button>
                         <button id="btn-privacy-consent" class="settings-row-btn btn-gdpr-row" type="button">
                             🔒 Reklam &amp; Gizlilik Tercihleri (GDPR)
@@ -978,6 +991,38 @@
             </div>
         </div>
 
+        <!-- Respectful VIP Pass & Lifetime Remove Ads Store Modal -->
+        <div id="screen-vip-store" class="overlay-screen hidden" style="z-index: 9560;">
+            <div class="vip-modal-card">
+                <button id="btn-close-vip-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <div class="vip-modal-header">
+                    <h2 id="vip-modal-title">👑 REKLAMSIZ DENEYİM &amp; VIP PASS</h2>
+                    <p id="vip-modal-sub" class="vip-modal-sub">Oyunu ücretsiz oynamaya her zaman devam edebilirsin. Daha akıcı bir deneyim istersen kendine en uygun planı seçebilirsin.</p>
+                </div>
+
+                <div id="vip-active-banner" class="vip-active-banner hidden">
+                    <span id="vip-active-banner-text"></span>
+                </div>
+
+                <div id="vip-perks-row" class="vip-perks-row">
+                    <!-- Populated dynamically in active language -->
+                </div>
+
+                <div id="vip-plans-grid" class="vip-plans-grid">
+                    <!-- 4 Plan Cards populated dynamically by js/game.js -->
+                </div>
+
+                <p id="vip-legal-note" class="vip-legal-note"></p>
+
+                <div class="vip-footer-actions">
+                    <button id="btn-vip-restore" type="button" class="vip-footer-btn">🔄 Satın Alımları Geri Yükle</button>
+                    <button id="btn-vip-manage-sub" type="button" class="vip-footer-btn">⚙️ Google Play Aboneliğini Yönet</button>
+                    <button id="btn-vip-privacy" type="button" class="vip-footer-link">🛡️ Gizlilik Politikası</button>
+                    <button id="btn-vip-terms" type="button" class="vip-footer-link">📜 Hizmet Şartları</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Professional Aspect-Ratio-Safe Startup Splash Screen (Item 1: Never Stretches on Any Phone or Tablet) -->
         <div id="screen-splash-intro" class="overlay-screen" style="position: fixed; inset: 0; z-index: 10000; background: radial-gradient(circle at center, #141c42 0%, #070a1c 62%, #03040a 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px;">
             <div class="splash-intro-card">
@@ -1000,6 +1045,7 @@
     <script src="js/levels.js"></script>
     <script src="js/entities.js"></script>
     <script src="js/i18n.js"></script>
+    <script src="js/billing-i18n.js"></script>
     <script src="js/analytics.js"></script>
     <script src="js/game.js"></script>
 </body>
