@@ -84,7 +84,8 @@ const HERO_CHARACTERS_CATALOG = [
         perkDesc: "🔥 Hünkar Kudreti: +1 Can (♥), Plazma Ateşiyle Başlama & +%12 Hız",
         bonuses: { extraHearts: 1, startFire: true, speedBonus: 0.6, scoreMult: 0.3 },
         desc: "Tarihi portreye birebir: Samur kürklü altın işlemeli kırmızı Hünkar Kaftanı ve sorguçlu burmalı Tac-ı Selimi sarığı!",
-        cost: 300
+        cost: 300,
+        vipEarlyAccess: true
     },
     {
         id: "fatih_sultan_mehmet",
@@ -94,7 +95,8 @@ const HERO_CHARACTERS_CATALOG = [
         perkDesc: "👑 Cihan Fatihi: +1 Can (♥), Başlangıç Kalkanı + Ateşi & +%40 Skor",
         bonuses: { extraHearts: 1, startShield: true, startFire: true, scoreMult: 0.4 },
         desc: "İstanbul'un Fatihi: Altın sırma işlemeli kızıl-lacivert Hünkar Kaftanı, beyaz İmparatorluk Destar Sarığı ve Fetih Kılıcı!",
-        cost: 350
+        cost: 350,
+        vipEarlyAccess: true
     },
     {
         id: "janissary_aga",
@@ -154,7 +156,8 @@ const HERO_CHARACTERS_CATALOG = [
         perkDesc: "☀️ Güneş Hazinesi: Otomatik Zümrüt/Kristal Mıknatısı & +%50 Coin Şansı",
         bonuses: { hasMagnet: true, magnetRadiusBonus: 85, coinBonusChance: 0.5, scoreMult: 0.3 },
         desc: "Kobra armalı mavi-altın Nemes başlığı, geniş altın yaka zırhı ve parlayan Güneş Asası!",
-        cost: 260
+        cost: 260,
+        vipEarlyAccess: true
     },
     {
         id: "spartan_gladiator",
@@ -165,6 +168,28 @@ const HERO_CHARACTERS_CATALOG = [
         bonuses: { extraHearts: 1, invulnBonus: 25, speedBonus: 0.45 },
         desc: "Kızıl at kılı sorguçlu bronz Korint miğferi, kırmızı Sparta pelerini, yuvarlak kalkan ve mızrak!",
         cost: 190
+    },
+    {
+        id: "vip_quantum_emperor",
+        icon: "👑",
+        title: "Altın Kuantum İmparator",
+        faceDesc: "Yüz Tipi: Holografik Kuantum Vizör & Altın İmparator Zırhı",
+        perkDesc: "👑 VIP İmparator: Süper Hazine Mıknatısı (+110px), Başlangıç Kalkanı & +%50 Skor/Coin",
+        bonuses: { hasMagnet: true, magnetRadiusBonus: 110, startShield: true, scoreMult: 0.5, coinBonusChance: 0.45, speedBonus: 0.65 },
+        desc: "Yüzen 3 sivri uçlu altın holografik taç, obsidyen-altın kuantum zırhı ve yörüngeli Kuantum İmparatorluk Asası!",
+        cost: 0,
+        vipOnly: true
+    },
+    {
+        id: "vip_cyber_phoenix",
+        icon: "🔥",
+        title: "Siber Anka Şövalyesi",
+        faceDesc: "Yüz Tipi: Kor Alev Gözler & Kızıl Anka Gaga Miğfer",
+        perkDesc: "🔥 Anka Dirilişi: Bölüm Başı 1x Otomatik Canlanma + Süzülme + 3x Zıplama + Hızlı Ateş",
+        bonuses: { phoenixAutoRevive: true, hasGlide: true, extraJumps: 1, fireCooldownReduction: 6, startFire: true, speedBonus: 0.72, airControlBonus: 0.35 },
+        desc: "Küllerinden doğan ateş kanatlı efsanevi VIP şövalye! Düştüğünde veya yenildiğinde bölüm başına 1 kez kalkanıyla küllerinden dirilir!",
+        cost: 0,
+        vipOnly: true
     }
 ];
 
@@ -321,7 +346,10 @@ const CUSTOMIZE_CATALOG = [
     { id: "cape_crimson", category: "cape", value: "#ef233c", icon: "🩸", title: "Kan Kırmızısı Pelerin", desc: "Asil şövalye kırmızısı pelerin.", cost: 2 },
     { id: "cape_white", category: "cape", value: "#ffffff", icon: "🕊", title: "Saf Beyaz Işık Pelerini", desc: "Karanlıkta parlayan bembeyaz pelerin.", cost: 3 },
     { id: "cape_toxic", category: "cape", value: "#aacc00", icon: "☣️", title: "Neon Asit Pelerini", desc: "Parlak fıstık yeşili siber pelerin.", cost: 3 },
-    { id: "cape_rainbow", category: "cape", value: "rainbow", icon: "🌈", title: "Gökkuşağı Tayf Pelerini", desc: "Dalgalandıkça renk değiştiren efsanevi RGB pelerin!", cost: 5 }
+    { id: "cape_rainbow", category: "cape", value: "rainbow", icon: "🌈", title: "Gökkuşağı Tayf Pelerini", desc: "Dalgalandıkça renk değiştiren efsanevi RGB pelerin!", cost: 5 },
+    { id: "gear_vip_phoenix_wings", category: "backGear", value: "vip_phoenix_wings", icon: "🔥", title: "VIP Anka Alev Kanatları", desc: "VIP Pass'e özel köz alevli siber anka kanatları (Süzülüş + Zıplama).", cost: 0, vipOnly: true },
+    { id: "aura_vip_goldstars", category: "aura", value: "vip_goldstars", icon: "👑", title: "VIP Altın İmparator Aurası", desc: "Yörünge yıldızlı ve altın-turkuaz kuantum halkalı prestij aurası.", cost: 0, vipOnly: true },
+    { id: "cape_vip_imperial", category: "cape", value: "vip_imperial", icon: "🟣", title: "VIP İmparatorluk Pelerini", desc: "Altın kenarlı asil mor kuantum pelerin ve maksimum hava hakimiyeti!", cost: 0, vipOnly: true }
 ];
 
 // 30 Distinct Profile Pictures (Portraits) with Custom Gradient Frames
@@ -2077,7 +2105,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 42;
+        const CURRENT_VERSION_CODE = 43;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2312,7 +2340,7 @@ class Game {
 
     getItemGameplayPerk(item) {
         if (!item) return { desc: "⚡ Standart Siber Donanım", bonuses: {} };
-        const tier = Math.max(1, Number(item.cost) || 1);
+        const tier = item.vipOnly ? 6 : Math.max(1, Number(item.cost) || 1);
         if (item.category === "helmet") {
             const inv = 6 + tier * 3;
             const spd = +(0.08 + tier * 0.03).toFixed(2);
@@ -2322,7 +2350,7 @@ class Game {
             };
         }
         if (item.category === "backGear") {
-            const isWingOrJet = ["jetpack", "wings", "dragon_wings", "angel_wings"].includes(item.value);
+            const isWingOrJet = ["jetpack", "wings", "dragon_wings", "angel_wings", "vip_phoenix_wings"].includes(item.value);
             if (isWingOrJet) {
                 return {
                     desc: `🪽 Hava Süzülüşü (Glide) & +%${4 + tier} Yüksek Zıplama Gücü`,
@@ -2353,7 +2381,7 @@ class Game {
             };
         }
         if (item.category === "aura") {
-            if (item.cost === 0) {
+            if (item.cost === 0 && !item.vipOnly) {
                 return { desc: "⭕ Sade Görünüm (Ekstra Aura Yok)", bonuses: {} };
             }
             const scMult = +(tier * 0.06).toFixed(2);
@@ -2388,6 +2416,8 @@ class Game {
         let coinBonusChance = 0;
         let startShield = this.ownedItems.includes("startShield");
         let startFire = this.ownedItems.includes("startFire");
+        let phoenixAutoRevive = false;
+        const isVipActive = this.hasVipPass();
 
         // 1. Shop Upgrades (heart1, heart2, heart3)
         if (this.ownedItems.includes("heart1")) {
@@ -2419,11 +2449,17 @@ class Game {
             if (b.coinBonusChance) coinBonusChance += b.coinBonusChance;
             if (b.startShield) startShield = true;
             if (b.startFire) startFire = true;
+            if (b.phoenixAutoRevive) phoenixAutoRevive = true;
         };
 
         // 2. Active Hero Character Perks
         const heroObj = HERO_CHARACTERS_CATALOG.find((h) => h.id === (this.equippedHeroChar || "default"));
-        if (heroObj && heroObj.bonuses) {
+        if (
+            heroObj &&
+            heroObj.bonuses &&
+            (!heroObj.vipOnly || isVipActive) &&
+            (!heroObj.vipEarlyAccess || isVipActive || (this.ownedCharacters || []).includes(heroObj.id))
+        ) {
             applyBonusObj(heroObj.bonuses);
         }
 
@@ -2438,7 +2474,7 @@ class Game {
         ];
         for (const ep of equippedPairs) {
             const itemObj = CUSTOMIZE_CATALOG.find((i) => i.category === ep.cat && i.value === ep.val);
-            if (itemObj) {
+            if (itemObj && (!itemObj.vipOnly || isVipActive)) {
                 const perk = this.getItemGameplayPerk(itemObj);
                 if (perk && perk.bonuses) applyBonusObj(perk.bonuses);
             }
@@ -2459,6 +2495,7 @@ class Game {
             coinBonusChance: Math.min(0.85, coinBonusChance),
             startShield,
             startFire,
+            phoenixAutoRevive,
             skinId: this.equippedSkin,
             helmetId: this.equippedHelmet,
             backGearId: this.equippedBackGear,
@@ -4970,11 +5007,14 @@ class Game {
         }
 
         const items = CUSTOMIZE_CATALOG.filter((item) => item.category === this.activeCustTab);
+        const isVipActive = this.hasVipPass();
+        const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
 
         items.forEach((rawItem) => {
             const item = window.getLocalizedCustomizeItem ? window.getLocalizedCustomizeItem(rawItem, this.lang) : rawItem;
             const milestoneLvl = this.getItemMilestoneUnlockLevel(item);
-            const isOwned = this.ownedItems.includes(item.id) || item.cost === 0;
+            const isVipItem = Boolean(rawItem.vipOnly);
+            const isOwned = isVipItem ? isVipActive : (this.ownedItems.includes(item.id) || item.cost === 0);
             let isEquipped = false;
             if (item.category === "helmet") isEquipped = this.equippedHelmet === item.value;
             if (item.category === "backGear") isEquipped = this.equippedBackGear === item.value;
@@ -4988,7 +5028,7 @@ class Game {
             const perkDesc = window.getLocalizedPerkDesc ? window.getLocalizedPerkDesc(rawItem, rawPerk, this.lang) : rawPerk.desc;
 
             const card = document.createElement("div");
-            card.className = `shop-card ${isOwned ? "owned" : ""}`;
+            card.className = `shop-card ${isOwned ? "owned" : ""} ${isVipItem ? `vip-exclusive-card ${isVipActive ? "vip-ready" : "vip-locked"}` : ""}`.trim();
             if (isEquipped) {
                 card.style.borderColor = "#06d6a0";
                 card.style.boxShadow = "0 0 16px rgba(6, 214, 160, 0.35)";
@@ -5004,6 +5044,9 @@ class Game {
                 btnLabel = t("custEquippedBtn") || "✓ KUŞANILDI (AKTİF)";
                 btnClass = "shop-buy-btn equipped";
                 disabled = true;
+            } else if (isVipItem && !isVipActive) {
+                btnLabel = bt("btnUnlockWithVip") || "👑 VIP PASS İLE AÇ";
+                btnClass = "shop-buy-btn vip-unlock-btn";
             } else if (isOwned) {
                 btnLabel = t("custEquipBtn") || "KUŞAN & AKTİF ET";
             }
@@ -5019,9 +5062,14 @@ class Game {
                 }
             }
 
+            const badgeClass = isEquipped
+                ? "equipped"
+                : (isVipItem ? (isVipActive ? "vip-included" : "vip-exclusive") : (isOwned ? "owned" : "locked"));
             const badgeTxt = isEquipped
                 ? (t("custEquippedBadge") || "👑 KUŞANILDI")
-                : (isOwned ? (t("custOwnedBadge") || "✓ AÇIK / SAHİPSİN") : `${item.cost} ❖`);
+                : (isVipItem
+                    ? (isVipActive ? (bt("vipBadgeIncluded") || "👑 VIP DAHİL (ÜCRETSİZ)") : (bt("vipBadgeExclusive") || "👑 VIP ÖZEL"))
+                    : (isOwned ? (t("custOwnedBadge") || "✓ AÇIK / SAHİPSİN") : `${item.cost} ❖`));
 
             card.innerHTML = `
                 <div>
@@ -5029,7 +5077,7 @@ class Game {
                         <span class="shop-icon">${item.icon}</span>
                         <div>
                             <h4>${item.title}</h4>
-                            <span class="char-status-badge ${isEquipped ? "equipped" : (isOwned ? "owned" : "locked")}">
+                            <span class="char-status-badge ${badgeClass}">
                                 ${badgeTxt}
                             </span>
                             ${milestoneHtml}
@@ -5075,6 +5123,10 @@ class Game {
             const btn = card.querySelector("button");
             btn.addEventListener("click", () => {
                 applyPreviewItem(rawItem);
+                if (isVipItem && !isVipActive) {
+                    this.openVipStore("customize_vip_item");
+                    return;
+                }
                 if (!isOwned) {
                     if (this.walletEmeralds < item.cost) {
                         this.openInsufficientBalanceModal("emerald", item.cost - this.walletEmeralds, item.title);
@@ -5171,8 +5223,15 @@ class Game {
         const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
 
         const ownedSet = new Set(["default", ...(this.ownedCharacters || [])]);
+        const isVipActive = this.hasVipPass();
+        const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
+        const isCharAvailable = (c) => {
+            if (c.vipOnly) return isVipActive;
+            if (c.vipEarlyAccess && isVipActive) return true;
+            return ownedSet.has(c.id) || c.cost === 0;
+        };
         const totalCount = HERO_CHARACTERS_CATALOG.length;
-        const ownedCount = HERO_CHARACTERS_CATALOG.filter((c) => ownedSet.has(c.id) || c.cost === 0).length;
+        const ownedCount = HERO_CHARACTERS_CATALOG.filter((c) => isCharAvailable(c)).length;
         const lockedCount = totalCount - ownedCount;
 
         // Update Filter Tab Counts
@@ -5185,9 +5244,9 @@ class Game {
 
         const filterMode = this.activeCharFilter || "all";
         const filteredList = HERO_CHARACTERS_CATALOG.filter((item) => {
-            const isOwned = ownedSet.has(item.id) || item.cost === 0;
-            if (filterMode === "owned") return isOwned;
-            if (filterMode === "locked") return !isOwned;
+            const avail = isCharAvailable(item);
+            if (filterMode === "owned") return avail;
+            if (filterMode === "locked") return !avail;
             return true;
         });
 
@@ -5202,12 +5261,14 @@ class Game {
 
         filteredList.forEach((rawItem) => {
             const item = window.getLocalizedHeroItem ? window.getLocalizedHeroItem(rawItem, this.lang) : rawItem;
-            const isOwned = ownedSet.has(item.id) || item.cost === 0;
+            const isVipOnlyHero = Boolean(rawItem.vipOnly);
+            const isEarlyActive = Boolean(rawItem.vipEarlyAccess && isVipActive && !ownedSet.has(rawItem.id));
+            const isOwned = isVipOnlyHero ? isVipActive : (isEarlyActive || ownedSet.has(item.id) || item.cost === 0);
             const isEquipped = (this.equippedHeroChar || "default") === item.id;
             const canAfford = (this.walletGoldCoins || 0) >= item.cost;
 
             const card = document.createElement("div");
-            card.className = `shop-card ${isOwned ? "owned" : ""}`;
+            card.className = `shop-card ${isOwned ? "owned" : ""} ${isVipOnlyHero ? `vip-exclusive-card ${isVipActive ? "vip-ready" : "vip-locked"}` : ""}`.trim();
             if (isEquipped) {
                 card.style.borderColor = "#ffd166";
                 card.style.boxShadow = "0 0 18px rgba(255, 209, 102, 0.35)";
@@ -5223,14 +5284,31 @@ class Game {
                 btnLabel = t("charEquippedBtn") || "👑 AKTİF KARAKTER (SEÇİLİ)";
                 btnClass = "shop-buy-btn equipped";
                 disabled = true;
+            } else if (isVipOnlyHero && !isVipActive) {
+                btnLabel = bt("btnUnlockWithVip") || "👑 VIP PASS İLE AÇ";
+                btnClass = "shop-buy-btn vip-unlock-btn";
             } else if (isOwned) {
                 btnLabel = t("charEquipBtn") || "✓ KARAKTERİ SEÇ VE GİYDİR";
             }
 
-            const statusBadgeClass = isEquipped ? "equipped" : (isOwned ? "owned" : "locked");
-            const statusBadgeText = isEquipped
-                ? (t("charEquippedBadge") || "👑 AKTİF KARAKTER")
-                : (isOwned ? (t("charOwnedBadge") || "✓ SATIN ALINDI") : `🔒 ${item.cost} ✪`);
+            let statusBadgeClass = isOwned ? "owned" : "locked";
+            let statusBadgeText = isOwned ? (t("charOwnedBadge") || "✓ SATIN ALINDI") : `🔒 ${item.cost} ✪`;
+            if (isEquipped) {
+                statusBadgeClass = "equipped";
+                statusBadgeText = t("charEquippedBadge") || "👑 AKTİF KARAKTER";
+            } else if (isVipOnlyHero) {
+                statusBadgeClass = isVipActive ? "vip-included" : "vip-exclusive";
+                statusBadgeText = isVipActive
+                    ? (bt("vipBadgeIncluded") || "👑 VIP DAHİL (ÜCRETSİZ)")
+                    : (bt("vipBadgeExclusive") || "👑 VIP ÖZEL");
+            } else if (isEarlyActive) {
+                statusBadgeClass = "vip-included";
+                statusBadgeText = bt("vipBadgeEarlyActive") || "👑 VIP ERKEN ERİŞİM (0 ✪)";
+            }
+
+            const earlyHintHtml = (rawItem.vipEarlyAccess && !isOwned && !isVipActive)
+                ? `<div class="vip-early-hint">${bt("vipEarlyHint") || "👑 VIP Pass ile 0 ✪ anında dene"}</div>`
+                : "";
 
             card.innerHTML = `
                 <div>
@@ -5242,11 +5320,20 @@ class Game {
                         </div>
                     </div>
                     <div class="item-perk-pill">${item.perkDesc || "⚡"}</div>
+                    ${earlyHintHtml}
                     <p style="color:#ff9ebb; font-weight:700; font-size:11.5px; margin-bottom:4px;">👤 ${item.faceDesc}</p>
                     <p>${item.desc}</p>
                 </div>
                 <button class="${btnClass}" ${disabled ? "disabled" : ""}>${btnLabel}</button>
             `;
+
+            const hintEl = card.querySelector(".vip-early-hint");
+            if (hintEl) {
+                hintEl.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    this.openVipStore("char_early_hint");
+                });
+            }
 
             const updatePreviewForChar = (targetRawChar) => {
                 const targetChar = window.getLocalizedHeroItem ? window.getLocalizedHeroItem(targetRawChar, this.lang) : targetRawChar;
@@ -5266,6 +5353,10 @@ class Game {
             const btn = card.querySelector("button");
             btn.addEventListener("click", () => {
                 updatePreviewForChar(rawItem);
+                if (isVipOnlyHero && !isVipActive) {
+                    this.openVipStore("char_vip_hero");
+                    return;
+                }
                 if (!isOwned) {
                     if ((this.walletGoldCoins || 0) < item.cost) {
                         this.openInsufficientBalanceModal("gold", item.cost - (this.walletGoldCoins || 0), item.title);
@@ -5629,6 +5720,7 @@ class Game {
         this.reviveUsedInLevel = false;
         this.reviveCountInLevel = 0;
         this.vipReviveUsedInLevel = false;
+        this.phoenixAutoReviveUsedInLevel = false;
         this.doubleRewardUsedInLevel = false;
         this.score = 0;
         this.camera.x = Math.max(0, this.player.x - this.canvas.width * 0.35);
@@ -5891,6 +5983,73 @@ class Game {
             this.subChamber.rideState = "idle";
             this.subChamber.rideProgress = 0;
             this.subChamber.doorOpen = 1;
+        }
+        const deathUpgrades = this.getPlayerUpgrades();
+        if (deathUpgrades.phoenixAutoRevive && this.hasVipPass() && !this.phoenixAutoReviveUsedInLevel) {
+            this.phoenixAutoReviveUsedInLevel = true;
+            this.inSubChamber = false;
+            if (window.sfx && typeof window.sfx.powerUpCollect === "function") window.sfx.powerUpCollect();
+
+            let safeX = Math.max((this.camera && this.camera.x ? this.camera.x + 80 : 80), this.player.x);
+            let safeY = 220;
+            if (this.solids && this.solids.length > 0) {
+                const walkable = this.solids.filter((s) => s.type !== "wall" && !s.isTrollTrapFloor && s.y <= 12.5 * window.TILE_SIZE);
+                let best = walkable[0];
+                let bestDist = Infinity;
+                for (const s of walkable) {
+                    const cx = s.x + s.w / 2;
+                    const dist = Math.abs(this.player.x - cx);
+                    if (dist < bestDist) {
+                        bestDist = dist;
+                        best = s;
+                    }
+                }
+                if (best) {
+                    safeX = Math.max(best.x + 24, Math.min(best.x + best.w - 48, this.player.x));
+                    safeY = best.y - this.player.h - 6;
+                } else if (this.activeCheckpoint) {
+                    safeX = this.activeCheckpoint.x;
+                    safeY = this.activeCheckpoint.y - 12;
+                }
+            } else if (this.activeCheckpoint) {
+                safeX = this.activeCheckpoint.x;
+                safeY = this.activeCheckpoint.y - 12;
+            }
+
+            this.player.x = safeX;
+            this.player.y = safeY;
+            this.player.prevX = safeX;
+            this.player.prevY = safeY;
+            this.player.vx = 0;
+            this.player.vy = 0;
+            this.player.hp = this.player.maxHp;
+            this.player.hasShield = true;
+            this.player.hasFire = true;
+            this.player.invulnTimer = 180;
+            this.camera.y = 0;
+            this.camera.prevY = 0;
+            this.pendingTrollDeathTimer = 0;
+            this.uraniumBombs = [];
+
+            if (this.enemies && this.enemies.length > 0) {
+                for (const en of this.enemies) {
+                    if (!en.isBoss && Math.hypot(en.x - safeX, en.y - safeY) < 150) {
+                        en.dead = true;
+                        this.spawnParticles(en.x + (en.w || 24) / 2, en.y + (en.h || 24) / 2, 10, "#ff9e00", 4);
+                    }
+                }
+            }
+
+            this.spawnParticles(safeX + 16, safeY + 20, 28, "#ff5400", 6);
+            this.spawnParticles(safeX + 16, safeY + 20, 20, "#ffd166", 5);
+            const phoenixMsg = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "toastPhoenixRevive"))
+                || "🔥 ANKA KÜLLERİNDEN DOĞDU! (+3 ♥ + 🛡)";
+            this.floatingTexts.push(new window.FloatingText(safeX + 16, safeY - 18, phoenixMsg, "#ffd166"));
+            if (window.MarinextAnalytics) {
+                window.MarinextAnalytics.logEvent("phoenix_auto_revive", { level: this.currentLevelIndex || 0 });
+            }
+            this.updateHUD();
+            return;
         }
         if (this.activeCheckpoint) {
             this.inSubChamber = false;
@@ -10533,10 +10692,19 @@ class Game {
                 } catch (e) {}
 
                 this.checkAndGrantEntitlementBonuses();
+                this.enforceVipEquipmentAccess();
                 this.updateVipEntryButtonsUI();
                 const vipScreen = document.getElementById("screen-vip-store");
                 if (vipScreen && !vipScreen.classList.contains("hidden")) {
                     this.renderVipStoreUI();
+                }
+                const charScreen = document.getElementById("screen-character");
+                if (charScreen && !charScreen.classList.contains("hidden")) {
+                    this.renderCharacterItems();
+                }
+                const custScreen = document.getElementById("screen-customize");
+                if (custScreen && !custScreen.classList.contains("hidden")) {
+                    this.renderCustomizeItems();
                 }
                 if (ent.userRestore) {
                     const msgKey = this.hasNoForcedAds() ? "toastRestoreSuccess" : "toastRestoreNone";
@@ -10596,6 +10764,55 @@ class Game {
 
     hasVipPass() {
         return Boolean(this.billingEntitlements && this.billingEntitlements.vipPassActive);
+    }
+
+    enforceVipEquipmentAccess() {
+        if (!this.billingEntitlements || !this.billingEntitlements.verifiedOnline || this.hasVipPass()) {
+            return false;
+        }
+        let changed = false;
+        const heroObj = HERO_CHARACTERS_CATALOG.find((h) => h.id === (this.equippedHeroChar || "default"));
+        if (heroObj && (heroObj.vipOnly || (heroObj.vipEarlyAccess && !(this.ownedCharacters || []).includes(heroObj.id)))) {
+            this.equippedHeroChar = "default";
+            changed = true;
+        }
+        const bgItem = CUSTOMIZE_CATALOG.find((i) => i.category === "backGear" && i.value === this.equippedBackGear);
+        if (bgItem && bgItem.vipOnly) {
+            this.equippedBackGear = "katana";
+            changed = true;
+        }
+        const auItem = CUSTOMIZE_CATALOG.find((i) => i.category === "aura" && i.value === this.equippedAura);
+        if (auItem && auItem.vipOnly) {
+            this.equippedAura = "none";
+            changed = true;
+        }
+        const caItem = CUSTOMIZE_CATALOG.find((i) => i.category === "cape" && i.value === this.equippedCape);
+        if (caItem && caItem.vipOnly) {
+            this.equippedCape = "#ff2a85";
+            changed = true;
+        }
+        if (changed) {
+            if (this.player) {
+                this.player.heroCharId = this.equippedHeroChar;
+                this.player.backGearId = this.equippedBackGear;
+                this.player.auraId = this.equippedAura;
+                this.player.capeColor = this.equippedCape;
+            }
+            if (this.previewDummy) {
+                this.previewDummy.heroCharId = this.equippedHeroChar;
+                this.previewDummy.backGearId = this.equippedBackGear;
+                this.previewDummy.auraId = this.equippedAura;
+                this.previewDummy.capeColor = this.equippedCape;
+            }
+            if (this.charPreviewDummy) {
+                this.charPreviewDummy.heroCharId = this.equippedHeroChar;
+            }
+            this.saveProgress();
+            const msg = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "toastVipExpiredRevert"))
+                || "ℹ️ VIP süresi dolduğu için VIP ekipmanlar varsayılana döndürüldü.";
+            this.showQuickToast(msg, "#94a3b8");
+        }
+        return changed;
     }
 
     getLocalDateKey() {
