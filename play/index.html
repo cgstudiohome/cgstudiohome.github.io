@@ -196,13 +196,12 @@
         <!-- Character Change & Realistic Outfit + Face Studio Modal (Uses Gold Coins ✪) -->
         <div id="screen-character" class="overlay-screen hidden">
             <div class="customize-container" style="position: relative; border-color: rgba(255, 209, 102, 0.55); box-shadow: 0 0 40px rgba(245, 158, 11, 0.25);">
-                <button id="btn-close-character-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
-                <div class="shop-header" style="padding-right: 48px;">
+                <div class="shop-header">
                     <div>
                         <h2 id="char-modal-title" style="color: #ffd166;">👤 KARAKTER DEĞİŞTİRME & GERÇEKÇİ KIYAFET / YÜZ STÜDYOSU</h2>
                         <p class="shop-sub" id="char-modal-sub">Bölümlerde topladığın <strong>Coin (✪)</strong> ile gerçekçi tarihi ve modern kıyafetleri aç! Kıyafeti giydirince karakterin <strong>yüz tipi, bıyığı/sakalı ve duruşu</strong> da gerçekle birebir değişir!</p>
                     </div>
-                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:nowrap; flex-shrink:0;">
                         <button id="btn-ad-chest-char" class="customize-btn" style="background: linear-gradient(135deg, #10b981, #059669); border-color: #6ee7b7; color: #fff; padding: 8px 14px; font-size: 13px;">
                             🎬 Reklam İzle (+50 ✪ Coin)
                         </button>
@@ -210,6 +209,7 @@
                             <span class="icon-goldcoin" style="color:#ffd166;">✪</span>
                             <span><span id="char-coin-label">Coin:</span> <strong id="char-wallet-goldcoins" style="color: #ffd166;">0</strong></span>
                         </div>
+                        <button id="btn-close-character-x" class="modal-close-x modal-close-inline" title="Kapat (ESC)">✕</button>
                     </div>
                 </div>
 
@@ -252,13 +252,12 @@
         <!-- Character Customization Studio Modal (Uses Ancient Emeralds ❖) -->
         <div id="screen-customize" class="overlay-screen hidden">
             <div class="customize-container" style="position: relative;">
-                <button id="btn-close-customize-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
-                <div class="shop-header" style="padding-right: 48px;">
+                <div class="shop-header">
                     <div>
                         <h2 id="cust-modal-title">🎨 KARAKTER KİŞİSELLEŞTİRME STÜDYOSU</h2>
                         <p class="shop-sub" id="cust-modal-sub">Bölüm başarılarıyla hediye kazan veya <strong>Antik Zümrütleri (❖)</strong> kullanarak aktif karakterine özel yetenekli ekipmanlar kuşan!</p>
                     </div>
-                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:nowrap; flex-shrink:0;">
                         <button id="btn-ad-chest-cust" class="customize-btn" style="background: linear-gradient(135deg, #10b981, #059669); border-color: #6ee7b7; color: #fff; padding: 8px 14px; font-size: 13px;">
                             🎬 Reklam İzle (+10 ❖ Zümrüt & +50 ✪ Coin)
                         </button>
@@ -266,6 +265,7 @@
                             <span class="icon-emerald">❖</span>
                             <span><strong id="cust-wallet-emeralds">0</strong></span>
                         </div>
+                        <button id="btn-close-customize-x" class="modal-close-x modal-close-inline" title="Kapat (ESC)">✕</button>
                     </div>
                 </div>
 
@@ -311,12 +311,16 @@
         <!-- Crystal Shop & Upgrades Modal (Uses Blue Crystals ◆) -->
         <div id="screen-shop" class="overlay-screen hidden">
             <div class="shop-container" style="position: relative;">
-                <button id="btn-close-shop-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
-                <div class="shop-header" style="padding-right: 48px;">
-                    <h2 id="shop-modal-title">🛒 GÜÇLENDİRME CEPHANELİĞİ (KRİSTAL MAĞAZASI)</h2>
-                    <div class="wallet-pill">
-                        <span class="icon-coin">◆</span>
-                        <strong id="shop-wallet-coins">0</strong>
+                <div class="shop-header">
+                    <div>
+                        <h2 id="shop-modal-title">🛒 GÜÇLENDİRME CEPHANELİĞİ (KRİSTAL MAĞAZASI)</h2>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
+                        <div class="wallet-pill">
+                            <span class="icon-coin">◆</span>
+                            <strong id="shop-wallet-coins">0</strong>
+                        </div>
+                        <button id="btn-close-shop-x" class="modal-close-x modal-close-inline" title="Kapat (ESC)">✕</button>
                     </div>
                 </div>
                 <p class="shop-sub" id="shop-modal-sub">Bölümlerde topladığın mavi kristallerle (◆) kalıcı can, kalkan ve ateş topu güçlendirmeleri aç!</p>
