@@ -226,9 +226,9 @@ function normalizeLevelCollectibles(
     saws = []
 ) {
     const lengthRatio = Math.max(1, (portal ? portal.x : 3200) / (68 * TILE_SIZE));
-    const targetEmeralds = isBossLevel ? 6 : Math.min(26, Math.round(12 + (lengthRatio - 1) * 7));
-    const targetCrystals = isBossLevel ? 10 : Math.min(68, Math.round(25 + (lengthRatio - 1) * 20));
-    const targetGoldCoins = isBossLevel ? 10 : Math.min(42, Math.round(16 + (lengthRatio - 1) * 12));
+    const targetEmeralds = isBossLevel ? 6 : Math.min(34, Math.round(12 + (lengthRatio - 1) * 7.5));
+    const targetCrystals = isBossLevel ? 10 : Math.min(84, Math.round(25 + (lengthRatio - 1) * 20));
+    const targetGoldCoins = isBossLevel ? 10 : Math.min(54, Math.round(16 + (lengthRatio - 1) * 12));
 
     // Convert any coin-dispensing mystery blocks to power-ups so crystal count is strictly controlled
     const powerCycle = ['shield', 'fire', 'speed'];
@@ -1418,7 +1418,8 @@ function createLevelData(levelIndex) {
                 // Levels grow progressively longer and richer in detail from World 2 to World 10!
                 // ============================================================================
                 const diffRatio = Math.max(0, Math.min(1, (levelIndex - 10) / 88));
-                const extraActs = 1 + (levelIndex >= 32 ? 1 : 0) + (levelIndex >= 64 ? 1 : 0);
+                const extraActs = 1 + (levelIndex >= 25 ? 1 : 0) + (levelIndex >= 52 ? 1 : 0) + (levelIndex >= 76 ? 1 : 0);
+                const useSkyBaffles = levelIndex >= 25;
                 const powerRotation = ['shield', 'fire', 'speed'];
                 let curX = 86;
 
@@ -1464,6 +1465,10 @@ function createLevelData(levelIndex) {
                         if (diffRatio > 0.35) {
                             addSaw(curX + 11.5, 4.2, curX + 11.5, 9.8, sawSpeed, 22);
                         }
+                        if (useSkyBaffles) {
+                            // Anti-fly-over beam above right canyon ledge (leaves 4.2 tiles of clear headroom)
+                            addGround(curX + 14.5, 0.0, 2.8, 4.4, 'wall');
+                        }
                         curX += canyonW;
                     } else if (modType === 1) {
                         // MODULE 1: Wind Turbine Gorge & Sky Islands
@@ -1484,6 +1489,11 @@ function createLevelData(levelIndex) {
 
                         addWindZone(curX + 15.2, 3.0, 5.0, 10.5, 0.22, -0.74, 'bottom');
                         coins.push({ x: (curX + 17.5) * TILE_SIZE, y: 4.5 * TILE_SIZE, type: 'emerald' });
+                        if (useSkyBaffles) {
+                            // Overhead baffle above island & upper patrol saw over second wind shaft
+                            addGround(curX + 8.5, 0.0, 3.0, 2.8, 'wall');
+                            addSaw(curX + 18.0, 1.2, curX + 18.0, 3.5, sawSpeed, 20);
+                        }
                         curX += gorgeW;
                     } else if (modType === 2) {
                         // MODULE 2: Timed Laser Fortress Corridor + Upper Roof Bypass
@@ -1529,6 +1539,9 @@ function createLevelData(levelIndex) {
                         addMovingPlatform(curX + 14.2, 10.2, curX + 14.2, 5.8, 3.4, 1.35 + diffRatio * 0.2);
                         addGround(curX + 18.0, 6.2, cavW - 18.5, 0.9, 'platform', worldSurface);
                         coins.push({ x: (curX + 19.5) * TILE_SIZE, y: 5.2 * TILE_SIZE, type: 'emerald' });
+                        if (useSkyBaffles && cavW > 20) {
+                            addGround(curX + 15.5, 0.0, cavW - 16.5, 2.4, 'wall');
+                        }
                         curX += cavW;
                     } else if (modType === 4) {
                         // MODULE 4: Zero-Gravity Space Anomaly & Turbo Boost Ramp
@@ -1550,6 +1563,11 @@ function createLevelData(levelIndex) {
                         addSaw(curX + 16.5, 4.0, curX + 16.5, 10.8, sawSpeed, 24);
                         addCrumble(curX + 18.2, 8.2, 2.6);
                         coins.push({ x: (curX + 12.6) * TILE_SIZE, y: 5.4 * TILE_SIZE, type: 'emerald' });
+                        if (useSkyBaffles) {
+                            // Low-gravity sky baffles above saws so players navigate through instead of flying at y=0
+                            addGround(curX + 6.8, 0.0, 2.4, 3.2, 'wall');
+                            addGround(curX + 15.3, 0.0, 2.4, 3.2, 'wall');
+                        }
                         curX += spaceW;
                     } else {
                         // MODULE 5: Wormhole Teleporter Puzzle & Twin Wall-Jump Chimney
@@ -1576,6 +1594,9 @@ function createLevelData(levelIndex) {
                         });
                         addCrumble(curX + 18.2, 7.8, 2.6);
                         coins.push({ x: (curX + 14.5) * TILE_SIZE, y: 5.1 * TILE_SIZE, type: 'emerald' });
+                        if (useSkyBaffles) {
+                            addSaw(curX + 9.4, 0.9, curX + 9.4, 2.5, sawSpeed, 20);
+                        }
                         curX += puzW;
                     }
 
