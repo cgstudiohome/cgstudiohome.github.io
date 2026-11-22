@@ -608,7 +608,7 @@ const LANG_DICT = {
         onText: "ВКЛ",
         offText: "ВЫКЛ",
         btnRestartLevel: "🔄 Перезапустить уровень",
-        btnResetAll: "⚠️ Сбросить весь прогресс (Reset)",
+        btnResetAll: "⚠️ Сбросить весь прогресс",
         btnCloseSettings: "СОХРАНИТЬ И ВЫЙТИ ✓",
         langModalTitle: "👅 ВЫБОР ЯЗЫКА / LANGUAGE",
         langModalSub: "Выберите язык игры ниже (9 языков):",
@@ -1063,7 +1063,7 @@ const LANG_DICT = {
         onText: "켜짐",
         offText: "꺼짐",
         btnRestartLevel: "🔄 현재 스테이지 다시 시작",
-        btnResetAll: "⚠️ 모든 진행 데이터 초기화 (Reset)",
+        btnResetAll: "⚠️ 모든 진행 데이터 초기화",
         btnCloseSettings: "설정 저장 및 돌아가기 ✓",
         langModalTitle: "👅 언어 선택 / LANGUAGE",
         langModalSub: "원하는 게임 언어를 선택하세요 (9개 국어):",
@@ -1139,7 +1139,7 @@ const LANG_DICT = {
         btnCustomizeMain: "🎨 角色自定义 (❖)",
         btnUnlockAll: "🔓 解锁全部100关 + 50❖ (测试)",
         controlsHint: "<strong>操作说明:</strong> A/D或方向键 (奔跑) • W/空格 (二段跳与蹬墙跳) • X/F/Shift (火球 / 冲刺)",
-        previewFeatures: "<span>❖ 收集远古翡翠 -> 装扮角色！</span><span>🚩 存档点系统</span><span>⚙ 飞锯与钟乳石</span><span>👑 首领Boss战</span>",
+        previewFeatures: "<span>❖ 收集远古翡翠 -> 装扮角色！</span><span>🚩 存档点系统</span><span>⚙ 飞锯与钟乳石</span><span>👑 传奇首领战</span>",
         custTitle: "🎨 角色自定义工坊",
         custSub: "使用关卡中收集的<strong>远古翡翠 (❖)</strong>打造专属于你的赛博骑士！",
         custPreview: "实时角色预览",
@@ -1154,7 +1154,7 @@ const LANG_DICT = {
         onText: "开启",
         offText: "关闭",
         btnRestartLevel: "🔄 重新开始当前关卡",
-        btnResetAll: "⚠️ 重置所有游戏进度 (Reset)",
+        btnResetAll: "⚠️ 重置所有游戏进度",
         btnCloseSettings: "保存设置并返回 ✓",
         langModalTitle: "👅 语言选择 / LANGUAGE",
         langModalSub: "请在下方选择游戏语言 (9种语言):",
@@ -1199,7 +1199,7 @@ const LANG_DICT = {
             "熔岩山谷", "深红大桥", "烈焰烟囱", "等离子线", "熔岩泰坦 ☠",
             "黑曜石洞", "磁场异常", "深红迷宫", "地狱通道", "深红领主 ☠",
             "赛博扇区", "时间裂隙", "激光高塔", "哨兵基地", "超能机甲 ☠",
-            "星尘深渊", "暗黑矿坑", "赛博风暴", "量子核心", "海Hyperion ☠",
+            "星尘深渊", "暗黑矿坑", "赛博风暴", "量子核心", "海伯利安 ☠",
             "虚空之门", "噩梦大桥", "暗影堡垒", "混沌传送", "混沌巨龙 ☠",
             "永恒之路", "精英卫队", "末日高塔", "王座长廊", "神皇大帝 👑"
         ],
@@ -1323,7 +1323,10 @@ const ACHIEVEMENTS_CATALOG = [
         ko: { title: "첫 번째 승리!", desc: "첫 번째 스테이지를 클리어하세요!" },
         ja: { title: "最初の勝利！", desc: "最初のステージをクリアしよう！" },
         zh: { title: "首战告捷！", desc: "成功通关你的第一个关卡！" },
-        ru: { title: "Первая Победа!", desc: "Пройдите свой первый уровень!" }
+        ru: { title: "Первая Победа!", desc: "Пройдите свой первый уровень!" },
+        es: { title: "¡Primera Victoria!", desc: "¡Supera tu primer nivel!" },
+        fr: { title: "Première Victoire !", desc: "Terminez votre tout premier niveau !" },
+        it: { title: "Prima Vittoria!", desc: "Completa il tuo primissimo livello!" }
     },
     {
         id: "ach_world_1",
@@ -1337,7 +1340,10 @@ const ACHIEVEMENTS_CATALOG = [
         ko: { title: "수정 정복자", desc: "10스테이지를 클리어하고 첫 보스를 격파하세요!" },
         ja: { title: "クリスタルの覇者", desc: "ステージ10をクリアして第1ボスを撃破！" },
         zh: { title: "水晶征服者", desc: "通过第10关并击败首位首领！" },
-        ru: { title: "Покоритель Кристаллов", desc: "Пройдите 10 уровень и одолейте первого Босса!" }
+        ru: { title: "Покоритель Кристаллов", desc: "Пройдите 10 уровень и одолейте первого Босса!" },
+        es: { title: "Conquistador de Cristal", desc: "¡Supera el Nivel 10 y vence al Jefe 1!" },
+        fr: { title: "Conquérant de Cristal", desc: "Terminez le Niveau 10 et battez le Boss 1 !" },
+        it: { title: "Conquistatore di Cristallo", desc: "Supera il Livello 10 e sconfiggi il Boss 1!" }
     },
     {
         id: "ach_world_2",
@@ -1351,7 +1357,10 @@ const ACHIEVEMENTS_CATALOG = [
         ko: { title: "마그마 군주", desc: "20스테이지를 클리어하고 마그마 타이탄을 처치하세요!" },
         ja: { title: "マグマの支配者", desc: "ステージ20をクリアしてマグマタイタンを討伐！" },
         zh: { title: "熔岩霸主", desc: "通过第20关并斩杀熔岩泰坦！" },
-        ru: { title: "Повелитель Магмы", desc: "Пройдите 20 уровень и победите Титана Магмы!" }
+        ru: { title: "Повелитель Магмы", desc: "Пройдите 20 уровень и победите Титана Магмы!" },
+        es: { title: "Señor del Magma", desc: "¡Supera el Nivel 20 y derrota al Titán de Magma!" },
+        fr: { title: "Seigneur du Magma", desc: "Terminez le Niveau 20 et vainquez le Titan de Magma !" },
+        it: { title: "Signore del Magma", desc: "Supera il Livello 20 e sconfiggi il Titano di Magma!" }
     },
     {
         id: "ach_sub_master",
@@ -1365,7 +1374,10 @@ const ACHIEVEMENTS_CATALOG = [
         ko: { title: "지하 특수요원", desc: "지하 서브 미션을 완수하고 복귀하세요!" },
         ja: { title: "地下のエージェント", desc: "地下ミッションを達成して生還せよ！" },
         zh: { title: "地底特工", desc: "成功完成地下关卡分支任务！" },
-        ru: { title: "Подземный Агент", desc: "Завершите подземную миссию и вернитесь!" }
+        ru: { title: "Подземный Агент", desc: "Завершите подземную миссию и вернитесь!" },
+        es: { title: "Agente Subterráneo", desc: "¡Completa una sub-misión subterránea y regresa!" },
+        fr: { title: "Agent Souterrain", desc: "Accomplissez une sous-mission souterraine !" },
+        it: { title: "Agente Sotterraneo", desc: "Completa una missione sotterranea e risali!" }
     },
     {
         id: "ach_speedrunner",
@@ -1379,7 +1391,10 @@ const ACHIEVEMENTS_CATALOG = [
         ko: { title: "사이버 스피드러너", desc: "30초 이내에 스테이지를 완료하세요!" },
         ja: { title: "サイバースピードスター", desc: "30秒未満でステージをクリアせよ！" },
         zh: { title: "赛博极速者", desc: "在30秒内闪电通关任意关卡！" },
-        ru: { title: "Кибер-Молния", desc: "Пройдите любой уровень быстрее 30 секунд!" }
+        ru: { title: "Кибер-Молния", desc: "Пройдите любой уровень быстрее 30 секунд!" },
+        es: { title: "Relámpago Cíber", desc: "¡Termina cualquier nivel en menos de 30 segundos!" },
+        fr: { title: "Éclair Cyber", desc: "Terminez un niveau en moins de 30 secondes !" },
+        it: { title: "Fulmine Cyber", desc: "Completa qualsiasi livello in meno di 30 secondi!" }
     },
     {
         id: "ach_flawless",
@@ -1393,7 +1408,10 @@ const ACHIEVEMENTS_CATALOG = [
         ko: { title: "무결점 챔피언", desc: "피해 없이 3성으로 스테이지를 클리어하세요!" },
         ja: { title: "完全無欠の勝者", desc: "ノーダメージかつ3つ星でクリア！" },
         zh: { title: "无伤大师", desc: "满血达成3星通关！" },
-        ru: { title: "Безупречный Чемпион", desc: "Пройдите уровень без урона на 3 звезды!" }
+        ru: { title: "Безупречный Чемпион", desc: "Пройдите уровень без урона на 3 звезды!" },
+        es: { title: "Campeón Impecable", desc: "¡Supera un nivel sin perder vida y con 3 estrellas!" },
+        fr: { title: "Vainqueur Parfait", desc: "Terminez un niveau sans perdre de vie avec 3 étoiles !" },
+        it: { title: "Campione Impeccabile", desc: "Supera un livello a piena salute con 3 stelle!" }
     },
     {
         id: "ach_world_5",
@@ -1407,7 +1425,10 @@ const ACHIEVEMENTS_CATALOG = [
         ko: { title: "빙하 마스터", desc: "50스테이지 마일스톤에 도달하세요!" },
         ja: { title: "氷河の巨匠", desc: "ステージ50の節目に到達！" },
         zh: { title: "冰川宗师", desc: "达成突破第50关里程碑！" },
-        ru: { title: "Владыка Льда", desc: "Достигните 50 уровня!" }
+        ru: { title: "Владыка Льда", desc: "Достигните 50 уровня!" },
+        es: { title: "Maestro Glacial", desc: "¡Alcanza el hito del Nivel 50!" },
+        fr: { title: "Maître Glaciaire", desc: "Atteignez le cap du Niveau 50 !" },
+        it: { title: "Maestro Glaciale", desc: "Raggiungi il traguardo del Livello 50!" }
     },
     {
         id: "ach_campaign_completed",
@@ -1421,7 +1442,10 @@ const ACHIEVEMENTS_CATALOG = [
         ko: { title: "우주의 지배자", desc: "100스테이지를 정복하고 왕좌를 차지하세요!" },
         ja: { title: "全宇宙の統治者", desc: "ステージ100をクリアして宇宙の玉座へ！" },
         zh: { title: "全宇宙主宰", desc: "通关第100关并登顶帝国至尊王座！" },
-        ru: { title: "Владыка Вселенной", desc: "Пройдите 100 уровень и займите Трон Вселенной!" }
+        ru: { title: "Владыка Вселенной", desc: "Пройдите 100 уровень и займите Трон Вселенной!" },
+        es: { title: "Soberano del Universo", desc: "¡Supera el Nivel 100 y conquista el Trono Imperial!" },
+        fr: { title: "Maître de l'Univers", desc: "Terminez le Niveau 100 et conquérez le Trône Impérial !" },
+        it: { title: "Sovrano dell'Universo", desc: "Completa il Livello 100 e conquista il Trono Imperiale!" }
     }
 ];
 
@@ -2177,7 +2201,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 46;
+        const CURRENT_VERSION_CODE = 47;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2313,7 +2337,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "40");
+                localStorage.setItem("marinext2100_last_seen_version", "47");
             } catch (e) {}
         };
 
@@ -2342,7 +2366,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "40") {
+            if (hasConsent && lastSeenVer !== "47") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -2755,7 +2779,18 @@ class Game {
         tabsBar.innerHTML = "";
         const d = LANG_DICT[this.lang] || LANG_DICT.tr;
         const tWord = d.trollBadge || "TROL";
-        const allTxt = this.lang === "tr" ? "😡 Tümü (1-50)" : `😡 All (1-50)`;
+        const allTxtMap = {
+            tr: "😡 Tümü (1-50)",
+            en: "😡 All (1-50)",
+            ko: "😡 전체 (1-50)",
+            ja: "😡 すべて (1-50)",
+            zh: "😡 全部 (1-50)",
+            ru: "😡 Все (1-50)",
+            es: "😡 Todos (1-50)",
+            fr: "😡 Tous (1-50)",
+            it: "😡 Tutti (1-50)"
+        };
+        const allTxt = allTxtMap[this.lang] || allTxtMap.en;
         const tierTitles = [
             allTxt,
             `🤡 ${tWord} 1 (1-10)`,
@@ -2908,7 +2943,9 @@ class Game {
             document.body.appendChild(toast);
         }
         toast.style.borderColor = color;
-        toast.textContent = text;
+        toast.textContent = typeof window.translateMarinextGameText === "function"
+            ? window.translateMarinextGameText(text, this.lang)
+            : text;
         toast.style.opacity = "1";
         toast.style.transform = "translateX(-50%) translateY(0)";
         if (this._toastTimer) clearTimeout(this._toastTimer);
@@ -3582,15 +3619,16 @@ class Game {
         if (btnTestAd) {
             btnTestAd.addEventListener("click", () => {
                 window.sfx.coin();
+                const trTxt = (msg) => (typeof window.translateMarinextGameText === "function" ? window.translateMarinextGameText(msg, this.lang) : msg);
                 this.showRewardedAd(
-                    "AdMob Test Videosu",
-                    "+50 Coin & +10 Zümrüt",
+                    trTxt("AdMob Test Videosu"),
+                    trTxt("+50 Coin & +10 Zümrüt"),
                     () => {
                         this.addGoldCoins(50, true);
                         this.addEmeralds(10, true);
                         this.updateMapUI();
                         if (this.player) this.updateHUD();
-                        this.showQuickToast("🎉 AdMob Test Reklamı Başarılı! +50 Coin & +10 Zümrüt Hesabınıza Eklendi.", "#06d6a0", 4200);
+                        this.showQuickToast(trTxt("🎉 AdMob Test Reklamı Başarılı! +50 Coin & +10 Zümrüt Hesabınıza Eklendi."), "#06d6a0", 4200);
                     }
                 );
             });
@@ -3825,7 +3863,7 @@ class Game {
                 window.sfx.powerUpSpawn();
                 try {
                     localStorage.setItem("marinext_privacy_consent_v1", String(Date.now()));
-                    localStorage.setItem("marinext2100_last_seen_version", "40");
+                    localStorage.setItem("marinext2100_last_seen_version", "47");
                 } catch (e) {}
                 const fcModal = document.getElementById("screen-first-consent");
                 if (fcModal) fcModal.classList.add("hidden");
@@ -4496,10 +4534,10 @@ class Game {
         const charBtnMap = {
             tr: { open: "👤 KARAKTER DEĞİŞTİR (✪)", main: "👤 KARAKTER DEĞİŞTİR (✪ COİN)", hud: "👤 Karakter", title: "👤 KARAKTER DEĞİŞTİRME & GERÇEKÇİ KIYAFET / YÜZ STÜDYOSU", preview: "CANLI KIYAFET & YÜZ TİPİ ÖNİZLEME", close: "SEÇİMİ KAYDET VE DÖN ✓" },
             en: { open: "👤 CHANGE CHARACTER (✪)", main: "👤 CHANGE CHARACTER (✪ COIN)", hud: "👤 Character", title: "👤 CHARACTER & REALISTIC OUTFIT / FACE STUDIO", preview: "LIVE OUTFIT & FACE PREVIEW", close: "SAVE & RETURN ✓" },
-            ru: { open: "👤 СМЕНИТЬ ГЕРОЯ (✪)", main: "👤 СМЕНИТЬ ГЕРОЯ (✪ COIN)", hud: "👤 Герой", title: "👤 СМЕНА ПЕРСОНАЖА, КОСТЮМА И ЛИЦА", preview: "ПРЕДПРОСМОТР КОСТЮМА И ЛИЦА", close: "СОХРАНИТЬ И ВЫЙТИ ✓" },
-            it: { open: "👤 CAMBIA PERSONAGGIO (✪)", main: "👤 CAMBIA PERSONAGGIO (✪ COIN)", hud: "👤 Eroe", title: "👤 STUDIO PERSONAGGIO, ABITO E VOLTO", preview: "ANTEPRIMA ABITO E VOLTO", close: "SALVA E TORNA ✓" },
-            es: { open: "👤 CAMBIAR PERSONAJE (✪)", main: "👤 CAMBIAR PERSONAJE (✪ COIN)", hud: "👤 Héroe", title: "👤 ESTUDIO DE PERSONAJE, TRAJE Y ROSTRO", preview: "VISTA PREVIA DE TRAJE Y ROSTRO", close: "GUARDAR Y VOLVER ✓" },
-            fr: { open: "👤 CHANGER DE HÉROS (✪)", main: "👤 CHANGER DE HÉROS (✪ COIN)", hud: "👤 Héros", title: "👤 STUDIO DE PERSONNAGE, TENUE ET VISAGE", preview: "APERÇU TENUE ET VISAGE", close: "ENREGISTRER ET RETOUR ✓" },
+            ru: { open: "👤 СМЕНИТЬ ГЕРОЯ (✪)", main: "👤 СМЕНИТЬ ГЕРОЯ (✪ МОНЕТЫ)", hud: "👤 Герой", title: "👤 СМЕНА ПЕРСОНАЖА, КОСТЮМА И ЛИЦА", preview: "ПРЕДПРОСМОТР КОСТЮМА И ЛИЦА", close: "СОХРАНИТЬ И ВЫЙТИ ✓" },
+            it: { open: "👤 CAMBIA PERSONAGGIO (✪)", main: "👤 CAMBIA PERSONAGGIO (✪ MONETE)", hud: "👤 Eroe", title: "👤 STUDIO PERSONAGGIO, ABITO E VOLTO", preview: "ANTEPRIMA ABITO E VOLTO", close: "SALVA E TORNA ✓" },
+            es: { open: "👤 CAMBIAR PERSONAJE (✪)", main: "👤 CAMBIAR PERSONAJE (✪ MONEDAS)", hud: "👤 Héroe", title: "👤 ESTUDIO DE PERSONAJE, TRAJE Y ROSTRO", preview: "VISTA PREVIA DE TRAJE Y ROSTRO", close: "GUARDAR Y VOLVER ✓" },
+            fr: { open: "👤 CHANGER DE HÉROS (✪)", main: "👤 CHANGER DE HÉROS (✪ PIÈCES)", hud: "👤 Héros", title: "👤 STUDIO DE PERSONNAGE, TENUE ET VISAGE", preview: "APERÇU TENUE ET VISAGE", close: "ENREGISTRER ET RETOUR ✓" },
             ko: { open: "👤 캐릭터 변경 (✪)", main: "👤 캐릭터 변경 (✪ 코인)", hud: "👤 캐릭터", title: "👤 캐릭터 의상 및 얼굴 변경 스튜디오", preview: "실시간 의상 & 얼굴 미리보기", close: "저장 후 돌아가기 ✓" },
             zh: { open: "👤 更换角色 (✪)", main: "👤 更换角色 (✪ 金币)", hud: "👤 角色", title: "👤 角色服装与脸型更换工作室", preview: "服装与脸型实时预览", close: "保存并返回 ✓" },
             ja: { open: "👤 キャラ変更 (✪)", main: "👤 キャラ変更 (✪ コイン)", hud: "👤 キャラ", title: "👤 キャラクター衣装＆顔タイプ変更スタジオ", preview: "衣装＆顔ライブプレビュー", close: "保存して戻る ✓" }
@@ -4556,7 +4594,7 @@ class Game {
             tr: "📋 Sürüm Notları & Yenilikler (Changelog)",
             en: "📋 Release Notes & What's New",
             ko: "📋 업데이트 내역 & 새 기능",
-            ja: "📋 更新履歴＆新機能 (Changelog)",
+            ja: "📋 更新履歴＆新機能",
             zh: "📋 更新日志与新特性",
             ru: "📋 Список изменений и новинки",
             es: "📋 Notas de versión y novedades",
@@ -6615,7 +6653,10 @@ class Game {
                 ko: "🎮 PLAY GAMES • 업적 달성!",
                 ja: "🎮 PLAY GAMES • 実績解除！",
                 zh: "🎮 PLAY GAMES • 成就解锁！",
-                ru: "🎮 PLAY GAMES • ДОСТИЖЕНИЕ РАЗБЛОКИРОВАНО!"
+                ru: "🎮 PLAY GAMES • ДОСТИЖЕНИЕ РАЗБЛОКИРОВАНО!",
+                es: "🎮 PLAY GAMES • ¡LOGRO DESBLOQUEADO!",
+                fr: "🎮 PLAY GAMES • SUCCÈS DÉBLOQUÉ !",
+                it: "🎮 PLAY GAMES • OBIETTIVO SBLOCCATO!"
             };
             headerEl.textContent = hText[this.lang] || hText.en;
         }
@@ -6663,7 +6704,18 @@ class Game {
             window.AndroidBridge.showPlayGamesAchievements();
         } else {
             const count = this.unlockedAchievements ? this.unlockedAchievements.size : 0;
-            alert("🏆 Google Play Games Başarılar menüsü Android cihazlarda Play Games uygulaması üzerinden açılır.\n\nŞu ana kadar " + count + " başarım kazandınız!");
+            const alertMap = {
+                tr: `🏆 Google Play Games Başarılar menüsü Android cihazlarda Play Games uygulaması üzerinden açılır.\n\nŞu ana kadar ${count} başarım kazandınız!`,
+                en: `🏆 Google Play Games Achievements open via the Play Games app on Android devices.\n\nYou have unlocked ${count} achievements so far!`,
+                ko: `🏆 Google Play Games 업적은 Android 기기의 Play Games 앱에서 열립니다.\n\n지금까지 ${count}개의 업적을 달성했습니다!`,
+                ja: `🏆 Google Play Games 実績は Android 端末の Play Games アプリから開きます。\n\n現在までに ${count} 個の実績を解除しました！`,
+                zh: `🏆 Google Play Games 成就菜单可在 Android 设备上通过 Play Games 应用打开。\n\n您目前已解锁 ${count} 项成就！`,
+                ru: `🏆 Достижения Google Play Games открываются через приложение Play Games на Android.\n\nВы уже открыли достижений: ${count}!`,
+                es: `🏆 Los logros de Google Play Games se abren desde la app Play Games en dispositivos Android.\n\n¡Ya has desbloqueado ${count} logros!`,
+                fr: `🏆 Les succès Google Play Games s'ouvrent via l'application Play Games sur Android.\n\nVous avez déjà débloqué ${count} succès !`,
+                it: `🏆 Gli obiettivi di Google Play Games si aprono tramite l'app Play Games sui dispositivi Android.\n\nHai sbloccato finora ${count} obiettivi!`
+            };
+            alert(alertMap[this.lang] || alertMap.en);
         }
     }
 
@@ -7476,7 +7528,21 @@ class Game {
 
         const myMetrics = this.getPlayerLeaderboardMetrics();
         const avObj = (typeof PROFILE_AVATARS !== "undefined" && PROFILE_AVATARS.find((a) => a.id === this.selectedAvatarId)) || { icon: "⚔️" };
-        const heroObj = (typeof HERO_CHARACTERS_CATALOG !== "undefined" && HERO_CHARACTERS_CATALOG.find((h) => h.id === this.equippedHeroChar)) || { title: "Siber Gölge Şövalye" };
+        const heroObj = (typeof HERO_CHARACTERS_CATALOG !== "undefined" && HERO_CHARACTERS_CATALOG.find((h) => h.id === this.equippedHeroChar)) || { id: "default", title: "Siber Gölge Şövalye" };
+        const localizeLbHeroTitle = (rawTitle) => {
+            const raw = String(rawTitle || "").trim();
+            if (typeof HERO_CHARACTERS_CATALOG !== "undefined") {
+                const match = HERO_CHARACTERS_CATALOG.find((h) => h.title === raw || h.title.startsWith(raw) || raw.startsWith(h.title.slice(0, 14)));
+                if (match && typeof window.getLocalizedHeroItem === "function") {
+                    return window.getLocalizedHeroItem(match, this.lang).title;
+                }
+            }
+            if (typeof window.translateMarinextGameText === "function" && raw) {
+                return window.translateMarinextGameText(raw, this.lang);
+            }
+            return raw;
+        };
+        const myLocalizedHeroTitle = (window.getLocalizedHeroItem ? window.getLocalizedHeroItem(heroObj, this.lang) : heroObj).title || "Siber Gölge Şövalye";
         const myDisplayName = (this.playGamesPlayerName && this.playGamesPlayerName.trim().length > 0)
             ? this.playGamesPlayerName.trim()
             : (this.playerName || "Gölge Şövalye");
@@ -7514,7 +7580,7 @@ class Game {
                 isMe: false,
                 name: String(r.name).slice(0, 26),
                 avatar: r.avatar || "🎮",
-                heroTitle: r.heroTitle || "Marinext 2100 Oyuncusu",
+                heroTitle: localizeLbHeroTitle(r.heroTitle || "Marinext 2100 Oyuncusu"),
                 country: entryCountry,
                 score: Math.max(0, Number(r.score) || 0),
                 progress: Math.max(0, Math.min(100, Number(r.progress) || 0)),
@@ -7528,7 +7594,7 @@ class Game {
             isMe: true,
             name: myDisplayName,
             avatar: avObj.icon || "⚔️",
-            heroTitle: heroObj.title || heroObj.name || "Siber Gölge Şövalye",
+            heroTitle: myLocalizedHeroTitle,
             country: "🇹🇷",
             score: myMetrics.score,
             progress: myMetrics.progress,
@@ -7696,7 +7762,7 @@ class Game {
                                 ${entry.country} ${entry.name}
                                 ${entry.isMe ? `<span style="background:#00f2fe;color:#041418;font-size:9.5px;font-weight:900;padding:1px 5px;border-radius:99px;margin-left:4px;">${youBadge}</span>` : ""}
                             </div>
-                            <div style="font-size:10.5px;color:#94a3b8;">${heroPrefix}: ${entry.heroTitle}</div>
+                            <div style="font-size:10.5px;color:#94a3b8;">${heroPrefix.replace(/[:：]\s*$/, "")}: ${entry.heroTitle}</div>
                         </div>
                     </div>
                     <div style="font-weight:900;color:${entry.isMe ? "#00f2fe" : "#ffd166"};font-size:13px;text-align:right;flex-shrink:0;">
@@ -7796,9 +7862,18 @@ class Game {
         const syncEl = document.getElementById("lb-sync-status");
         if (syncEl) {
             syncEl.style.color = "#06d6a0";
-            syncEl.textContent = this.lang === "tr"
-                ? `🎉 Tebrikler! ${league.label} ödülü (+${league.rewardCoins} ✪ Coin & +${league.rewardEmeralds} ❖ Zümrüt) hesabına eklendi!`
-                : `🎉 ${league.label} (+${league.rewardCoins} ✪ +${league.rewardEmeralds} ❖) ✓`;
+            const rewardClaimedMsgMap = {
+                tr: `🎉 Tebrikler! ${league.label} ödülü (+${league.rewardCoins} ✪ Coin & +${league.rewardEmeralds} ❖ Zümrüt) hesabına eklendi!`,
+                en: `🎉 Congratulations! ${league.label} reward (+${league.rewardCoins} ✪ Coins & +${league.rewardEmeralds} ❖ Emeralds) credited!`,
+                ko: `🎉 축하합니다! ${league.label} 보상 (+${league.rewardCoins} ✪ 코인 & +${league.rewardEmeralds} ❖ 에메랄드) 지급 완료!`,
+                ja: `🎉 おめでとう！${league.label} 報酬（+${league.rewardCoins} ✪ コイン＆+${league.rewardEmeralds} ❖ エメラルド）を獲得しました！`,
+                zh: `🎉 恭喜！${league.label} 奖励（+${league.rewardCoins} ✪ 金币 & +${league.rewardEmeralds} ❖ 翡翠）已到账！`,
+                ru: `🎉 Поздравляем! Награда ${league.label} (+${league.rewardCoins} ✪ монет и +${league.rewardEmeralds} ❖ изумрудов) начислена!`,
+                es: `🎉 ¡Felicidades! Recompensa de ${league.label} (+${league.rewardCoins} ✪ Monedas y +${league.rewardEmeralds} ❖ Esmeraldas) añadida.`,
+                fr: `🎉 Félicitations ! Récompense ${league.label} (+${league.rewardCoins} ✪ Pièces & +${league.rewardEmeralds} ❖ Émeraudes) ajoutée !`,
+                it: `🎉 Complimenti! Premio ${league.label} (+${league.rewardCoins} ✪ Monete e +${league.rewardEmeralds} ❖ Smeraldi) accreditato!`
+            };
+            syncEl.textContent = rewardClaimedMsgMap[this.lang] || rewardClaimedMsgMap.en;
         }
         this.renderLeaderboardUI();
         this.updateMapUI();
