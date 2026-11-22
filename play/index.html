@@ -42,6 +42,7 @@
 
             <div class="hud-center">
                 <div class="hud-level-title" id="hud-level-name">Bölüm 1: Kristal Mağaralar</div>
+                <div id="hud-portal-quota" class="hud-portal-quota hidden">🔒 ❖ 0/0 • ◆ 0/0</div>
                 <!-- Boss Health Bar -->
                 <div id="boss-hud" class="hidden">
                     <div class="boss-name" id="boss-hud-name">KARANLIK MUHAFIZ (BOSS)</div>
@@ -355,8 +356,14 @@
                     <button id="btn-ad-revive" class="primary-btn hidden" style="background: linear-gradient(135deg, #10b981, #059669); border: 2px solid #6ee7b7; box-shadow: 0 0 22px rgba(16, 185, 129, 0.55);">
                         🎬 REKLAM İZLE & KALDIĞIN YERDEN CANLAN (3 ♥ + 🛡)
                     </button>
+                    <button id="btn-gameover-vip-revive" class="primary-btn vip-action-cta hidden" type="button">
+                        👑 VIP OL • REKLAMSIZ ANINDA CANLAN (+4 KAHRAMAN &amp; MK-II)
+                    </button>
                     <button id="btn-ad-double" class="primary-btn hidden" style="background: linear-gradient(135deg, #f59e0b, #d97706); border: 2px solid #fde047; box-shadow: 0 0 22px rgba(245, 158, 11, 0.55);">
                         🎬 REKLAM İZLE & BÖLÜM ÖDÜLLERİNİ 2'YE KATLA (2x ✪❖◆)
+                    </button>
+                    <button id="btn-victory-vip-double" class="primary-btn vip-action-cta hidden" type="button">
+                        👑 VIP OL • HER ZAFERDE REKLAMSIZ ANINDA 2x ÖDÜL
                     </button>
                     <button id="btn-resume" class="primary-btn">DEVAM ET</button>
                     <button id="btn-next-level" class="primary-btn hidden">SONRAKİ BÖLÜM ▶</button>
@@ -978,6 +985,9 @@
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <button id="btn-insuff-watch-ad" type="button" class="primary-btn" style="background: linear-gradient(135deg, #10b981, #059669); border: 1.5px solid #6ee7b7; color: #fff; font-size: 14px; padding: 12px 18px; box-shadow: 0 0 22px rgba(16, 185, 129, 0.5);">
                         🎬 REKLAM İZLE &amp; +50 ✪ COİN HEDİYE AL
+                    </button>
+                    <button id="btn-insuff-vip" type="button" class="primary-btn vip-action-cta hidden">
+                        👑 VIP PASS • GÜNLÜK +1000 ✪ &amp; +100 ❖ + REKLAMSIZ
                     </button>
                     <button id="btn-insuff-cancel" type="button" class="secondary-btn" style="padding: 10px 16px; font-size: 13px;">
                         Vazgeç
