@@ -244,6 +244,43 @@ class SoundManager {
         });
     }
 
+    dash() {
+        this.playTone(680, 'sawtooth', 0.08, 0.14, 180);
+        setTimeout(() => this.playTone(960, 'sine', 0.09, 0.12, 420), 28);
+    }
+
+    groundSlam() {
+        this.playTone(180, 'square', 0.18, 0.24, 55);
+        setTimeout(() => this.playTone(95, 'triangle', 0.24, 0.26, 38), 45);
+    }
+
+    timeSlow() {
+        this.playTone(720, 'sine', 0.28, 0.16, 210);
+        setTimeout(() => this.playTone(420, 'triangle', 0.34, 0.14, 140), 90);
+    }
+
+    droneZap() {
+        this.playTone(1120, 'square', 0.06, 0.08, 520);
+    }
+
+    celebrationFanfare() {
+        const chord = [523.25, 659.25, 783.99, 1046.5, 1318.51, 1567.98];
+        chord.forEach((f, i) => {
+            setTimeout(() => this.playTone(f, 'triangle', 0.28, 0.2), i * 95);
+        });
+    }
+
+    chestOpen() {
+        const notes = [440, 554.37, 659.25, 880, 1174.66];
+        notes.forEach((f, i) => {
+            setTimeout(() => this.playTone(f, 'sine', 0.2, 0.18), i * 75);
+        });
+    }
+
+    phaseFlip() {
+        this.playTone(540, 'triangle', 0.07, 0.08, 760);
+    }
+
     startBGM(isBoss = false) {
         this.currentIsBoss = isBoss;
         this.stopBGM();
