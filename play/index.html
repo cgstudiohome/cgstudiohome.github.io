@@ -11,6 +11,24 @@
     <link rel="apple-touch-icon" href="assets/store/icon-192.png">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Google tag (gtag.js) - Web Only (Android uses Native Firebase Analytics SDK) -->
+    <script>
+      (function() {
+        var isNativeAndroid = !!(window.MarinextCloudBridge || (window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform()) || /; wv\)/i.test(navigator.userAgent || ''));
+        if (isNativeAndroid) return;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function(){ dataLayer.push(arguments); };
+        window.gtag('js', new Date());
+        window.gtag('config', 'G-7ER5HLQSNZ', {
+          page_title: 'Marinext 2100 - Web Play',
+          send_page_view: true
+        });
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-7ER5HLQSNZ';
+        document.head.appendChild(s);
+      })();
+    </script>
 </head>
 <body>
     <div id="game-wrapper">
@@ -562,7 +580,7 @@
 
                 <div class="modal-buttons" style="display: flex; flex-direction: column; gap: 8px;">
                     <button id="btn-submit-feedback-playconsole" type="button" class="primary-btn" style="background: linear-gradient(135deg, #06d6a0, #059669); color: #041418; padding: 11px 16px; font-size: 13.5px;">
-                        📲 KAYDET &amp; GOOGLE PLAY CONSOLE GERİ BİLDİRİMİ GÖNDER ▶
+                        ⭐ GOOGLE PLAY'DE PUANLA &amp; YORUM YAZ ▶
                     </button>
                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                         <button id="btn-submit-feedback-direct" type="button" class="secondary-btn" style="flex: 1; min-width: 180px; padding: 9px 12px; font-size: 12.5px; border-color: #ffd166; color: #ffd166;">
