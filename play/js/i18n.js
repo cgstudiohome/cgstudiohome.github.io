@@ -6740,302 +6740,302 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.4.13" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.4.14" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.4.13 Tam Ekran Hizalama, Hassas Kontrol & Puanlama Yeniliği",
-        "subtitle": "Tüm telefon ekranlarına milimetrik oturan harita, daha keskin dokunmatik kontroller ve tek tıkla Google Play puanlama desteği!",
+        "title": "🚀 v1.4.14 Akıllı Zorluk Dengesi, Ekran & Kontrol Cilası",
+        "subtitle": "Tüm bölümlerde daha dengeli ilerleme, her telefona tam oturan harita, keskin kontroller ve tek tıkla mağaza puanlama!",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
+                "icon": "⚖️",
+                "title": "Daha Dengeli Bölüm Zorluğu & İlerleme Akışı",
+                "desc": "100 kampanya ve 50 Trol bölümünde oyuncu deneyimini daha akıcı ve keyifli kılan denge iyileştirmeleri hazırlandı."
+            },
+            {
                 "icon": "📐",
-                "title": "Geniş & Çentikli Ekranlarda Kusursuz Harita Uyumu",
-                "desc": "Farklı ekran oranlarına sahip tüm Android telefonlarda harita menüsü ve alt butonlar artık sağdan veya soldan kesilmeden tam ekran görünür."
+                "title": "Geniş & Çentikli Telefonlara Kusursuz Ekran Uyumu",
+                "desc": "Tüm Android ekran oranlarında harita, alt aksiyon butonları ve menüler kenarlardan kırpılmadan tam hizalanır."
             },
             {
                 "icon": "🎯",
-                "title": "Daha Hassas & Geniş Dokunmatik Kontroller",
-                "desc": "Yön ve zıplama butonları ekran kenar koruma alanından güvenle içeri alındı ve basım alanı genişletilerek kontrol hissi keskinleştirildi."
+                "title": "Genişletilmiş & Hassas Dokunmatik Kontroller",
+                "desc": "Yön ve zıplama butonları kenar yanlış dokunma korumasından güvenle içeri çekildi ve basım hassasiyeti artırıldı."
+            },
+            {
+                "icon": "👑",
+                "title": "19 Kahraman, 78 Ekipman & Güçlendirme Stüdyosu Cilası",
+                "desc": "Kahraman seçimi, ekipman kuşanma, yükseltmeler ve VIP ayrıcalık ekranları 9 dilde her zamankinden daha tepkisel."
             },
             {
                 "icon": "⭐",
-                "title": "Tek Tıkla Google Play Mağaza Puanlama",
-                "desc": "Oyun sonu yıldızları, Ayarlar ve Geri Bildirim ekranı artık sizi doğrudan Google Play Store mağaza yorum ve puanlama sayfasına ulaştırır."
-            },
-            {
-                "icon": "🗺️",
-                "title": "100 Bölüm & 9 Dilde İsim Cilası",
-                "desc": "Bölge 9 finalindeki \"Demir Titan ☠\" başlığı dahil 100 kampanya ve 50 Trol bölümünün tamamında aktif dilinize tam uyumlu başlıklar sağlanır."
-            },
-            {
-                "icon": "🌐",
-                "title": "Mobil & Web'de Akıcı 120 FPS Deneyim",
-                "desc": "Hem Android uygulamasında hem de tarayıcıda açılış, kaydetme ve bölüm geçişleri ekstra pürüzsüz hale getirildi."
+                "title": "Tek Tıkla Google Play Puanlama & 120 FPS Kararlılık",
+                "desc": "Beğeni ve yıldız puanlarınız doğrudan Google Play Store'a ulaşır; mobil ve web tarayıcıda 120 FPS akıcılık korunur."
             }
         ]
     },
     "en": {
-        "title": "🚀 v1.4.13 Full-Screen Fit, Touch Precision & Store Rating Update",
-        "subtitle": "Edge-to-edge map alignment on every wide Android display, sharper touch controls, and 1-tap Google Play rating!",
+        "title": "🚀 v1.4.14 Smart Balance, Screen Fit & Hero Studio Update",
+        "subtitle": "Balanced 150-stage progression, edge-to-edge display fit, sharper touch controls, and instant Google Play rating!",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
+                "icon": "⚖️",
+                "title": "Balanced Stage Progression & Adventure Pacing",
+                "desc": "Refined overall pacing across all 100 campaign stages and 50 Troll challenges for a smoother, more rewarding run."
+            },
+            {
                 "icon": "📐",
-                "title": "Perfect Map Fit on Wide & Notched Phones",
-                "desc": "Level map and bottom action buttons now adapt cleanly inside camera cutouts and narrow or ultra-wide displays without edge clipping."
+                "title": "Full-Screen Alignment on Wide & Notched Phones",
+                "desc": "Level map and bottom action buttons fit cleanly inside camera cutouts and ultra-wide displays with zero edge clipping."
             },
             {
                 "icon": "🎯",
-                "title": "Refined & Expanded Touch Hitboxes",
-                "desc": "Movement and jump controls now sit safely clear of edge gesture guards with wider invisible touch zones for instant responsiveness."
+                "title": "Sharper Controls with Expanded Touch Zones",
+                "desc": "Movement and jump pads sit safely clear of edge gesture guards with larger invisible hitboxes for crisp jumps."
+            },
+            {
+                "icon": "👑",
+                "title": "19 Heroes, 78 Gear Pieces & Upgrade Polish",
+                "desc": "Character unlocks, custom gear equipping, power-ups, and VIP Studio menus respond instantly across all 9 languages."
             },
             {
                 "icon": "⭐",
-                "title": "1-Tap Direct Google Play Store Rating",
-                "desc": "Rating stars, Settings, and the Feedback window now open Marinext 2100 directly in Google Play so your review goes live immediately."
-            },
-            {
-                "icon": "🗺️",
-                "title": "Polished 100-Level & 9-Language Titles",
-                "desc": "Fixed the Zone 9 Boss title (\"Demir Titan ☠\") and verified crystal-clear stage names across all 100 campaign + 50 Troll levels."
-            },
-            {
-                "icon": "🌐",
-                "title": "Ultra-Smooth 120 FPS Mobile & Web Flow",
-                "desc": "Improved session stability and seamless play transitions whether you launch on Android or in your desktop web browser."
+                "title": "Direct Google Play Rating & Smooth 120 FPS",
+                "desc": "Share ratings directly on Google Play with one tap while enjoying steady 120 FPS action on both Android and Web."
             }
         ]
     },
     "ru": {
-        "title": "🚀 v1.4.13 Адаптация Экрана, Точное Управление и Отзывы",
-        "subtitle": "Идеальная подгонка карты под вырезы экрана, более чёткие сенсорные кнопки и быстрый переход к оценке в Google Play!",
+        "title": "🚀 v1.4.14 Баланс Уровней, Экран и Точное Управление",
+        "subtitle": "Ещё более сбалансированное прохождение 150 уровней, идеальная подгонка экрана и мгновенные отзывы в Google Play!",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
+                "icon": "⚖️",
+                "title": "Сбалансированный Темп Прохождения Уровней",
+                "desc": "Улучшена плавность прогресса во всех 100 уровнях кампании и 50 испытаниях тролль-режима."
+            },
+            {
                 "icon": "📐",
-                "title": "Полная Подгонка Карты На Широких Экранах",
-                "desc": "Меню карты и нижние кнопки теперь идеально помещаются на смартфонах с вырезом камеры и нестандартным соотношением сторон."
+                "title": "Идеальная Подгонка Под Широкие Экраны",
+                "desc": "Карта и нижние кнопки идеально размещаются на смартфонах с вырезом камеры без обрезки по краям."
             },
             {
                 "icon": "🎯",
-                "title": "Увеличенная Точность Сенсорных Кнопок",
-                "desc": "Кнопки движения и прыжка сдвинуты в безопасную зону от края экрана с расширенной областью нажатия для мгновенного отклика."
+                "title": "Расширенная Точность Сенсорных Кнопок",
+                "desc": "Кнопки движения и прыжка отодвинуты от краёв экрана с увеличенной зоной срабатывания."
+            },
+            {
+                "icon": "👑",
+                "title": "Полировка 19 Героев, 78 Предметов и Улучшений",
+                "desc": "Выбор героев, настройка экипировки и бонусы VIP-студии работают максимально быстро на 9 языках."
             },
             {
                 "icon": "⭐",
-                "title": "Прямая Оценка в Google Play в Один Клик",
-                "desc": "Звёзды оценки, Настройки и окно отзывов теперь открывают страницу игры в Google Play, чтобы ваш рейтинг сразу публиковался."
-            },
-            {
-                "icon": "🗺️",
-                "title": "Шлифовка Названий 150 Уровней На 9 Языках",
-                "desc": "Исправлено название босса 9-й зоны и проверена полная согласованность имён всех 100 основных и 50 тролль-уровней."
-            },
-            {
-                "icon": "🌐",
-                "title": "Стабильные 120 FPS На Android и в Браузере",
-                "desc": "Улучшена плавность переходов между картой и уровнями как на мобильных устройствах, так и при игре через сайт."
+                "title": "Прямой Отзыв в Google Play и Стабильные 120 FPS",
+                "desc": "Оценивайте игру в Google Play в один клик и наслаждайтесь плавными 120 FPS на Android и в браузере."
             }
         ]
     },
     "it": {
-        "title": "🚀 v1.4.13 Schermo Perfetto, Controlli Precisi e Valutazione Play",
-        "subtitle": "Mappa centrata su qualsiasi display Android, tocchi più precisi e valutazione diretta su Google Play in un tocco!",
+        "title": "🚀 v1.4.14 Equilibrio Livelli, Schermo e Studio Eroi",
+        "subtitle": "Progressione ancora più bilanciata in tutti i 150 livelli, schermo perfetto senza ritagli e valutazione diretta!",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
+                "icon": "⚖️",
+                "title": "Equilibrio e Ritmo Migliorati nei 150 Livelli",
+                "desc": "Progressione ancora più fluida e appagante lungo tutti i 100 livelli della campagna e i 50 livelli Troll."
+            },
+            {
                 "icon": "📐",
-                "title": "Adattamento Perfetto Su Schermi Ampi e Con Notch",
-                "desc": "La mappa dei livelli e i pulsanti inferiori ora si adattano con precisione evitando ritagli ai bordi su ogni smartphone Android."
+                "title": "Schermo Perfetto Su Display Ampi e Con Notch",
+                "desc": "La mappa e i pulsanti inferiori rispettano ogni bordo su smartphone Android senza tagli laterali."
             },
             {
                 "icon": "🎯",
-                "title": "Controlli Touch Più Reattivi e Precisi",
-                "desc": "I tasti di movimento e salto sono protetti dai bordi anti-tocco e offrono un'area sensibile ampliata e immediata."
+                "title": "Controlli Touch Precisi e Reattivi",
+                "desc": "Pulsanti di movimento e salto distanziati dai bordi anti-tocco con area sensibile più ampia."
+            },
+            {
+                "icon": "👑",
+                "title": "Studio 19 Eroi, 78 Oggetti e Potenziamenti",
+                "desc": "Sblocco eroi, personalizzazione estetica e menu VIP più rapidi e curati in tutte le 9 lingue."
             },
             {
                 "icon": "⭐",
-                "title": "Valutazione Diretta Su Google Play Store",
-                "desc": "Le stelle di fine livello, le Impostazioni e il Feedback aprono ora direttamente la scheda di Google Play per lasciare il tuo voto."
-            },
-            {
-                "icon": "🗺️",
-                "title": "Titoli Perfetti Per Tutti i 150 Livelli",
-                "desc": "Rifiniti i nomi dei boss nella Zona 9 e verificata la coerenza di tutti i 100 livelli campagna + 50 livelli Troll in 9 lingue."
-            },
-            {
-                "icon": "🌐",
-                "title": "Esperienza Fluida a 120 FPS Su Mobile e Web",
-                "desc": "Avvio più stabile e passaggi istantanei tra la mappa e l'azione sia su telefono che da browser desktop."
+                "title": "Valutazione Diretta Google Play & 120 FPS",
+                "desc": "Invia la tua valutazione su Google Play in un tocco e gioca a 120 FPS fluidi su Android e Web."
             }
         ]
     },
     "es": {
-        "title": "🚀 v1.4.13 Ajuste de Pantalla, Control Preciso y Calificación",
-        "subtitle": "¡Mapa perfectamente encajado en pantallas anchas, controles táctiles ampliados y acceso directo a Google Play!",
+        "title": "🚀 v1.4.14 Equilibrio, Ajuste de Pantalla y Estudio de Héroes",
+        "subtitle": "¡Progreso equilibrado en 150 niveles, ajuste total en pantallas anchas, control más preciso y calificación directa!",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
+                "icon": "⚖️",
+                "title": "Ritmo y Equilibrio Mejorado en 150 Niveles",
+                "desc": "Experiencia aún más fluida y justa tanto en los 100 niveles de campaña como en los 50 niveles Troll."
+            },
+            {
                 "icon": "📐",
-                "title": "Encaje Total En Pantallas Anchas y Con Notch",
-                "desc": "El mapa y los botones inferiores ahora respetan las zonas seguras de cada teléfono sin cortes laterales ni desplazamientos."
+                "title": "Ajuste Sin Cortes en Pantallas Anchas y Notch",
+                "desc": "El mapa y los botones inferiores encajan con precisión en cualquier teléfono Android moderno."
             },
             {
                 "icon": "🎯",
-                "title": "Controles Táctiles Más Precisos y Amplios",
-                "desc": "Los botones de dirección y salto quedan lejos de la protección de bordes con un área táctil invisible ampliada."
+                "title": "Controles Táctiles con Mayor Zona de Respuesta",
+                "desc": "Botones de movimiento y salto alejados de los bordes de rechazo táctil para saltos instantáneos."
+            },
+            {
+                "icon": "👑",
+                "title": "19 Héroes, 78 Accesorios y Mejoras Pulidas",
+                "desc": "Desbloqueo de personajes, personalización y tienda de mejoras más ágiles en los 9 idiomas."
             },
             {
                 "icon": "⭐",
-                "title": "Calificación Directa En Google Play Store",
-                "desc": "Las estrellas, Ajustes y la ventana de Comentarios ahora te llevan directo a Google Play para publicar tu reseña."
-            },
-            {
-                "icon": "🗺️",
-                "title": "Títulos Pulidos En Los 150 Niveles",
-                "desc": "Corregido el título del jefe de la Zona 9 y verificados los nombres de los 100 niveles principales + 50 Troll en 9 idiomas."
-            },
-            {
-                "icon": "🌐",
-                "title": "120 FPS Fluidos En Móvil y Navegador Web",
-                "desc": "Transiciones limpias entre el mapa y cada nivel con respuesta instantánea tanto en Android como en PC."
+                "title": "Reseña Directa en Google Play y 120 FPS",
+                "desc": "Deja tu calificación directamente en Google Play en un toque y juega a 120 FPS estables en móvil o web."
             }
         ]
     },
     "fr": {
-        "title": "🚀 v1.4.13 Écran Parfait, Contrôles Précis & Avis Google Play",
-        "subtitle": "Carte centrée sans bord coupé sur tous les téléphones, zones tactiles optimisées et notation directe sur le Play Store !",
+        "title": "🚀 v1.4.14 Équilibrage, Écran Parfait & Studio des Héros",
+        "subtitle": "Progression harmonieuse sur 150 niveaux, affichage complet sans bordure coupée et notation directe sur Google Play !",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
+                "icon": "⚖️",
+                "title": "Progression Équilibrée Sur 150 Niveaux",
+                "desc": "Rythme affiné sur l'ensemble des 100 niveaux principaux et des 50 défis Troll pour une aventure encore plus fluide."
+            },
+            {
                 "icon": "📐",
-                "title": "Affichage Parfait Sur Écrans Larges & Encoches",
-                "desc": "La carte et les boutons du bas s'adaptent aux bordures de chaque téléphone Android sans jamais être coupés sur les côtés."
+                "title": "Affichage Intégral Sur Écrans Larges et Encoches",
+                "desc": "La carte et les boutons inférieurs restent parfaitement centrés sur tous les smartphones Android."
             },
             {
                 "icon": "🎯",
-                "title": "Contrôles Tactiles Agrandis et Ultra-Réactifs",
-                "desc": "Les touches directionnelles et de saut évitent les zones mortes des bords et disposent d'une surface tactile élargie."
+                "title": "Commandes Tactiles Agrandies et Ultra-Précises",
+                "desc": "Touches directionnelles et saut éloignées des bords morts avec zone tactile invisible étendue."
+            },
+            {
+                "icon": "👑",
+                "title": "Finition Studio : 19 Héros, 78 Équipements & Bonus",
+                "desc": "Déblocage de héros, personnalisation et améliorations encore plus réactifs dans vos 9 langues."
             },
             {
                 "icon": "⭐",
-                "title": "Note Directe Sur Google Play Store",
-                "desc": "Les étoiles, les Paramètres et la fenêtre d'Avis ouvrent désormais directement la fiche Google Play pour publier votre note."
-            },
-            {
-                "icon": "🗺️",
-                "title": "Finition des 150 Niveaux En 9 Langues",
-                "desc": "Titre du boss de la Zone 9 corrigé et noms des 100 niveaux principaux + 50 niveaux Troll uniformisés dans votre langue."
-            },
-            {
-                "icon": "🌐",
-                "title": "Expérience Fluide 120 IPS Mobile & Web",
-                "desc": "Transitions plus nettes et réactivité constante aussi bien sur l'application Android que sur ordinateur."
+                "title": "Avis Direct Google Play & Fluidité 120 IPS",
+                "desc": "Accès direct à votre avis Google Play en un clic et action fluide à 120 IPS sur mobile comme sur le web."
             }
         ]
     },
     "ko": {
-        "title": "🚀 v1.4.13 화면 맞춤 정렬, 정밀 터치 및 스토어 리뷰 개선",
-        "subtitle": "모든 와이드 스마트폰 화면에 딱 맞는 지도 배치, 더 넓어진 터치 반응 영역, 원터치 Google Play 평가 지원!",
+        "title": "🚀 v1.4.14 스테이지 밸런스, 화면 맞춤 및 스튜디오 다듬기",
+        "subtitle": "150개 스테이지의 더욱 균형 잡힌 진행, 와이드 화면 완벽 정렬, 정밀 터치와 원터치 스토어 평가 지원!",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
+                "icon": "⚖️",
+                "title": "더욱 균형 잡힌 150개 스테이지 진행감",
+                "desc": "100개 캠페인과 50개 트롤 스테이지 전반이 한층 쾌적하고 짜임새 있게 이어지도록 다듬었습니다."
+            },
+            {
                 "icon": "📐",
-                "title": "와이드·노치 디스플레이 완벽 화면 맞춤",
-                "desc": "카메라 펀치홀과 다양한 화면 비율의 Android 스마트폰에서도 지도와 하단 버튼이 양옆 잘림 없이 완벽하게 표시됩니다."
+                "title": "와이드·펀치홀 디스플레이 완벽 화면 맞춤",
+                "desc": "다양한 화면 비율의 Android 스마트폰에서도 지도와 하단 버튼이 잘림 없이 깔끔하게 정렬됩니다."
             },
             {
                 "icon": "🎯",
-                "title": "터치 버튼 오작동 방지 및 판정 범위 확대",
-                "desc": "이동·점프 버튼이 화면 가장자리 오터치 방지 구역 안쪽으로 안정 배치되었고 보이지 않는 터치 영역이 넓어졌습니다."
+                "title": "더 정밀하고 반응 넓은 터치 컨트롤",
+                "desc": "화면 가장자리 오작동을 피하도록 버튼 위치를 다듬고 숨겨진 터치 영역을 넓혔습니다."
+            },
+            {
+                "icon": "👑",
+                "title": "19명의 영웅, 78종 장비 & 업그레이드 최적화",
+                "desc": "영웅 해금, 커스터마이즈 착용 및 강화 상점이 9개 언어에서 더욱 빠르게 반응합니다."
             },
             {
                 "icon": "⭐",
-                "title": "원터치 Google Play 스토어 직접 평가",
-                "desc": "별점 팝업, 설정 및 의견 보내기에서 이제 바로 Google Play 스토어로 이동해 소중한 평점을 남길 수 있습니다."
-            },
-            {
-                "icon": "🗺️",
-                "title": "150개 스테이지 9개국어 타이틀 다듬기",
-                "desc": "9구역 보스 제목을 포함해 100개 캠페인 + 50개 트롤 스테이지 이름이 선택한 언어에 맞게 깔끔하게 정비되었습니다."
-            },
-            {
-                "icon": "🌐",
-                "title": "모바일 & 웹 120 FPS 쾌적한 플레이",
-                "desc": "Android 앱과 PC 웹 버전 모두에서 더 매끄러운 화면 전환과 즉각적인 반응 속도를 경험하세요."
+                "title": "Google Play 바로 평가 & 120 FPS 안정성",
+                "desc": "한 번의 터치로 Google Play 스토어에 바로 평점을 남기고 모바일·웹에서 120 FPS를 즐기세요."
             }
         ]
     },
     "zh": {
-        "title": "🚀 v1.4.13 全屏刘海适配、精准触控与商店直达评分升级",
-        "subtitle": "全面屏手机地图零裁切完美居中，触控按键判定更跟手，支持一键直达 Google Play 商店发表评分！",
+        "title": "🚀 v1.4.14 关卡平衡体验、全面屏适配与英雄工坊升级",
+        "subtitle": "150 关节奏更加平衡顺畅，全面屏地图完美居零裁切，触控跟手度与直达商店评分全面提升！",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
+                "icon": "⚖️",
+                "title": "更平衡顺畅的 150 关闯关节奏",
+                "desc": "打磨了 100 个主线关卡与 50 个整蛊关卡的整体闯关体验，每一场挑战都更具爽快感。"
+            },
+            {
                 "icon": "📐",
-                "title": "全面屏与挖孔屏地图完美对齐",
-                "desc": "针对超宽屏和刘海挖孔安卓手机优化了安全区边距，关卡地图与底部按钮不再出现左右裁切或偏移。"
+                "title": "全面屏与挖孔屏完美显示适配",
+                "desc": "关卡地图与底部按钮智能避开摄像头挖孔与边框，各类安卓机型均不再出现边缘裁切。"
             },
             {
                 "icon": "🎯",
-                "title": "触控方向与跳跃按键精准升级",
-                "desc": "按键位置避开手机边缘防误触区并扩大隐藏触控热区，跑动与二段跳手感大幅提升。"
+                "title": "更精准跟手的扩展触控按键",
+                "desc": "优化按键安全区距离并扩大隐藏触控判定范围，跳跃与闪避操控更加即时准确。"
+            },
+            {
+                "icon": "👑",
+                "title": "19 位英雄、78 款装扮与强化工坊润色",
+                "desc": "英雄解锁、造型搭配、技能升级与 VIP 特权在 9 种语言下响应更快、体验更丝滑。"
             },
             {
                 "icon": "⭐",
-                "title": "一键直达 Google Play 商店评分",
-                "desc": "通关评分星级、设置及反馈弹窗现已支持直接跳转 Google Play 商店页面，让您的好评实时生效。"
-            },
-            {
-                "icon": "🗺️",
-                "title": "150 关多语言标题细节完善",
-                "desc": "修复第 9 区域 Boss 名称错字并校验全部 100 主线 + 50 整蛊关卡在 9 种语言下的显示一致性。"
-            },
-            {
-                "icon": "🌐",
-                "title": "手机与网页端畅享 120 FPS 丝滑体验",
-                "desc": "无论是安卓应用还是电脑浏览器游玩，关卡切换与操作反馈皆更加稳健流畅。"
+                "title": "一键直达 Google Play 评分 & 120 FPS",
+                "desc": "轻点即可直达 Google Play 商店分享评分，并在手机与电脑网页端畅享 120 FPS 体验。"
             }
         ]
     },
     "ja": {
-        "title": "🚀 v1.4.13 ワイド画面最適化・精密タッチ＆ストア評価連携",
-        "subtitle": "全Androidスマホの画面端まで美しく収まるマップ表示、さらに反応しやすくなったタッチ操作、ワンタップGoogle Play評価に対応！",
+        "title": "🚀 v1.4.14 ステージバランス・画面フィット＆ヒーロースタジオ強化",
+        "subtitle": "全150ステージの快適なテンポ、ワイド画面への完璧フィット、精密タッチ操作とダイレクトストア評価に対応！",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
+                "icon": "⚖️",
+                "title": "全150ステージのさらに快適な攻略テンポ",
+                "desc": "100キャンペーンと50トロール全ステージをより楽しくバランスよく遊べるよう体験を磨きました。"
+            },
+            {
                 "icon": "📐",
                 "title": "ワイド画面＆ノッチ端末への完璧フィット",
-                "desc": "カメラホールや横長画面に合わせて安全領域を自動調整し、ステージマップや下部ボタンの左右見切れを解消しました。"
+                "desc": "あらゆるAndroidスマホでステージマップや下部ボタンが画面端で見切れることなく美しく収まります。"
             },
             {
                 "icon": "🎯",
-                "title": "タッチ操作の精度＆反応エリアを強化",
-                "desc": "左右・ジャンプボタンを画面端の誤タッチ防止帯から内側に配置し、見えない判定エリアを広げて操作性を向上しました。"
+                "title": "広くなった判定エリアで精密タッチ操作",
+                "desc": "誤タッチ防止帯から安全な位置へボタンを調整し、目に見えないタッチ判定も拡大しました。"
+            },
+            {
+                "icon": "👑",
+                "title": "19ヒーロー・78装備・アップグレード工坊の洗練",
+                "desc": "キャラ解放・カスタマイズ装着・強化ショップやVIP特典が9言語すべてで一段と軽快に動作します。"
             },
             {
                 "icon": "⭐",
-                "title": "Google Play ストアへ直接評価リンク",
-                "desc": "評価星アイコン・設定・フィードバック画面から直接Google Playストアの評価ページを開けるようになりました。"
-            },
-            {
-                "icon": "🗺️",
-                "title": "全150ステージ・9言語タイトルの洗練",
-                "desc": "第9エリアボス名の表記を修正し、100キャンペーン＋50トロール全ステージの表記を選択言語に完全一致させました。"
-            },
-            {
-                "icon": "🌐",
-                "title": "モバイル＆Web双方で滑らかな120 FPS",
-                "desc": "Androidアプリ版・Webブラウザ版ともに画面切り替えやプレイ安定性をさらに高めています。"
+                "title": "Google Play 直接評価 & 安定 120 FPS",
+                "desc": "ワンタップでGoogle Playの評価ページへ進み、Android・Webともに滑らかな120 FPSを楽しめます。"
             }
         ]
     }
