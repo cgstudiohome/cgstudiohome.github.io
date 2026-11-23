@@ -156,15 +156,12 @@
                                  (eventName === 'session_end' ? 'app_session_end' : eventName);
 
             if (hasNativeFirebase) {
-                // Native FirebaseAnalytics SDK already tracks first_open, session_start, and user_engagement automatically.
+                // Native FirebaseAnalytics SDK already tracks first_open, session_start, ga_session_id, and user_engagement automatically.
                 if (eventName !== 'session_start') {
                     try {
                         window.MarinextCloudBridge.logAnalyticsEvent(
                             ga4EventName,
-                            JSON.stringify({
-                                ...params,
-                                session_id: this.numericSessionId
-                            })
+                            JSON.stringify({ ...params })
                         );
                     } catch (e) {}
                 }
@@ -175,10 +172,7 @@
 
                 if (typeof window.gtag === 'function') {
                     try {
-                        window.gtag('event', ga4EventName, {
-                            ...params,
-                            session_id: this.numericSessionId
-                        });
+                        window.gtag('event', ga4EventName, { ...params });
                     } catch (e) {}
                 } else if (measurementId && apiSecret) {
                     try {
