@@ -53,6 +53,12 @@
                 <div class="hud-stat checkpoint-badge hidden" id="hud-checkpoint">
                     🚩 Kayıt Noktası Aktif
                 </div>
+                <div class="hud-stat checkpoint-badge hidden" id="hud-keys-badge" style="border-color: rgba(255, 209, 102, 0.85); color: #ffd166;">
+                    🔑 0/3
+                </div>
+                <div class="hud-stat checkpoint-badge hidden" id="hud-timeslow-badge" style="border-color: rgba(0, 242, 254, 0.85); color: #00f2fe;">
+                    ⏱️ KRONO
+                </div>
                 <div class="hud-stat" id="hud-fps" style="border-color: rgba(6, 214, 160, 0.5); color: #06d6a0; font-weight: 700; font-size: 12px;">
                     ⚡ 120 FPS
                 </div>
@@ -113,9 +119,16 @@
                 <button id="touch-left" class="touch-btn" aria-label="Sol">◀</button>
                 <button id="touch-right" class="touch-btn" aria-label="Sağ">▶</button>
             </div>
-            <div class="action-group">
-                <button id="touch-fire" class="touch-btn btn-fire fire-passive" aria-label="Ateş Topu" aria-disabled="true">🔥</button>
-                <button id="touch-jump" class="touch-btn btn-jump" aria-label="Zıpla">▲</button>
+            <div class="right-touch-cluster">
+                <div class="ability-subrow" id="touch-ability-row">
+                    <button id="touch-dash" class="touch-btn btn-ability btn-dash hidden" aria-label="Faz Atılması">⚡</button>
+                    <button id="touch-slam" class="touch-btn btn-ability btn-slam hidden" aria-label="Zemin Darbesi">💥</button>
+                    <button id="touch-timeslow" class="touch-btn btn-ability btn-timeslow hidden" aria-label="Krono-Fren">⏱️</button>
+                </div>
+                <div class="action-group">
+                    <button id="touch-fire" class="touch-btn btn-fire fire-passive" aria-label="Ateş Topu" aria-disabled="true">🔥</button>
+                    <button id="touch-jump" class="touch-btn btn-jump" aria-label="Zıpla">▲</button>
+                </div>
             </div>
         </div>
 
@@ -162,6 +175,10 @@
                         <button id="btn-map-troll" class="troll-round-btn" title="Trol Modu (15 Bölüm) - Sinirlenen Adam (😡)">
                             <span class="troll-face-icon">😡</span>
                             <span class="troll-badge-text" id="map-troll-badge">TROL</span>
+                        </button>
+                        <button id="btn-map-act2" class="act2-surprise-btn locked" type="button" title="100. Bölümü Bitir — Sürpriz Öte Evren Dünyaları">
+                            <span class="act2-btn-icon" id="act2-btn-icon">❓</span>
+                            <span class="act2-btn-text" id="act2-btn-text">???</span>
                         </button>
                         <button id="btn-map-lang" class="lang-square-btn" title="Dil Seçimi / Language (👅)">
                             <span class="lang-tongue-icon">👅</span>
@@ -490,6 +507,9 @@
                     </button>
                     <button id="btn-test-ad" class="settings-channel-btn hidden" type="button" title="AdMob Test Reklamı Başlat (Ödüllü Video)">
                         🎬 REKLAM TESTİ
+                    </button>
+                    <button id="btn-settings-test-act2" class="settings-channel-btn hidden" type="button" title="Geliştirici Testi: Öte Evren & Yetenekleri Aç">
+                        🌌 ÖTE EVREN TEST
                     </button>
                     <button id="btn-close-settings" class="primary-btn settings-save-btn" type="button">
                         AYARLARI KAYDET VE DÖN ✓
@@ -865,6 +885,60 @@
             </div>
         </div>
 
+        <!-- ❓ Mystery Act II Locked Teaser Modal -->
+        <div id="screen-act2-locked" class="overlay-screen hidden" style="z-index: 9996;">
+            <div class="modal-card act2-modal-card" style="max-width: 560px; border-color: #c77dff; box-shadow: 0 0 44px rgba(181, 55, 242, 0.35); position: relative; text-align: center;">
+                <button id="btn-close-act2-locked-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <div class="act2-mystery-orb">❓</div>
+                <h2 id="act2-locked-title" style="color: #e0aaff; margin-bottom: 6px;">🔒 GİZEMLİ KAPI: ÖTE EVREN</h2>
+                <p id="act2-locked-sub" style="color: #cbd5e1; font-size: 13.5px; line-height: 1.5; margin-bottom: 12px;">
+                    100. Bölümü tamamlayıp <strong>Evren Hükümdarı</strong>'nı yendiğinde yepyeni bir boyut kapısı açılacak!
+                </p>
+                <div class="act2-progress-wrap">
+                    <div class="act2-progress-track">
+                        <div id="act2-locked-progress-fill" class="act2-progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <div id="act2-locked-progress-text" style="color: #ffd166; font-size: 12.5px; font-weight: 800; margin-top: 6px;">İlerleme: 0 / 100 Bölüm</div>
+                </div>
+                <div id="act2-locked-teasers" class="act2-teaser-chips">
+                    <span>🌌 50 Yeni Öte Evren Bölümü (Dünya 11–15)</span>
+                    <span>⚡ Faz Atılması &amp; 💥 Zemin Darbesi</span>
+                    <span>⏱️ Krono-Fren &amp; 🤖 Siber Mini-Drone Yoldaş</span>
+                    <span>💎 Efsanevi Yadigar Sandıkları &amp; 5 Yeni Boss</span>
+                </div>
+                <button id="btn-close-act2-locked" class="primary-btn" type="button" style="margin-top: 10px; background: linear-gradient(135deg, #7c3aed, #b537f2);">
+                    TAMAM — 100. BÖLÜME KOŞ ▶
+                </button>
+            </div>
+        </div>
+
+        <!-- 🎉 Level 100 Grand Celebration + Surprise Gift Chest Overlay -->
+        <div id="screen-act2-celebration" class="overlay-screen hidden" style="z-index: 9999; background: rgba(4, 6, 18, 0.94);">
+            <div class="modal-card act2-celebration-card" style="max-width: 620px; border: 2px solid #ffd166; box-shadow: 0 0 60px rgba(255, 209, 102, 0.42), 0 0 36px rgba(0, 242, 254, 0.25); position: relative; text-align: center;">
+                <button id="btn-close-act2-cel-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <div class="act2-cel-crown">👑🌌🎁</div>
+                <h2 id="act2-cel-title" style="color: #ffd166; font-size: 23px; margin-bottom: 6px;">🎉 BÜYÜK FİNAL ZAFERİ! EVREN KURTARILDI!</h2>
+                <p id="act2-cel-sub" style="color: #e2e8f0; font-size: 13.5px; line-height: 1.5; margin-bottom: 12px;">
+                    100. Bölüm tamamlandı! Evren Hükümdarı'nın hazine mührü kırıldı — <strong>Dalga 1: Öte Evren (Bölüm 101–150)</strong> ve ilk özel yeteneğin açıldı!
+                </p>
+                <div id="act2-cel-rewards" class="act2-cel-rewards-grid">
+                    <div class="cel-reward-pill" style="border-color:#ffd166; color:#ffd166;">✪ +1000 Coin</div>
+                    <div class="cel-reward-pill" style="border-color:#06d6a0; color:#06d6a0;">❖ +250 Antik Zümrüt</div>
+                    <div class="cel-reward-pill" style="border-color:#00f2fe; color:#00f2fe;">◆ +100 Kristal</div>
+                    <div class="cel-reward-pill" style="border-color:#38bdf8; color:#bae6fd;">⚡ Faz Atılması Açıldı!</div>
+                    <div class="cel-reward-pill" style="border-color:#e0aaff; color:#e0aaff;">🌌 Dünya 11–15 (101–150)</div>
+                </div>
+                <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:14px;">
+                    <button id="btn-claim-act2-celebration" class="primary-btn" type="button" style="background: linear-gradient(135deg, #f59e0b, #7c3aed); border: 1.5px solid #fef08a; box-shadow: 0 0 28px rgba(245, 158, 11, 0.6);">
+                        🎁 SÜRPRİZ HEDİYEYİ AL VE ÖTE EVRENE GİR 🌌
+                    </button>
+                    <button id="btn-close-act2-celebration" class="secondary-btn" type="button">
+                        HARİTADA KAL
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- Hybrid Neon Leaderboard & Google Play Games Rankings Modal (🏆) -->
         <div id="screen-leaderboard" class="overlay-screen hidden" style="z-index: 9997; background: rgba(4, 6, 16, 0.94);">
             <div class="modal-card leaderboard-modal-card" style="max-width: 780px; width: 96%; max-height: 92vh; overflow-y: auto; border: 2px solid #ffd166; box-shadow: 0 0 42px rgba(255, 209, 102, 0.28); text-align: left; position: relative; padding: 16px 18px;">
@@ -1085,6 +1159,7 @@
 
     <script src="js/audio.js"></script>
     <script src="js/levels.js"></script>
+    <script src="js/act2-levels.js"></script>
     <script src="js/entities.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/billing-i18n.js"></script>
