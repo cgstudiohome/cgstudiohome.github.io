@@ -202,6 +202,31 @@
             }
         },
 
+        setUserProperties(props = {}) {
+            try {
+                const cleanProps = {};
+                Object.keys(props || {}).forEach((k) => {
+                    const val = props[k];
+                    if (val !== undefined && val !== null) {
+                        cleanProps[k] = String(val).slice(0, 36);
+                    }
+                });
+                if (Object.keys(cleanProps).length === 0) return;
+
+                if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.setAnalyticsUserProperty === 'function') {
+                    Object.keys(cleanProps).forEach((k) => {
+                        try {
+                            window.MarinextCloudBridge.setAnalyticsUserProperty(k, cleanProps[k]);
+                        } catch (e) {}
+                    });
+                } else if (typeof window.gtag === 'function') {
+                    try {
+                        window.gtag('set', 'user_properties', cleanProps);
+                    } catch (e) {}
+                }
+            } catch (e) {}
+        },
+
         getSummary() {
             return {
                 ...this.stats,
