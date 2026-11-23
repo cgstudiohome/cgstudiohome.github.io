@@ -347,10 +347,13 @@ class Enemy {
         this.type = cfg.type === 'bat' ? 'crawler' : cfg.type;
         this.x = cfg.x;
         this.y = cfg.y;
+        this.baseY = cfg.y;
         this.minX = cfg.minX;
         this.maxX = cfg.maxX;
+        this.isSplitChild = Boolean(cfg.isSplitChild);
+        this.hasFrontShield = false;
 
-        const diffMult = 1 + levelIndex * 0.05;
+        const diffMult = 1 + Math.min(0.65, levelIndex * 0.025);
 
         if (this.type === 'golem') {
             this.w = 50;
@@ -367,6 +370,57 @@ class Enemy {
             this.h = 54;
             this.vx = 1.0 * diffMult;
             this.hp = 2;
+        } else if (this.type === 'drone') {
+            this.w = 44;
+            this.h = 34;
+            this.vx = 2.25 * diffMult;
+            this.hp = 1;
+            this.y = this.baseY - 22;
+        } else if (this.type === 'shieldbearer') {
+            this.w = 48;
+            this.h = 52;
+            this.vx = 1.15 * diffMult;
+            this.hp = 2;
+            this.hasFrontShield = true;
+        } else if (this.type === 'wraith') {
+            this.w = 42;
+            this.h = 50;
+            this.vx = 1.55 * diffMult;
+            this.hp = 2;
+            this.blinkTimer = 110 + Math.floor(Math.random() * 50);
+        } else if (this.type === 'hopper') {
+            this.w = 42;
+            this.h = 38;
+            this.vx = 1.75 * diffMult;
+            this.vy = 0;
+            this.hp = 1;
+            this.hopTimer = 45 + Math.floor(Math.random() * 40);
+        } else if (this.type === 'stalker') {
+            this.w = 44;
+            this.h = 38;
+            this.vx = 1.35 * diffMult;
+            this.baseSpeed = 1.35 * diffMult;
+            this.hp = 2;
+        } else if (this.type === 'splitter') {
+            this.w = this.isSplitChild ? 28 : 48;
+            this.h = this.isSplitChild ? 24 : 42;
+            this.vx = (cfg.vx || (1.35 * diffMult)) * (this.isSplitChild ? 1.35 : 1.0);
+            this.vy = cfg.vy || 0;
+            this.hp = this.isSplitChild ? 1 : 2;
+        } else if (this.type === 'gravity_orb') {
+            this.w = 40;
+            this.h = 40;
+            this.vx = 1.05 * diffMult;
+            this.hp = 2;
+            this.y = this.baseY - 26;
+        } else if (this.type === 'sniper') {
+            this.w = 44;
+            this.h = 54;
+            this.vx = 0.95 * diffMult;
+            this.hp = 2;
+            this.aimTimer = 0;
+            this.aimTargetX = 0;
+            this.aimTargetY = 0;
         } else {
             // 'slime' -> Fanged Shadow Stalker Beast
             this.w = 42;
@@ -375,6 +429,7 @@ class Enemy {
             this.hp = 1;
         }
 
+        if (cfg.hp) this.hp = cfg.hp;
         this.shootTimer = Math.floor(Math.random() * 60) + 90;
         this.levelIndex = levelIndex;
         this.dead = false;
@@ -383,10 +438,25 @@ class Enemy {
     }
 
     update(solids, game) {
-        this.anim += 0.18;
+        const ts = (game && game.timeSlowTimer > 0) ? 0.45 : 1.0;
+        this.anim += 0.18 * ts;
         if (this.hurtFlash > 0) this.hurtFlash--;
 
-        this.x += this.vx;
+        // Stalker ambusher lunges when player approaches
+        let moveVx = this.vx;
+        if (this.type === 'stalker' && game && game.player) {
+            const dx = (game.player.x + game.player.w / 2) - (this.x + this.w / 2);
+            const dy = Math.abs((game.player.y + game.player.h / 2) - (this.y + this.h / 2));
+            if (Math.abs(dx) < 230 && dy < 110) {
+                const dir = dx >= 0 ? 1 : -1;
+                this.vx = dir * Math.abs(this.baseSpeed || 1.5);
+                moveVx = this.vx * 2.1;
+            }
+        } else if (this.type === 'sniper' && (this.aimTimer || 0) > 0) {
+            moveVx = 0;
+        }
+
+        this.x += moveVx * ts;
         if (this.x < this.minX) {
             this.x = this.minX;
             this.vx = Math.abs(this.vx);
@@ -395,25 +465,111 @@ class Enemy {
             this.vx = -Math.abs(this.vx);
         }
 
-        this.y += 6;
-        for (const s of solids) {
-            if (
-                this.x < s.x + s.w &&
-                this.x + this.w > s.x &&
-                this.y < s.y + s.h &&
-                this.y + this.h > s.y
-            ) {
-                this.y = s.y - this.h;
+        // Flying / Hovering vs Grounded physics
+        if (this.type === 'drone') {
+            this.y = (this.baseY - 22) + Math.sin(this.anim * 1.15) * 14;
+        } else if (this.type === 'gravity_orb') {
+            this.y = (this.baseY - 28) + Math.sin(this.anim * 0.9) * 11;
+        } else {
+            if (this.type === 'hopper') {
+                this.hopTimer -= ts;
+                this.vy = Math.min(11, (this.vy || 0) + 0.52 * ts);
+                this.y += this.vy * ts;
+            } else if (this.type === 'splitter' && this.vy < 0) {
+                this.vy = Math.min(8, this.vy + 0.55 * ts);
+                this.y += this.vy * ts;
+            } else {
+                this.y += 6 * ts;
+            }
+            for (const s of solids) {
+                if (
+                    this.x < s.x + s.w &&
+                    this.x + this.w > s.x &&
+                    this.y < s.y + s.h &&
+                    this.y + this.h > s.y
+                ) {
+                    this.y = s.y - this.h;
+                    if (this.type === 'hopper') {
+                        this.vy = 0;
+                        if (this.hopTimer <= 0) {
+                            this.vy = -9.6;
+                            this.hopTimer = 58;
+                            if (game) game.spawnParticles(this.x + this.w / 2, this.y + this.h, 5, "#38b000", 2.5);
+                        }
+                    } else if (this.type === 'splitter') {
+                        this.vy = 0;
+                    }
+                }
             }
         }
 
-        if (this.type === 'sentinel' && game && game.player) {
-            this.shootTimer--;
+        if (!game || !game.player) return;
+
+        if (this.type === 'sentinel') {
+            this.shootTimer -= ts;
             const dist = Math.abs(game.player.x - this.x);
             if (this.shootTimer <= 0 && dist < 520) {
                 const dir = game.player.x > this.x ? 1 : -1;
-                game.fireballs.push(new Fireball(this.x + this.w / 2 + dir * 16, this.y + 24, dir, true, 0, 0.95));
+                game.fireballs.push(new Fireball(this.x + this.w / 2 + dir * 16, this.y + 24, dir, true, 0, 0.95 * ts));
                 this.shootTimer = Math.max(55, 115 - this.levelIndex * 5);
+            }
+        } else if (this.type === 'drone') {
+            this.shootTimer -= ts;
+            const dist = Math.abs(game.player.x - this.x);
+            if (this.shootTimer <= 0 && dist < 440) {
+                const dir = game.player.x > this.x ? 1 : -1;
+                game.fireballs.push(new Fireball(this.x + this.w / 2 + dir * 14, this.y + 18, dir, true, 1.2, 0.9 * ts));
+                this.shootTimer = 115;
+            }
+        } else if (this.type === 'wraith') {
+            this.blinkTimer -= ts;
+            const dist = Math.abs(game.player.x - this.x);
+            if (this.blinkTimer <= 0 && dist < 420) {
+                const dir = game.player.x > this.x ? 1 : -1;
+                game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 10, "#e0aaff", 3);
+                const blinkX = Math.max(this.minX, Math.min(this.maxX - this.w, this.x + dir * 120));
+                this.x = blinkX;
+                this.vx = dir * Math.abs(this.vx);
+                game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 10, "#00f2fe", 3);
+                this.blinkTimer = 135;
+            }
+        } else if (this.type === 'gravity_orb') {
+            const cx = this.x + this.w / 2;
+            const cy = this.y + this.h / 2;
+            const px = game.player.x + game.player.w / 2;
+            const py = game.player.y + game.player.h / 2;
+            const dx = cx - px;
+            const dy = cy - py;
+            const d = Math.hypot(dx, dy);
+            if (d > 24 && d < 175 && !game.player.isGroundSlamming) {
+                const pull = (1 - d / 175) * 0.42 * ts;
+                game.player.vx += (dx / d) * pull;
+                game.player.vy += (dy / d) * pull * 0.65;
+            }
+        } else if (this.type === 'sniper') {
+            const cx = this.x + this.w / 2;
+            const cy = this.y + 20;
+            const px = game.player.x + game.player.w / 2;
+            const py = game.player.y + game.player.h / 2;
+            const dist = Math.hypot(px - cx, py - cy);
+            if (this.aimTimer > 0) {
+                this.aimTimer -= ts;
+                this.aimTargetX = px;
+                this.aimTargetY = py;
+                if (this.aimTimer <= 0) {
+                    const dir = px >= cx ? 1 : -1;
+                    this.vx = dir * Math.abs(this.vx);
+                    const aimVy = Math.max(-4.5, Math.min(4.5, ((py - cy) / Math.max(80, Math.abs(px - cx))) * 9.5));
+                    game.fireballs.push(new Fireball(cx + dir * 18, cy, dir, true, aimVy, 1.32 * ts));
+                    this.shootTimer = 125;
+                }
+            } else {
+                this.shootTimer -= ts;
+                if (this.shootTimer <= 0 && dist < 560) {
+                    this.aimTimer = 42;
+                    this.aimTargetX = px;
+                    this.aimTargetY = py;
+                }
             }
         }
     }
@@ -691,9 +847,156 @@ class Enemy {
             ctx.fill();
             ctx.stroke();
             ctx.restore();
+        } else if (this.type === 'drone') {
+            const bob = Math.sin(this.anim * 1.4) * 3;
+            ctx.fillStyle = "rgba(255, 42, 133, 0.18)";
+            ctx.beginPath();
+            ctx.moveTo(8, -12 + bob);
+            ctx.lineTo(36, 4 + bob);
+            ctx.lineTo(14, 10 + bob);
+            ctx.closePath();
+            ctx.fill();
+            ctx.fillStyle = "#16213e";
+            ctx.strokeStyle = "#00f2fe";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.ellipse(0, -18 + bob, 19, 11, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#ff2a85";
+            ctx.beginPath();
+            ctx.arc(8, -18 + bob, 5, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (this.type === 'shieldbearer') {
+            const step = Math.sin(this.anim * 1.2) * 4;
+            ctx.fillStyle = "#1d2d44";
+            ctx.strokeStyle = "#06d6a0";
+            ctx.lineWidth = 2;
+            ctx.fillRect(-12, -40, 24, 28);
+            ctx.strokeRect(-12, -40, 24, 28);
+            ctx.fillRect(-9 + step, -12, 7, 12);
+            ctx.fillRect(2 - step, -12, 7, 12);
+            ctx.fillStyle = "#00f2fe";
+            ctx.fillRect(-10, -52, 20, 12);
+            // Front Energy Barrier Shield!
+            ctx.fillStyle = "rgba(0, 242, 254, 0.38)";
+            ctx.strokeStyle = "#00f2fe";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.roundRect(14, -48, 8, 44, 4);
+            ctx.fill();
+            ctx.stroke();
+        } else if (this.type === 'wraith') {
+            ctx.globalAlpha *= 0.72 + Math.sin(this.anim * 2) * 0.18;
+            const g = ctx.createLinearGradient(0, -50, 0, 0);
+            g.addColorStop(0, "#e0aaff");
+            g.addColorStop(1, "rgba(60, 9, 108, 0.2)");
+            ctx.fillStyle = g;
+            ctx.strokeStyle = "#00f2fe";
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.moveTo(0, -48);
+            ctx.quadraticCurveTo(18, -32, 14, -4);
+            ctx.lineTo(4, -12);
+            ctx.lineTo(-4, -2);
+            ctx.lineTo(-14, -12);
+            ctx.quadraticCurveTo(-18, -32, 0, -48);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(3, -34, 7, 4);
+        } else if (this.type === 'hopper') {
+            const squash = this.vy < -1 ? 4 : 0;
+            ctx.fillStyle = "#2d6a4f";
+            ctx.strokeStyle = "#80ed99";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.ellipse(0, -14 - squash, 18 - squash * 0.4, 14 + squash * 0.5, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#c77dff";
+            ctx.beginPath();
+            ctx.arc(-6, -26 - squash, 6, 0, Math.PI * 2);
+            ctx.arc(6, -26 - squash, 6, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(6, -18 - squash, 6, 4);
+        } else if (this.type === 'stalker') {
+            const p = 0.65 + Math.sin(this.anim * 2.5) * 0.25;
+            ctx.globalAlpha *= p;
+            ctx.fillStyle = "#190b28";
+            ctx.strokeStyle = "#ff2a85";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(-18, -6);
+            ctx.quadraticCurveTo(-8, -38, 12, -32);
+            ctx.lineTo(20, -10);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#ff2a85";
+            ctx.fillRect(6, -24, 9, 4);
+        } else if (this.type === 'splitter') {
+            const r = this.isSplitChild ? 12 : 21;
+            const pulse = Math.sin(this.anim * 2.4) * 2.5;
+            ctx.fillStyle = "rgba(128, 237, 153, 0.72)";
+            ctx.strokeStyle = "#06d6a0";
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.arc(0, -r, r + pulse * 0.4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.arc(-4, -r - 2, r * 0.25, 0, Math.PI * 2);
+            ctx.arc(6, -r - 2, r * 0.25, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (this.type === 'gravity_orb') {
+            const pulse = Math.sin(this.anim * 2.2) * 4;
+            ctx.strokeStyle = "rgba(181, 55, 242, 0.55)";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(0, -20, 26 + pulse, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.fillStyle = "#240046";
+            ctx.strokeStyle = "#e0aaff";
+            ctx.beginPath();
+            ctx.arc(0, -20, 15, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#00f2fe";
+            ctx.beginPath();
+            ctx.arc(0, -20, 6, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (this.type === 'sniper') {
+            ctx.fillStyle = "#2b1d0e";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2;
+            ctx.fillRect(-12, -42, 24, 42);
+            ctx.strokeRect(-12, -42, 24, 42);
+            ctx.fillStyle = "#1b1409";
+            ctx.beginPath();
+            ctx.arc(0, -46, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#ff2a85";
+            ctx.fillRect(2, -49, 8, 4);
+            ctx.fillStyle = "#ffd166";
+            ctx.fillRect(0, -34, 24, 5);
         }
 
         ctx.restore();
+        if (this.type === 'sniper' && (this.aimTimer || 0) > 0) {
+            ctx.save();
+            ctx.strokeStyle = "rgba(255, 42, 133, 0.78)";
+            ctx.setLineDash([7, 5]);
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.moveTo(this.x + this.w / 2, this.y + 20);
+            ctx.lineTo(this.aimTargetX, this.aimTargetY);
+            ctx.stroke();
+            ctx.restore();
+        }
     }
 }
 
@@ -770,6 +1073,36 @@ const BOSS_PROFILES = {
         armorTop: "#2b1055", armorMid: "#15072b", armorBot: "#080212",
         glow: "#ff2a85", secondary: "#00f2fe", eye: "#ffd166",
         specialName: "🌌 KOZMİK KIYAMET: IŞINLANMA & YILDIRIM!"
+    },
+    21: {
+        title: "MEKA-LEVİATHAN",
+        armorTop: "#093a4a", armorMid: "#05212e", armorBot: "#020e14",
+        glow: "#00f2fe", secondary: "#06d6a0", eye: "#ff2a85",
+        specialName: "🦈 HİDRO-TORPİDO & ELEKTRİK GİRDABI!"
+    },
+    22: {
+        title: "DEV SPOR KRALİÇESİ",
+        armorTop: "#284d1a", armorMid: "#14290c", armorBot: "#081204",
+        glow: "#38b000", secondary: "#c77dff", eye: "#ffd166",
+        specialName: "🍄 ZEHİRLİ SPOR & KÖK PATLAMASI!"
+    },
+    23: {
+        title: "KRONOS SAAT USTASI",
+        armorTop: "#4a330a", armorMid: "#291b04", armorBot: "#120b01",
+        glow: "#ffd166", secondary: "#ff9f1c", eye: "#00f2fe",
+        specialName: "⏳ KRONO-ÇARK BARAJI & ZAMAN SIÇRAMASI!"
+    },
+    24: {
+        title: "ÜÇ BAŞLI ASİT HİDRASI",
+        armorTop: "#1b4332", armorMid: "#0d261b", armorBot: "#05120c",
+        glow: "#80ed99", secondary: "#06d6a0", eye: "#ff5400",
+        specialName: "🐉 ÜÇ BAŞLI ASİT BOMBARDIMANI!"
+    },
+    25: {
+        title: "KARANLIK İKİZ",
+        armorTop: "#2d0c4e", armorMid: "#17052b", armorBot: "#0a0214",
+        glow: "#e0aaff", secondary: "#00f2fe", eye: "#ff2a85",
+        specialName: "🪞 AYNA BOYUTU & GÖLGE İKİZİ SALDIRISI!"
     }
 };
 
@@ -986,6 +1319,62 @@ class AbyssBoss {
         } else if (this.bossType === 11) {
             // Armored Fortress Commander: Siege Mortar Barrage
             this.enterState('special_attack', 62, prof.specialName);
+        } else if (this.bossType === 21) {
+            // Meka-Leviathan: Hydro-Torpedo + Electric Vortex Bolts
+            const boltCount = 3 + countBonus;
+            for (let i = 0; i < boltCount; i++) {
+                const lx = i === 0
+                    ? Math.max(this.minX + 50, Math.min(this.maxX - 50, player.x))
+                    : this.minX + 60 + (i / boltCount) * (arenaW - 120);
+                this.warnings.push({
+                    kind: 'lightning_warn', x: lx - 15, y: this.groundY - 400, groundY: this.groundY,
+                    w: 30, h: 400, timer: 38 + i * 5, maxTimer: 38 + i * 5, color: "#00f2fe"
+                });
+            }
+            this.enterState('special_attack', 56, prof.specialName);
+        } else if (this.bossType === 22) {
+            // Giant Spore Queen: Toxic Root Pillars + Spore Lobbing
+            const rootCount = 3 + countBonus;
+            for (let i = 0; i < rootCount; i++) {
+                const px = i === 0
+                    ? Math.max(this.minX + 45, Math.min(this.maxX - 65, player.x))
+                    : this.minX + 60 + (i / rootCount) * (arenaW - 120);
+                this.warnings.push({
+                    kind: 'void_pillar_warn', x: px - 18, y: this.groundY - 110, groundY: this.groundY,
+                    w: 36, h: 110, timer: 38, maxTimer: 38, color: "#38b000"
+                });
+            }
+            this.enterState('special_attack', 60, prof.specialName);
+        } else if (this.bossType === 23) {
+            // Chronos Clockmaster: Time Blink + Cogwheel Fan
+            this.enterState('special_attack', 58, prof.specialName);
+        } else if (this.bossType === 24) {
+            // Three-Headed Acid Hydra: Triple Acid Barrage + Acid Rain
+            const rainCount = 4 + countBonus;
+            for (let i = 0; i < rainCount; i++) {
+                const mx = i === 0
+                    ? Math.max(this.minX + 45, Math.min(this.maxX - 45, player.x))
+                    : this.minX + 50 + (i / rainCount) * (arenaW - 100);
+                this.warnings.push({
+                    kind: 'meteor_warn', x: mx - 16, y: this.groundY - 400, groundY: this.groundY,
+                    w: 32, h: 400, timer: 34 + i * 6, maxTimer: 34 + i * 6, color: "#80ed99"
+                });
+            }
+            this.enterState('special_attack', 64, prof.specialName);
+        } else if (this.bossType === 25) {
+            // Dark Twin: Mirror Dimension Blink + Double Dash + Zenith Beams
+            this.dashChainLeft = 1 + (isEnraged ? 1 : 0);
+            const strikeCount = 3 + countBonus;
+            for (let i = 0; i < strikeCount; i++) {
+                const lx = i === 0
+                    ? Math.max(this.minX + 45, Math.min(this.maxX - 45, player.x))
+                    : this.minX + 60 + (i / strikeCount) * (arenaW - 120);
+                this.warnings.push({
+                    kind: 'lightning_warn', x: lx - 15, y: this.groundY - 420, groundY: this.groundY,
+                    w: 30, h: 420, timer: 36 + i * 6, maxTimer: 36 + i * 6, color: "#e0aaff"
+                });
+            }
+            this.enterState('special_attack', 58, prof.specialName);
         } else {
             // Boss 12 (Universe Emperor / Final Boss): Multi-Hazard Cosmic Apocalypse
             const strikeCount = 3 + countBonus;
@@ -1011,11 +1400,17 @@ class AbyssBoss {
 
     update(solids, player, game) {
         if (this.dead) return;
+        const ts = (game && game.timeSlowTimer > 0) ? 0.46 : 1.0;
+        this.slowAccum = (this.slowAccum || 0) + ts;
+        if (this.slowAccum < 0.999) return;
+        this.slowAccum -= 1;
+
         this.anim += 0.14;
         if (this.invuln > 0) this.invuln--;
 
         const isEnraged = this.hp <= this.maxHp * 0.45;
-        const tierFactor = 1 + Math.min(0.42, (this.bossType - 1) * 0.035);
+        const clampedTier = Math.min(14, this.bossType > 20 ? (10 + (this.bossType - 20)) : this.bossType);
+        const tierFactor = 1 + Math.min(0.45, (clampedTier - 1) * 0.035);
         const speedMult = (isEnraged ? 1.24 : 1.0) * tierFactor;
 
         this.timer--;
@@ -1265,6 +1660,51 @@ class AbyssBoss {
                 for (const vyVal of [-2.8, -1.0, 0.8, 2.4]) {
                     game.fireballs.push(new Fireball(this.x + this.w / 2, this.y + 44, this.facing, true, vyVal, 0.95));
                 }
+            } else if (this.bossType === 21 && (this.timer === 40 || this.timer === 20)) {
+                window.sfx.fireball();
+                this.shockwaves.push({
+                    kind: 'plasma_missile', x: this.x + this.w / 2, y: this.y + (this.timer === 40 ? 48 : 82),
+                    vx: this.facing * 8.4, vy: 0, w: 32, h: 14, life: 85, color: "#00f2fe"
+                });
+            } else if (this.bossType === 22 && (this.timer === 42 || this.timer === 22)) {
+                window.sfx.fireball();
+                const lobVx = Math.max(-7.2, Math.min(7.2, (player.x - this.x) * 0.022));
+                this.shockwaves.push({
+                    kind: 'mortar', x: this.x + this.w / 2, y: this.y + 20,
+                    vx: lobVx, vy: -11.4, ay: 0.42, groundY: this.groundY,
+                    w: 22, h: 22, life: 95, color: "#38b000"
+                });
+            } else if (this.bossType === 23) {
+                if (this.timer === 44) {
+                    this.pushAfterimage("#ffd166");
+                    this.x = this.pickSafeTeleportX(player);
+                    this.facing = player.x > this.x ? 1 : -1;
+                    game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 16, "#ffd166", 4);
+                }
+                if (this.timer === 30 || this.timer === 16) {
+                    window.sfx.fireball();
+                    this.shockwaves.push({
+                        kind: 'shuriken', x: this.x + this.w / 2, y: this.y + (this.timer === 30 ? 36 : 70),
+                        vx: this.facing * 8.8, vy: 0, w: 26, h: 26, life: 85, color: "#ffd166"
+                    });
+                }
+            } else if (this.bossType === 24 && this.timer === 38) {
+                window.sfx.fireball();
+                for (const vyVal of [-2.4, 0, 2.2]) {
+                    game.fireballs.push(new Fireball(this.x + this.w / 2, this.y + 42, this.facing, true, vyVal, 1.0));
+                }
+            } else if (this.bossType === 25 && (this.timer === 42 || this.timer === 22)) {
+                if (this.timer === 42) {
+                    this.pushAfterimage("#e0aaff");
+                    this.x = this.pickSafeTeleportX(player);
+                    this.facing = player.x > this.x ? 1 : -1;
+                    game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 18, "#e0aaff", 4.5);
+                }
+                window.sfx.fireball();
+                this.shockwaves.push({
+                    kind: 'scythe_wave', x: this.x + this.w / 2, y: this.y + 36,
+                    vx: this.facing * 8.4 * speedMult, vy: 0, w: 34, h: 52, life: 85, color: "#e0aaff"
+                });
             }
 
             if (this.timer <= 0) {
@@ -1420,7 +1860,7 @@ class AbyssBoss {
             game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 24, "#ff2a85", 5.5);
             game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 18, "#00f2fe", 4.5);
             const dispBossName = (game && game.lang && game.lang !== "tr" && typeof game.getLocalizedLevelInfo === "function")
-                ? game.getLocalizedLevelInfo(game.isTrollMode ? game.selectedTrollLevel : game.selectedLevel, game.isTrollMode).shortName.toUpperCase()
+                ? game.getLocalizedLevelInfo(game.isAct2Mode ? game.selectedAct2Level : (game.isTrollMode ? game.selectedTrollLevel : game.selectedLevel), game.isTrollMode, game.isAct2Mode).shortName.toUpperCase()
                 : this.name;
             game.floatingTexts.push(new FloatingText(this.x + this.w / 2, this.y, `${dispBossName} YENİLDİ! +2500`, "#ffd166"));
             game.floatingTexts.push(new FloatingText(this.x + this.w / 2, this.y - 26, "🎁 BOSS HEDİYESİ: +20 ❖ ZÜMRÜT, +10 ◆ KRİSTAL, +15 🪙 COİN!", "#06d6a0"));
@@ -1429,6 +1869,26 @@ class AbyssBoss {
             game.addCrystals(10, true);
             if (typeof game.addGoldCoins === "function") game.addGoldCoins(15, true);
             return true;
+        }
+
+        // Act II Bosses (21..25) Phase Transitions at 60% & 30% HP
+        if (this.bossType >= 21) {
+            if (!this.phase60Triggered && this.hp <= this.maxHp * 0.6) {
+                this.phase60Triggered = true;
+                this.shieldActive = true;
+                game.shakeScreen(12);
+                game.floatingTexts.push(new FloatingText(this.x + this.w / 2, this.y - 18, "🔥 FAZ 2 ÖFKE PATLAMASI!", "#ffd166"));
+                this.triggerSpecialTelegraph(game.player, game, true);
+                return true;
+            }
+            if (!this.phase30Triggered && this.hp <= this.maxHp * 0.3) {
+                this.phase30Triggered = true;
+                this.shieldActive = true;
+                game.shakeScreen(16);
+                game.floatingTexts.push(new FloatingText(this.x + this.w / 2, this.y - 18, "⚡ NİHAİ FAZ 3!", "#ff2a85"));
+                this.triggerSpecialTelegraph(game.player, game, true);
+                return true;
+            }
         }
 
         if (isStomp || this.hitsTakenInWindow >= 3) {
@@ -1720,6 +2180,83 @@ class AbyssBoss {
                     ctx.closePath();
                     ctx.fill();
                 }
+            }
+        } else if (this.bossType === 21) {
+            // Meka-Leviathan: Hydro-Turbine Dorsal Fins
+            ctx.fillStyle = "rgba(0, 242, 254, 0.35)";
+            ctx.strokeStyle = "#06d6a0";
+            ctx.lineWidth = 2.5;
+            for (const ang of [-0.5, -0.15, 0.25]) {
+                ctx.save();
+                ctx.translate(-12, -74 + crouch);
+                ctx.rotate(ang);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(-42, -26);
+                ctx.lineTo(-10, 14);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+                ctx.restore();
+            }
+        } else if (this.bossType === 22) {
+            // Giant Spore Queen: Glowing Toxic Mushroom Frills
+            for (let i = -2; i <= 2; i++) {
+                ctx.fillStyle = i % 2 === 0 ? "rgba(56, 176, 0, 0.45)" : "rgba(199, 125, 255, 0.45)";
+                ctx.beginPath();
+                ctx.arc(i * 18, -94 + crouch + Math.abs(i) * 5, 16, Math.PI, 0);
+                ctx.fill();
+            }
+        } else if (this.bossType === 23) {
+            // Chronos Clockmaster: Rotating Golden Clockwork Halo
+            ctx.save();
+            ctx.translate(0, -78 + crouch);
+            ctx.rotate(this.anim * 0.55);
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(0, 0, 52, 0, Math.PI * 2);
+            ctx.stroke();
+            for (let g = 0; g < 8; g++) {
+                const a = (g * Math.PI) / 4;
+                ctx.fillStyle = "#ff9f1c";
+                ctx.fillRect(Math.cos(a) * 50 - 4, Math.sin(a) * 50 - 4, 8, 8);
+            }
+            ctx.restore();
+        } else if (this.bossType === 24) {
+            // Acid Hydra: Twin Flanking Acid Heads on Serpentine Necks
+            ctx.strokeStyle = "#80ed99";
+            ctx.fillStyle = "#1b4332";
+            ctx.lineWidth = 4;
+            for (const side of [-1, 1]) {
+                const hx = side * 48;
+                const hy = -98 + crouch + Math.sin(this.anim * 2 + side) * 8;
+                ctx.beginPath();
+                ctx.moveTo(side * 18, -72 + crouch);
+                ctx.quadraticCurveTo(side * 42, -88 + crouch, hx, hy);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(hx, hy, 13, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = "#ff5400";
+                ctx.fillRect(hx - 4, hy - 3, 6, 4);
+                ctx.fillStyle = "#1b4332";
+            }
+        } else if (this.bossType === 25) {
+            // Dark Twin: Shattered Mirror Shards Orbiting
+            for (let i = 0; i < 6; i++) {
+                const a = this.anim * 0.8 + (i * Math.PI) / 3;
+                const sx = Math.cos(a) * 60;
+                const sy = -76 + crouch + Math.sin(a) * 32;
+                ctx.fillStyle = i % 2 === 0 ? "rgba(224, 170, 255, 0.55)" : "rgba(0, 242, 254, 0.55)";
+                ctx.beginPath();
+                ctx.moveTo(sx, sy - 14);
+                ctx.lineTo(sx + 8, sy);
+                ctx.lineTo(sx, sy + 14);
+                ctx.lineTo(sx - 8, sy);
+                ctx.closePath();
+                ctx.fill();
             }
         }
 
@@ -2021,9 +2558,43 @@ class Player {
         this.fireCooldown = 0;
         this.teleportCooldown = 0;
         this.springBoostTimer = 0;
+        this.dashTimer = 0;
+        this.dashCooldown = 0;
+        this.dashCooldownMax = 68;
+        this.isGroundSlamming = false;
+        this.inUnderwater = false;
+        this.inReverseGravity = false;
 
         this.trail = [];
         this.animTime = 0;
+    }
+
+    tryDash(game) {
+        if (!game || typeof game.isAbilityUnlocked !== "function" || !game.isAbilityUnlocked("dash")) return false;
+        if (this.dashCooldown > 0 || this.dashTimer > 0) return false;
+        this.dashTimer = 11;
+        this.dashCooldown = this.dashCooldownMax;
+        this.isGroundSlamming = false;
+        this.vx = this.facing * 14.5;
+        this.vy = 0;
+        this.invulnTimer = Math.max(this.invulnTimer, 14);
+        if (window.sfx && typeof window.sfx.dash === "function") window.sfx.dash();
+        game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 16, "#00f2fe", 4.5);
+        if (typeof game.logAbilityUsed === "function") game.logAbilityUsed("dash");
+        return true;
+    }
+
+    tryGroundSlam(game) {
+        if (!game || typeof game.isAbilityUnlocked !== "function" || !game.isAbilityUnlocked("slam")) return false;
+        if (this.onGround || this.isGroundSlamming || this.inReverseGravity) return false;
+        this.isGroundSlamming = true;
+        this.dashTimer = 0;
+        this.vx *= 0.25;
+        this.vy = 20.5;
+        if (window.sfx && typeof window.sfx.dash === "function") window.sfx.dash();
+        game.spawnParticles(this.x + this.w / 2, this.y + this.h / 2, 12, "#ffd166", 3.5);
+        if (typeof game.logAbilityUsed === "function") game.logAbilityUsed("slam");
+        return true;
     }
 
     applyPowerUp(type, game) {
@@ -2076,6 +2647,7 @@ class Player {
         if (this.fireCooldown > 0) this.fireCooldown--;
         if (this.teleportCooldown > 0) this.teleportCooldown--;
         if (this.springBoostTimer > 0) this.springBoostTimer--;
+        if (this.dashCooldown > 0) this.dashCooldown--;
         if (this.speedTimer > 0) this.speedTimer--;
         if (this.coyoteTimer > 0) this.coyoteTimer--;
         if (this.wallCoyoteTimer > 0) this.wallCoyoteTimer--;
@@ -2088,8 +2660,46 @@ class Player {
                 break;
             }
         }
+        this.inUnderwater = Boolean(game && game.level && game.level.underwater);
+        const wasRev = this.inReverseGravity;
+        this.inReverseGravity = false;
+        if (game && Array.isArray(game.reverseGravityZones)) {
+            for (const rz of game.reverseGravityZones) {
+                if (this.intersects(rz)) {
+                    this.inReverseGravity = true;
+                    break;
+                }
+            }
+        }
+        if (this.inReverseGravity !== wasRev) {
+            this.onGround = false;
+        }
 
-        const allSolids = [...solids, ...movingPlatforms, ...activeCrumbles, ...game.mysteryBlocks];
+        const activePhaseSolids = (game && Array.isArray(game.phaseBlocks))
+            ? game.phaseBlocks.filter((pb) => pb.phaseGroup === (game.phaseBlockState || 0))
+            : [];
+        const intactCracked = (game && Array.isArray(game.crackedBlocks))
+            ? game.crackedBlocks.filter((cb) => !cb.broken)
+            : [];
+        const allSolids = [...solids, ...movingPlatforms, ...activeCrumbles, ...game.mysteryBlocks, ...activePhaseSolids, ...intactCracked];
+
+        if (this.dashTimer > 0) {
+            this.dashTimer--;
+            this.vx = this.facing * 14.5;
+            this.vy = 0;
+            this.x += this.vx;
+            for (const s of allSolids) {
+                if (this.intersects(s)) {
+                    if (this.vx > 0) this.x = s.x - this.w;
+                    else if (this.vx < 0) this.x = s.x + s.w;
+                    this.dashTimer = 0;
+                    this.vx = 0;
+                }
+            }
+            this.trail.push({ x: this.x + this.w / 2, y: this.y + this.h / 2 });
+            if (this.trail.length > 8) this.trail.shift();
+            return;
+        }
 
         // Proactive wall proximity sensor (4px left/right) so wall climbing works reliably while holding left/right
         if (!this.onGround) {
@@ -2113,7 +2723,8 @@ class Player {
         const isIce = this.onGround && this.currentSurface === 'ice';
         const isBoost = this.onGround && this.currentSurface === 'boost';
         const surfSpeedFactor = isBoost ? 1.48 : (isIce ? 1.18 : 1.0);
-        const maxSpeed = (this.speedTimer > 0 ? 7.0 : 5.2) * this.speedMult * surfSpeedFactor;
+        const waterSpeedFactor = this.inUnderwater ? 0.88 : 1.0;
+        const maxSpeed = (this.speedTimer > 0 ? 7.0 : 5.2) * this.speedMult * surfSpeedFactor * waterSpeedFactor;
         const airAccelBase = 0.75 + (this.airControlBonus || 0);
         const accel = (this.onGround ? (isIce ? 0.38 : (isBoost ? 1.35 : 0.95)) : airAccelBase) * this.speedMult;
         const friction = this.onGround ? (isIce ? 0.965 : 0.78) : 0.86;
@@ -2138,27 +2749,40 @@ class Player {
             input.jumpPressed = false;
         }
 
-        const jumpForce = (this.inLowGravity ? -12.8 : -14.2) * (this.jumpMult || 1.0);
+        const gravDir = this.inReverseGravity ? -1 : 1;
+        const baseJumpMag = this.inLowGravity ? 12.8 : (this.inUnderwater ? 12.2 : 14.2);
+        const jumpForce = -gravDir * baseJumpMag * (this.jumpMult || 1.0);
         const activeWallDir = this.onWall !== 0 ? this.onWall : (this.wallCoyoteTimer > 0 ? this.lastWallDir : 0);
+
+        const triggerPhaseFlip = () => {
+            if (game && Array.isArray(game.phaseBlocks) && game.phaseBlocks.length > 0) {
+                game.phaseBlockState = 1 - (game.phaseBlockState || 0);
+                if (window.sfx && typeof window.sfx.phaseFlip === "function") window.sfx.phaseFlip();
+            }
+        };
 
         if (this.jumpBuffer > 0) {
             if (this.coyoteTimer > 0) {
                 this.vy = jumpForce;
                 this.onGround = false;
+                this.isGroundSlamming = false;
                 this.coyoteTimer = 0;
                 this.jumpsLeft = this.maxJumps - 1;
                 this.jumpBuffer = 0;
+                triggerPhaseFlip();
                 window.sfx.jump();
-                game.spawnParticles(this.x + this.w / 2, this.y + this.h, 8, "#00f2fe", 3.5);
+                game.spawnParticles(this.x + this.w / 2, this.y + (this.inReverseGravity ? 0 : this.h), 8, "#00f2fe", 3.5);
             } else if (activeWallDir !== 0 && !this.onGround) {
                 const isClimbingSameWall = (activeWallDir === 1 && input.right) || (activeWallDir === -1 && input.left);
-                this.vy = isClimbingSameWall ? -14.2 : -13.6;
+                this.vy = -gravDir * (isClimbingSameWall ? 14.2 : 13.6);
                 this.vx = isClimbingSameWall ? (-activeWallDir * 2.6) : (-activeWallDir * 6.8);
                 this.facing = isClimbingSameWall ? activeWallDir : -activeWallDir;
                 this.jumpsLeft = this.maxJumps - 1;
                 this.onWall = 0;
                 this.wallCoyoteTimer = 0;
                 this.jumpBuffer = 0;
+                this.isGroundSlamming = false;
+                triggerPhaseFlip();
                 window.sfx.wallJump();
                 game.spawnParticles(
                     activeWallDir === 1 ? this.x + this.w : this.x,
@@ -2168,16 +2792,18 @@ class Player {
                     4
                 );
                 game.floatingTexts.push(new FloatingText(this.x + this.w / 2, this.y, isClimbingSameWall ? "Duvar Tırmanışı!" : "Duvar Zıplaması!", "#e0aaff"));
-            } else if (this.jumpsLeft > 0) {
-                this.vy = jumpForce * 0.94;
-                this.jumpsLeft--;
+            } else if (this.jumpsLeft > 0 || this.inUnderwater) {
+                this.vy = jumpForce * (this.inUnderwater ? 0.92 : 0.94);
+                if (this.jumpsLeft > 0) this.jumpsLeft--;
                 this.jumpBuffer = 0;
+                this.isGroundSlamming = false;
+                triggerPhaseFlip();
                 window.sfx.doubleJump();
-                game.spawnParticles(this.x + this.w / 2, this.y + this.h, 14, "#ff2a85", 4);
+                game.spawnParticles(this.x + this.w / 2, this.y + (this.inReverseGravity ? 0 : this.h), 14, this.inUnderwater ? "#00f2fe" : "#ff2a85", 4);
             }
         }
 
-        if (!input.jumpHeld && this.vy < -5.0 && (this.springBoostTimer || 0) <= 0) {
+        if (!input.jumpHeld && this.vy * gravDir < -5.0 && (this.springBoostTimer || 0) <= 0) {
             this.vy *= 0.75;
         }
 
@@ -2191,19 +2817,28 @@ class Player {
             }
         }
 
-        let grav;
-        const isGlidingNow = Boolean(this.hasGlide && input.jumpHeld && this.vy > 0 && !this.onGround && this.onWall === 0);
-        if (isGlidingNow) {
-            grav = 0.28;
+        let gravMag;
+        const movingAgainstGrav = (this.vy * gravDir) < 0;
+        const isGlidingNow = Boolean(this.hasGlide && input.jumpHeld && !movingAgainstGrav && !this.onGround && this.onWall === 0);
+        if (this.isGroundSlamming) {
+            gravMag = 1.45;
+        } else if (isGlidingNow) {
+            gravMag = 0.28;
+        } else if (this.inUnderwater) {
+            gravMag = movingAgainstGrav ? 0.40 : 0.44;
         } else if (this.inLowGravity) {
-            grav = this.vy < 0 ? 0.42 : 0.58;
-        } else if ((this.springBoostTimer || 0) > 0 && this.vy < 0) {
-            grav = 0.46;
+            gravMag = movingAgainstGrav ? 0.42 : 0.58;
+        } else if ((this.springBoostTimer || 0) > 0 && movingAgainstGrav) {
+            gravMag = 0.46;
         } else {
-            grav = this.vy < 0 ? 0.66 : 0.96;
+            gravMag = movingAgainstGrav ? 0.66 : 0.96;
         }
-        const maxFall = (this.onWall !== 0 && this.vy > 0) ? 2.8 : (isGlidingNow ? 4.2 : (this.inLowGravity ? 8.5 : 13.8));
-        this.vy = Math.min(this.vy + grav, maxFall);
+        const maxFall = this.isGroundSlamming
+            ? 22.0
+            : ((this.onWall !== 0 && !movingAgainstGrav) ? 2.8 : (isGlidingNow ? 4.2 : (this.inUnderwater ? 6.0 : (this.inLowGravity ? 8.5 : 13.8))));
+        this.vy = gravDir > 0
+            ? Math.min(this.vy + gravMag, maxFall)
+            : Math.max(this.vy - gravMag, -maxFall);
 
         this.x += this.vx;
         this.onWall = 0;
@@ -2233,30 +2868,45 @@ class Player {
             if (this.intersects(s)) {
                 if (this.vy > 0) {
                     this.y = s.y - this.h;
+                    const wasSlamming = this.isGroundSlamming;
                     this.vy = 0;
-                    this.onGround = true;
-                    this.currentSurface = s.surfaceType || 'normal';
-                    this.coyoteTimer = 7;
-                    this.jumpsLeft = this.maxJumps;
-                    if (s.currentVx) {
-                        this.x += s.currentVx;
-                    }
-                    if (s.isCrumble && s.state === 'idle') {
-                        s.state = 'shaking';
-                        s.timer = Math.max(14, 34 - game.selectedLevel * 2);
-                        window.sfx.crumble();
+                    if (!this.inReverseGravity) {
+                        this.onGround = true;
+                        this.currentSurface = s.surfaceType || 'normal';
+                        this.coyoteTimer = 7;
+                        this.jumpsLeft = this.maxJumps;
+                        if (s.currentVx) this.x += s.currentVx;
+                        if (s.isCrumble && s.state === 'idle') {
+                            s.state = 'shaking';
+                            s.timer = Math.max(14, 34 - game.selectedLevel * 2);
+                            window.sfx.crumble();
+                        }
+                        if (wasSlamming) {
+                            this.isGroundSlamming = false;
+                            if (window.sfx && typeof window.sfx.groundSlam === "function") window.sfx.groundSlam();
+                            game.shakeScreen(12);
+                            if (typeof game.onPlayerGroundSlamImpact === "function") {
+                                game.onPlayerGroundSlamImpact(this, s);
+                            }
+                        }
                     }
                 } else if (this.vy < 0) {
                     this.y = s.y + s.h;
                     this.vy = 0;
-                    if (s.isMystery) {
+                    if (this.inReverseGravity) {
+                        this.onGround = true;
+                        this.currentSurface = s.surfaceType || 'normal';
+                        this.coyoteTimer = 7;
+                        this.jumpsLeft = this.maxJumps;
+                        if (s.currentVx) this.x += s.currentVx;
+                    } else if (s.isMystery) {
                         game.triggerMysteryBlock(s);
                     }
                 }
             }
         }
 
-        if (Math.abs(this.vx) > 2 || Math.abs(this.vy) > 2 || this.speedTimer > 0 || this.auraId === "rainbow_trail") {
+        if (Math.abs(this.vx) > 2 || Math.abs(this.vy) > 2 || this.speedTimer > 0 || this.auraId === "rainbow_trail" || this.isGroundSlamming) {
             this.trail.push({ x: this.x + this.w / 2, y: this.y + this.h / 2 });
             if (this.trail.length > 6) this.trail.shift();
         } else if (this.trail.length > 0) {
@@ -2448,8 +3098,14 @@ class Player {
             ctx.restore();
         }
 
-        ctx.translate(cx, bottomY);
-        ctx.scale(this.facing, 1);
+        if (this.inReverseGravity) {
+            ctx.translate(cx, this.y + this.h / 2);
+            ctx.scale(this.facing, -1);
+            ctx.translate(0, this.h / 2);
+        } else {
+            ctx.translate(cx, bottomY);
+            ctx.scale(this.facing, 1);
+        }
 
         const isMoving = Math.abs(this.vx) > 0.4;
         const runSwing = isMoving ? Math.sin(this.animTime) * 10 : 0;
