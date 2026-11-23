@@ -21,7 +21,10 @@
 
 html, body {
     width: 100%;
+    max-width: 100%;
     height: 100%;
+    position: fixed;
+    inset: 0;
     background-color: var(--bg-deep);
     color: var(--text-main);
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -31,9 +34,10 @@ html, body {
 
 #game-wrapper {
     position: relative;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,9 +62,9 @@ html, body {
 /* HUD */
 #hud {
     position: absolute;
-    top: 12px;
-    left: 16px;
-    right: 16px;
+    top: max(10px, env(safe-area-inset-top));
+    left: max(14px, calc(env(safe-area-inset-left) + 8px));
+    right: max(14px, calc(env(safe-area-inset-right) + 8px));
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -278,9 +282,9 @@ html, body {
 /* Touch Controls */
 #touch-controls {
     position: absolute;
-    bottom: 20px;
-    left: 24px;
-    right: 24px;
+    bottom: max(20px, calc(env(safe-area-inset-bottom) + 12px));
+    left: max(28px, calc(env(safe-area-inset-left) + 18px));
+    right: max(28px, calc(env(safe-area-inset-right) + 18px));
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -301,6 +305,7 @@ html, body {
 }
 
 .touch-btn {
+    position: relative;
     width: 72px;
     height: 72px;
     border-radius: 50%;
@@ -320,6 +325,13 @@ html, body {
     -webkit-user-select: none;
     user-select: none;
     transition: transform 0.08s ease, background 0.1s, opacity 0.18s ease;
+}
+
+.touch-btn::after {
+    content: "";
+    position: absolute;
+    inset: -14px;
+    border-radius: 50%;
 }
 
 .touch-btn:active, .touch-btn.pressed {
@@ -370,18 +382,21 @@ html, body {
     align-items: center;
     justify-content: center;
     z-index: 40;
-    padding: 10px 14px;
+    padding: max(8px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
 }
 
 .map-container {
-    width: 96%;
-    max-width: 1180px;
+    width: 100%;
+    max-width: min(1180px, 100%);
+    min-width: 0;
     max-height: calc(100vh - 16px);
     max-height: calc(100dvh - 16px);
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
     background: var(--bg-panel);
@@ -2209,7 +2224,8 @@ html, body {
 @media (max-height: 600px) {
     .overlay-screen {
         align-items: center;
-        padding: 4px 8px;
+        padding: max(4px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(4px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+        overflow-x: hidden;
     }
     .troll-modal-card,
     .modal-card {
@@ -2377,14 +2393,13 @@ html, body {
     }
     /* Map Container: Strict viewport-fitted layout so BÖLÜME BAŞLA & bottom buttons are ALWAYS 100% visible! */
     .map-container {
-        width: 96%;
-        max-width: 1180px;
-        height: calc(100vh - 8px);
-        height: calc(100dvh - 8px);
-        max-height: calc(100vh - 8px);
-        max-height: calc(100dvh - 8px);
+        width: 100%;
+        max-width: min(1180px, 100%);
+        min-width: 0;
+        height: calc(100% - 6px);
+        max-height: calc(100% - 6px);
         overflow: hidden;
-        padding: 7px 14px;
+        padding: 6px 10px;
         gap: 5px;
         margin: 0 auto;
         display: flex;
@@ -2481,6 +2496,10 @@ html, body {
     }
     /* Docked Bottom Bar: Full-Width Level Title & Difficulty Banner ON TOP of Action Buttons! */
     .map-bottom-dock {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
         align-items: stretch;
@@ -2489,7 +2508,7 @@ html, body {
         background: rgba(8, 11, 26, 0.96);
         border: 1.5px solid rgba(0, 242, 254, 0.45);
         border-radius: 12px;
-        padding: 6px 12px;
+        padding: 5px 8px;
         flex-shrink: 0;
     }
     .level-preview-card {
@@ -2543,26 +2562,37 @@ html, body {
     }
     .map-actions {
         width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        gap: 8px;
+        gap: clamp(4px, 0.75vw, 8px);
         padding-bottom: 0;
         flex-wrap: nowrap;
     }
     #btn-play-level {
-        padding: 8px 20px;
-        font-size: 13.5px;
+        flex: 1.25 1 0;
+        min-width: 0;
+        padding: 7px clamp(8px, 1.3vw, 16px);
+        font-size: clamp(10px, 1.45vw, 13px);
         font-weight: 900;
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     #btn-character-main,
     #btn-customize-main,
     #btn-open-shop {
-        padding: 7px 12px;
-        font-size: 11.5px;
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 6px clamp(5px, 0.9vw, 10px);
+        font-size: clamp(9px, 1.25vw, 11.5px);
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     /* Spacious Profile Modal on Phone Landscape (Since 30 Avatars are now in a Dedicated Popup) */
