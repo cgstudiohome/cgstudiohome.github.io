@@ -1555,6 +1555,33 @@ class Game {
         setTimeout(() => this.fetchLiveCloudLeaderboard(), 900);
         setTimeout(() => this.syncLiveCloudLeaderboard(), 2400);
 
+        this.isAct2Mode = false;
+        this.act2Unlocked = false;
+        this.act2CelebrationClaimed = false;
+        this.unlockedAct2Levels = 1;
+        this.selectedAct2Level = 0;
+        this.selectedAct2WorldFilter = 0;
+        this.starsPerAct2Level = Array(50).fill(0);
+        this.act2UnlockedAbilities = { dash: false, slam: false, timeSlow: false, companionDrone: false };
+        this.act2RelicsOpened = {};
+        this._devAct2Override = false;
+        this.timeSlowTimer = 0;
+        this.timeSlowCooldown = 0;
+        this.phaseBlockState = 0;
+        this.collectedSealKeys = 0;
+        this.droneTargetTimer = 0;
+        this.droneZapPos = null;
+        this.chaseWall = null;
+        this.risingHazard = null;
+        this.phaseBlocks = [];
+        this.crackedBlocks = [];
+        this.reverseGravityZones = [];
+        this.relicChests = [];
+        this.sealKeys = [];
+        this.bubbleStations = [];
+        this.sporeClouds = [];
+        this.shieldPads = [];
+
         this.ownedItems = [
             "skin_cyan",
             "helmet_crest",
@@ -1772,6 +1799,16 @@ class Game {
         this.selectedTrollLevel = 0;
         this.selectedTrollTierFilter = 0;
         this.starsPerTrollLevel = Array(50).fill(0);
+        this.isAct2Mode = false;
+        this.act2Unlocked = false;
+        this.act2CelebrationClaimed = false;
+        this.unlockedAct2Levels = 1;
+        this.selectedAct2Level = 0;
+        this.selectedAct2WorldFilter = 0;
+        this.starsPerAct2Level = Array(50).fill(0);
+        this.act2UnlockedAbilities = { dash: false, slam: false, timeSlow: false, companionDrone: false };
+        this.act2RelicsOpened = {};
+        this._devAct2Override = false;
         this.walletCoins = 0;
         this.walletEmeralds = 8;
         this.walletGoldCoins = 30;
@@ -1839,7 +1876,10 @@ class Game {
                 return;
             }
 
-            const cachedLb = localStorage.getItem("marinext2100_lb_cache_v5");
+            try {
+                localStorage.removeItem("marinext2100_lb_cache_v5");
+            } catch (e) {}
+            const cachedLb = localStorage.getItem("marinext2100_lb_cache_v6");
             if (cachedLb) {
                 try {
                     const parsedLb = JSON.parse(cachedLb);
@@ -1928,6 +1968,27 @@ class Game {
         this.vipDailySalaryDate = typeof data.vipDailySalaryDate === "string" ? data.vipDailySalaryDate : "";
         this.lifetimeBonusClaimed = Boolean(data.lifetimeBonusClaimed);
         this.savedCheckpoint = (data.savedCheckpoint && typeof data.savedCheckpoint === "object") ? data.savedCheckpoint : null;
+        this.act2Unlocked = Boolean(data.act2Unlocked);
+        this.act2CelebrationClaimed = Boolean(data.act2CelebrationClaimed);
+        this.unlockedAct2Levels = Math.max(1, Math.min(50, Number(data.unlockedAct2Levels) || 1));
+        this.selectedAct2Level = Math.max(0, Math.min(49, this.unlockedAct2Levels - 1));
+        if (this.selectedAct2WorldFilter >= 0) {
+            this.selectedAct2WorldFilter = Math.min(4, Math.floor(this.selectedAct2Level / 10));
+        }
+        const loadedAct2Stars = Array.isArray(data.starsPerAct2Level) ? data.starsPerAct2Level : [];
+        this.starsPerAct2Level = Array.from({ length: 50 }, (_, i) => Math.max(0, Math.min(3, Number(loadedAct2Stars[i]) || 0)));
+        if (data.act2UnlockedAbilities && typeof data.act2UnlockedAbilities === "object") {
+            this.act2UnlockedAbilities = {
+                dash: Boolean(data.act2UnlockedAbilities.dash),
+                slam: Boolean(data.act2UnlockedAbilities.slam),
+                timeSlow: Boolean(data.act2UnlockedAbilities.timeSlow),
+                companionDrone: Boolean(data.act2UnlockedAbilities.companionDrone)
+            };
+        }
+        if (data.act2RelicsOpened && typeof data.act2RelicsOpened === "object") {
+            this.act2RelicsOpened = { ...data.act2RelicsOpened };
+        }
+        this.syncAct2Milestones();
         this.syncAnalyticsUserProperties();
     }
 
@@ -1940,6 +2001,7 @@ class Game {
         window.MarinextAnalytics.setUserProperties({
             max_unlocked_level: String(this.unlockedLevels || 1),
             max_troll_level: String(this.unlockedTrollLevels || 1),
+            max_act2_level: String(this.unlockedAct2Levels || 1),
             active_hero: String(this.equippedHeroChar || "default"),
             vip_tier: String(vipTier)
         });
@@ -1969,6 +2031,21 @@ class Game {
         const trollA = Array.isArray(a.starsPerTrollLevel) ? a.starsPerTrollLevel : [];
         const trollB = Array.isArray(b.starsPerTrollLevel) ? b.starsPerTrollLevel : [];
         const mergedTrollStars = Array.from({ length: 50 }, (_, i) => Math.max(Number(trollA[i]) || 0, Number(trollB[i]) || 0));
+        const act2A = Array.isArray(a.starsPerAct2Level) ? a.starsPerAct2Level : [];
+        const act2B = Array.isArray(b.starsPerAct2Level) ? b.starsPerAct2Level : [];
+        const mergedAct2Stars = Array.from({ length: 50 }, (_, i) => Math.max(Number(act2A[i]) || 0, Number(act2B[i]) || 0));
+        const abA = (a.act2UnlockedAbilities && typeof a.act2UnlockedAbilities === "object") ? a.act2UnlockedAbilities : {};
+        const abB = (b.act2UnlockedAbilities && typeof b.act2UnlockedAbilities === "object") ? b.act2UnlockedAbilities : {};
+        const mergedAbilities = {
+            dash: Boolean(abA.dash || abB.dash),
+            slam: Boolean(abA.slam || abB.slam),
+            timeSlow: Boolean(abA.timeSlow || abB.timeSlow),
+            companionDrone: Boolean(abA.companionDrone || abB.companionDrone)
+        };
+        const mergedRelics = {
+            ...(a.act2RelicsOpened && typeof a.act2RelicsOpened === "object" ? a.act2RelicsOpened : {}),
+            ...(b.act2RelicsOpened && typeof b.act2RelicsOpened === "object" ? b.act2RelicsOpened : {})
+        };
         const chars = Array.from(new Set(["default", ...(a.ownedCharacters || []), ...(b.ownedCharacters || [])]));
         const items = Array.from(new Set([
             "skin_cyan", "helmet_crest", "gear_katana", "visor_slit", "aura_none", "cape_pink",
@@ -1986,6 +2063,12 @@ class Game {
             starsPerLevel: mergedStars,
             unlockedTrollLevels: Math.max(Number(a.unlockedTrollLevels) || 1, Number(b.unlockedTrollLevels) || 1),
             starsPerTrollLevel: mergedTrollStars,
+            act2Unlocked: Boolean(a.act2Unlocked || b.act2Unlocked),
+            act2CelebrationClaimed: Boolean(a.act2CelebrationClaimed || b.act2CelebrationClaimed),
+            unlockedAct2Levels: Math.max(Number(a.unlockedAct2Levels) || 1, Number(b.unlockedAct2Levels) || 1),
+            starsPerAct2Level: mergedAct2Stars,
+            act2UnlockedAbilities: mergedAbilities,
+            act2RelicsOpened: mergedRelics,
             walletCoins: Math.max(Number(a.walletCoins ?? 0), Number(b.walletCoins ?? 0)),
             walletEmeralds: Math.max(Number(a.walletEmeralds ?? 8), Number(b.walletEmeralds ?? 8)),
             walletGoldCoins: Math.max(Number(a.walletGoldCoins ?? 30), Number(b.walletGoldCoins ?? 30)),
@@ -2007,6 +2090,12 @@ class Game {
             updatedAt: Date.now(),
             unlockedLevels: this.unlockedLevels,
             starsPerLevel: this.starsPerLevel,
+            act2Unlocked: Boolean(this.act2Unlocked),
+            act2CelebrationClaimed: Boolean(this.act2CelebrationClaimed),
+            unlockedAct2Levels: this.unlockedAct2Levels || 1,
+            starsPerAct2Level: Array.isArray(this.starsPerAct2Level) ? this.starsPerAct2Level : Array(50).fill(0),
+            act2UnlockedAbilities: this.act2UnlockedAbilities || { dash: false, slam: false, timeSlow: false, companionDrone: false },
+            act2RelicsOpened: this.act2RelicsOpened || {},
             walletCoins: this.walletCoins,
             walletEmeralds: this.walletEmeralds,
             walletGoldCoins: this.walletGoldCoins,
@@ -2231,7 +2320,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 50;
+        const CURRENT_VERSION_CODE = 51;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2683,13 +2772,166 @@ class Game {
         this.scheduleLeaderboardAutoSync();
     }
 
+    syncAct2Milestones() {
+        const lvl100Stars = Array.isArray(this.starsPerLevel) ? (Number(this.starsPerLevel[99]) || 0) : 0;
+        if (lvl100Stars > 0) {
+            this.act2Unlocked = true;
+            if (!this.act2UnlockedAbilities) this.act2UnlockedAbilities = {};
+            this.act2UnlockedAbilities.dash = true;
+        }
+        const a2Stars = Array.isArray(this.starsPerAct2Level) ? this.starsPerAct2Level : [];
+        if (this.unlockedAct2Levels >= 11 || (Number(a2Stars[9]) || 0) > 0) {
+            this.act2UnlockedAbilities.slam = true;
+        }
+        if (this.unlockedAct2Levels >= 21 || (Number(a2Stars[19]) || 0) > 0) {
+            this.act2UnlockedAbilities.timeSlow = true;
+        }
+        if (this.unlockedAct2Levels >= 31 || (Number(a2Stars[29]) || 0) > 0) {
+            this.act2UnlockedAbilities.companionDrone = true;
+        }
+    }
+
+    isAbilityUnlocked(abilityId) {
+        if (this._devAct2Override) return true;
+        return Boolean(this.act2UnlockedAbilities && this.act2UnlockedAbilities[abilityId]);
+    }
+
+    logAbilityUsed(abilityId) {
+        if (!window.MarinextAnalytics) return;
+        const activeLvl = this.isAct2Mode
+            ? (101 + (this.selectedAct2Level || 0))
+            : (this.isTrollMode ? (this.selectedTrollLevel || 0) + 1 : (this.selectedLevel || 0) + 1);
+        window.MarinextAnalytics.logEvent("ability_used", {
+            ability_id: abilityId,
+            level: activeLvl,
+            is_act2: Boolean(this.isAct2Mode)
+        });
+    }
+
+    activateTimeSlow() {
+        if (this.state !== "playing" || !this.isAbilityUnlocked("timeSlow")) return false;
+        if ((this.timeSlowTimer || 0) > 0 || (this.timeSlowCooldown || 0) > 0) return false;
+        this.timeSlowTimer = 210;
+        this.timeSlowCooldown = 480;
+        if (window.sfx && typeof window.sfx.timeSlow === "function") window.sfx.timeSlow();
+        if (this.player) {
+            this.spawnParticles(this.player.x + this.player.w / 2, this.player.y + this.player.h / 2, 20, "#e0aaff", 4.5);
+            this.floatingTexts.push(new window.FloatingText(this.player.x + 16, this.player.y - 16, "⏱️ KRONO-FREN AKTİF!", "#e0aaff"));
+        }
+        this.logAbilityUsed("timeSlow");
+        return true;
+    }
+
+    damageEnemy(en, amount = 1, sourceX = null, fromFireball = false) {
+        if (!en || en.dead) return false;
+        if (en.hasFrontShield && fromFireball && sourceX !== null) {
+            const facingRight = en.vx >= 0;
+            const hitFromFront = (facingRight && sourceX > en.x + en.w * 0.42) || (!facingRight && sourceX < en.x + en.w * 0.58);
+            if (hitFromFront) {
+                window.sfx.blockHit();
+                this.spawnParticles(sourceX, en.y + en.h * 0.5, 8, "#00f2fe", 3.5);
+                this.floatingTexts.push(new window.FloatingText(en.x + en.w / 2, en.y - 8, "🛡 ÖN KALKAN!", "#00f2fe"));
+                return false;
+            }
+        }
+        en.hp -= amount;
+        en.hurtFlash = 8;
+        if (en.hp <= 0) {
+            en.dead = true;
+            window.sfx.stomp();
+            this.score += 200;
+            this.spawnParticles(en.x + en.w / 2, en.y + en.h / 2, 16, "#ff7b00", 4);
+            this.floatingTexts.push(new window.FloatingText(en.x + 16, en.y, "+200", "#ff7b00"));
+            if (en.type === "splitter" && !en.isSplitChild && typeof window.Enemy === "function") {
+                for (const dir of [-1, 1]) {
+                    const child = new window.Enemy({
+                        x: Math.max(en.minX, Math.min(en.maxX - 28, en.x + dir * 16)),
+                        y: en.y + 8,
+                        type: "splitter",
+                        minX: en.minX,
+                        maxX: en.maxX,
+                        isSplitChild: true,
+                        vx: dir * 2.2,
+                        vy: -4.8
+                    }, en.levelIndex);
+                    child.baseY = en.baseY;
+                    this.enemies.push(child);
+                }
+            }
+            if (en.isSubMissionEnemy) {
+                this.recordSubMissionProgress(en.x + en.w / 2, en.y);
+            }
+        } else {
+            window.sfx.blockHit();
+        }
+        return true;
+    }
+
+    onPlayerGroundSlamImpact(player) {
+        if (!player) return;
+        const pcx = player.x + player.w / 2;
+        const pbot = player.y + player.h;
+        this.spawnParticles(pcx, pbot, 22, "#ffd166", 5.2);
+        if (Array.isArray(this.crackedBlocks)) {
+            for (const cb of this.crackedBlocks) {
+                if (cb.broken) continue;
+                const overlapX = pcx + 34 > cb.x && pcx - 34 < cb.x + cb.w;
+                const nearY = Math.abs(pbot - cb.y) < 64;
+                if (overlapX && nearY) {
+                    cb.broken = true;
+                    window.sfx.blockHit();
+                    this.spawnParticles(cb.x + cb.w / 2, cb.y + cb.h / 2, 24, "#ffd166", 5.5);
+                    this.floatingTexts.push(new window.FloatingText(cb.x + cb.w / 2, cb.y - 10, "💥 ZEMİN KIRILDI!", "#ffd166"));
+                }
+            }
+        }
+        if (Array.isArray(this.enemies)) {
+            for (const en of this.enemies) {
+                if (en.dead) continue;
+                const ecx = en.x + en.w / 2;
+                const ecy = en.y + en.h / 2;
+                if (Math.abs(ecx - pcx) < 135 && Math.abs(ecy - pbot) < 75) {
+                    this.damageEnemy(en, 2, pcx, false);
+                }
+            }
+        }
+        if (this.boss && !this.boss.dead && !this.boss.shieldActive) {
+            const bcx = this.boss.x + this.boss.w / 2;
+            if (Math.abs(bcx - pcx) < 145 && Math.abs(this.boss.y + this.boss.h - pbot) < 90) {
+                this.boss.takeDamage(2, this, false);
+            }
+        }
+    }
+
     getHitNowText() {
         const d = LANG_DICT[this.lang] || LANG_DICT.tr;
         return d.hitNowText || "🎯 ŞİMDİ VUR!";
     }
 
-    getLocalizedLevelInfo(idx, isTroll = false) {
+    getLocalizedLevelInfo(idx, isTroll = false, isAct2 = false) {
         const d = LANG_DICT[this.lang] || LANG_DICT.tr;
+        if (isAct2) {
+            const base = (window.ACT2_LEVEL_INFO && window.ACT2_LEVEL_INFO[idx]) || (window.ACT2_LEVEL_INFO && window.ACT2_LEVEL_INFO[0]) || {
+                id: idx,
+                displayNumber: 101 + idx,
+                world: "DÜNYA 11",
+                shortName: `Öte ${101 + idx}`,
+                name: `Bölüm ${101 + idx}`,
+                desc: "",
+                themeColor: "#00f2fe",
+                isBossLevel: false
+            };
+            if (this.lang === "tr") return base;
+            const a2Cat = (window.MARINEXT_ACT2_I18N && (window.MARINEXT_ACT2_I18N[this.lang] || window.MARINEXT_ACT2_I18N.en)) || {};
+            const shortName = (a2Cat.shortNames && a2Cat.shortNames[idx]) || base.shortName;
+            const dispNum = base.displayNumber || (101 + idx);
+            const name = `${d.levelWord} ${dispNum}: ${shortName}`;
+            const wIdx = Math.min(4, Math.floor(idx / 10));
+            const world = (a2Cat.worlds && a2Cat.worlds[wIdx]) || `${d.worldWord} ${11 + wIdx}`;
+            const scDesc = (a2Cat.scenarioDescs && base.scenarioType && a2Cat.scenarioDescs[base.scenarioType]) || "";
+            const desc = scDesc ? `${name} — ${scDesc}` : base.desc;
+            return { ...base, shortName, name, world, desc };
+        }
         if (isTroll) {
             const base = (window.TROLL_LEVEL_INFO && window.TROLL_LEVEL_INFO[idx]) || (window.TROLL_LEVEL_INFO && window.TROLL_LEVEL_INFO[0]) || {
                 id: idx,
@@ -2748,6 +2990,43 @@ class Game {
         tabsBar.innerHTML = "";
         const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
         const wPrefix = t("worldTabPrefix") || "Dünya";
+        if (this.isAct2Mode) {
+            const act2AllLabel = t("act2WorldAll") || "🌌 Tümü (101-150)";
+            const act2Themes = Array.isArray(window.ACT2_WORLD_THEMES) ? window.ACT2_WORLD_THEMES : [];
+            const act2Tabs = [
+                act2AllLabel,
+                ...act2Themes.map((wt, wi) => {
+                    const startN = 101 + wi * 10;
+                    const endN = startN + 9;
+                    return `${wt.icon} ${wPrefix} ${wt.worldNum} (${startN}-${endN})`;
+                })
+            ];
+            act2Tabs.forEach((label, i) => {
+                const filterVal = i - 1;
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = `world-tab-btn ${this.selectedAct2WorldFilter === filterVal ? "active" : ""}`;
+                btn.textContent = label;
+                btn.addEventListener("click", () => {
+                    this.selectedAct2WorldFilter = filterVal;
+                    window.sfx.coin();
+                    this.buildWorldFilterTabs();
+                    this.updateMapUI();
+                });
+                tabsBar.appendChild(btn);
+            });
+            const wave2Btn = document.createElement("button");
+            wave2Btn.type = "button";
+            wave2Btn.className = "world-tab-btn";
+            wave2Btn.style.opacity = "0.62";
+            wave2Btn.textContent = t("act2Wave2Soon") || "🔜 151-200 Dalga 2";
+            wave2Btn.addEventListener("click", () => {
+                window.sfx.blockHit();
+                this.showQuickToast(t("act2Wave2Toast") || "🌌 Dünya 16–20 (Bölüm 151–200) Dalga 2 güncellemesiyle geliyor!", "#e0aaff");
+            });
+            tabsBar.appendChild(wave2Btn);
+            return;
+        }
         const allLabel = t("worldAll") || "🌍 Tümü (1-100)";
         const worldShortTitles = [
             allLabel,
@@ -2782,6 +3061,29 @@ class Game {
         this.buildWorldFilterTabs();
         const container = document.getElementById("level-nodes-container");
         container.innerHTML = "";
+        if (this.isAct2Mode) {
+            const act2List = Array.isArray(window.ACT2_LEVEL_INFO) ? window.ACT2_LEVEL_INFO : [];
+            act2List.forEach((lvl, idx) => {
+                const loc = this.getLocalizedLevelInfo(idx, false, true);
+                const node = document.createElement("div");
+                node.className = `map-node ${lvl.isBossLevel ? "boss-node" : ""}`;
+                node.setAttribute("data-act2-level", idx);
+                node.innerHTML = `
+                    <div class="node-circle">${lvl.isBossLevel ? "☠" : (lvl.displayNumber || (101 + idx))}</div>
+                    <div class="node-label">${loc.shortName}</div>
+                    <div class="node-stars" id="stars-act2-${idx}">☆☆☆</div>
+                `;
+                node.addEventListener("click", () => {
+                    if (idx < this.unlockedAct2Levels) {
+                        this.selectedAct2Level = idx;
+                        window.sfx.coin();
+                        this.updateMapUI();
+                    }
+                });
+                container.appendChild(node);
+            });
+            return;
+        }
         window.LEVEL_INFO.forEach((lvl, idx) => {
             const loc = this.getLocalizedLevelInfo(idx, false);
             const node = document.createElement("div");
@@ -2945,12 +3247,35 @@ class Game {
 
     syncFireButtonUI() {
         const fireBtn = document.getElementById("touch-fire");
-        if (!fireBtn) return;
-        const canFire = Boolean(this.player && this.player.hasFire);
-        fireBtn.classList.toggle("fire-passive", !canFire);
-        fireBtn.setAttribute("aria-disabled", canFire ? "false" : "true");
-        if (!canFire) {
-            fireBtn.classList.remove("pressed");
+        if (fireBtn) {
+            const canFire = Boolean(this.player && this.player.hasFire);
+            fireBtn.classList.toggle("fire-passive", !canFire);
+            fireBtn.setAttribute("aria-disabled", canFire ? "false" : "true");
+            if (!canFire) {
+                fireBtn.classList.remove("pressed");
+            }
+        }
+        this.syncAbilityTouchButtonsUI();
+    }
+
+    syncAbilityTouchButtonsUI() {
+        const dashBtn = document.getElementById("touch-dash");
+        const slamBtn = document.getElementById("touch-slam");
+        const tsBtn = document.getElementById("touch-timeslow");
+        if (dashBtn) {
+            const hasDash = this.isAbilityUnlocked("dash");
+            dashBtn.classList.toggle("hidden", !hasDash);
+            dashBtn.classList.toggle("cooldown-active", Boolean(this.player && this.player.dashCooldown > 0));
+        }
+        if (slamBtn) {
+            const hasSlam = this.isAbilityUnlocked("slam");
+            slamBtn.classList.toggle("hidden", !hasSlam);
+            slamBtn.classList.toggle("cooldown-active", Boolean(!this.player || this.player.onGround || this.player.inReverseGravity));
+        }
+        if (tsBtn) {
+            const hasTs = this.isAbilityUnlocked("timeSlow");
+            tsBtn.classList.toggle("hidden", !hasTs);
+            tsBtn.classList.toggle("cooldown-active", Boolean((this.timeSlowCooldown || 0) > 0 || (this.timeSlowTimer || 0) > 0));
         }
     }
 
@@ -3025,6 +3350,16 @@ class Game {
         const privacyScreen = document.getElementById("screen-privacy");
         if (privacyScreen && !privacyScreen.classList.contains("hidden")) {
             privacyScreen.classList.add("hidden");
+            return true;
+        }
+        const act2LockedScreen = document.getElementById("screen-act2-locked");
+        if (act2LockedScreen && !act2LockedScreen.classList.contains("hidden")) {
+            act2LockedScreen.classList.add("hidden");
+            return true;
+        }
+        const act2CelScreen = document.getElementById("screen-act2-celebration");
+        if (act2CelScreen && !act2CelScreen.classList.contains("hidden")) {
+            act2CelScreen.classList.add("hidden");
             return true;
         }
         const trollScreen = document.getElementById("screen-troll");
@@ -3183,10 +3518,23 @@ class Game {
                     this.keysHeld.jump = true;
                     syncInputState();
                 }
-                if (e.code === "KeyX" || e.code === "KeyF" || e.code === "ShiftLeft" || e.code === "ShiftRight" || e.code === "KeyZ") {
+                if (e.code === "KeyX" || e.code === "KeyF" || e.code === "KeyZ") {
                     if (this.player && this.player.hasFire) {
                         this.input.firePressed = true;
                     }
+                }
+                if (e.code === "ShiftLeft" || e.code === "ShiftRight" || e.code === "KeyK" || e.code === "KeyC") {
+                    if (this.player && this.isAbilityUnlocked("dash")) {
+                        this.player.tryDash(this);
+                    } else if ((e.code === "ShiftLeft" || e.code === "ShiftRight") && this.player && this.player.hasFire) {
+                        this.input.firePressed = true;
+                    }
+                }
+                if (e.code === "KeyS" || e.code === "ArrowDown") {
+                    if (this.player) this.player.tryGroundSlam(this);
+                }
+                if (e.code === "KeyQ" || e.code === "KeyE") {
+                    this.activateTimeSlow();
                 }
             }
             if (e.code === "Escape") {
@@ -3318,13 +3666,38 @@ class Game {
                 syncInputState();
             }
         });
+
+        [
+            { id: "touch-dash", fn: () => this.player && this.player.tryDash(this) },
+            { id: "touch-slam", fn: () => this.player && this.player.tryGroundSlam(this) },
+            { id: "touch-timeslow", fn: () => this.activateTimeSlow() }
+        ].forEach(({ id, fn }) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.addEventListener("touchstart", (e) => {
+                if (e.cancelable) e.preventDefault();
+                e.stopPropagation();
+                fn();
+                this.syncAbilityTouchButtonsUI();
+            }, { passive: false });
+            el.addEventListener("mousedown", (e) => {
+                if (e.button !== 0) return;
+                e.preventDefault();
+                fn();
+                this.syncAbilityTouchButtonsUI();
+            });
+        });
     }
 
     setupUI() {
         document.getElementById("btn-play-level").addEventListener("click", () => {
             window.sfx.init();
             this.isTrollMode = false;
-            this.startLevel(this.selectedLevel);
+            if (this.isAct2Mode) {
+                this.startLevel(this.selectedAct2Level, false, true);
+            } else {
+                this.startLevel(this.selectedLevel, false, false);
+            }
         });
 
         document.getElementById("btn-unlock-all").addEventListener("click", () => {
@@ -3664,10 +4037,40 @@ class Game {
             });
         }
 
+        const btnTestAct2 = document.getElementById("btn-settings-test-act2");
+        if (btnTestAct2) {
+            btnTestAct2.addEventListener("click", () => {
+                window.sfx.emerald();
+                this._devAct2Override = !this._devAct2Override;
+                if (this._devAct2Override) {
+                    this.act2Unlocked = true;
+                    this.unlockedLevels = Math.max(this.unlockedLevels || 1, 100);
+                    this.starsPerLevel[99] = Math.max(this.starsPerLevel[99] || 0, 1);
+                    this.unlockedAct2Levels = 50;
+                    this.act2UnlockedAbilities = { dash: true, slam: true, timeSlow: true, companionDrone: true };
+                    this.isAct2Mode = true;
+                    this.saveProgress();
+                    this.buildMapNodes();
+                    this.updateMapUI();
+                    document.getElementById("screen-settings").classList.add("hidden");
+                    this.showQuickToast("🌌 Geliştirici Testi: Öte Evren (101-150) & 4 Yetenek Açıldı!", "#00f2fe", 4200);
+                } else {
+                    this.isAct2Mode = false;
+                    this.buildMapNodes();
+                    this.updateMapUI();
+                    this.showQuickToast("🔒 Geliştirici Öte Evren Test Modu Kapatıldı", "#ffd166", 3000);
+                }
+            });
+        }
+
         document.getElementById("btn-settings-restart-level").addEventListener("click", () => {
             document.getElementById("screen-settings").classList.add("hidden");
             window.sfx.coin();
-            this.startLevel(this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel, this.isTrollMode);
+            if (this.isAct2Mode) {
+                this.startLevel(this.selectedAct2Level, false, true);
+            } else {
+                this.startLevel(this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel, this.isTrollMode, false);
+            }
         });
 
         document.getElementById("btn-settings-reset-all").addEventListener("click", () => {
@@ -3698,6 +4101,7 @@ class Game {
                 localStorage.removeItem("shadow_jumper_audio_v1");
                 localStorage.removeItem("marinext_privacy_consent_v1");
                 localStorage.removeItem("marinext2100_lb_cache_v5");
+                localStorage.removeItem("marinext2100_lb_cache_v6");
                 if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.clearLocalBackup === "function") {
                     window.MarinextCloudBridge.clearLocalBackup();
                 }
@@ -4472,29 +4876,153 @@ class Game {
             });
         }
 
+        const btnMapAct2 = document.getElementById("btn-map-act2");
+        if (btnMapAct2) {
+            btnMapAct2.addEventListener("click", () => {
+                window.sfx.coin();
+                this.syncAct2Milestones();
+                if (!this.act2Unlocked && !this._devAct2Override) {
+                    this.openAct2LockedModal();
+                    return;
+                }
+                this.isTrollMode = false;
+                this.isAct2Mode = !this.isAct2Mode;
+                this.buildMapNodes();
+                this.updateMapUI();
+                if (this.isAct2Mode && !this.act2CelebrationClaimed) {
+                    this.openAct2CelebrationModal(true);
+                }
+            });
+        }
+
+        const closeAct2Locked = () => {
+            const m = document.getElementById("screen-act2-locked");
+            if (m) m.classList.add("hidden");
+        };
+        ["btn-close-act2-locked", "btn-close-act2-locked-x"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener("click", closeAct2Locked);
+        });
+        const act2LockedOverlay = document.getElementById("screen-act2-locked");
+        if (act2LockedOverlay) {
+            act2LockedOverlay.addEventListener("click", (e) => {
+                if (e.target === act2LockedOverlay) closeAct2Locked();
+            });
+        }
+
+        const claimAndEnterAct2 = () => {
+            const celModal = document.getElementById("screen-act2-celebration");
+            if (celModal) celModal.classList.add("hidden");
+            if (!this.act2CelebrationClaimed) {
+                this.act2CelebrationClaimed = true;
+                this.act2Unlocked = true;
+                if (!this.act2UnlockedAbilities) this.act2UnlockedAbilities = {};
+                this.act2UnlockedAbilities.dash = true;
+                this.addGoldCoins(1000, true);
+                this.addEmeralds(250, true);
+                this.addCrystals(100, true);
+                if (window.sfx && typeof window.sfx.celebrationFanfare === "function") window.sfx.celebrationFanfare();
+                if (window.MarinextAnalytics) {
+                    window.MarinextAnalytics.logEvent("act2_celebration_claimed", { level: 100 });
+                    window.MarinextAnalytics.logEvent("ability_unlocked", { ability_id: "dash", level: 100 });
+                }
+                this.saveProgress(true);
+            }
+            this.isTrollMode = false;
+            this.isAct2Mode = true;
+            this.state = "map";
+            document.getElementById("hud").classList.add("hidden");
+            document.getElementById("touch-controls").classList.add("hidden");
+            document.getElementById("screen-modal").classList.add("hidden");
+            document.getElementById("screen-map").classList.remove("hidden");
+            this.buildMapNodes();
+            this.updateMapUI();
+            this.showQuickToast("🌌 ÖTE EVREN AÇILDI! ⚡ Faz Atılması Yeteneği Aktif!", "#00f2fe", 4500);
+        };
+        const btnClaimCel = document.getElementById("btn-claim-act2-celebration");
+        if (btnClaimCel) btnClaimCel.addEventListener("click", claimAndEnterAct2);
+        const stayOnMapCel = () => {
+            const celModal = document.getElementById("screen-act2-celebration");
+            if (celModal) celModal.classList.add("hidden");
+            if (!this.act2CelebrationClaimed) {
+                this.act2CelebrationClaimed = true;
+                this.act2Unlocked = true;
+                if (!this.act2UnlockedAbilities) this.act2UnlockedAbilities = {};
+                this.act2UnlockedAbilities.dash = true;
+                this.addGoldCoins(1000, true);
+                this.addEmeralds(250, true);
+                this.addCrystals(100, true);
+                if (window.MarinextAnalytics) {
+                    window.MarinextAnalytics.logEvent("act2_celebration_claimed", { level: 100 });
+                }
+                this.saveProgress(true);
+            }
+            this.updateMapUI();
+        };
+        ["btn-close-act2-celebration", "btn-close-act2-cel-x"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener("click", stayOnMapCel);
+        });
+
         document.getElementById("btn-resume").addEventListener("click", () => this.resumeGame());
         document.getElementById("btn-restart").addEventListener("click", () => {
-            if (this.isTrollMode) {
-                this.startLevel(this.selectedTrollLevel, true);
+            if (this.isAct2Mode) {
+                this.startLevel(this.selectedAct2Level, false, true);
+            } else if (this.isTrollMode) {
+                this.startLevel(this.selectedTrollLevel, true, false);
             } else {
-                this.startLevel(this.selectedLevel, false);
+                this.startLevel(this.selectedLevel, false, false);
             }
         });
         document.getElementById("btn-next-level").addEventListener("click", () => {
-            if (this.isTrollMode) {
+            if (this.isAct2Mode) {
+                const next = Math.min(49, this.selectedAct2Level + 1);
+                this.selectedAct2Level = next;
+                this.startLevel(next, false, true);
+            } else if (this.isTrollMode) {
                 const next = Math.min(49, this.selectedTrollLevel + 1);
                 this.selectedTrollLevel = next;
-                this.startLevel(next, true);
+                this.startLevel(next, true, false);
             } else {
                 const next = Math.min(99, this.selectedLevel + 1);
                 this.selectedLevel = next;
-                this.startLevel(next, false);
+                this.startLevel(next, false, false);
             }
         });
         document.getElementById("btn-to-map").addEventListener("click", () => this.showMapScreen());
         this.applyLanguage();
         this.updateSettingsUI();
         this.updateProfileDisplay();
+    }
+
+    openAct2LockedModal() {
+        const modal = document.getElementById("screen-act2-locked");
+        if (!modal) return;
+        const cleared = Math.min(100, Math.max(0, (this.starsPerLevel || []).filter((s) => s > 0).length, Math.max(0, (this.unlockedLevels || 1) - 1)));
+        const pct = Math.min(100, Math.round((cleared / 100) * 100));
+        const fill = document.getElementById("act2-locked-progress-fill");
+        const txt = document.getElementById("act2-locked-progress-text");
+        if (fill) fill.style.width = `${pct}%`;
+        if (txt) {
+            const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
+            txt.textContent = t("act2ProgressFmt", { n: cleared }) || `İlerleme: ${cleared} / 100 Bölüm (%${pct})`;
+        }
+        if (typeof window.applyMarinextExtendedUI === "function") {
+            window.applyMarinextExtendedUI(this);
+        }
+        modal.classList.remove("hidden");
+    }
+
+    openAct2CelebrationModal(firstUnlock = false) {
+        const modal = document.getElementById("screen-act2-celebration");
+        if (!modal) return;
+        if (window.sfx && typeof window.sfx.celebrationFanfare === "function") {
+            window.sfx.celebrationFanfare();
+        }
+        if (typeof window.applyMarinextExtendedUI === "function") {
+            window.applyMarinextExtendedUI(this);
+        }
+        modal.classList.remove("hidden");
     }
 
     openLanguageModal() {
@@ -4971,6 +5499,7 @@ class Game {
         }
         const btnToggleChannel = document.getElementById("btn-toggle-channel");
         const btnTestAd = document.getElementById("btn-test-ad");
+        const btnTestAct2 = document.getElementById("btn-settings-test-act2");
         const isDev = localStorage.getItem("marinext_dev_mode") === "1" || localStorage.getItem("marinext_test_track") === "internal";
         if (btnToggleChannel) {
             if (isDev) {
@@ -4985,6 +5514,9 @@ class Game {
             } else {
                 btnTestAd.classList.add("hidden");
             }
+        }
+        if (btnTestAct2) {
+            btnTestAct2.classList.toggle("hidden", !isDev);
         }
         try {
             const capAdMob = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.AdMob;
@@ -5831,15 +6363,89 @@ class Game {
     }
 
     updateMapUI() {
+        this.syncAct2Milestones();
+        if (!this.act2Unlocked && !this._devAct2Override && this.isAct2Mode) {
+            this.isAct2Mode = false;
+        }
         if (this.selectedLevel >= this.unlockedLevels) {
             this.selectedLevel = Math.max(0, this.unlockedLevels - 1);
+        }
+        if (this.selectedAct2Level >= this.unlockedAct2Levels) {
+            this.selectedAct2Level = Math.max(0, this.unlockedAct2Levels - 1);
         }
         document.getElementById("map-wallet-coins").textContent = this.walletCoins;
         document.getElementById("map-wallet-emeralds").textContent = this.walletEmeralds;
         const mapGoldEl = document.getElementById("map-wallet-goldcoins");
         if (mapGoldEl) mapGoldEl.textContent = this.walletGoldCoins || 0;
 
+        const d = LANG_DICT[this.lang] || LANG_DICT.tr;
+        const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
+        const act2Btn = document.getElementById("btn-map-act2");
+        const act2Icon = document.getElementById("act2-btn-icon");
+        const act2Text = document.getElementById("act2-btn-text");
+        if (act2Btn) {
+            const isUnlocked = Boolean(this.act2Unlocked || this._devAct2Override);
+            act2Btn.classList.toggle("locked", !isUnlocked);
+            act2Btn.classList.toggle("unlocked", isUnlocked);
+            act2Btn.classList.toggle("active-mode", Boolean(isUnlocked && this.isAct2Mode));
+            if (act2Icon) act2Icon.textContent = isUnlocked ? (this.isAct2Mode ? "🌍" : "🌌") : "❓";
+            if (act2Text) {
+                act2Text.textContent = isUnlocked
+                    ? (this.isAct2Mode ? (t("act2BtnBackCampaign") || "KAMPANYA 1-100") : (t("act2BtnUnlocked") || "ÖTE EVREN"))
+                    : (t("act2BtnLocked") || "???");
+            }
+            act2Btn.title = isUnlocked
+                ? (this.isAct2Mode ? (t("act2BtnBackCampaign") || "1-100 Kampanya Haritasına Dön") : (t("act2BtnUnlocked") || "Öte Evren Dünyaları (101-150)"))
+                : (t("act2BtnLockedTitle") || "100. Bölümü Bitir — Sürpriz Öte Evren");
+        }
+
+        const badgeEl = document.getElementById("map-season-badge");
+        if (badgeEl) {
+            if (this.isAct2Mode) {
+                badgeEl.textContent = t("act2SeasonBadge") || "🌌 ÖTE EVREN • DÜNYA 11–15 (BÖLÜM 101–150)";
+            } else {
+                badgeEl.textContent = d.mapSeasonBadge || "100 BÖLÜM • 10 DÜNYA TAM SÜRÜM";
+            }
+        }
+
         let selectedNodeEl = null;
+        if (this.isAct2Mode) {
+            document.querySelectorAll("#level-nodes-container .map-node").forEach((node, idx) => {
+                const worldIdx = Math.floor(idx / 10);
+                const visibleInFilter = this.selectedAct2WorldFilter === -1 || this.selectedAct2WorldFilter === worldIdx;
+                node.style.display = visibleInFilter ? "" : "none";
+                node.classList.toggle("unlocked", idx < this.unlockedAct2Levels);
+                const isSel = idx === this.selectedAct2Level;
+                node.classList.toggle("selected", isSel);
+                if (isSel && visibleInFilter) selectedNodeEl = node;
+                const labelEl = node.querySelector(".node-label");
+                if (labelEl) {
+                    labelEl.textContent = this.getLocalizedLevelInfo(idx, false, true).shortName;
+                }
+                const stars = (this.starsPerAct2Level && this.starsPerAct2Level[idx]) || 0;
+                const starEl = document.getElementById(`stars-act2-${idx}`);
+                if (starEl) {
+                    starEl.textContent = "★".repeat(stars) + "☆".repeat(3 - stars);
+                }
+            });
+            if (selectedNodeEl && typeof selectedNodeEl.scrollIntoView === "function") {
+                try {
+                    selectedNodeEl.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+                } catch (e) {}
+            }
+            const info = this.getLocalizedLevelInfo(this.selectedAct2Level, false, true);
+            document.getElementById("preview-world").textContent = info.world;
+            document.getElementById("preview-title").textContent = info.name;
+            document.getElementById("preview-desc").textContent = info.desc;
+            const playBtn = document.getElementById("btn-play-level");
+            if (playBtn) {
+                const dispN = info.displayNumber || (101 + this.selectedAct2Level);
+                playBtn.textContent = `${d.levelWord ? d.levelWord.toUpperCase() + " " + dispN + " • " : ""}${d.btnPlayLevel || "BÖLÜME BAŞLA ▶"}`;
+                playBtn.classList.add("play-btn-guiding");
+            }
+            return;
+        }
+
         document.querySelectorAll("#level-nodes-container .map-node").forEach((node, idx) => {
             const worldIdx = Math.floor(idx / 10);
             const visibleInFilter = this.selectedWorldFilter === -1 || this.selectedWorldFilter === worldIdx;
@@ -5872,43 +6478,70 @@ class Game {
 
         const playBtn = document.getElementById("btn-play-level");
         if (playBtn) {
-            const d = LANG_DICT[this.lang] || LANG_DICT.tr;
             playBtn.textContent = `${d.levelWord ? d.levelWord.toUpperCase() + " " + (this.selectedLevel + 1) + " • " : ""}${d.btnPlayLevel || "BÖLÜME BAŞLA ▶"}`;
             playBtn.classList.add("play-btn-guiding");
         }
     }
 
-    startLevel(levelIdx, isTroll = this.isTrollMode) {
+    startLevel(levelIdx, isTroll = this.isTrollMode, isAct2 = this.isAct2Mode) {
         this.clearAdPauseState();
         this.resizeCanvas();
         this.isTrollMode = Boolean(isTroll);
+        this.isAct2Mode = !this.isTrollMode && Boolean(isAct2);
         this._lastFailReason = "hazard_or_enemy";
         this._levelAttemptStartMs = Date.now();
-        if (window.MarinextAnalytics) {
-            window.MarinextAnalytics.logEvent('level_start', {
-                level: levelIdx + 1,
-                is_troll: this.isTrollMode
-            });
-        }
         let data;
         if (this.isTrollMode) {
             this.selectedTrollLevel = levelIdx;
             data = window.createTrollLevelData(levelIdx);
+        } else if (this.isAct2Mode && typeof window.createAct2LevelData === "function") {
+            this.selectedAct2Level = levelIdx;
+            data = window.createAct2LevelData(levelIdx);
         } else {
+            this.isAct2Mode = false;
             this.selectedLevel = levelIdx;
             data = window.createLevelData(levelIdx);
         }
+        this.level = data;
         this.levelInfo = data.info;
+        if (window.MarinextAnalytics) {
+            window.MarinextAnalytics.logEvent('level_start', {
+                level: this.isAct2Mode ? (101 + levelIdx) : (levelIdx + 1),
+                is_troll: this.isTrollMode,
+                is_act2: this.isAct2Mode,
+                world_id: (data.info && data.info.worldId) || "",
+                scenario_type: (data.info && data.info.scenarioType) || "campaign"
+            });
+        }
         this.solids = data.solids;
         this.hazards = (data.hazards || []).map((hz, idx) => ({
             ...hz,
-            hazardKind: hz.hazardKind || (idx % 2 === 1 ? "electric" : "lava"),
+            hazardKind: hz.hazardKind || hz.type || (idx % 2 === 1 ? "electric" : "lava"),
             animSeed: idx * 1.73 + 0.4
         }));
         this.signs = data.signs;
         this.portal = data.portal;
         this.teleporters = data.teleporters || [];
         this.gravityZones = data.gravityZones || [];
+        this.reverseGravityZones = data.reverseGravityZones || [];
+        this.phaseBlocks = (data.phaseBlocks || []).map((pb) => ({ ...pb }));
+        this.crackedBlocks = (data.crackedBlocks || []).map((cb) => ({ ...cb, broken: false }));
+        this.relicChests = (data.relicChests || []).map((rc) => ({
+            ...rc,
+            opened: Boolean(this.act2RelicsOpened && this.act2RelicsOpened[rc.chestId])
+        }));
+        this.sealKeys = (data.sealKeys || []).map((sk) => ({ ...sk, collected: false }));
+        this.bubbleStations = (data.bubbleStations || []).map((bs) => ({ ...bs, cooldown: 0 }));
+        this.sporeClouds = (data.sporeClouds || []).map((sc) => ({ ...sc }));
+        this.shieldPads = (data.shieldPads || []).map((sp) => ({ ...sp, cooldown: 0 }));
+        this.chaseWall = data.chaseWall ? { ...data.chaseWall } : null;
+        this.risingHazard = data.risingHazard ? { ...data.risingHazard } : null;
+        this.timeSlowTimer = 0;
+        this.timeSlowCooldown = 0;
+        this.phaseBlockState = 0;
+        this.collectedSealKeys = 0;
+        this.droneTargetTimer = 0;
+        this.droneZapPos = null;
         this.jumpPads = (data.jumpPads || []).map((jp) => ({ ...jp, anim: 0 }));
         this.trollSpringTraps = (data.trollSpringTraps || []).map((sp) => ({ ...sp, anim: 0 }));
         this.trollAmbushZones = (data.trollAmbushZones || []).map((az) => ({ ...az }));
@@ -6006,7 +6639,11 @@ class Game {
         });
         this.boss = data.bossConfig ? new window.AbyssBoss(data.bossConfig) : null;
 
-        this.player = new window.Player(120, 12 * window.TILE_SIZE - 60, this.getPlayerUpgrades());
+        this.player = new window.Player(120, 12 * window.TILE_SIZE - 60, {
+            ...this.getPlayerUpgrades(),
+            underwater: Boolean(data.info && data.info.underwater)
+        });
+        this.syncAbilityTouchButtonsUI();
         this.quotaResumeCredit = { em: 0, cr: 0, gc: 0 };
         this.portalQuotaUnlockedNotified = false;
         this.portalLockedBounceTick = -999;
@@ -6068,7 +6705,7 @@ class Game {
         this.lastTime = performance.now();
         this.levelStartTimeMs = performance.now();
 
-        ["screen-map", "screen-shop", "screen-customize", "screen-character", "screen-modal", "screen-settings", "screen-profile", "screen-avatar-picker", "screen-insufficient-balance", "screen-language", "screen-troll", "screen-ad-overlay", "screen-ad-consent", "screen-feedback", "screen-leaderboard", "screen-rate-app", "screen-tutorial", "screen-vip-store"].forEach((id) => {
+        ["screen-map", "screen-shop", "screen-customize", "screen-character", "screen-modal", "screen-settings", "screen-profile", "screen-avatar-picker", "screen-insufficient-balance", "screen-language", "screen-troll", "screen-ad-overlay", "screen-ad-consent", "screen-feedback", "screen-leaderboard", "screen-rate-app", "screen-tutorial", "screen-vip-store", "screen-act2-locked", "screen-act2-celebration"].forEach((id) => {
             const el = document.getElementById(id);
             if (el) el.classList.add("hidden");
         });
@@ -6107,7 +6744,7 @@ class Game {
         const mainCrystals = mainItems.filter((c) => c.type === "coin" || !c.type).length;
         const mainGold = mainItems.filter((c) => c.type === "gold_coin").length;
 
-        if (this.isTrollMode || (this.levelInfo && this.levelInfo.isBossLevel) || !this.portal) {
+        if (this.isTrollMode || this.isAct2Mode || (this.levelInfo && this.levelInfo.isBossLevel) || !this.portal) {
             this.portalQuotaConfig = { enabled: false, reqEmeralds: 0, reqCrystals: 0, reqGold: 0, mainEmeralds, mainCrystals, mainGold };
             return;
         }
@@ -6504,6 +7141,11 @@ class Game {
             this.player.hasShield = true;
             this.player.hasFire = true;
             this.player.invulnTimer = 180;
+            this.player.inReverseGravity = false;
+            this.player.isGroundSlamming = false;
+            this.player.dashTimer = 0;
+            if (this.chaseWall) this.chaseWall.x = Math.min(this.chaseWall.x, Math.max(this.chaseWall.startX || -240, this.player.x - 420));
+            if (this.risingHazard) this.risingHazard.y = Math.max(this.risingHazard.y, this.player.y + 220);
             this.camera.y = 0;
             this.camera.prevY = 0;
             this.pendingTrollDeathTimer = 0;
@@ -6541,6 +7183,11 @@ class Game {
             this.player.vy = 0;
             this.player.hp = this.player.maxHp;
             this.player.invulnTimer = 90;
+            this.player.inReverseGravity = false;
+            this.player.isGroundSlamming = false;
+            this.player.dashTimer = 0;
+            if (this.chaseWall) this.chaseWall.x = Math.min(this.chaseWall.x, Math.max(this.chaseWall.startX || -240, this.player.x - 420));
+            if (this.risingHazard) this.risingHazard.y = Math.max(this.risingHazard.y, this.player.y + 220);
             this.camera.y = 0;
             this.camera.prevY = 0;
             if (upgrades.startShield) this.player.hasShield = true;
@@ -6558,8 +7205,10 @@ class Game {
         if (this.state === "paused" || this.state === "playing") {
             if (window.MarinextAnalytics) {
                 window.MarinextAnalytics.logEvent("level_abandon", {
-                    level: (this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel) + 1,
+                    level: this.isAct2Mode ? (101 + (this.selectedAct2Level || 0)) : ((this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel) + 1),
                     is_troll: this.isTrollMode,
+                    is_act2: Boolean(this.isAct2Mode),
+                    scenario_type: (this.levelInfo && this.levelInfo.scenarioType) || "campaign",
                     elapsed_sec: Math.max(0, Math.round((Date.now() - (this._levelAttemptStartMs || Date.now())) / 1000)),
                     fail_count: this.levelFailStreak || 0
                 });
@@ -6630,13 +7279,17 @@ class Game {
         this.clearAdPauseState();
         this.resetInputs();
         this.state = "gameover";
-        const failKey = `${this.isTrollMode ? "t" : "c"}_${this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel}`;
+        const failKey = this.isAct2Mode
+            ? `a2_${this.selectedAct2Level}`
+            : `${this.isTrollMode ? "t" : "c"}_${this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel}`;
         this.levelFailStreak = (this.levelFailStreakKey === failKey) ? (this.levelFailStreak + 1) : 1;
         this.levelFailStreakKey = failKey;
         if (window.MarinextAnalytics) {
             window.MarinextAnalytics.logEvent('level_fail', {
-                level: (this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel) + 1,
+                level: this.isAct2Mode ? (101 + (this.selectedAct2Level || 0)) : ((this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel) + 1),
                 is_troll: this.isTrollMode,
+                is_act2: Boolean(this.isAct2Mode),
+                scenario_type: (this.levelInfo && this.levelInfo.scenarioType) || "campaign",
                 score: this.score || 0,
                 fail_reason: this._lastFailReason || "hazard_or_enemy",
                 fail_count: this.levelFailStreak
@@ -6835,15 +7488,39 @@ class Game {
 
         if (window.MarinextAnalytics) {
             window.MarinextAnalytics.logEvent('level_complete', {
-                level: (this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel) + 1,
+                level: this.isAct2Mode ? (101 + (this.selectedAct2Level || 0)) : ((this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel) + 1),
                 is_troll: this.isTrollMode,
+                is_act2: Boolean(this.isAct2Mode),
+                world_id: (this.levelInfo && this.levelInfo.worldId) || "",
+                scenario_type: (this.levelInfo && this.levelInfo.scenarioType) || "campaign",
                 stars: earnedStars,
                 duration_ms: clearMs,
                 score: this.score || 0
             });
         }
 
-        if (this.isTrollMode) {
+        let triggerAct2CelebrationNow = false;
+        if (this.isAct2Mode) {
+            const aIdx = this.selectedAct2Level || 0;
+            this.starsPerAct2Level[aIdx] = Math.max(this.starsPerAct2Level[aIdx] || 0, earnedStars);
+            if (aIdx + 1 >= this.unlockedAct2Levels && this.unlockedAct2Levels < 50) {
+                this.unlockedAct2Levels = aIdx + 2;
+            }
+            if (!this.act2UnlockedAbilities) this.act2UnlockedAbilities = {};
+            if (aIdx === 9 && !this.act2UnlockedAbilities.slam) {
+                this.act2UnlockedAbilities.slam = true;
+                this.showQuickToast("💥 YENİ YETENEK: ZEMİN DARBESİ (S / Havada Aşağı)!", "#ffd166", 4800);
+                if (window.MarinextAnalytics) window.MarinextAnalytics.logEvent("ability_unlocked", { ability_id: "slam", level: 110 });
+            } else if (aIdx === 19 && !this.act2UnlockedAbilities.timeSlow) {
+                this.act2UnlockedAbilities.timeSlow = true;
+                this.showQuickToast("⏱️ YENİ YETENEK: KRONO-FREN ZAMAN YAVAŞLATMA (Q / E)!", "#e0aaff", 4800);
+                if (window.MarinextAnalytics) window.MarinextAnalytics.logEvent("ability_unlocked", { ability_id: "timeSlow", level: 120 });
+            } else if (aIdx === 29 && !this.act2UnlockedAbilities.companionDrone) {
+                this.act2UnlockedAbilities.companionDrone = true;
+                this.showQuickToast("🤖 YENİ YOLDAŞ: SİBER MİNİ-DRONE AKTİF!", "#00f2fe", 4800);
+                if (window.MarinextAnalytics) window.MarinextAnalytics.logEvent("ability_unlocked", { ability_id: "companionDrone", level: 130 });
+            }
+        } else if (this.isTrollMode) {
             this.starsPerTrollLevel[this.selectedTrollLevel] = Math.max(this.starsPerTrollLevel[this.selectedTrollLevel] || 0, earnedStars);
             if (this.selectedTrollLevel + 1 >= this.unlockedTrollLevels && this.unlockedTrollLevels < 50) {
                 this.unlockedTrollLevels = this.selectedTrollLevel + 2;
@@ -6852,6 +7529,19 @@ class Game {
             this.starsPerLevel[this.selectedLevel] = Math.max(this.starsPerLevel[this.selectedLevel] || 0, earnedStars);
             if (this.selectedLevel + 1 >= this.unlockedLevels && this.unlockedLevels < 100) {
                 this.unlockedLevels = this.selectedLevel + 2;
+            }
+            if (this.selectedLevel === 99) {
+                const firstTimeAct2 = !this.act2Unlocked;
+                this.act2Unlocked = true;
+                if (!this.act2UnlockedAbilities) this.act2UnlockedAbilities = {};
+                this.act2UnlockedAbilities.dash = true;
+                if (firstTimeAct2 && window.MarinextAnalytics) {
+                    window.MarinextAnalytics.logEvent("act2_unlocked", { level: 100 });
+                    window.MarinextAnalytics.logEvent("ability_unlocked", { ability_id: "dash", level: 100 });
+                }
+                if (!this.act2CelebrationClaimed) {
+                    triggerAct2CelebrationNow = true;
+                }
             }
         }
         this.savedCheckpoint = null;
@@ -6862,7 +7552,9 @@ class Game {
         this.syncLeaderboardToPlayGames();
 
         const modal = document.getElementById("screen-modal");
-        const isFinal = this.isTrollMode ? (this.selectedTrollLevel === 49) : (this.selectedLevel === 99);
+        const isFinal = this.isAct2Mode
+            ? (this.selectedAct2Level === 49)
+            : (this.isTrollMode ? (this.selectedTrollLevel === 49) : (this.selectedLevel === 99));
         document.getElementById("modal-title").textContent = isFinal ? d.finalVictoryTitle : d.victoryTitle;
         document.getElementById("modal-subtitle").textContent = `${"★".repeat(earnedStars)}${"☆".repeat(3 - earnedStars)}`;
         document.getElementById("modal-stats").classList.remove("hidden");
@@ -6907,7 +7599,9 @@ class Game {
         }
 
         const nextBtn = document.getElementById("btn-next-level");
-        const hasNext = this.isTrollMode ? (this.selectedTrollLevel < 49) : (this.selectedLevel < 99);
+        const hasNext = this.isAct2Mode
+            ? (this.selectedAct2Level < 49)
+            : (this.isTrollMode ? (this.selectedTrollLevel < 49) : (this.selectedLevel < 99));
         if (hasNext) {
             nextBtn.classList.remove("hidden");
         } else {
@@ -6920,10 +7614,15 @@ class Game {
         this.checkSmartInterstitialOnVictory();
         this.checkAndUnlockAchievementsOnVictory(earnedStars, clearMs);
 
+        if (triggerAct2CelebrationNow) {
+            setTimeout(() => this.openAct2CelebrationModal(true), 600);
+            return;
+        }
+
         // Smart Milestone In-App Rating prompt:
         // Prompts at the end of Level 1 (selectedLevel === 0), and continues reminding on subsequent victories if "Later" was chosen until rated!
         const hasRated = localStorage.getItem("marinext_rate_v1") === "done" || localStorage.getItem("marinext_rate_v1") === "feedback";
-        if (!this.isTrollMode && this.selectedLevel >= 0 && !hasRated) {
+        if (!this.isTrollMode && !this.isAct2Mode && this.selectedLevel >= 0 && !hasRated) {
             setTimeout(() => {
                 this.applyRateModalLanguage();
                 const rateModal = document.getElementById("screen-rate-app");
@@ -7321,7 +8020,7 @@ class Game {
         const stars = this.feedbackStars || 5;
         const cat = this.feedbackCategory || "Öneri & Yeni Fikir";
 
-        let appVerName = "1.4.14";
+        let appVerName = "1.5.0";
         let appVerCode = 50;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -7405,12 +8104,18 @@ class Game {
     }
 
     // ============================================================================
-    // 🏆 HYBRID LEADERBOARD & GOOGLE PLAY GAMES RANKINGS ENGINE (4 CATEGORIES)
+    // 🏆 HYBRID LEADERBOARD & GOOGLE PLAY GAMES RANKINGS ENGINE (FIREBASE RTDB + PLAY GAMES)
     // ============================================================================
     getPlayerLeaderboardMetrics() {
-        const totalStars = (this.starsPerLevel || []).reduce((acc, s) => acc + (Number(s) || 0), 0);
-        const clearedLevels = Math.max(0, (this.unlockedLevels || 1) - 1, (this.starsPerLevel || []).filter((s) => s > 0).length);
-        const bossesDefeated = Math.floor(clearedLevels / 5);
+        const act1Stars = (this.starsPerLevel || []).reduce((acc, s) => acc + (Number(s) || 0), 0);
+        const act2Stars = (this.starsPerAct2Level || []).reduce((acc, s) => acc + (Number(s) || 0), 0);
+        const totalStars = act1Stars + act2Stars;
+        const clearedAct1 = Math.min(100, Math.max(0, (this.unlockedLevels || 1) - 1, (this.starsPerLevel || []).filter((s) => s > 0).length));
+        const clearedAct2 = this.act2Unlocked
+            ? Math.min(100, Math.max(0, (this.unlockedAct2Levels || 1) - 1, (this.starsPerAct2Level || []).filter((s) => s > 0).length))
+            : 0;
+        const clearedLevels = Math.min(200, clearedAct1 + clearedAct2);
+        const bossesDefeated = Math.floor(clearedAct1 / 5) + Math.floor(clearedAct2 / 10);
         const computedScore = Math.max(
             Number(this.totalCampaignScore) || 0,
             clearedLevels * 2450 + totalStars * 650 + (this.walletEmeralds || 0) * 180 + (this.walletGoldCoins || 0) * 45 + (this.score || 0)
@@ -7433,7 +8138,8 @@ class Game {
 
     getOrCreateCloudPlayerUid() {
         if (this.playGamesPlayerId && String(this.playGamesPlayerId).trim().length > 2) {
-            return "pg_" + String(this.playGamesPlayerId).trim();
+            const safePg = String(this.playGamesPlayerId).trim().replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 58);
+            return "pg_" + safePg;
         }
         try {
             let uid = localStorage.getItem("marinext2100_player_uid_v5");
@@ -7441,7 +8147,7 @@ class Game {
                 uid = "p_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 9);
                 localStorage.setItem("marinext2100_player_uid_v5", uid);
             }
-            return uid;
+            return uid.replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 62);
         } catch (e) {
             if (!this._fallbackUid) {
                 this._fallbackUid = "p_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 9);
@@ -7450,84 +8156,54 @@ class Game {
         }
     }
 
-    decodeCloudLbPayload(rawStr) {
-        if (!rawStr || typeof rawStr !== "string") return [];
-        const clean = rawStr.replace(/^"|"$/g, "").trim();
-        if (!clean || clean === "null") return [];
-        try {
-            const stdB64 = clean.replace(/-/g, "+").replace(/_/g, "/");
-            const padded = stdB64 + "=".repeat((4 - (stdB64.length % 4)) % 4);
-            const jsonText = decodeURIComponent(escape(atob(padded)));
-            const parsed = JSON.parse(jsonText);
-            if (Array.isArray(parsed)) {
-                return parsed
-                    .filter((row) => Array.isArray(row) && row.length >= 8 && row[1])
-                    .map((row) => ({
-                        playerId: String(row[0] || ""),
-                        name: String(row[1] || "").slice(0, 26),
-                        avatar: String(row[2] || "⚔️"),
-                        heroTitle: String(row[3] || "Marinext 2100 Oyuncusu"),
-                        country: "🇹🇷",
-                        weeklyActive: true,
-                        score: Math.max(0, Number(row[4]) || 0),
-                        progress: Math.max(0, Math.min(100, Number(row[5]) || 0)),
-                        emerald: Math.max(0, Number(row[6]) || 0),
-                        speedrun: Math.max(4000, Number(row[7]) || 999999)
-                    }));
-            }
-        } catch (e) {}
-        return [];
+    getFirebaseRtdbLeaderboardUrl() {
+        return "https://marinext-2100-default-rtdb.europe-west1.firebasedatabase.app/leaderboard";
     }
 
-    encodeCloudLbPayload(playersList) {
-        try {
-            const compactRows = (playersList || [])
-                .filter((p) => p && p.name)
-                .slice(0, 12)
-                .map((p) => [
-                    String(p.playerId || "").slice(0, 18),
-                    String(p.name || "").slice(0, 18),
-                    String(p.avatar || "⚔️").slice(0, 4),
-                    String(p.heroTitle || "Marinext 2100").slice(0, 18),
-                    Math.max(0, Math.round(Number(p.score) || 0)),
-                    Math.max(0, Math.min(100, Math.round(Number(p.progress) || 0))),
-                    Math.max(0, Math.round(Number(p.emerald) || 0)),
-                    Math.max(4000, Math.round(Number(p.speedrun) || 999999))
-                ]);
-            const jsonText = JSON.stringify(compactRows);
-            const b64 = btoa(unescape(encodeURIComponent(jsonText)))
-                .replace(/\+/g, "-")
-                .replace(/\//g, "_")
-                .replace(/=+$/, "");
-            return b64;
-        } catch (e) {
-            return "";
+    normalizeRtdbLeaderboardMap(rawObj) {
+        if (!rawObj || typeof rawObj !== "object") return [];
+        const rows = [];
+        for (const [key, val] of Object.entries(rawObj)) {
+            if (!val || typeof val !== "object" || !val.name) continue;
+            const pid = String(val.playerId || key || "").trim();
+            rows.push({
+                playerId: pid,
+                name: String(val.name || "Oyuncu").trim().slice(0, 32),
+                avatar: String(val.avatar || "⚔️").slice(0, 8),
+                heroTitle: String(val.heroTitle || "Marinext 2100 Oyuncusu").slice(0, 40),
+                country: String(val.country || "🇹🇷"),
+                weeklyActive: val.weeklyActive !== false,
+                score: Math.max(0, Number(val.score) || 0),
+                progress: Math.max(0, Math.min(200, Number(val.progress) || 0)),
+                emerald: Math.max(0, Number(val.emerald) || 0),
+                speedrun: Math.max(4000, Number(val.speedrun) || 999999),
+                act2Unlocked: Boolean(val.act2Unlocked || (Number(val.progress) || 0) > 100),
+                updatedAt: Number(val.updatedAt) || 0
+            });
         }
+        return rows.sort((a, b) => (b.score - a.score) || (b.progress - a.progress));
     }
 
     async fetchLiveCloudLeaderboard() {
-        const getUrl = "https://keyvalue.immanuel.co/api/KeyVal/GetValue/v5tzb6ig/marinext_lb_v6_1";
+        const baseUrl = this.getFirebaseRtdbLeaderboardUrl();
         try {
-            const resp = await fetch(getUrl + "?t=" + Date.now(), { cache: "no-store" });
+            const resp = await fetch(`${baseUrl}.json?t=${Date.now()}`, { cache: "no-store" });
             if (!resp.ok) return;
-            const rawText = await resp.text();
-            const list = this.decodeCloudLbPayload(rawText);
-            if (list && list.length > 0) {
-                this.cloudLeaderboardEntries = list;
-                try {
-                    localStorage.setItem("marinext2100_lb_cache_v5", JSON.stringify(list));
-                } catch (e) {}
-                const lbScreen = document.getElementById("screen-leaderboard");
-                if (lbScreen && !lbScreen.classList.contains("hidden")) {
-                    this.renderLeaderboardUI();
-                }
+            const parsed = await resp.json();
+            const list = this.normalizeRtdbLeaderboardMap(parsed);
+            this.cloudLeaderboardEntries = list;
+            try {
+                localStorage.setItem("marinext2100_lb_cache_v6", JSON.stringify(list));
+            } catch (e) {}
+            const lbScreen = document.getElementById("screen-leaderboard");
+            if (lbScreen && !lbScreen.classList.contains("hidden")) {
+                this.renderLeaderboardUI();
             }
         } catch (e) {}
     }
 
     async syncLiveCloudLeaderboard() {
-        const getUrl = "https://keyvalue.immanuel.co/api/KeyVal/GetValue/v5tzb6ig/marinext_lb_v6_1";
-        const postBaseUrl = "https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/v5tzb6ig/marinext_lb_v6_1?value=";
+        const baseUrl = this.getFirebaseRtdbLeaderboardUrl();
         const myUid = this.getOrCreateCloudPlayerUid();
         const myMetrics = this.getPlayerLeaderboardMetrics();
         const avObj = (typeof PROFILE_AVATARS !== "undefined" && PROFILE_AVATARS.find((a) => a.id === this.selectedAvatarId)) || { icon: "⚔️" };
@@ -7538,101 +8214,41 @@ class Game {
 
         const myEntry = {
             playerId: myUid,
-            name: String(myDisplayName).slice(0, 26),
-            avatar: avObj.icon || "⚔️",
-            heroTitle: heroObj.title || heroObj.name || "Siber Gölge Şövalye",
+            name: String(myDisplayName).slice(0, 32),
+            avatar: String(avObj.icon || "⚔️").slice(0, 8),
+            heroTitle: String(heroObj.title || heroObj.name || "Siber Gölge Şövalye").slice(0, 40),
             country: "🇹🇷",
             weeklyActive: true,
-            score: Math.max(0, Number(myMetrics.score) || 0),
-            progress: Math.max(0, Math.min(100, Number(myMetrics.progress) || 0)),
-            emerald: Math.max(0, Number(myMetrics.emerald) || 0),
-            speedrun: Math.max(4000, Number(myMetrics.speedrun) || 999999),
+            score: Math.max(0, Math.round(Number(myMetrics.score) || 0)),
+            progress: Math.max(0, Math.min(200, Math.round(Number(myMetrics.progress) || 0))),
+            emerald: Math.max(0, Math.round(Number(myMetrics.emerald) || 0)),
+            speedrun: Math.max(4000, Math.round(Number(myMetrics.speedrun) || 999999)),
+            act2Unlocked: Boolean(this.act2Unlocked || (Number(myMetrics.progress) || 0) > 100),
             updatedAt: Date.now()
         };
 
         try {
-            const playersMap = {};
-            try {
-                const getResp = await fetch(getUrl + "?t=" + Date.now(), { cache: "no-store" });
-                if (getResp.ok) {
-                    const rawText = await getResp.text();
-                    const existingList = this.decodeCloudLbPayload(rawText);
-                    for (const p of existingList) {
-                        if (p && p.name) {
-                            const key = p.playerId || p.name.toLowerCase();
-                            playersMap[key] = p;
-                        }
-                    }
-                }
-            } catch (e) {}
-
-            // Also merge any real Play Games leaderboard players so all devices share the full roster
-            if (Array.isArray(this.realPlayGamesLeaderboardEntries)) {
-                for (const pg of this.realPlayGamesLeaderboardEntries) {
-                    if (pg && pg.name) {
-                        const key = pg.playerId || pg.name.toLowerCase();
-                        const prev = playersMap[key];
-                        playersMap[key] = {
-                            playerId: pg.playerId || key,
-                            name: String(pg.name).slice(0, 26),
-                            avatar: pg.avatar || (prev && prev.avatar) || "🎮",
-                            heroTitle: pg.heroTitle || (prev && prev.heroTitle) || "Google Play Games Oyuncusu",
-                            country: "🇹🇷",
-                            weeklyActive: true,
-                            score: Math.max(Number(pg.score) || 0, Number(prev && prev.score) || 0),
-                            progress: Math.max(Number(pg.progress) || 0, Number(prev && prev.progress) || 0),
-                            emerald: Math.max(Number(pg.emerald) || 0, Number(prev && prev.emerald) || 0),
-                            speedrun: Math.min(
-                                Number(pg.speedrun) > 0 ? Number(pg.speedrun) : 999999,
-                                Number(prev && prev.speedrun) > 0 ? Number(prev.speedrun) : 999999
-                            )
-                        };
-                    }
-                }
-            }
-
-            // Remove old anonymous record if user linked Play Games on the same device
-            try {
-                const localUid = localStorage.getItem("marinext2100_player_uid_v5");
-                if (localUid && localUid !== myUid && playersMap[localUid]) {
-                    delete playersMap[localUid];
-                }
-            } catch (e) {}
-
-            playersMap[myUid] = myEntry;
-
-            const sortedList = Object.values(playersMap)
-                .filter((p) => p && p.name)
-                .sort((a, b) => (Number(b.score) || 0) - (Number(a.score) || 0))
-                .slice(0, 12);
-
-            const encoded = this.encodeCloudLbPayload(sortedList);
-            if (encoded && encoded.length <= 1020) {
-                await fetch(postBaseUrl + encoded, {
-                    method: "POST",
-                    body: ""
-                });
-            }
-
-            this.cloudLeaderboardEntries = sortedList;
-            try {
-                localStorage.setItem("marinext2100_lb_cache_v5", JSON.stringify(sortedList));
-            } catch (e) {}
-            const lbScreen = document.getElementById("screen-leaderboard");
-            if (lbScreen && !lbScreen.classList.contains("hidden")) {
-                this.renderLeaderboardUI();
-            }
+            // Write ONLY this player's own node in Firebase RTDB so devices/accounts never overwrite each other!
+            await fetch(`${baseUrl}/${encodeURIComponent(myUid)}.json`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(myEntry)
+            });
+            await this.fetchLiveCloudLeaderboard();
         } catch (e) {}
     }
 
     getLeaderboardCompetitors(category = "score", scope = "global") {
-        // SADECE MARINEXT 2100 GERÇEK OYUNCULARI (Canlı Çok-Oyunculu Bulut + Play Games Senkronizasyonu)
+        // SADECE MARINEXT 2100 GERÇEK OYUNCULARI (Firebase RTDB Bireysel Düğüm + Google Play Games Birleşimi)
         const entries = [];
-        const seenKeys = new Set();
+        const entriesByKey = new Map();
         const myUid = this.getOrCreateCloudPlayerUid();
+        const myPgNorm = this.playGamesPlayerId
+            ? ("pg_" + String(this.playGamesPlayerId).trim().replace(/[^a-zA-Z0-9_-]/g, "_"))
+            : "";
         let localUid = "";
         try {
-            localUid = localStorage.getItem("marinext2100_player_uid_v5") || "";
+            localUid = (localStorage.getItem("marinext2100_player_uid_v5") || "").replace(/[^a-zA-Z0-9_-]/g, "_");
         } catch (e) {}
 
         const myMetrics = this.getPlayerLeaderboardMetrics();
@@ -7655,51 +8271,97 @@ class Game {
         const myDisplayName = (this.playGamesPlayerName && this.playGamesPlayerName.trim().length > 0)
             ? this.playGamesPlayerName.trim()
             : (this.playerName || "Gölge Şövalye");
+        const myNormName = myDisplayName.toLowerCase();
 
-        const combinedSources = [
-            ...(Array.isArray(this.cloudLeaderboardEntries) ? this.cloudLeaderboardEntries : []),
-            ...(Array.isArray(this.realPlayGamesLeaderboardEntries) ? this.realPlayGamesLeaderboardEntries : [])
-        ];
-
-        for (const r of combinedSources) {
-            if (!r || !r.name) continue;
+        const isMeEntry = (r) => {
             const pid = r.playerId ? String(r.playerId).trim() : "";
-            const normName = String(r.name).trim().toLowerCase();
-            if (
-                (pid && (pid === myUid || pid === localUid || (this.playGamesPlayerId && pid === this.playGamesPlayerId))) ||
-                normName === myDisplayName.toLowerCase()
-            ) {
-                continue;
+            const normName = String(r.name || "").trim().toLowerCase();
+            if (pid && (pid === myUid || pid === localUid || (this.playGamesPlayerId && (pid === this.playGamesPlayerId || pid === myPgNorm)))) {
+                return true;
             }
-            const dedupKey = pid || normName;
-            if (seenKeys.has(dedupKey)) continue;
-            seenKeys.add(dedupKey);
+            return normName && normName === myNormName;
+        };
 
-            const entryCountry = r.country || "🇹🇷";
-            if (scope === "tr" && entryCountry !== "🇹🇷") {
-                continue;
-            }
-            if (scope === "friends" && !r.isFriend) {
-                continue;
-            }
-            if (scope === "weekly" && r.weeklyActive === false) {
-                continue;
-            }
-            entries.push({
+        // 1. Ingest authoritative per-player Firebase RTDB entries first
+        const rtdbList = Array.isArray(this.cloudLeaderboardEntries) ? this.cloudLeaderboardEntries : [];
+        for (const r of rtdbList) {
+            if (!r || !r.name || isMeEntry(r)) continue;
+            const pid = String(r.playerId || "").trim();
+            const normName = String(r.name).trim().toLowerCase();
+            const dedupKey = pid || normName;
+            if (entriesByKey.has(dedupKey) || entriesByKey.has("name:" + normName)) continue;
+
+            const item = {
                 isMe: false,
-                name: String(r.name).slice(0, 26),
+                playerId: pid,
+                name: String(r.name).slice(0, 32),
                 avatar: r.avatar || "🎮",
                 heroTitle: localizeLbHeroTitle(r.heroTitle || "Marinext 2100 Oyuncusu"),
-                country: entryCountry,
+                country: r.country || "🇹🇷",
+                weeklyActive: r.weeklyActive !== false,
+                isFriend: Boolean(r.isFriend),
                 score: Math.max(0, Number(r.score) || 0),
-                progress: Math.max(0, Math.min(100, Number(r.progress) || 0)),
+                progress: Math.max(0, Math.min(200, Number(r.progress) || 0)),
                 emerald: Math.max(0, Number(r.emerald) || 0),
                 speedrun: Math.max(4000, Number(r.speedrun) || 999999)
-            });
+            };
+            entries.push(item);
+            entriesByKey.set(dedupKey, item);
+            entriesByKey.set("name:" + normName, item);
         }
 
+        // 2. Merge Play Games entries (match existing RTDB rows cleanly & never allow -1)
+        const pgList = Array.isArray(this.realPlayGamesLeaderboardEntries) ? this.realPlayGamesLeaderboardEntries : [];
+        for (const pg of pgList) {
+            if (!pg || !pg.name || isMeEntry(pg)) continue;
+            const rawPid = String(pg.playerId || "").trim();
+            const pgKey = rawPid ? ("pg_" + rawPid.replace(/[^a-zA-Z0-9_-]/g, "_")) : "";
+            const normName = String(pg.name).trim().toLowerCase();
+            const existing = (pgKey && entriesByKey.get(pgKey)) || (rawPid && entriesByKey.get(rawPid)) || entriesByKey.get("name:" + normName);
+            if (existing) {
+                if (pg.isFriend) existing.isFriend = true;
+                if (Number(pg.score) > existing.score) existing.score = Number(pg.score);
+                if (Number(pg.progress) >= 0 && Number(pg.progress) > existing.progress) {
+                    existing.progress = Math.min(200, Number(pg.progress));
+                }
+                if (Number(pg.emerald) >= 0 && Number(pg.emerald) > existing.emerald) {
+                    existing.emerald = Number(pg.emerald);
+                }
+                if (Number(pg.speedrun) >= 4000 && Number(pg.speedrun) < existing.speedrun) {
+                    existing.speedrun = Number(pg.speedrun);
+                }
+                continue;
+            }
+            const dedupKey = pgKey || ("name:" + normName);
+            const item = {
+                isMe: false,
+                playerId: pgKey || rawPid,
+                name: String(pg.name).slice(0, 32),
+                avatar: pg.avatar || "🎮",
+                heroTitle: localizeLbHeroTitle(pg.heroTitle || "Google Play Games Oyuncusu"),
+                country: pg.country || "🇹🇷",
+                weeklyActive: true,
+                isFriend: Boolean(pg.isFriend),
+                score: Math.max(0, Number(pg.score) || 0),
+                progress: Number(pg.progress) >= 0 ? Math.min(200, Number(pg.progress)) : 0,
+                emerald: Number(pg.emerald) >= 0 ? Number(pg.emerald) : 0,
+                speedrun: Math.max(4000, Number(pg.speedrun) || 999999)
+            };
+            entries.push(item);
+            entriesByKey.set(dedupKey, item);
+            entriesByKey.set("name:" + normName, item);
+        }
+
+        // Apply scope filter AFTER deduplicating/merging
+        const filteredEntries = entries.filter((item) => {
+            if (scope === "tr" && item.country !== "🇹🇷") return false;
+            if (scope === "friends" && !item.isFriend) return false;
+            if (scope === "weekly" && item.weeklyActive === false) return false;
+            return true;
+        });
+
         // Mevcut gerçek oyuncunun kendi canlı profili
-        entries.push({
+        filteredEntries.push({
             isMe: true,
             name: myDisplayName,
             avatar: avObj.icon || "⚔️",
@@ -7711,14 +8373,14 @@ class Game {
             speedrun: myMetrics.speedrun
         });
 
-        entries.sort((a, b) => {
+        filteredEntries.sort((a, b) => {
             if (category === "speedrun") {
                 return a.speedrun - b.speedrun; // Lower time is better!
             }
             return (b[category] || 0) - (a[category] || 0);
         });
 
-        return entries.map((item, idx) => ({
+        return filteredEntries.map((item, idx) => ({
             ...item,
             rank: idx + 1
         }));
@@ -7728,7 +8390,11 @@ class Game {
         const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
         if (category === "progress") {
             const prog = Number(entry.progress) || 0;
-            const bosses = Math.floor(prog / 5);
+            const bosses = Math.floor(Math.min(100, prog) / 5) + Math.floor(Math.max(0, prog - 100) / 10);
+            if (prog > 100) {
+                const baseTxt = t("lbMetricProgress", { prog, bosses }) || `Bölüm ${prog}/150 • ${bosses} Boss`;
+                return `${baseTxt.replace("/100", "/150")} 🌌`;
+            }
             return t("lbMetricProgress", { prog, bosses }) || `Bölüm ${prog}/100 • ${bosses} Boss`;
         }
         if (category === "emerald") {
@@ -7994,9 +8660,9 @@ class Game {
         try {
             const m = this.getPlayerLeaderboardMetrics();
             window.MarinextCloudBridge.submitLeaderboardScores(
-                Number(m.score) || 0,
-                Number(m.progress) || 1,
-                Number(m.emerald) || 0,
+                Math.max(0, Number(m.score) || 0),
+                Math.max(0, Number(m.progress) || 0),
+                Math.max(0, Number(m.emerald) || 0),
                 Number(m.speedrun) || 25000
             );
         } catch (e) {}
@@ -8666,10 +9332,14 @@ class Game {
         if (this.player.hasShield) powerList.push("🛡");
         if (this.player.speedTimer > 0) powerList.push("⚡");
         if (this.player.inLowGravity) powerList.push("🌌");
+        if (this.player.inReverseGravity) powerList.push("🙃");
+        if ((this.timeSlowTimer || 0) > 0) powerList.push("⏱️");
         const powerStr = powerList.length > 0 ? `${powerList.join(" ")} ${d.shadowMode}` : d.shadowMode;
 
+        const keysReq = (this.portal && this.portal.requiredKeys) || 0;
+        const tsSec = Math.ceil((this.timeSlowTimer || 0) / 60);
         const bossKey = this.boss ? `${this.boss.hp}_${this.boss.statusText}` : "noboss";
-        const hudKey = `${this.lang}_${this.player.hp}/${this.player.maxHp}_${this.player.hasShield}_${powerStr}_${this.walletEmeralds}_${this.collectedEmeralds}_${this.walletCoins}_${this.walletGoldCoins}_${this.score}_${bossKey}`;
+        const hudKey = `${this.lang}_${this.isAct2Mode}_${this.selectedAct2Level}_${keysReq}_${this.collectedSealKeys}_${tsSec}_${this.player.hp}/${this.player.maxHp}_${this.player.hasShield}_${powerStr}_${this.walletEmeralds}_${this.collectedEmeralds}_${this.walletCoins}_${this.walletGoldCoins}_${this.score}_${bossKey}`;
         if (this._lastHudKey === hudKey) return;
         this._lastHudKey = hudKey;
 
@@ -8690,10 +9360,30 @@ class Game {
         }
         heartsEl.innerHTML = heartsHTML;
 
-        const activeIdx = this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel;
-        const locInfo = this.getLocalizedLevelInfo(activeIdx, this.isTrollMode);
+        const activeIdx = this.isAct2Mode ? this.selectedAct2Level : (this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel);
+        const locInfo = this.getLocalizedLevelInfo(activeIdx, this.isTrollMode, this.isAct2Mode);
         document.getElementById("hud-level-name").textContent = locInfo.name;
         document.getElementById("hud-power-text").textContent = powerStr;
+
+        const keysBadge = document.getElementById("hud-keys-badge");
+        if (keysBadge) {
+            if (keysReq > 0) {
+                keysBadge.classList.remove("hidden");
+                keysBadge.textContent = `🔑 ${this.collectedSealKeys || 0}/${keysReq}`;
+                keysBadge.style.borderColor = (this.collectedSealKeys || 0) >= keysReq ? "#06d6a0" : "rgba(255, 209, 102, 0.85)";
+            } else {
+                keysBadge.classList.add("hidden");
+            }
+        }
+        const tsBadge = document.getElementById("hud-timeslow-badge");
+        if (tsBadge) {
+            if (tsSec > 0) {
+                tsBadge.classList.remove("hidden");
+                tsBadge.textContent = `⏱️ ${tsSec}s`;
+            } else {
+                tsBadge.classList.add("hidden");
+            }
+        }
 
         // Update Live Ancient Emerald Counter + Total Wallet Emeralds
         document.getElementById("hud-emeralds").textContent = this.walletEmeralds;
@@ -8743,6 +9433,11 @@ class Game {
         if (this.state !== "playing") return;
 
         this.levelTick = (this.levelTick || 0) + 1;
+        if (this.timeSlowTimer > 0) this.timeSlowTimer--;
+        if (this.timeSlowCooldown > 0) this.timeSlowCooldown--;
+        const worldTs = (this.timeSlowTimer > 0) ? 0.45 : 1.0;
+        this.worldEffectTick = (this.worldEffectTick || 0) + worldTs;
+        this.syncAbilityTouchButtonsUI();
 
         if (this.player) {
             this.player.prevX = this.player.x;
@@ -8752,7 +9447,7 @@ class Game {
         this.camera.prevY = this.camera.y || 0;
 
         for (const mp of this.movingPlatforms) {
-            mp.t += 0.015 * mp.speed;
+            mp.t += 0.015 * mp.speed * worldTs;
             const prevX = mp.x;
             const factor = (Math.sin(mp.t) + 1) / 2;
             mp.x = mp.startX + (mp.endX - mp.startX) * factor;
@@ -8858,10 +9553,11 @@ class Game {
 
         // ⚡ LASER GATES (Zamanlamalı Lazer Kapıları)
         if (this.laserGates && this.player) {
+            const effTick = Math.floor(this.worldEffectTick || this.levelTick || 0);
             for (const lg of this.laserGates) {
                 const period = lg.period || 110;
                 const onDur = lg.onDuration || 55;
-                const cycle = (this.levelTick + (lg.phase || 0)) % period;
+                const cycle = (effTick + (lg.phase || 0)) % period;
                 lg.active = cycle < onDur;
                 lg.warning = !lg.active && cycle > period - 24;
                 if (lg.active && this.player.intersects(lg)) {
@@ -9084,7 +9780,7 @@ class Game {
         }
 
         if (!isRidingSubElevator && !this.inSubChamber) {
-            if (this.player.y > 780) {
+            if (this.player.y > 780 || this.player.y < -180) {
                 this.handlePlayerDeath("fall");
                 return;
             }
@@ -9376,6 +10072,8 @@ class Game {
             }
         }
 
+        if (this.updateAct2Mechanics()) return;
+
         for (let i = this.fireballs.length - 1; i >= 0; i--) {
             const fb = this.fireballs[i];
             fb.update(this.solids, this);
@@ -9400,20 +10098,7 @@ class Game {
                         fb.y - fb.r < en.y + en.h
                     ) {
                         fb.dead = true;
-                        en.hp--;
-                        en.hurtFlash = 8;
-                        if (en.hp <= 0) {
-                            en.dead = true;
-                            window.sfx.stomp();
-                            this.score += 200;
-                            this.spawnParticles(en.x + en.w / 2, en.y + en.h / 2, 16, "#ff7b00", 4);
-                            this.floatingTexts.push(new window.FloatingText(en.x + 16, en.y, "+200", "#ff7b00"));
-                            if (en.isSubMissionEnemy) {
-                                this.recordSubMissionProgress(en.x + en.w / 2, en.y);
-                            }
-                        } else {
-                            window.sfx.blockHit();
-                        }
+                        this.damageEnemy(en, 1, fb.x, true);
                         break;
                     }
                 }
@@ -9446,24 +10131,13 @@ class Game {
                 const playerBottom = this.player.y + this.player.h;
                 const enemyTop = en.y + 20;
 
-                if (this.player.vy > 0 && playerBottom - this.player.vy <= enemyTop) {
+                if (this.player.dashTimer > 0) {
+                    this.damageEnemy(en, 1, this.player.x + this.player.w / 2, false);
+                } else if (this.player.vy > 0 && playerBottom - this.player.vy <= enemyTop) {
                     this.player.vy = -14.8;
                     this.player.jumpsLeft = this.player.maxJumps;
-                    en.hp--;
-                    en.hurtFlash = 8;
-                    window.sfx.stomp();
+                    this.damageEnemy(en, 1, this.player.x + this.player.w / 2, false);
                     this.spawnParticles(en.x + en.w / 2, en.y, 10, "#b537f2", 4);
-
-                    if (en.hp <= 0) {
-                        en.dead = true;
-                        this.score += 150;
-                        this.floatingTexts.push(new window.FloatingText(en.x + 16, en.y, "EZİLDİ! +150", "#00f2fe"));
-                        if (en.isSubMissionEnemy) {
-                            this.recordSubMissionProgress(en.x + en.w / 2, en.y);
-                        }
-                    } else {
-                        this.floatingTexts.push(new window.FloatingText(en.x + 16, en.y, "ZIRH KIRILDI!", "#ffd166"));
-                    }
                 } else {
                     this.player.takeDamage(this);
                 }
@@ -9548,6 +10222,14 @@ class Game {
                             missing_gc: quotaState.missingGold
                         });
                     }
+                } else if ((this.portal.requiredKeys || 0) > 0 && (this.collectedSealKeys || 0) < this.portal.requiredKeys) {
+                    if (this.player.vx > 0) this.player.vx = -2.2;
+                    if (!this._lastPortalLockSfxTick || (this.levelTick - this._lastPortalLockSfxTick) > 55) {
+                        this._lastPortalLockSfxTick = this.levelTick;
+                        window.sfx.blockHit();
+                        this.spawnParticles(this.portal.x + 28, this.portal.y + 43, 14, "#ffd166", 3.6);
+                        this.floatingTexts.push(new window.FloatingText(this.portal.x, this.portal.y - 14, `🔑 MÜHÜR EKSİK! (${this.collectedSealKeys || 0}/${this.portal.requiredKeys})`, "#ffd166"));
+                    }
                 } else {
                     this.triggerVictory();
                     return;
@@ -9616,9 +10298,17 @@ class Game {
             ["#081326", "#11284c", "#1d3d70", "rgba(76, 201, 240, 0.38)"],  // Bölge 9: Gökyüzü
             ["#160419", "#2b0830", "#480ca8", "rgba(247, 37, 133, 0.40)"]   // Bölge 10: İmparatorluk
         ];
+        const act2Palettes = [
+            ["#031824", "#062c3f", "#09425a", "rgba(0, 242, 254, 0.40)"],   // Dünya 11: Atlantis
+            ["#071b0e", "#102f1b", "#1c1238", "rgba(56, 176, 0, 0.38)"],   // Dünya 12: Biyo-Orman
+            ["#1a1204", "#2e2008", "#47300d", "rgba(255, 209, 102, 0.38)"], // Dünya 13: Saat Kulesi
+            ["#081809", "#123015", "#1c4518", "rgba(128, 237, 153, 0.38)"], // Dünya 14: Asit Rafinerisi
+            ["#100720", "#221042", "#311859", "rgba(224, 170, 255, 0.40)"]  // Dünya 15: Ayna Katedrali
+        ];
+        const act2WorldIdx = Math.min(4, Math.max(0, Math.floor((this.selectedAct2Level || 0) / 10)));
         const pal = this.isTrollMode
             ? ["#1c0414", "#2d0722", "#470a32", "rgba(255, 42, 133, 0.42)"]
-            : (worldPalettes[worldIdx] || worldPalettes[0]);
+            : (this.isAct2Mode ? (act2Palettes[act2WorldIdx] || act2Palettes[0]) : (worldPalettes[worldIdx] || worldPalettes[0]));
 
         const grad = ctx.createLinearGradient(0, 0, 0, h);
         grad.addColorStop(0, pal[0]);
@@ -10629,6 +11319,8 @@ class Game {
             ctx.restore();
         }
 
+        this.drawAct2BeforePlayer(ctx, viewMinX, viewMaxX);
+
         // 🛗 Draw Cyber-Elevator Shafts & Cabins (Hareketli Asansör Kabinleri & Ray Şaftları)
         this.drawSubChamberPipes(ctx, viewMinX, viewMaxX, alpha);
 
@@ -11115,12 +11807,350 @@ class Game {
             this.player.y = origY;
         }
         this.drawSubChamberElevatorFrontOverlay(ctx, viewMinX, viewMaxX, alpha);
+        this.drawAct2AfterPlayer(ctx, renderCamX, renderCamY, viewMinX, viewMaxX);
         for (const pt of this.particles) pt.draw(ctx);
         for (const ft of this.floatingTexts) ft.draw(ctx);
         this.drawPortalQuotaBalloon(ctx);
         this.drawLevel1TutorialBalloon(ctx, viewMinX, viewMaxX);
 
         ctx.restore();
+    }
+
+    updateAct2Mechanics() {
+        if (!this.player) return false;
+        const ts = (this.timeSlowTimer > 0) ? 0.45 : 1.0;
+        const pcx = this.player.x + this.player.w / 2;
+        const pcy = this.player.y + this.player.h / 2;
+
+        if (this.chaseWall && (!this.boss || !this.boss.dead)) {
+            this.chaseWall.x += (this.chaseWall.speed || 2.1) * ts;
+            if (this.player.x < this.chaseWall.x + 14) {
+                this.handlePlayerDeath("chase_wall");
+                return true;
+            }
+        }
+        if (this.risingHazard && (!this.boss || !this.boss.dead)) {
+            this.risingHazard.y = Math.max(this.risingHazard.minY || 260, this.risingHazard.y - (this.risingHazard.speed || 0.25) * ts);
+            if (this.player.y + this.player.h > this.risingHazard.y + 10) {
+                this.handlePlayerDeath("rising_hazard");
+                return true;
+            }
+        }
+        if (Array.isArray(this.bubbleStations)) {
+            for (const bs of this.bubbleStations) {
+                if (bs.cooldown > 0) bs.cooldown--;
+                if (bs.cooldown <= 0 && Math.hypot(pcx - bs.x, pcy - bs.y) < (bs.r || 22) + 22) {
+                    bs.cooldown = 75;
+                    this.player.jumpsLeft = this.player.maxJumps;
+                    this.player.vy = Math.min(this.player.vy, -8.5);
+                    window.sfx.coin();
+                    this.spawnParticles(bs.x, bs.y, 14, "#00f2fe", 4);
+                    this.floatingTexts.push(new window.FloatingText(bs.x, bs.y - 16, "🫧 HAVA KABARCIĞI!", "#00f2fe"));
+                }
+            }
+        }
+        if (Array.isArray(this.sporeClouds)) {
+            const effTick = Math.floor(this.worldEffectTick || this.levelTick || 0);
+            for (const sc of this.sporeClouds) {
+                const cyc = (effTick + (sc.phase || 0)) % (sc.period || 210);
+                sc.active = cyc < (sc.activeLen || 95);
+                if (sc.active && this.player.dashTimer <= 0 && this.player.intersects(sc)) {
+                    this.player.takeDamage(this);
+                }
+            }
+        }
+        if (Array.isArray(this.shieldPads)) {
+            for (const sp of this.shieldPads) {
+                if (sp.cooldown > 0) sp.cooldown--;
+                if (sp.cooldown <= 0 && this.player.intersects(sp)) {
+                    sp.cooldown = 180;
+                    this.player.hasShield = true;
+                    window.sfx.powerUpCollect();
+                    this.spawnParticles(sp.x + sp.w / 2, sp.y, 16, "#06d6a0", 4);
+                    this.floatingTexts.push(new window.FloatingText(sp.x + sp.w / 2, sp.y - 16, "🛡 ENERJİ KALKANI!", "#06d6a0"));
+                }
+            }
+        }
+        if (Array.isArray(this.sealKeys)) {
+            for (const sk of this.sealKeys) {
+                if (sk.collected) continue;
+                if (Math.hypot(pcx - sk.x, pcy - sk.y) < 34) {
+                    sk.collected = true;
+                    this.collectedSealKeys = (this.collectedSealKeys || 0) + 1;
+                    window.sfx.emerald();
+                    this.spawnParticles(sk.x, sk.y, 18, "#ffd166", 4.5);
+                    const req = (this.portal && this.portal.requiredKeys) || this.sealKeys.length || 3;
+                    this.floatingTexts.push(new window.FloatingText(sk.x, sk.y - 14, `🔑 MÜHÜR (${this.collectedSealKeys}/${req})`, "#ffd166"));
+                    this.updateHUD();
+                }
+            }
+        }
+        if (Array.isArray(this.relicChests)) {
+            for (const rc of this.relicChests) {
+                if (rc.opened) continue;
+                if (Math.hypot(pcx - rc.x, pcy - rc.y) < 42) {
+                    rc.opened = true;
+                    if (!this.act2RelicsOpened) this.act2RelicsOpened = {};
+                    this.act2RelicsOpened[rc.chestId] = true;
+                    if (rc.cosmeticId && Array.isArray(this.ownedItems) && !this.ownedItems.includes(rc.cosmeticId)) {
+                        this.ownedItems.push(rc.cosmeticId);
+                    }
+                    this.addGoldCoins(250, true);
+                    this.addEmeralds(40, true);
+                    this.score += 1500;
+                    if (window.sfx && typeof window.sfx.chestOpen === "function") window.sfx.chestOpen();
+                    else window.sfx.victory();
+                    this.spawnParticles(rc.x, rc.y, 28, "#ffd166", 5.5);
+                    this.floatingTexts.push(new window.FloatingText(rc.x, rc.y - 24, `💎 YADİGAR SANDIĞI: ${rc.rewardName || "+250 ✪ +40 ❖"}`, "#ffd166"));
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent("relic_chest_opened", {
+                            chest_id: rc.chestId || "",
+                            cosmetic_id: rc.cosmeticId || ""
+                        });
+                    }
+                    this.saveProgress(true);
+                }
+            }
+        }
+        if (this.isAbilityUnlocked("companionDrone")) {
+            if ((this.droneTargetTimer || 0) > 0) this.droneTargetTimer--;
+            if (this.droneZapPos && this.droneZapPos.life > 0) this.droneZapPos.life--;
+            else this.droneZapPos = null;
+            const droneX = pcx - this.player.facing * 32;
+            const droneY = this.player.y - 14 + Math.sin(this.levelTick * 0.1) * 6;
+            if ((this.droneTargetTimer || 0) <= 0 && Array.isArray(this.enemies)) {
+                let nearest = null;
+                let bestD = 235;
+                for (const en of this.enemies) {
+                    if (en.dead) continue;
+                    const d = Math.hypot((en.x + en.w / 2) - droneX, (en.y + en.h / 2) - droneY);
+                    if (d < bestD) {
+                        bestD = d;
+                        nearest = en;
+                    }
+                }
+                if (nearest) {
+                    this.droneTargetTimer = 78;
+                    this.droneZapPos = {
+                        x1: droneX, y1: droneY,
+                        x2: nearest.x + nearest.w / 2, y2: nearest.y + nearest.h / 2,
+                        life: 10
+                    };
+                    if (window.sfx && typeof window.sfx.droneZap === "function") window.sfx.droneZap();
+                    this.damageEnemy(nearest, 1, droneX, false);
+                }
+            }
+            if (this.levelTick % 45 === 0 && Array.isArray(this.relicChests)) {
+                const hiddenChest = this.relicChests.find((rc) => !rc.opened && Math.hypot(rc.x - pcx, rc.y - pcy) < 650);
+                if (hiddenChest) {
+                    const ang = Math.atan2(hiddenChest.y - droneY, hiddenChest.x - droneX);
+                    this.spawnParticles(droneX + Math.cos(ang) * 24, droneY + Math.sin(ang) * 24, 3, "#ffd166", 2.2);
+                }
+            }
+        }
+        return false;
+    }
+
+    drawAct2BeforePlayer(ctx, viewMinX, viewMaxX) {
+        const tNow = performance.now() * 0.005;
+        for (const rz of (this.reverseGravityZones || [])) {
+            if (rz.x + rz.w < viewMinX || rz.x > viewMaxX) continue;
+            ctx.save();
+            ctx.fillStyle = "rgba(168, 85, 247, 0.14)";
+            ctx.strokeStyle = "rgba(216, 180, 254, 0.55)";
+            ctx.setLineDash([8, 6]);
+            ctx.lineWidth = 2;
+            ctx.fillRect(rz.x, rz.y, rz.w, rz.h);
+            ctx.strokeRect(rz.x, rz.y, rz.w, rz.h);
+            ctx.fillStyle = "rgba(233, 213, 255, 0.72)";
+            ctx.font = "bold 12px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("🙃 TERS YERÇEKİMİ ▲▲", rz.x + rz.w / 2, rz.y + 22);
+            ctx.restore();
+        }
+        for (const pb of (this.phaseBlocks || [])) {
+            if (pb.x + pb.w < viewMinX || pb.x > viewMaxX) continue;
+            const active = pb.phaseGroup === (this.phaseBlockState || 0);
+            const col = pb.phaseGroup === 0 ? "#00f2fe" : "#ff2a85";
+            ctx.save();
+            ctx.globalAlpha = active ? 0.95 : 0.22;
+            ctx.fillStyle = active ? (pb.phaseGroup === 0 ? "#083344" : "#3b0724") : "transparent";
+            ctx.strokeStyle = col;
+            ctx.lineWidth = 2.5;
+            if (!active) ctx.setLineDash([6, 6]);
+            ctx.beginPath();
+            ctx.roundRect(pb.x, pb.y, pb.w, pb.h, 6);
+            if (active) ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        }
+        for (const cb of (this.crackedBlocks || [])) {
+            if (cb.broken || cb.x + cb.w < viewMinX || cb.x > viewMaxX) continue;
+            ctx.save();
+            ctx.fillStyle = "#3b2314";
+            ctx.strokeStyle = "#ffd166";
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.roundRect(cb.x, cb.y, cb.w, cb.h, 5);
+            ctx.fill();
+            ctx.stroke();
+            ctx.strokeStyle = "#f97316";
+            ctx.beginPath();
+            ctx.moveTo(cb.x + 12, cb.y + 4);
+            ctx.lineTo(cb.x + cb.w * 0.45, cb.y + cb.h * 0.6);
+            ctx.lineTo(cb.x + cb.w - 14, cb.y + cb.h - 4);
+            ctx.stroke();
+            ctx.fillStyle = "#ffd166";
+            ctx.font = "bold 13px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("💥", cb.x + cb.w / 2, cb.y + cb.h * 0.65);
+            ctx.restore();
+        }
+        for (const bs of (this.bubbleStations || [])) {
+            if (bs.x + 40 < viewMinX || bs.x - 40 > viewMaxX) continue;
+            ctx.save();
+            ctx.strokeStyle = "#00f2fe";
+            ctx.fillStyle = "rgba(0, 242, 254, 0.22)";
+            ctx.lineWidth = 2;
+            const pulse = Math.sin(tNow * 1.4) * 3;
+            ctx.beginPath();
+            ctx.arc(bs.x, bs.y + Math.sin(tNow) * 4, (bs.r || 22) + pulse, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.font = "16px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("🫧", bs.x, bs.y + 6);
+            ctx.restore();
+        }
+        for (const sc of (this.sporeClouds || [])) {
+            if (sc.x + sc.w < viewMinX || sc.x > viewMaxX) continue;
+            ctx.save();
+            ctx.fillStyle = sc.active ? "rgba(56, 176, 0, 0.34)" : "rgba(199, 125, 255, 0.12)";
+            ctx.strokeStyle = sc.active ? "#80ed99" : "rgba(199, 125, 255, 0.35)";
+            ctx.lineWidth = 2;
+            ctx.fillRect(sc.x, sc.y, sc.w, sc.h);
+            ctx.strokeRect(sc.x, sc.y, sc.w, sc.h);
+            ctx.font = "bold 13px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillStyle = sc.active ? "#d8f3dc" : "#e9d5ff";
+            ctx.fillText(sc.active ? "🍄 ZEHİRLİ SPOR!" : "🍄 ...", sc.x + sc.w / 2, sc.y + 20);
+            ctx.restore();
+        }
+        for (const sp of (this.shieldPads || [])) {
+            if (sp.x + sp.w < viewMinX || sp.x > viewMaxX) continue;
+            ctx.save();
+            ctx.fillStyle = sp.cooldown > 0 ? "#1e293b" : "#06d6a0";
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 2;
+            ctx.fillRect(sp.x, sp.y, sp.w, sp.h);
+            ctx.strokeRect(sp.x, sp.y, sp.w, sp.h);
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "bold 12px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("🛡", sp.x + sp.w / 2, sp.y - 6);
+            ctx.restore();
+        }
+        for (const sk of (this.sealKeys || [])) {
+            if (sk.collected || sk.x + 30 < viewMinX || sk.x - 30 > viewMaxX) continue;
+            ctx.save();
+            const by = sk.y + Math.sin(tNow * 1.6) * 5;
+            ctx.shadowColor = "#ffd166";
+            ctx.shadowBlur = 12;
+            ctx.font = "22px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("🔑", sk.x, by + 6);
+            ctx.restore();
+        }
+        for (const rc of (this.relicChests || [])) {
+            if (rc.x + 50 < viewMinX || rc.x - 50 > viewMaxX) continue;
+            ctx.save();
+            ctx.fillStyle = rc.opened ? "#334155" : "#92400e";
+            ctx.strokeStyle = rc.opened ? "#94a3b8" : "#ffd166";
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.roundRect(rc.x - 20, rc.y - 16, 40, 28, 5);
+            ctx.fill();
+            ctx.stroke();
+            ctx.font = "16px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(rc.opened ? "✓" : "💎", rc.x, rc.y + 3);
+            ctx.restore();
+        }
+    }
+
+    drawAct2AfterPlayer(ctx, renderCamX, renderCamY, viewMinX, viewMaxX) {
+        if (this.player && this.isAbilityUnlocked("companionDrone")) {
+            const pcx = this.player.x + this.player.w / 2;
+            const droneX = pcx - this.player.facing * 32;
+            const droneY = this.player.y - 14 + Math.sin(this.levelTick * 0.1) * 6;
+            ctx.save();
+            ctx.fillStyle = "#0f172a";
+            ctx.strokeStyle = "#00f2fe";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(droneX, droneY, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.fillStyle = "#ffd166";
+            ctx.beginPath();
+            ctx.arc(droneX + this.player.facing * 4, droneY, 3.5, 0, Math.PI * 2);
+            ctx.fill();
+            if (this.droneZapPos && this.droneZapPos.life > 0) {
+                ctx.strokeStyle = "#00f2fe";
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(this.droneZapPos.x1, this.droneZapPos.y1);
+                ctx.lineTo(this.droneZapPos.x2, this.droneZapPos.y2);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+        if (this.chaseWall && (!this.boss || !this.boss.dead)) {
+            ctx.save();
+            const cw = this.chaseWall;
+            const wGrad = ctx.createLinearGradient(cw.x - 180, 0, cw.x + 24, 0);
+            wGrad.addColorStop(0, "rgba(255, 0, 85, 0.85)");
+            wGrad.addColorStop(0.85, "rgba(255, 42, 133, 0.55)");
+            wGrad.addColorStop(1, "rgba(255, 209, 102, 0.95)");
+            ctx.fillStyle = wGrad;
+            ctx.fillRect(cw.x - 420, -200, 440, 1100);
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(cw.x + 18, -200);
+            ctx.lineTo(cw.x + 18, 900);
+            ctx.stroke();
+            ctx.restore();
+        }
+        if (this.risingHazard && (!this.boss || !this.boss.dead)) {
+            ctx.save();
+            const rh = this.risingHazard;
+            const col = rh.type === "acid" ? "rgba(56, 176, 0, 0.65)" : (rh.type === "electric" ? "rgba(0, 242, 254, 0.62)" : "rgba(255, 84, 0, 0.68)");
+            ctx.fillStyle = col;
+            ctx.fillRect(renderCamX - 100, rh.y, this.canvas.width + 200, 900);
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(renderCamX - 100, rh.y, this.canvas.width + 200, 4);
+            ctx.restore();
+        }
+        if (this.levelInfo && this.levelInfo.darkMode && this.player) {
+            ctx.save();
+            const lx = this.player.x + this.player.w / 2;
+            const ly = this.player.y + this.player.h / 2;
+            const darkGrad = ctx.createRadialGradient(lx, ly, 95, lx, ly, 310);
+            darkGrad.addColorStop(0, "rgba(0, 0, 0, 0)");
+            darkGrad.addColorStop(0.55, "rgba(3, 5, 16, 0.62)");
+            darkGrad.addColorStop(1, "rgba(2, 4, 14, 0.95)");
+            ctx.fillStyle = darkGrad;
+            ctx.fillRect(renderCamX - 100, renderCamY - 200, this.canvas.width + 200, this.canvas.height + 400);
+            ctx.restore();
+        }
+        if ((this.timeSlowTimer || 0) > 0) {
+            ctx.save();
+            ctx.strokeStyle = "rgba(0, 242, 254, 0.5)";
+            ctx.lineWidth = 10;
+            ctx.strokeRect(renderCamX + 4, renderCamY + 4, this.canvas.width - 8, this.canvas.height - 8);
+            ctx.restore();
+        }
     }
 
     drawPortalQuotaBalloon(ctx) {
