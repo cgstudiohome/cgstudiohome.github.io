@@ -1928,6 +1928,21 @@ class Game {
         this.vipDailySalaryDate = typeof data.vipDailySalaryDate === "string" ? data.vipDailySalaryDate : "";
         this.lifetimeBonusClaimed = Boolean(data.lifetimeBonusClaimed);
         this.savedCheckpoint = (data.savedCheckpoint && typeof data.savedCheckpoint === "object") ? data.savedCheckpoint : null;
+        this.syncAnalyticsUserProperties();
+    }
+
+    syncAnalyticsUserProperties() {
+        if (!window.MarinextAnalytics || typeof window.MarinextAnalytics.setUserProperties !== "function") return;
+        const ent = this.billingEntitlements || {};
+        const vipTier = ent.vipPassActive
+            ? (ent.activeBasePlanId || "vip_pass")
+            : (ent.removeAdsLifetime ? "lifetime" : "free");
+        window.MarinextAnalytics.setUserProperties({
+            max_unlocked_level: String(this.unlockedLevels || 1),
+            max_troll_level: String(this.unlockedTrollLevels || 1),
+            active_hero: String(this.equippedHeroChar || "default"),
+            vip_tier: String(vipTier)
+        });
     }
 
     mergeCloudSaveObjects(a, b) {
@@ -2216,7 +2231,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 49;
+        const CURRENT_VERSION_CODE = 50;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2352,7 +2367,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "49");
+                localStorage.setItem("marinext2100_last_seen_version", "50");
             } catch (e) {}
         };
 
@@ -2381,7 +2396,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "49") {
+            if (hasConsent && lastSeenVer !== "50") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -3878,7 +3893,7 @@ class Game {
                 window.sfx.powerUpSpawn();
                 try {
                     localStorage.setItem("marinext_privacy_consent_v1", String(Date.now()));
-                    localStorage.setItem("marinext2100_last_seen_version", "49");
+                    localStorage.setItem("marinext2100_last_seen_version", "50");
                 } catch (e) {}
                 const fcModal = document.getElementById("screen-first-consent");
                 if (fcModal) fcModal.classList.add("hidden");
@@ -5300,6 +5315,13 @@ class Game {
                     this.walletEmeralds -= item.cost;
                     this.ownedItems.push(item.id);
                     window.sfx.emerald();
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent("customize_purchased", {
+                            item_id: item.id,
+                            category: item.category || "customize",
+                            cost: Number(item.cost) || 0
+                        });
+                    }
                 } else {
                     window.sfx.coin();
                 }
@@ -5310,6 +5332,13 @@ class Game {
                 if (item.category === "visor") this.equippedVisor = item.value;
                 if (item.category === "aura") this.equippedAura = item.value;
                 if (item.category === "cape") this.equippedCape = item.value;
+
+                if (window.MarinextAnalytics) {
+                    window.MarinextAnalytics.logEvent("customize_equipped", {
+                        item_id: item.id,
+                        category: item.category || "customize"
+                    });
+                }
 
                 if (this.previewDummy) {
                     this.previewDummy.heroCharId = this.equippedHeroChar || "default";
@@ -5582,11 +5611,23 @@ class Game {
                         this.ownedCharacters.push(item.id);
                     }
                     window.sfx.buy();
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent("hero_unlocked", {
+                            hero_id: item.id,
+                            cost: Number(item.cost) || 0
+                        });
+                    }
                 } else {
                     window.sfx.coin();
                 }
 
                 this.equippedHeroChar = item.id;
+                if (window.MarinextAnalytics) {
+                    window.MarinextAnalytics.logEvent("hero_selected", {
+                        hero_id: item.id
+                    });
+                }
+                this.syncAnalyticsUserProperties();
                 if (this.charPreviewDummy) {
                     this.charPreviewDummy.heroCharId = item.id;
                 }
@@ -5755,6 +5796,14 @@ class Game {
             this.walletCoins -= item.cost;
             this.ownedItems.push(item.id);
             window.sfx.buy();
+            if (window.MarinextAnalytics) {
+                window.MarinextAnalytics.logEvent("upgrade_purchased", {
+                    item_id: item.id,
+                    category: "upgrade",
+                    tier: isVipActive ? "mk2_vip" : "lv1",
+                    cost: Number(item.cost) || 0
+                });
+            }
             this.saveProgress();
             if (typeof onRefresh === "function") onRefresh();
         });
@@ -5833,6 +5882,8 @@ class Game {
         this.clearAdPauseState();
         this.resizeCanvas();
         this.isTrollMode = Boolean(isTroll);
+        this._lastFailReason = "hazard_or_enemy";
+        this._levelAttemptStartMs = Date.now();
         if (window.MarinextAnalytics) {
             window.MarinextAnalytics.logEvent('level_start', {
                 level: levelIdx + 1,
@@ -6401,7 +6452,10 @@ class Game {
         this.updateHUD();
     }
 
-    handlePlayerDeath() {
+    handlePlayerDeath(reason = null) {
+        if (reason) {
+            this._lastFailReason = reason;
+        }
         this.resetInputs();
         if (this.subChamber) {
             this.subChamber.rideState = "idle";
@@ -6501,6 +6555,16 @@ class Game {
     showMapScreen() {
         this.clearAdPauseState();
         this.resetInputs();
+        if (this.state === "paused" || this.state === "playing") {
+            if (window.MarinextAnalytics) {
+                window.MarinextAnalytics.logEvent("level_abandon", {
+                    level: (this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel) + 1,
+                    is_troll: this.isTrollMode,
+                    elapsed_sec: Math.max(0, Math.round((Date.now() - (this._levelAttemptStartMs || Date.now())) / 1000)),
+                    fail_count: this.levelFailStreak || 0
+                });
+            }
+        }
         this.state = "map";
         window.sfx.stopBGM();
         document.getElementById("hud").classList.add("hidden");
@@ -6566,18 +6630,20 @@ class Game {
         this.clearAdPauseState();
         this.resetInputs();
         this.state = "gameover";
+        const failKey = `${this.isTrollMode ? "t" : "c"}_${this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel}`;
+        this.levelFailStreak = (this.levelFailStreakKey === failKey) ? (this.levelFailStreak + 1) : 1;
+        this.levelFailStreakKey = failKey;
         if (window.MarinextAnalytics) {
             window.MarinextAnalytics.logEvent('level_fail', {
                 level: (this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel) + 1,
                 is_troll: this.isTrollMode,
-                score: this.score || 0
+                score: this.score || 0,
+                fail_reason: this._lastFailReason || "hazard_or_enemy",
+                fail_count: this.levelFailStreak
             });
         }
         window.sfx.hurt();
         const d = LANG_DICT[this.lang] || LANG_DICT.tr;
-        const failKey = `${this.isTrollMode ? "t" : "c"}_${this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel}`;
-        this.levelFailStreak = (this.levelFailStreakKey === failKey) ? (this.levelFailStreak + 1) : 1;
-        this.levelFailStreakKey = failKey;
 
         const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
         const modal = document.getElementById("screen-modal");
@@ -6791,6 +6857,7 @@ class Game {
         this.savedCheckpoint = null;
         this.activeCheckpoint = null;
         this.syncMilestoneCustomizationUnlocks();
+        this.syncAnalyticsUserProperties();
         this.saveProgress(true);
         this.syncLeaderboardToPlayGames();
 
@@ -7254,8 +7321,8 @@ class Game {
         const stars = this.feedbackStars || 5;
         const cat = this.feedbackCategory || "Öneri & Yeni Fikir";
 
-        let appVerName = "1.4.13";
-        let appVerCode = 49;
+        let appVerName = "1.4.14";
+        let appVerCode = 50;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
                 const info = JSON.parse(window.MarinextCloudBridge.getAppVersionInfo());
@@ -8512,9 +8579,10 @@ class Game {
         this.updateHUD();
         if (this.player.hp <= 0) {
             if (delayDeath && !this.activeCheckpoint) {
+                this._lastFailReason = "troll_trap";
                 this.pendingTrollDeathTimer = Math.max(this.pendingTrollDeathTimer, 42);
             } else {
-                this.handlePlayerDeath();
+                this.handlePlayerDeath("troll_trap");
             }
         }
     }
@@ -8951,7 +9019,7 @@ class Game {
         if (this.pendingTrollDeathTimer > 0) {
             this.pendingTrollDeathTimer--;
             if (this.pendingTrollDeathTimer <= 0) {
-                this.handlePlayerDeath();
+                this.handlePlayerDeath("troll_trap");
                 return;
             }
         }
@@ -9017,7 +9085,7 @@ class Game {
 
         if (!isRidingSubElevator && !this.inSubChamber) {
             if (this.player.y > 780) {
-                this.handlePlayerDeath();
+                this.handlePlayerDeath("fall");
                 return;
             }
         } else if (!isRidingSubElevator && this.subChamber && this.player.y > this.subChamber.y + this.subChamber.h + 60) {
@@ -11382,6 +11450,7 @@ class Game {
                 this.checkAndGrantEntitlementBonuses();
                 this.enforceVipEquipmentAccess();
                 this.updateVipEntryButtonsUI();
+                this.syncAnalyticsUserProperties();
                 const vipScreen = document.getElementById("screen-vip-store");
                 if (vipScreen && !vipScreen.classList.contains("hidden")) {
                     this.renderVipStoreUI();
@@ -11450,9 +11519,11 @@ class Game {
                     this.showQuickToast(bt("toastPurchaseSuccess") || "🎉 İşlem tamamlandı! Ayrıcalıkların hesabına tanımlandı.", "#06d6a0");
                     if (window.MarinextAnalytics) {
                         window.MarinextAnalytics.logEvent("purchase_completed", {
-                            product_id: this.billingEntitlements.activeProductId || "vip_or_lifetime"
+                            product_id: this.billingEntitlements.activeProductId || "vip_or_lifetime",
+                            base_plan: this.billingEntitlements.activeBasePlanId || (this.billingEntitlements.removeAdsLifetime ? "lifetime" : "unknown")
                         });
                     }
+                    this.syncAnalyticsUserProperties();
                 } else if (res.status === "pending") {
                     this.showQuickToast(bt("toastPurchasePending") || "⏳ Ödeme Google Play tarafından onaylanıyor.", "#ffd166");
                 } else if (res.status === "canceled") {
