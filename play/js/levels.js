@@ -194,7 +194,7 @@ const EXTRA_30_LEVELS = [
     { id: 86, world: "BÖLGE 9: FETİH BURÇLARI", shortName: "Sancak Kulesi", name: "Bölüm 87: Ulubatlı Sancak Kulesi", desc: "Yüksek duvar zıplama kuleleri ve 💨 hava akımlarıyla sancağı en tepeye taşı!", themeColor: "#d97706", isBossLevel: false },
     { id: 87, world: "BÖLGE 9: FETİH BURÇLARI", shortName: "Yeraltı Tüneli", name: "Bölüm 88: Surlar Altı Lağım Tüneli", desc: "Tavandan düşen sarkıtlar, ⚡ lazer tuzakları ve karanlık mahzen golemleri!", themeColor: "#f59e0b", isBossLevel: false },
     { id: 88, world: "BÖLGE 9: FETİH BURÇLARI", shortName: "Zafer Meydanı", name: "Bölüm 89: Büyük Zafer Meydanı", desc: "Bölge finali öncesi son sınav! Portallar, hız bantları ve elit muhafız ordusu.", themeColor: "#d97706", isBossLevel: false },
-    { id: 89, world: "BÖLGE 9: BOSS 19", shortName: "Demir الدوق ☠", name: "Bölüm 90: İmparatorluk Demir Titanı (Boss 19)", desc: "9. Bölge Boss Savaşı (46 Can): Büyük sur arenasında Demir Titan'ı dize getir!", themeColor: "#ff2a85", isBossLevel: true },
+    { id: 89, world: "BÖLGE 9: BOSS 19", shortName: "Demir Titan ☠", name: "Bölüm 90: İmparatorluk Demir Titanı (Boss 19)", desc: "9. Bölge Boss Savaşı (46 Can): Büyük sur arenasında Demir Titan'ı dize getir!", themeColor: "#ff2a85", isBossLevel: true },
 
     // =========================================================================
     // BÖLGE 10 (BÖLÜM 91-100): GALAKTİK OMEGA ÇEKİRDEĞİ (BÜYÜK 100. BÖLÜM FİNALİ)
