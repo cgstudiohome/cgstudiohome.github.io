@@ -2196,7 +2196,52 @@
         return String(str).replace(/\{(\w+)\}/g, (_, k) => (normVars[k] !== undefined ? normVars[k] : ""));
     }
 
+    const ACT2_UI_TEXTS = {
+        act2BtnLocked: { tr: "???", en: "???", ko: "???", ja: "???", zh: "???", ru: "???", es: "???", fr: "???", it: "???" },
+        act2BtnUnlocked: { tr: "ÖTE EVREN", en: "BEYONDVERSE", ko: "비욘드버스", ja: "ビヨンドバース", zh: "超维宇宙", ru: "ЗАПРЕДЕЛЬЕ", es: "MÁS ALLÁ", fr: "AU-DELÀ", it: "OLTREMONDO" },
+        act2BtnBackCampaign: { tr: "KAMPANYA 1-100", en: "CAMPAIGN 1-100", ko: "캠페인 1-100", ja: "キャンペーン 1-100", zh: "主线 1-100", ru: "КАМПАНИЯ 1-100", es: "CAMPAÑA 1-100", fr: "CAMPAGNE 1-100", it: "CAMPAGNA 1-100" },
+        act2BtnLockedTitle: { tr: "100. Bölümü Bitir — Sürpriz Öte Evren", en: "Clear Level 100 — Mystery Beyondverse", ko: "100레벨 클리어 — 미지의 비욘드버스", ja: "レベル100クリアで未知のビヨンドバース開放", zh: "通关第100关解锁神秘超维宇宙", ru: "Пройдите 100 уровень — Запределье", es: "Supera el nivel 100 — Mundo Misterioso", fr: "Terminez le niveau 100 — Au-Delà", it: "Completa il livello 100 — Oltremondo" },
+        act2SeasonBadge: { tr: "🌌 ÖTE EVREN • DÜNYA 11–15 (BÖLÜM 101–150)", en: "🌌 BEYONDVERSE • WORLDS 11–15 (LEVELS 101–150)", ko: "🌌 비욘드버스 • 월드 11–15 (101–150레벨)", ja: "🌌 ビヨンドバース • ワールド 11–15 (101–150)", zh: "🌌 超维宇宙 • 世界 11–15 (第101–150关)", ru: "🌌 ЗАПРЕДЕЛЬЕ • МИРЫ 11–15 (101–150)", es: "🌌 MÁS ALLÁ • MUNDOS 11–15 (NIVELES 101–150)", fr: "🌌 AU-DELÀ • MONDES 11–15 (NIVEAUX 101–150)", it: "🌌 OLTREMONDO • MONDI 11–15 (LIVELLI 101–150)" },
+        act2WorldAll: { tr: "🌌 Tümü (101-150)", en: "🌌 All (101-150)", ko: "🌌 전체 (101-150)", ja: "🌌 すべて (101-150)", zh: "🌌 全部 (101-150)", ru: "🌌 Все (101-150)", es: "🌌 Todos (101-150)", fr: "🌌 Tous (101-150)", it: "🌌 Tutti (101-150)" },
+        act2Wave2Soon: { tr: "🔜 151-200 Dalga 2", en: "🔜 151-200 Wave 2", ko: "🔜 151-200 웨이브 2", ja: "🔜 151-200 第2弾", zh: "🔜 151-200 第二波", ru: "🔜 151-200 Волна 2", es: "🔜 151-200 Oleada 2", fr: "🔜 151-200 Vague 2", it: "🔜 151-200 Ondata 2" },
+        act2Wave2Toast: { tr: "🌌 Dünya 16–20 (Bölüm 151–200) Dalga 2 güncellemesiyle geliyor!", en: "🌌 Worlds 16–20 (Levels 151–200) arrive in Wave 2!", ko: "🌌 월드 16–20 (151–200레벨)은 웨이브 2에서 찾아옵니다!", ja: "🌌 ワールド16〜20（151〜200）は第2弾アップデートで登場予定！", zh: "🌌 世界 16–20（第151–200关）将在第二波更新中登场！", ru: "🌌 Миры 16–20 (уровни 151–200) выйдут во 2-й волне!", es: "🌌 ¡Los Mundos 16–20 (151–200) llegan en la Oleada 2!", fr: "🌌 Les Mondes 16–20 (151–200) arrivent dans la Vague 2 !", it: "🌌 I Mondi 16–20 (151–200) arrivano nell'Ondata 2!" },
+        act2ProgressFmt: { tr: "İlerleme: {n} / 100 Bölüm", en: "Progress: {n} / 100 Levels", ko: "진행도: {n} / 100 스테이지", ja: "進行度: {n} / 100 ステージ", zh: "进度：{n} / 100 关", ru: "Прогресс: {n} / 100 уровней", es: "Progreso: {n} / 100 niveles", fr: "Progression : {n} / 100 niveaux", it: "Progresso: {n} / 100 livelli" },
+        act2LockedTitle: { tr: "🔒 GİZEMLİ KAPI: ÖTE EVREN", en: "🔒 MYSTERY GATE: BEYONDVERSE", ko: "🔒 미지의 관문: 비욘드버스", ja: "🔒 謎の扉：ビヨンドバース", zh: "🔒 神秘之门：超维宇宙", ru: "🔒 ТАИНСТВЕННЫЕ ВРАТА", es: "🔒 PUERTA MISTERIOSA: MÁS ALLÁ", fr: "🔒 PORTE MYSTÉRIEUSE : AU-DELÀ", it: "🔒 PORTALE MISTERIOSO" },
+        act2LockedSub: { tr: "100. Bölümü tamamlayıp <strong>Evren Hükümdarı</strong>'nı yendiğinde yepyeni bir boyut kapısı açılacak!", en: "Defeat the <strong>Universe Emperor</strong> on Level 100 to unlock a whole new dimension of worlds & powers!", ko: "100레벨에서 <strong>우주 황제</strong>를 물리치면 새로운 차원의 월드와 특수 능力が 열립니다!", ja: "レベル100の<strong>宇宙皇帝</strong>を倒すと、新次元のワールドと特殊能力が解放されます！", zh: "通关第100关击败<strong>宇宙皇帝</strong>，开启全新次元世界与特殊能力！", ru: "Победите <strong>Повелителя Вселенной</strong> на 100 уровне, чтобы открыть новое измерение!", es: "¡Derrota al <strong>Emperador del Universo</strong> en el nivel 100 para abrir una nueva dimensión!", fr: "Battez l'<strong>Empereur de l'Univers</strong> au niveau 100 pour ouvrir une nouvelle dimension !", it: "Sconfiggi l'<strong>Imperatore dell'Universo</strong> al livello 100 per aprire una nuova dimensione!" },
+        act2LockedCta: { tr: "TAMAM — 100. BÖLÜME KOŞ ▶", en: "GOT IT — RUSH TO LEVEL 100 ▶", ko: "확인 — 100레벨을 향해 ▶", ja: "OK — レベル100を目指そう ▶", zh: "明白 — 冲向第100关 ▶", ru: "ПОНЯТНО — К 100 УРОВНЮ ▶", es: "VALE — ¡A POR EL NIVEL 100 ▶", fr: "COMPRIS — CAP SUR LE NIVEAU 100 ▶", it: "OK — VERSO IL LIVELLO 100 ▶" },
+        act2LockedChipsHtml: {
+            tr: "<span>🌌 50 Yeni Öte Evren Bölümü (Dünya 11–15)</span><span>⚡ Faz Atılması &amp; 💥 Zemin Darbesi</span><span>⏱️ Krono-Fren &amp; 🤖 Siber Mini-Drone Yoldaş</span><span>💎 Efsanevi Yadigar Sandıkları &amp; 5 Yeni Boss</span>",
+            en: "<span>🌌 50 New Beyondverse Stages (Worlds 11–15)</span><span>⚡ Phase Dash &amp; 💥 Ground Slam</span><span>⏱️ Chrono-Brake &amp; 🤖 Mini-Drone Companion</span><span>💎 Secret Relic Chests &amp; 5 New Bosses</span>",
+            ko: "<span>🌌 50개 신세계 스테이지 (월드 11–15)</span><span>⚡ 페이즈 대시 &amp; 💥 그라운드 슬램</span><span>⏱️ 크로노 슬로우 &amp; 🤖 미니 드론 동료</span><span>💎 비밀 유물 상자 &amp; 5대 신규 보스</span>",
+            ja: "<span>🌌 新次元50ステージ (ワールド11–15)</span><span>⚡ フェーズダッシュ &amp; 💥 グラウンドスラム</span><span>⏱️ クロノ減速 &amp; 🤖 ミニドローン相棒</span><span>💎 秘宝チェスト &amp; 5体の新ボス</span>",
+            zh: "<span>🌌 50个超维新关卡 (世界11–15)</span><span>⚡ 相位冲刺 &amp; 💥 重力震地</span><span>⏱️ 时空减速 &amp; 🤖 迷你无人机伙伴</span><span>💎 遗迹宝箱 &amp; 5位全新首领</span>",
+            ru: "<span>🌌 50 новых уровней (Миры 11–15)</span><span>⚡ Фазовый рывок и 💥 Удар о землю</span><span>⏱️ Замедление времени и 🤖 Мини-дрон</span><span>💎 Сундуки реликвий и 5 новых боссов</span>",
+            es: "<span>🌌 50 Nuevos Niveles (Mundos 11–15)</span><span>⚡ Impulso de Fase y 💥 Golpe Sísmico</span><span>⏱️ Freno Temporal y 🤖 Mini-Dron Aliado</span><span>💎 Cofres Reliquia y 5 Nuevos Jefes</span>",
+            fr: "<span>🌌 50 Nouveaux Niveaux (Mondes 11–15)</span><span>⚡ Dash de Phase &amp; 💥 Frappe Sismique</span><span>⏱️ Chrono-Frein &amp; 🤖 Mini-Drone Allié</span><span>💎 Coffres Reliques &amp; 5 Nouveaux Boss</span>",
+            it: "<span>🌌 50 Nuovi Livelli (Mondi 11–15)</span><span>⚡ Scatto Fasico &amp; 💥 Schianto a Terra</span><span>⏱️ Freno Temporale &amp; 🤖 Mini-Drone Alleato</span><span>💎 Scrigni Reliquia &amp; 5 Nuovi Boss</span>"
+        },
+        act2CelTitle: { tr: "🎉 BÜYÜK FİNAL ZAFERİ! EVREN KURTARILDI!", en: "🎉 GRAND VICTORY! UNIVERSE SAVED!", ko: "🎉 대단원의 승리! 우주를 구했습니다!", ja: "🎉 グランドビクトリー！宇宙を救った！", zh: "🎉 终极胜利！拯救了宇宙！", ru: "🎉 ВЕЛИКАЯ ПОБЕДА! ВСЕЛЕННАЯ СПАСЕНА!", es: "🎉 ¡GRAN VICTORIA! ¡UNIVERSO SALVADO!", fr: "🎉 GRANDE VICTOIRE ! UNIVERS SAUVÉ !", it: "🎉 GRANDE VITTORIA! UNIVERSO SALVO!" },
+        act2CelSub: { tr: "100. Bölüm tamamlandı! Evren Hükümdarı'nın hazine mührü kırıldı — <strong>Dalga 1: Öte Evren (Bölüm 101–150)</strong> ve ilk özel yeteneğin açıldı!", en: "Level 100 cleared! The seal is broken — <strong>Wave 1: Beyondverse (Levels 101–150)</strong> and your first special ability are now unlocked!", ko: "100레벨 클리어! 봉인이 풀리며 <strong>웨이브 1: 비욘드버스 (101–150레벨)</strong>와 첫 특수 능력이 개방되었습니다!", ja: "レベル100達成！封印が解かれ、<strong>第1弾ビヨンドバース（101〜150）</strong>と最初の特殊能力が解放！", zh: "第100关通关！封印解除 — <strong>第一波：超维宇宙（第101–150关）</strong>与首个特殊能力已解锁！", ru: "100 уровень пройден! Печать снята — открыто <strong>Запределье (101–150)</strong> и ваша первая спецспособность!", es: "¡Nivel 100 completado! El sello se ha roto: se abren <strong>Mundos 11–15 (101–150)</strong> y tu primera habilidad!", fr: "Niveau 100 terminé ! Le sceau est brisé — <strong>Vague 1 : Au-Delà (101–150)</strong> et votre première capacité sont débloqués !", it: "Livello 100 completato! Sigillo spezzato — sbloccati <strong>Ondata 1: Oltremondo (101–150)</strong> e la prima abilità!" },
+        act2CelRewardsHtml: {
+            tr: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 Coin</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 Zümrüt</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 Kristal</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Faz Atılması Açıldı!</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 Dünya 11–15 (101–150)</div>",
+            en: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 Coins</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 Emeralds</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 Crystals</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Phase Dash Unlocked!</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 Worlds 11–15 (101–150)</div>",
+            ko: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 코인</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 에메랄드</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 크리스탈</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ 페이즈 대시 개방!</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 월드 11–15 (101–150)</div>",
+            ja: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 コイン</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 エメラルド</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 クリスタル</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ フェーズダッシュ解放！</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 ワールド 11–15 (101–150)</div>",
+            zh: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 金币</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 翡翠</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 水晶</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ 相位冲刺已解锁！</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 世界 11–15 (101–150)</div>",
+            ru: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 Монет</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 Изумрудов</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 Кристаллов</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Фазовый рывок!</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 Миры 11–15 (101–150)</div>",
+            es: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 Monedas</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 Esmeraldas</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 Cristales</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ ¡Impulso de Fase!</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 Mundos 11–15 (101–150)</div>",
+            fr: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 Pièces</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 Émeraudes</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 Cristaux</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Dash de Phase !</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 Mondes 11–15 (101–150)</div>",
+            it: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 Monete</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 Smeraldi</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 Cristalli</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Scatto Fasico!</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 Mondi 11–15 (101–150)</div>"
+        },
+        act2CelClaimBtn: { tr: "🎁 SÜRPRİZ HEDİYEYİ AL VE ÖTE EVRENE GİR 🌌", en: "🎁 CLAIM GIFT & ENTER BEYONDVERSE 🌌", ko: "🎁 선물 받고 비욘드버스 입장 🌌", ja: "🎁 報酬を受け取りビヨンドバースへ 🌌", zh: "🎁 领取惊喜礼包并进入超维宇宙 🌌", ru: "🎁 ЗАБРАТЬ ПОДАРОК И ВОЙТИ В ЗАПРЕДЕЛЬЕ 🌌", es: "🎁 RECLAMAR REGALO Y ENTRAR AL MÁS ALLÁ 🌌", fr: "🎁 RÉCLAMER ET ENTRER DANS L'AU-DELÀ 🌌", it: "🎁 RISCUOTI IL REGALO ED ENTRA 🌌" },
+        act2CelStayBtn: { tr: "HARİTADA KAL", en: "STAY ON MAP", ko: "지도에 머무르기", ja: "マップにとどまる", zh: "留在地图", ru: "ОСТАТЬСЯ НА КАРТЕ", es: "QUEDARME EN EL MAPA", fr: "RESTER SUR LA CARTE", it: "RESTA SULLA MAPPA" }
+    };
+
     window.getMarinextUiText = function (lang, key, vars) {
+        if (ACT2_UI_TEXTS[key]) {
+            const rawAct2 = ACT2_UI_TEXTS[key][lang] || ACT2_UI_TEXTS[key].en || ACT2_UI_TEXTS[key].tr;
+            return vars ? formatTemplate(rawAct2, vars) : rawAct2;
+        }
         const dict = getUiDict(lang);
         if (key === "charFilterAll" || key === "charFilterOwned" || key === "charFilterLocked") {
             const baseKey = key === "charFilterAll" ? "charTabAll" : (key === "charFilterOwned" ? "charTabOwned" : "charTabLocked");
@@ -5085,6 +5130,17 @@ window.MARINEXT_TUTORIAL_DATA = {
             setTxt("btn-read-first-privacy", fcData.readBtn);
         }
 
+        // Act II Mystery Gate & Celebration Modals
+        setTxt("act2-locked-title", t("act2LockedTitle"));
+        setHtml("act2-locked-sub", t("act2LockedSub"));
+        setHtml("act2-locked-teasers", t("act2LockedChipsHtml"));
+        setTxt("btn-close-act2-locked", t("act2LockedCta"));
+        setTxt("act2-cel-title", t("act2CelTitle"));
+        setHtml("act2-cel-sub", t("act2CelSub"));
+        setHtml("act2-cel-rewards", t("act2CelRewardsHtml"));
+        setTxt("btn-claim-act2-celebration", t("act2CelClaimBtn"));
+        setTxt("btn-close-act2-celebration", t("act2CelStayBtn"));
+
         // Close X Button Tooltips
         const closeHint = window.translateMarinextGameText("Kapat (ESC)", lang);
         document.querySelectorAll(".modal-close-x").forEach((btn) => {
@@ -6490,8 +6546,65 @@ window.MARINEXT_TUTORIAL_DATA = {
             ko: "Google Play Games 플레이어",
             zh: "Google Play Games 玩家",
             ja: "Google Play Games プレイヤー"
+        },
+        "🛡 ÖN KALKAN!": { en: "🛡 FRONT SHIELD!", ru: "🛡 ЩИТ СПЕРЕДИ!", it: "🛡 SCUDO FRONTALE!", es: "🛡 ¡ESCUDO FRONTAL!", fr: "🛡 BOUCLIER AVANT !", ko: "🛡 전면 방패!", zh: "🛡 正面护盾！", ja: "🛡 前方シールド！" },
+        "💥 ZEMİN KIRILDI!": { en: "💥 FLOOR SHATTERED!", ru: "💥 ПОЛ РАЗРУШЕН!", it: "💥 PAVIMENTO DISTRUTTO!", es: "💥 ¡SUELO DESTRUIDO!", fr: "💥 SOL BRISÉ !", ko: "💥 바닥 파괴!", zh: "💥 地面击碎！", ja: "💥 床を破壊！" },
+        "⏱️ KRONO-FREN AKTİF!": { en: "⏱️ CHRONO-BRAKE ACTIVE!", ru: "⏱️ ЗАМЕДЛЕНИЕ АКТИВНО!", it: "⏱️ FRENO TEMPORALE ATTIVO!", es: "⏱️ ¡FRENO TEMPORAL!", fr: "⏱️ CHRONO-FREIN ACTIF !", ko: "⏱️ 시간 감속 발동!", zh: "⏱️ 时空减速启动！", ja: "⏱️ クロノ減速発動！" },
+        "🫧 HAVA KABARCIĞI!": { en: "🫧 AIR BUBBLE BOOST!", ru: "🫧 ПУЗЫРЬ ВОЗДУХА!", it: "🫧 BOLLA D'ARIA!", es: "🫧 ¡BURBUJA DE AIRE!", fr: "🫧 BULLE D'AIR !", ko: "🫧 공기 방울!", zh: "🫧 气泡充能！", ja: "🫧 気泡チャージ！" },
+        "🛡 ENERJİ KALKANI!": { en: "🛡 ENERGY SHIELD!", ru: "🛡 ЭНЕРГОЩИТ!", it: "🛡 SCUDO ENERGETICO!", es: "🛡 ¡ESCUDO DE ENERGÍA!", fr: "🛡 BOUCLIER ÉNERGIE !", ko: "🛡 에너지 쉴드!", zh: "🛡 能量护盾！", ja: "🛡 エネルギーシールド！" },
+        "🔥 FAZ 2 ÖFKE PATLAMASI!": { en: "🔥 PHASE 2 ENRAGED BURST!", ru: "🔥 ФАЗА 2: ЯРОСТЬ!", it: "🔥 FASE 2 FURIA!", es: "🔥 ¡FASE 2 FURIOSA!", fr: "🔥 PHASE 2 RAGE !", ko: "🔥 페이즈 2 폭주!", zh: "🔥 第2阶段狂暴！", ja: "🔥 フェーズ2 激昂！" },
+        "⚡ NİHAİ FAZ 3!": { en: "⚡ FINAL PHASE 3!", ru: "⚡ ФИНАЛЬНАЯ ФАЗА 3!", it: "⚡ FASE FINALE 3!", es: "⚡ ¡FASE FINAL 3!", fr: "⚡ PHASE FINALE 3 !", ko: "⚡ 최종 페이즈 3!", zh: "⚡ 终极阶段 3！", ja: "⚡ 最終フェーズ3！" },
+        "🙃 TERS YERÇEKİMİ ▲▲": { en: "🙃 REVERSE GRAVITY ▲▲", ru: "🙃 ОБРАТНАЯ ГРАВИТАЦИЯ ▲▲", it: "🙃 GRAVITÀ INVERSA ▲▲", es: "🙃 GRAVEDAD INVERSA ▲▲", fr: "🙃 GRAVITÉ INVERSÉE ▲▲", ko: "🙃 역중력 ▲▲", zh: "🙃 反转重力 ▲▲", ja: "🙃 反転重力 ▲▲" },
+        "🍄 ZEHİRLİ SPOR!": { en: "🍄 TOXIC SPORES!", ru: "🍄 ЯДОВИТЫЕ СПОРЫ!", it: "🍄 SPORE TOSSICHE!", es: "🍄 ¡ESPORAS TÓXICAS!", fr: "🍄 SPORES TOXIQUES !", ko: "🍄 독성 포자!", zh: "🍄 毒雾孢子！", ja: "🍄 毒胞子！" },
+        "🌌 ÖTE EVREN AÇILDI! ⚡ Faz Atılması Yeteneği Aktif!": { en: "🌌 BEYONDVERSE OPEN! ⚡ Phase Dash Unlocked!", ru: "🌌 ЗАПРЕДЕЛЬЕ ОТКРЫТО! ⚡ Фазовый рывок!", it: "🌌 OLTREMONDO APERTO! ⚡ Scatto Fasico!", es: "🌌 ¡MÁS ALLÁ ABIERTO! ⚡ Impulso Activo!", fr: "🌌 AU-DELÀ OUVERT ! ⚡ Dash de Phase !", ko: "🌌 비욘드버스 개방! ⚡ 페이즈 대시 활성화!", zh: "🌌 超维宇宙已开启！⚡ 相位冲刺激活！", ja: "🌌 ビヨンドバース開放！⚡ フェーズダッシュ解放！" },
+        "💥 YENİ YETENEK: ZEMİN DARBESİ (S / Havada Aşağı)!": { en: "💥 NEW ABILITY: GROUND SLAM (S / Down in Air)!", ru: "💥 НОВЫЙ НАВЫК: УДАР О ЗЕМЛЮ (S)!", it: "💥 NUOVA ABILITÀ: SCHIANTO (S)!", es: "💥 ¡NUEVA HABILIDAD: GOLPE SÍSMICO (S)!", fr: "💥 NOUVEAU : FRAPPE SISMIQUE (S) !", ko: "💥 신규 스킬: 그라운드 슬램 (S)!", zh: "💥 新能力解锁：重力震地 (S)！", ja: "💥 新スキル：グラウンドスラム (S)！" },
+        "⏱️ YENİ YETENEK: KRONO-FREN ZAMAN YAVAŞLATMA (Q / E)!": { en: "⏱️ NEW ABILITY: CHRONO-BRAKE SLOW TIME (Q / E)!", ru: "⏱️ НОВЫЙ НАВЫК: ЗАМЕДЛЕНИЕ ВРЕМЕНИ (Q / E)!", it: "⏱️ NUOVA ABILITÀ: FRENO TEMPORALE (Q / E)!", es: "⏱️ ¡NUEVA HABILIDAD: FRENO TEMPORAL (Q / E)!", fr: "⏱️ NOUVEAU : CHRONO-FREIN (Q / E) !", ko: "⏱️ 신규 스킬: 크로노 슬로우 (Q / E)!", zh: "⏱️ 新能力解锁：时空减速 (Q / E)！", ja: "💥 新スキル：クロノ減速 (Q / E)！" },
+        "🤖 YENİ YOLDAŞ: SİBER MİNİ-DRONE AKTİF!": { en: "🤖 NEW COMPANION: CYBER MINI-DRONE ACTIVE!", ru: "🤖 НОВЫЙ СПУТНИК: МИНИ-ДРОН АКТИВЕН!", it: "🤖 NUOVO ALLEATO: MINI-DRONE ATTIVO!", es: "🤖 ¡NUEVO ALIADO: MINI-DRON ACTIVO!", fr: "🤖 NOUVEL ALLIÉ : MINI-DRONE ACTIF !", ko: "🤖 신규 동료: 사이버 미니 드론 가동!", zh: "🤖 新伙伴解锁：赛博迷你无人机！", ja: "🤖 新相棒：サイバーミニドローン起動！" },
+        "🦈 HİDRO-TORPİDO & ELEKTRİK GİRDABI!": { en: "🦈 HYDRO-TORPEDO & ELECTRIC VORTEX!", ru: "🦈 ГИДРО-ТОРПЕДА И ЭЛЕКТРО-ВИХРЬ!", it: "🦈 SILURO IDRO & VORTICE ELETTRICO!", es: "🦈 ¡TORPEDO HIDRO Y VÓRTICE!", fr: "🦈 HYDRO-TORPILLE & VORTEX !", ko: "🦈 하이드로 어뢰 & 전기 소용돌이!", zh: "🦈 水能鱼雷与高压漩涡！", ja: "🦈 ハイドロ魚雷＆電気渦潮！" },
+        "🍄 ZEHİRLİ SPOR & KÖK PATLAMASI!": { en: "🍄 TOXIC SPORE & ROOT ERUPTION!", ru: "🍄 ЯДОВИТЫЕ СПОРЫ И КОРНИ!", it: "🍄 SPORE TOSSICHE & RADICI!", es: "🍄 ¡ESPORAS Y RAÍCES EXPLOSIVAS!", fr: "🍄 SPORES & RACINES EXPLOSIVES !", ko: "🍄 독포자 & 뿌리 폭발!", zh: "🍄 毒孢子与根须爆发！", ja: "🍄 毒胞子＆根爆発！" },
+        "⏳ KRONO-ÇARK BARAJI & ZAMAN SIÇRAMASI!": { en: "⏳ CHRONO-GEAR BARRAGE & TIME BLINK!", ru: "⏳ ЗАЛП ШЕСТЕРЁН И СКАЧОК ВРЕМЕНИ!", it: "⏳ RAFFICA DI INGRANAGGI TEMPORALI!", es: "⏳ ¡RAFAGA DE ENGRANAJES Y SALTO!", fr: "⏳ BARRAGE D'ENGRENAGES !", ko: "⏳ 크로노 톱니 탄막 & 시간 도약!", zh: "⏳ 时光齿轮弹幕与闪现！", ja: "⏳ クロノ歯車弾幕＆時間跳躍！" },
+        "🐉 ÜÇ BAŞLI ASİT BOMBARDIMANI!": { en: "🐉 TRI-HYDRA ACID RAIN!", ru: "🐉 КИСЛОТНЫЙ ЛИВЕНЬ ГИДРЫ!", it: "🐉 PIOGGIA ACIDA DELL'IDRA!", es: "🐉 ¡LLUVIA ÁCIDA DE LA HIDRA!", fr: "🐉 PLUIE ACIDE DE L'HYDRE !", ko: "🐉 삼두 히드라 산성 폭격!", zh: "🐉 三头九头蛇酸雨轰炸！", ja: "🐉 三つ首ヒドラの酸性雨！" },
+        "🪞 AYNA BOYUTU & GÖLGE İKİZİ SALDIRISI!": { en: "🪞 MIRROR DIMENSION & SHADOW TWIN!", ru: "🪞 ЗЕРКАЛЬНОЕ ИЗМЕРЕНИЕ И ТЕНЬ!", it: "🪞 DIMENSIONE SPECCHIO!", es: "🪞 ¡DIMENSIÓN ESPEJO!", fr: "🪞 DIMENSION MIROIR !", ko: "🪞 거울 차원 & 그림자 쌍둥이!", zh: "🪞 镜面次元与暗影双子！", ja: "🪞 鏡面次元＆シャドウツイン！" }
+    };
+
+    const A2_WORLD_DEFS = {
+        en: ["11: Sunken Atlantis", "12: Bioluminescent Jungle", "13: Clockwork Sky-Tower", "14: Toxic Acid Refinery", "15: Mirror Dimension"],
+        ko: ["11: 침몰한 아틀란티스", "12: 발광 정글", "13: 시계태엽 천공탑", "14: 산성 정제소", "15: 거울 성당"],
+        ja: ["11: 沈没アトランティス", "12: 発光ジャングル", "13: 歯車の天空塔", "14: 酸性精製所", "15: 鏡面大聖堂"],
+        zh: ["11: 沉没亚特兰蒂斯", "12: 荧光丛林", "13: 发条天空塔", "14: 酸液炼厂", "15: 镜面大教堂"],
+        ru: ["11: Затонувшая Атлантида", "12: Био-джунгли", "13: Часовая башня", "14: Кислотный завод", "15: Зеркальный собор"],
+        es: ["11: Atlántida Sumergida", "12: Jungla Bioluminiscente", "13: Torre Reloj", "14: Refinería Ácida", "15: Catedral Espejo"],
+        fr: ["11: Atlantide Engloutie", "12: Jungle Bioluminescente", "13: Tour Horlogère", "14: Raffinerie Acide", "15: Cathédrale Miroir"],
+        it: ["11: Atlantide Sommersa", "12: Giungla Bioluminescente", "13: Torre dell'Orologio", "14: Raffineria Acida", "15: Cattedrale Specchio"]
+    };
+    const A2_SC_DESCS = {
+        en: {
+            standard_act2: "Master new world mechanics & uncover hidden paths.",
+            key_vault: "Collect 3 golden seal keys to unlock the exit portal.",
+            escape_chase: "Outrun the advancing laser barrier — never stop moving!",
+            spotlight_dark: "Navigate pitch-dark chambers with your hero spotlight.",
+            rhythm_phase: "Jump swaps Cyan/Pink phase bridges in mid-air!",
+            vertical_ascent: "Climb upward before the rising hazard swallows the tower!",
+            gauntlet_act2: "High-speed precision gauntlet before the world guardian!",
+            boss_act2: "Multi-phase World Lord battle — watch for 60% & 30% rage bursts!"
         }
     };
+    const A2_PREFIX = { en: "Sector", ko: "구역", ja: "エリア", zh: "区域", ru: "Сектор", es: "Sector", fr: "Secteur", it: "Settore" };
+    window.MARINEXT_ACT2_I18N = {};
+    ["en", "ko", "ja", "zh", "ru", "es", "fr", "it"].forEach((lc) => {
+        const wNames = A2_WORLD_DEFS[lc] || A2_WORLD_DEFS.en;
+        const shortNames = Array.from({ length: 50 }, (_, i) => {
+            const wi = Math.floor(i / 10);
+            const si = (i % 10) + 1;
+            const wTitle = (wNames[wi] || "").replace(/^\d+:\s*/, "");
+            return si === 10 ? `${wTitle} Boss` : `${wTitle} #${si}`;
+        });
+        window.MARINEXT_ACT2_I18N[lc] = {
+            worlds: wNames,
+            shortNames,
+            scenarioDescs: A2_SC_DESCS[lc] || A2_SC_DESCS.en
+        };
+    });
 
     window.translateMarinextGameText = function (rawText, langOverride) {
         if (rawText === undefined || rawText === null) return "";
@@ -6593,6 +6706,23 @@ window.MARINEXT_TUTORIAL_DATA = {
                 zh: `${src} 已同步 ✓`,
                 ja: `${src} 同期完了 ✓`
             };
+            return map[lang] || map.en;
+        }
+        const keyMissMatch = str.match(/^🔑 MÜHÜR EKSİK! \((\d+\/\d+)\)$/);
+        if (keyMissMatch) {
+            const frac = keyMissMatch[1];
+            const map = { en: `🔑 SEAL KEYS NEEDED! (${frac})`, ru: `🔑 НУЖНЫ КЛЮЧИ! (${frac})`, it: `🔑 CHIAVI MANCANTI! (${frac})`, es: `🔑 ¡FALTAN LLAVES! (${frac})`, fr: `🔑 CLÉS MANQUANTES ! (${frac})`, ko: `🔑 봉인 열쇠 부족! (${frac})`, zh: `🔑 缺少封印钥匙！(${frac})`, ja: `🔑 封印の鍵が不足！(${frac})` };
+            return map[lang] || map.en;
+        }
+        const keyGotMatch = str.match(/^🔑 MÜHÜR \((\d+\/\d+)\)$/);
+        if (keyGotMatch) {
+            const frac = keyGotMatch[1];
+            const map = { en: `🔑 SEAL KEY (${frac})`, ru: `🔑 КЛЮЧ (${frac})`, it: `🔑 CHIAVE (${frac})`, es: `🔑 LLAVE (${frac})`, fr: `🔑 CLÉ (${frac})`, ko: `🔑 열쇠 (${frac})`, zh: `🔑 钥匙 (${frac})`, ja: `🔑 鍵 (${frac})` };
+            return map[lang] || map.en;
+        }
+        if (str.startsWith("💎 YADİGAR SANDIĞI:")) {
+            const rw = str.replace("💎 YADİGAR SANDIĞI:", "").trim();
+            const map = { en: `💎 RELIC CHEST: ${rw}`, ru: `💎 РЕЛИКВИЯ: ${rw}`, it: `💎 RELIQUIA: ${rw}`, es: `💎 COFRE RELIQUIA: ${rw}`, fr: `💎 RELIQUE : ${rw}`, ko: `💎 유물 상자: ${rw}`, zh: `💎 遗迹宝箱：${rw}`, ja: `💎 秘宝チェスト：${rw}` };
             return map[lang] || map.en;
         }
 
@@ -6740,303 +6870,123 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.4.14" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.5.0" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.4.14 Akıllı Zorluk Dengesi, Ekran & Kontrol Cilası",
-        "subtitle": "Tüm bölümlerde daha dengeli ilerleme, her telefona tam oturan harita, keskin kontroller ve tek tıkla mağaza puanlama!",
-        "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
+        "title": "🌌 v1.5.0 Öte Evren: 100. Bölüm Sürprizi, 50 Yeni Bölüm & 4 Yetenek",
+        "subtitle": "100. bölüm zaferiyle gizemli Öte Evren açılıyor! 5 yeni dünya (101–150), 4 özel yetenek ve canlı bulut liderlik tablosu yayında!",
+        "btnOk": "🚀 HARİKA, MACERAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            {
-                "icon": "⚖️",
-                "title": "Daha Dengeli Bölüm Zorluğu & İlerleme Akışı",
-                "desc": "100 kampanya ve 50 Trol bölümünde oyuncu deneyimini daha akıcı ve keyifli kılan denge iyileştirmeleri hazırlandı."
-            },
-            {
-                "icon": "📐",
-                "title": "Geniş & Çentikli Telefonlara Kusursuz Ekran Uyumu",
-                "desc": "Tüm Android ekran oranlarında harita, alt aksiyon butonları ve menüler kenarlardan kırpılmadan tam hizalanır."
-            },
-            {
-                "icon": "🎯",
-                "title": "Genişletilmiş & Hassas Dokunmatik Kontroller",
-                "desc": "Yön ve zıplama butonları kenar yanlış dokunma korumasından güvenle içeri çekildi ve basım hassasiyeti artırıldı."
-            },
-            {
-                "icon": "👑",
-                "title": "19 Kahraman, 78 Ekipman & Güçlendirme Stüdyosu Cilası",
-                "desc": "Kahraman seçimi, ekipman kuşanma, yükseltmeler ve VIP ayrıcalık ekranları 9 dilde her zamankinden daha tepkisel."
-            },
-            {
-                "icon": "⭐",
-                "title": "Tek Tıkla Google Play Puanlama & 120 FPS Kararlılık",
-                "desc": "Beğeni ve yıldız puanlarınız doğrudan Google Play Store'a ulaşır; mobil ve web tarayıcıda 120 FPS akıcılık korunur."
-            }
+            { "icon": "🌌", "title": "100. Bölüm Sürpriz Kutlaması & Öte Evren (101–150)", "desc": "Evren Hükümdarı'nı yenince ❓ gizemli kapı açılır: Sualtı Atlantis, Biyo-Orman, Saat Kulesi, Asit Rafinerisi ve Ayna Katedrali!" },
+            { "icon": "⚡", "title": "4 Yeni Özel Yetenek & Siber Mini-Drone Yoldaş", "desc": "Faz Atılması, Zemin Darbesi, Krono-Fren zaman yavaşlatma ve otomatik saldıran Mini-Drone ile yeni düşmanları fethet." },
+            { "icon": "🎯", "title": "6 Farklı Senaryo & 5 Çok Fazlı Dev Boss", "desc": "Kaçış duvarı, yükselen tehlike, zıpladıkça değişen faz köprüleri, mühürlü kapılar ve her dünyada gizli Yadigar Sandıkları!" },
+            { "icon": "🏆", "title": "Tüm Cihazlarda Eşitlenen Gerçek Zamanlı Liderlik Tablosu", "desc": "Google Family ve farklı telefon/tabletler arasında puanlarınız, yıldızlarınız ve geçtiğiniz gerçek bölüm sayısı artık birebir eşit!" },
+            { "icon": "🚀", "title": "120 FPS Akıcılık & Korunaklı Bulut Kayıt", "desc": "Mevcut tüm ilerlemeniz korunur; Google Play Games ve bulut kayıt her aşamada güvence altındadır." }
         ]
     },
     "en": {
-        "title": "🚀 v1.4.14 Smart Balance, Screen Fit & Hero Studio Update",
-        "subtitle": "Balanced 150-stage progression, edge-to-edge display fit, sharper touch controls, and instant Google Play rating!",
-        "btnOk": "🎮 AWESOME, START PLAYING!",
+        "title": "🌌 v1.5.0 Beyondverse: Level 100 Surprise, 50 New Stages & 4 Powers",
+        "subtitle": "Conquer Level 100 to unlock the mysterious Beyondverse! 5 brand-new worlds (101–150), 4 new powers, and live cloud leaderboards!",
+        "btnOk": "🚀 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            {
-                "icon": "⚖️",
-                "title": "Balanced Stage Progression & Adventure Pacing",
-                "desc": "Refined overall pacing across all 100 campaign stages and 50 Troll challenges for a smoother, more rewarding run."
-            },
-            {
-                "icon": "📐",
-                "title": "Full-Screen Alignment on Wide & Notched Phones",
-                "desc": "Level map and bottom action buttons fit cleanly inside camera cutouts and ultra-wide displays with zero edge clipping."
-            },
-            {
-                "icon": "🎯",
-                "title": "Sharper Controls with Expanded Touch Zones",
-                "desc": "Movement and jump pads sit safely clear of edge gesture guards with larger invisible hitboxes for crisp jumps."
-            },
-            {
-                "icon": "👑",
-                "title": "19 Heroes, 78 Gear Pieces & Upgrade Polish",
-                "desc": "Character unlocks, custom gear equipping, power-ups, and VIP Studio menus respond instantly across all 9 languages."
-            },
-            {
-                "icon": "⭐",
-                "title": "Direct Google Play Rating & Smooth 120 FPS",
-                "desc": "Share ratings directly on Google Play with one tap while enjoying steady 120 FPS action on both Android and Web."
-            }
-        ]
-    },
-    "ru": {
-        "title": "🚀 v1.4.14 Баланс Уровней, Экран и Точное Управление",
-        "subtitle": "Ещё более сбалансированное прохождение 150 уровней, идеальная подгонка экрана и мгновенные отзывы в Google Play!",
-        "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
-        "btnWeb": "🌐 Полный список изменений ↗",
-        "items": [
-            {
-                "icon": "⚖️",
-                "title": "Сбалансированный Темп Прохождения Уровней",
-                "desc": "Улучшена плавность прогресса во всех 100 уровнях кампании и 50 испытаниях тролль-режима."
-            },
-            {
-                "icon": "📐",
-                "title": "Идеальная Подгонка Под Широкие Экраны",
-                "desc": "Карта и нижние кнопки идеально размещаются на смартфонах с вырезом камеры без обрезки по краям."
-            },
-            {
-                "icon": "🎯",
-                "title": "Расширенная Точность Сенсорных Кнопок",
-                "desc": "Кнопки движения и прыжка отодвинуты от краёв экрана с увеличенной зоной срабатывания."
-            },
-            {
-                "icon": "👑",
-                "title": "Полировка 19 Героев, 78 Предметов и Улучшений",
-                "desc": "Выбор героев, настройка экипировки и бонусы VIP-студии работают максимально быстро на 9 языках."
-            },
-            {
-                "icon": "⭐",
-                "title": "Прямой Отзыв в Google Play и Стабильные 120 FPS",
-                "desc": "Оценивайте игру в Google Play в один клик и наслаждайтесь плавными 120 FPS на Android и в браузере."
-            }
-        ]
-    },
-    "it": {
-        "title": "🚀 v1.4.14 Equilibrio Livelli, Schermo e Studio Eroi",
-        "subtitle": "Progressione ancora più bilanciata in tutti i 150 livelli, schermo perfetto senza ritagli e valutazione diretta!",
-        "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
-        "btnWeb": "🌐 Note di Rilascio Complete ↗",
-        "items": [
-            {
-                "icon": "⚖️",
-                "title": "Equilibrio e Ritmo Migliorati nei 150 Livelli",
-                "desc": "Progressione ancora più fluida e appagante lungo tutti i 100 livelli della campagna e i 50 livelli Troll."
-            },
-            {
-                "icon": "📐",
-                "title": "Schermo Perfetto Su Display Ampi e Con Notch",
-                "desc": "La mappa e i pulsanti inferiori rispettano ogni bordo su smartphone Android senza tagli laterali."
-            },
-            {
-                "icon": "🎯",
-                "title": "Controlli Touch Precisi e Reattivi",
-                "desc": "Pulsanti di movimento e salto distanziati dai bordi anti-tocco con area sensibile più ampia."
-            },
-            {
-                "icon": "👑",
-                "title": "Studio 19 Eroi, 78 Oggetti e Potenziamenti",
-                "desc": "Sblocco eroi, personalizzazione estetica e menu VIP più rapidi e curati in tutte le 9 lingue."
-            },
-            {
-                "icon": "⭐",
-                "title": "Valutazione Diretta Google Play & 120 FPS",
-                "desc": "Invia la tua valutazione su Google Play in un tocco e gioca a 120 FPS fluidi su Android e Web."
-            }
-        ]
-    },
-    "es": {
-        "title": "🚀 v1.4.14 Equilibrio, Ajuste de Pantalla y Estudio de Héroes",
-        "subtitle": "¡Progreso equilibrado en 150 niveles, ajuste total en pantallas anchas, control más preciso y calificación directa!",
-        "btnOk": "🎮 ¡GENIAL, A JUGAR!",
-        "btnWeb": "🌐 Notas de la Versión Completas ↗",
-        "items": [
-            {
-                "icon": "⚖️",
-                "title": "Ritmo y Equilibrio Mejorado en 150 Niveles",
-                "desc": "Experiencia aún más fluida y justa tanto en los 100 niveles de campaña como en los 50 niveles Troll."
-            },
-            {
-                "icon": "📐",
-                "title": "Ajuste Sin Cortes en Pantallas Anchas y Notch",
-                "desc": "El mapa y los botones inferiores encajan con precisión en cualquier teléfono Android moderno."
-            },
-            {
-                "icon": "🎯",
-                "title": "Controles Táctiles con Mayor Zona de Respuesta",
-                "desc": "Botones de movimiento y salto alejados de los bordes de rechazo táctil para saltos instantáneos."
-            },
-            {
-                "icon": "👑",
-                "title": "19 Héroes, 78 Accesorios y Mejoras Pulidas",
-                "desc": "Desbloqueo de personajes, personalización y tienda de mejoras más ágiles en los 9 idiomas."
-            },
-            {
-                "icon": "⭐",
-                "title": "Reseña Directa en Google Play y 120 FPS",
-                "desc": "Deja tu calificación directamente en Google Play en un toque y juega a 120 FPS estables en móvil o web."
-            }
-        ]
-    },
-    "fr": {
-        "title": "🚀 v1.4.14 Équilibrage, Écran Parfait & Studio des Héros",
-        "subtitle": "Progression harmonieuse sur 150 niveaux, affichage complet sans bordure coupée et notation directe sur Google Play !",
-        "btnOk": "🎮 SUPER, JOUER !",
-        "btnWeb": "🌐 Notes de Version Complètes ↗",
-        "items": [
-            {
-                "icon": "⚖️",
-                "title": "Progression Équilibrée Sur 150 Niveaux",
-                "desc": "Rythme affiné sur l'ensemble des 100 niveaux principaux et des 50 défis Troll pour une aventure encore plus fluide."
-            },
-            {
-                "icon": "📐",
-                "title": "Affichage Intégral Sur Écrans Larges et Encoches",
-                "desc": "La carte et les boutons inférieurs restent parfaitement centrés sur tous les smartphones Android."
-            },
-            {
-                "icon": "🎯",
-                "title": "Commandes Tactiles Agrandies et Ultra-Précises",
-                "desc": "Touches directionnelles et saut éloignées des bords morts avec zone tactile invisible étendue."
-            },
-            {
-                "icon": "👑",
-                "title": "Finition Studio : 19 Héros, 78 Équipements & Bonus",
-                "desc": "Déblocage de héros, personnalisation et améliorations encore plus réactifs dans vos 9 langues."
-            },
-            {
-                "icon": "⭐",
-                "title": "Avis Direct Google Play & Fluidité 120 IPS",
-                "desc": "Accès direct à votre avis Google Play en un clic et action fluide à 120 IPS sur mobile comme sur le web."
-            }
+            { "icon": "🌌", "title": "Level 100 Celebration & Beyondverse Worlds 11–15", "desc": "Defeat the Universe Emperor to unlock Sunken Atlantis, Bioluminescent Jungle, Clockwork Tower, Acid Refinery & Mirror Dimension!" },
+            { "icon": "⚡", "title": "4 New Abilities & Cyber Mini-Drone Companion", "desc": "Unlock Phase Dash, Ground Slam, Chrono-Brake time slow, and an auto-zapping Mini-Drone to conquer 8 new enemy types." },
+            { "icon": "🎯", "title": "6 Dynamic Scenarios & 5 Multi-Phase Bosses", "desc": "Outrun laser walls, climb rising hazards, flip phase bridges per jump, hunt 3-seal vault keys, and open secret Relic Chests!" },
+            { "icon": "🏆", "title": "Real-Time Cross-Device & Family Leaderboard Sync", "desc": "Scores, stars, and true stage progress now sync accurately across phones, tablets, and family accounts with zero mismatch." },
+            { "icon": "🚀", "title": "120 FPS Precision & Safe Progress Preservation", "desc": "All your existing levels, coins, heroes, and stars remain safely preserved while expanding the adventure to 200 total levels." }
         ]
     },
     "ko": {
-        "title": "🚀 v1.4.14 스테이지 밸런스, 화면 맞춤 및 스튜디오 다듬기",
-        "subtitle": "150개 스테이지의 더욱 균형 잡힌 진행, 와이드 화면 완벽 정렬, 정밀 터치와 원터치 스토어 평가 지원!",
-        "btnOk": "🎮 확인, 게임 시작!",
-        "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
+        "title": "🌌 v1.5.0 비욘드버스: 100레벨 서프라이즈, 50개 신규 스테이지 & 4대 스킬",
+        "subtitle": "100레벨을 클리어하고 신비한 비욘드버스(101–150)와 실시간 클라우드 리더보드를 만나보세요!",
+        "btnOk": "🚀 좋아요, 모험 시작!",
+        "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            {
-                "icon": "⚖️",
-                "title": "더욱 균형 잡힌 150개 스테이지 진행감",
-                "desc": "100개 캠페인과 50개 트롤 스테이지 전반이 한층 쾌적하고 짜임새 있게 이어지도록 다듬었습니다."
-            },
-            {
-                "icon": "📐",
-                "title": "와이드·펀치홀 디스플레이 완벽 화면 맞춤",
-                "desc": "다양한 화면 비율의 Android 스마트폰에서도 지도와 하단 버튼이 잘림 없이 깔끔하게 정렬됩니다."
-            },
-            {
-                "icon": "🎯",
-                "title": "더 정밀하고 반응 넓은 터치 컨트롤",
-                "desc": "화면 가장자리 오작동을 피하도록 버튼 위치를 다듬고 숨겨진 터치 영역을 넓혔습니다."
-            },
-            {
-                "icon": "👑",
-                "title": "19명의 영웅, 78종 장비 & 업그레이드 최적화",
-                "desc": "영웅 해금, 커스터마이즈 착용 및 강화 상점이 9개 언어에서 더욱 빠르게 반응합니다."
-            },
-            {
-                "icon": "⭐",
-                "title": "Google Play 바로 평가 & 120 FPS 안정성",
-                "desc": "한 번의 터치로 Google Play 스토어에 바로 평점을 남기고 모바일·웹에서 120 FPS를 즐기세요."
-            }
-        ]
-    },
-    "zh": {
-        "title": "🚀 v1.4.14 关卡平衡体验、全面屏适配与英雄工坊升级",
-        "subtitle": "150 关节奏更加平衡顺畅，全面屏地图完美居零裁切，触控跟手度与直达商店评分全面提升！",
-        "btnOk": "🎮 太棒了，开始游戏！",
-        "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
-        "items": [
-            {
-                "icon": "⚖️",
-                "title": "更平衡顺畅的 150 关闯关节奏",
-                "desc": "打磨了 100 个主线关卡与 50 个整蛊关卡的整体闯关体验，每一场挑战都更具爽快感。"
-            },
-            {
-                "icon": "📐",
-                "title": "全面屏与挖孔屏完美显示适配",
-                "desc": "关卡地图与底部按钮智能避开摄像头挖孔与边框，各类安卓机型均不再出现边缘裁切。"
-            },
-            {
-                "icon": "🎯",
-                "title": "更精准跟手的扩展触控按键",
-                "desc": "优化按键安全区距离并扩大隐藏触控判定范围，跳跃与闪避操控更加即时准确。"
-            },
-            {
-                "icon": "👑",
-                "title": "19 位英雄、78 款装扮与强化工坊润色",
-                "desc": "英雄解锁、造型搭配、技能升级与 VIP 特权在 9 种语言下响应更快、体验更丝滑。"
-            },
-            {
-                "icon": "⭐",
-                "title": "一键直达 Google Play 评分 & 120 FPS",
-                "desc": "轻点即可直达 Google Play 商店分享评分，并在手机与电脑网页端畅享 120 FPS 体验。"
-            }
+            { "icon": "🌌", "title": "100레벨 축하 보상 & 월드 11–15 개방", "desc": "아틀란티스, 발광 정글, 시계태엽 탑, 산성 정제소, 거울 성당까지 50개의 새로운 스테이지가 열립니다!" },
+            { "icon": "⚡", "title": "4가지 신규 특수 능력 & 미니 드론 동료", "desc": "페이즈 대시, 그라운드 슬램, 크로노 감속, 자동 공격 미니 드론으로 8종 신규 적을 상대하세요." },
+            { "icon": "🎯", "title": "6가지 다채로운 시나리오 & 5대 다중 페이즈 보스", "desc": "추격 레이저 벽, 상승하는 위험 지대, 점프 전환 다리, 봉인 열쇠, 비밀 유물 상자까지!" },
+            { "icon": "🏆", "title": "실시간 기기 간 & 가족 계정 리더보드 완벽 동기화", "desc": "휴대폰과 태블릿 간 점수, 별, 클리어 스테이지 수가 정확하게 일치합니다." },
+            { "icon": "🚀", "title": "120 FPS 쾌적함 & 기존 저장 데이터 100% 보존", "desc": "기존 영웅, 코인, 진행 기록이 모두 안전하게 유지됩니다." }
         ]
     },
     "ja": {
-        "title": "🚀 v1.4.14 ステージバランス・画面フィット＆ヒーロースタジオ強化",
-        "subtitle": "全150ステージの快適なテンポ、ワイド画面への完璧フィット、精密タッチ操作とダイレクトストア評価に対応！",
-        "btnOk": "🎮 了解、ゲームを始める！",
-        "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
+        "title": "🌌 v1.5.0 ビヨンドバース：レベル100記念、新50ステージ＆4大新能力",
+        "subtitle": "レベル100クリアで未知のビヨンドバース（101〜150）が開幕！リアルタイムランキング同期にも対応！",
+        "btnOk": "🚀 さあ、冒険へ！",
+        "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            {
-                "icon": "⚖️",
-                "title": "全150ステージのさらに快適な攻略テンポ",
-                "desc": "100キャンペーンと50トロール全ステージをより楽しくバランスよく遊べるよう体験を磨きました。"
-            },
-            {
-                "icon": "📐",
-                "title": "ワイド画面＆ノッチ端末への完璧フィット",
-                "desc": "あらゆるAndroidスマホでステージマップや下部ボタンが画面端で見切れることなく美しく収まります。"
-            },
-            {
-                "icon": "🎯",
-                "title": "広くなった判定エリアで精密タッチ操作",
-                "desc": "誤タッチ防止帯から安全な位置へボタンを調整し、目に見えないタッチ判定も拡大しました。"
-            },
-            {
-                "icon": "👑",
-                "title": "19ヒーロー・78装備・アップグレード工坊の洗練",
-                "desc": "キャラ解放・カスタマイズ装着・強化ショップやVIP特典が9言語すべてで一段と軽快に動作します。"
-            },
-            {
-                "icon": "⭐",
-                "title": "Google Play 直接評価 & 安定 120 FPS",
-                "desc": "ワンタップでGoogle Playの評価ページへ進み、Android・Webともに滑らかな120 FPSを楽しめます。"
-            }
+            { "icon": "🌌", "title": "レベル100突破記念＆新ワールド11〜15（101〜150）", "desc": "沈没アトランティス、発光ジャングル、歯車の塔、酸性精製所、鏡面大聖堂が登場！" },
+            { "icon": "⚡", "title": "4つの新能力＆サイバーミニドローン相棒", "desc": "フェーズダッシュ、グラウンドスラム、クロノ減速、自動攻撃ミニドローンを解放しよう！" },
+            { "icon": "🎯", "title": "6種の新ギミックシナリオ＆5体の多段階ボス", "desc": "迫るレーザー壁、上昇する床、ジャンプ切替足場、鍵探索や秘宝チェストが待ち受ける！" },
+            { "icon": "🏆", "title": "端末間＆ファミリー間リアルタイムランキング同期", "desc": "スマホとタブレットで進行度やスコアが常に正確に一致するようになりました。" },
+            { "icon": "🚀", "title": "120 FPS 快適動作＆既存セーブ完全保護", "desc": "これまでのクリア記録やヒーロー・コインはすべてそのまま安全に引き継がれます。" }
+        ]
+    },
+    "zh": {
+        "title": "🌌 v1.5.0 超维宇宙：第100关惊喜庆典、50个新关卡与4大能力",
+        "subtitle": "通关第100关解锁神秘超维宇宙（101–150）！5大新世界、4项超能力与实时云端排行榜全面上线！",
+        "btnOk": "🚀 太棒了，出发冒险！",
+        "btnWeb": "🌐 查看完整更新日志 ↗",
+        "items": [
+            { "icon": "🌌", "title": "第100关惊喜礼包与超维世界 11–15", "desc": "击败宇宙皇帝开启神秘大门：沉没亚特兰蒂斯、荧光丛林、发条高塔、酸液炼厂与镜面大教堂！" },
+            { "icon": "⚡", "title": "4 项全新能力与赛博迷你无人机伙伴", "desc": "解锁相位冲刺、重力震地、时空减速与自动支援无人机，迎战 8 种新敌人。" },
+            { "icon": "🎯", "title": "6 大动态玩法机制与 5 位多阶段首领", "desc": "激光墙追逐、上升危机、跳跃切换相位桥、三把封印钥匙与隐藏遗迹宝箱！" },
+            { "icon": "🏆", "title": "跨设备与家庭账号实时排行榜精准同步", "desc": "手机与平板之间的分数、星数与真实关卡进度从此分毫不差。" },
+            { "icon": "🚀", "title": "120 FPS 流畅体验与原有存档无损保留", "desc": "您已解锁的英雄、金币与主线关卡进度均安全保留。" }
+        ]
+    },
+    "ru": {
+        "title": "🌌 v1.5.0 Запределье: Сюрприз 100 уровня, 50 новых уровней и 4 навыка",
+        "subtitle": "Пройдите 100 уровень и откройте Запределье (101–150), 5 новых миров, 4 способности и точный рейтинг!",
+        "btnOk": "🚀 ОТЛИЧНО, ВПЕРЁД!",
+        "btnWeb": "🌐 Полный список изменений ↗",
+        "items": [
+            { "icon": "🌌", "title": "Праздник 100 уровня и Миры 11–15 (101–150)", "desc": "Откройте Атлантиду, Био-джунгли, Часовую башню, Кислотный завод и Зеркальный собор!" },
+            { "icon": "⚡", "title": "4 новые способности и Мини-дрон", "desc": "Фазовый рывок, Удар о землю, Замедление времени и боевой мини-дрон против 8 новых врагов." },
+            { "icon": "🎯", "title": "6 новых сценариев и 5 многофазных боссов", "desc": "Убегайте от лазерной стены, меняйте мосты прыжком, ищите ключи и сундуки реликвий!" },
+            { "icon": "🏆", "title": "Точная синхронизация рейтинга между устройствами", "desc": "Очки, звёзды и пройденные уровни теперь одинаковы на всех телефонах, планшетах и семейных аккаунтах." },
+            { "icon": "🚀", "title": "Плавность 120 FPS и сохранность прогресса", "desc": "Весь ваш текущий прогресс, герои и монеты полностью сохранены." }
+        ]
+    },
+    "it": {
+        "title": "🌌 v1.5.0 Oltremondo: Sorpresa Livello 100, 50 Nuovi Livelli & 4 Poteri",
+        "subtitle": "Supera il livello 100 per sbloccare 5 nuovi mondi (101–150), 4 abilità speciali e classifiche sincronizzate!",
+        "btnOk": "🚀 FANTASTICO, GIOCHIAMO!",
+        "btnWeb": "🌐 Note di Rilascio Complete ↗",
+        "items": [
+            { "icon": "🌌", "title": "Festa Livello 100 & Mondi 11–15 (101–150)", "desc": "Scopri Atlantide Sommersa, Giungla Bioluminescente, Torre Orologio, Raffineria Acida e Cattedrale Specchio!" },
+            { "icon": "⚡", "title": "4 Nuove Abilità & Mini-Drone Alleato", "desc": "Sblocca Scatto Fasico, Schianto a Terra, Freno Temporale e il Mini-Drone automatico." },
+            { "icon": "🎯", "title": "6 Scenari Dinamici & 5 Boss Multifase", "desc": "Fuggi dai muri laser, usa ponti a fase, raccogli chiavi sigillo e apri gli Scrigni Reliquia!" },
+            { "icon": "🏆", "title": "Classifica Live Sincronizzata Su Tutti i Dispositivi", "desc": "Punteggi e livelli completati ora coincidono esattamente su telefono, tablet e account Family." },
+            { "icon": "🚀", "title": "Fluidità 120 FPS & Progressi Protetti", "desc": "Tutti i tuoi eroi, stelle e livelli sbloccati restano completamente al sicuro." }
+        ]
+    },
+    "es": {
+        "title": "🌌 v1.5.0 Más Allá: Sorpresa Nivel 100, 50 Nuevos Niveles y 4 Poderes",
+        "subtitle": "¡Supera el nivel 100 para abrir 5 nuevos mundos (101–150), 4 habilidades únicas y clasificación sincronizada!",
+        "btnOk": "🚀 ¡GENIAL, A JUGAR!",
+        "btnWeb": "🌐 Notas de la Versión Completas ↗",
+        "items": [
+            { "icon": "🌌", "title": "Celebración Nivel 100 y Mundos 11–15 (101–150)", "desc": "¡Descubre Atlántida Sumergida, Jungla Bioluminiscente, Torre Reloj, Refinería Ácida y Catedral Espejo!" },
+            { "icon": "⚡", "title": "4 Nuevas Habilidades y Mini-Dron Aliado", "desc": "Desbloquea Impulso de Fase, Golpe Sísmico, Freno Temporal y un Mini-Dron de apoyo contra 8 enemigos nuevos." },
+            { "icon": "🎯", "title": "6 Escenarios Dinámicos y 5 Jefes Multifase", "desc": "¡Escapa de muros láser, cambia puentes al saltar, reúne llaves sello y abre Cofres Reliquia!" },
+            { "icon": "🏆", "title": "Clasificación en Tiempo Real Entre Dispositivos", "desc": "Tu puntuación y progreso real ahora coinciden exactamente entre móviles, tabletas y cuentas familiares." },
+            { "icon": "🚀", "title": "Fluidez a 120 FPS y Progreso Protegido", "desc": "Todos tus niveles, héroes y monedas actuales permanecen intactos." }
+        ]
+    },
+    "fr": {
+        "title": "🌌 v1.5.0 Au-Delà : Surprise Niveau 100, 50 Niveaux & 4 Pouvoirs",
+        "subtitle": "Terminez le niveau 100 pour débloquer 5 nouveaux mondes (101–150), 4 capacités et un classement synchronisé !",
+        "btnOk": "🚀 SUPER, C'EST PARTI !",
+        "btnWeb": "🌐 Notes de Version Complètes ↗",
+        "items": [
+            { "icon": "🌌", "title": "Fête du Niveau 100 & Mondes 11–15 (101–150)", "desc": "Explorez l'Atlantide, la Jungle Bioluminescente, la Tour Horlogère, la Raffinerie et la Cathédrale Miroir !" },
+            { "icon": "⚡", "title": "4 Nouvelles Capacités & Mini-Drone Allié", "desc": "Débloquez le Dash de Phase, la Frappe Sismique, le Chrono-Frein et un Mini-Drone face à 8 nouveaux ennemis." },
+            { "icon": "🎯", "title": "6 Scénarios Dynamiques & 5 Boss Multi-Phases", "desc": "Fuyez les murs laser, inversez les ponts en sautant, trouvez les clés et les Coffres Reliques !" },
+            { "icon": "🏆", "title": "Classement Temps Réel Synchronisé Sur Tous Appareils", "desc": "Vos scores et votre progression réelle sont désormais identiques sur mobile, tablette et comptes famille." },
+            { "icon": "🚀", "title": "Fluidité 120 IPS & Sauvegarde Préservée", "desc": "Toute votre progression, vos héros et vos pièces restent entièrement préservés." }
         ]
     }
 };
