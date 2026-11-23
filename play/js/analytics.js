@@ -11,8 +11,8 @@
     const STORAGE_KEY_CLIENT_ID = 'marinext2100_ga4_client_id';
     const REMOTE_CONFIG_URL = 'https://cgstudiohome.github.io/marinext2100/version.json';
     const FALLBACK_CONFIG_URL = 'https://cevatturk.github.io/marinext2100/version.json';
-    const DEFAULT_GA4_MEASUREMENT_ID = 'G-3EVKLV8SM8';
-    const DEFAULT_GA4_API_SECRET = 'NpIfsFNeROWOFrpLWGiqMg';
+    const DEFAULT_GA4_MEASUREMENT_ID = 'G-7ER5HLQSNZ';
+    const DEFAULT_GA4_API_SECRET = 'TEfBtYYTQO6_Xd1N25r9hw';
 
     // 1. Akıllı Oyun İçi Analitik Motoru
     const MarinextAnalytics = {
