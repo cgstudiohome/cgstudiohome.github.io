@@ -153,7 +153,7 @@
             fbCat4: "⚡ Performans / FPS",
             fbMsgLabel: "✍️ MESAJINIZ (Bölüm no, cihaz veya önerinizi yazın):",
             fbMsgPlaceholder: "Örn: 24. bölümdeki lazer kapıları çok eğlenceli olmuş, yeni karakterler harika...",
-            btnSubmitPlayConsole: "📲 KAYDET & GOOGLE PLAY GERİ BİLDİRİMİ GÖNDER ▶",
+            btnSubmitPlayConsole: "⭐ GOOGLE PLAY'DE PUANLA & YORUM YAZ ▶",
             btnSubmitDirect: "📨 Geliştiriciye Doğrudan Rapor İlet",
             btnCloseFeedback: "KAPAT ✕",
             // Insufficient Balance Modal
@@ -6099,15 +6099,15 @@ window.MARINEXT_TUTORIAL_DATA = {
             zh: "您所在地区无需额外 UMP 表单 • 可直接通过上方按钮切换广告偏好 ✓",
             ja: "お住まいの地域では追加のUMPフォームは不要です • 上のボタンで直接変更できます ✓"
         },
-        "✅ Mesajınız kopyalandı ve Google Play Console Test Geri Bildirimi ekranı açılıyor...": {
-            en: "✅ Message copied & opening Google Play Console Feedback...",
-            ru: "✅ Сообщение скопировано, открывается отзыв Google Play...",
-            it: "✅ Messaggio copiato, apertura feedback Google Play...",
-            es: "✅ Mensaje copiado y abriendo comentarios de Google Play...",
-            fr: "✅ Message copié et ouverture des commentaires Google Play...",
-            ko: "✅ 메시지가 복사되었으며 Google Play 피드백 화면이 열립니다...",
-            zh: "✅ 消息已复制，正在打开 Google Play 反馈界面...",
-            ja: "✅ メッセージをコピーしました。Google Play フィードバックを開いています..."
+        "✅ Google Play Store puanlama ekranı açılıyor... (Mesajınız panoya kopyalandı)": {
+            en: "✅ Opening Google Play Store rating page... (Message copied to clipboard)",
+            ru: "✅ Открывается страница оценки Google Play... (Сообщение скопировано)",
+            it: "✅ Apertura pagina valutazione Google Play... (Messaggio copiato)",
+            es: "✅ Abriendo página de calificación en Google Play... (Mensaje copiado)",
+            fr: "✅ Ouverture de la page Google Play pour noter... (Message copié)",
+            ko: "✅ Google Play 스토어 평가 화면이 열립니다... (메시지 복사 완료)",
+            zh: "✅ 正在打开 Google Play 商店评分页面...（内容已复制）",
+            ja: "✅ Google Play ストアの評価ページを開いています...（メッセージをコピーしました）"
         },
         "✅ Geri bildiriminiz geliştirici ekibe iletildi! Teşekkür ederiz.": {
             en: "✅ Your feedback has been sent to the developer team! Thank you.",
@@ -6740,302 +6740,302 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.4.12" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.4.13" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.4.12 Performans, Bellek & Kararlılık Güncellemesi",
-        "subtitle": "Marinext 2100 artık çok daha hızlı açılıyor, daha az bellek tüketiyor ve tüm cihazlarda ekstra akıcı çalışıyor!",
+        "title": "🚀 v1.4.13 Tam Ekran Hizalama, Hassas Kontrol & Puanlama Yeniliği",
+        "subtitle": "Tüm telefon ekranlarına milimetrik oturan harita, daha keskin dokunmatik kontroller ve tek tıkla Google Play puanlama desteği!",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
-                "icon": "⚡",
-                "title": "Daha Hızlı Açılış & Hafif Bellek Kullanımı",
-                "desc": "Oyun motoru baştan optimize edilerek açılış süresi kısaltıldı ve cihazınızın RAM tüketimi belirgin şekilde azaltıldı."
+                "icon": "📐",
+                "title": "Geniş & Çentikli Ekranlarda Kusursuz Harita Uyumu",
+                "desc": "Farklı ekran oranlarına sahip tüm Android telefonlarda harita menüsü ve alt butonlar artık sağdan veya soldan kesilmeden tam ekran görünür."
             },
             {
-                "icon": "🛡️",
-                "title": "Gelişmiş Gerçek Zamanlı Kararlılık Koruması",
-                "desc": "Uzun oyun oturumlarında ve yoğun boss savaşlarında oluşabilecek anlık takılmalara karşı otomatik koruma altyapısı güçlendirildi."
+                "icon": "🎯",
+                "title": "Daha Hassas & Geniş Dokunmatik Kontroller",
+                "desc": "Yön ve zıplama butonları ekran kenar koruma alanından güvenle içeri alındı ve basım alanı genişletilerek kontrol hissi keskinleştirildi."
             },
             {
-                "icon": "📱",
-                "title": "Tüm Android Cihazlarda 120 FPS Akıcılık",
-                "desc": "Giriş seviyesi telefonlardan geniş ekranlı tabletlere kadar her cihazda daha serin, akıcı ve dengeli kare hızı sağlanır."
+                "icon": "⭐",
+                "title": "Tek Tıkla Google Play Mağaza Puanlama",
+                "desc": "Oyun sonu yıldızları, Ayarlar ve Geri Bildirim ekranı artık sizi doğrudan Google Play Store mağaza yorum ve puanlama sayfasına ulaştırır."
             },
             {
-                "icon": "🌍",
-                "title": "9 Dilde Pürüzsüz Stüdyo & Mağaza Deneyimi",
-                "desc": "Seçili aktif dilinizde tüm karakterler, kişiselleştirme ekipmanları, başarımlar ve bulut eşitleme ekranları hatasız çalışır."
+                "icon": "🗺️",
+                "title": "100 Bölüm & 9 Dilde İsim Cilası",
+                "desc": "Bölge 9 finalindeki \"Demir Titan ☠\" başlığı dahil 100 kampanya ve 50 Trol bölümünün tamamında aktif dilinize tam uyumlu başlıklar sağlanır."
             },
             {
-                "icon": "🎮",
-                "title": "150 Bölüm & 19 Kahramanla Kesintisiz Macera",
-                "desc": "100 ana sefer + 50 Trol bölümü, günlük ödüller ve liderlik tablosu yarışında şimdi çok daha akıcı bir deneyim sizi bekliyor!"
+                "icon": "🌐",
+                "title": "Mobil & Web'de Akıcı 120 FPS Deneyim",
+                "desc": "Hem Android uygulamasında hem de tarayıcıda açılış, kaydetme ve bölüm geçişleri ekstra pürüzsüz hale getirildi."
             }
         ]
     },
     "en": {
-        "title": "🚀 v1.4.12 Performance, Memory & Stability Boost",
-        "subtitle": "Marinext 2100 now launches faster, uses significantly less memory, and runs smoother than ever on every device!",
+        "title": "🚀 v1.4.13 Full-Screen Fit, Touch Precision & Store Rating Update",
+        "subtitle": "Edge-to-edge map alignment on every wide Android display, sharper touch controls, and 1-tap Google Play rating!",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
-                "icon": "⚡",
-                "title": "Faster Startup & Lighter Memory Footprint",
-                "desc": "Core engine optimization trims background overhead so levels load quicker while using far less RAM on your phone or tablet."
+                "icon": "📐",
+                "title": "Perfect Map Fit on Wide & Notched Phones",
+                "desc": "Level map and bottom action buttons now adapt cleanly inside camera cutouts and narrow or ultra-wide displays without edge clipping."
             },
             {
-                "icon": "🛡️",
-                "title": "Enhanced Real-Time Stability Protection",
-                "desc": "Strengthened runtime safeguards help keep long play sessions and intense boss battles rock-solid from start to finish."
+                "icon": "🎯",
+                "title": "Refined & Expanded Touch Hitboxes",
+                "desc": "Movement and jump controls now sit safely clear of edge gesture guards with wider invisible touch zones for instant responsiveness."
             },
             {
-                "icon": "📱",
-                "title": "Silky 120 FPS Across All Android Devices",
-                "desc": "Optimized resource handling delivers cooler battery temperatures and steadier frame rates on both compact phones and large tablets."
+                "icon": "⭐",
+                "title": "1-Tap Direct Google Play Store Rating",
+                "desc": "Rating stars, Settings, and the Feedback window now open Marinext 2100 directly in Google Play so your review goes live immediately."
             },
             {
-                "icon": "🌍",
-                "title": "Seamless 9-Language Studio & Cloud Flow",
-                "desc": "All 19 heroes, 78 gear pieces, VIP benefits, achievements, and cloud save screens stay completely responsive in your active language."
+                "icon": "🗺️",
+                "title": "Polished 100-Level & 9-Language Titles",
+                "desc": "Fixed the Zone 9 Boss title (\"Demir Titan ☠\") and verified crystal-clear stage names across all 100 campaign + 50 Troll levels."
             },
             {
-                "icon": "🎮",
-                "title": "Uninterrupted 150-Stage Action",
-                "desc": "Jump straight into all 100 campaign levels and 50 deceptive Troll stages with sharper responsiveness and zero slowdown."
+                "icon": "🌐",
+                "title": "Ultra-Smooth 120 FPS Mobile & Web Flow",
+                "desc": "Improved session stability and seamless play transitions whether you launch on Android or in your desktop web browser."
             }
         ]
     },
     "ru": {
-        "title": "🚀 v1.4.12 Оптимизация Памяти, Скорости и Стабильности",
-        "subtitle": "Marinext 2100 теперь запускается заметно быстрее, потребляет меньше памяти и работает ещё плавнее на любом устройстве!",
+        "title": "🚀 v1.4.13 Адаптация Экрана, Точное Управление и Отзывы",
+        "subtitle": "Идеальная подгонка карты под вырезы экрана, более чёткие сенсорные кнопки и быстрый переход к оценке в Google Play!",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
-                "icon": "⚡",
-                "title": "Быстрый Запуск и Меньше Нагрузки на Память",
-                "desc": "Оптимизация игрового движка сократила время старта и заметно снизила расход оперативной памяти устройства."
+                "icon": "📐",
+                "title": "Полная Подгонка Карты На Широких Экранах",
+                "desc": "Меню карты и нижние кнопки теперь идеально помещаются на смартфонах с вырезом камеры и нестандартным соотношением сторон."
             },
             {
-                "icon": "🛡️",
-                "title": "Усиленная Защита Стабильности в Реальном Времени",
-                "desc": "Повышена надёжность работы во время долгих игровых сессий и напряжённых сражений с боссами."
+                "icon": "🎯",
+                "title": "Увеличенная Точность Сенсорных Кнопок",
+                "desc": "Кнопки движения и прыжка сдвинуты в безопасную зону от края экрана с расширенной областью нажатия для мгновенного отклика."
             },
             {
-                "icon": "📱",
-                "title": "Плавные 120 FPS на Всех Android-Устройствах",
-                "desc": "Эффективная работа с ресурсами обеспечивает стабильную частоту кадров и меньший нагрев на смартфонах и планшетах."
+                "icon": "⭐",
+                "title": "Прямая Оценка в Google Play в Один Клик",
+                "desc": "Звёзды оценки, Настройки и окно отзывов теперь открывают страницу игры в Google Play, чтобы ваш рейтинг сразу публиковался."
             },
             {
-                "icon": "🌍",
-                "title": "Безупречная Работа 9 Языков и Облачных Сохранений",
-                "desc": "Студия из 19 героев, 78 предметов, VIP-привилегии и синхронизация прогресса работают без задержек на выбранном языке."
+                "icon": "🗺️",
+                "title": "Шлифовка Названий 150 Уровней На 9 Языках",
+                "desc": "Исправлено название босса 9-й зоны и проверена полная согласованность имён всех 100 основных и 50 тролль-уровней."
             },
             {
-                "icon": "🎮",
-                "title": "150 Уровней Приключений Без Тормозов",
-                "desc": "Покоряйте 100 основных этапов и 50 тролль-уровней с максимальной отзывчивостью управления!"
+                "icon": "🌐",
+                "title": "Стабильные 120 FPS На Android и в Браузере",
+                "desc": "Улучшена плавность переходов между картой и уровнями как на мобильных устройствах, так и при игре через сайт."
             }
         ]
     },
     "it": {
-        "title": "🚀 v1.4.12 Aggiornamento Prestazioni, Memoria e Stabilità",
-        "subtitle": "Marinext 2100 ora si avvia più velocemente, consuma molta meno memoria e offre una fluidità superiore su ogni dispositivo!",
+        "title": "🚀 v1.4.13 Schermo Perfetto, Controlli Precisi e Valutazione Play",
+        "subtitle": "Mappa centrata su qualsiasi display Android, tocchi più precisi e valutazione diretta su Google Play in un tocco!",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
-                "icon": "⚡",
-                "title": "Avvio Più Rapido e Memoria Più Leggera",
-                "desc": "L'ottimizzazione del motore riduce i tempi di caricamento e alleggerisce l'uso della RAM durante tutta l'avventura."
+                "icon": "📐",
+                "title": "Adattamento Perfetto Su Schermi Ampi e Con Notch",
+                "desc": "La mappa dei livelli e i pulsanti inferiori ora si adattano con precisione evitando ritagli ai bordi su ogni smartphone Android."
             },
             {
-                "icon": "🛡️",
-                "title": "Protezione Avanzata della Stabilità",
-                "desc": "Nuovi controlli di affidabilità proteggono le sessioni di gioco più lunghe e gli scontri con i boss da qualsiasi rallentamento."
+                "icon": "🎯",
+                "title": "Controlli Touch Più Reattivi e Precisi",
+                "desc": "I tasti di movimento e salto sono protetti dai bordi anti-tocco e offrono un'area sensibile ampliata e immediata."
             },
             {
-                "icon": "📱",
-                "title": "Fluidità a 120 FPS su Ogni Dispositivo Android",
-                "desc": "La gestione migliorata delle risorse mantiene frame rate costanti e temperature più basse sia su smartphone che su tablet."
+                "icon": "⭐",
+                "title": "Valutazione Diretta Su Google Play Store",
+                "desc": "Le stelle di fine livello, le Impostazioni e il Feedback aprono ora direttamente la scheda di Google Play per lasciare il tuo voto."
             },
             {
-                "icon": "🌍",
-                "title": "9 Lingue, Studio Eroi e Cloud Sempre Reattivi",
-                "desc": "Tutti i 19 eroi, 78 oggetti personalizzabili, vantaggi VIP e salvataggi cloud rispondono all'istante nella tua lingua."
+                "icon": "🗺️",
+                "title": "Titoli Perfetti Per Tutti i 150 Livelli",
+                "desc": "Rifiniti i nomi dei boss nella Zona 9 e verificata la coerenza di tutti i 100 livelli campagna + 50 livelli Troll in 9 lingue."
             },
             {
-                "icon": "🎮",
-                "title": "150 Livelli di Azione Senza Interruzioni",
-                "desc": "Affronta i 100 livelli della campagna e i 50 livelli Troll con comandi ancora più precisi e reattivi!"
+                "icon": "🌐",
+                "title": "Esperienza Fluida a 120 FPS Su Mobile e Web",
+                "desc": "Avvio più stabile e passaggi istantanei tra la mappa e l'azione sia su telefono che da browser desktop."
             }
         ]
     },
     "es": {
-        "title": "🚀 v1.4.12 Mejora de Rendimiento, Memoria y Estabilidad",
-        "subtitle": "¡Marinext 2100 ahora abre más rápido, consume menos memoria y ofrece una fluidez superior en cualquier teléfono o tableta!",
+        "title": "🚀 v1.4.13 Ajuste de Pantalla, Control Preciso y Calificación",
+        "subtitle": "¡Mapa perfectamente encajado en pantallas anchas, controles táctiles ampliados y acceso directo a Google Play!",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
-                "icon": "⚡",
-                "title": "Inicio Más Rápido y Menor Uso de Memoria",
-                "desc": "Optimizamos el motor del juego para acelerar la carga inicial y reducir de forma notable el consumo de memoria RAM."
+                "icon": "📐",
+                "title": "Encaje Total En Pantallas Anchas y Con Notch",
+                "desc": "El mapa y los botones inferiores ahora respetan las zonas seguras de cada teléfono sin cortes laterales ni desplazamientos."
             },
             {
-                "icon": "🛡️",
-                "title": "Protección Reforzada de Estabilidad",
-                "desc": "Mejoras internas garantizan partidas sólidas durante sesiones largas y batallas intensas contra jefes finales."
+                "icon": "🎯",
+                "title": "Controles Táctiles Más Precisos y Amplios",
+                "desc": "Los botones de dirección y salto quedan lejos de la protección de bordes con un área táctil invisible ampliada."
             },
             {
-                "icon": "📱",
-                "title": "120 FPS Estables en Más Dispositivos Android",
-                "desc": "La gestión eficiente de gráficos y audio mantiene una fluidez constante y menor consumo de batería en todo tipo de pantallas."
+                "icon": "⭐",
+                "title": "Calificación Directa En Google Play Store",
+                "desc": "Las estrellas, Ajustes y la ventana de Comentarios ahora te llevan directo a Google Play para publicar tu reseña."
             },
             {
-                "icon": "🌍",
-                "title": "Experiencia Fluida en 9 Idiomas y Nube",
-                "desc": "Los 19 héroes, 78 accesorios, beneficios VIP, logros y guardado en la nube funcionan al instante en tu idioma elegido."
+                "icon": "🗺️",
+                "title": "Títulos Pulidos En Los 150 Niveles",
+                "desc": "Corregido el título del jefe de la Zona 9 y verificados los nombres de los 100 niveles principales + 50 Troll en 9 idiomas."
             },
             {
-                "icon": "🎮",
-                "title": "150 Niveles de Aventura Sin Pausas",
-                "desc": "Supera los 100 niveles principales y 50 niveles Troll con respuesta inmediata y control de máxima precisión."
+                "icon": "🌐",
+                "title": "120 FPS Fluidos En Móvil y Navegador Web",
+                "desc": "Transiciones limpias entre el mapa y cada nivel con respuesta instantánea tanto en Android como en PC."
             }
         ]
     },
     "fr": {
-        "title": "🚀 v1.4.12 Optimisation Performances, Mémoire & Stabilité",
-        "subtitle": "Marinext 2100 démarre désormais plus vite, consomme moins de mémoire et reste ultra-fluide sur tous les appareils !",
+        "title": "🚀 v1.4.13 Écran Parfait, Contrôles Précis & Avis Google Play",
+        "subtitle": "Carte centrée sans bord coupé sur tous les téléphones, zones tactiles optimisées et notation directe sur le Play Store !",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
-                "icon": "⚡",
-                "title": "Lancement Plus Rapide & Empreinte Mémoire Réduite",
-                "desc": "L'optimisation du moteur réduit les temps d'ouverture et allège nettement l'utilisation de la RAM en cours de partie."
+                "icon": "📐",
+                "title": "Affichage Parfait Sur Écrans Larges & Encoches",
+                "desc": "La carte et les boutons du bas s'adaptent aux bordures de chaque téléphone Android sans jamais être coupés sur les côtés."
             },
             {
-                "icon": "🛡️",
-                "title": "Protection Renforcée de la Stabilité",
-                "desc": "Une fiabilité accrue assure des sessions prolongées et des combats de boss fluides sans aucun ralentissement."
+                "icon": "🎯",
+                "title": "Contrôles Tactiles Agrandis et Ultra-Réactifs",
+                "desc": "Les touches directionnelles et de saut évitent les zones mortes des bords et disposent d'une surface tactile élargie."
             },
             {
-                "icon": "📱",
-                "title": "Fluidité 120 IPS sur Tous Vos Appareils Android",
-                "desc": "Le traitement allégé des ressources préserve votre batterie et garantit un affichage stable sur téléphone comme sur tablette."
+                "icon": "⭐",
+                "title": "Note Directe Sur Google Play Store",
+                "desc": "Les étoiles, les Paramètres et la fenêtre d'Avis ouvrent désormais directement la fiche Google Play pour publier votre note."
             },
             {
-                "icon": "🌍",
-                "title": "9 Langues, Studio & Sauvegarde Cloud Réactifs",
-                "desc": "Les 19 héros, 78 équipements, avantages VIP et succès s'ouvrent instantanément dans la langue de votre choix."
+                "icon": "🗺️",
+                "title": "Finition des 150 Niveaux En 9 Langues",
+                "desc": "Titre du boss de la Zone 9 corrigé et noms des 100 niveaux principaux + 50 niveaux Troll uniformisés dans votre langue."
             },
             {
-                "icon": "🎮",
-                "title": "150 Niveaux d'Action Sans Coupure",
-                "desc": "Enchaînez les 100 niveaux principaux et les 50 niveaux Troll avec une réactivité encore plus précise !"
+                "icon": "🌐",
+                "title": "Expérience Fluide 120 IPS Mobile & Web",
+                "desc": "Transitions plus nettes et réactivité constante aussi bien sur l'application Android que sur ordinateur."
             }
         ]
     },
     "ko": {
-        "title": "🚀 v1.4.12 성능·메모리 최적화 및 안정성 강화 업데이트",
-        "subtitle": "Marinext 2100이 이제 더 빠르게 실행되고, 메모리를 적게 사용하며, 모든 기기에서 한층 부드럽게 작동합니다!",
+        "title": "🚀 v1.4.13 화면 맞춤 정렬, 정밀 터치 및 스토어 리뷰 개선",
+        "subtitle": "모든 와이드 스마트폰 화면에 딱 맞는 지도 배치, 더 넓어진 터치 반응 영역, 원터치 Google Play 평가 지원!",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
-                "icon": "⚡",
-                "title": "더 빠른 실행 속도 & 가벼운 메모리 사용",
-                "desc": "게임 엔진 전반을 최적화하여 초기 로딩 시간을 줄이고 기기 RAM 점유율을 대폭 낮췄습니다."
+                "icon": "📐",
+                "title": "와이드·노치 디스플레이 완벽 화면 맞춤",
+                "desc": "카메라 펀치홀과 다양한 화면 비율의 Android 스마트폰에서도 지도와 하단 버튼이 양옆 잘림 없이 완벽하게 표시됩니다."
             },
             {
-                "icon": "🛡️",
-                "title": "실시간 게임 안정성 보호 강화",
-                "desc": "장시간 플레이와 화려한 보스전 중에도 끊김 없이 안정적으로 실행되도록 보호 기능을 고도화했습니다."
+                "icon": "🎯",
+                "title": "터치 버튼 오작동 방지 및 판정 범위 확대",
+                "desc": "이동·점프 버튼이 화면 가장자리 오터치 방지 구역 안쪽으로 안정 배치되었고 보이지 않는 터치 영역이 넓어졌습니다."
             },
             {
-                "icon": "📱",
-                "title": "모든 Android 기기에서 안정적인 120 FPS",
-                "desc": "보급형 스마트폰부터 대형 태블릿까지 발열을 줄이면서 더욱 일정하고 매끄러운 프레임을 유지합니다."
+                "icon": "⭐",
+                "title": "원터치 Google Play 스토어 직접 평가",
+                "desc": "별점 팝업, 설정 및 의견 보내기에서 이제 바로 Google Play 스토어로 이동해 소중한 평점을 남길 수 있습니다."
             },
             {
-                "icon": "🌍",
-                "title": "9개 언어 스튜디오 & 클라우드 연동 최적화",
-                "desc": "19명의 영웅, 78종 커스텀 장비, VIP 혜택, 업적 및 클라우드 저장 화면이 선택한 언어로 즉시 매끄럽게 동작합니다."
+                "icon": "🗺️",
+                "title": "150개 스테이지 9개국어 타이틀 다듬기",
+                "desc": "9구역 보스 제목을 포함해 100개 캠페인 + 50개 트롤 스테이지 이름이 선택한 언어에 맞게 깔끔하게 정비되었습니다."
             },
             {
-                "icon": "🎮",
-                "title": "150개 스테이지의 쾌적한 액션 플레이",
-                "desc": "100개 캠페인과 50개 트롤 스테이지를 지체 없는 반응 속도로 마음껏 정복하세요!"
+                "icon": "🌐",
+                "title": "모바일 & 웹 120 FPS 쾌적한 플레이",
+                "desc": "Android 앱과 PC 웹 버전 모두에서 더 매끄러운 화면 전환과 즉각적인 반응 속도를 경험하세요."
             }
         ]
     },
     "zh": {
-        "title": "🚀 v1.4.12 性能、内存与稳定性全面优化升级",
-        "subtitle": "《Marinext 2100》现已实现更快启动、更低内存占用，并在各类设备上带来更加丝滑稳定的游戏体验！",
+        "title": "🚀 v1.4.13 全屏刘海适配、精准触控与商店直达评分升级",
+        "subtitle": "全面屏手机地图零裁切完美居中，触控按键判定更跟手，支持一键直达 Google Play 商店发表评分！",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
-                "icon": "⚡",
-                "title": "极速启动与更轻盈的内存占用",
-                "desc": "对游戏引擎核心进行了深度精简优化，显著缩短启动时间并大幅降低设备运行内存消耗。"
+                "icon": "📐",
+                "title": "全面屏与挖孔屏地图完美对齐",
+                "desc": "针对超宽屏和刘海挖孔安卓手机优化了安全区边距，关卡地图与底部按钮不再出现左右裁切或偏移。"
             },
             {
-                "icon": "🛡️",
-                "title": "增强型实时稳定性守护",
-                "desc": "全面强化长时间冒险与高强度 Boss 战期间的运行稳定性，保障每一局对战顺畅无阻。"
+                "icon": "🎯",
+                "title": "触控方向与跳跃按键精准升级",
+                "desc": "按键位置避开手机边缘防误触区并扩大隐藏触控热区，跑动与二段跳手感大幅提升。"
             },
             {
-                "icon": "📱",
-                "title": "更多安卓机型畅享稳定 120 FPS",
-                "desc": "高效的资源调度让游戏从主流手机到大屏平板均能保持低温低耗且高帧率流畅运行。"
+                "icon": "⭐",
+                "title": "一键直达 Google Play 商店评分",
+                "desc": "通关评分星级、设置及反馈弹窗现已支持直接跳转 Google Play 商店页面，让您的好评实时生效。"
             },
             {
-                "icon": "🌍",
-                "title": "9 国语言工作室与云端存档更敏捷",
-                "desc": "19 位英雄、78 款装扮道具、VIP 特权、成就与云端同步界面均能在您选择的语言中即时响应。"
+                "icon": "🗺️",
+                "title": "150 关多语言标题细节完善",
+                "desc": "修复第 9 区域 Boss 名称错字并校验全部 100 主线 + 50 整蛊关卡在 9 种语言下的显示一致性。"
             },
             {
-                "icon": "🎮",
-                "title": "150 个精彩关卡零卡顿畅玩",
-                "desc": "在 100 个主线关卡与 50 个整蛊关卡中体验更灵敏、更跟手的操作反馈！"
+                "icon": "🌐",
+                "title": "手机与网页端畅享 120 FPS 丝滑体验",
+                "desc": "无论是安卓应用还是电脑浏览器游玩，关卡切换与操作反馈皆更加稳健流畅。"
             }
         ]
     },
     "ja": {
-        "title": "🚀 v1.4.12 パフォーマンス・メモリ・安定性向上アップデート",
-        "subtitle": "Marinext 2100の起動がさらに速くなり、メモリ消費を抑えてあらゆる端末でより滑らかに動作するようになりました！",
+        "title": "🚀 v1.4.13 ワイド画面最適化・精密タッチ＆ストア評価連携",
+        "subtitle": "全Androidスマホの画面端まで美しく収まるマップ表示、さらに反応しやすくなったタッチ操作、ワンタップGoogle Play評価に対応！",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
-                "icon": "⚡",
-                "title": "高速起動＆省メモリ設計への最適化",
-                "desc": "ゲームエンジンをスリム化・最適化し、アプリ起動を高速化するとともに端末のメモリ使用量を大きく削減しました。"
+                "icon": "📐",
+                "title": "ワイド画面＆ノッチ端末への完璧フィット",
+                "desc": "カメラホールや横長画面に合わせて安全領域を自動調整し、ステージマップや下部ボタンの左右見切れを解消しました。"
             },
             {
-                "icon": "🛡️",
-                "title": "リアルタイム安定性保護の強化",
-                "desc": "長時間の連続プレイや激しいボス戦でも安定して動作するよう保護機能をさらに強化しています。"
+                "icon": "🎯",
+                "title": "タッチ操作の精度＆反応エリアを強化",
+                "desc": "左右・ジャンプボタンを画面端の誤タッチ防止帯から内側に配置し、見えない判定エリアを広げて操作性を向上しました。"
             },
             {
-                "icon": "📱",
-                "title": "幅広いAndroid端末で快適120 FPS",
-                "desc": "効率的なリソース処理により、スマートフォンから大画面タブレットまで発熱を抑えつつ安定したフレームレートを維持します。"
+                "icon": "⭐",
+                "title": "Google Play ストアへ直接評価リンク",
+                "desc": "評価星アイコン・設定・フィードバック画面から直接Google Playストアの評価ページを開けるようになりました。"
             },
             {
-                "icon": "🌍",
-                "title": "9言語スタジオ＆クラウド連携もより軽快に",
-                "desc": "19ヒーロー・78カスタム装備・VIP特典・実績・クラウドセーブが選択中の言語で即座に快適動作します。"
+                "icon": "🗺️",
+                "title": "全150ステージ・9言語タイトルの洗練",
+                "desc": "第9エリアボス名の表記を修正し、100キャンペーン＋50トロール全ステージの表記を選択言語に完全一致させました。"
             },
             {
-                "icon": "🎮",
-                "title": "全150ステージをストレスなく攻略",
-                "desc": "100のキャンペーンステージと50のトロールステージをこれまで以上に高いレスポンスで楽しめます！"
+                "icon": "🌐",
+                "title": "モバイル＆Web双方で滑らかな120 FPS",
+                "desc": "Androidアプリ版・Webブラウザ版ともに画面切り替えやプレイ安定性をさらに高めています。"
             }
         ]
     }
