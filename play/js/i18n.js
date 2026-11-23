@@ -6740,302 +6740,302 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.4.11" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.4.12" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.4.11 Tüm 9 Dilde %100 Eksiksiz Çeviri & Stüdyo Güncellemesi",
-        "subtitle": "Karakter Değiştir, Karakter Kişiselleştir, ekipman güç etkileri, avatarlar ve gizlilik ekranları artık seçili aktif dilinizle %100 uyumlu!",
+        "title": "🚀 v1.4.12 Performans, Bellek & Kararlılık Güncellemesi",
+        "subtitle": "Marinext 2100 artık çok daha hızlı açılıyor, daha az bellek tüketiyor ve tüm cihazlarda ekstra akıcı çalışıyor!",
         "btnOk": "🎮 HARİKA, OYUNA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
             {
-                "icon": "🎭",
-                "title": "Tam Yerelleştirilmiş Karakter Değiştirme Stüdyosu",
-                "desc": "19 kahramanın tamamının adı, yüz tarifi, özel pasif gücü ve kıyafet açıklaması artık seçtiğiniz aktif dilde eksiksiz görüntüleniyor."
-            },
-            {
-                "icon": "🎨",
-                "title": "78 Ekipman & Güç Etkisi Seçili Dilde",
-                "desc": "Miğfer, silah, kanat, zırh, vizör, aura ve pelerin kartlarındaki tüm isim, açıklama ve oynanış bonusları 9 dile kusursuz uyarlandı."
-            },
-            {
-                "icon": "🏆",
-                "title": "Profil Amblemleri, Başarımlar & Liderlik Tablosu",
-                "desc": "30 kahraman avatarı, tüm oyun içi başarımlar, lig ödülü mesajları ve Trol Modu sekme başlıkları artık her dilde pürüzsüz çalışıyor."
+                "icon": "⚡",
+                "title": "Daha Hızlı Açılış & Hafif Bellek Kullanımı",
+                "desc": "Oyun motoru baştan optimize edilerek açılış süresi kısaltıldı ve cihazınızın RAM tüketimi belirgin şekilde azaltıldı."
             },
             {
                 "icon": "🛡️",
-                "title": "Gizlilik, Reklam Tercihleri & Hoş Geldiniz Ekranları",
-                "desc": "İlk açılış onay ekranı, gizlilik politikası özeti ve reklam tercihleri penceresi dil değiştirildiğinde anında kendi dilinize geçer."
+                "title": "Gelişmiş Gerçek Zamanlı Kararlılık Koruması",
+                "desc": "Uzun oyun oturumlarında ve yoğun boss savaşlarında oluşabilecek anlık takılmalara karşı otomatik koruma altyapısı güçlendirildi."
             },
             {
-                "icon": "⚡",
-                "title": "Anında Dil Geçişi & 120 FPS Akıcılık",
-                "desc": "Hangi dili seçerseniz seçin başka dilden tek bir metin görmeden 100 ana bölüm ve 50 trol bölümünde 120 FPS keyfini yaşayın!"
+                "icon": "📱",
+                "title": "Tüm Android Cihazlarda 120 FPS Akıcılık",
+                "desc": "Giriş seviyesi telefonlardan geniş ekranlı tabletlere kadar her cihazda daha serin, akıcı ve dengeli kare hızı sağlanır."
+            },
+            {
+                "icon": "🌍",
+                "title": "9 Dilde Pürüzsüz Stüdyo & Mağaza Deneyimi",
+                "desc": "Seçili aktif dilinizde tüm karakterler, kişiselleştirme ekipmanları, başarımlar ve bulut eşitleme ekranları hatasız çalışır."
+            },
+            {
+                "icon": "🎮",
+                "title": "150 Bölüm & 19 Kahramanla Kesintisiz Macera",
+                "desc": "100 ana sefer + 50 Trol bölümü, günlük ödüller ve liderlik tablosu yarışında şimdi çok daha akıcı bir deneyim sizi bekliyor!"
             }
         ]
     },
     "en": {
-        "title": "🚀 v1.4.11 100% Native 9-Language Studio & Game Overhaul",
-        "subtitle": "Character Change, Customize Studio, item perk badges, 30 hero avatars, achievements, and privacy screens now match your active language 100%!",
+        "title": "🚀 v1.4.12 Performance, Memory & Stability Boost",
+        "subtitle": "Marinext 2100 now launches faster, uses significantly less memory, and runs smoother than ever on every device!",
         "btnOk": "🎮 AWESOME, START PLAYING!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
             {
-                "icon": "🎭",
-                "title": "100% Localized Character Studio (All 19 Heroes)",
-                "desc": "Every hero's title, face description, passive power pill, and outfit bio—including the Celestial Sultan and Shadow Dragon VIP heroes—now appear in your chosen language."
-            },
-            {
-                "icon": "🎨",
-                "title": "All 78 Customize Gear Pieces & Perk Pills Translated",
-                "desc": "Helmets, weapons, wings, armors, visors, auras, capes, and every gameplay bonus stat badge are now fully translated across all 9 languages."
-            },
-            {
-                "icon": "🏆",
-                "title": "Hero Avatars, Achievements & Live Leaderboard",
-                "desc": "All 30 profile emblems, achievement unlocks, league reward announcements, and Troll Mode filter tabs adapt cleanly to your selected language."
+                "icon": "⚡",
+                "title": "Faster Startup & Lighter Memory Footprint",
+                "desc": "Core engine optimization trims background overhead so levels load quicker while using far less RAM on your phone or tablet."
             },
             {
                 "icon": "🛡️",
-                "title": "Welcome Notice, Privacy Policy & Ad Preferences",
-                "desc": "First-launch notice, privacy policy summaries, and player-friendly ad preference screens dynamically switch to your active language."
+                "title": "Enhanced Real-Time Stability Protection",
+                "desc": "Strengthened runtime safeguards help keep long play sessions and intense boss battles rock-solid from start to finish."
             },
             {
-                "icon": "⚡",
-                "title": "Zero Mixed-Language Text & 120 FPS Polish",
-                "desc": "Enjoy seamless switching between all 9 languages with zero leftover foreign labels across every screen at silky-smooth 120 FPS."
+                "icon": "📱",
+                "title": "Silky 120 FPS Across All Android Devices",
+                "desc": "Optimized resource handling delivers cooler battery temperatures and steadier frame rates on both compact phones and large tablets."
+            },
+            {
+                "icon": "🌍",
+                "title": "Seamless 9-Language Studio & Cloud Flow",
+                "desc": "All 19 heroes, 78 gear pieces, VIP benefits, achievements, and cloud save screens stay completely responsive in your active language."
+            },
+            {
+                "icon": "🎮",
+                "title": "Uninterrupted 150-Stage Action",
+                "desc": "Jump straight into all 100 campaign levels and 50 deceptive Troll stages with sharper responsiveness and zero slowdown."
             }
         ]
     },
     "ru": {
-        "title": "🚀 v1.4.11 Полная Локализация на 9 Языков во Всей Игре",
-        "subtitle": "Студия героев, мастерская стиля, бонусы экипировки, 30 аватаров, достижения и экраны конфиденциальности теперь полностью на выбранном вами языке!",
+        "title": "🚀 v1.4.12 Оптимизация Памяти, Скорости и Стабильности",
+        "subtitle": "Marinext 2100 теперь запускается заметно быстрее, потребляет меньше памяти и работает ещё плавнее на любом устройстве!",
         "btnOk": "🎮 ОТЛИЧНО, ИГРАТЬ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
             {
-                "icon": "🎭",
-                "title": "Студия Героев на Вашем Языке (Все 19 Персонажей)",
-                "desc": "Названия, черты лица, пассивные способности и описания костюмов всех 19 героев теперь полностью переведены без пропусков."
-            },
-            {
-                "icon": "🎨",
-                "title": "Все 78 Предметов Мастерской и Их Бонусы",
-                "desc": "Шлемы, оружие, крылья, броня, визоры, ауры, плащи и характеристики усиления отображаются исключительно на активном языке игры."
-            },
-            {
-                "icon": "🏆",
-                "title": "Аватары Профиля, Достижения и Лидерборд",
-                "desc": "Все 30 эмблем профиля, уведомления о достижениях, награды лиги и вкладки Тролль-режима полностью адаптированы для каждого языка."
+                "icon": "⚡",
+                "title": "Быстрый Запуск и Меньше Нагрузки на Память",
+                "desc": "Оптимизация игрового движка сократила время старта и заметно снизила расход оперативной памяти устройства."
             },
             {
                 "icon": "🛡️",
-                "title": "Приветствие, Политика Конфиденциальности и Реклама",
-                "desc": "Экран первого запуска, краткая политика конфиденциальности и настройки рекламы мгновенно обновляются при смене языка."
+                "title": "Усиленная Защита Стабильности в Реальном Времени",
+                "desc": "Повышена надёжность работы во время долгих игровых сессий и напряжённых сражений с боссами."
             },
             {
-                "icon": "⚡",
-                "title": "Ни Одного Лишнего Слова и Плавность 120 FPS",
-                "desc": "Мгновенное переключение между 9 языками без смешения текстов во всех меню, 100 уровнях кампании и 50 тролль-уровнях."
+                "icon": "📱",
+                "title": "Плавные 120 FPS на Всех Android-Устройствах",
+                "desc": "Эффективная работа с ресурсами обеспечивает стабильную частоту кадров и меньший нагрев на смартфонах и планшетах."
+            },
+            {
+                "icon": "🌍",
+                "title": "Безупречная Работа 9 Языков и Облачных Сохранений",
+                "desc": "Студия из 19 героев, 78 предметов, VIP-привилегии и синхронизация прогресса работают без задержек на выбранном языке."
+            },
+            {
+                "icon": "🎮",
+                "title": "150 Уровней Приключений Без Тормозов",
+                "desc": "Покоряйте 100 основных этапов и 50 тролль-уровней с максимальной отзывчивостью управления!"
             }
         ]
     },
     "it": {
-        "title": "🚀 v1.4.11 Traduzione Completa al 100% in Tutte e 9 le Lingue",
-        "subtitle": "Cambio Personaggio, Studio Personalizzazione, bonus degli oggetti, 30 avatar, obiettivi e schermate privacy ora seguono perfettamente la tua lingua!",
+        "title": "🚀 v1.4.12 Aggiornamento Prestazioni, Memoria e Stabilità",
+        "subtitle": "Marinext 2100 ora si avvia più velocemente, consuma molta meno memoria e offre una fluidità superiore su ogni dispositivo!",
         "btnOk": "🎮 FANTASTICO, GIOCA ORA!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
             {
-                "icon": "🎭",
-                "title": "Studio Personaggi Completo nella Tua Lingua (19 Eroi)",
-                "desc": "Nomi, descrizioni del volto, abilità passive e costumi di tutti i 19 eroi sono ora tradotti in tutte le lingue supportate."
-            },
-            {
-                "icon": "🎨",
-                "title": "Tutti i 78 Oggetti di Personalizzazione e i Loro Bonus",
-                "desc": "Elmi, armi, ali, armature, visiere, aure, mantelli e bonus di gioco sono finalmente tradotti senza alcun testo estraneo."
-            },
-            {
-                "icon": "🏆",
-                "title": "Avatar Profilo, Obiettivi e Classifica Live",
-                "desc": "Tutti i 30 stemmi del profilo, gli obiettivi Play Games, i premi di lega e le schede Modalità Troll parlano la tua lingua."
+                "icon": "⚡",
+                "title": "Avvio Più Rapido e Memoria Più Leggera",
+                "desc": "L'ottimizzazione del motore riduce i tempi di caricamento e alleggerisce l'uso della RAM durante tutta l'avventura."
             },
             {
                 "icon": "🛡️",
-                "title": "Schermata Iniziale, Privacy e Preferenze Annunci",
-                "desc": "L'informativa sulla privacy, l'avviso iniziale e le preferenze pubblicitarie si aggiornano all'istante al cambio lingua."
+                "title": "Protezione Avanzata della Stabilità",
+                "desc": "Nuovi controlli di affidabilità proteggono le sessioni di gioco più lunghe e gli scontri con i boss da qualsiasi rallentamento."
             },
             {
-                "icon": "⚡",
-                "title": "Cambio Lingua Istantaneo e Fluidità a 120 FPS",
-                "desc": "Zero testi in lingue diverse in ogni menu e finestra, con la consueta fluidità a 120 FPS in tutti i 150 livelli."
+                "icon": "📱",
+                "title": "Fluidità a 120 FPS su Ogni Dispositivo Android",
+                "desc": "La gestione migliorata delle risorse mantiene frame rate costanti e temperature più basse sia su smartphone che su tablet."
+            },
+            {
+                "icon": "🌍",
+                "title": "9 Lingue, Studio Eroi e Cloud Sempre Reattivi",
+                "desc": "Tutti i 19 eroi, 78 oggetti personalizzabili, vantaggi VIP e salvataggi cloud rispondono all'istante nella tua lingua."
+            },
+            {
+                "icon": "🎮",
+                "title": "150 Livelli di Azione Senza Interruzioni",
+                "desc": "Affronta i 100 livelli della campagna e i 50 livelli Troll con comandi ancora più precisi e reattivi!"
             }
         ]
     },
     "es": {
-        "title": "🚀 v1.4.11 Traducción Completa al 100% en los 9 Idiomas",
-        "subtitle": "¡Estudio de Personajes, Personalización, ventajas de equipo, 30 avatares, logros y privacidad ahora se muestran íntegramente en tu idioma activo!",
+        "title": "🚀 v1.4.12 Mejora de Rendimiento, Memoria y Estabilidad",
+        "subtitle": "¡Marinext 2100 ahora abre más rápido, consume menos memoria y ofrece una fluidez superior en cualquier teléfono o tableta!",
         "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
             {
-                "icon": "🎭",
-                "title": "Estudio de Personajes 100% Localizado (19 Héroes)",
-                "desc": "Todos los nombres, rasgos faciales, poderes pasivos y descripciones de los 19 héroes aparecen por completo en tu idioma."
-            },
-            {
-                "icon": "🎨",
-                "title": "78 Piezas de Equipo y Ventajas Traducidas",
-                "desc": "Cascos, armas, alas, armaduras, visores, auras, capas y sus bonificaciones muestran cada detalle en el idioma elegido."
-            },
-            {
-                "icon": "🏆",
-                "title": "Avatares, Logros y Clasificación en Vivo",
-                "desc": "Los 30 emblemas de perfil, todos los logros desbloqueables, avisos de liga y pestañas del Modo Troll están totalmente localizados."
+                "icon": "⚡",
+                "title": "Inicio Más Rápido y Menor Uso de Memoria",
+                "desc": "Optimizamos el motor del juego para acelerar la carga inicial y reducir de forma notable el consumo de memoria RAM."
             },
             {
                 "icon": "🛡️",
-                "title": "Bienvenida, Privacidad y Preferencias de Anuncios",
-                "desc": "El aviso inicial, el resumen de privacidad y las opciones de anuncios cambian al instante al elegir otro idioma."
+                "title": "Protección Reforzada de Estabilidad",
+                "desc": "Mejoras internas garantizan partidas sólidas durante sesiones largas y batallas intensas contra jefes finales."
             },
             {
-                "icon": "⚡",
-                "title": "Cero Mezclas de Idioma y 120 FPS Fluidos",
-                "desc": "Disfruta los 100 niveles principales y 50 niveles Troll a 120 FPS sin textos en otro idioma."
+                "icon": "📱",
+                "title": "120 FPS Estables en Más Dispositivos Android",
+                "desc": "La gestión eficiente de gráficos y audio mantiene una fluidez constante y menor consumo de batería en todo tipo de pantallas."
+            },
+            {
+                "icon": "🌍",
+                "title": "Experiencia Fluida en 9 Idiomas y Nube",
+                "desc": "Los 19 héroes, 78 accesorios, beneficios VIP, logros y guardado en la nube funcionan al instante en tu idioma elegido."
+            },
+            {
+                "icon": "🎮",
+                "title": "150 Niveles de Aventura Sin Pausas",
+                "desc": "Supera los 100 niveles principales y 50 niveles Troll con respuesta inmediata y control de máxima precisión."
             }
         ]
     },
     "fr": {
-        "title": "🚀 v1.4.11 Localisation Intégrale 100 % en 9 Langues",
-        "subtitle": "Studio des Héros, Personnalisation, bonus d'équipement, 30 avatars, succès et écrans de confidentialité s'affichent désormais dans votre langue !",
+        "title": "🚀 v1.4.12 Optimisation Performances, Mémoire & Stabilité",
+        "subtitle": "Marinext 2100 démarre désormais plus vite, consomme moins de mémoire et reste ultra-fluide sur tous les appareils !",
         "btnOk": "🎮 SUPER, JOUER !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
             {
-                "icon": "🎭",
-                "title": "Studio des Héros 100 % Traduit (Les 19 Héros)",
-                "desc": "Les noms, visages, pouvoirs passifs et tenues des 19 héros s'affichent intégralement dans la langue choisie."
-            },
-            {
-                "icon": "🎨",
-                "title": "78 Équipements & Bonus d'Atelier Traduits",
-                "desc": "Casques, armes, ailes, armures, visières, auras, capes et statistiques bonus sont traduits avec précision en 9 langues."
-            },
-            {
-                "icon": "🏆",
-                "title": "Avatars de Profil, Succès & Classement en Direct",
-                "desc": "Les 30 emblèmes de profil, tous les succès, récompenses de ligue et filtres du Mode Troll parlent désormais votre langue."
+                "icon": "⚡",
+                "title": "Lancement Plus Rapide & Empreinte Mémoire Réduite",
+                "desc": "L'optimisation du moteur réduit les temps d'ouverture et allège nettement l'utilisation de la RAM en cours de partie."
             },
             {
                 "icon": "🛡️",
-                "title": "Accueil, Confidentialité & Préférences Publicitaires",
-                "desc": "L'écran de bienvenue, la politique de confidentialité et les choix publicitaires s'adaptent instantanément à la langue active."
+                "title": "Protection Renforcée de la Stabilité",
+                "desc": "Une fiabilité accrue assure des sessions prolongées et des combats de boss fluides sans aucun ralentissement."
             },
             {
-                "icon": "⚡",
-                "title": "Changement de Langue Fluide & 120 IPS",
-                "desc": "Aucun texte étranger résiduel dans aucun menu, toujours avec la fluidité 120 IPS sur les 150 niveaux."
+                "icon": "📱",
+                "title": "Fluidité 120 IPS sur Tous Vos Appareils Android",
+                "desc": "Le traitement allégé des ressources préserve votre batterie et garantit un affichage stable sur téléphone comme sur tablette."
+            },
+            {
+                "icon": "🌍",
+                "title": "9 Langues, Studio & Sauvegarde Cloud Réactifs",
+                "desc": "Les 19 héros, 78 équipements, avantages VIP et succès s'ouvrent instantanément dans la langue de votre choix."
+            },
+            {
+                "icon": "🎮",
+                "title": "150 Niveaux d'Action Sans Coupure",
+                "desc": "Enchaînez les 100 niveaux principaux et les 50 niveaux Troll avec une réactivité encore plus précise !"
             }
         ]
     },
     "ko": {
-        "title": "🚀 v1.4.11 9개 언어 100% 완벽 현지화 & 스튜디오 전면 개선",
-        "subtitle": "캐릭터 변경, 커스터마이즈, 장비 능력치, 30종 아바타, 업적 및 개인정보 화면까지 이제 선택한 언어로 100% 표시됩니다!",
+        "title": "🚀 v1.4.12 성능·메모리 최적화 및 안정성 강화 업데이트",
+        "subtitle": "Marinext 2100이 이제 더 빠르게 실행되고, 메모리를 적게 사용하며, 모든 기기에서 한층 부드럽게 작동합니다!",
         "btnOk": "🎮 확인, 게임 시작!",
         "btnWeb": "🌐 전체 패치 노트 및 업데이트 내역 보기 ↗",
         "items": [
             {
-                "icon": "🎭",
-                "title": "19명 전체 영웅 스튜디오 완벽 번역",
-                "desc": "모든 영웅의 이름, 얼굴 특징, 고유 능력 및 의상 설명이 이제 한국어를 비롯한 9개 언어로 빠짐없이 표시됩니다."
-            },
-            {
-                "icon": "🎨",
-                "title": "78종 장비 & 모든 능력치 효과 문구 현지화",
-                "desc": "투구, 무기, 날개, 갑옷, 바이저, 오라, 망토의 이름과 설명은 물론 카드 상단 능력치 효과까지 모두 모국어로 제공됩니다."
-            },
-            {
-                "icon": "🏆",
-                "title": "프로필 아바타, 업적 & 실시간 리더보드 정비",
-                "desc": "30개 프로필 엠블럼, 업적 알림, 리그 보상 안내, 트롤 모드 전체 필터 탭이 활성 언어에 맞춰 깔끔하게 표시됩니다."
+                "icon": "⚡",
+                "title": "더 빠른 실행 속도 & 가벼운 메모리 사용",
+                "desc": "게임 엔진 전반을 최적화하여 초기 로딩 시간을 줄이고 기기 RAM 점유율을 대폭 낮췄습니다."
             },
             {
                 "icon": "🛡️",
-                "title": "첫 실행 동의, 개인정보 처리방침 & 광고 설정 연동",
-                "desc": "언어를 바꾸면 개인정보 처리방침, 첫 실행 안내 및 광고 설정 화면까지 즉시 선택한 언어로 전환됩니다."
+                "title": "실시간 게임 안정성 보호 강화",
+                "desc": "장시간 플레이와 화려한 보스전 중에도 끊김 없이 안정적으로 실행되도록 보호 기능을 고도화했습니다."
             },
             {
-                "icon": "⚡",
-                "title": "타 언어 혼용 없는 쾌적한 120 FPS 플레이",
-                "desc": "어느 언어로 플레이해도 다른 언어가 섞이지 않으며 100개 캠페인과 50개 트롤 스테이지를 부드럽게 즐길 수 있습니다."
+                "icon": "📱",
+                "title": "모든 Android 기기에서 안정적인 120 FPS",
+                "desc": "보급형 스마트폰부터 대형 태블릿까지 발열을 줄이면서 더욱 일정하고 매끄러운 프레임을 유지합니다."
+            },
+            {
+                "icon": "🌍",
+                "title": "9개 언어 스튜디오 & 클라우드 연동 최적화",
+                "desc": "19명의 영웅, 78종 커스텀 장비, VIP 혜택, 업적 및 클라우드 저장 화면이 선택한 언어로 즉시 매끄럽게 동작합니다."
+            },
+            {
+                "icon": "🎮",
+                "title": "150개 스테이지의 쾌적한 액션 플레이",
+                "desc": "100개 캠페인과 50개 트롤 스테이지를 지체 없는 반응 속도로 마음껏 정복하세요!"
             }
         ]
     },
     "zh": {
-        "title": "🚀 v1.4.11 全球 9 国语言 100% 全界面无缝本地化升级",
-        "subtitle": "角色更换、角色自定义工坊、装备属性加成、30款头像、成就与隐私设置现已 100% 按您当前选择的语言完整呈现！",
+        "title": "🚀 v1.4.12 性能、内存与稳定性全面优化升级",
+        "subtitle": "《Marinext 2100》现已实现更快启动、更低内存占用，并在各类设备上带来更加丝滑稳定的游戏体验！",
         "btnOk": "🎮 太棒了，开始游戏！",
         "btnWeb": "🌐 查看完整更新日志与版本历史 ↗",
         "items": [
             {
-                "icon": "🎭",
-                "title": "角色更换工作室 19 位英雄全面中文化",
-                "desc": "所有 19 位历史与赛博英雄的名称、面容描述、专属被动技能与服饰简介均已完整翻译，不再混杂英文。"
-            },
-            {
-                "icon": "🎨",
-                "title": "78 款装扮道具与属性加成条全面本地化",
-                "desc": "头盔、武器、翅膀、装甲、面罩、光环、披风的名称简介及每张卡片的实战属性提示均已精确翻译至 9 国语言。"
-            },
-            {
-                "icon": "🏆",
-                "title": "头像徽章、成就系统与实时排行榜全语种适配",
-                "desc": "30 个个人头像名称、成就提示、联赛领奖提示及整蛊模式筛选标签均已同步至您所选的游戏语言。"
+                "icon": "⚡",
+                "title": "极速启动与更轻盈的内存占用",
+                "desc": "对游戏引擎核心进行了深度精简优化，显著缩短启动时间并大幅降低设备运行内存消耗。"
             },
             {
                 "icon": "🛡️",
-                "title": "首次引导、隐私政策与广告偏好即时切换",
-                "desc": "切换游戏语言后，欢迎弹窗、隐私政策摘要及广告偏好窗口均会同步切换为对应语种。"
+                "title": "增强型实时稳定性守护",
+                "desc": "全面强化长时间冒险与高强度 Boss 战期间的运行稳定性，保障每一局对战顺畅无阻。"
             },
             {
-                "icon": "⚡",
-                "title": "纯净零混杂语言体验与 120 FPS 丝滑手感",
-                "desc": "确保任何界面均不出现其他语种文本，在 100 个主线关卡与 50 个整蛊关卡中畅享 120 FPS 流畅动作。"
+                "icon": "📱",
+                "title": "更多安卓机型畅享稳定 120 FPS",
+                "desc": "高效的资源调度让游戏从主流手机到大屏平板均能保持低温低耗且高帧率流畅运行。"
+            },
+            {
+                "icon": "🌍",
+                "title": "9 国语言工作室与云端存档更敏捷",
+                "desc": "19 位英雄、78 款装扮道具、VIP 特权、成就与云端同步界面均能在您选择的语言中即时响应。"
+            },
+            {
+                "icon": "🎮",
+                "title": "150 个精彩关卡零卡顿畅玩",
+                "desc": "在 100 个主线关卡与 50 个整蛊关卡中体验更灵敏、更跟手的操作反馈！"
             }
         ]
     },
     "ja": {
-        "title": "🚀 v1.4.11 全9言語 100%完全ローカライズ＆スタジオ全面対応",
-        "subtitle": "キャラ変更・カスタマイズ・装備効果バッジ・アバター30種・実績・プライバシー画面まで、選択中の言語で100%表示されるようになりました！",
+        "title": "🚀 v1.4.12 パフォーマンス・メモリ・安定性向上アップデート",
+        "subtitle": "Marinext 2100の起動がさらに速くなり、メモリ消費を抑えてあらゆる端末でより滑らかに動作するようになりました！",
         "btnOk": "🎮 了解、ゲームを始める！",
         "btnWeb": "🌐 全てのリリースノートと更新履歴を見る ↗",
         "items": [
             {
-                "icon": "🎭",
-                "title": "全19ヒーローのキャラ変更スタジオを完全翻訳",
-                "desc": "すべてのヒーロー名・顔タイプ説明・固有パッシブ効果・衣装解説が、選択した言語で漏れなく表示されます。"
-            },
-            {
-                "icon": "🎨",
-                "title": "78種のカスタム装備＆効果バッジを9言語対応",
-                "desc": "兜・武器・翼・鎧・バイザー・オーラ・マントの名称と解説、さらに各カードのゲーム内効果バッジまで完全に翻訳しました。"
-            },
-            {
-                "icon": "🏆",
-                "title": "アバター・実績・リアルタイムランキング整備",
-                "desc": "30種のプロフィール画像名、実績通知、リーグ報酬メッセージ、トロールモードのタブ表記まで選択言語に完全追従します。"
+                "icon": "⚡",
+                "title": "高速起動＆省メモリ設計への最適化",
+                "desc": "ゲームエンジンをスリム化・最適化し、アプリ起動を高速化するとともに端末のメモリ使用量を大きく削減しました。"
             },
             {
                 "icon": "🛡️",
-                "title": "初回同意・プライバシー・広告設定の即時切替",
-                "desc": "言語を切り替えるとプライバシーポリシー要約や広告設定ウィンドウの内容も即座に現在の言語へ切り替わります。"
+                "title": "リアルタイム安定性保護の強化",
+                "desc": "長時間の連続プレイや激しいボス戦でも安定して動作するよう保護機能をさらに強化しています。"
             },
             {
-                "icon": "⚡",
-                "title": "他言語の混在ゼロ＆120 FPS快適プレイ",
-                "desc": "どの言語を選んでも他言語の文字が混ざることはなく、100の通常ステージと50のトロールステージを快適に楽しめます。"
+                "icon": "📱",
+                "title": "幅広いAndroid端末で快適120 FPS",
+                "desc": "効率的なリソース処理により、スマートフォンから大画面タブレットまで発熱を抑えつつ安定したフレームレートを維持します。"
+            },
+            {
+                "icon": "🌍",
+                "title": "9言語スタジオ＆クラウド連携もより軽快に",
+                "desc": "19ヒーロー・78カスタム装備・VIP特典・実績・クラウドセーブが選択中の言語で即座に快適動作します。"
+            },
+            {
+                "icon": "🎮",
+                "title": "全150ステージをストレスなく攻略",
+                "desc": "100のキャンペーンステージと50のトロールステージをこれまで以上に高いレスポンスで楽しめます！"
             }
         ]
     }
