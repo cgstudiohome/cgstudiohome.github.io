@@ -1455,6 +1455,9 @@ class Game {
         this.ctx = this.canvas.getContext("2d");
         this.resizeCanvas();
         window.addEventListener("resize", () => this.resizeCanvas());
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener("resize", () => this.resizeCanvas());
+        }
         window.addEventListener("orientationchange", () => setTimeout(() => this.resizeCanvas(), 120));
 
         this.previewCanvas = document.getElementById("customizePreviewCanvas");
@@ -1687,8 +1690,20 @@ class Game {
 
     resizeCanvas() {
         if (!this.canvas) return;
-        const vpW = window.innerWidth || (document.documentElement ? document.documentElement.clientWidth : 1280);
-        const vpH = window.innerHeight || (document.documentElement ? document.documentElement.clientHeight : 720);
+        try {
+            window.scrollTo(0, 0);
+            if (document.documentElement) {
+                document.documentElement.scrollLeft = 0;
+                document.documentElement.scrollTop = 0;
+            }
+            if (document.body) {
+                document.body.scrollLeft = 0;
+                document.body.scrollTop = 0;
+            }
+        } catch (e) {}
+        const vv = window.visualViewport;
+        const vpW = (vv && vv.width ? Math.round(vv.width) : 0) || window.innerWidth || (document.documentElement ? document.documentElement.clientWidth : 1280);
+        const vpH = (vv && vv.height ? Math.round(vv.height) : 0) || window.innerHeight || (document.documentElement ? document.documentElement.clientHeight : 720);
         const screenRatio = vpW / Math.max(1, vpH);
 
         let targetW = 1280;
@@ -2201,7 +2216,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 48;
+        const CURRENT_VERSION_CODE = 49;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2337,7 +2352,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "48");
+                localStorage.setItem("marinext2100_last_seen_version", "49");
             } catch (e) {}
         };
 
@@ -2366,7 +2381,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "48") {
+            if (hasConsent && lastSeenVer !== "49") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -3863,7 +3878,7 @@ class Game {
                 window.sfx.powerUpSpawn();
                 try {
                     localStorage.setItem("marinext_privacy_consent_v1", String(Date.now()));
-                    localStorage.setItem("marinext2100_last_seen_version", "48");
+                    localStorage.setItem("marinext2100_last_seen_version", "49");
                 } catch (e) {}
                 const fcModal = document.getElementById("screen-first-consent");
                 if (fcModal) fcModal.classList.add("hidden");
@@ -4035,10 +4050,11 @@ class Game {
                 if (settingsModal && !settingsModal.classList.contains("hidden")) {
                     settingsModal.classList.add("hidden");
                 }
-                // Prioritize in-app review dialog inside the app; fallback to store only if review flow is unavailable
-                if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.requestInAppReview === "function") {
-                    window.MarinextCloudBridge.requestInAppReview();
-                } else if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.openPlayStoreRate === "function") {
+                // Open Google Play Store directly so user ratings and reviews always reach the store reliably
+                if (window.MarinextAnalytics) {
+                    window.MarinextAnalytics.logEvent("rate_store_opened", { source: "settings" });
+                }
+                if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.openPlayStoreRate === "function") {
                     window.MarinextCloudBridge.openPlayStoreRate();
                 } else {
                     window.open("https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100", "_blank");
@@ -4102,6 +4118,16 @@ class Game {
         }
 
         // ⭐ Rate App Modal Handlers
+        const openDirectPlayStoreRating = (sourceTag) => {
+            if (window.MarinextAnalytics) {
+                window.MarinextAnalytics.logEvent("rate_store_opened", { source: sourceTag });
+            }
+            if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.openPlayStoreRate === "function") {
+                window.MarinextCloudBridge.openPlayStoreRate();
+            } else {
+                window.open("https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100", "_blank");
+            }
+        };
         const btnActionRateNow = document.getElementById("btn-action-rate-now");
         if (btnActionRateNow) {
             btnActionRateNow.addEventListener("click", () => {
@@ -4109,13 +4135,7 @@ class Game {
                 localStorage.setItem("marinext_rate_v1", "done");
                 const rateModal = document.getElementById("screen-rate-app");
                 if (rateModal) rateModal.classList.add("hidden");
-                if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.requestInAppReview === "function") {
-                    window.MarinextCloudBridge.requestInAppReview();
-                } else if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.openPlayStoreRate === "function") {
-                    window.MarinextCloudBridge.openPlayStoreRate();
-                } else {
-                    window.open("https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100", "_blank");
-                }
+                openDirectPlayStoreRating("rate_modal");
             });
         }
         const btnActionRateFeedback = document.getElementById("btn-action-rate-feedback");
@@ -4151,11 +4171,24 @@ class Game {
                 document.querySelectorAll(".rate-star-icon").forEach((s, i) => {
                     s.style.color = i <= idx ? "#ffd166" : "rgba(255, 255, 255, 0.3)";
                 });
+                const rateModal = document.getElementById("screen-rate-app");
                 if (idx >= 3) {
+                    localStorage.setItem("marinext_rate_v1", "done");
                     setTimeout(() => {
-                        const btnRate = document.getElementById("btn-action-rate-now");
-                        if (btnRate) btnRate.click();
-                    }, 250);
+                        if (rateModal) rateModal.classList.add("hidden");
+                        openDirectPlayStoreRating("rate_modal_star");
+                    }, 180);
+                } else {
+                    localStorage.setItem("marinext_rate_v1", "feedback");
+                    this.feedbackStars = idx + 1;
+                    document.querySelectorAll("#feedback-stars-row .feedback-star-btn").forEach((b) => {
+                        const s = Number(b.getAttribute("data-star")) || 1;
+                        b.classList.toggle("active", s <= this.feedbackStars);
+                    });
+                    setTimeout(() => {
+                        if (rateModal) rateModal.classList.add("hidden");
+                        this.openFeedbackModal();
+                    }, 180);
                 }
             });
         });
@@ -5798,6 +5831,7 @@ class Game {
 
     startLevel(levelIdx, isTroll = this.isTrollMode) {
         this.clearAdPauseState();
+        this.resizeCanvas();
         this.isTrollMode = Boolean(isTroll);
         if (window.MarinextAnalytics) {
             window.MarinextAnalytics.logEvent('level_start', {
@@ -7220,8 +7254,8 @@ class Game {
         const stars = this.feedbackStars || 5;
         const cat = this.feedbackCategory || "Öneri & Yeni Fikir";
 
-        let appVerName = "1.4.2";
-        let appVerCode = 38;
+        let appVerName = "1.4.13";
+        let appVerCode = 49;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
                 const info = JSON.parse(window.MarinextCloudBridge.getAppVersionInfo());
@@ -7254,10 +7288,13 @@ class Game {
         const summaryText = `[Marinext 2100 v${appVerName} • ${cat} • ${"★".repeat(stars)} • Stage ${this.selectedLevel + 1}/100] ${rawText}`;
 
         if (openPlayStore) {
+            if (window.MarinextAnalytics) {
+                window.MarinextAnalytics.logEvent("rate_store_opened", { source: "feedback_modal" });
+            }
             if (statusEl) {
                 statusEl.classList.remove("hidden");
                 statusEl.style.color = "#06d6a0";
-                statusEl.textContent = trTxt("✅ Mesajınız kopyalandı ve Google Play Console Test Geri Bildirimi ekranı açılıyor...");
+                statusEl.textContent = trTxt("✅ Google Play Store puanlama ekranı açılıyor... (Mesajınız panoya kopyalandı)");
             }
             try {
                 if (navigator.clipboard && rawText) {
@@ -7266,7 +7303,12 @@ class Game {
             } catch (e) {}
             if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.openPlayStoreFeedback === "function") {
                 try {
-                    window.MarinextCloudBridge.openPlayStoreFeedback(summaryText);
+                    window.MarinextCloudBridge.openPlayStoreFeedback(rawText ? summaryText : "");
+                    return;
+                } catch (e) {}
+            } else if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.openPlayStoreRate === "function") {
+                try {
+                    window.MarinextCloudBridge.openPlayStoreRate();
                     return;
                 } catch (e) {}
             }
