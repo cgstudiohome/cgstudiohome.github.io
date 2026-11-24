@@ -6933,123 +6933,123 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.5.3" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.5.4" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🌌 v1.5.3 Akıllı 15 Dünya Şeridi & Kaldığın Yerden Devam",
-        "subtitle": "Dünya 1'den 15'e tek kesintisiz kaydırmalı şerit, Öte Evren'de tam kaldığın bölümden açılış ve test modu kontrolleri yayında!",
+        "title": "🛡️ v1.5.4 İlerleme Koruması & Gerçek Liderlik Tablosu",
+        "subtitle": "Gerçek ilerlemenize göre açılan başlangıç bölümü, adil liderlik sıralaması, izole Öte Evren deneme modu ve otomatik bulut onarımı yayında!",
         "btnOk": "🚀 HARİKA, MACERAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            { "icon": "🧭", "title": "Öte Evren'de Tam Kaldığın Bölümden Devam Et", "desc": "Öte Evren açıkken oyunu kapatıp açtığınızda artık doğrudan ulaştığınız son bölüm ve dünya (ör. Bölüm 106) aktif olarak açılır!" },
-            { "icon": "🌍", "title": "Sürüklenebilir Tek 15 Dünya Şeridi (1–150)", "desc": "Öte Evren açıldığında Dünya 1–10 haritadan silinmez; tüm dünyalar tek yatay şeritte sağa sola kaydırılarak gezilebilir." },
-            { "icon": "🧪", "title": "Açık/Kapalı Durumlu Geliştirici & Öte Evren Testi", "desc": "Ayarlar başlığına 5 dokunuşla test menüsü artık güvenle açılıp kapanır ve Öte Evren Test butonu AÇIK/KAPALI durumunu net gösterir." },
-            { "icon": "🗣️", "title": "9 Dilde %100 Uyumlu Sahne Etiketleri & Geri Bildirim", "desc": "Ters Yerçekimi, Zehirli Spor ve Mühür uyarıları ile geri bildirim bölüm bilgisi tüm dillerde eksiksiz güncellendi." },
-            { "icon": "🔒", "title": "Atlantis Resif Tavanı & Aşamalı Çıkış Kapıları", "desc": "Önceki güncellemedeki kontrollü Atlantis yüzüşü, 4 Mühürlü kilitler ve Yadigar Sandığı gereksinimleri eksiksiz devam eder." }
+            { "icon": "🛡️", "title": "Tam Kaldığın Gerçek Bölümden Açılış Koruması", "desc": "Oyunu açtığınızda yalnızca gerçekten tamamladığınız bölümlerin ardından gelen son bölümünüz (ör. 18. veya 106. bölüm) açılır; hatalı 150. bölüm açılışları otomatik onarılır!" },
+            { "icon": "🏆", "title": "Yıldız Odaklı Adil ve Tutarlı Liderlik Tablosu", "desc": "Liderlik tablosu artık tüm cihazlarda yalnızca gerçekten yıldız kazanılan bölümleri sayar; mükerrer veya boş kayıtlar temizlenir." },
+            { "icon": "🧪", "title": "Tam İzole Öte Evren Deneme Modu", "desc": "Öte Evren Test anahtarı artık yalnızca güvenli bir deneme alanında çalışır; gerçek yıldızlarınızı, kayıt dosyanızı ve liderlik puanınızı asla değiştirmez." },
+            { "icon": "☁️", "title": "Otomatik Bulut & Play Games İyileştirmesi", "desc": "Eski bulut kayıtları ve Play Games profil eşleşmeleri açılışta otomatik olarak temizlenir ve tüm cihazlarda uyumlu hale getirilir." },
+            { "icon": "🌍", "title": "15 Dünya Şeridi & Akıcı 120 FPS Deneyimi", "desc": "Dünya 1–15 arası sürüklenebilir yatay harita, kaldığınız bölümden devam etme ve 9 dil desteği kararlı biçimde devam eder." }
         ]
     },
     "en": {
-        "title": "🌌 v1.5.3 Unified 15-World Strip & Exact Resume",
-        "subtitle": "One smoothly scrollable strip across Worlds 1–15, resuming directly on your active Beyondverse level on restart, plus polished controls!",
+        "title": "🛡️ v1.5.4 Progress Integrity & Accurate Leaderboards",
+        "subtitle": "Automatic save restoration to your true stage, verified star-based global rankings, and a completely isolated Beyondverse sandbox mode!",
         "btnOk": "🚀 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            { "icon": "🧭", "title": "Resume Exactly Where You Left Off in Beyondverse", "desc": "Closing and reopening the app after unlocking Worlds 11–15 now returns you directly to your active stage (e.g. Level 106) instead of resetting to 1 or 101!" },
-            { "icon": "🌍", "title": "Single Scrollable 15-World Strip (Levels 1–150)", "desc": "Worlds 1–10 remain right on the map alongside Worlds 11–15 in a smooth horizontal drag-and-swipe strip." },
-            { "icon": "🧪", "title": "Clean 5-Tap Test Menu Toggle & Clear ON/OFF Badge", "desc": "Developer test tools toggle visibly open and closed with 5 taps, and the Beyondverse Test option clearly shows ON/OFF without risking saved progress." },
-            { "icon": "🗣️", "title": "Complete 9-Language Polish & Accurate Feedback", "desc": "Reverse Gravity zones, Toxic Spores, Seal hints, and feedback stage reports now display accurately across every language." },
-            { "icon": "🔒", "title": "Atlantis Reef Ceiling & Escalating Portal Quotas", "desc": "Includes balanced Atlantis swimming, up to 4 Seal Keys, enemy clears, and Relic Chest gate requirements across Worlds 11–15." }
+            { "icon": "🛡️", "title": "Auto-Healed True Progress & Resume Stage", "desc": "Launching the game now restores your exact earned campaign or Beyondverse stage (e.g. Level 18 or 106) and repairs erroneous Level 150 jumps automatically!" },
+            { "icon": "🏆", "title": "Fair Star-Verified Global Leaderboards", "desc": "Rankings across every device now count strictly completed starred stages, eliminating duplicate guest entries and inflated progress numbers." },
+            { "icon": "🧪", "title": "Fully Sandboxed Beyondverse Test Switch", "desc": "Toggling Beyondverse Test runs in an isolated sandbox that never overwrites your real progress, stars, save data, or leaderboard score." },
+            { "icon": "☁️", "title": "Seamless Cloud & Play Games Auto-Sync Healing", "desc": "Poisoned test snapshots and stale guest records are automatically cleaned upon startup while verified Play Games profiles stay synchronized." },
+            { "icon": "🌍", "title": "Unified 15-World Strip & Smooth 120 FPS Play", "desc": "Enjoy the horizontally scrollable World 1–15 strip, exact level resume, and complete 9-language localization across Android and Web." }
         ]
     },
     "ko": {
-        "title": "🌌 v1.5.3 통합 15월드 바 & 정확한 이어하기",
-        "subtitle": "1~15월드를 하나로 가로 스크롤하고, 앱 재실행 시 플레이하던 비욘드버스 스테이지에서 곧바로 이어할 수 있습니다!",
+        "title": "🛡️ v1.5.4 진행도 자동 복구 & 공정한 리더보드",
+        "subtitle": "실제 클리어한 스테이지로 정확히 복원되고, 별 기반의 공정한 순위표와 완전히 격리된 비욘드버스 테스트 모드가 적용되었습니다!",
         "btnOk": "🚀 좋아요, 모험 시작!",
         "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            { "icon": "🧭", "title": "비욘드버스 마지막 플레이 스테이지 즉시 복원", "desc": "106레벨 등 진행 중 앱을 닫았다 다시 열어도 1레벨이나 101레벨로 돌아가지 않고 정확히 멈춘 스테이지가 열립니다!" },
-            { "icon": "🌍", "title": "드래그 가능한 통합 15월드 스트립 (1–150)", "desc": "비욘드버스 개방 후에도 1–10월드가 사라지지 않고 11–15월드와 하나의 가로 스크롤 바에서 탐색됩니다." },
-            { "icon": "🧪", "title": "5회 탭 테스트 메뉴 숨김 & ON/OFF 상태 표시", "desc": "설정 제목 5회 탭으로 테스트 메뉴를 다시 숨길 수 있으며, 비욘드버스 테스트 버튼에 켜짐/꺼짐 상태가 선명하게 표시됩니다." },
-            { "icon": "🗣️", "title": "9개 언어 100% 현지화 및 피드백 정확도 향상", "desc": "역중력·독포자·봉인 열쇠 안내와 피드백 스테이지 표기가 모든 모드에서 정확해졌습니다." },
-            { "icon": "🔒", "title": "아틀란티스 산호 천장 & 단계별 관문 잠금", "desc": "균형 잡힌 아틀란티스 수영과 월드 11–15의 열쇠·적·유물 상자 관문이 그대로 적용됩니다." }
+            { "icon": "🛡️", "title": "실제 진행 스테이지 자동 복구 및 보호", "desc": "게임을 열면 150레벨로 잘못 이동하지 않고 실제로 도달한 스테이지(예: 18 또는 106레벨)로 자동 복원됩니다!" },
+            { "icon": "🏆", "title": "별 획득 기반의 투명한 글로벌 리더보드", "desc": "모든 기기에서 별을 획득해 완료한 스테이지만 순위에 반영되며 중복·유령 기록이 깔끔히 정리됩니다." },
+            { "icon": "🧪", "title": "완전 격리된 비욘드버스 체험 테스트 스위치", "desc": "비욘드버스 테스트를 켜고 플레이해도 실제 저장 데이터, 별, 리더보드 점수가 절대 변경되지 않습니다." },
+            { "icon": "☁️", "title": "클라우드 및 Play Games 자동 정리 동기화", "desc": "실행 시 기존 테스트로 손상된 클라우드 기록과 게스트 중복을 자동으로 정리해 가족 기기 간에도 정확히 일치합니다." },
+            { "icon": "🌍", "title": "15월드 가로 스크롤 & 120 FPS 안정성", "desc": "월드 1–15 통합 바, 마지막 스테이지 이어하기, 9개 언어 지원이 더욱 안정적으로 제공됩니다." }
         ]
     },
     "ja": {
-        "title": "🌌 v1.5.3 統合15ワールド帯＆続きから完全再開",
-        "subtitle": "ワールド1〜15を1本の横スクロール帯で自由に切り替え！再起動時も到達したビヨンドバース面からすぐ再開できます！",
+        "title": "🛡️ v1.5.4 進行データ保護＆正確なランキング修正",
+        "subtitle": "実際の到達ステージへの自動修復、スター基準の公平なランキング、完全分離されたビヨンドバース試遊モードを公開！",
         "btnOk": "🚀 さあ、冒険へ！",
         "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            { "icon": "🧭", "title": "ビヨンドバース到達ステージからそのまま再開", "desc": "106面などをプレイ後にアプリを閉じても、1面や101面に戻らず前回遊んでいた面・ワールドが自動で開きます！" },
-            { "icon": "🌍", "title": "左右スクロール対応の統合15ワールド帯（1〜150）", "desc": "ビヨンドバース解放後もワールド1〜10は消えず、全15ワールドを横スワイプ帯から快適に選べます。" },
-            { "icon": "🧪", "title": "5回タップで開閉できる開発テスト＆ON/OFF表示", "desc": "設定タイトル5回タップでテストボタンを確実に再非表示でき、ビヨンドバース試遊のON/OFFも一目で分かります。" },
-            { "icon": "🗣️", "title": "全9言語ローカライズ＆フィードバック表記修正", "desc": "反転重力・毒胞子・封印の鍵ラベルとフィードバックのステージ番号を全言語で最適化しました。" },
-            { "icon": "🔒", "title": "深海サンゴ天井＆段階的ゴール開放条件", "desc": "アトランティスの泳法バランスと最大4本の鍵・敵撃破・秘宝チェスト条件も万全です。" }
+            { "icon": "🛡️", "title": "本来の到達ステージへ自動修復して再開", "desc": "誤って150面が開く不具合を自動修復し、実際にクリアした正規ステージ（例：18面や106面）から正確に再開できます！" },
+            { "icon": "🏆", "title": "スター獲得数に基づく公平なリーダーボード", "desc": "全端末の順位表で実際にクリアしてスターを獲得した面のみを集計し、重複や空白のレコードを自動除外します。" },
+            { "icon": "🧪", "title": "完全サンドボックス化のビヨンドバース試遊", "desc": "試遊スイッチをONにしても、本編の進行状況・スター・クラウド保存・ランキングスコアは一切書き換わりません。" },
+            { "icon": "☁️", "title": "クラウド＆Play Games 自動クリーン同期", "desc": "起動時にテスト由来の古いクラウドデータや重複IDを自動修復し、すべての端末で正しい記録を共有します。" },
+            { "icon": "🌍", "title": "15ワールド横スクロール帯＆120 FPS快適動作", "desc": "ワールド1〜15の統合マップや続きからの自動再開、全9言語対応を引き続き快適にお楽しみいただけます。" }
         ]
     },
     "zh": {
-        "title": "🌌 v1.5.3 15大世界横向卷轴 & 精确断点续玩",
-        "subtitle": "第1至15世界合成一条顺滑横向滚动条，重启游戏直接回到上次游玩的超维关卡，并全面优化测试开关体验！",
+        "title": "🛡️ v1.5.4 进度自动修复与公平排行榜",
+        "subtitle": "启动自动校准真实进度、基于实得星数的准确排行榜，以及完全隔离的超维试玩沙盒模式现已上线！",
         "btnOk": "🚀 太棒了，出发冒险！",
         "btnWeb": "🌐 查看完整更新日志 ↗",
         "items": [
-            { "icon": "🧭", "title": "超维宇宙精确续玩当前进度", "desc": "解锁第101–150关后退出再进，将直接停留在你打到的最新关卡（如第106关）与对应世界，不再跳回第1关或第101关！" },
-            { "icon": "🌍", "title": "可拖动浏览的统一15世界导航栏（1–150）", "desc": "开启超维宇宙后不再隐藏1–10世界，所有15个世界在同一条横向卷轴中自由滑动切换。" },
-            { "icon": "🧪", "title": "5连击安全收起测试栏 & 明确开关标识", "desc": "再次点击设置标题5次即可重新隐藏测试菜单；超维测试按钮清晰标注开启/关闭状态并保护真实存档。" },
-            { "icon": "🗣️", "title": "9种语言场景标签完善 & 反馈关卡修正", "desc": "反转重力、毒雾孢子、钥匙提示与反馈弹窗的当前关卡编号已全面适配。" },
-            { "icon": "🔒", "title": "亚特兰蒂斯珊瑚顶栏 & 阶梯式传送门解锁", "desc": "完整保留海底防飞跃平衡机制、4把封印钥匙及秘宝宝箱通关要求。" }
+            { "icon": "🛡️", "title": "自动修复并回到真实当前关卡", "desc": "修复误跳第150关的异常，打开游戏后自动还原至您实际解锁的关卡（如第18关或第106关）！" },
+            { "icon": "🏆", "title": "严格按通关星数统计的全球排行榜", "desc": "所有设备上的排行榜均只统计真正获得星星的已通关关卡，并自动清理重复游客或零进度幽灵条目。" },
+            { "icon": "🧪", "title": "完全沙盒隔离的超维测试开关", "desc": "开启超维测试试玩时仅在临时沙盒中运行，绝不覆盖您的真实存档、星级、进度或排行榜成绩。" },
+            { "icon": "☁️", "title": "云端存档与 Play Games 自动校准同步", "desc": "启动时自动清理早期测试残留的云端异常数据与重复设备节点，保证多设备显示完全一致。" },
+            { "icon": "🌍", "title": "15大世界卷轴与 120 FPS 丝滑体验", "desc": "继续畅享可拖拽的1–15世界导航栏、精确断点续玩与完整的9种语言界面。" }
         ]
     },
     "ru": {
-        "title": "🌌 v1.5.3 Единая лента 15 миров и точное продолжение",
-        "subtitle": "Свободная прокрутка миров 1–15 на одном экране, возврат ровно на достигнутый уровень Запределья и чёткие переключатели!",
+        "title": "🛡️ v1.5.4 Защита прогресса и честная таблица лидеров",
+        "subtitle": "Автоисправление стартового уровня по реальному прогрессу, точный рейтинг по звёздам и полностью изолированный тест-режим!",
         "btnOk": "🚀 ОТЛИЧНО, ВПЕРЁД!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
-            { "icon": "🧭", "title": "Продолжение ровно с достигнутого уровня Запределья", "desc": "При повторном входе игра сразу открывает ваш текущий уровень и мир (например, 106), а не сбрасывает на 1 или 101!" },
-            { "icon": "🌍", "title": "Единая прокручиваемая лента миров 1–15 (1–150)", "desc": "Миры 1–10 больше не исчезают после открытия Запределья: все 15 миров листаются влево и вправо в одной ленте." },
-            { "icon": "🧪", "title": "Скрытие меню 5 тапами и явный статус ВКЛ/ВЫКЛ", "desc": "Повторные 5 нажатий в настройках снова скрывают тестовые кнопки, а тест Запределья чётко показывает ВКЛ/ВЫКЛ." },
-            { "icon": "🗣️", "title": "Полная локализация на 9 языков и точный отзыв", "desc": "Обновлены переводы зон гравитации, токсичных спор, ключей и номер уровня в форме отзыва." },
-            { "icon": "🔒", "title": "Свод Атлантиды и растущие замки порталов", "desc": "Сохранены сбалансированное плавание, до 4 ключей печати и обязательные сундуки реликвий." }
+            { "icon": "🛡️", "title": "Автовосстановление вашего реального уровня", "desc": "Игра автоматически исправляет ошибочный запуск на 150-м уровне и открывает именно ваш реальный этап (например, 18 или 106)!" },
+            { "icon": "🏆", "title": "Точный рейтинг строго по пройденным уровням", "desc": "Таблица лидеров на всех устройствах теперь учитывает только уровни со звёздами и убирает пустые или дублирующиеся записи." },
+            { "icon": "🧪", "title": "Изолированная песочница теста Запределья", "desc": "Переключатель теста Запределья больше никогда не затрагивает ваш реальный прогресс, звёзды, облако и место в рейтинге." },
+            { "icon": "☁️", "title": "Умная очистка облака и Play Games при запуске", "desc": "Повреждённые тестовые сохранения и старые гостевые узлы автоматически очищаются после входа, выравнивая данные на всех устройствах." },
+            { "icon": "🌍", "title": "Единая лента 15 миров и плавные 120 FPS", "desc": "Прокручиваемая лента миров 1–15, точное продолжение и полная локализация на 9 языков работают стабильно." }
         ]
     },
     "it": {
-        "title": "🌌 v1.5.3 Barra 15 Mondi Unita & Ripresa Esatta",
-        "subtitle": "Un'unica barra scorrevole per tutti i 15 Mondi, ripartenza dal livello Oltremondo raggiunto e controlli test ancora più chiari!",
+        "title": "🛡️ v1.5.4 Integrità Progressi e Classifiche Accurate",
+        "subtitle": "Ripristino automatico del livello reale all'avvio, classifiche basate sulle stelle vinte e modalità test Oltremondo isolata!",
         "btnOk": "🚀 FANTASTICO, GIOCHIAMO!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
-            { "icon": "🧭", "title": "Ripresa Diretta dal Livello Oltremondo Raggiunto", "desc": "Riaprendo il gioco nell'Oltremondo torni esattamente al tuo livello attivo (es. Livello 106) senza ripartire dal 101!" },
-            { "icon": "🌍", "title": "Barra Unica Scorrevole per Tutti i 15 Mondi (1–150)", "desc": "I Mondi 1–10 restano sempre visibili insieme ai Mondi 11–15 in un'unica barra orizzontale trascinabile." },
-            { "icon": "🧪", "title": "Menu Test 5 Tocchi Reversibile & Stato ON/OFF", "desc": "Altri 5 tocchi sul titolo impostazioni nascondono il menu test, con indicatore chiaro ATTIVO/SPENTO sul test Oltremondo." },
-            { "icon": "🗣️", "title": "Refinitura 9 Lingue & Feedback Accurato", "desc": "Aggiornate etichette di gravità inversa, spore, sigilli e numero livello nei feedback." },
-            { "icon": "🔒", "title": "Volta Atlantide & Requisiti Portale Crescenti", "desc": "Include il nuoto bilanciato ad Atlantide, fino a 4 Chiavi Sigillo e Scrigni Reliquia nei Mondi 11–15." }
+            { "icon": "🛡️", "title": "Ripristino Automatico del Vero Livello Attivo", "desc": "All'avvio i salti errati al Livello 150 vengono riparati automaticamente, riportandoti esattamente al tuo vero stage (es. 18 o 106)!" },
+            { "icon": "🏆", "title": "Classifica Globale Equa Basata sulle Stelle", "desc": "Su ogni dispositivo la classifica conta solo i livelli effettivamente superati con stelle ed elimina duplicati e profili vuoti." },
+            { "icon": "🧪", "title": "Test Oltremondo in Sandbox Completamente Isolata", "desc": "Attivando il Test Oltremondo giochi in una sandbox temporanea che non altera mai salvataggi reali, stelle o punteggio." },
+            { "icon": "☁️", "title": "Pulizia Cloud & Play Games Automatica all'Avvio", "desc": "I vecchi salvataggi cloud alterati dai test precedenti e i nodi ospite duplicati vengono ripuliti e risincronizzati automaticamente." },
+            { "icon": "🌍", "title": "Barra 15 Mondi Unita & Fluidità a 120 FPS", "desc": "Continua a esplorare la barra scorrevole dei Mondi 1–15 con ripresa esatta e localizzazione completa in 9 lingue." }
         ]
     },
     "es": {
-        "title": "🌌 v1.5.3 Franja Unida de 15 Mundos y Reanudación Exacta",
-        "subtitle": "¡Desliza los 15 mundos en una sola franja horizontal, vuelve al nivel exacto del Más Allá al reabrir y controla el modo prueba!",
+        "title": "🛡️ v1.5.4 Protección de Progreso y Ranking Preciso",
+        "subtitle": "Corrección automática a tu nivel real al abrir el juego, clasificación justa por estrellas y modo prueba del Más Allá aislado!",
         "btnOk": "🚀 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
-            { "icon": "🧭", "title": "Reanuda en Tu Nivel Exacto del Más Allá", "desc": "Al cerrar y abrir la app en el Más Allá continuarás justo en tu nivel alcanzado (p. ej. Nivel 106) en lugar de volver al 101." },
-            { "icon": "🌍", "title": "Franja Deslizable Continua de 15 Mundos (1–150)", "desc": "Los Mundos 1–10 siguen disponibles junto a los Mundos 11–15 en una sola barra deslizable hacia izquierda y derecha." },
-            { "icon": "🧪", "title": "Ocultación con 5 Toques y Estado ACTIVO/APAGADO", "desc": "Volver a tocar 5 veces oculta las opciones de prueba y el botón del Más Allá indica claramente si está ACTIVO o APAGADO." },
-            { "icon": "🗣️", "title": "Localización Completa en 9 Idiomas", "desc": "Etiquetas de gravedad inversa, esporas, sellos y etapa en comentarios actualizadas para todos los modos." },
-            { "icon": "🔒", "title": "Techo de Atlántida y Sellos Crecientes", "desc": "Mantiene el nado equilibrado, hasta 4 Llaves de Sello, metas de enemigos y Cofres Reliquia." }
+            { "icon": "🛡️", "title": "Reparación Automática de Tu Nivel Real", "desc": "Si un ajuste previo abría el Nivel 150 por error, el juego restaura de inmediato tu etapa real ganada (p. ej. Nivel 18 o 106)." },
+            { "icon": "🏆", "title": "Tabla de Líderes Basada en Estrellas Reales", "desc": "El ranking en todos los dispositivos cuenta solo los niveles superados con estrellas y filtra duplicados o registros vacíos." },
+            { "icon": "🧪", "title": "Modo Prueba del Más Allá en Entorno Aislado", "desc": "Probar el Más Allá desde Ajustes ya no modifica nunca tu progreso real, estrellas, partida guardada ni puntuación en línea." },
+            { "icon": "☁️", "title": "Limpieza y Sincronización Automática en la Nube", "desc": "Las copias afectadas de versiones de prueba anteriores y los perfiles invitados duplicados se depuran y sincronizan solos al iniciar." },
+            { "icon": "🌍", "title": "Franja de 15 Mundos y Fluidez a 120 FPS", "desc": "Disfruta de la barra deslizable de los Mundos 1–15, reanudación exacta e interfaz completa en 9 idiomas." }
         ]
     },
     "fr": {
-        "title": "🌌 v1.5.3 Bande Unifiée 15 Mondes & Reprise Exacte",
-        "subtitle": "Un bandeau glissable pour les 15 Mondes, reprise directe à votre niveau de l'Au-Delà au redémarrage et réglages test clarifiés !",
+        "title": "🛡️ v1.5.4 Intégrité de Progression & Classement Fiable",
+        "subtitle": "Restauration automatique de votre vrai niveau au lancement, classement basé sur les étoiles et mode test Au-Delà isolé !",
         "btnOk": "🚀 SUPER, C'EST PARTI !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
-            { "icon": "🧭", "title": "Reprise Exacte dans l'Au-Delà au Redémarrage", "desc": "En rouvrant le jeu, vous reprenez directement sur votre niveau atteint (ex. Niveau 106) et non au 101 ou au 1 !" },
-            { "icon": "🌍", "title": "Bande Horizontale Glissable des 15 Mondes (1–150)", "desc": "Les Mondes 1–10 restent visibles aux côtés des Mondes 11–15 sur une même barre défilante." },
-            { "icon": "🧪", "title": "Masquage en 5 Touches & État ACTIVÉ/DÉSACTIVÉ", "desc": "5 nouveaux appuis masquent le menu test et le bouton Au-Delà affiche clairement son état ACTIVÉ ou DÉSACTIVÉ." },
-            { "icon": "🗣️", "title": "Finition 9 Langues & Retours Précis", "desc": "Libellés de gravité inversée, spores, sceaux et numéro de niveau dans les avis désormais cohérents." },
-            { "icon": "🔒", "title": "Voûte d'Atlantide & Portails Progressifs", "desc": "Inclut la nage maîtrisée, jusqu'à 4 Clés de Sceau et les Coffres Reliques obligatoires." }
+            { "icon": "🛡️", "title": "Réparation Automatique du Véritable Niveau Actif", "desc": "Les ouvertures erronées au Niveau 150 sont corrigées dès le lancement pour vous ramener exactement à votre vrai palier (ex. Niveau 18 ou 106) !" },
+            { "icon": "🏆", "title": "Classement Mondial Équitable Basé sur les Étoiles", "desc": "Sur chaque appareil, le classement ne compte plus que les niveaux réellement terminés avec étoiles et supprime les doublons ou profils vides." },
+            { "icon": "🧪", "title": "Mode Test Au-Delà 100 % Isolé en Bac à Sable", "desc": "Activer le Test Au-Delà ne touche plus jamais à vos vrais niveaux débloqués, étoiles, sauvegarde cloud ni score du classement." },
+            { "icon": "☁️", "title": "Assainissement Automatique Cloud & Play Games", "desc": "Les anciennes sauvegardes affectées et les identifiants invités en double sont automatiquement nettoyés et resynchronisés au démarrage." },
+            { "icon": "🌍", "title": "Bande des 15 Mondes & Fluidité 120 FPS", "desc": "Profitez de la bande glissable des Mondes 1–15, de la reprise exacte et des 9 langues toujours à jour." }
         ]
     }
 };
