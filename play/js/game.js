@@ -1558,6 +1558,9 @@ class Game {
         this.isAct2Mode = false;
         this.act2Unlocked = false;
         this.act2CelebrationClaimed = false;
+        this._pendingLevel100VictoryModal = false;
+        this._celFromLevel100Victory = false;
+        this._act2CelAnimId = null;
         this.unlockedAct2Levels = 1;
         this.selectedAct2Level = 0;
         this.selectedAct2WorldFilter = 0;
@@ -1759,6 +1762,28 @@ class Game {
         }
     }
 
+    getSafeTopCameraThreshold() {
+        const ch = (this.canvas && this.canvas.height) || 720;
+        let hudLogicalH = ch * 0.24;
+        try {
+            const hudEl = document.getElementById("hud");
+            if (hudEl && !hudEl.classList.contains("hidden") && this.canvas) {
+                const cRect = this.canvas.getBoundingClientRect();
+                if (cRect && cRect.height > 40) {
+                    let maxHudBottom = cRect.top + cRect.height * 0.18;
+                    const kids = hudEl.querySelectorAll(".hud-left, .hud-center, .hud-right");
+                    kids.forEach((el) => {
+                        const r = el.getBoundingClientRect();
+                        if (r && r.height > 0 && r.bottom > maxHudBottom) maxHudBottom = r.bottom;
+                    });
+                    const hudPx = Math.max(0, maxHudBottom - cRect.top);
+                    hudLogicalH = hudPx * (ch / cRect.height);
+                }
+            }
+        } catch (e) {}
+        return Math.min(ch * 0.52, Math.max(ch * 0.40, hudLogicalH + 96));
+    }
+
     detectDeviceLanguage() {
         const supported = ["tr", "ru", "en", "it", "es", "fr", "ko", "zh", "ja"];
         const candidates = [];
@@ -1802,6 +1827,9 @@ class Game {
         this.isAct2Mode = false;
         this.act2Unlocked = false;
         this.act2CelebrationClaimed = false;
+        this._pendingLevel100VictoryModal = false;
+        this._celFromLevel100Victory = false;
+        this._act2CelAnimId = null;
         this.unlockedAct2Levels = 1;
         this.selectedAct2Level = 0;
         this.selectedAct2WorldFilter = 0;
@@ -2320,7 +2348,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 51;
+        const CURRENT_VERSION_CODE = 52;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -3359,7 +3387,13 @@ class Game {
         }
         const act2CelScreen = document.getElementById("screen-act2-celebration");
         if (act2CelScreen && !act2CelScreen.classList.contains("hidden")) {
-            act2CelScreen.classList.add("hidden");
+            const stayBtn = document.getElementById("btn-close-act2-celebration");
+            if (stayBtn) {
+                stayBtn.click();
+            } else {
+                this.stopAct2CelebrationAnim();
+                act2CelScreen.classList.add("hidden");
+            }
             return true;
         }
         const trollScreen = document.getElementById("screen-troll");
@@ -4910,9 +4944,7 @@ class Game {
             });
         }
 
-        const claimAndEnterAct2 = () => {
-            const celModal = document.getElementById("screen-act2-celebration");
-            if (celModal) celModal.classList.add("hidden");
+        const grantAct2FirstTimeGift = (playFanfare = false) => {
             if (!this.act2CelebrationClaimed) {
                 this.act2CelebrationClaimed = true;
                 this.act2Unlocked = true;
@@ -4921,43 +4953,55 @@ class Game {
                 this.addGoldCoins(1000, true);
                 this.addEmeralds(250, true);
                 this.addCrystals(100, true);
-                if (window.sfx && typeof window.sfx.celebrationFanfare === "function") window.sfx.celebrationFanfare();
+                if (playFanfare && window.sfx && typeof window.sfx.celebrationFanfare === "function") {
+                    window.sfx.celebrationFanfare();
+                }
                 if (window.MarinextAnalytics) {
                     window.MarinextAnalytics.logEvent("act2_celebration_claimed", { level: 100 });
                     window.MarinextAnalytics.logEvent("ability_unlocked", { ability_id: "dash", level: 100 });
                 }
+                this.syncAnalyticsUserProperties();
                 this.saveProgress(true);
             }
+        };
+
+        const claimAndEnterAct2 = () => {
+            this.stopAct2CelebrationAnim();
+            const celModal = document.getElementById("screen-act2-celebration");
+            if (celModal) celModal.classList.add("hidden");
+            grantAct2FirstTimeGift(true);
+            this._pendingLevel100VictoryModal = false;
+            this._celFromLevel100Victory = false;
             this.isTrollMode = false;
             this.isAct2Mode = true;
-            this.state = "map";
-            document.getElementById("hud").classList.add("hidden");
-            document.getElementById("touch-controls").classList.add("hidden");
+            this.selectedAct2Level = 0;
+            this.selectedAct2WorldFilter = 0;
             document.getElementById("screen-modal").classList.add("hidden");
-            document.getElementById("screen-map").classList.remove("hidden");
-            this.buildMapNodes();
-            this.updateMapUI();
-            this.showQuickToast("🌌 ÖTE EVREN AÇILDI! ⚡ Faz Atılması Yeteneği Aktif!", "#00f2fe", 4500);
+            const tUi = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
+            this.startLevel(0, false, true);
+            this.showQuickToast(
+                tUi("act2EnterToast") || "🌌 ÖTE EVREN AKTİF! 50 Yeni Bölüm & ⚡ Faz Atılması Başladı!",
+                "#00f2fe",
+                4800
+            );
         };
         const btnClaimCel = document.getElementById("btn-claim-act2-celebration");
         if (btnClaimCel) btnClaimCel.addEventListener("click", claimAndEnterAct2);
+
         const stayOnMapCel = () => {
+            this.stopAct2CelebrationAnim();
             const celModal = document.getElementById("screen-act2-celebration");
             if (celModal) celModal.classList.add("hidden");
-            if (!this.act2CelebrationClaimed) {
-                this.act2CelebrationClaimed = true;
-                this.act2Unlocked = true;
-                if (!this.act2UnlockedAbilities) this.act2UnlockedAbilities = {};
-                this.act2UnlockedAbilities.dash = true;
-                this.addGoldCoins(1000, true);
-                this.addEmeralds(250, true);
-                this.addCrystals(100, true);
-                if (window.MarinextAnalytics) {
-                    window.MarinextAnalytics.logEvent("act2_celebration_claimed", { level: 100 });
-                }
-                this.saveProgress(true);
+            grantAct2FirstTimeGift(false);
+            const openPendingSummary = Boolean(this._pendingLevel100VictoryModal);
+            this._pendingLevel100VictoryModal = false;
+            this._celFromLevel100Victory = false;
+            if (openPendingSummary) {
+                const modal = document.getElementById("screen-modal");
+                if (modal) modal.classList.remove("hidden");
+            } else {
+                this.updateMapUI();
             }
-            this.updateMapUI();
         };
         ["btn-close-act2-celebration", "btn-close-act2-cel-x"].forEach((id) => {
             const el = document.getElementById(id);
@@ -4983,6 +5027,12 @@ class Game {
                 const next = Math.min(49, this.selectedTrollLevel + 1);
                 this.selectedTrollLevel = next;
                 this.startLevel(next, true, false);
+            } else if (this.selectedLevel === 99 && this.act2Unlocked) {
+                this.isTrollMode = false;
+                this.isAct2Mode = true;
+                this.selectedAct2Level = 0;
+                this.selectedAct2WorldFilter = 0;
+                this.startLevel(0, false, true);
             } else {
                 const next = Math.min(99, this.selectedLevel + 1);
                 this.selectedLevel = next;
@@ -5013,16 +5063,159 @@ class Game {
         modal.classList.remove("hidden");
     }
 
-    openAct2CelebrationModal(firstUnlock = false) {
+    startAct2CelebrationAnim() {
+        this.stopAct2CelebrationAnim();
+        const canvas = document.getElementById("act2-cel-canvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        const dpr = Math.min(1.5, window.devicePixelRatio || 1);
+        const resize = () => {
+            const w = Math.max(320, window.innerWidth || 1280);
+            const h = Math.max(240, window.innerHeight || 720);
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        };
+        resize();
+
+        const palette = ["#ffd166", "#00f2fe", "#c77dff", "#06d6a0", "#ff2a85"];
+        const sparks = [];
+        const stars = Array.from({ length: 48 }, (_, i) => ({
+            angle: (i / 48) * Math.PI * 2,
+            dist: 90 + (i % 6) * 65,
+            speed: 0.008 + (i % 5) * 0.003,
+            r: 1.5 + (i % 3) * 0.9,
+            color: palette[i % palette.length]
+        }));
+
+        const spawnBurst = (bx, by, count = 24) => {
+            const baseCol = palette[Math.floor(Math.random() * palette.length)];
+            for (let i = 0; i < count; i++) {
+                const ang = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.25;
+                const spd = 2.0 + Math.random() * 4.4;
+                sparks.push({
+                    x: bx,
+                    y: by,
+                    vx: Math.cos(ang) * spd,
+                    vy: Math.sin(ang) * spd - 0.6,
+                    life: 1,
+                    decay: 0.015 + Math.random() * 0.015,
+                    r: 2 + Math.random() * 2.4,
+                    color: i % 3 === 0 ? "#ffffff" : baseCol
+                });
+            }
+        };
+
+        const w0 = window.innerWidth || 1280;
+        const h0 = window.innerHeight || 720;
+        spawnBurst(w0 * 0.22, h0 * 0.28, 26);
+        spawnBurst(w0 * 0.78, h0 * 0.26, 26);
+
+        let tick = 0;
+        const step = () => {
+            const modal = document.getElementById("screen-act2-celebration");
+            if (!modal || modal.classList.contains("hidden")) {
+                this._act2CelAnimId = null;
+                return;
+            }
+            const w = window.innerWidth || 1280;
+            const h = window.innerHeight || 720;
+            if (Math.abs(canvas.width - Math.round(w * dpr)) > 8) resize();
+
+            ctx.clearRect(0, 0, w, h);
+            tick++;
+
+            const cx = w / 2;
+            const cy = h / 2;
+            for (let ring = 0; ring < 3; ring++) {
+                const radius = Math.min(w, h) * (0.28 + ring * 0.13) + Math.sin(tick * 0.03 + ring) * 8;
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.rotate(tick * (ring % 2 === 0 ? 0.006 : -0.008) + ring);
+                ctx.strokeStyle = ring === 0 ? "rgba(0, 242, 254, 0.22)" : (ring === 1 ? "rgba(199, 125, 255, 0.20)" : "rgba(255, 209, 102, 0.18)");
+                ctx.lineWidth = 2.2;
+                ctx.setLineDash([18, 14]);
+                ctx.beginPath();
+                ctx.arc(0, 0, radius, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            for (const st of stars) {
+                st.angle += st.speed;
+                const sx = cx + Math.cos(st.angle) * (st.dist * (w / 1050));
+                const sy = cy + Math.sin(st.angle) * (st.dist * (h / 760));
+                ctx.globalAlpha = 0.55 + 0.4 * Math.sin(tick * 0.07 + st.angle);
+                ctx.fillStyle = st.color;
+                ctx.beginPath();
+                ctx.arc(sx, sy, st.r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+
+            if (tick % 42 === 0 && sparks.length < 180) {
+                const edgeX = Math.random() < 0.5 ? w * (0.12 + Math.random() * 0.22) : w * (0.66 + Math.random() * 0.22);
+                const edgeY = h * (0.16 + Math.random() * 0.48);
+                spawnBurst(edgeX, edgeY, 22);
+            }
+
+            for (let i = sparks.length - 1; i >= 0; i--) {
+                const sp = sparks[i];
+                sp.x += sp.vx;
+                sp.y += sp.vy;
+                sp.vy += 0.045;
+                sp.vx *= 0.985;
+                sp.life -= sp.decay;
+                if (sp.life <= 0) {
+                    sparks.splice(i, 1);
+                    continue;
+                }
+                ctx.globalAlpha = Math.max(0, sp.life);
+                ctx.fillStyle = sp.color;
+                ctx.beginPath();
+                ctx.arc(sp.x, sp.y, sp.r * sp.life + 0.6, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+
+            this._act2CelAnimId = requestAnimationFrame(step);
+        };
+        this._act2CelAnimId = requestAnimationFrame(step);
+    }
+
+    stopAct2CelebrationAnim() {
+        if (this._act2CelAnimId) {
+            cancelAnimationFrame(this._act2CelAnimId);
+            this._act2CelAnimId = null;
+        }
+    }
+
+    openAct2CelebrationModal(firstUnlock = false, opts = {}) {
         const modal = document.getElementById("screen-act2-celebration");
         if (!modal) return;
+        this._celFromLevel100Victory = Boolean(opts && opts.fromLevel100Victory);
         if (window.sfx && typeof window.sfx.celebrationFanfare === "function") {
             window.sfx.celebrationFanfare();
         }
         if (typeof window.applyMarinextExtendedUI === "function") {
             window.applyMarinextExtendedUI(this);
         }
+        const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
+        const rewardsEl = document.getElementById("act2-cel-rewards");
+        if (rewardsEl) {
+            const key = !this.act2CelebrationClaimed ? "act2CelRewardsHtml" : "act2CelReplayRewardsHtml";
+            const html = t(key);
+            if (html) rewardsEl.innerHTML = html;
+        }
+        const stayBtn = document.getElementById("btn-close-act2-celebration");
+        if (stayBtn) {
+            stayBtn.textContent = t(this._celFromLevel100Victory ? "act2CelToSummaryBtn" : "act2CelStayBtn")
+                || (this._celFromLevel100Victory ? "📊 ZAFER ÖZETİNE DEVAM ET" : "HARİTADA KAL");
+        }
         modal.classList.remove("hidden");
+        this.startAct2CelebrationAnim();
     }
 
     openLanguageModal() {
@@ -6388,6 +6581,7 @@ class Game {
             act2Btn.classList.toggle("locked", !isUnlocked);
             act2Btn.classList.toggle("unlocked", isUnlocked);
             act2Btn.classList.toggle("active-mode", Boolean(isUnlocked && this.isAct2Mode));
+            act2Btn.classList.toggle("act2-new-highlight", Boolean(isUnlocked && (this.unlockedAct2Levels || 1) <= 1 && !this.isAct2Mode));
             if (act2Icon) act2Icon.textContent = isUnlocked ? (this.isAct2Mode ? "🌍" : "🌌") : "❓";
             if (act2Text) {
                 act2Text.textContent = isUnlocked
@@ -6705,10 +6899,17 @@ class Game {
         this.lastTime = performance.now();
         this.levelStartTimeMs = performance.now();
 
+        this.stopAct2CelebrationAnim();
+        this._pendingLevel100VictoryModal = false;
+        this._celFromLevel100Victory = false;
         ["screen-map", "screen-shop", "screen-customize", "screen-character", "screen-modal", "screen-settings", "screen-profile", "screen-avatar-picker", "screen-insufficient-balance", "screen-language", "screen-troll", "screen-ad-overlay", "screen-ad-consent", "screen-feedback", "screen-leaderboard", "screen-rate-app", "screen-tutorial", "screen-vip-store", "screen-act2-locked", "screen-act2-celebration"].forEach((id) => {
             const el = document.getElementById(id);
             if (el) el.classList.add("hidden");
         });
+        const act2BannerReset = document.getElementById("modal-act2-banner");
+        if (act2BannerReset) act2BannerReset.classList.add("hidden");
+        const nextBtnReset = document.getElementById("btn-next-level");
+        if (nextBtnReset) nextBtnReset.classList.remove("btn-next-act2-cta");
         this.preloadRewardedAd();
         document.getElementById("hud").classList.remove("hidden");
         document.getElementById("touch-controls").classList.remove("hidden");
@@ -7214,8 +7415,12 @@ class Game {
                 });
             }
         }
+        this.stopAct2CelebrationAnim();
+        this._pendingLevel100VictoryModal = false;
         this.state = "map";
         window.sfx.stopBGM();
+        const act2BannerMap = document.getElementById("modal-act2-banner");
+        if (act2BannerMap) act2BannerMap.classList.add("hidden");
         document.getElementById("hud").classList.add("hidden");
         document.getElementById("touch-controls").classList.add("hidden");
         document.getElementById("screen-modal").classList.add("hidden");
@@ -7253,7 +7458,13 @@ class Game {
         document.getElementById("modal-subtitle").textContent = d.pauseSub;
         document.getElementById("modal-stats").classList.add("hidden");
         document.getElementById("btn-resume").classList.remove("hidden");
-        document.getElementById("btn-next-level").classList.add("hidden");
+        const pauseAct2Banner = document.getElementById("modal-act2-banner");
+        if (pauseAct2Banner) pauseAct2Banner.classList.add("hidden");
+        const pauseNextBtn = document.getElementById("btn-next-level");
+        if (pauseNextBtn) {
+            pauseNextBtn.classList.remove("btn-next-act2-cta");
+            pauseNextBtn.classList.add("hidden");
+        }
         const revBtn = document.getElementById("btn-ad-revive");
         if (revBtn) revBtn.classList.add("hidden");
         const dblBtn = document.getElementById("btn-ad-double");
@@ -7310,7 +7521,13 @@ class Game {
         document.getElementById("stat-coins").textContent = this.collectedCoins;
         document.getElementById("stat-score").textContent = this.score;
         document.getElementById("btn-resume").classList.add("hidden");
-        document.getElementById("btn-next-level").classList.add("hidden");
+        const goAct2Banner = document.getElementById("modal-act2-banner");
+        if (goAct2Banner) goAct2Banner.classList.add("hidden");
+        const goNextBtn = document.getElementById("btn-next-level");
+        if (goNextBtn) {
+            goNextBtn.classList.remove("btn-next-act2-cta");
+            goNextBtn.classList.add("hidden");
+        }
         const dblBtn = document.getElementById("btn-ad-double");
         if (dblBtn) dblBtn.classList.add("hidden");
         const vipDblBtn = document.getElementById("btn-victory-vip-double");
@@ -7500,6 +7717,7 @@ class Game {
         }
 
         let triggerAct2CelebrationNow = false;
+        const isLevel100Victory = !this.isAct2Mode && !this.isTrollMode && this.selectedLevel === 99;
         if (this.isAct2Mode) {
             const aIdx = this.selectedAct2Level || 0;
             this.starsPerAct2Level[aIdx] = Math.max(this.starsPerAct2Level[aIdx] || 0, earnedStars);
@@ -7539,9 +7757,7 @@ class Game {
                     window.MarinextAnalytics.logEvent("act2_unlocked", { level: 100 });
                     window.MarinextAnalytics.logEvent("ability_unlocked", { ability_id: "dash", level: 100 });
                 }
-                if (!this.act2CelebrationClaimed) {
-                    triggerAct2CelebrationNow = true;
-                }
+                triggerAct2CelebrationNow = true;
             }
         }
         this.savedCheckpoint = null;
@@ -7598,26 +7814,51 @@ class Game {
             vipNudge.classList.toggle("hidden", this.hasNoForcedAds());
         }
 
+        const tUiModal = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
+        const act2Banner = document.getElementById("modal-act2-banner");
+        const act2BannerTitle = document.getElementById("modal-act2-banner-title");
+        const act2BannerSub = document.getElementById("modal-act2-banner-sub");
         const nextBtn = document.getElementById("btn-next-level");
         const hasNext = this.isAct2Mode
             ? (this.selectedAct2Level < 49)
             : (this.isTrollMode ? (this.selectedTrollLevel < 49) : (this.selectedLevel < 99));
-        if (hasNext) {
-            nextBtn.classList.remove("hidden");
-        } else {
-            nextBtn.classList.add("hidden");
-        }
-        modal.classList.remove("hidden");
 
-        // Check Smart Non-Intrusive Interstitial (Only every 3 victories & never after a recent Rewarded Ad)
+        if (isLevel100Victory) {
+            if (act2Banner) act2Banner.classList.remove("hidden");
+            if (act2BannerTitle) act2BannerTitle.textContent = tUiModal("act2ModalBannerTitle") || "🌌 YENİ EVREN AKTİF! 50 BÖLÜMLÜK ÖTE EVREN AÇILDI";
+            if (act2BannerSub) act2BannerSub.textContent = tUiModal("act2ModalBannerSub") || "5 yeni dünya, gizli yadigar sandıkları ve ⚡ Faz Atılması seni bekliyor — hemen keşfet!";
+            if (nextBtn) {
+                nextBtn.textContent = tUiModal("act2NextLevel101Btn") || "🌌 ÖTE EVRENE DEVAM ET (BÖLÜM 101) ▶";
+                nextBtn.classList.add("btn-next-act2-cta");
+                nextBtn.classList.remove("hidden");
+            }
+        } else {
+            if (act2Banner) act2Banner.classList.add("hidden");
+            if (nextBtn) {
+                nextBtn.classList.remove("btn-next-act2-cta");
+                nextBtn.textContent = d.btnNextLevel;
+                if (hasNext) {
+                    nextBtn.classList.remove("hidden");
+                } else {
+                    nextBtn.classList.add("hidden");
+                }
+            }
+        }
+
         this.levelsCompletedSinceLastAd = (this.levelsCompletedSinceLastAd || 0) + 1;
-        this.checkSmartInterstitialOnVictory();
         this.checkAndUnlockAchievementsOnVictory(earnedStars, clearMs);
 
         if (triggerAct2CelebrationNow) {
-            setTimeout(() => this.openAct2CelebrationModal(true), 600);
+            // Level 100 Grand Transition: keep victory summary modal hidden until the animated celebration concludes!
+            modal.classList.add("hidden");
+            this._pendingLevel100VictoryModal = true;
+            this.openAct2CelebrationModal(true, { fromLevel100Victory: true });
             return;
         }
+
+        modal.classList.remove("hidden");
+        // Check Smart Non-Intrusive Interstitial (Only every 3 victories & never after a recent Rewarded Ad)
+        this.checkSmartInterstitialOnVictory();
 
         // Smart Milestone In-App Rating prompt:
         // Prompts at the end of Level 1 (selectedLevel === 0), and continues reminding on subsequent victories if "Later" was chosen until rated!
@@ -8020,8 +8261,8 @@ class Game {
         const stars = this.feedbackStars || 5;
         const cat = this.feedbackCategory || "Öneri & Yeni Fikir";
 
-        let appVerName = "1.5.0";
-        let appVerCode = 50;
+        let appVerName = "1.5.1";
+        let appVerCode = 52;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
                 const info = JSON.parse(window.MarinextCloudBridge.getAppVersionInfo());
@@ -9850,7 +10091,11 @@ class Game {
                     this.player.inTeleporter = true;
                     this.player.teleportCooldown = 45;
                     this.camera.x = Math.max(0, this.player.x - this.canvas.width * 0.35);
-                    this.camera.y = Math.min(0, this.player.y - this.canvas.height * 0.36);
+                    const safeTopSnap1 = this.getSafeTopCameraThreshold();
+                    const baseCap1 = (this.inSubChamber && this.subChamber)
+                        ? Math.min(this.subChamber.y - 68, (this.subChamber.y + this.subChamber.h) - this.canvas.height + 44)
+                        : 0;
+                    this.camera.y = Math.min(baseCap1, this.player.y - safeTopSnap1);
                     this.camera.prevX = this.camera.x;
                     this.camera.prevY = this.camera.y;
                     window.sfx.teleport();
@@ -9867,7 +10112,11 @@ class Game {
                     this.player.inTeleporter = true;
                     this.player.teleportCooldown = 45;
                     this.camera.x = Math.max(0, this.player.x - this.canvas.width * 0.35);
-                    this.camera.y = Math.min(0, this.player.y - this.canvas.height * 0.36);
+                    const safeTopSnap2 = this.getSafeTopCameraThreshold();
+                    const baseCap2 = (this.inSubChamber && this.subChamber)
+                        ? Math.min(this.subChamber.y - 68, (this.subChamber.y + this.subChamber.h) - this.canvas.height + 44)
+                        : 0;
+                    this.camera.y = Math.min(baseCap2, this.player.y - safeTopSnap2);
                     this.camera.prevX = this.camera.x;
                     this.camera.prevY = this.camera.y;
                     window.sfx.teleport();
@@ -10246,10 +10495,14 @@ class Game {
             if (this.floatingTexts[i].life <= 0) this.floatingTexts.splice(i, 1);
         }
 
+        const safeTopThreshold = this.getSafeTopCameraThreshold();
+        const hardTopGuard = Math.max(180, safeTopThreshold - 72);
+
         if (isRidingSubElevator && this.subChamber) {
             const sc = this.subChamber;
             const targetCamX = Math.max(0, sc.cabinX - this.canvas.width * 0.38);
-            const targetCamY = Math.max(0, Math.min(sc.y - 44, sc.cabinY - this.canvas.height * 0.44));
+            const baseSubCamY = Math.min(sc.y - 68, (sc.y + sc.h) - this.canvas.height + 44);
+            const targetCamY = Math.max(0, Math.min(baseSubCamY, sc.cabinY - Math.max(this.canvas.height * 0.44, safeTopThreshold)));
             this.camera.x += (targetCamX - this.camera.x) * 0.22;
             this.camera.y = (this.camera.y || 0) + (targetCamY - (this.camera.y || 0)) * 0.24;
         } else if (this.inSubChamber && this.subChamber) {
@@ -10257,16 +10510,28 @@ class Game {
             const maxCamX = Math.max(minCamX, this.subChamber.x + this.subChamber.w - this.canvas.width);
             const targetCamX = Math.max(minCamX, Math.min(maxCamX, this.player.x - this.canvas.width * 0.35));
             this.camera.x += (targetCamX - this.camera.x) * 0.14;
-            const targetCamY = this.subChamber.y - 44;
-            this.camera.y = (this.camera.y || 0) + (targetCamY - (this.camera.y || 0)) * 0.18;
+            const baseSubCamY = Math.min(this.subChamber.y - 68, (this.subChamber.y + this.subChamber.h) - this.canvas.height + 44);
+            const targetCamY = Math.min(baseSubCamY, this.player.y - safeTopThreshold);
+            const curCamY = (this.camera.y !== undefined ? this.camera.y : baseSubCamY);
+            const lerpY = targetCamY < curCamY ? 0.22 : 0.14;
+            this.camera.y = curCamY + (targetCamY - curCamY) * lerpY;
+            const maxAllowedCamY = this.player.y - hardTopGuard;
+            if (this.camera.y > maxAllowedCamY) {
+                this.camera.y = maxAllowedCamY;
+            }
         } else {
             const targetCamX = Math.max(0, this.player.x - this.canvas.width * 0.35);
             this.camera.x += (targetCamX - this.camera.x) * 0.1;
 
-            // Vertical camera tracking when climbing tall block walls or high platforms (keeps character comfortably below top HUD)
-            const safeTopThreshold = this.canvas.height * 0.36;
+            // Vertical camera tracking across all stages/heights (keeps character comfortably below top HUD)
             const targetCamY = Math.min(0, this.player.y - safeTopThreshold);
-            this.camera.y = (this.camera.y || 0) + (targetCamY - (this.camera.y || 0)) * 0.14;
+            const curCamY = this.camera.y || 0;
+            const lerpY = targetCamY < curCamY ? 0.22 : 0.14;
+            this.camera.y = curCamY + (targetCamY - curCamY) * lerpY;
+            const maxAllowedCamY = this.player.y - hardTopGuard;
+            if (this.camera.y > maxAllowedCamY) {
+                this.camera.y = maxAllowedCamY;
+            }
             if (Math.abs(this.camera.y) < 0.25 && targetCamY === 0) {
                 this.camera.y = 0;
             }
@@ -10732,6 +10997,10 @@ class Game {
         if (!this.inSubChamber && !isRiding && renderCamY < sc.y - 680) return;
 
         ctx.save();
+        // 0. Extend dark subterranean rock buffer above & around the cavern for high-jump vertical tracking
+        ctx.fillStyle = sc.themeBg0 || "#030b14";
+        ctx.fillRect(sc.x - 420, sc.y - 420, sc.w + 840, sc.h + 620);
+
         // 1. Deep Subterranean Cyber-Brick Cavern Backdrop (Level-Specific Biome Theme!)
         const bgGrad = ctx.createLinearGradient(0, sc.y, 0, sc.y + sc.h);
         bgGrad.addColorStop(0, sc.themeBg0 || "#030b14");
