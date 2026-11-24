@@ -2348,7 +2348,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 52;
+        const CURRENT_VERSION_CODE = 53;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2888,6 +2888,8 @@ class Game {
             }
             if (en.isSubMissionEnemy) {
                 this.recordSubMissionProgress(en.x + en.w / 2, en.y);
+            } else {
+                this.recordEnemyDefeated(en);
             }
         } else {
             window.sfx.blockHit();
@@ -6829,6 +6831,7 @@ class Game {
         this.enemies = data.enemies.map((e) => {
             const en = new window.Enemy(e, levelIdx);
             en.isSubMissionEnemy = Boolean(e.isSubMissionEnemy);
+            en.isSplitChild = Boolean(e.isSplitChild);
             return en;
         });
         this.boss = data.bossConfig ? new window.AbyssBoss(data.bossConfig) : null;
@@ -6838,7 +6841,8 @@ class Game {
             underwater: Boolean(data.info && data.info.underwater)
         });
         this.syncAbilityTouchButtonsUI();
-        this.quotaResumeCredit = { em: 0, cr: 0, gc: 0 };
+        this.act2EnemiesDefeated = 0;
+        this.quotaResumeCredit = { em: 0, cr: 0, gc: 0, keys: 0, enemies: 0, relics: 0 };
         this.portalQuotaUnlockedNotified = false;
         this.portalLockedBounceTick = -999;
         this.portalQuotaBlockedLogged = false;
@@ -6846,6 +6850,7 @@ class Game {
             this.savedCheckpoint &&
             Number(this.savedCheckpoint.level) === Number(levelIdx) &&
             Boolean(this.savedCheckpoint.isTroll) === Boolean(this.isTrollMode) &&
+            Boolean(this.savedCheckpoint.isAct2) === Boolean(this.isAct2Mode) &&
             Number.isFinite(Number(this.savedCheckpoint.x)) &&
             Number.isFinite(Number(this.savedCheckpoint.y))
         ) {
@@ -6860,14 +6865,47 @@ class Game {
                     cp.activated = true;
                 }
             }
-            const behindCoins = this.coins.filter((c) => !c.isTrollTeleport && c.y < 900 && c.x < this.activeCheckpoint.x - 24);
+            const cpXBound = this.activeCheckpoint.x - 24;
+            const behindCoins = this.coins.filter((c) => !c.isTrollTeleport && c.y < 900 && c.x < cpXBound);
             const bEm = behindCoins.filter((c) => c.type === "emerald").length;
             const bCr = behindCoins.filter((c) => c.type === "coin" || !c.type).length;
             const bGc = behindCoins.filter((c) => c.type === "gold_coin").length;
+
+            let passedKeys = 0;
+            for (const sk of (this.sealKeys || [])) {
+                if (!sk.collected && sk.x < cpXBound) {
+                    sk.collected = true;
+                    passedKeys++;
+                }
+            }
+            const savedKeys = Number(this.savedCheckpoint.quotaKeys) || 0;
+            this.collectedSealKeys = Math.max(savedKeys, passedKeys);
+
+            let passedRelics = 0;
+            for (const rc of (this.relicChests || [])) {
+                if (!rc.opened && rc.x < cpXBound) {
+                    rc.opened = true;
+                    passedRelics++;
+                }
+            }
+            const savedRelics = Number(this.savedCheckpoint.quotaRelics) || 0;
+
+            let passedEnemies = 0;
+            for (const en of (this.enemies || [])) {
+                if (!en.isSubMissionEnemy && !en.isSplitChild && en.x < cpXBound) {
+                    en._countedInQuota = true;
+                    passedEnemies++;
+                }
+            }
+            const savedEnemies = Number(this.savedCheckpoint.quotaEnemies) || 0;
+
             this.quotaResumeCredit = {
                 em: Math.max(Number(this.savedCheckpoint.quotaEm) || 0, Math.floor(bEm * 0.7)),
                 cr: Math.max(Number(this.savedCheckpoint.quotaCr) || 0, Math.floor(bCr * 0.7)),
-                gc: Math.max(Number(this.savedCheckpoint.quotaGc) || 0, Math.floor(bGc * 0.7))
+                gc: Math.max(Number(this.savedCheckpoint.quotaGc) || 0, Math.floor(bGc * 0.7)),
+                keys: Math.max(0, savedKeys - passedKeys),
+                enemies: Math.max(savedEnemies, passedEnemies),
+                relics: Math.max(0, savedRelics - passedRelics)
             };
         }
         this.player.prevX = this.player.x;
@@ -6944,9 +6982,72 @@ class Game {
         const mainEmeralds = mainItems.filter((c) => c.type === "emerald").length;
         const mainCrystals = mainItems.filter((c) => c.type === "coin" || !c.type).length;
         const mainGold = mainItems.filter((c) => c.type === "gold_coin").length;
+        const mainKeys = (this.sealKeys || []).length;
+        const mainEnemies = (this.enemies || []).filter((e) => !e.isSubMissionEnemy && !e.isSplitChild).length;
+        const mainRelics = (this.relicChests || []).length;
 
-        if (this.isTrollMode || this.isAct2Mode || (this.levelInfo && this.levelInfo.isBossLevel) || !this.portal) {
-            this.portalQuotaConfig = { enabled: false, reqEmeralds: 0, reqCrystals: 0, reqGold: 0, mainEmeralds, mainCrystals, mainGold };
+        if (this.isTrollMode || (this.levelInfo && this.levelInfo.isBossLevel) || !this.portal) {
+            this.portalQuotaConfig = {
+                enabled: false,
+                reqEmeralds: 0,
+                reqCrystals: 0,
+                reqGold: 0,
+                reqKeys: 0,
+                reqEnemies: 0,
+                reqRelics: 0,
+                mainEmeralds,
+                mainCrystals,
+                mainGold,
+                mainKeys,
+                mainEnemies,
+                mainRelics
+            };
+            return;
+        }
+
+        if (this.isAct2Mode) {
+            const act2Idx = Number(this.selectedAct2Level) || 0;
+            const wIdx = Math.min(4, Math.max(0, Math.floor(act2Idx / 10)));
+            const subIdx = act2Idx % 10;
+            const scenario = (this.levelInfo && this.levelInfo.scenarioType) || "standard_act2";
+            const isRush = scenario === "escape_chase" || scenario === "vertical_ascent";
+
+            const emTable = [0.42, 0.50, 0.58, 0.64, 0.70];
+            const crTable = [0.40, 0.48, 0.55, 0.60, 0.66];
+            const gcTable = [0, 0.35, 0.45, 0.52, 0.60];
+            const enTable = [0.25, 0.35, 0.45, 0.55, 0.65];
+
+            const emR = emTable[wIdx] * (isRush ? 0.55 : 1);
+            const crR = crTable[wIdx] * (isRush ? 0.55 : 1);
+            const gcR = gcTable[wIdx] * (isRush ? 0.55 : 1);
+            const enR = isRush ? (wIdx >= 2 ? 0.25 : 0) : enTable[wIdx];
+
+            const reqEmeralds = mainEmeralds >= 2 ? Math.max(1, Math.min(mainEmeralds - 1, Math.round(mainEmeralds * emR))) : 0;
+            const reqCrystals = mainCrystals >= 3 ? Math.max(1, Math.min(mainCrystals - 2, Math.round(mainCrystals * crR))) : 0;
+            const reqGold = (gcR > 0 && mainGold >= 3) ? Math.max(1, Math.min(mainGold - 2, Math.round(mainGold * gcR))) : 0;
+            const reqEnemies = (enR > 0 && mainEnemies >= 2) ? Math.max(1, Math.min(mainEnemies - 1, Math.round(mainEnemies * enR))) : 0;
+            const reqKeys = Math.min((this.portal && this.portal.requiredKeys) || 0, mainKeys);
+            const requireRelicHere = (wIdx === 1 && subIdx === 8) || (wIdx >= 2 && mainRelics > 0);
+            const reqRelics = (requireRelicHere && mainRelics > 0) ? mainRelics : 0;
+
+            this.portalQuotaConfig = {
+                enabled: reqEmeralds > 0 || reqCrystals > 0 || reqGold > 0 || reqKeys > 0 || reqEnemies > 0 || reqRelics > 0,
+                reqEmeralds,
+                reqCrystals,
+                reqGold,
+                reqKeys,
+                reqEnemies,
+                reqRelics,
+                mainEmeralds,
+                mainCrystals,
+                mainGold,
+                mainKeys,
+                mainEnemies,
+                mainRelics
+            };
+            if (this.getPortalQuotaStatus().unlocked) {
+                this.portalQuotaUnlockedNotified = true;
+            }
             return;
         }
 
@@ -6976,9 +7077,15 @@ class Game {
             reqEmeralds,
             reqCrystals,
             reqGold,
+            reqKeys: 0,
+            reqEnemies: 0,
+            reqRelics: 0,
             mainEmeralds,
             mainCrystals,
-            mainGold
+            mainGold,
+            mainKeys: 0,
+            mainEnemies: 0,
+            mainRelics: 0
         };
         if (this.getPortalQuotaStatus().unlocked) {
             this.portalQuotaUnlockedNotified = true;
@@ -6997,37 +7104,70 @@ class Game {
                 reqCrystals: 0,
                 gotGold: 0,
                 reqGold: 0,
+                gotKeys: 0,
+                reqKeys: 0,
+                gotEnemies: 0,
+                reqEnemies: 0,
+                gotRelics: 0,
+                reqRelics: 0,
                 missingEmeralds: 0,
                 missingCrystals: 0,
-                missingGold: 0
+                missingGold: 0,
+                missingKeys: 0,
+                missingEnemies: 0,
+                missingRelics: 0
             };
         }
-        const credit = this.quotaResumeCredit || { em: 0, cr: 0, gc: 0 };
+        const credit = this.quotaResumeCredit || { em: 0, cr: 0, gc: 0, keys: 0, enemies: 0, relics: 0 };
         const mainCollected = (this.coins || []).filter((c) => c.collected && !c.isTrollTeleport && c.y < 900);
         const rawEm = (credit.em || 0) + mainCollected.filter((c) => c.type === "emerald").length;
         const rawCr = (credit.cr || 0) + mainCollected.filter((c) => c.type === "coin" || !c.type).length;
         const rawGc = (credit.gc || 0) + mainCollected.filter((c) => c.type === "gold_coin").length;
+        const rawKeys = (credit.keys || 0) + (this.sealKeys || []).filter((k) => k.collected).length;
+        const rawEnemies = (credit.enemies || 0) + (this.act2EnemiesDefeated || 0);
+        const rawRelics = (credit.relics || 0) + (this.relicChests || []).filter((r) => r.opened).length;
 
         const gotEmeralds = Math.min(cfg.mainEmeralds || rawEm, rawEm);
         const gotCrystals = Math.min(cfg.mainCrystals || rawCr, rawCr);
         const gotGold = Math.min(cfg.mainGold || rawGc, rawGc);
+        const gotKeys = Math.min(cfg.mainKeys || rawKeys, rawKeys);
+        const gotEnemies = Math.min(cfg.mainEnemies || rawEnemies, rawEnemies);
+        const gotRelics = Math.min(cfg.mainRelics || rawRelics, rawRelics);
 
-        const missingEmeralds = Math.max(0, cfg.reqEmeralds - gotEmeralds);
-        const missingCrystals = Math.max(0, cfg.reqCrystals - gotCrystals);
-        const missingGold = Math.max(0, cfg.reqGold - gotGold);
+        const missingEmeralds = Math.max(0, (cfg.reqEmeralds || 0) - gotEmeralds);
+        const missingCrystals = Math.max(0, (cfg.reqCrystals || 0) - gotCrystals);
+        const missingGold = Math.max(0, (cfg.reqGold || 0) - gotGold);
+        const missingKeys = Math.max(0, (cfg.reqKeys || 0) - gotKeys);
+        const missingEnemies = Math.max(0, (cfg.reqEnemies || 0) - gotEnemies);
+        const missingRelics = Math.max(0, (cfg.reqRelics || 0) - gotRelics);
 
         return {
             enabled: true,
-            unlocked: missingEmeralds === 0 && missingCrystals === 0 && missingGold === 0,
+            unlocked:
+                missingEmeralds === 0 &&
+                missingCrystals === 0 &&
+                missingGold === 0 &&
+                missingKeys === 0 &&
+                missingEnemies === 0 &&
+                missingRelics === 0,
             gotEmeralds,
-            reqEmeralds: cfg.reqEmeralds,
+            reqEmeralds: cfg.reqEmeralds || 0,
             gotCrystals,
-            reqCrystals: cfg.reqCrystals,
+            reqCrystals: cfg.reqCrystals || 0,
             gotGold,
-            reqGold: cfg.reqGold,
+            reqGold: cfg.reqGold || 0,
+            gotKeys,
+            reqKeys: cfg.reqKeys || 0,
+            gotEnemies,
+            reqEnemies: cfg.reqEnemies || 0,
+            gotRelics,
+            reqRelics: cfg.reqRelics || 0,
             missingEmeralds,
             missingCrystals,
-            missingGold
+            missingGold,
+            missingKeys,
+            missingEnemies,
+            missingRelics
         };
     }
 
@@ -7043,20 +7183,65 @@ class Game {
             };
         }
         const parts = [];
+        if (q.missingKeys > 0) parts.push(String(cat.itemKey || "{n} Mühür Anahtarı (🔑)").replace("{n}", q.missingKeys));
         if (q.missingEmeralds > 0) parts.push(String(cat.itemEmerald || "{n} Antik Zümrüt (❖)").replace("{n}", q.missingEmeralds));
         if (q.missingCrystals > 0) parts.push(String(cat.itemCrystal || "{n} Kristal (◆)").replace("{n}", q.missingCrystals));
         if (q.missingGold > 0) parts.push(String(cat.itemGold || "{n} Altın Coin (✪)").replace("{n}", q.missingGold));
+        if (q.missingEnemies > 0) parts.push(String(cat.itemEnemy || "{n} Düşman Temizle (⚔️)").replace("{n}", q.missingEnemies));
+        if (q.missingRelics > 0) parts.push(String(cat.itemRelic || "{n} Gizli Sandık (💎)").replace("{n}", q.missingRelics));
         const itemsText = parts.join(cat.conjunction || ", ");
         const hudParts = [];
+        if (q.reqKeys > 0) hudParts.push(`🔑 ${Math.min(q.gotKeys, q.reqKeys)}/${q.reqKeys}`);
         if (q.reqEmeralds > 0) hudParts.push(`❖ ${Math.min(q.gotEmeralds, q.reqEmeralds)}/${q.reqEmeralds}`);
         if (q.reqCrystals > 0) hudParts.push(`◆ ${Math.min(q.gotCrystals, q.reqCrystals)}/${q.reqCrystals}`);
         if (q.reqGold > 0) hudParts.push(`✪ ${Math.min(q.gotGold, q.reqGold)}/${q.reqGold}`);
+        if (q.reqEnemies > 0) hudParts.push(`⚔️ ${Math.min(q.gotEnemies, q.reqEnemies)}/${q.reqEnemies}`);
+        if (q.reqRelics > 0) hudParts.push(`💎 ${Math.min(q.gotRelics, q.reqRelics)}/${q.reqRelics}`);
         return {
             badgeLocked: cat.badgeLocked || "🔒 BİTİRME KAPISI KİLİTLİ",
             text: String(cat.balloonMissing || "Geçmek için {items} daha toplamalısın!").replace("{items}", itemsText),
             shortHud: `🔒 ${hudParts.join(" • ")}`,
             gateTag: cat.gateLockedLabel || "🔒 KİLİTLİ"
         };
+    }
+
+    recordEnemyDefeated(en) {
+        if (!en || en._countedInQuota || en.isSubMissionEnemy || en.isSplitChild) return;
+        en._countedInQuota = true;
+        this.act2EnemiesDefeated = (this.act2EnemiesDefeated || 0) + 1;
+        this.checkPortalQuotaUnlockNotify();
+        this.updateHUD();
+    }
+
+    checkPortalQuotaUnlockNotify() {
+        if (this.portalQuotaUnlockedNotified || !this.portalQuotaConfig || !this.portalQuotaConfig.enabled) return;
+        const qNow = this.getPortalQuotaStatus();
+        if (!qNow.unlocked) return;
+        this.portalQuotaUnlockedNotified = true;
+        const cat = (window.MARINEXT_PORTAL_QUOTA_I18N && (window.MARINEXT_PORTAL_QUOTA_I18N[this.lang] || window.MARINEXT_PORTAL_QUOTA_I18N.en)) || {};
+        window.sfx.checkpoint();
+        if (this.portal) {
+            this.spawnParticles(this.portal.x + 28, this.portal.y + 43, 28, "#06d6a0", 5.2);
+        }
+        if (this.player) {
+            this.floatingTexts.push(
+                new window.FloatingText(
+                    this.player.x + 16,
+                    this.player.y - 24,
+                    cat.toastUnlocked || "🌀 BİTİRME KAPISI AÇILDI! GEÇEBİLİRSİN!",
+                    "#06d6a0"
+                )
+            );
+        }
+        if (window.MarinextAnalytics) {
+            const analyticsLevel = this.isAct2Mode
+                ? (101 + (Number(this.selectedAct2Level) || 0))
+                : ((Number(this.selectedLevel) || 0) + 1);
+            window.MarinextAnalytics.logEvent("portal_quota_unlocked", {
+                level: analyticsLevel,
+                is_act2: Boolean(this.isAct2Mode)
+            });
+        }
     }
 
     enterSubChamber() {
@@ -7356,6 +7541,7 @@ class Game {
                 for (const en of this.enemies) {
                     if (!en.isBoss && Math.hypot(en.x - safeX, en.y - safeY) < 150) {
                         en.dead = true;
+                        this.recordEnemyDefeated(en);
                         this.spawnParticles(en.x + (en.w || 24) / 2, en.y + (en.h || 24) / 2, 10, "#ff9e00", 4);
                     }
                 }
@@ -8261,8 +8447,8 @@ class Game {
         const stars = this.feedbackStars || 5;
         const cat = this.feedbackCategory || "Öneri & Yeni Fikir";
 
-        let appVerName = "1.5.1";
-        let appVerCode = 52;
+        let appVerName = "1.5.2";
+        let appVerCode = 53;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
                 const info = JSON.parse(window.MarinextCloudBridge.getAppVersionInfo());
@@ -9394,6 +9580,7 @@ class Game {
                 for (const en of this.enemies) {
                     if (Math.hypot(en.x - safeX, en.y - safeY) < 350) {
                         en.dead = true;
+                        this.recordEnemyDefeated(en);
                         this.spawnParticles(en.x + (en.w || 24) / 2, en.y + (en.h || 24) / 2, 12, "#00f2fe", 4);
                     }
                 }
@@ -9578,9 +9765,12 @@ class Game {
         const powerStr = powerList.length > 0 ? `${powerList.join(" ")} ${d.shadowMode}` : d.shadowMode;
 
         const keysReq = (this.portal && this.portal.requiredKeys) || 0;
+        const qHud = this.getPortalQuotaStatus();
+        const collectedKeysCount = (this.sealKeys || []).filter((k) => k.collected).length;
+        const openedRelicsCount = (this.relicChests || []).filter((r) => r.opened).length;
         const tsSec = Math.ceil((this.timeSlowTimer || 0) / 60);
         const bossKey = this.boss ? `${this.boss.hp}_${this.boss.statusText}` : "noboss";
-        const hudKey = `${this.lang}_${this.isAct2Mode}_${this.selectedAct2Level}_${keysReq}_${this.collectedSealKeys}_${tsSec}_${this.player.hp}/${this.player.maxHp}_${this.player.hasShield}_${powerStr}_${this.walletEmeralds}_${this.collectedEmeralds}_${this.walletCoins}_${this.walletGoldCoins}_${this.score}_${bossKey}`;
+        const hudKey = `${this.lang}_${this.isAct2Mode}_${this.selectedAct2Level}_${keysReq}_${this.collectedSealKeys}_${collectedKeysCount}_${openedRelicsCount}_${this.act2EnemiesDefeated || 0}_${qHud.unlocked}_${tsSec}_${this.player.hp}/${this.player.maxHp}_${this.player.hasShield}_${powerStr}_${this.walletEmeralds}_${this.collectedEmeralds}_${this.walletCoins}_${this.walletGoldCoins}_${this.score}_${bossKey}`;
         if (this._lastHudKey === hudKey) return;
         this._lastHudKey = hudKey;
 
@@ -9609,9 +9799,10 @@ class Game {
         const keysBadge = document.getElementById("hud-keys-badge");
         if (keysBadge) {
             if (keysReq > 0) {
+                const gotKeysHud = (qHud && qHud.enabled && qHud.reqKeys > 0) ? qHud.gotKeys : (this.collectedSealKeys || 0);
                 keysBadge.classList.remove("hidden");
-                keysBadge.textContent = `🔑 ${this.collectedSealKeys || 0}/${keysReq}`;
-                keysBadge.style.borderColor = (this.collectedSealKeys || 0) >= keysReq ? "#06d6a0" : "rgba(255, 209, 102, 0.85)";
+                keysBadge.textContent = `🔑 ${gotKeysHud}/${keysReq}`;
+                keysBadge.style.borderColor = gotKeysHud >= keysReq ? "#06d6a0" : "rgba(255, 209, 102, 0.85)";
             } else {
                 keysBadge.classList.add("hidden");
             }
@@ -9739,7 +9930,7 @@ class Game {
                     this.player.vy = launchVy;
                     this.player.springBoostTimer = 28;
                     this.player.onGround = false;
-                    this.player.jumpsLeft = this.player.maxJumps;
+                    this.player.jumpsLeft = this.player.inUnderwater ? (this.player.maxJumps + 1) : this.player.maxJumps;
                     jp.anim = 22;
                     this.shakeScreen(6);
                     window.sfx.wallJump();
@@ -10054,13 +10245,17 @@ class Game {
                 this.activeCheckpoint = { x: cp.x, y: cp.y };
                 const cpQuota = this.getPortalQuotaStatus();
                 this.savedCheckpoint = {
-                    level: this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel,
+                    level: this.isAct2Mode ? this.selectedAct2Level : (this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel),
                     isTroll: Boolean(this.isTrollMode),
+                    isAct2: Boolean(this.isAct2Mode),
                     x: cp.x,
                     y: cp.y,
                     quotaEm: cpQuota.gotEmeralds || 0,
                     quotaCr: cpQuota.gotCrystals || 0,
-                    quotaGc: cpQuota.gotGold || 0
+                    quotaGc: cpQuota.gotGold || 0,
+                    quotaKeys: cpQuota.gotKeys || 0,
+                    quotaEnemies: cpQuota.gotEnemies || 0,
+                    quotaRelics: cpQuota.gotRelics || 0
                 };
                 window.sfx.checkpoint();
                 document.getElementById("hud-checkpoint").classList.remove("hidden");
@@ -10293,30 +10488,7 @@ class Game {
                     window.sfx.coin();
                     this.spawnParticles(c.x, c.y, 8, "#00f2fe", 2.8);
                 }
-                if (!this.portalQuotaUnlockedNotified) {
-                    const qNow = this.getPortalQuotaStatus();
-                    if (qNow.enabled && qNow.unlocked) {
-                        this.portalQuotaUnlockedNotified = true;
-                        const cat = (window.MARINEXT_PORTAL_QUOTA_I18N && (window.MARINEXT_PORTAL_QUOTA_I18N[this.lang] || window.MARINEXT_PORTAL_QUOTA_I18N.en)) || {};
-                        window.sfx.checkpoint();
-                        if (this.portal) {
-                            this.spawnParticles(this.portal.x + 28, this.portal.y + 43, 28, "#06d6a0", 5.2);
-                        }
-                        this.floatingTexts.push(
-                            new window.FloatingText(
-                                this.player.x + 16,
-                                this.player.y - 24,
-                                cat.toastUnlocked || "🌀 BİTİRME KAPISI AÇILDI! GEÇEBİLİRSİN!",
-                                "#06d6a0"
-                            )
-                        );
-                        if (window.MarinextAnalytics) {
-                            window.MarinextAnalytics.logEvent("portal_quota_unlocked", {
-                                level: (this.selectedLevel || 0) + 1
-                            });
-                        }
-                    }
-                }
+                this.checkPortalQuotaUnlockNotify();
                 this.updateHUD();
             }
         }
@@ -10384,7 +10556,7 @@ class Game {
                     this.damageEnemy(en, 1, this.player.x + this.player.w / 2, false);
                 } else if (this.player.vy > 0 && playerBottom - this.player.vy <= enemyTop) {
                     this.player.vy = -14.8;
-                    this.player.jumpsLeft = this.player.maxJumps;
+                    this.player.jumpsLeft = this.player.inUnderwater ? (this.player.maxJumps + 1) : this.player.maxJumps;
                     this.damageEnemy(en, 1, this.player.x + this.player.w / 2, false);
                     this.spawnParticles(en.x + en.w / 2, en.y, 10, "#b537f2", 4);
                 } else {
@@ -10413,7 +10585,7 @@ class Game {
                         if (!this.input.left && !this.input.right) {
                             this.player.vx = awayDir * 4.5;
                         }
-                        this.player.jumpsLeft = this.player.maxJumps;
+                        this.player.jumpsLeft = this.player.inUnderwater ? (this.player.maxJumps + 1) : this.player.maxJumps;
                         this.player.invulnTimer = Math.max(this.player.invulnTimer, 35);
                         if (this.boss.takeDamage(3, this, true)) {
                             this.floatingTexts.push(new window.FloatingText(this.boss.x + 44, this.boss.y - 10, "💥 SÜPER EZMELİ VURUŞ! (-3 CAN)", "#06d6a0"));
@@ -10464,20 +10636,28 @@ class Game {
                     }
                     if (!this.portalQuotaBlockedLogged && window.MarinextAnalytics) {
                         this.portalQuotaBlockedLogged = true;
+                        const analyticsLevel = this.isAct2Mode
+                            ? (101 + (Number(this.selectedAct2Level) || 0))
+                            : ((Number(this.selectedLevel) || 0) + 1);
                         window.MarinextAnalytics.logEvent("portal_quota_blocked", {
-                            level: (this.selectedLevel || 0) + 1,
+                            level: analyticsLevel,
+                            is_act2: Boolean(this.isAct2Mode),
                             missing_em: quotaState.missingEmeralds,
                             missing_cr: quotaState.missingCrystals,
-                            missing_gc: quotaState.missingGold
+                            missing_gc: quotaState.missingGold,
+                            missing_keys: quotaState.missingKeys || 0,
+                            missing_enemies: quotaState.missingEnemies || 0,
+                            missing_relics: quotaState.missingRelics || 0
                         });
                     }
-                } else if ((this.portal.requiredKeys || 0) > 0 && (this.collectedSealKeys || 0) < this.portal.requiredKeys) {
+                } else if ((this.portal.requiredKeys || 0) > 0 && (quotaState.enabled ? quotaState.gotKeys : (this.collectedSealKeys || 0)) < this.portal.requiredKeys) {
+                    const gotKeysFallback = quotaState.enabled ? quotaState.gotKeys : (this.collectedSealKeys || 0);
                     if (this.player.vx > 0) this.player.vx = -2.2;
                     if (!this._lastPortalLockSfxTick || (this.levelTick - this._lastPortalLockSfxTick) > 55) {
                         this._lastPortalLockSfxTick = this.levelTick;
                         window.sfx.blockHit();
                         this.spawnParticles(this.portal.x + 28, this.portal.y + 43, 14, "#ffd166", 3.6);
-                        this.floatingTexts.push(new window.FloatingText(this.portal.x, this.portal.y - 14, `🔑 MÜHÜR EKSİK! (${this.collectedSealKeys || 0}/${this.portal.requiredKeys})`, "#ffd166"));
+                        this.floatingTexts.push(new window.FloatingText(this.portal.x, this.portal.y - 14, `🔑 MÜHÜR EKSİK! (${gotKeysFallback}/${this.portal.requiredKeys})`, "#ffd166"));
                     }
                 } else {
                     this.triggerVictory();
@@ -12110,7 +12290,7 @@ class Game {
                 if (bs.cooldown > 0) bs.cooldown--;
                 if (bs.cooldown <= 0 && Math.hypot(pcx - bs.x, pcy - bs.y) < (bs.r || 22) + 22) {
                     bs.cooldown = 75;
-                    this.player.jumpsLeft = this.player.maxJumps;
+                    this.player.jumpsLeft = this.player.inUnderwater ? (this.player.maxJumps + 1) : this.player.maxJumps;
                     this.player.vy = Math.min(this.player.vy, -8.5);
                     window.sfx.coin();
                     this.spawnParticles(bs.x, bs.y, 14, "#00f2fe", 4);
@@ -12149,7 +12329,10 @@ class Game {
                     window.sfx.emerald();
                     this.spawnParticles(sk.x, sk.y, 18, "#ffd166", 4.5);
                     const req = (this.portal && this.portal.requiredKeys) || this.sealKeys.length || 3;
-                    this.floatingTexts.push(new window.FloatingText(sk.x, sk.y - 14, `🔑 MÜHÜR (${this.collectedSealKeys}/${req})`, "#ffd166"));
+                    const qKeyNow = this.getPortalQuotaStatus();
+                    const gotKeysDisplay = (qKeyNow && qKeyNow.enabled && qKeyNow.reqKeys > 0) ? qKeyNow.gotKeys : (this.collectedSealKeys || 0);
+                    this.floatingTexts.push(new window.FloatingText(sk.x, sk.y - 14, `🔑 MÜHÜR (${gotKeysDisplay}/${req})`, "#ffd166"));
+                    this.checkPortalQuotaUnlockNotify();
                     this.updateHUD();
                 }
             }
@@ -12177,6 +12360,8 @@ class Game {
                             cosmetic_id: rc.cosmeticId || ""
                         });
                     }
+                    this.checkPortalQuotaUnlockNotify();
+                    this.updateHUD();
                     this.saveProgress(true);
                 }
             }
