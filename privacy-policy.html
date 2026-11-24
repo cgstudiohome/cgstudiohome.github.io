@@ -192,6 +192,7 @@
                         items: [
                             "<strong>Yerel Depolama ve Oyun İlerlemesi:</strong> Geçilen bölümler, toplanan coin/zümrütler, ayarlar ve açılan içerikler cihazınızda yerel olarak saklanır.",
                             "<strong>Google Play Games &amp; Google Drive Bulut Kaydı:</strong> Skorlarınız, başarımlarınız ve bulut yedekleriniz yalnızca kendi Google hesabınızla eşitlenir.",
+                            "<strong>Çoklu Cihaz Liderlik Tablosu (Firebase Realtime Database):</strong> Küresel ve aile/çoklu cihaz liderlik tablosu senkronizasyonu (<code>leaderboard/{uid}</code>) için yalnızca takma/görünen oyuncu adı, avatar simgesi, kahraman unvanı, ülke bayrağı, skor, bölüm ilerlemesi, zümrüt miktarı, speedrun süresi ve Öte Evren kilit açma durumu saklanır; e-posta, telefon veya gerçek kimlik bilgisi tutulmaz.",
                             "<strong>Cihaz Tanımlayıcıları &amp; Reklam Verileri:</strong> Ücretsiz oyunlarımızda Google AdMob reklamları ve rıza yönetimi (UMP/GDPR) kapsamında reklam kimliği (AAID), yaklaşık konum ve hata/performans tanılama verileri kullanılabilir.",
                             "<strong>Web &amp; Oyun Analitiği (GA4):</strong> Performans iyileştirmesi için anonimleştirilmiş oturum, dil ve ekran istatistikleri Google Analytics üzerinden ölçülebilir.",
                             "<strong>Uygulama İçi Satın Alımlar ve Abonelikler (Google Play Faturalandırma):</strong> İsteğe bağlı VIP Pass aboneliği veya Ömür Boyu Reklamsız paket satın alımlarında kart/ödeme bilgileri yalnızca Google Play tarafından işlenir; uygulamamız yalnızca aktif satın alma/abonelik hakkınızı doğrulamak için durum bilgisini senkronize eder."
@@ -212,7 +213,7 @@
                     },
                     {
                         h: "4. Veri Silme Hakları (KVKK / GDPR)",
-                        p: "Yerel oyun verilerinizi oyun içi Ayarlar menüsünden veya cihaz uygulama verilerini temizleyerek kalıcı olarak silebilirsiniz. Google Drive bulut yedeklerinizi ise Google Drive 'Uygulama Verilerini Yönet' alanından kaldırabilirsiniz."
+                        p: "Yerel oyun verilerinizi oyun içi Ayarlar menüsünden veya cihaz uygulama verilerini temizleyerek kalıcı olarak silebilirsiniz. Google Drive bulut yedeklerinizi ise Google Drive 'Uygulama Verilerini Yönet' alanından kaldırabilirsiniz. Firebase Realtime Database liderlik tablosundaki takma adlı kaydınızın silinmesi için oyun içi sıfırlamayı kullanabilir veya <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a> adresine yazabilirsiniz."
                     },
                     {
                         h: "5. İletişim ve Alt Proje Politikaları",
@@ -232,6 +233,7 @@
                         items: [
                             "<strong>Local Storage &amp; Progress:</strong> Stages cleared, virtual items, preferences, and saves remain in your device's local storage.",
                             "<strong>Google Play Games &amp; Google Drive Cloud Save:</strong> High scores, achievements, and optional backups sync securely via your Google account.",
+                            "<strong>Cross-Device Leaderboard Sync (Firebase Realtime Database):</strong> Global and family/cross-device leaderboard sync (<code>leaderboard/{uid}</code>) stores only pseudonymous player display name/nickname, avatar icon, hero title, country flag, score, stage progress, emeralds, speedrun time, and Öte Evren unlock state — never email, phone numbers, or real identities.",
                             "<strong>Ad &amp; Consent Identifiers:</strong> Free titles using Google AdMob and Google UMP/GDPR consent dialogs may process advertising IDs (AAID), coarse location, and crash/performance telemetry.",
                             "<strong>Analytics (GA4):</strong> Aggregated, anonymous usage events help us improve game balance, localization, and portal stability.",
                             "<strong>In-App Purchases &amp; Subscriptions (Google Play Billing):</strong> If you choose an optional VIP Pass subscription or one-time Lifetime Remove Ads purchase, all payment details are handled exclusively by Google Play; our apps receive only entitlement status to unlock your perks."
@@ -252,7 +254,7 @@
                     },
                     {
                         h: "4. Data Erasure Rights (GDPR / CCPA)",
-                        p: "You can erase local game data at any time via in-game Settings or Android App Storage controls, and delete cloud backups from Google Drive under 'Manage App Data'."
+                        p: "You can erase local game data at any time via in-game Settings or Android App Storage controls, and delete cloud backups from Google Drive under 'Manage App Data'. To delete your pseudonymous Firebase Realtime Database leaderboard entry, use in-game reset or email <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>."
                     },
                     {
                         h: "5. Contact &amp; App Subfolders",
@@ -268,7 +270,7 @@
                 sections: [
                     {
                         h: "1. 수집 및 처리되는 정보",
-                        p: "별도 회원가입 없이 이용할 수 있으며 기기 로컬 저장소, Google Play Games/Drive 동기화, Google AdMob(UMP 동의 포함), Google Analytics(GA4) 및 Google Play 결제 권한 상태만 사용될 수 있습니다.",
+                        p: "별도 회원가입 없이 이용할 수 있으며 기기 로컬 저장소, Google Play Games/Drive 동기화, Firebase Realtime Database 멀티 기기 리더보드 동기화(<code>leaderboard/{uid}</code>: 가명 닉네임, 아바타, 영웅 칭호, 국가 깃발, 점수, 진행도, 에메랄드, 스피드런 기록 및 Öte Evren 해금 상태만 저장 — 이메일·전화번호·실명 미수집), Google AdMob(UMP 동의 포함), Google Analytics(GA4) 및 Google Play 결제 권한 상태만 사용될 수 있습니다.",
                         items: []
                     },
                     {
@@ -278,7 +280,7 @@
                     },
                     {
                         h: "3. 데이터 삭제 및 문의",
-                        p: "앱 내 설정에서 로컬 데이터를 즉시 삭제할 수 있으며 문의는 <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>으로 연락해 주세요."
+                        p: "앱 내 설정에서 로컬 데이터를 즉시 삭제할 수 있으며 Firebase Realtime Database 리더보드 가명 기록 삭제 및 기타 문의는 게임 내 초기화 또는 <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>으로 연락해 주세요."
                     }
                 ]
             },
@@ -290,12 +292,12 @@
                 sections: [
                     {
                         h: "1. 利用されるデータと範囲",
-                        p: "セーブデータは端末内に保存され、Google Play Games / ドライブ、Google AdMob（UMP同意管理含む）、Google Analytics の統計およびGoogle Play課金ステータスのみが利用される場合があります。",
+                        p: "セーブデータは端末内に保存され、Google Play Games / ドライブ、Firebase Realtime Database マルチデバイスランキング同期（<code>leaderboard/{uid}</code>：ニックネーム、アバター、称号、国旗、スコア、進捗、エメラルド、スピードラン記録、Öte Evren解放状態のみ保存。メール・電話・本名は非収集）、Google AdMob（UMP同意管理含む）、Google Analytics の統計およびGoogle Play課金ステータスのみが利用される場合があります。",
                         items: []
                     },
                     {
                         h: "2. 広告ポリシーとデータ消去",
-                        p: "プレイ中に強制広告で中断することはありません。設定メニューからいつでもデータを消去でき、お問い合わせは <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a> までお送りください。",
+                        p: "プレイ中に強制広告で中断することはありません。設定メニューからいつでもローカルデータを消去でき、Firebase Realtime Database ランキング記録の削除やお問い合わせはアプリ内リセットまたは <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a> までお送りください。",
                         items: []
                     }
                 ]
@@ -308,12 +310,12 @@
                 sections: [
                     {
                         h: "1. 适用范围与数据处理",
-                        p: "游戏进度保存在本地及您的 Google Play Games / 云端硬盘中；Google AdMob（含 UMP 隐私同意）、Google Analytics 与 Google Play 应用内购买仅涉及匿名标识符及权益状态。",
+                        p: "游戏进度保存在本地及您的 Google Play Games / 云端硬盘中；跨设备排行榜（Firebase Realtime Database <code>leaderboard/{uid}</code>）仅保存匿名昵称、头像、英雄称号、国旗、分数、关卡进度、翡翠、速通时间及 Öte Evren 解锁状态（绝不保存邮箱、电话或实名）；Google AdMob（含 UMP 隐私同意）、Google Analytics 与 Google Play 应用内购买仅涉及匿名标识符及权益状态。",
                         items: []
                     },
                     {
                         h: "2. 数据删除与联系方式",
-                        p: "您可随时在游戏设置中清除本地存档。如有疑问请联系 <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>。",
+                        p: "您可随时在游戏设置中清除本地存档；如需删除 Firebase Realtime Database 排行榜记录，请使用游戏内重置或联系 <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>。",
                         items: []
                     }
                 ]
@@ -326,12 +328,12 @@
                 sections: [
                     {
                         h: "1. Обрабатываемые данные",
-                        p: "Прогресс хранится локально и в Google Play Games / Google Drive; для рекламы, статистики и подписок используются Google AdMob (UMP), Google Analytics (GA4) и статус покупок Google Play.",
+                        p: "Прогресс хранится локально и в Google Play Games / Google Drive; для межустройственной таблицы лидеров (Firebase Realtime Database, <code>leaderboard/{uid}</code>) сохраняются только псевдоним, аватар, титул героя, флаг страны, очки, прогресс уровней, изумруды, время спидрана и статус Öte Evren (без email и реальных данных); для рекламы, статистики и подписок используются Google AdMob (UMP), Google Analytics (GA4) и статус покупок Google Play.",
                         items: []
                     },
                     {
                         h: "2. Удаление данных и контакты",
-                        p: "Очистить прогресс можно в настройках игры. По всем вопросам пишите на <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>.",
+                        p: "Очистить локальный прогресс можно в настройках игры; для удаления записи из Firebase Realtime Database используйте сброс в игре или пишите на <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>.",
                         items: []
                     }
                 ]
@@ -344,12 +346,12 @@
                 sections: [
                     {
                         h: "1. Ambito e Dati Gestiti",
-                        p: "I progressi restano in locale e su Google Play Games; Google AdMob (con modulo UMP GDPR), Google Analytics e lo stato degli acquisti Google Play gestiscono solo dati tecnici anonimi.",
+                        p: "I progressi restano in locale e su Google Play Games; la classifica multidispositivo su Firebase Realtime Database (<code>leaderboard/{uid}</code>) salva solo nickname pseudonimo, avatar, titolo, bandiera, punteggio, livelli, smeraldi, speedrun e stato Öte Evren (nessuna email o identità reale); Google AdMob (con modulo UMP GDPR), Google Analytics e lo stato degli acquisti Google Play gestiscono solo dati tecnici anonimi.",
                         items: []
                     },
                     {
                         h: "2. Contatti",
-                        p: "Per richieste sulla privacy o eliminazione dei dati scrivi a <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>.",
+                        p: "Per richieste sulla privacy o eliminazione dei dati locali / Firebase Realtime Database scrivi a <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>.",
                         items: []
                     }
                 ]
@@ -362,12 +364,12 @@
                 sections: [
                     {
                         h: "1. Datos Procesados",
-                        p: "El progreso se guarda en el dispositivo y en Google Play Games / Drive. Google AdMob (con consentimiento UMP), Google Analytics y las compras de Google Play procesan únicamente identificadores técnicos y estado de acceso.",
+                        p: "El progreso se guarda en el dispositivo y en Google Play Games / Drive. La clasificación multidispositivo en Firebase Realtime Database (<code>leaderboard/{uid}</code>) almacena únicamente apodo seudónimo, avatar, título, bandera, puntuación, niveles, esmeraldas, speedrun y estado Öte Evren (sin correo ni identidad real); Google AdMob (con consentimiento UMP), Google Analytics y las compras de Google Play procesan únicamente identificadores técnicos y estado de acceso.",
                         items: []
                     },
                     {
                         h: "2. Contacto",
-                        p: "Escríbenos a <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a> para cualquier consulta.",
+                        p: "Puedes borrar los datos desde los ajustes del juego o solicitar la eliminación de tu registro en Firebase Realtime Database escribiendo a <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>.",
                         items: []
                     }
                 ]
@@ -380,12 +382,12 @@
                 sections: [
                     {
                         h: "1. Données Traitées",
-                        p: "La progression est sauvegardée localement et via Google Play Games / Drive. Google AdMob (avec formulaire UMP), Google Analytics et l'état des achats Google Play traitent uniquement des données techniques anonymes.",
+                        p: "La progression est sauvegardée localement et via Google Play Games / Drive. Le classement multi-appareils sur Firebase Realtime Database (<code>leaderboard/{uid}</code>) conserve uniquement pseudonyme, avatar, titre, drapeau, score, niveaux, émeraudes, speedrun et statut Öte Evren (sans e-mail ni identité réelle) ; Google AdMob (avec formulaire UMP), Google Analytics et l'état des achats Google Play traitent uniquement des données techniques anonymes.",
                         items: []
                     },
                     {
                         h: "2. Contact",
-                        p: "Pour toute question, écrivez à <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>.",
+                        p: "Pour toute question ou demande de suppression des données locales / Firebase Realtime Database, écrivez à <a href='mailto:info@erpdanisman.com'>info@erpdanisman.com</a>.",
                         items: []
                     }
                 ]
