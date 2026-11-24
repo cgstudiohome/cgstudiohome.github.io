@@ -1553,7 +1553,7 @@ class Game {
         setTimeout(() => this.checkAppUpdateOnStartup(), 1600);
         setTimeout(() => this.checkStartupWhatsNew(), 2600);
         setTimeout(() => this.fetchLiveCloudLeaderboard(), 900);
-        setTimeout(() => this.syncLiveCloudLeaderboard(), 2400);
+        setTimeout(() => this.syncLiveCloudLeaderboard(), (typeof window !== "undefined" && window.MarinextCloudBridge) ? 5500 : 2400);
 
         this.isAct2Mode = false;
         this.act2Unlocked = false;
@@ -1905,6 +1905,14 @@ class Game {
             }
 
             try {
+                if (localStorage.getItem("marinext_dev_act2_sanitized_v55") !== "1") {
+                    localStorage.setItem("marinext_dev_act2_test", "0");
+                    localStorage.removeItem("marinext_dev_act2_backup_v1");
+                    localStorage.setItem("marinext_dev_act2_sanitized_v55", "1");
+                }
+            } catch (e) {}
+
+            try {
                 localStorage.removeItem("marinext2100_lb_cache_v5");
             } catch (e) {}
             const cachedLb = localStorage.getItem("marinext2100_lb_cache_v6");
@@ -1940,6 +1948,11 @@ class Game {
             const data = this.mergeCloudSaveObjects(localObj, nativeObj);
             if (data) {
                 this.applySaveDataObject(data);
+                if (this._needsHealedCloudResync) {
+                    this._needsHealedCloudResync = false;
+                    this.saveProgress(true);
+                    setTimeout(() => this.syncLeaderboardToPlayGames(), 5800);
+                }
             } else {
                 try {
                     this._devAct2Override = localStorage.getItem("marinext_dev_act2_test") === "1";
@@ -1950,8 +1963,112 @@ class Game {
         }
     }
 
+    sanitizeProgressIntegrity(obj) {
+        if (!obj || typeof obj !== "object") return false;
+        let healed = false;
+
+        const rawS1 = Array.isArray(obj.starsPerLevel) ? obj.starsPerLevel : [];
+        const stars1 = Array.from({ length: 100 }, (_, i) => Math.max(0, Math.min(3, Number(rawS1[i]) || 0)));
+        const rawS2 = Array.isArray(obj.starsPerAct2Level) ? obj.starsPerAct2Level : [];
+        const stars2 = Array.from({ length: 50 }, (_, i) => Math.max(0, Math.min(3, Number(rawS2[i]) || 0)));
+
+        // Heal fake Level 100 star stamped by pre-v1.5.4 non-sandboxed Öte Evren Test button
+        const starredBefore100 = stars1.slice(0, 99).filter((s) => s > 0).length;
+        if (stars1[99] > 0 && stars1[98] === 0 && starredBefore100 < 95) {
+            stars1[99] = 0;
+            healed = true;
+        }
+
+        // Heal inflated Campaign unlock count
+        let highestStarredAct1Idx = -1;
+        for (let i = 0; i < 100; i++) {
+            if (stars1[i] > 0) highestStarredAct1Idx = i;
+        }
+        const trueUnlockedAct1 = Math.max(1, Math.min(100, highestStarredAct1Idx + 2));
+        if ((Number(obj.unlockedLevels) || 1) > trueUnlockedAct1) {
+            obj.unlockedLevels = trueUnlockedAct1;
+            healed = true;
+        } else {
+            obj.unlockedLevels = Math.max(1, Math.min(100, Number(obj.unlockedLevels) || 1));
+        }
+
+        // Heal inflated Act II unlock state & contiguous progression
+        const trueAct2Unlocked = stars1[99] > 0;
+        if (Boolean(obj.act2Unlocked) !== trueAct2Unlocked) {
+            obj.act2Unlocked = trueAct2Unlocked;
+            healed = true;
+        }
+
+        let contiguousAct2 = 0;
+        for (let i = 0; i < 50; i++) {
+            if (stars2[i] > 0) {
+                contiguousAct2 = i + 1;
+            } else {
+                break;
+            }
+        }
+
+        if (!trueAct2Unlocked) {
+            if ((Number(obj.unlockedAct2Levels) || 1) !== 1 || obj.act2CelebrationClaimed || stars2.some((s) => s > 0)) {
+                healed = true;
+            }
+            obj.unlockedAct2Levels = 1;
+            obj.act2CelebrationClaimed = false;
+            for (let i = 0; i < 50; i++) stars2[i] = 0;
+        } else {
+            const trueUnlockedAct2 = Math.max(1, Math.min(50, contiguousAct2 + 1));
+            if ((Number(obj.unlockedAct2Levels) || 1) > trueUnlockedAct2) {
+                obj.unlockedAct2Levels = trueUnlockedAct2;
+                healed = true;
+            } else {
+                obj.unlockedAct2Levels = Math.max(1, Math.min(50, Number(obj.unlockedAct2Levels) || 1));
+            }
+            // Clear any non-contiguous phantom Act II stars stamped during old test jumps
+            for (let j = contiguousAct2; j < 50; j++) {
+                if (stars2[j] > 0) {
+                    stars2[j] = 0;
+                    healed = true;
+                }
+            }
+        }
+
+        obj.starsPerLevel = stars1;
+        obj.starsPerAct2Level = stars2;
+
+        // Recompute Act II abilities strictly from healed progression
+        const nextAbilities = {
+            dash: Boolean(trueAct2Unlocked),
+            slam: Boolean(trueAct2Unlocked && (obj.unlockedAct2Levels >= 11 || stars2[9] > 0)),
+            timeSlow: Boolean(trueAct2Unlocked && (obj.unlockedAct2Levels >= 21 || stars2[19] > 0)),
+            companionDrone: Boolean(trueAct2Unlocked && (obj.unlockedAct2Levels >= 31 || stars2[29] > 0))
+        };
+        obj.act2UnlockedAbilities = nextAbilities;
+
+        // Clamp resume pointers to genuine bounds
+        const maxCampSel = Math.max(0, obj.unlockedLevels - 1);
+        if (!Number.isFinite(Number(obj.lastSelectedLevel)) || Number(obj.lastSelectedLevel) > maxCampSel || Number(obj.lastSelectedLevel) < 0) {
+            if (Number.isFinite(Number(obj.lastSelectedLevel))) healed = true;
+            obj.lastSelectedLevel = maxCampSel;
+        }
+        const maxAct2Sel = Math.max(0, obj.unlockedAct2Levels - 1);
+        if (!Number.isFinite(Number(obj.lastSelectedAct2Level)) || Number(obj.lastSelectedAct2Level) > maxAct2Sel || Number(obj.lastSelectedAct2Level) < 0) {
+            if (Number.isFinite(Number(obj.lastSelectedAct2Level))) healed = true;
+            obj.lastSelectedAct2Level = maxAct2Sel;
+        }
+        if (!trueAct2Unlocked && obj.lastActiveMode === "act2") {
+            obj.lastActiveMode = "campaign";
+            healed = true;
+        }
+
+        return healed;
+    }
+
     applySaveDataObject(data) {
         if (!data || typeof data !== "object" || Number(data.schemaVersion) !== 5) return;
+        const didHeal = this.sanitizeProgressIntegrity(data);
+        if (didHeal) {
+            this._needsHealedCloudResync = true;
+        }
         this.unlockedLevels = Math.max(1, Math.min(100, Number(data.unlockedLevels) || 1));
         this.selectedLevel = Math.max(0, Math.min(99, this.unlockedLevels - 1));
         if (this.selectedWorldFilter >= 0) {
@@ -2110,7 +2227,7 @@ class Game {
         const speedB = Number(b.bestSpeedrunMs) || 0;
         const mergedSpeed = (speedA > 0 && speedB > 0) ? Math.min(speedA, speedB) : Math.max(speedA, speedB);
         const claimedLeagues = Array.from(new Set([...(a.claimedLbLeagues || []), ...(b.claimedLbLeagues || [])]));
-        return {
+        const mergedObj = {
             ...newer,
             schemaVersion: 5,
             unlockedLevels: Math.max(Number(a.unlockedLevels) || 1, Number(b.unlockedLevels) || 1),
@@ -2138,6 +2255,8 @@ class Game {
             lastSelectedAct2Level: Number.isFinite(Number(newer.lastSelectedAct2Level)) ? Number(newer.lastSelectedAct2Level) : undefined,
             updatedAt: Math.max(Number(a.updatedAt) || 0, Number(b.updatedAt) || 0, Date.now())
         };
+        this.sanitizeProgressIntegrity(mergedObj);
+        return mergedObj;
     }
 
     buildSavePayloadObject() {
@@ -2291,6 +2410,11 @@ class Game {
                     this.buildTrollMapNodes();
                     this.updateMapUI();
                     this.updateProfileDisplay();
+                    if (this._needsHealedCloudResync) {
+                        this._needsHealedCloudResync = false;
+                        this.saveProgress(true);
+                        this.syncLeaderboardToPlayGames();
+                    }
                     this.updateCloudStatusUI(`${sourceLabel || "Google Drive"} senkronize edildi ✓`);
                 }
             } catch (e) {}
@@ -2387,7 +2511,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 54;
+        const CURRENT_VERSION_CODE = 55;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2523,7 +2647,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "50");
+                localStorage.setItem("marinext2100_last_seen_version", "55");
             } catch (e) {}
         };
 
@@ -2552,7 +2676,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "50") {
+            if (hasConsent && lastSeenVer !== "55") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -2858,6 +2982,14 @@ class Game {
         }
     }
 
+    getEffectiveUnlockedLevels() {
+        return this._devAct2Override ? 100 : (this.unlockedLevels || 1);
+    }
+
+    getEffectiveUnlockedAct2Levels() {
+        return this._devAct2Override ? 50 : (this.unlockedAct2Levels || 1);
+    }
+
     isAbilityUnlocked(abilityId) {
         if (this._devAct2Override) return true;
         return Boolean(this.act2UnlockedAbilities && this.act2UnlockedAbilities[abilityId]);
@@ -3148,7 +3280,7 @@ class Game {
                 } else if (item.filterVal >= 10) {
                     this.isAct2Mode = true;
                     this.selectedAct2WorldFilter = item.filterVal - 10;
-                    const maxA2 = Math.max(0, Math.min(49, (this.unlockedAct2Levels || 1) - 1));
+                    const maxA2 = Math.max(0, Math.min(49, this.getEffectiveUnlockedAct2Levels() - 1));
                     if (Math.floor(this.selectedAct2Level / 10) !== this.selectedAct2WorldFilter) {
                         const worldStartA2 = this.selectedAct2WorldFilter * 10;
                         if (worldStartA2 <= maxA2) {
@@ -3157,14 +3289,14 @@ class Game {
                     }
                 } else {
                     this.isAct2Mode = false;
-                    const maxCamp = Math.max(0, Math.min(99, (this.unlockedLevels || 1) - 1));
+                    const maxCamp = Math.max(0, Math.min(99, this.getEffectiveUnlockedLevels() - 1));
                     if (Math.floor(this.selectedLevel / 10) !== item.filterVal && item.filterVal * 10 <= maxCamp) {
                         this.selectedLevel = Math.min(maxCamp, item.filterVal * 10 + 9);
                     }
                 }
                 this._pendingResumeAfterVictoryMode = "";
                 window.sfx.coin();
-                this.saveProgress(false);
+                if (!this._devAct2Override) this.saveProgress(false);
                 this.buildWorldFilterTabs();
                 this.updateMapUI();
             });
@@ -3211,7 +3343,7 @@ class Game {
                 <div class="node-stars" id="stars-${idx}">☆☆☆</div>
             `;
             node.addEventListener("click", () => {
-                if (idx < this.unlockedLevels) {
+                if (idx < this.getEffectiveUnlockedLevels()) {
                     this.isAct2Mode = false;
                     this.selectedLevel = idx;
                     this._pendingResumeAfterVictoryMode = "";
@@ -3219,7 +3351,7 @@ class Game {
                         this.selectedWorldFilter = Math.floor(idx / 10);
                     }
                     window.sfx.coin();
-                    this.saveProgress(false);
+                    if (!this._devAct2Override) this.saveProgress(false);
                     this.buildWorldFilterTabs();
                     this.updateMapUI();
                 }
@@ -3242,7 +3374,7 @@ class Game {
                     <div class="node-stars" id="stars-act2-${idx}">☆☆☆</div>
                 `;
                 node.addEventListener("click", () => {
-                    if (idx < this.unlockedAct2Levels) {
+                    if (idx < this.getEffectiveUnlockedAct2Levels()) {
                         this.isAct2Mode = true;
                         this.selectedAct2Level = idx;
                         this._pendingResumeAfterVictoryMode = "";
@@ -3251,7 +3383,7 @@ class Game {
                             this.selectedWorldFilter = 10 + this.selectedAct2WorldFilter;
                         }
                         window.sfx.coin();
-                        this.saveProgress(false);
+                        if (!this._devAct2Override) this.saveProgress(false);
                         this.buildWorldFilterTabs();
                         this.updateMapUI();
                     }
@@ -4214,36 +4346,21 @@ class Game {
                 const nextOn = !this._devAct2Override;
                 const tAct = (k) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k) : "");
                 if (nextOn) {
+                    this._devAct2Override = true;
                     try {
-                        if (!localStorage.getItem("marinext_dev_act2_backup_v1")) {
-                            localStorage.setItem("marinext_dev_act2_backup_v1", JSON.stringify({
-                                unlockedLevels: this.unlockedLevels || 1,
-                                unlockedAct2Levels: this.unlockedAct2Levels || 1,
-                                act2Unlocked: Boolean(this.act2Unlocked),
-                                stars99: Number(this.starsPerLevel && this.starsPerLevel[99]) || 0,
-                                act2UnlockedAbilities: { ...(this.act2UnlockedAbilities || {}) },
-                                isAct2Mode: Boolean(this.isAct2Mode),
-                                selectedLevel: Number(this.selectedLevel) || 0,
-                                selectedAct2Level: Number(this.selectedAct2Level) || 0
-                            }));
-                        }
                         localStorage.setItem("marinext_dev_act2_test", "1");
                     } catch (e) {}
-                    this._devAct2Override = true;
-                    this.act2Unlocked = true;
-                    this.unlockedLevels = Math.max(this.unlockedLevels || 1, 100);
-                    this.starsPerLevel[99] = Math.max(this.starsPerLevel[99] || 0, 1);
-                    this.unlockedAct2Levels = 50;
-                    this.act2UnlockedAbilities = { dash: true, slam: true, timeSlow: true, companionDrone: true };
                     this.isAct2Mode = true;
-                    this.selectedAct2WorldFilter = Math.min(4, Math.floor((this.selectedAct2Level || 0) / 10));
+                    // Open at player's real Act II progress (e.g. 101 or 106), never jump to 150 or overwrite save/leaderboard
+                    const realA2Idx = Math.max(0, Math.min(49, (this.unlockedAct2Levels || 1) - 1));
+                    this.selectedAct2Level = realA2Idx;
+                    this.selectedAct2WorldFilter = Math.floor(realA2Idx / 10);
                     this.selectedWorldFilter = 10 + this.selectedAct2WorldFilter;
-                    this.saveProgress();
                     this.buildMapNodes();
                     this.updateMapUI();
                     this.updateSettingsUI();
                     this.showQuickToast(
-                        `${tAct("devTestAct2Label") || "🌌 ÖTE EVREN TEST:"} ${tAct("devTestStateOn") || "AÇIK ✓"} (101–150)`,
+                        `${tAct("devTestAct2Label") || "🌌 ÖTE EVREN TEST:"} ${tAct("devTestStateOn") || "AÇIK ✓"} (Kayıt/Liderlik Korumalı)`,
                         "#00f2fe",
                         3800
                     );
@@ -4251,35 +4368,16 @@ class Game {
                     this._devAct2Override = false;
                     try {
                         localStorage.setItem("marinext_dev_act2_test", "0");
-                        const rawBk = localStorage.getItem("marinext_dev_act2_backup_v1");
-                        if (rawBk) {
-                            const bk = JSON.parse(rawBk);
-                            if (bk && typeof bk === "object") {
-                                this.unlockedLevels = Math.max(1, Math.min(100, Number(bk.unlockedLevels) || 1));
-                                this.unlockedAct2Levels = Math.max(1, Math.min(50, Number(bk.unlockedAct2Levels) || 1));
-                                if (Array.isArray(this.starsPerLevel)) {
-                                    this.starsPerLevel[99] = Number(bk.stars99) || 0;
-                                }
-                                this.act2Unlocked = Boolean(bk.act2Unlocked);
-                                this.act2UnlockedAbilities = (bk.act2UnlockedAbilities && typeof bk.act2UnlockedAbilities === "object")
-                                    ? { ...bk.act2UnlockedAbilities }
-                                    : { dash: false, slam: false, timeSlow: false, companionDrone: false };
-                                this.selectedLevel = Math.max(0, Math.min(this.unlockedLevels - 1, Number(bk.selectedLevel) || 0));
-                                this.selectedAct2Level = Math.max(0, Math.min(this.unlockedAct2Levels - 1, Number(bk.selectedAct2Level) || 0));
-                                this.isAct2Mode = Boolean(this.act2Unlocked && bk.isAct2Mode);
-                            }
-                            localStorage.removeItem("marinext_dev_act2_backup_v1");
-                        } else {
-                            this.syncAct2Milestones();
-                            if (!this.act2Unlocked) this.isAct2Mode = false;
-                        }
+                        localStorage.removeItem("marinext_dev_act2_backup_v1");
                     } catch (e) {}
                     this.syncAct2Milestones();
-                    this.selectedAct2WorldFilter = Math.min(4, Math.floor((this.selectedAct2Level || 0) / 10));
+                    this.selectedLevel = Math.max(0, Math.min((this.unlockedLevels || 1) - 1, Number(this.selectedLevel) || 0));
+                    this.selectedAct2Level = Math.max(0, Math.min((this.unlockedAct2Levels || 1) - 1, Number(this.selectedAct2Level) || 0));
+                    if (!this.act2Unlocked) this.isAct2Mode = false;
+                    this.selectedAct2WorldFilter = Math.floor(this.selectedAct2Level / 10);
                     this.selectedWorldFilter = this.isAct2Mode
                         ? (10 + this.selectedAct2WorldFilter)
-                        : Math.min(9, Math.floor((this.selectedLevel || 0) / 10));
-                    this.saveProgress();
+                        : Math.floor(this.selectedLevel / 10);
                     this.buildMapNodes();
                     this.updateMapUI();
                     this.updateSettingsUI();
@@ -4526,7 +4624,7 @@ class Game {
                 window.sfx.powerUpSpawn();
                 try {
                     localStorage.setItem("marinext_privacy_consent_v1", String(Date.now()));
-                    localStorage.setItem("marinext2100_last_seen_version", "50");
+                    localStorage.setItem("marinext2100_last_seen_version", "55");
                 } catch (e) {}
                 const fcModal = document.getElementById("screen-first-consent");
                 if (fcModal) fcModal.classList.add("hidden");
@@ -6794,14 +6892,16 @@ class Game {
     updateMapUI() {
         this.syncAct2Milestones();
         const isUnlocked = Boolean(this.act2Unlocked || this._devAct2Override);
+        const effCampUnlocked = this.getEffectiveUnlockedLevels();
+        const effAct2Unlocked = this.getEffectiveUnlockedAct2Levels();
         if (!isUnlocked && this.isAct2Mode) {
             this.isAct2Mode = false;
         }
-        if (this.selectedLevel >= this.unlockedLevels) {
-            this.selectedLevel = Math.max(0, this.unlockedLevels - 1);
+        if (this.selectedLevel >= effCampUnlocked) {
+            this.selectedLevel = Math.max(0, effCampUnlocked - 1);
         }
-        if (this.selectedAct2Level >= this.unlockedAct2Levels) {
-            this.selectedAct2Level = Math.max(0, this.unlockedAct2Levels - 1);
+        if (this.selectedAct2Level >= effAct2Unlocked) {
+            this.selectedAct2Level = Math.max(0, effAct2Unlocked - 1);
         }
         if (!isUnlocked && this.selectedWorldFilter >= 10) {
             this.selectedWorldFilter = Math.min(9, Math.floor(this.selectedLevel / 10));
@@ -6851,7 +6951,7 @@ class Game {
             const worldIdx = Math.floor(idx / 10);
             const visibleInFilter = this.selectedWorldFilter === -1 || this.selectedWorldFilter === worldIdx;
             node.style.display = visibleInFilter ? "" : "none";
-            node.classList.toggle("unlocked", idx < this.unlockedLevels);
+            node.classList.toggle("unlocked", idx < effCampUnlocked);
             const isSel = !this.isAct2Mode && idx === this.selectedLevel;
             node.classList.toggle("selected", isSel);
             if (isSel && visibleInFilter) selectedNodeEl = node;
@@ -6871,7 +6971,7 @@ class Game {
             const worldIdx = 10 + Math.floor(idx / 10);
             const visibleInFilter = isUnlocked && (this.selectedWorldFilter === -1 || this.selectedWorldFilter === worldIdx);
             node.style.display = visibleInFilter ? "" : "none";
-            node.classList.toggle("unlocked", idx < this.unlockedAct2Levels);
+            node.classList.toggle("unlocked", idx < effAct2Unlocked);
             const isSel = this.isAct2Mode && idx === this.selectedAct2Level;
             node.classList.toggle("selected", isSel);
             if (isSel && visibleInFilter) selectedNodeEl = node;
@@ -6937,13 +7037,13 @@ class Game {
             this.selectedAct2WorldFilter = Math.min(4, Math.floor(levelIdx / 10));
             this.selectedWorldFilter = 10 + this.selectedAct2WorldFilter;
             data = window.createAct2LevelData(levelIdx);
-            this.saveProgress(false);
+            if (!this._devAct2Override) this.saveProgress(false);
         } else {
             this.isAct2Mode = false;
             this.selectedLevel = levelIdx;
             this.selectedWorldFilter = Math.min(9, Math.floor(levelIdx / 10));
             data = window.createLevelData(levelIdx);
-            this.saveProgress(false);
+            if (!this._devAct2Override) this.saveProgress(false);
         }
         this.level = data;
         this.levelInfo = data.info;
@@ -8149,10 +8249,18 @@ class Game {
 
         const earnedStars = this.player.hp >= 3 ? 3 : (this.player.hp === 2 ? 2 : 1);
         const clearMs = Math.max(4200, Math.round(performance.now() - (this.levelStartTimeMs || (performance.now() - 24000))));
-        if (!this.bestSpeedrunMs || clearMs < this.bestSpeedrunMs) {
-            this.bestSpeedrunMs = clearMs;
+        const isSandboxPlay = Boolean(
+            this._devAct2Override && (
+                (this.isAct2Mode && (!this.act2Unlocked || (this.selectedAct2Level || 0) >= (this.unlockedAct2Levels || 1))) ||
+                (!this.isAct2Mode && !this.isTrollMode && (this.selectedLevel || 0) >= (this.unlockedLevels || 1))
+            )
+        );
+        if (!isSandboxPlay) {
+            if (!this.bestSpeedrunMs || clearMs < this.bestSpeedrunMs) {
+                this.bestSpeedrunMs = clearMs;
+            }
+            this.totalCampaignScore = (this.totalCampaignScore || 0) + Math.max(500, this.score + earnedStars * 400);
         }
-        this.totalCampaignScore = (this.totalCampaignScore || 0) + Math.max(500, this.score + earnedStars * 400);
 
         if (window.MarinextAnalytics) {
             window.MarinextAnalytics.logEvent('level_complete', {
@@ -8168,8 +8276,9 @@ class Game {
         }
 
         let triggerAct2CelebrationNow = false;
-        const isLevel100Victory = !this.isAct2Mode && !this.isTrollMode && this.selectedLevel === 99;
-        if (this.isAct2Mode) {
+        const isLevel100Victory = !isSandboxPlay && !this.isAct2Mode && !this.isTrollMode && this.selectedLevel === 99;
+        if (!isSandboxPlay) {
+            if (this.isAct2Mode) {
             const aIdx = this.selectedAct2Level || 0;
             this.starsPerAct2Level[aIdx] = Math.max(this.starsPerAct2Level[aIdx] || 0, earnedStars);
             if (aIdx + 1 >= this.unlockedAct2Levels && this.unlockedAct2Levels < 50) {
@@ -8224,6 +8333,7 @@ class Game {
         this.syncAnalyticsUserProperties();
         this.saveProgress(true);
         this.syncLeaderboardToPlayGames();
+        }
 
         const modal = document.getElementById("screen-modal");
         const isFinal = this.isAct2Mode
@@ -8304,7 +8414,9 @@ class Game {
         }
 
         this.levelsCompletedSinceLastAd = (this.levelsCompletedSinceLastAd || 0) + 1;
-        this.checkAndUnlockAchievementsOnVictory(earnedStars, clearMs);
+        if (!isSandboxPlay) {
+            this.checkAndUnlockAchievementsOnVictory(earnedStars, clearMs);
+        }
 
         if (triggerAct2CelebrationNow) {
             // Level 100 Grand Transition: keep victory summary modal hidden until the animated celebration concludes!
@@ -8719,8 +8831,8 @@ class Game {
         const stars = this.feedbackStars || 5;
         const cat = this.feedbackCategory || "Öneri & Yeni Fikir";
 
-        let appVerName = "1.5.3";
-        let appVerCode = 54;
+        let appVerName = "1.5.4";
+        let appVerCode = 55;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
                 const info = JSON.parse(window.MarinextCloudBridge.getAppVersionInfo());
@@ -8819,9 +8931,9 @@ class Game {
         const act1Stars = (this.starsPerLevel || []).reduce((acc, s) => acc + (Number(s) || 0), 0);
         const act2Stars = (this.starsPerAct2Level || []).reduce((acc, s) => acc + (Number(s) || 0), 0);
         const totalStars = act1Stars + act2Stars;
-        const clearedAct1 = Math.min(100, Math.max(0, (this.unlockedLevels || 1) - 1, (this.starsPerLevel || []).filter((s) => s > 0).length));
+        const clearedAct1 = Math.min(100, (this.starsPerLevel || []).slice(0, 100).filter((s) => Number(s) > 0).length);
         const clearedAct2 = this.act2Unlocked
-            ? Math.min(100, Math.max(0, (this.unlockedAct2Levels || 1) - 1, (this.starsPerAct2Level || []).filter((s) => s > 0).length))
+            ? Math.min(100, (this.starsPerAct2Level || []).slice(0, 100).filter((s) => Number(s) > 0).length)
             : 0;
         const clearedLevels = Math.min(200, clearedAct1 + clearedAct2);
         const bossesDefeated = Math.floor(clearedAct1 / 5) + Math.floor(clearedAct2 / 10);
@@ -8875,18 +8987,23 @@ class Game {
         for (const [key, val] of Object.entries(rawObj)) {
             if (!val || typeof val !== "object" || !val.name) continue;
             const pid = String(val.playerId || key || "").trim();
+            const cleanName = String(val.name || "Oyuncu").trim().slice(0, 32);
+            const cleanScore = Math.max(0, Number(val.score) || 0);
+            const cleanProgress = Math.max(0, Math.min(200, Number(val.progress) || 0));
+            const isDefaultGhost = cleanProgress <= 0 && cleanScore <= 10000 && (cleanName === "Shadow Knight" || cleanName === "Gölge Şövalye");
+            if (isDefaultGhost) continue;
             rows.push({
                 playerId: pid,
-                name: String(val.name || "Oyuncu").trim().slice(0, 32),
+                name: cleanName,
                 avatar: String(val.avatar || "⚔️").slice(0, 8),
                 heroTitle: String(val.heroTitle || "Marinext 2100 Oyuncusu").slice(0, 40),
                 country: String(val.country || "🇹🇷"),
                 weeklyActive: val.weeklyActive !== false,
-                score: Math.max(0, Number(val.score) || 0),
-                progress: Math.max(0, Math.min(200, Number(val.progress) || 0)),
+                score: cleanScore,
+                progress: cleanProgress,
                 emerald: Math.max(0, Number(val.emerald) || 0),
                 speedrun: Math.max(4000, Number(val.speedrun) || 999999),
-                act2Unlocked: Boolean(val.act2Unlocked || (Number(val.progress) || 0) > 100),
+                act2Unlocked: Boolean(val.act2Unlocked || cleanProgress > 100),
                 updatedAt: Number(val.updatedAt) || 0
             });
         }
@@ -8912,9 +9029,13 @@ class Game {
     }
 
     async syncLiveCloudLeaderboard() {
+        if (this._devAct2Override === true) return;
         const baseUrl = this.getFirebaseRtdbLeaderboardUrl();
         const myUid = this.getOrCreateCloudPlayerUid();
         const myMetrics = this.getPlayerLeaderboardMetrics();
+        if (myMetrics.progress <= 0 && (Number(this.totalCampaignScore) || 0) <= 0) {
+            return;
+        }
         const avObj = (typeof PROFILE_AVATARS !== "undefined" && PROFILE_AVATARS.find((a) => a.id === this.selectedAvatarId)) || { icon: "⚔️" };
         const heroObj = (typeof HERO_CHARACTERS_CATALOG !== "undefined" && HERO_CHARACTERS_CATALOG.find((h) => h.id === this.equippedHeroChar)) || { title: "Siber Gölge Şövalye" };
         const myDisplayName = (this.playGamesPlayerName && this.playGamesPlayerName.trim().length > 0)
@@ -8943,6 +9064,13 @@ class Game {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(myEntry)
             });
+            let staleLocalUid = "";
+            try {
+                staleLocalUid = String(localStorage.getItem("marinext2100_player_uid_v5") || "").replace(/[^a-zA-Z0-9_-]/g, "_");
+            } catch (e) {}
+            if (myUid.startsWith("pg_") && staleLocalUid && staleLocalUid.startsWith("p_") && staleLocalUid !== myUid) {
+                fetch(`${baseUrl}/${encodeURIComponent(staleLocalUid)}.json`, { method: "DELETE" }).catch(() => {});
+            }
             await this.fetchLiveCloudLeaderboard();
         } catch (e) {}
     }
@@ -8991,8 +9119,13 @@ class Game {
             return normName && normName === myNormName;
         };
 
-        // 1. Ingest authoritative per-player Firebase RTDB entries first
-        const rtdbList = Array.isArray(this.cloudLeaderboardEntries) ? this.cloudLeaderboardEntries : [];
+        // 1. Ingest authoritative per-player Firebase RTDB entries first (prioritize verified pg_ accounts & newest updatedAt)
+        const rtdbList = (Array.isArray(this.cloudLeaderboardEntries) ? [...this.cloudLeaderboardEntries] : []).sort((a, b) => {
+            const aIsPg = String((a && a.playerId) || "").startsWith("pg_") ? 1 : 0;
+            const bIsPg = String((b && b.playerId) || "").startsWith("pg_") ? 1 : 0;
+            if (bIsPg !== aIsPg) return bIsPg - aIsPg;
+            return Number((b && b.updatedAt) || 0) - Number((a && a.updatedAt) || 0);
+        });
         for (const r of rtdbList) {
             if (!r || !r.name || isMeEntry(r)) continue;
             const pid = String(r.playerId || "").trim();
