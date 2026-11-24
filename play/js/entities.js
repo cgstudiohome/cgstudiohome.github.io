@@ -2750,6 +2750,7 @@ class Player {
         }
 
         const gravDir = this.inReverseGravity ? -1 : 1;
+        const maxJumpsNow = this.inUnderwater ? (this.maxJumps + 1) : this.maxJumps;
         const baseJumpMag = this.inLowGravity ? 12.8 : (this.inUnderwater ? 12.2 : 14.2);
         const jumpForce = -gravDir * baseJumpMag * (this.jumpMult || 1.0);
         const activeWallDir = this.onWall !== 0 ? this.onWall : (this.wallCoyoteTimer > 0 ? this.lastWallDir : 0);
@@ -2767,7 +2768,7 @@ class Player {
                 this.onGround = false;
                 this.isGroundSlamming = false;
                 this.coyoteTimer = 0;
-                this.jumpsLeft = this.maxJumps - 1;
+                this.jumpsLeft = maxJumpsNow - 1;
                 this.jumpBuffer = 0;
                 triggerPhaseFlip();
                 window.sfx.jump();
@@ -2777,7 +2778,7 @@ class Player {
                 this.vy = -gravDir * (isClimbingSameWall ? 14.2 : 13.6);
                 this.vx = isClimbingSameWall ? (-activeWallDir * 2.6) : (-activeWallDir * 6.8);
                 this.facing = isClimbingSameWall ? activeWallDir : -activeWallDir;
-                this.jumpsLeft = this.maxJumps - 1;
+                this.jumpsLeft = maxJumpsNow - 1;
                 this.onWall = 0;
                 this.wallCoyoteTimer = 0;
                 this.jumpBuffer = 0;
@@ -2792,9 +2793,9 @@ class Player {
                     4
                 );
                 game.floatingTexts.push(new FloatingText(this.x + this.w / 2, this.y, isClimbingSameWall ? "Duvar Tırmanışı!" : "Duvar Zıplaması!", "#e0aaff"));
-            } else if (this.jumpsLeft > 0 || this.inUnderwater) {
+            } else if (this.jumpsLeft > 0) {
                 this.vy = jumpForce * (this.inUnderwater ? 0.92 : 0.94);
-                if (this.jumpsLeft > 0) this.jumpsLeft--;
+                this.jumpsLeft--;
                 this.jumpBuffer = 0;
                 this.isGroundSlamming = false;
                 triggerPhaseFlip();
@@ -2874,7 +2875,7 @@ class Player {
                         this.onGround = true;
                         this.currentSurface = s.surfaceType || 'normal';
                         this.coyoteTimer = 7;
-                        this.jumpsLeft = this.maxJumps;
+                        this.jumpsLeft = maxJumpsNow;
                         if (s.currentVx) this.x += s.currentVx;
                         if (s.isCrumble && s.state === 'idle') {
                             s.state = 'shaking';
@@ -2897,12 +2898,22 @@ class Player {
                         this.onGround = true;
                         this.currentSurface = s.surfaceType || 'normal';
                         this.coyoteTimer = 7;
-                        this.jumpsLeft = this.maxJumps;
+                        this.jumpsLeft = maxJumpsNow;
                         if (s.currentVx) this.x += s.currentVx;
                     } else if (s.isMystery) {
                         game.triggerMysteryBlock(s);
                     }
                 }
+            }
+        }
+
+        const isVerticalAct2 = Boolean(game && game.isAct2Mode && game.levelInfo && game.levelInfo.scenarioType === "vertical_ascent");
+        if (!isVerticalAct2 && (this.inUnderwater || (game && game.isAct2Mode))) {
+            const T = (typeof TILE_SIZE !== "undefined" ? TILE_SIZE : 48);
+            const minY = this.inUnderwater ? Math.round(1.35 * T) : Math.round(0.55 * T);
+            if (this.y < minY) {
+                this.y = minY;
+                if (this.vy < 0) this.vy = 0;
             }
         }
 
