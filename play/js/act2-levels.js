@@ -408,7 +408,14 @@
             // =================================================================
             let curX = 13;
             const totalSectors = 6;
-            const hasKeys = scenario === 'key_vault';
+            const targetKeys =
+                wIdx === 0 ? (scenario === 'key_vault' ? 3 : (scenario === 'gauntlet_act2' ? 2 : 0))
+                : wIdx === 1 ? (scenario === 'key_vault' ? 3 : ((scenario === 'spotlight_dark' || scenario === 'gauntlet_act2') ? 2 : 0))
+                : wIdx === 2 ? ((scenario === 'key_vault' || scenario === 'gauntlet_act2') ? 3 : ((scenario === 'spotlight_dark' || scenario === 'rhythm_phase') ? 2 : 0))
+                : wIdx === 3 ? (scenario === 'key_vault' ? 4 : ((scenario === 'gauntlet_act2' || scenario === 'standard_act2' || scenario === 'spotlight_dark' || scenario === 'rhythm_phase') ? 3 : 0))
+                : ((scenario === 'key_vault' || scenario === 'gauntlet_act2') ? 4 : ((scenario === 'standard_act2' || scenario === 'spotlight_dark' || scenario === 'rhythm_phase') ? 3 : 0));
+            const hasKeys = targetKeys > 0;
+            const shouldHaveRelic = subIdx === 0 || subIdx === 8 || (wIdx >= 2 && subIdx === 4);
             const hasPhase = scenario === 'rhythm_phase' || scenario === 'gauntlet_act2' || wIdx === 4;
 
             for (let sIdx = 0; sIdx < totalSectors; sIdx++) {
@@ -432,11 +439,11 @@
                     addEnemy(curX + 9.0, 12, pickEnemy(sIdx), curX + 3.0, curX + secW - 2.0);
                     addEnemy(curX + 13.0, 5.4, pickEnemy(sIdx + 1), curX + 11.0, curX + 15.8);
 
-                    if (hasKeys && sealKeys.length < 3) {
+                    if (targetKeys > 0 && sealKeys.length < targetKeys) {
                         sealKeys.push({ x: (curX + 13.4) * T, y: 4.3 * T, id: `key_${idx}_${sealKeys.length}`, collected: false });
                     }
-                    // World Relic Chest hidden on first standard/gauntlet level of each world!
-                    if ((subIdx === 0 || subIdx === 8) && relicChests.length === 0 && sIdx === 2) {
+                    // World Relic Chest hidden on first standard / mid rhythm / gauntlet levels
+                    if (shouldHaveRelic && relicChests.length === 0 && sIdx === 2) {
                         if (subIdx === 8 && wIdx >= 2) {
                             // Vault under cracked block for Ground Slam discovery!
                             addGround(curX + 10.0, 8.6, 2.5, 0.8, 'platform');
@@ -474,7 +481,7 @@
                             addSaw(curX + 1.2 + p * 4.5 + 1.5, 4.5, curX + 1.2 + p * 4.5 + 1.5, 10.5, 1.65, 20);
                         }
                     }
-                    if (hasKeys && sealKeys.length < 3) {
+                    if (targetKeys > 0 && sealKeys.length < targetKeys) {
                         sealKeys.push({ x: (curX + 11.4) * T, y: 7.5 * T, id: `key_${idx}_${sealKeys.length}`, collected: false });
                     }
                     curX += secW;
@@ -490,7 +497,7 @@
                         reverseGravityZones.push({ x: (curX + 4.5) * T, y: 2.6 * T, w: (secW - 9) * T, h: 10.0 * T });
                         addSaw(curX + 10.5, 2.8, curX + 10.5, 5.2, 1.45, 19);
                         addGround(curX + secW - 5, 11.5, 5, 5.5);
-                        if (hasKeys && sealKeys.length < 3) {
+                        if (targetKeys > 0 && sealKeys.length < targetKeys) {
                             sealKeys.push({ x: (curX + 10.5) * T, y: 3.8 * T, id: `key_${idx}_${sealKeys.length}`, collected: false });
                         }
                     } else {
@@ -500,7 +507,7 @@
                         addPlatform(curX + 7.0, 6.8, 6.2);
                         addEnemy(curX + 10.0, 6.8, pickEnemy(sIdx + 2), curX + 7.4, curX + 12.8);
                         addMoving(curX + 14.2, 7.6, curX + 18.8, 9.8, 3.2, 1.5);
-                        if (hasKeys && sealKeys.length < 3) {
+                        if (targetKeys > 0 && sealKeys.length < targetKeys) {
                             sealKeys.push({ x: (curX + 10.0) * T, y: 5.5 * T, id: `key_${idx}_${sealKeys.length}`, collected: false });
                         }
                     }
@@ -521,7 +528,7 @@
                     if (wIdx >= 2) {
                         crackedBlocks.push({ x: (curX + 16.2) * T, y: 6.6 * T, w: 1.8 * T, h: 0.9 * T, broken: false });
                     }
-                    if (hasKeys && sealKeys.length < 3) {
+                    if (targetKeys > 0 && sealKeys.length < targetKeys) {
                         sealKeys.push({ x: (curX + 11.0) * T, y: 5.4 * T, id: `key_${idx}_${sealKeys.length}`, collected: false });
                     }
                     curX += secW;
@@ -539,7 +546,7 @@
                     addGround(curX + 9, 14.2, secW - 9, 2.8);
                     addPlatform(curX + 10.2, 6.8, 6.8);
                     addEnemy(curX + 14.0, 6.8, pickEnemy(sIdx + 1), curX + 11.5, curX + 16.5);
-                    if (hasKeys && sealKeys.length < 3) {
+                    if (targetKeys > 0 && sealKeys.length < targetKeys) {
                         sealKeys.push({ x: (curX + 14.5) * T, y: 5.5 * T, id: `key_${idx}_${sealKeys.length}`, collected: false });
                     }
                     curX += secW;
@@ -557,23 +564,89 @@
                 }
             }
 
-            // Guarantee all 3 Seal Keys exist when scenario === 'key_vault'
+            // Helper: find a safe walkable surface spot for fallback Seal Keys or Relic Chests
+            const stageSpanPx = Math.max(1200, curX * T);
+            const isSpotSafeAboveSolid = (candX, spotY, minSpacing) => {
+                if (candX < 13.5 * T || candX > (curX - 2) * T || spotY < 1.8 * T) return false;
+                for (const s of solids) {
+                    if (s.type === 'wall' && candX >= s.x - 28 && candX <= s.x + s.w + 28 && spotY >= s.y - 24 && spotY <= s.y + s.h + 24) {
+                        return false;
+                    }
+                }
+                for (const hz of hazards) {
+                    if (candX >= hz.x - 20 && candX <= hz.x + hz.w + 20 && spotY >= hz.y - 90) return false;
+                }
+                for (const lg of laserGates) {
+                    if (candX >= lg.x - 36 && candX <= lg.x + lg.w + 36) return false;
+                }
+                for (const sw of saws) {
+                    const sx1 = Math.min(sw.startX, sw.endX) - (sw.r || 22) - 20;
+                    const sx2 = Math.max(sw.startX, sw.endX) + (sw.r || 22) + 20;
+                    const sy1 = Math.min(sw.startY, sw.endY) - (sw.r || 22) - 20;
+                    const sy2 = Math.max(sw.startY, sw.endY) + (sw.r || 22) + 20;
+                    if (candX >= sx1 && candX <= sx2 && spotY >= sy1 && spotY <= sy2) return false;
+                }
+                for (const mb of mysteryBlocks) {
+                    if (Math.abs(candX - (mb.x + T / 2)) < 48 && Math.abs(spotY - (mb.y + T / 2)) < 58) return false;
+                }
+                for (const sk of sealKeys) {
+                    if (Math.hypot(candX - sk.x, spotY - sk.y) < minSpacing) return false;
+                }
+                for (const rc of relicChests) {
+                    if (Math.hypot(candX - rc.x, spotY - rc.y) < 3.5 * T) return false;
+                }
+                return true;
+            };
+
+            const findSafeWalkableSpot = (targetX, yAboveSurface, minSpacing) => {
+                const walkables = solids
+                    .filter((s) => s.type !== 'wall' && s.y >= 4.0 * T && s.y <= 12.2 * T && s.w >= 2.2 * T && s.x < (curX - 1.5) * T)
+                    .sort((a, b) => Math.abs((a.x + a.w / 2) - targetX) - Math.abs((b.x + b.w / 2) - targetX));
+                for (const s of walkables) {
+                    const left = Math.max(13.8 * T, s.x + 1.1 * T);
+                    const right = Math.min((curX - 2.2) * T, s.x + s.w - 1.1 * T);
+                    if (left > right) continue;
+                    const candY = Math.round(s.y - yAboveSurface);
+                    const clampedStart = Math.max(left, Math.min(right, targetX));
+                    const offsets = [0, -1.2 * T, 1.2 * T, -2.5 * T, 2.5 * T];
+                    for (const off of offsets) {
+                        const candX = Math.round(Math.max(left, Math.min(right, clampedStart + off)));
+                        if (isSpotSafeAboveSolid(candX, candY, minSpacing)) {
+                            return { x: candX, y: candY };
+                        }
+                    }
+                }
+                return null;
+            };
+
+            // Guarantee all targetKeys Seal Keys exist safely across walkable terrain
             if (hasKeys) {
-                while (sealKeys.length < 3) {
-                    const kX = 16 + sealKeys.length * 18;
-                    sealKeys.push({ x: kX * T, y: 9.2 * T, id: `key_${idx}_${sealKeys.length}`, collected: false });
+                const startLen = sealKeys.length;
+                for (let k = startLen; k < targetKeys; k++) {
+                    const slotIdx = k - startLen;
+                    const needed = Math.max(1, targetKeys - startLen);
+                    const frac = 0.22 + ((slotIdx + 0.5) / needed) * 0.62;
+                    const spot = findSafeWalkableSpot(stageSpanPx * frac, 1.45 * T, 4.5 * T)
+                        || findSafeWalkableSpot(stageSpanPx * (0.28 + k * 0.14), 1.45 * T, 2.5 * T);
+                    if (spot) {
+                        sealKeys.push({ x: spot.x, y: spot.y, id: `key_${idx}_${sealKeys.length}`, collected: false });
+                    }
                 }
             }
 
-            // World Relic Chest fallback on level x01 if mode=0 wasn't reached
-            if (subIdx === 0 && relicChests.length === 0) {
-                relicChests.push({
-                    x: 24 * T, y: 6.4 * T,
-                    chestId: wTheme.relicChestId,
-                    rewardName: wTheme.relicRewardName,
-                    cosmeticId: wTheme.relicCosmeticId,
-                    opened: false
-                });
+            // World Relic Chest fallback on x01, x09, and World 13–15 x05 if mode=0 wasn't reached
+            if (shouldHaveRelic && relicChests.length === 0) {
+                const spot = findSafeWalkableSpot(stageSpanPx * 0.60, 0.72 * T, 2.5 * T)
+                    || findSafeWalkableSpot(stageSpanPx * 0.48, 0.72 * T, 1.8 * T);
+                if (spot) {
+                    relicChests.push({
+                        x: spot.x, y: spot.y,
+                        chestId: wTheme.relicChestId,
+                        rewardName: wTheme.relicRewardName,
+                        cosmeticId: wTheme.relicCosmeticId,
+                        opened: false
+                    });
+                }
             }
 
             addGround(curX, 10.5, 14, 6.5);
@@ -581,7 +654,7 @@
             portal = {
                 x: (curX + 10.8) * T,
                 y: 10.5 * T - 86,
-                requiredKeys: hasKeys ? 3 : 0
+                requiredKeys: sealKeys.length
             };
         }
 
@@ -605,6 +678,57 @@
                 checkpoints, teleporters, portal
             })
             : null;
+
+        // Atlantis (World 11) Cavern Reef Roof + Hanging Coral Arches to stop overhead sky-flying
+        if (wIdx === 0 && !info.isBossLevel && scenario !== 'vertical_ascent') {
+            const maxLevelGx = Math.ceil((portal.x + 3 * T) / T);
+            addGround(8, 0.15, Math.max(20, maxLevelGx - 8), 1.1, 'wall', 'normal');
+
+            const archW = 2.5 * T;
+            const archY = 1.25 * T;
+            const archH = 2.0 * T;
+            const placedArches = [];
+            const fracs = [0.30, 0.45, 0.60, 0.72, 0.80];
+            for (const f of fracs) {
+                if (placedArches.length >= 3) break;
+                const ax = Math.round((portal.x * f) / T) * T;
+                if (ax < 13 * T || ax + archW > portal.x - 5 * T) continue;
+                if (placedArches.some((px) => Math.abs(ax - px) < 10 * T)) continue;
+
+                const boxL = ax - 1.5 * T;
+                const boxR = ax + archW + 1.5 * T;
+                const hasClearFloorBelow = solids.some(
+                    (s) => s.type !== 'wall' && s.y >= 9.5 * T && s.y <= 12.5 * T && s.x <= ax && s.x + s.w >= ax + archW
+                );
+                if (!hasClearFloorBelow) continue;
+
+                const blockedBySolid = solids.some(
+                    (s) => s.y > 1.2 * T && s.x < boxR && s.x + s.w > boxL && s.y < 6.2 * T
+                );
+                const blockedByHighObj =
+                    phaseBlocks.some((p) => p.x < boxR && p.x + p.w > boxL && p.y < 6.2 * T) ||
+                    crumblePlatforms.some((p) => p.x < boxR && p.x + p.w > boxL && p.y < 6.2 * T) ||
+                    movingPlatforms.some((p) => Math.min(p.startX, p.endX) < boxR && Math.max(p.startX, p.endX) + p.w > boxL && Math.min(p.startY, p.endY) < 6.2 * T) ||
+                    mysteryBlocks.some((m) => m.x < boxR && m.x + T > boxL && m.y < 6.2 * T) ||
+                    windZones.some((w) => w.x < boxR && w.x + w.w > boxL) ||
+                    laserGates.some((l) => l.x < boxR && l.x + l.w > boxL) ||
+                    saws.some((sw) => Math.min(sw.startX, sw.endX) - 24 < boxR && Math.max(sw.startX, sw.endX) + 24 > boxL && Math.min(sw.startY, sw.endY) < 6.2 * T) ||
+                    sealKeys.some((k) => k.x >= boxL && k.x <= boxR && k.y < 6.2 * T) ||
+                    relicChests.some((r) => r.x >= boxL && r.x <= boxR && r.y < 6.2 * T) ||
+                    teleporters.some((tp) => (tp.x1 >= boxL && tp.x1 <= boxR) || (tp.x2 >= boxL && tp.x2 <= boxR)) ||
+                    bubbleStations.some((b) => b.x >= boxL && b.x <= boxR && b.y < 6.2 * T) ||
+                    coins.some((c) => c.x >= boxL && c.x <= boxR && c.y < 190);
+                const blockedBySub = Boolean(
+                    subChamber &&
+                    ((subChamber.pipeIn && subChamber.pipeIn.x < boxR && subChamber.pipeIn.x + subChamber.pipeIn.w > boxL) ||
+                     (subChamber.pipeReturn && subChamber.pipeReturn.x < boxR && subChamber.pipeReturn.x + subChamber.pipeReturn.w > boxL))
+                );
+                if (blockedBySolid || blockedByHighObj || blockedBySub) continue;
+
+                solids.push({ x: ax, y: archY, w: archW, h: archH, type: 'wall', surfaceType: 'normal' });
+                placedArches.push(ax);
+            }
+        }
 
         return {
             info,
