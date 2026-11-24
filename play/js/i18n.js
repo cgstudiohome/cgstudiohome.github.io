@@ -2203,6 +2203,12 @@
         act2BtnLockedTitle: { tr: "100. Bölümü Bitir — Sürpriz Öte Evren", en: "Clear Level 100 — Mystery Beyondverse", ko: "100레벨 클리어 — 미지의 비욘드버스", ja: "レベル100クリアで未知のビヨンドバース開放", zh: "通关第100关解锁神秘超维宇宙", ru: "Пройдите 100 уровень — Запределье", es: "Supera el nivel 100 — Mundo Misterioso", fr: "Terminez le niveau 100 — Au-Delà", it: "Completa il livello 100 — Oltremondo" },
         act2SeasonBadge: { tr: "🌌 ÖTE EVREN • DÜNYA 11–15 (BÖLÜM 101–150)", en: "🌌 BEYONDVERSE • WORLDS 11–15 (LEVELS 101–150)", ko: "🌌 비욘드버스 • 월드 11–15 (101–150레벨)", ja: "🌌 ビヨンドバース • ワールド 11–15 (101–150)", zh: "🌌 超维宇宙 • 世界 11–15 (第101–150关)", ru: "🌌 ЗАПРЕДЕЛЬЕ • МИРЫ 11–15 (101–150)", es: "🌌 MÁS ALLÁ • MUNDOS 11–15 (NIVELES 101–150)", fr: "🌌 AU-DELÀ • MONDES 11–15 (NIVEAUX 101–150)", it: "🌌 OLTREMONDO • MONDI 11–15 (LIVELLI 101–150)" },
         act2WorldAll: { tr: "🌌 Tümü (101-150)", en: "🌌 All (101-150)", ko: "🌌 전체 (101-150)", ja: "🌌 すべて (101-150)", zh: "🌌 全部 (101-150)", ru: "🌌 Все (101-150)", es: "🌌 Todos (101-150)", fr: "🌌 Tous (101-150)", it: "🌌 Tutti (101-150)" },
+        act2WorldAllUnified: { tr: "🌍 Tümü (1-150)", en: "🌍 All (1-150)", ko: "🌍 전체 (1-150)", ja: "🌍 すべて (1-150)", zh: "🌍 全部 (1-150)", ru: "🌍 Все (1-150)", es: "🌍 Todos (1-150)", fr: "🌍 Tous (1-150)", it: "🌍 Tutti (1-150)" },
+        devTestAct2Label: { tr: "🌌 ÖTE EVREN TEST:", en: "🌌 BEYONDVERSE TEST:", ko: "🌌 비욘드버스 테스트:", ja: "🌌 ビヨンドバース試遊:", zh: "🌌 超维宇宙测试:", ru: "🌌 ТЕСТ ЗАПРЕДЕЛЬЯ:", es: "🌌 TEST MÁS ALLÁ:", fr: "🌌 TEST AU-DELÀ:", it: "🌌 TEST OLTREMONDO:" },
+        devTestStateOn: { tr: "AÇIK ✓", en: "ON ✓", ko: "켜짐 ✓", ja: "ON ✓", zh: "开启 ✓", ru: "ВКЛ ✓", es: "ACTIVO ✓", fr: "ACTIVÉ ✓", it: "ATTIVO ✓" },
+        devTestStateOff: { tr: "KAPALI", en: "OFF", ko: "꺼짐", ja: "OFF", zh: "关闭", ru: "ВЫКЛ", es: "APAGADO", fr: "DÉSACTIVÉ", it: "SPENTO" },
+        devMenuOpened: { tr: "🔓 Geliştirici Test Menüsü AÇILDI", en: "🔓 Developer Test Menu ENABLED", ko: "🔓 개발자 테스트 메뉴 열림", ja: "🔓 開発者テストメニュー表示", zh: "🔓 开发者测试菜单已开启", ru: "🔓 Меню разработчика ОТКРЫТО", es: "🔓 Menú de pruebas ACTIVADO", fr: "🔓 Menu développeur AFFICHÉ", it: "🔓 Menu sviluppatore ATTIVO" },
+        devMenuHidden: { tr: "🔒 Geliştirici Test Menüsü GİZLENDİ", en: "🔒 Developer Test Menu HIDDEN", ko: "🔒 개발자 테스트 메뉴 숨김", ja: "🔒 開発者テストメニュー非表示", zh: "🔒 开发者测试菜单已隐藏", ru: "🔒 Меню разработчика СКРЫТО", es: "🔒 Menú de pruebas OCULTO", fr: "🔒 Menu développeur MASQUÉ", it: "🔒 Menu sviluppatore NASCOSTO" },
         act2Wave2Soon: { tr: "🔜 151-200 Dalga 2", en: "🔜 151-200 Wave 2", ko: "🔜 151-200 웨이브 2", ja: "🔜 151-200 第2弾", zh: "🔜 151-200 第二波", ru: "🔜 151-200 Волна 2", es: "🔜 151-200 Oleada 2", fr: "🔜 151-200 Vague 2", it: "🔜 151-200 Ondata 2" },
         act2Wave2Toast: { tr: "🌌 Dünya 16–20 (Bölüm 151–200) Dalga 2 güncellemesiyle geliyor!", en: "🌌 Worlds 16–20 (Levels 151–200) arrive in Wave 2!", ko: "🌌 월드 16–20 (151–200레벨)은 웨이브 2에서 찾아옵니다!", ja: "🌌 ワールド16〜20（151〜200）は第2弾アップデートで登場予定！", zh: "🌌 世界 16–20（第151–200关）将在第二波更新中登场！", ru: "🌌 Миры 16–20 (уровни 151–200) выйдут во 2-й волне!", es: "🌌 ¡Los Mundos 16–20 (151–200) llegan en la Oleada 2!", fr: "🌌 Les Mondes 16–20 (151–200) arrivent dans la Vague 2 !", it: "🌌 I Mondi 16–20 (151–200) arrivano nell'Ondata 2!" },
         act2ProgressFmt: { tr: "İlerleme: {n} / 100 Bölüm", en: "Progress: {n} / 100 Levels", ko: "진행도: {n} / 100 스테이지", ja: "進行度: {n} / 100 ステージ", zh: "进度：{n} / 100 关", ru: "Прогресс: {n} / 100 уровней", es: "Progreso: {n} / 100 niveles", fr: "Progression : {n} / 100 niveaux", it: "Progresso: {n} / 100 livelli" },
@@ -6610,7 +6616,7 @@ window.MARINEXT_TUTORIAL_DATA = {
     const A2_SC_DESCS = {
         en: {
             standard_act2: "Master new world mechanics & uncover hidden paths.",
-            key_vault: "Collect 3 golden seal keys to unlock the exit portal.",
+            key_vault: "Collect all golden seal keys to unlock the exit portal.",
             escape_chase: "Outrun the advancing laser barrier — never stop moving!",
             spotlight_dark: "Navigate pitch-dark chambers with your hero spotlight.",
             rhythm_phase: "Jump swaps Cyan/Pink phase bridges in mid-air!",
@@ -6927,123 +6933,123 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.5.2" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.5.3" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🛡️ v1.5.2 Öte Evren Denge, Mühür & Kapı Güncellemesi",
-        "subtitle": "Dünya 11–15'te gerçek mücadele! Uçarak bölüm atlama kapatıldı; Mühür Anahtarları, düşman temizleme ve Yadigar Sandıkları olmadan kapı artık açılmıyor!",
+        "title": "🌌 v1.5.3 Akıllı 15 Dünya Şeridi & Kaldığın Yerden Devam",
+        "subtitle": "Dünya 1'den 15'e tek kesintisiz kaydırmalı şerit, Öte Evren'de tam kaldığın bölümden açılış ve test modu kontrolleri yayında!",
         "btnOk": "🚀 HARİKA, MACERAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            { "icon": "🌊", "title": "Atlantis Dengeli Yüzüş & Mercan Mağara Tavanı", "desc": "Bölüm 101–110'da gökyüzünde sınırsız zıplayıp engelleri aşma kapatıldı; resif tavanı ve hava kabarcıklarıyla su altı parkurları gerçek oyuna kavuştu." },
-            { "icon": "🔒", "title": "Aşamalı Kilitlenen Öte Evren Çıkış Kapıları (101–150)", "desc": "Dünya 11'den 15'e ilerledikçe gereken Antik Zümrüt, Kristal, Altın Coin, düşman temizleme ve Mühür Anahtarı şartları giderek ağırlaşıyor!" },
-            { "icon": "🗝️", "title": "4 Mühürlü Kilitler & Gizli Yadigar Sandığı Şartı", "desc": "İleri dünyalarda 4 adede kadar Mühür Anahtarı ve gizli Yadigar Sandığı zorunluluğu devreye giriyor; tüm görevler bitmeden boyut kapısı açılmıyor." },
-            { "icon": "📊", "title": "Canlı Görev Çubuğu & Türkçe Kapı İpuçları", "desc": "Ekranın üstündeki sayaçta ve kilitli kapının üzerindeki konuşma balonunda kalan tüm anahtar, düşman, hazine ve sandık eksikleri anlık görünür." },
-            { "icon": "🎆", "title": "100. Bölüm Kutlaması & Akıllı Dikey Kamera", "desc": "100. bölümü bitirdiğinizde açılan animasyonlu kutlama ve alt odalarda üst bara girmeyen kamera takibiyle keyifli oyun deneyimi devam ediyor!" }
+            { "icon": "🧭", "title": "Öte Evren'de Tam Kaldığın Bölümden Devam Et", "desc": "Öte Evren açıkken oyunu kapatıp açtığınızda artık doğrudan ulaştığınız son bölüm ve dünya (ör. Bölüm 106) aktif olarak açılır!" },
+            { "icon": "🌍", "title": "Sürüklenebilir Tek 15 Dünya Şeridi (1–150)", "desc": "Öte Evren açıldığında Dünya 1–10 haritadan silinmez; tüm dünyalar tek yatay şeritte sağa sola kaydırılarak gezilebilir." },
+            { "icon": "🧪", "title": "Açık/Kapalı Durumlu Geliştirici & Öte Evren Testi", "desc": "Ayarlar başlığına 5 dokunuşla test menüsü artık güvenle açılıp kapanır ve Öte Evren Test butonu AÇIK/KAPALI durumunu net gösterir." },
+            { "icon": "🗣️", "title": "9 Dilde %100 Uyumlu Sahne Etiketleri & Geri Bildirim", "desc": "Ters Yerçekimi, Zehirli Spor ve Mühür uyarıları ile geri bildirim bölüm bilgisi tüm dillerde eksiksiz güncellendi." },
+            { "icon": "🔒", "title": "Atlantis Resif Tavanı & Aşamalı Çıkış Kapıları", "desc": "Önceki güncellemedeki kontrollü Atlantis yüzüşü, 4 Mühürlü kilitler ve Yadigar Sandığı gereksinimleri eksiksiz devam eder." }
         ]
     },
     "en": {
-        "title": "🛡️ v1.5.2 Beyondverse Gate Quotas & Atlantis Balance",
-        "subtitle": "Real challenge across Worlds 11–15! Flying straight over stages is blocked, and exit gates now unlock only after completing escalating stage objectives!",
+        "title": "🌌 v1.5.3 Unified 15-World Strip & Exact Resume",
+        "subtitle": "One smoothly scrollable strip across Worlds 1–15, resuming directly on your active Beyondverse level on restart, plus polished controls!",
         "btnOk": "🚀 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            { "icon": "🌊", "title": "Balanced Atlantis Swimming & Reef Cavern Ceiling", "desc": "Unlimited sky-jumping in World 11 (Stages 101–110) has been fixed with controlled swim kicks, Bubble Stations, and an underwater reef roof." },
-            { "icon": "🔒", "title": "Progressively Escalating Beyondverse Portal Locks (101–150)", "desc": "Moving from World 11 to 15 requires steadily larger shares of Ancient Emeralds, Crystals, Gold Coins, Seal Keys, and enemy clears." },
-            { "icon": "🗝️", "title": "Up to 4 Seal Keys & Mandatory Relic Chests", "desc": "Higher Beyondverse worlds require up to 4 Seal Keys and opening secret Relic Chests before the barred exit portal unlocks." },
-            { "icon": "📊", "title": "Live Requirement Tracker & Locked Portal Balloon", "desc": "Always see your remaining Keys, Emeralds, Crystals, Gold, Enemies, and Relic Chests right in the top HUD bar and portal balloon." },
-            { "icon": "🎆", "title": "Level 100 Celebration & HUD-Safe Smart Camera", "desc": "Includes animated Level 100 Beyondverse fireworks awakening and universal camera tracking across sub-chambers and high jumps." }
+            { "icon": "🧭", "title": "Resume Exactly Where You Left Off in Beyondverse", "desc": "Closing and reopening the app after unlocking Worlds 11–15 now returns you directly to your active stage (e.g. Level 106) instead of resetting to 1 or 101!" },
+            { "icon": "🌍", "title": "Single Scrollable 15-World Strip (Levels 1–150)", "desc": "Worlds 1–10 remain right on the map alongside Worlds 11–15 in a smooth horizontal drag-and-swipe strip." },
+            { "icon": "🧪", "title": "Clean 5-Tap Test Menu Toggle & Clear ON/OFF Badge", "desc": "Developer test tools toggle visibly open and closed with 5 taps, and the Beyondverse Test option clearly shows ON/OFF without risking saved progress." },
+            { "icon": "🗣️", "title": "Complete 9-Language Polish & Accurate Feedback", "desc": "Reverse Gravity zones, Toxic Spores, Seal hints, and feedback stage reports now display accurately across every language." },
+            { "icon": "🔒", "title": "Atlantis Reef Ceiling & Escalating Portal Quotas", "desc": "Includes balanced Atlantis swimming, up to 4 Seal Keys, enemy clears, and Relic Chest gate requirements across Worlds 11–15." }
         ]
     },
     "ko": {
-        "title": "🛡️ v1.5.2 비욘드버스 관문 조건 & 아틀란티스 밸런스",
-        "subtitle": "월드 11~15의 진짜 도전! 공중 비행 스킵이 차단되었으며, 열쇠·적 처치·유물 상자를 완수해야 출구 게이트가 열립니다!",
+        "title": "🌌 v1.5.3 통합 15월드 바 & 정확한 이어하기",
+        "subtitle": "1~15월드를 하나로 가로 스크롤하고, 앱 재실행 시 플레이하던 비욘드버스 스테이지에서 곧바로 이어할 수 있습니다!",
         "btnOk": "🚀 좋아요, 모험 시작!",
         "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            { "icon": "🌊", "title": "아틀란티스 균형 수영 & 산호 동굴 천장", "desc": "101~110스테이지의 무한 공중 도약을 제한하고 산호 천장과 거품 충전소를 통해 정통 수중 액션을 구현했습니다." },
-            { "icon": "🔒", "title": "월드 11→15 단계별 출구 게이트 잠금 강화", "desc": "월드가 진행될수록 고대 에메랄드, 크리스탈, 골드 코인, 봉인 열쇠, 적 처치 요구량이 점점 높아집니다." },
-            { "icon": "🗝️", "title": "최대 4개의 봉인 열쇠 & 필수 유물 상자", "desc": "후반 월드에서는 최대 4개의 봉인 열쇠와 숨겨진 유물 상자를 열어야 잠긴 포털이 개방됩니다." },
-            { "icon": "📊", "title": "실시간 관문 진행도 HUD & 다국어 안내", "desc": "상단 상태 바와 포털 말풍선에서 남은 열쇠, 보물, 적 처치, 상자 조건을 한눈에 확인할 수 있습니다." },
-            { "icon": "🎆", "title": "100레벨 축하 연출 & 스마트 카메라 포함", "desc": "100레벨 클리어 애니메이션 축하 및 지하 구역 HUD 보호 카메라가 함께 제공됩니다." }
+            { "icon": "🧭", "title": "비욘드버스 마지막 플레이 스테이지 즉시 복원", "desc": "106레벨 등 진행 중 앱을 닫았다 다시 열어도 1레벨이나 101레벨로 돌아가지 않고 정확히 멈춘 스테이지가 열립니다!" },
+            { "icon": "🌍", "title": "드래그 가능한 통합 15월드 스트립 (1–150)", "desc": "비욘드버스 개방 후에도 1–10월드가 사라지지 않고 11–15월드와 하나의 가로 스크롤 바에서 탐색됩니다." },
+            { "icon": "🧪", "title": "5회 탭 테스트 메뉴 숨김 & ON/OFF 상태 표시", "desc": "설정 제목 5회 탭으로 테스트 메뉴를 다시 숨길 수 있으며, 비욘드버스 테스트 버튼에 켜짐/꺼짐 상태가 선명하게 표시됩니다." },
+            { "icon": "🗣️", "title": "9개 언어 100% 현지화 및 피드백 정확도 향상", "desc": "역중력·독포자·봉인 열쇠 안내와 피드백 스테이지 표기가 모든 모드에서 정확해졌습니다." },
+            { "icon": "🔒", "title": "아틀란티스 산호 천장 & 단계별 관문 잠금", "desc": "균형 잡힌 아틀란티스 수영과 월드 11–15의 열쇠·적·유물 상자 관문이 그대로 적용됩니다." }
         ]
     },
     "ja": {
-        "title": "🛡️ v1.5.2 ビヨンドバース関門解放＆深海バランス調整",
-        "subtitle": "ワールド11〜15が本格攻略仕様に！空飛ぶスキップを封じ、鍵・敵撃破・秘宝チェストを達成してゴールを開放しよう！",
+        "title": "🌌 v1.5.3 統合15ワールド帯＆続きから完全再開",
+        "subtitle": "ワールド1〜15を1本の横スクロール帯で自由に切り替え！再起動時も到達したビヨンドバース面からすぐ再開できます！",
         "btnOk": "🚀 さあ、冒険へ！",
         "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            { "icon": "🌊", "title": "アトランティス泳法調整＆サンゴ洞窟の天井", "desc": "101〜110面の無限空中浮遊を修正し、回数制限付き泳ぎ・気泡ステーション・海底天井でコース攻略が楽しめます。" },
-            { "icon": "🔒", "title": "ワールド11→15へ段階的に増えるゴール条件", "desc": "進むにつれて必要な古代エメラルド・クリスタル・コイン・封印の鍵・敵撃破数が段階的にアップ！" },
-            { "icon": "🗝️", "title": "最大4本の封印の鍵＆必須秘宝チェスト", "desc": "後半ワールドでは最大4本の鍵と隠し秘宝チェストの開放もゴール解放条件に加わります。" },
-            { "icon": "📊", "title": "リアルタイム条件トラッカー＆案内吹き出し", "desc": "上部HUDバーと鎖付きゴールの吹き出しで、残り条件をいつでも正確に確認できます。" },
-            { "icon": "🎆", "title": "レベル100祝福演出＆スマートカメラ搭載", "desc": "レベル100突破時のアニメ祝福と地下室でもHUDに被らないカメラ追従も継続搭載。" }
+            { "icon": "🧭", "title": "ビヨンドバース到達ステージからそのまま再開", "desc": "106面などをプレイ後にアプリを閉じても、1面や101面に戻らず前回遊んでいた面・ワールドが自動で開きます！" },
+            { "icon": "🌍", "title": "左右スクロール対応の統合15ワールド帯（1〜150）", "desc": "ビヨンドバース解放後もワールド1〜10は消えず、全15ワールドを横スワイプ帯から快適に選べます。" },
+            { "icon": "🧪", "title": "5回タップで開閉できる開発テスト＆ON/OFF表示", "desc": "設定タイトル5回タップでテストボタンを確実に再非表示でき、ビヨンドバース試遊のON/OFFも一目で分かります。" },
+            { "icon": "🗣️", "title": "全9言語ローカライズ＆フィードバック表記修正", "desc": "反転重力・毒胞子・封印の鍵ラベルとフィードバックのステージ番号を全言語で最適化しました。" },
+            { "icon": "🔒", "title": "深海サンゴ天井＆段階的ゴール開放条件", "desc": "アトランティスの泳法バランスと最大4本の鍵・敵撃破・秘宝チェスト条件も万全です。" }
         ]
     },
     "zh": {
-        "title": "🛡️ v1.5.2 超维世界关卡通关条件 & 亚特兰蒂斯平衡",
-        "subtitle": "第11–15世界迎来真正挑战！高空飞跃跳关已被封印，集齐钥匙、击败敌人与开启秘宝宝箱方可开启传送门！",
+        "title": "🌌 v1.5.3 15大世界横向卷轴 & 精确断点续玩",
+        "subtitle": "第1至15世界合成一条顺滑横向滚动条，重启游戏直接回到上次游玩的超维关卡，并全面优化测试开关体验！",
         "btnOk": "🚀 太棒了，出发冒险！",
         "btnWeb": "🌐 查看完整更新日志 ↗",
         "items": [
-            { "icon": "🌊", "title": "亚特兰蒂斯平衡游泳与珊瑚洞窟顶部屏障", "desc": "修复101–110关无限空中飞越问题，新增海底岩顶与受控换气机制，重塑完整水下关卡体验。" },
-            { "icon": "🔒", "title": "第11至15世界逐级加码的传送门解锁条件", "desc": "随着世界推进，翡翠、晶核、金币、封印钥匙与清敌要求比例逐步提升！" },
-            { "icon": "🗝️", "title": "多达4把封印钥匙与必开秘宝宝箱", "desc": "高阶世界需要找齐最多4把封印钥匙并开启隐藏秘宝宝箱，方能解除终点传送门锁定。" },
-            { "icon": "📊", "title": "顶部HUD实时任务进度与门前缺项提示", "desc": "界面顶部与锁定传送门气泡实时显示剩余钥匙、宝物、敌人与宝箱数量。" },
-            { "icon": "🎆", "title": "第100关庆典动画 & 防遮挡智能镜头", "desc": "完整保留第100关霓虹烟花庆典与地下室防HUD遮挡智能纵向镜头。" }
+            { "icon": "🧭", "title": "超维宇宙精确续玩当前进度", "desc": "解锁第101–150关后退出再进，将直接停留在你打到的最新关卡（如第106关）与对应世界，不再跳回第1关或第101关！" },
+            { "icon": "🌍", "title": "可拖动浏览的统一15世界导航栏（1–150）", "desc": "开启超维宇宙后不再隐藏1–10世界，所有15个世界在同一条横向卷轴中自由滑动切换。" },
+            { "icon": "🧪", "title": "5连击安全收起测试栏 & 明确开关标识", "desc": "再次点击设置标题5次即可重新隐藏测试菜单；超维测试按钮清晰标注开启/关闭状态并保护真实存档。" },
+            { "icon": "🗣️", "title": "9种语言场景标签完善 & 反馈关卡修正", "desc": "反转重力、毒雾孢子、钥匙提示与反馈弹窗的当前关卡编号已全面适配。" },
+            { "icon": "🔒", "title": "亚特兰蒂斯珊瑚顶栏 & 阶梯式传送门解锁", "desc": "完整保留海底防飞跃平衡机制、4把封印钥匙及秘宝宝箱通关要求。" }
         ]
     },
     "ru": {
-        "title": "🛡️ v1.5.2 Баланс Атлантиды и замки портала Запределья",
-        "subtitle": "Настоящее испытание в мирах 11–15! Перелёт через весь уровень закрыт, а портал требует ключей, побед и сундуков!",
+        "title": "🌌 v1.5.3 Единая лента 15 миров и точное продолжение",
+        "subtitle": "Свободная прокрутка миров 1–15 на одном экране, возврат ровно на достигнутый уровень Запределья и чёткие переключатели!",
         "btnOk": "🚀 ОТЛИЧНО, ВПЕРЁД!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
-            { "icon": "🌊", "title": "Сбалансированное плавание и свод пещеры в Атлантиде", "desc": "На этапах 101–110 убран бесконечный полёт по небу и добавлен рифовый потолок с контролем гребков." },
-            { "icon": "🔒", "title": "Возрастающие требования портала (Миры 11–15)", "desc": "С каждым новым миром растёт доля нужных изумрудов, кристаллов, монет, ключей и побеждённых врагов!" },
-            { "icon": "🗝️", "title": "До 4 ключей печати и обязательные сундуки реликвий", "desc": "В поздних мирах портал остаётся под решёткой, пока вы не соберёте до 4 ключей и не откроете тайный сундук." },
-            { "icon": "📊", "title": "Живой счётчик целей на панели и у врат", "desc": "Верхняя панель и подсказка у запертого портала сразу показывают, сколько ключей, врагов или сокровищ осталось." },
-            { "icon": "🎆", "title": "Салют 100 уровня и умная камера без перекрытия HUD", "desc": "Сохранены анимационный праздник после 100 уровня и плавная камера во всех подземных зонах." }
+            { "icon": "🧭", "title": "Продолжение ровно с достигнутого уровня Запределья", "desc": "При повторном входе игра сразу открывает ваш текущий уровень и мир (например, 106), а не сбрасывает на 1 или 101!" },
+            { "icon": "🌍", "title": "Единая прокручиваемая лента миров 1–15 (1–150)", "desc": "Миры 1–10 больше не исчезают после открытия Запределья: все 15 миров листаются влево и вправо в одной ленте." },
+            { "icon": "🧪", "title": "Скрытие меню 5 тапами и явный статус ВКЛ/ВЫКЛ", "desc": "Повторные 5 нажатий в настройках снова скрывают тестовые кнопки, а тест Запределья чётко показывает ВКЛ/ВЫКЛ." },
+            { "icon": "🗣️", "title": "Полная локализация на 9 языков и точный отзыв", "desc": "Обновлены переводы зон гравитации, токсичных спор, ключей и номер уровня в форме отзыва." },
+            { "icon": "🔒", "title": "Свод Атлантиды и растущие замки порталов", "desc": "Сохранены сбалансированное плавание, до 4 ключей печати и обязательные сундуки реликвий." }
         ]
     },
     "it": {
-        "title": "🛡️ v1.5.2 Equilibrio Atlantide & Sigilli Oltremondo",
-        "subtitle": "Vera sfida nei Mondi 11–15! Niente più scorciatoie in volo: i portali si aprono solo completando tutti gli obiettivi!",
+        "title": "🌌 v1.5.3 Barra 15 Mondi Unita & Ripresa Esatta",
+        "subtitle": "Un'unica barra scorrevole per tutti i 15 Mondi, ripartenza dal livello Oltremondo raggiunto e controlli test ancora più chiari!",
         "btnOk": "🚀 FANTASTICO, GIOCHIAMO!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
-            { "icon": "🌊", "title": "Nuoto Bilanciato ad Atlantide & Volta Corallina", "desc": "Bloccato il volo infinito sopra gli scenari 101–110 con tetto sottomarino naturale e nuoto controllato." },
-            { "icon": "🔒", "title": "Requisiti del Portale Crescenti dal Mondo 11 al 15", "desc": "Avanzando nei mondi aumentano Smeraldi, Cristalli, Monete, Chiavi Sigillo e nemici da sconfiggere!" },
-            { "icon": "🗝️", "title": "Fino a 4 Chiavi Sigillo & Scrigni Reliquia Obbligatori", "desc": "Nei mondi avanzati servono fino a 4 chiavi e l'apertura degli Scrigni Reliquia per sbloccare il portale." },
-            { "icon": "📊", "title": "Indicatore Obiettivi Live su HUD & Fumetto Portale", "desc": "Controlla subito nella barra superiore e vicino al portale sbarrato cosa manca per aprire il passaggio." },
-            { "icon": "🎆", "title": "Festa Animata Livello 100 & Telecamera Intelligente", "desc": "Include la celebrazione di fine livello 100 e la telecamera verticale protetta dal HUD ovunque." }
+            { "icon": "🧭", "title": "Ripresa Diretta dal Livello Oltremondo Raggiunto", "desc": "Riaprendo il gioco nell'Oltremondo torni esattamente al tuo livello attivo (es. Livello 106) senza ripartire dal 101!" },
+            { "icon": "🌍", "title": "Barra Unica Scorrevole per Tutti i 15 Mondi (1–150)", "desc": "I Mondi 1–10 restano sempre visibili insieme ai Mondi 11–15 in un'unica barra orizzontale trascinabile." },
+            { "icon": "🧪", "title": "Menu Test 5 Tocchi Reversibile & Stato ON/OFF", "desc": "Altri 5 tocchi sul titolo impostazioni nascondono il menu test, con indicatore chiaro ATTIVO/SPENTO sul test Oltremondo." },
+            { "icon": "🗣️", "title": "Refinitura 9 Lingue & Feedback Accurato", "desc": "Aggiornate etichette di gravità inversa, spore, sigilli e numero livello nei feedback." },
+            { "icon": "🔒", "title": "Volta Atlantide & Requisiti Portale Crescenti", "desc": "Include il nuoto bilanciato ad Atlantide, fino a 4 Chiavi Sigillo e Scrigni Reliquia nei Mondi 11–15." }
         ]
     },
     "es": {
-        "title": "🛡️ v1.5.2 Equilibrio en Atlántida y Sellos del Más Allá",
-        "subtitle": "¡Desafío real en los Mundos 11–15! Ya no se puede volar por encima: el portal se abre solo al cumplir las metas crecientes!",
+        "title": "🌌 v1.5.3 Franja Unida de 15 Mundos y Reanudación Exacta",
+        "subtitle": "¡Desliza los 15 mundos en una sola franja horizontal, vuelve al nivel exacto del Más Allá al reabrir y controla el modo prueba!",
         "btnOk": "🚀 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
-            { "icon": "🌊", "title": "Nado Equilibrado en Atlántida y Techo de Arrecife", "desc": "Se eliminó el vuelo infinito sobre las fases 101–110 con techo submarino visible y saltos acuáticos medidos." },
-            { "icon": "🔒", "title": "Requisitos de Portal Crecientes del Mundo 11 al 15", "desc": "¡Al avanzar entre mundos suben las metas de Esmeraldas, Cristales, Monedas, Llaves y enemigos derrotados!" },
-            { "icon": "🗝️", "title": "Hasta 4 Llaves de Sello y Cofres Reliquia Obligatorios", "desc": "En los últimos mundos necesitarás hasta 4 llaves y abrir Cofres Reliquia para desbloquear el portal." },
-            { "icon": "📊", "title": "Rastreador en Vivo en la Barra Superior y Portal", "desc": "Visualiza en tiempo real cuántas llaves, enemigos, cofres o tesoros faltan junto a la meta y en pantalla." },
-            { "icon": "🎆", "title": "Celebración Nivel 100 y Cámara Segura Bajo el HUD", "desc": "Mantiene la escena animada del nivel 100 y el seguimiento vertical limpio en zonas subterráneas." }
+            { "icon": "🧭", "title": "Reanuda en Tu Nivel Exacto del Más Allá", "desc": "Al cerrar y abrir la app en el Más Allá continuarás justo en tu nivel alcanzado (p. ej. Nivel 106) en lugar de volver al 101." },
+            { "icon": "🌍", "title": "Franja Deslizable Continua de 15 Mundos (1–150)", "desc": "Los Mundos 1–10 siguen disponibles junto a los Mundos 11–15 en una sola barra deslizable hacia izquierda y derecha." },
+            { "icon": "🧪", "title": "Ocultación con 5 Toques y Estado ACTIVO/APAGADO", "desc": "Volver a tocar 5 veces oculta las opciones de prueba y el botón del Más Allá indica claramente si está ACTIVO o APAGADO." },
+            { "icon": "🗣️", "title": "Localización Completa en 9 Idiomas", "desc": "Etiquetas de gravedad inversa, esporas, sellos y etapa en comentarios actualizadas para todos los modos." },
+            { "icon": "🔒", "title": "Techo de Atlántida y Sellos Crecientes", "desc": "Mantiene el nado equilibrado, hasta 4 Llaves de Sello, metas de enemigos y Cofres Reliquia." }
         ]
     },
     "fr": {
-        "title": "🛡️ v1.5.2 Équilibre Atlantide & Portails de l'Au-Delà",
-        "subtitle": "Un vrai défi dans les Mondes 11–15 ! Plus de survol direct jusqu'à la sortie : accomplissez chaque objectif croissant !",
+        "title": "🌌 v1.5.3 Bande Unifiée 15 Mondes & Reprise Exacte",
+        "subtitle": "Un bandeau glissable pour les 15 Mondes, reprise directe à votre niveau de l'Au-Delà au redémarrage et réglages test clarifiés !",
         "btnOk": "🚀 SUPER, C'EST PARTI !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
-            { "icon": "🌊", "title": "Nage Équilibrée à Atlantide & Voûte Corallienne", "desc": "Le vol infini au-dessus des niveaux 101–110 est corrigé grâce à une voûte sous-marine et une nage maîtrisée." },
-            { "icon": "🔒", "title": "Exigences Progressives des Portails (Mondes 11 à 15)", "desc": "Plus vous progressez, plus il faut d'Émeraudes, Cristaux, Pièces, Clés et d'ennemis vaincus pour ouvrir la sortie !" },
-            { "icon": "🗝️", "title": "Jusqu'à 4 Clés de Sceau & Coffres Reliques Requis", "desc": "Les mondes avancés exigent jusqu'à 4 Clés de Sceau et l'ouverture des Coffres Reliques cachés." },
-            { "icon": "📊", "title": "Suivi en Direct dans le HUD & Bulle du Portail", "desc": "Voyez instantanément les clés, ennemis, coffres et trésors restants en haut de l'écran et devant la porte." },
-            { "icon": "🎆", "title": "Célébration Niveau 100 & Caméra Hors Zone HUD", "desc": "Conserve la célébration animée du niveau 100 et le suivi vertical fluide dans les sous-niveaux." }
+            { "icon": "🧭", "title": "Reprise Exacte dans l'Au-Delà au Redémarrage", "desc": "En rouvrant le jeu, vous reprenez directement sur votre niveau atteint (ex. Niveau 106) et non au 101 ou au 1 !" },
+            { "icon": "🌍", "title": "Bande Horizontale Glissable des 15 Mondes (1–150)", "desc": "Les Mondes 1–10 restent visibles aux côtés des Mondes 11–15 sur une même barre défilante." },
+            { "icon": "🧪", "title": "Masquage en 5 Touches & État ACTIVÉ/DÉSACTIVÉ", "desc": "5 nouveaux appuis masquent le menu test et le bouton Au-Delà affiche clairement son état ACTIVÉ ou DÉSACTIVÉ." },
+            { "icon": "🗣️", "title": "Finition 9 Langues & Retours Précis", "desc": "Libellés de gravité inversée, spores, sceaux et numéro de niveau dans les avis désormais cohérents." },
+            { "icon": "🔒", "title": "Voûte d'Atlantide & Portails Progressifs", "desc": "Inclut la nage maîtrisée, jusqu'à 4 Clés de Sceau et les Coffres Reliques obligatoires." }
         ]
     }
 };
