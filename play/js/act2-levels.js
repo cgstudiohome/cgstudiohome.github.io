@@ -128,7 +128,7 @@
 
     const SCENARIO_DESCS = {
         standard_act2: 'Yeni dünya fiziğini keşfet, gizli dünya sandığını bul ve boyut geçidine ulaş!',
-        key_vault: 'Çıkış portalı kilitli! 3 Enerji Mührünü (🔑) toplayarak boyut kapısını aç.',
+        key_vault: 'Çıkış portalı kilitli! Tüm Enerji Mühürlerini (🔑) toplayarak boyut kapısını aç.',
         escape_chase: 'Lazer Yokedici Duvar arkandan hızla yaklaşıyor! Hiç durmadan koş, zıpla ve Dash kullan!',
         spotlight_dark: 'Zifiri karanlık sektör! Yalnızca kahraman ışığın ve parlayan tehlikeler görünür.',
         rhythm_phase: 'Her zıplamada Kırmızı/Mavi Faz Blokları yer değiştirir! Ritimle ilerle ve mini muhafızları geç.',
