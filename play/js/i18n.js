@@ -2220,8 +2220,19 @@
             fr: "<span>🌌 50 Nouveaux Niveaux (Mondes 11–15)</span><span>⚡ Dash de Phase &amp; 💥 Frappe Sismique</span><span>⏱️ Chrono-Frein &amp; 🤖 Mini-Drone Allié</span><span>💎 Coffres Reliques &amp; 5 Nouveaux Boss</span>",
             it: "<span>🌌 50 Nuovi Livelli (Mondi 11–15)</span><span>⚡ Scatto Fasico &amp; 💥 Schianto a Terra</span><span>⏱️ Freno Temporale &amp; 🤖 Mini-Drone Alleato</span><span>💎 Scrigni Reliquia &amp; 5 Nuovi Boss</span>"
         },
-        act2CelTitle: { tr: "🎉 BÜYÜK FİNAL ZAFERİ! EVREN KURTARILDI!", en: "🎉 GRAND VICTORY! UNIVERSE SAVED!", ko: "🎉 대단원의 승리! 우주를 구했습니다!", ja: "🎉 グランドビクトリー！宇宙を救った！", zh: "🎉 终极胜利！拯救了宇宙！", ru: "🎉 ВЕЛИКАЯ ПОБЕДА! ВСЕЛЕННАЯ СПАСЕНА!", es: "🎉 ¡GRAN VICTORIA! ¡UNIVERSO SALVADO!", fr: "🎉 GRANDE VICTOIRE ! UNIVERS SAUVÉ !", it: "🎉 GRANDE VITTORIA! UNIVERSO SALVO!" },
-        act2CelSub: { tr: "100. Bölüm tamamlandı! Evren Hükümdarı'nın hazine mührü kırıldı — <strong>Dalga 1: Öte Evren (Bölüm 101–150)</strong> ve ilk özel yeteneğin açıldı!", en: "Level 100 cleared! The seal is broken — <strong>Wave 1: Beyondverse (Levels 101–150)</strong> and your first special ability are now unlocked!", ko: "100레벨 클리어! 봉인이 풀리며 <strong>웨이브 1: 비욘드버스 (101–150레벨)</strong>와 첫 특수 능력이 개방되었습니다!", ja: "レベル100達成！封印が解かれ、<strong>第1弾ビヨンドバース（101〜150）</strong>と最初の特殊能力が解放！", zh: "第100关通关！封印解除 — <strong>第一波：超维宇宙（第101–150关）</strong>与首个特殊能力已解锁！", ru: "100 уровень пройден! Печать снята — открыто <strong>Запределье (101–150)</strong> и ваша первая спецспособность!", es: "¡Nivel 100 completado! El sello se ha roto: se abren <strong>Mundos 11–15 (101–150)</strong> y tu primera habilidad!", fr: "Niveau 100 terminé ! Le sceau est brisé — <strong>Vague 1 : Au-Delà (101–150)</strong> et votre première capacité sont débloqués !", it: "Livello 100 completato! Sigillo spezzato — sbloccati <strong>Ondata 1: Oltremondo (101–150)</strong> e la prima abilità!" },
+        act2CelBadge: {
+            tr: "⚡ YENİ EVREN AKTİF • 50 BÖLÜMLÜK ÖTE EVREN AÇILDI!",
+            en: "⚡ NEW UNIVERSE ACTIVE • 50-STAGE BEYONDVERSE UNLOCKED!",
+            ko: "⚡ 신규 우주 개방 • 50스테이지 비욘드버스 활성화!",
+            ja: "⚡ 新次元アクティブ • 全50ステージ・ビヨンドバース解放！",
+            zh: "⚡ 新宇宙已激活 • 50关超维宇宙现已开启！",
+            ru: "⚡ НОВАЯ ВСЕЛЕННАЯ АКТИВНА • ОТКРЫТО 50 УРОВНЕЙ ЗАПРЕДЕЛЬЯ!",
+            es: "⚡ ¡NUEVO UNIVERSO ACTIVO • 50 NIVELES DEL MÁS ALLÁ DESBLOQUEADOS!",
+            fr: "⚡ NOUVEL UNIVERS ACTIF • 50 NIVEAUX AU-DELÀ DÉBLOQUÉS !",
+            it: "⚡ NUOVO UNIVERSO ATTIVO • 50 LIVELLI OLTREMONDO SBLOCCATI!"
+        },
+        act2CelTitle: { tr: "🎉 BÜYÜK FİNAL ZAFERİ! ÖTE EVREN KAPISI AÇILDI!", en: "🎉 GRAND VICTORY! THE BEYONDVERSE GATE OPENED!", ko: "🎉 대단원의 승리! 비욘드버스 관문이 열렸습니다!", ja: "🎉 グランドビクトリー！新次元の扉が開いた！", zh: "🎉 终极胜利！超维宇宙之门正式开启！", ru: "🎉 ВЕЛИКАЯ ПОБЕДА! ВРАТА ЗАПРЕДЕЛЬЯ ОТКРЫТЫ!", es: "🎉 ¡GRAN VICTORIA! ¡SE ABRIÓ EL PORTAL DEL MÁS ALLÁ!", fr: "🎉 GRANDE VICTOIRE ! LA PORTE DE L'AU-DELÀ EST OUVERTE !", it: "🎉 GRANDE VITTORIA! PORTALE DELL'OLTREMONDO APERTO!" },
+        act2CelSub: { tr: "100. Bölümü fethedip Evren Hükümdarı'nın mührünü kırdın! Sırlarla dolu <strong>50 Bölümlük Öte Evren (Bölüm 101–150)</strong> ve ilk özel yeteneğin <strong>⚡ Faz Atılması</strong> şimdi aktif!", en: "You conquered Level 100 and shattered the Emperor's seal! A secret <strong>50-Stage Beyondverse (Levels 101–150)</strong> and your first power <strong>⚡ Phase Dash</strong> are now LIVE!", ko: "100레벨을 정복하고 황제의 봉인을 깼습니다! 미지의 <strong>50스테이지 비욘드버스 (101–150)</strong>와 첫 특수 능력 <strong>⚡ 페이즈 대시</strong>가 활성화되었습니다!", ja: "レベル100を制覇し宇宙皇帝の封印を突破！秘密に満ちた<strong>50ステージの新次元ビヨンドバース（101〜150）</strong>と新能力<strong>⚡ フェーズダッシュ</strong>が解放！", zh: "你征服了第100关并打破宇宙皇帝的封印！充满未知的<strong>50关超维宇宙（101–150）</strong>与首个超能力<strong>⚡ 相位冲刺</strong>现已激活！", ru: "Вы покорили 100 уровень и сняли печать Повелителя! <strong>50 новых уровней Запределья (101–150)</strong> и способность <strong>⚡ Фазовый рывок</strong> уже ждут вас!", es: "¡Conquistaste el Nivel 100 y rompiste el sello imperial! Ya está activo el <strong>Más Allá de 50 Niveles (101–150)</strong> y tu primer poder <strong>⚡ Impulso de Fase</strong>!", fr: "Vous avez conquis le Niveau 100 et brisé le sceau ! Les <strong>50 nouveaux niveaux de l'Au-Delà (101–150)</strong> et le pouvoir <strong>⚡ Dash de Phase</strong> sont actifs !", it: "Hai conquistato il Livello 100 e spezzato il sigillo! I <strong>50 nuovi livelli di Oltremondo (101–150)</strong> e il potere <strong>⚡ Scatto Fasico</strong> sono ora attivi!" },
         act2CelRewardsHtml: {
             tr: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 Coin</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 Zümrüt</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 Kristal</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Faz Atılması Açıldı!</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 Dünya 11–15 (101–150)</div>",
             en: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 Coins</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 Emeralds</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 Crystals</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Phase Dash Unlocked!</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 Worlds 11–15 (101–150)</div>",
@@ -2233,8 +2244,24 @@
             fr: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 Pièces</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 Émeraudes</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 Cristaux</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Dash de Phase !</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 Mondes 11–15 (101–150)</div>",
             it: "<div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">✪ +1000 Monete</div><div class=\"cel-reward-pill\" style=\"border-color:#06d6a0;color:#06d6a0;\">❖ +250 Smeraldi</div><div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">◆ +100 Cristalli</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Scatto Fasico!</div><div class=\"cel-reward-pill\" style=\"border-color:#e0aaff;color:#e0aaff;\">🌌 Mondi 11–15 (101–150)</div>"
         },
-        act2CelClaimBtn: { tr: "🎁 SÜRPRİZ HEDİYEYİ AL VE ÖTE EVRENE GİR 🌌", en: "🎁 CLAIM GIFT & ENTER BEYONDVERSE 🌌", ko: "🎁 선물 받고 비욘드버스 입장 🌌", ja: "🎁 報酬を受け取りビヨンドバースへ 🌌", zh: "🎁 领取惊喜礼包并进入超维宇宙 🌌", ru: "🎁 ЗАБРАТЬ ПОДАРОК И ВОЙТИ В ЗАПРЕДЕЛЬЕ 🌌", es: "🎁 RECLAMAR REGALO Y ENTRAR AL MÁS ALLÁ 🌌", fr: "🎁 RÉCLAMER ET ENTRER DANS L'AU-DELÀ 🌌", it: "🎁 RISCUOTI IL REGALO ED ENTRA 🌌" },
-        act2CelStayBtn: { tr: "HARİTADA KAL", en: "STAY ON MAP", ko: "지도에 머무르기", ja: "マップにとどまる", zh: "留在地图", ru: "ОСТАТЬСЯ НА КАРТЕ", es: "QUEDARME EN EL MAPA", fr: "RESTER SUR LA CARTE", it: "RESTA SULLA MAPPA" }
+        act2CelReplayRewardsHtml: {
+            tr: "<div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">🌌 Dünya 11–15 Açık (101–150)</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Özel Yetenekler Hazır</div><div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">💎 Gizli Yadigar Sandıkları Seni Bekliyor!</div>",
+            en: "<div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">🌌 Worlds 11–15 Open (101–150)</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Special Abilities Ready</div><div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">💎 Secret Relic Chests Await!</div>",
+            ko: "<div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">🌌 월드 11–15 개방 (101–150)</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ 특수 능력 활성화됨</div><div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">💎 비밀 유물 상자 탐험 가능!</div>",
+            ja: "<div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">🌌 ワールド11〜15開放 (101〜150)</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ 特殊能力発動可能</div><div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">💎 秘宝チェストが待っている！</div>",
+            zh: "<div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">🌌 世界 11–15 已开放 (101–150)</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ 特殊能力已就绪</div><div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">💎 遗迹宝箱等你探索！</div>",
+            ru: "<div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">🌌 Миры 11–15 открыты (101–150)</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Навыки готовы к бою</div><div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">💎 Сундуки реликвий ждут вас!</div>",
+            es: "<div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">🌌 Mundos 11–15 Abiertos (101–150)</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Poderes Listos</div><div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">💎 ¡Cofres Reliquia te Esperan!</div>",
+            fr: "<div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">🌌 Mondes 11–15 Ouverts (101–150)</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Pouvoirs Prêts</div><div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">💎 Coffres Reliques à Découvrir !</div>",
+            it: "<div class=\"cel-reward-pill\" style=\"border-color:#00f2fe;color:#00f2fe;\">🌌 Mondi 11–15 Aperti (101–150)</div><div class=\"cel-reward-pill\" style=\"border-color:#38bdf8;color:#bae6fd;\">⚡ Poteri Pronti</div><div class=\"cel-reward-pill\" style=\"border-color:#ffd166;color:#ffd166;\">💎 Scrigni Reliquia ti Aspettano!</div>"
+        },
+        act2CelClaimBtn: { tr: "🚀 ÖTE EVRENE GEÇ — BÖLÜM 101'E BAŞLA! ▶", en: "🚀 ENTER BEYONDVERSE — START LEVEL 101 ▶", ko: "🚀 비욘드버스 입장 — 101레벨 시작! ▶", ja: "🚀 ビヨンドバースへ — レベル101開始！▶", zh: "🚀 进入超维宇宙 — 开始第101关！▶", ru: "🚀 В ЗАПРЕДЕЛЬЕ — НАЧАТЬ 101 УРОВЕНЬ! ▶", es: "🚀 ENTRAR AL MÁS ALLÁ — ¡NIVEL 101! ▶", fr: "🚀 ENTRER DANS L'AU-DELÀ — NIVEAU 101 ! ▶", it: "🚀 ENTRA IN OLTREMONDO — LIVELLO 101! ▶" },
+        act2CelToSummaryBtn: { tr: "📊 ZAFER ÖZETİNE DEVAM ET", en: "📊 CONTINUE TO VICTORY SUMMARY", ko: "📊 승리 요약으로 계속", ja: "📊 リザルト画面へ進む", zh: "📊 继续查看胜利统计", ru: "📊 ПЕРЕЙТИ К ИТОГАМ ПОБЕДЫ", es: "📊 VER RESUMEN DE VICTORIA", fr: "📊 VOIR LE BILAN DE VICTOIRE", it: "📊 CONTINUA AL RIEPILOGO" },
+        act2CelStayBtn: { tr: "HARİTADA KAL", en: "STAY ON MAP", ko: "지도에 머무르기", ja: "マップにとどまる", zh: "留在地图", ru: "ОСТАТЬСЯ НА КАРТЕ", es: "QUEDARME EN EL MAPA", fr: "RESTER SUR LA CARTE", it: "RESTA SULLA MAPPA" },
+        act2ModalBannerTitle: { tr: "🌌 YENİ EVREN AKTİF! 50 BÖLÜMLÜK ÖTE EVREN AÇILDI", en: "🌌 NEW UNIVERSE ACTIVE! 50-STAGE BEYONDVERSE UNLOCKED", ko: "🌌 신규 우주 개방! 50스테이지 비욘드버스 활성화", ja: "🌌 新次元アクティブ！50ステージの新世界が解放", zh: "🌌 新宇宙已激活！50关超维宇宙现已开放", ru: "🌌 НОВАЯ ВСЕЛЕННАЯ АКТИВНА! ОТКРЫТО 50 УРОВНЕЙ", es: "🌌 ¡NUEVO UNIVERSO ACTIVO! 50 NIVELES DESBLOQUEADOS", fr: "🌌 NOUVEL UNIVERS ACTIF ! 50 NIVEAUX OUVERTS", it: "🌌 NUOVO UNIVERSO ATTIVO! 50 LIVELLI APERTI" },
+        act2ModalBannerSub: { tr: "5 yeni dünya (101–150), gizli yadigar sandıkları ve ⚡ Faz Atılması seni bekliyor — hemen keşfet!", en: "5 new worlds (101–150), hidden Relic Chests & ⚡ Phase Dash await — jump in now!", ko: "5개 신규 월드(101–150), 비밀 유물 상자, ⚡ 페이즈 대시가 기다립니다!", ja: "5つの新ワールド(101〜150)、秘宝チェスト＆⚡フェーズダッシュが待っています！", zh: "5大全新世界（101–150）、遗迹宝箱与⚡相位冲刺等你探索！", ru: "5 новых миров (101–150), сундуки реликвий и ⚡ Фазовый рывок ждут вас!", es: "¡5 nuevos mundos (101–150), Cofres Reliquia y ⚡ Impulso de Fase te esperan!", fr: "5 nouveaux mondes (101–150), Coffres Reliques et ⚡ Dash de Phase vous attendent !", it: "5 nuovi mondi (101–150), Scrigni Reliquia e ⚡ Scatto Fasico ti aspettano!" },
+        act2NextLevel101Btn: { tr: "🌌 ÖTE EVRENE DEVAM ET (BÖLÜM 101) ▶", en: "🌌 CONTINUE TO BEYONDVERSE (LEVEL 101) ▶", ko: "🌌 비욘드버스 계속하기 (101레벨) ▶", ja: "🌌 ビヨンドバースへ進む (レベル101) ▶", zh: "🌌 继续前往超维宇宙 (第101关) ▶", ru: "🌌 ПРОДОЛЖИТЬ В ЗАПРЕДЕЛЬЕ (УР. 101) ▶", es: "🌌 CONTINUAR AL MÁS ALLÁ (NIVEL 101) ▶", fr: "🌌 CONTINUER DANS L'AU-DELÀ (NIV. 101) ▶", it: "🌌 CONTINUA IN OLTREMONDO (LIV. 101) ▶" },
+        act2EnterToast: { tr: "🌌 ÖTE EVREN AKTİF! 50 Yeni Bölüm & ⚡ Faz Atılması Başladı!", en: "🌌 BEYONDVERSE ACTIVE! 50 New Stages & ⚡ Phase Dash Unleashed!", ko: "🌌 비욘드버스 가동! 50개 신규 스테이지 & ⚡ 페이즈 대시 시작!", ja: "🌌 ビヨンドバース始動！新50ステージ＆⚡フェーズダッシュ発動！", zh: "🌌 超维宇宙已开启！50个新关卡与⚡相位冲刺已激活！", ru: "🌌 ЗАПРЕДЕЛЬЕ АКТИВНО! 50 новых уровней и ⚡ Фазовый рывок!", es: "🌌 ¡MÁS ALLÁ ACTIVO! ¡50 Niveles y ⚡ Impulso de Fase Desatados!", fr: "🌌 AU-DELÀ ACTIF ! 50 Niveaux & ⚡ Dash de Phase Activés !", it: "🌌 OLTREMONDO ATTIVO! 50 Nuovi Livelli & ⚡ Scatto Fasico!" }
     };
 
     window.getMarinextUiText = function (lang, key, vars) {
@@ -5135,11 +5162,14 @@ window.MARINEXT_TUTORIAL_DATA = {
         setHtml("act2-locked-sub", t("act2LockedSub"));
         setHtml("act2-locked-teasers", t("act2LockedChipsHtml"));
         setTxt("btn-close-act2-locked", t("act2LockedCta"));
+        setTxt("act2-cel-badge", t("act2CelBadge"));
         setTxt("act2-cel-title", t("act2CelTitle"));
         setHtml("act2-cel-sub", t("act2CelSub"));
         setHtml("act2-cel-rewards", t("act2CelRewardsHtml"));
         setTxt("btn-claim-act2-celebration", t("act2CelClaimBtn"));
-        setTxt("btn-close-act2-celebration", t("act2CelStayBtn"));
+        setTxt("btn-close-act2-celebration", t(game && game._celFromLevel100Victory ? "act2CelToSummaryBtn" : "act2CelStayBtn"));
+        setTxt("modal-act2-banner-title", t("act2ModalBannerTitle"));
+        setTxt("modal-act2-banner-sub", t("act2ModalBannerSub"));
 
         // Close X Button Tooltips
         const closeHint = window.translateMarinextGameText("Kapat (ESC)", lang);
@@ -6873,120 +6903,120 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
 // Full 9-Language "What's New in v1.5.0" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🌌 v1.5.0 Öte Evren: 100. Bölüm Sürprizi, 50 Yeni Bölüm & 4 Yetenek",
-        "subtitle": "100. bölüm zaferiyle gizemli Öte Evren açılıyor! 5 yeni dünya (101–150), 4 özel yetenek ve canlı bulut liderlik tablosu yayında!",
+        "title": "🌌 v1.5.1 Öte Evren Kutlaması & Akıllı Kamera Güncellemesi",
+        "subtitle": "100. bölüm zaferinden hemen sonra açılan hareketli kutlama sahnesi, Bölüm 101'e doğrudan geçiş ve alt platform kamera iyileştirmeleri yayında!",
         "btnOk": "🚀 HARİKA, MACERAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            { "icon": "🌌", "title": "100. Bölüm Sürpriz Kutlaması & Öte Evren (101–150)", "desc": "Evren Hükümdarı'nı yenince ❓ gizemli kapı açılır: Sualtı Atlantis, Biyo-Orman, Saat Kulesi, Asit Rafinerisi ve Ayna Katedrali!" },
-            { "icon": "⚡", "title": "4 Yeni Özel Yetenek & Siber Mini-Drone Yoldaş", "desc": "Faz Atılması, Zemin Darbesi, Krono-Fren zaman yavaşlatma ve otomatik saldıran Mini-Drone ile yeni düşmanları fethet." },
-            { "icon": "🎯", "title": "6 Farklı Senaryo & 5 Çok Fazlı Dev Boss", "desc": "Kaçış duvarı, yükselen tehlike, zıpladıkça değişen faz köprüleri, mühürlü kapılar ve her dünyada gizli Yadigar Sandıkları!" },
-            { "icon": "🏆", "title": "Tüm Cihazlarda Eşitlenen Gerçek Zamanlı Liderlik Tablosu", "desc": "Google Family ve farklı telefon/tabletler arasında puanlarınız, yıldızlarınız ve geçtiğiniz gerçek bölüm sayısı artık birebir eşit!" },
-            { "icon": "🚀", "title": "120 FPS Akıcılık & Korunaklı Bulut Kayıt", "desc": "Mevcut tüm ilerlemeniz korunur; Google Play Games ve bulut kayıt her aşamada güvence altındadır." }
+            { "icon": "🎆", "title": "100. Bölüm Animasyonlu Kutlama & Yeni Evren Çağrısı", "desc": "100. bölümü bitirir bitirmez önce görkemli siber havai fişek kutlaması açılır; 50 bölümlük Öte Evren'in aktif olduğu müjdelenir!" },
+            { "icon": "🚀", "title": "Tek Tıkla Bölüm 101'e Kesintisiz Geçiş", "desc": "Kutlama ekranından ya da zafer özetindeki parlak çağrı butonundan doğrudan Öte Evren'in ilk macerası Bölüm 101'e atlayın." },
+            { "icon": "📷", "title": "Alt & Üst Platformlarda HUD-Güvenli Akıllı Kamera", "desc": "Alt asansör odalarında ve yüksek zıplamalarda kamera artık karakterinizi her an takip eder; kahramanınız üst bar ve butonların içine girmez." },
+            { "icon": "⚡", "title": "5 Yeni Öte Evren Dünyası (101–150) & 4 Özel Yetenek", "desc": "Faz Atılması, Zemin Darbesi, Krono-Fren, Mini-Drone Yoldaş ve gizli Yadigar Sandıkları ile maceraya devam edin!" },
+            { "icon": "🏆", "title": "Çoklu Cihaz Liderlik Tablosu & Tam Kayıt Koruması", "desc": "Google Family ve tüm telefon/tabletlerinizde puanlarınız ve gerçek bölüm ilerlemeniz anlık eşitlenir." }
         ]
     },
     "en": {
-        "title": "🌌 v1.5.0 Beyondverse: Level 100 Surprise, 50 New Stages & 4 Powers",
-        "subtitle": "Conquer Level 100 to unlock the mysterious Beyondverse! 5 brand-new worlds (101–150), 4 new powers, and live cloud leaderboards!",
+        "title": "🌌 v1.5.1 Beyondverse Awakening & Smart Camera Update",
+        "subtitle": "Animated Level 100 celebration before the victory popup, direct jump to Level 101, and HUD-safe vertical camera tracking everywhere!",
         "btnOk": "🚀 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            { "icon": "🌌", "title": "Level 100 Celebration & Beyondverse Worlds 11–15", "desc": "Defeat the Universe Emperor to unlock Sunken Atlantis, Bioluminescent Jungle, Clockwork Tower, Acid Refinery & Mirror Dimension!" },
-            { "icon": "⚡", "title": "4 New Abilities & Cyber Mini-Drone Companion", "desc": "Unlock Phase Dash, Ground Slam, Chrono-Brake time slow, and an auto-zapping Mini-Drone to conquer 8 new enemy types." },
-            { "icon": "🎯", "title": "6 Dynamic Scenarios & 5 Multi-Phase Bosses", "desc": "Outrun laser walls, climb rising hazards, flip phase bridges per jump, hunt 3-seal vault keys, and open secret Relic Chests!" },
-            { "icon": "🏆", "title": "Real-Time Cross-Device & Family Leaderboard Sync", "desc": "Scores, stars, and true stage progress now sync accurately across phones, tablets, and family accounts with zero mismatch." },
-            { "icon": "🚀", "title": "120 FPS Precision & Safe Progress Preservation", "desc": "All your existing levels, coins, heroes, and stars remain safely preserved while expanding the adventure to 200 total levels." }
+            { "icon": "🎆", "title": "Animated Level 100 Celebration Before Victory Popup", "desc": "Clearing Level 100 now triggers a neon portal & cyber fireworks celebration first, unveiling the newly opened 50-stage Beyondverse!" },
+            { "icon": "🚀", "title": "Seamless 1-Tap Entry Into Stage 101", "desc": "Jump straight from the celebration or the glowing victory callout into Beyondverse Level 101 with Phase Dash unlocked!" },
+            { "icon": "📷", "title": "Universal HUD-Safe Vertical Camera Tracking", "desc": "Camera now smoothly follows high jumps and upper steps inside underground elevator sub-chambers as well as main worlds — never behind the top HUD." },
+            { "icon": "⚡", "title": "5 Beyondverse Worlds (101–150) & 4 Special Powers", "desc": "Conquer 50 new stages, 8 new enemies, 5 multi-phase bosses, and secret Relic Chests with Phase Dash, Slam, Chrono-Brake & Mini-Drone!" },
+            { "icon": "🏆", "title": "Real-Time Family/Device Sync & Full Save Safety", "desc": "All scores, stars, heroes, and true completed levels synchronize cleanly across devices without losing any progress." }
         ]
     },
     "ko": {
-        "title": "🌌 v1.5.0 비욘드버스: 100레벨 서프라이즈, 50개 신규 스테이지 & 4대 스킬",
-        "subtitle": "100레벨을 클리어하고 신비한 비욘드버스(101–150)와 실시간 클라우드 리더보드를 만나보세요!",
+        "title": "🌌 v1.5.1 비욘드버스 축하 연출 & 스마트 카메라 업데이트",
+        "subtitle": "100레벨 클리어 직후 펼쳐지는 애니메이션 축하 화면과 지하·상단 점프 시 HUD 침범 없는 카메라 추적이 적용되었습니다!",
         "btnOk": "🚀 좋아요, 모험 시작!",
         "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            { "icon": "🌌", "title": "100레벨 축하 보상 & 월드 11–15 개방", "desc": "아틀란티스, 발광 정글, 시계태엽 탑, 산성 정제소, 거울 성당까지 50개의 새로운 스테이지가 열립니다!" },
-            { "icon": "⚡", "title": "4가지 신규 특수 능력 & 미니 드론 동료", "desc": "페이즈 대시, 그라운드 슬램, 크로노 감속, 자동 공격 미니 드론으로 8종 신규 적을 상대하세요." },
-            { "icon": "🎯", "title": "6가지 다채로운 시나리오 & 5대 다중 페이즈 보스", "desc": "추격 레이저 벽, 상승하는 위험 지대, 점프 전환 다리, 봉인 열쇠, 비밀 유물 상자까지!" },
-            { "icon": "🏆", "title": "실시간 기기 간 & 가족 계정 리더보드 완벽 동기화", "desc": "휴대폰과 태블릿 간 점수, 별, 클리어 스테이지 수가 정확하게 일치합니다." },
-            { "icon": "🚀", "title": "120 FPS 쾌적함 & 기존 저장 데이터 100% 보존", "desc": "기존 영웅, 코인, 진행 기록이 모두 안전하게 유지됩니다." }
+            { "icon": "🎆", "title": "100레벨 클리어 전용 애니메이션 축하 화면", "desc": "승리 요약 팝업 전에 사이버 폭죽과 차원 포털 축하 화면이 먼저 열리며 50개 스테이지의 비욘드버스 개방을 알립니다!" },
+            { "icon": "🚀", "title": "원터치 101레벨 바로 시작", "desc": "축하 화면 또는 빛나는 승리 배너에서 곧장 비욘드버스 101레벨로 진입할 수 있습니다." },
+            { "icon": "📷", "title": "전 구간 & 지하 플랫폼 스마트 수직 카메라", "desc": "지하 엘리베이터 구역과 높은 점프에서도 카메라가 캐릭터를 추적하여 상단 UI 버튼과 겹치지 않습니다." },
+            { "icon": "⚡", "title": "신규 5대 월드 (101–150) & 4대 특수 능력", "desc": "페이즈 대시, 그라운드 슬램, 크로노 감속, 미니 드론 및 유물 상자를 탐험하세요." },
+            { "icon": "🏆", "title": "실시간 기기 간 순위표 & 저장 데이터 100% 보호", "desc": "가족 계정 및 여러 기기 간 점수와 클리어 스테이지가 정확하게 동기화됩니다." }
         ]
     },
     "ja": {
-        "title": "🌌 v1.5.0 ビヨンドバース：レベル100記念、新50ステージ＆4大新能力",
-        "subtitle": "レベル100クリアで未知のビヨンドバース（101〜150）が開幕！リアルタイムランキング同期にも対応！",
+        "title": "🌌 v1.5.1 ビヨンドバース祝福演出＆スマートカメラ更新",
+        "subtitle": "レベル100クリア直後の動く祝福画面と、地下・高所ジャンプ時もHUDに被らないカメラ追従を実装しました！",
         "btnOk": "🚀 さあ、冒険へ！",
         "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            { "icon": "🌌", "title": "レベル100突破記念＆新ワールド11〜15（101〜150）", "desc": "沈没アトランティス、発光ジャングル、歯車の塔、酸性精製所、鏡面大聖堂が登場！" },
-            { "icon": "⚡", "title": "4つの新能力＆サイバーミニドローン相棒", "desc": "フェーズダッシュ、グラウンドスラム、クロノ減速、自動攻撃ミニドローンを解放しよう！" },
-            { "icon": "🎯", "title": "6種の新ギミックシナリオ＆5体の多段階ボス", "desc": "迫るレーザー壁、上昇する床、ジャンプ切替足場、鍵探索や秘宝チェストが待ち受ける！" },
-            { "icon": "🏆", "title": "端末間＆ファミリー間リアルタイムランキング同期", "desc": "スマホとタブレットで進行度やスコアが常に正確に一致するようになりました。" },
-            { "icon": "🚀", "title": "120 FPS 快適動作＆既存セーブ完全保護", "desc": "これまでのクリア記録やヒーロー・コインはすべてそのまま安全に引き継がれます。" }
+            { "icon": "🎆", "title": "レベル100突破 アニメーション祝福演出", "desc": "リザルト画面の前にサイバー花火＆ポータル回転演出が先に開き、全50ステージの新次元ビヨンドバース解放を盛大にお知らせ！" },
+            { "icon": "🚀", "title": "ワンタップでレベル101へシームレス突入", "desc": "祝福画面や勝利バナーの専用ボタンから、そのまま新次元レベル101に挑戦できます。" },
+            { "icon": "📷", "title": "地下・高所ジャンプ対応 HUD保護スマートカメラ", "desc": "地下エレベーターエリアでも主ステージ同様にカメラが上方向へ追従し、キャラが上部バーやボタンに重なりません。" },
+            { "icon": "⚡", "title": "5つの新ワールド（101〜150）＆4大新能力", "desc": "フェーズダッシュ、グラウンドスラム、クロノ減速、ミニドローンと秘宝チェストが待ち受けます。" },
+            { "icon": "🏆", "title": "マルチ端末ランキング同期＆セーブ完全保護", "desc": "スマホ・タブレット間でスコアや進行度が常に正確に同期されます。" }
         ]
     },
     "zh": {
-        "title": "🌌 v1.5.0 超维宇宙：第100关惊喜庆典、50个新关卡与4大能力",
-        "subtitle": "通关第100关解锁神秘超维宇宙（101–150）！5大新世界、4项超能力与实时云端排行榜全面上线！",
+        "title": "🌌 v1.5.1 超维宇宙动画庆典 & 智能镜头追踪更新",
+        "subtitle": "第100关胜利后先展示动态次元庆典，全面优化地下室与高处跳跃镜头，再也不用担心角色进入顶部按钮栏！",
         "btnOk": "🚀 太棒了，出发冒险！",
         "btnWeb": "🌐 查看完整更新日志 ↗",
         "items": [
-            { "icon": "🌌", "title": "第100关惊喜礼包与超维世界 11–15", "desc": "击败宇宙皇帝开启神秘大门：沉没亚特兰蒂斯、荧光丛林、发条高塔、酸液炼厂与镜面大教堂！" },
-            { "icon": "⚡", "title": "4 项全新能力与赛博迷你无人机伙伴", "desc": "解锁相位冲刺、重力震地、时空减速与自动支援无人机，迎战 8 种新敌人。" },
-            { "icon": "🎯", "title": "6 大动态玩法机制与 5 位多阶段首领", "desc": "激光墙追逐、上升危机、跳跃切换相位桥、三把封印钥匙与隐藏遗迹宝箱！" },
-            { "icon": "🏆", "title": "跨设备与家庭账号实时排行榜精准同步", "desc": "手机与平板之间的分数、星数与真实关卡进度从此分毫不差。" },
-            { "icon": "🚀", "title": "120 FPS 流畅体验与原有存档无损保留", "desc": "您已解锁的英雄、金币与主线关卡进度均安全保留。" }
+            { "icon": "🎆", "title": "第100关动态次元门与赛博烟花庆典", "desc": "通关第100关后，结算弹窗前将率先播放绚丽动画庆典，提示50关超维宇宙现已激活！" },
+            { "icon": "🚀", "title": "一键直达第101关超维新冒险", "desc": "可从庆典页或胜利摘要中的高亮横幅直接进入超维宇宙第101关。" },
+            { "icon": "📷", "title": "全场景HUD防遮挡智能纵向镜头", "desc": "地下电梯子空间与高台跳跃同样启用纵向镜头跟随，彻底避免角色遮挡顶部状态栏与按钮。" },
+            { "icon": "⚡", "title": "5大超维世界（101–150）与4项超能力", "desc": "携相位冲刺、重力震地、时空减速与迷你无人机伙伴征服50道新关卡与隐藏遗迹宝箱！" },
+            { "icon": "🏆", "title": "跨设备实时排行榜 & 存档100%安全", "desc": "手机、平板与家庭账号间的分数与真实通关进度精准同步。" }
         ]
     },
     "ru": {
-        "title": "🌌 v1.5.0 Запределье: Сюрприз 100 уровня, 50 новых уровней и 4 навыка",
-        "subtitle": "Пройдите 100 уровень и откройте Запределье (101–150), 5 новых миров, 4 способности и точный рейтинг!",
+        "title": "🌌 v1.5.1 Праздник Запределья и умная камера",
+        "subtitle": "Анимированное празднование после 100 уровня, быстрый переход на 101 уровень и следящая камера на всех высотах и подземных этапах!",
         "btnOk": "🚀 ОТЛИЧНО, ВПЕРЁД!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
-            { "icon": "🌌", "title": "Праздник 100 уровня и Миры 11–15 (101–150)", "desc": "Откройте Атлантиду, Био-джунгли, Часовую башню, Кислотный завод и Зеркальный собор!" },
-            { "icon": "⚡", "title": "4 новые способности и Мини-дрон", "desc": "Фазовый рывок, Удар о землю, Замедление времени и боевой мини-дрон против 8 новых врагов." },
-            { "icon": "🎯", "title": "6 новых сценариев и 5 многофазных боссов", "desc": "Убегайте от лазерной стены, меняйте мосты прыжком, ищите ключи и сундуки реликвий!" },
-            { "icon": "🏆", "title": "Точная синхронизация рейтинга между устройствами", "desc": "Очки, звёзды и пройденные уровни теперь одинаковы на всех телефонах, планшетах и семейных аккаунтах." },
-            { "icon": "🚀", "title": "Плавность 120 FPS и сохранность прогресса", "desc": "Весь ваш текущий прогресс, герои и монеты полностью сохранены." }
+            { "icon": "🎆", "title": "Анимационный праздник после победы на 100 уровне", "desc": "Перед экраном итогов запускается салют и портал с уведомлением об открытии новой вселенной из 50 уровней!" },
+            { "icon": "🚀", "title": "Мгновенный старт 101 уровня в один тап", "desc": "Переходите прямо в Запределье с экрана праздника или с яркого баннера в окне победы." },
+            { "icon": "📷", "title": "Умная вертикальная камера с защитой верхней панели", "desc": "Камера теперь плавно следует за персонажем даже в подземных отсеках и при высоких прыжках, не давая герою заходить под кнопки HUD." },
+            { "icon": "⚡", "title": "5 миров Запределья (101–150) и 4 способности", "desc": "Фазовый рывок, Удар о землю, Замедление времени, Мини-дрон и тайные сундуки реликвий!" },
+            { "icon": "🏆", "title": "Точная синхронизация рейтинга и защита сохранений", "desc": "Очки и прогресс всегда совпадают на всех устройствах." }
         ]
     },
     "it": {
-        "title": "🌌 v1.5.0 Oltremondo: Sorpresa Livello 100, 50 Nuovi Livelli & 4 Poteri",
-        "subtitle": "Supera il livello 100 per sbloccare 5 nuovi mondi (101–150), 4 abilità speciali e classifiche sincronizzate!",
+        "title": "🌌 v1.5.1 Festa Oltremondo & Telecamera Intelligente",
+        "subtitle": "Animazione celebrativa dopo il livello 100 prima del riepilogo vittoria, ingresso diretto al livello 101 e telecamera sicura ovunque!",
         "btnOk": "🚀 FANTASTICO, GIOCHIAMO!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
-            { "icon": "🌌", "title": "Festa Livello 100 & Mondi 11–15 (101–150)", "desc": "Scopri Atlantide Sommersa, Giungla Bioluminescente, Torre Orologio, Raffineria Acida e Cattedrale Specchio!" },
-            { "icon": "⚡", "title": "4 Nuove Abilità & Mini-Drone Alleato", "desc": "Sblocca Scatto Fasico, Schianto a Terra, Freno Temporale e il Mini-Drone automatico." },
-            { "icon": "🎯", "title": "6 Scenari Dinamici & 5 Boss Multifase", "desc": "Fuggi dai muri laser, usa ponti a fase, raccogli chiavi sigillo e apri gli Scrigni Reliquia!" },
-            { "icon": "🏆", "title": "Classifica Live Sincronizzata Su Tutti i Dispositivi", "desc": "Punteggi e livelli completati ora coincidono esattamente su telefono, tablet e account Family." },
-            { "icon": "🚀", "title": "Fluidità 120 FPS & Progressi Protetti", "desc": "Tutti i tuoi eroi, stelle e livelli sbloccati restano completamente al sicuro." }
+            { "icon": "🎆", "title": "Festa Animata Livello 100 Prima del Riepilogo", "desc": "Completando il livello 100 parte subito un portale animato con fuochi cyber che annuncia i 50 nuovi livelli di Oltremondo!" },
+            { "icon": "🚀", "title": "Passaggio Diretto al Livello 101 in 1 Tocco", "desc": "Avvia subito l'Oltremondo dalla schermata celebrativa o dal banner luminoso del popup vittoria." },
+            { "icon": "📷", "title": "Telecamera Verticale Ovunque (Sottolivelli Inclusi)", "desc": "Nei salti alti e nelle piattaforme sotterranee la telecamera segue l'eroe senza farlo mai entrare nella barra HUD superiore." },
+            { "icon": "⚡", "title": "5 Mondi Oltremondo (101–150) & 4 Nuovi Poteri", "desc": "Scatto Fasico, Schianto a Terra, Freno Temporale, Mini-Drone e Scrigni Reliquia!" },
+            { "icon": "🏆", "title": "Classifica Live Sincronizzata & Salvataggi Protetti", "desc": "Punteggi e livelli completati coincidono esattamente su ogni dispositivo." }
         ]
     },
     "es": {
-        "title": "🌌 v1.5.0 Más Allá: Sorpresa Nivel 100, 50 Nuevos Niveles y 4 Poderes",
-        "subtitle": "¡Supera el nivel 100 para abrir 5 nuevos mundos (101–150), 4 habilidades únicas y clasificación sincronizada!",
+        "title": "🌌 v1.5.1 Celebración Más Allá y Cámara Inteligente",
+        "subtitle": "¡Animación épica tras completar el nivel 100 antes del resumen de victoria, salto directo al nivel 101 y seguimiento vertical total!",
         "btnOk": "🚀 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
-            { "icon": "🌌", "title": "Celebración Nivel 100 y Mundos 11–15 (101–150)", "desc": "¡Descubre Atlántida Sumergida, Jungla Bioluminiscente, Torre Reloj, Refinería Ácida y Catedral Espejo!" },
-            { "icon": "⚡", "title": "4 Nuevas Habilidades y Mini-Dron Aliado", "desc": "Desbloquea Impulso de Fase, Golpe Sísmico, Freno Temporal y un Mini-Dron de apoyo contra 8 enemigos nuevos." },
-            { "icon": "🎯", "title": "6 Escenarios Dinámicos y 5 Jefes Multifase", "desc": "¡Escapa de muros láser, cambia puentes al saltar, reúne llaves sello y abre Cofres Reliquia!" },
-            { "icon": "🏆", "title": "Clasificación en Tiempo Real Entre Dispositivos", "desc": "Tu puntuación y progreso real ahora coinciden exactamente entre móviles, tabletas y cuentas familiares." },
-            { "icon": "🚀", "title": "Fluidez a 120 FPS y Progreso Protegido", "desc": "Todos tus niveles, héroes y monedas actuales permanecen intactos." }
+            { "icon": "🎆", "title": "Celebración Animada del Nivel 100 Antes del Resumen", "desc": "Al superar el nivel 100 aparece primero una escena animada con fuegos cibernéticos anunciando los 50 nuevos niveles del Más Allá." },
+            { "icon": "🚀", "title": "Salto Directo en 1 Toque al Nivel 101", "desc": "Empieza el Nivel 101 desde la celebración o desde el aviso luminoso del resumen de victoria." },
+            { "icon": "📷", "title": "Cámara Vertical Segura Bajo la Barra Superior", "desc": "La cámara sigue al personaje también en sub-plataformas y saltos elevados sin que el héroe se meta detrás de los botones superiores." },
+            { "icon": "⚡", "title": "5 Mundos del Más Allá (101–150) y 4 Poderes", "desc": "¡Impulso de Fase, Golpe Sísmico, Freno Temporal, Mini-Dron y Cofres Reliquia!" },
+            { "icon": "🏆", "title": "Clasificación Sincronizada y Progreso Protegido", "desc": "Puntuaciones y niveles reales coinciden en todos tus dispositivos." }
         ]
     },
     "fr": {
-        "title": "🌌 v1.5.0 Au-Delà : Surprise Niveau 100, 50 Niveaux & 4 Pouvoirs",
-        "subtitle": "Terminez le niveau 100 pour débloquer 5 nouveaux mondes (101–150), 4 capacités et un classement synchronisé !",
+        "title": "🌌 v1.5.1 Célébration Au-Delà & Caméra Intelligente",
+        "subtitle": "Animation festive dès le niveau 100 terminé avant le bilan, entrée directe au niveau 101 et suivi vertical complet sous le HUD !",
         "btnOk": "🚀 SUPER, C'EST PARTI !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
-            { "icon": "🌌", "title": "Fête du Niveau 100 & Mondes 11–15 (101–150)", "desc": "Explorez l'Atlantide, la Jungle Bioluminescente, la Tour Horlogère, la Raffinerie et la Cathédrale Miroir !" },
-            { "icon": "⚡", "title": "4 Nouvelles Capacités & Mini-Drone Allié", "desc": "Débloquez le Dash de Phase, la Frappe Sismique, le Chrono-Frein et un Mini-Drone face à 8 nouveaux ennemis." },
-            { "icon": "🎯", "title": "6 Scénarios Dynamiques & 5 Boss Multi-Phases", "desc": "Fuyez les murs laser, inversez les ponts en sautant, trouvez les clés et les Coffres Reliques !" },
-            { "icon": "🏆", "title": "Classement Temps Réel Synchronisé Sur Tous Appareils", "desc": "Vos scores et votre progression réelle sont désormais identiques sur mobile, tablette et comptes famille." },
-            { "icon": "🚀", "title": "Fluidité 120 IPS & Sauvegarde Préservée", "desc": "Toute votre progression, vos héros et vos pièces restent entièrement préservés." }
+            { "icon": "🎆", "title": "Célébration Animée Niveau 100 Avant le Bilan", "desc": "En terminant le niveau 100, un portail cyber animé et des feux d'artifice célèbrent l'ouverture des 50 nouveaux niveaux !" },
+            { "icon": "🚀", "title": "Accès Direct en 1 Touche au Niveau 101", "desc": "Lancez immédiatement le Niveau 101 depuis la célébration ou depuis la bannière lumineuse de victoire." },
+            { "icon": "📷", "title": "Suivi Vertical Universel Hors Zone HUD", "desc": "La caméra suit le héros même dans les sous-plateformes et les grands sauts sans jamais passer sous les boutons du haut." },
+            { "icon": "⚡", "title": "5 Nouveaux Mondes (101–150) & 4 Pouvoirs", "desc": "Dash de Phase, Frappe Sismique, Chrono-Frein, Mini-Drone et Coffres Reliques !" },
+            { "icon": "🏆", "title": "Classement Synchronisé & Sauvegarde Protégée", "desc": "Scores et progression réelle synchronisés avec précision sur tous vos appareils." }
         ]
     }
 };
