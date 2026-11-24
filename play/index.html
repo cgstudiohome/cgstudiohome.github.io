@@ -391,6 +391,10 @@
                     <div><span id="modal-stat-coin-label">Kristal:</span> <strong id="stat-coins" style="color:#00f2fe">0</strong> ◆</div>
                     <div><span id="modal-stat-score-label">Skor:</span> <strong id="stat-score">0</strong></div>
                 </div>
+                <div id="modal-act2-banner" class="modal-act2-banner hidden">
+                    <div id="modal-act2-banner-title" class="modal-act2-banner-title">🌌 YENİ EVREN AKTİF! 50 BÖLÜMLÜK ÖTE EVREN AÇILDI</div>
+                    <div id="modal-act2-banner-sub" class="modal-act2-banner-sub">5 yeni dünya, gizli yadigar sandıkları ve ⚡ Faz Atılması seni bekliyor — hemen keşfet!</div>
+                </div>
                 <div class="modal-buttons">
                     <button id="btn-ad-revive" class="primary-btn hidden" style="background: linear-gradient(135deg, #10b981, #059669); border: 2px solid #6ee7b7; box-shadow: 0 0 22px rgba(16, 185, 129, 0.55);">
                         🎬 REKLAM İZLE & KALDIĞIN YERDEN CANLAN (3 ♥ + 🛡)
@@ -912,28 +916,33 @@
             </div>
         </div>
 
-        <!-- 🎉 Level 100 Grand Celebration + Surprise Gift Chest Overlay -->
-        <div id="screen-act2-celebration" class="overlay-screen hidden" style="z-index: 9999; background: rgba(4, 6, 18, 0.94);">
-            <div class="modal-card act2-celebration-card" style="max-width: 620px; border: 2px solid #ffd166; box-shadow: 0 0 60px rgba(255, 209, 102, 0.42), 0 0 36px rgba(0, 242, 254, 0.25); position: relative; text-align: center;">
+        <!-- 🎉 Level 100 Animated Grand Celebration + Beyondverse Awakening -->
+        <div id="screen-act2-celebration" class="overlay-screen hidden" style="z-index: 9999; background: radial-gradient(circle at center, rgba(28, 12, 62, 0.94) 0%, rgba(4, 6, 18, 0.97) 75%);">
+            <canvas id="act2-cel-canvas" class="act2-cel-canvas"></canvas>
+            <div class="modal-card act2-celebration-card">
                 <button id="btn-close-act2-cel-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
-                <div class="act2-cel-crown">👑🌌🎁</div>
-                <h2 id="act2-cel-title" style="color: #ffd166; font-size: 23px; margin-bottom: 6px;">🎉 BÜYÜK FİNAL ZAFERİ! EVREN KURTARILDI!</h2>
-                <p id="act2-cel-sub" style="color: #e2e8f0; font-size: 13.5px; line-height: 1.5; margin-bottom: 12px;">
-                    100. Bölüm tamamlandı! Evren Hükümdarı'nın hazine mührü kırıldı — <strong>Dalga 1: Öte Evren (Bölüm 101–150)</strong> ve ilk özel yeteneğin açıldı!
+                <div class="act2-cel-portal-wrap">
+                    <div class="act2-cel-portal-ring"></div>
+                    <div class="act2-cel-crown">👑🌌</div>
+                </div>
+                <div id="act2-cel-badge" class="act2-cel-live-badge">⚡ YENİ EVREN AKTİF • 50 BÖLÜMLÜK ÖTE EVREN AÇILDI!</div>
+                <h2 id="act2-cel-title" style="color: #ffd166; font-size: 22px; margin-bottom: 8px;">🎉 BÜYÜK FİNAL ZAFERİ! ÖTE EVREN KAPISI AÇILDI!</h2>
+                <p id="act2-cel-sub" style="color: #e2e8f0; font-size: 13.5px; line-height: 1.55; margin-bottom: 12px;">
+                    100. Bölümü fethedip Evren Hükümdarı'nın mührünü kırdın! Sırlarla dolu <strong>50 Bölümlük Öte Evren (Bölüm 101–150)</strong> ve ilk özel yeteneğin <strong>⚡ Faz Atılması</strong> şimdi aktif!
                 </p>
                 <div id="act2-cel-rewards" class="act2-cel-rewards-grid">
                     <div class="cel-reward-pill" style="border-color:#ffd166; color:#ffd166;">✪ +1000 Coin</div>
                     <div class="cel-reward-pill" style="border-color:#06d6a0; color:#06d6a0;">❖ +250 Antik Zümrüt</div>
                     <div class="cel-reward-pill" style="border-color:#00f2fe; color:#00f2fe;">◆ +100 Kristal</div>
                     <div class="cel-reward-pill" style="border-color:#38bdf8; color:#bae6fd;">⚡ Faz Atılması Açıldı!</div>
-                    <div class="cel-reward-pill" style="border-color:#e0aaff; color:#e0aaff;">🌌 Dünya 11–15 (101–150)</div>
+                    <div class="cel-reward-pill" style="border-color:#e0aaff; color:#e0aaff;">🌌 50 Bölümlük Öte Evren Aktif!</div>
                 </div>
                 <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:14px;">
-                    <button id="btn-claim-act2-celebration" class="primary-btn" type="button" style="background: linear-gradient(135deg, #f59e0b, #7c3aed); border: 1.5px solid #fef08a; box-shadow: 0 0 28px rgba(245, 158, 11, 0.6);">
-                        🎁 SÜRPRİZ HEDİYEYİ AL VE ÖTE EVRENE GİR 🌌
+                    <button id="btn-claim-act2-celebration" class="primary-btn act2-cel-cta-btn" type="button">
+                        🚀 ÖTE EVRENE GEÇ — BÖLÜM 101'E BAŞLA! ▶
                     </button>
                     <button id="btn-close-act2-celebration" class="secondary-btn" type="button">
-                        HARİTADA KAL
+                        📊 ZAFER ÖZETİNE DEVAM ET
                     </button>
                 </div>
             </div>
