@@ -569,7 +569,7 @@ html, body {
     -webkit-text-fill-color: transparent;
 }
 
-/* 10 World / Action Zone Filter Bar + 100-Level Grid */
+/* 15 World / Action Zone Filter Bar (Draggable Scroll Strip) + 150-Level Grid */
 .world-tabs-bar {
     width: 100%;
     display: flex;
@@ -578,7 +578,16 @@ html, body {
     padding: 4px 2px;
     scrollbar-width: thin;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    user-select: none;
+    cursor: grab;
+    scroll-behavior: smooth;
     flex-shrink: 0;
+}
+
+.world-tabs-bar.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
 }
 
 .world-tab-btn {
@@ -595,6 +604,12 @@ html, body {
     flex-shrink: 0;
 }
 
+.world-tab-btn.act2-world-tab {
+    border-color: rgba(192, 132, 252, 0.55);
+    background: linear-gradient(135deg, rgba(46, 16, 101, 0.72), rgba(14, 24, 52, 0.9));
+    color: #e9d5ff;
+}
+
 .world-tab-btn:hover {
     border-color: var(--neon-gold);
     color: #ffffff;
@@ -605,6 +620,12 @@ html, body {
     border-color: var(--neon-cyan);
     color: #ffffff;
     box-shadow: 0 0 14px rgba(0, 242, 254, 0.45);
+}
+
+.world-tab-btn.act2-world-tab.active {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.55), rgba(0, 242, 254, 0.38));
+    border-color: #f0abfc;
+    box-shadow: 0 0 14px rgba(192, 132, 252, 0.55);
 }
 
 /* Feedback Modal Star & Category Chips */
