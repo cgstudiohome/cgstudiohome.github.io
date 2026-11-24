@@ -1940,6 +1940,10 @@ class Game {
             const data = this.mergeCloudSaveObjects(localObj, nativeObj);
             if (data) {
                 this.applySaveDataObject(data);
+            } else {
+                try {
+                    this._devAct2Override = localStorage.getItem("marinext_dev_act2_test") === "1";
+                } catch (e) {}
             }
         } catch (e) {
             // Ignore storage errors
@@ -1999,10 +2003,6 @@ class Game {
         this.act2Unlocked = Boolean(data.act2Unlocked);
         this.act2CelebrationClaimed = Boolean(data.act2CelebrationClaimed);
         this.unlockedAct2Levels = Math.max(1, Math.min(50, Number(data.unlockedAct2Levels) || 1));
-        this.selectedAct2Level = Math.max(0, Math.min(49, this.unlockedAct2Levels - 1));
-        if (this.selectedAct2WorldFilter >= 0) {
-            this.selectedAct2WorldFilter = Math.min(4, Math.floor(this.selectedAct2Level / 10));
-        }
         const loadedAct2Stars = Array.isArray(data.starsPerAct2Level) ? data.starsPerAct2Level : [];
         this.starsPerAct2Level = Array.from({ length: 50 }, (_, i) => Math.max(0, Math.min(3, Number(loadedAct2Stars[i]) || 0)));
         if (data.act2UnlockedAbilities && typeof data.act2UnlockedAbilities === "object") {
@@ -2016,7 +2016,33 @@ class Game {
         if (data.act2RelicsOpened && typeof data.act2RelicsOpened === "object") {
             this.act2RelicsOpened = { ...data.act2RelicsOpened };
         }
+        try {
+            this._devAct2Override = localStorage.getItem("marinext_dev_act2_test") === "1";
+        } catch (e) {}
         this.syncAct2Milestones();
+
+        const maxCampIdx = Math.max(0, Math.min(99, (this.unlockedLevels || 1) - 1));
+        this.selectedLevel = Number.isFinite(Number(data.lastSelectedLevel))
+            ? Math.max(0, Math.min(maxCampIdx, Number(data.lastSelectedLevel)))
+            : maxCampIdx;
+
+        const maxAct2Idx = Math.max(0, Math.min(49, (this.unlockedAct2Levels || 1) - 1));
+        this.selectedAct2Level = Number.isFinite(Number(data.lastSelectedAct2Level))
+            ? Math.max(0, Math.min(maxAct2Idx, Number(data.lastSelectedAct2Level)))
+            : maxAct2Idx;
+
+        const canAct2 = Boolean(this.act2Unlocked || this._devAct2Override);
+        if (canAct2) {
+            this.isAct2Mode = data.lastActiveMode === "campaign"
+                ? false
+                : (data.lastActiveMode === "act2" || (this.unlockedAct2Levels || 1) > 1 || this.act2CelebrationClaimed || this.unlockedLevels >= 100 || this._devAct2Override);
+        } else {
+            this.isAct2Mode = false;
+        }
+        this.selectedAct2WorldFilter = Math.min(4, Math.floor(this.selectedAct2Level / 10));
+        this.selectedWorldFilter = this.isAct2Mode
+            ? (10 + this.selectedAct2WorldFilter)
+            : Math.min(9, Math.floor(this.selectedLevel / 10));
         this.syncAnalyticsUserProperties();
     }
 
@@ -2107,11 +2133,21 @@ class Game {
             ownedItems: items,
             lifetimeBonusClaimed: Boolean(a.lifetimeBonusClaimed || b.lifetimeBonusClaimed),
             savedCheckpoint: newer.savedCheckpoint || a.savedCheckpoint || b.savedCheckpoint || null,
+            lastActiveMode: newer.lastActiveMode || a.lastActiveMode || b.lastActiveMode || "",
+            lastSelectedLevel: Number.isFinite(Number(newer.lastSelectedLevel)) ? Number(newer.lastSelectedLevel) : undefined,
+            lastSelectedAct2Level: Number.isFinite(Number(newer.lastSelectedAct2Level)) ? Number(newer.lastSelectedAct2Level) : undefined,
             updatedAt: Math.max(Number(a.updatedAt) || 0, Number(b.updatedAt) || 0, Date.now())
         };
     }
 
     buildSavePayloadObject() {
+        const resumeMode = this._pendingResumeAfterVictoryMode || (this.isAct2Mode ? "act2" : "campaign");
+        const resumeCamp = this._pendingResumeAfterVictoryMode === "campaign" && Number.isFinite(this._pendingResumeCampLevel)
+            ? this._pendingResumeCampLevel
+            : (this.selectedLevel || 0);
+        const resumeAct2 = this._pendingResumeAfterVictoryMode === "act2" && Number.isFinite(this._pendingResumeAct2Level)
+            ? this._pendingResumeAct2Level
+            : (this.selectedAct2Level || 0);
         return {
             appId: "com.cgstudiohome.marinext2100",
             schemaVersion: 5,
@@ -2121,6 +2157,9 @@ class Game {
             act2Unlocked: Boolean(this.act2Unlocked),
             act2CelebrationClaimed: Boolean(this.act2CelebrationClaimed),
             unlockedAct2Levels: this.unlockedAct2Levels || 1,
+            lastActiveMode: resumeMode,
+            lastSelectedLevel: Math.max(0, Math.min(99, Number(resumeCamp) || 0)),
+            lastSelectedAct2Level: Math.max(0, Math.min(49, Number(resumeAct2) || 0)),
             starsPerAct2Level: Array.isArray(this.starsPerAct2Level) ? this.starsPerAct2Level : Array(50).fill(0),
             act2UnlockedAbilities: this.act2UnlockedAbilities || { dash: false, slam: false, timeSlow: false, companionDrone: false },
             act2RelicsOpened: this.act2RelicsOpened || {},
@@ -2348,7 +2387,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 53;
+        const CURRENT_VERSION_CODE = 54;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -3014,110 +3053,157 @@ class Game {
         return `${loc.name} — ${d.signHint || ""}`;
     }
 
+    enableHorizontalDragScroll(el) {
+        if (!el || el._dragScrollBound) return;
+        el._dragScrollBound = true;
+        let isDown = false;
+        let startX = 0;
+        let startScroll = 0;
+        let moved = 0;
+
+        el.addEventListener("pointerdown", (e) => {
+            if (e.pointerType === "touch" || e.button !== 0) return;
+            isDown = true;
+            moved = 0;
+            startX = e.clientX;
+            startScroll = el.scrollLeft;
+            el.classList.add("is-dragging");
+        });
+        window.addEventListener("pointermove", (e) => {
+            if (!isDown) return;
+            const dx = e.clientX - startX;
+            moved = Math.max(moved, Math.abs(dx));
+            el.scrollLeft = startScroll - dx;
+        });
+        const stopDrag = () => {
+            if (!isDown) return;
+            isDown = false;
+            el.classList.remove("is-dragging");
+            if (moved > 6) {
+                el._suppressNextClick = true;
+                setTimeout(() => { el._suppressNextClick = false; }, 60);
+            }
+        };
+        window.addEventListener("pointerup", stopDrag);
+        window.addEventListener("pointercancel", stopDrag);
+        el.addEventListener("click", (e) => {
+            if (el._suppressNextClick) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }, true);
+    }
+
     buildWorldFilterTabs() {
         const tabsBar = document.getElementById("world-tabs-bar");
         if (!tabsBar) return;
+        this.enableHorizontalDragScroll(tabsBar);
         tabsBar.innerHTML = "";
         const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
         const wPrefix = t("worldTabPrefix") || "Dünya";
-        if (this.isAct2Mode) {
-            const act2AllLabel = t("act2WorldAll") || "🌌 Tümü (101-150)";
+        const act2Open = Boolean(this.act2Unlocked || this._devAct2Override);
+
+        const allLabel = act2Open
+            ? (t("act2WorldAllUnified") || "🌍 Tümü (1-150)")
+            : (t("worldAll") || "🌍 Tümü (1-100)");
+
+        const worldItems = [
+            { filterVal: -1, label: allLabel, isAct2: false },
+            { filterVal: 0, label: `💎 ${wPrefix} 1 (1-10)`, isAct2: false },
+            { filterVal: 1, label: `🌋 ${wPrefix} 2 (11-20)`, isAct2: false },
+            { filterVal: 2, label: `⚡ ${wPrefix} 3 (21-30)`, isAct2: false },
+            { filterVal: 3, label: `🌌 ${wPrefix} 4 (31-40)`, isAct2: false },
+            { filterVal: 4, label: `❄️ ${wPrefix} 5 (41-50)`, isAct2: false },
+            { filterVal: 5, label: `🧪 ${wPrefix} 6 (51-60)`, isAct2: false },
+            { filterVal: 6, label: `☁️ ${wPrefix} 7 (61-70)`, isAct2: false },
+            { filterVal: 7, label: `🏛️ ${wPrefix} 8 (71-80)`, isAct2: false },
+            { filterVal: 8, label: `🕳️ ${wPrefix} 9 (81-90)`, isAct2: false },
+            { filterVal: 9, label: `👑 ${wPrefix} 10 (91-100)`, isAct2: false }
+        ];
+
+        if (act2Open) {
             const act2Themes = Array.isArray(window.ACT2_WORLD_THEMES) ? window.ACT2_WORLD_THEMES : [];
-            const act2Tabs = [
-                act2AllLabel,
-                ...act2Themes.map((wt, wi) => {
-                    const startN = 101 + wi * 10;
-                    const endN = startN + 9;
-                    return `${wt.icon} ${wPrefix} ${wt.worldNum} (${startN}-${endN})`;
-                })
-            ];
-            act2Tabs.forEach((label, i) => {
-                const filterVal = i - 1;
-                const btn = document.createElement("button");
-                btn.type = "button";
-                btn.className = `world-tab-btn ${this.selectedAct2WorldFilter === filterVal ? "active" : ""}`;
-                btn.textContent = label;
-                btn.addEventListener("click", () => {
-                    this.selectedAct2WorldFilter = filterVal;
-                    window.sfx.coin();
-                    this.buildWorldFilterTabs();
-                    this.updateMapUI();
+            act2Themes.forEach((wt, wi) => {
+                const startN = 101 + wi * 10;
+                const endN = startN + 9;
+                worldItems.push({
+                    filterVal: 10 + wi,
+                    label: `${wt.icon} ${wPrefix} ${wt.worldNum} (${startN}-${endN})`,
+                    isAct2: true
                 });
-                tabsBar.appendChild(btn);
             });
+        }
+
+        let activeTabEl = null;
+        worldItems.forEach((item) => {
+            const isActive = this.selectedWorldFilter === item.filterVal;
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = `world-tab-btn${item.isAct2 ? " act2-world-tab" : ""}${isActive ? " active" : ""}`;
+            btn.textContent = item.label;
+            btn.addEventListener("click", () => {
+                this.selectedWorldFilter = item.filterVal;
+                if (item.filterVal === -1) {
+                    this.selectedAct2WorldFilter = -1;
+                } else if (item.filterVal >= 10) {
+                    this.isAct2Mode = true;
+                    this.selectedAct2WorldFilter = item.filterVal - 10;
+                    const maxA2 = Math.max(0, Math.min(49, (this.unlockedAct2Levels || 1) - 1));
+                    if (Math.floor(this.selectedAct2Level / 10) !== this.selectedAct2WorldFilter) {
+                        const worldStartA2 = this.selectedAct2WorldFilter * 10;
+                        if (worldStartA2 <= maxA2) {
+                            this.selectedAct2Level = Math.min(maxA2, worldStartA2 + 9);
+                        }
+                    }
+                } else {
+                    this.isAct2Mode = false;
+                    const maxCamp = Math.max(0, Math.min(99, (this.unlockedLevels || 1) - 1));
+                    if (Math.floor(this.selectedLevel / 10) !== item.filterVal && item.filterVal * 10 <= maxCamp) {
+                        this.selectedLevel = Math.min(maxCamp, item.filterVal * 10 + 9);
+                    }
+                }
+                this._pendingResumeAfterVictoryMode = "";
+                window.sfx.coin();
+                this.saveProgress(false);
+                this.buildWorldFilterTabs();
+                this.updateMapUI();
+            });
+            if (isActive) activeTabEl = btn;
+            tabsBar.appendChild(btn);
+        });
+
+        if (act2Open) {
             const wave2Btn = document.createElement("button");
             wave2Btn.type = "button";
-            wave2Btn.className = "world-tab-btn";
-            wave2Btn.style.opacity = "0.62";
+            wave2Btn.className = "world-tab-btn act2-world-tab";
+            wave2Btn.style.opacity = "0.68";
             wave2Btn.textContent = t("act2Wave2Soon") || "🔜 151-200 Dalga 2";
             wave2Btn.addEventListener("click", () => {
                 window.sfx.blockHit();
                 this.showQuickToast(t("act2Wave2Toast") || "🌌 Dünya 16–20 (Bölüm 151–200) Dalga 2 güncellemesiyle geliyor!", "#e0aaff");
             });
             tabsBar.appendChild(wave2Btn);
-            return;
         }
-        const allLabel = t("worldAll") || "🌍 Tümü (1-100)";
-        const worldShortTitles = [
-            allLabel,
-            `💎 ${wPrefix} 1 (1-10)`,
-            `🌋 ${wPrefix} 2 (11-20)`,
-            `⚡ ${wPrefix} 3 (21-30)`,
-            `🌌 ${wPrefix} 4 (31-40)`,
-            `❄️ ${wPrefix} 5 (41-50)`,
-            `🧪 ${wPrefix} 6 (51-60)`,
-            `☁️ ${wPrefix} 7 (61-70)`,
-            `🏛️ ${wPrefix} 8 (71-80)`,
-            `🕳️ ${wPrefix} 9 (81-90)`,
-            `👑 ${wPrefix} 10 (91-100)`
-        ];
-        worldShortTitles.forEach((label, i) => {
-            const filterVal = i - 1; // -1 for All, 0..9 for World 1..10
-            const btn = document.createElement("button");
-            btn.type = "button";
-            btn.className = `world-tab-btn ${this.selectedWorldFilter === filterVal ? "active" : ""}`;
-            btn.textContent = label;
-            btn.addEventListener("click", () => {
-                this.selectedWorldFilter = filterVal;
-                window.sfx.coin();
-                this.buildWorldFilterTabs();
-                this.updateMapUI();
+
+        if (activeTabEl && typeof activeTabEl.scrollIntoView === "function") {
+            requestAnimationFrame(() => {
+                try {
+                    activeTabEl.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                } catch (e) {}
             });
-            tabsBar.appendChild(btn);
-        });
+        }
     }
 
     buildMapNodes() {
         this.buildWorldFilterTabs();
         const container = document.getElementById("level-nodes-container");
+        if (!container) return;
         container.innerHTML = "";
-        if (this.isAct2Mode) {
-            const act2List = Array.isArray(window.ACT2_LEVEL_INFO) ? window.ACT2_LEVEL_INFO : [];
-            act2List.forEach((lvl, idx) => {
-                const loc = this.getLocalizedLevelInfo(idx, false, true);
-                const node = document.createElement("div");
-                node.className = `map-node ${lvl.isBossLevel ? "boss-node" : ""}`;
-                node.setAttribute("data-act2-level", idx);
-                node.innerHTML = `
-                    <div class="node-circle">${lvl.isBossLevel ? "☠" : (lvl.displayNumber || (101 + idx))}</div>
-                    <div class="node-label">${loc.shortName}</div>
-                    <div class="node-stars" id="stars-act2-${idx}">☆☆☆</div>
-                `;
-                node.addEventListener("click", () => {
-                    if (idx < this.unlockedAct2Levels) {
-                        this.selectedAct2Level = idx;
-                        window.sfx.coin();
-                        this.updateMapUI();
-                    }
-                });
-                container.appendChild(node);
-            });
-            return;
-        }
         window.LEVEL_INFO.forEach((lvl, idx) => {
             const loc = this.getLocalizedLevelInfo(idx, false);
             const node = document.createElement("div");
             node.className = `map-node ${lvl.isBossLevel ? "boss-node" : ""}`;
+            node.setAttribute("data-mode", "campaign");
             node.setAttribute("data-level", idx);
             node.innerHTML = `
                 <div class="node-circle">${lvl.isBossLevel ? "☠" : idx + 1}</div>
@@ -3126,13 +3212,53 @@ class Game {
             `;
             node.addEventListener("click", () => {
                 if (idx < this.unlockedLevels) {
+                    this.isAct2Mode = false;
                     this.selectedLevel = idx;
+                    this._pendingResumeAfterVictoryMode = "";
+                    if (this.selectedWorldFilter >= 10) {
+                        this.selectedWorldFilter = Math.floor(idx / 10);
+                    }
                     window.sfx.coin();
+                    this.saveProgress(false);
+                    this.buildWorldFilterTabs();
                     this.updateMapUI();
                 }
             });
             container.appendChild(node);
         });
+
+        const act2Open = Boolean(this.act2Unlocked || this._devAct2Override);
+        if (act2Open) {
+            const act2List = Array.isArray(window.ACT2_LEVEL_INFO) ? window.ACT2_LEVEL_INFO : [];
+            act2List.forEach((lvl, idx) => {
+                const loc = this.getLocalizedLevelInfo(idx, false, true);
+                const node = document.createElement("div");
+                node.className = `map-node act2-node ${lvl.isBossLevel ? "boss-node" : ""}`;
+                node.setAttribute("data-mode", "act2");
+                node.setAttribute("data-act2-level", idx);
+                node.innerHTML = `
+                    <div class="node-circle">${lvl.isBossLevel ? "☠" : (lvl.displayNumber || (101 + idx))}</div>
+                    <div class="node-label">${loc.shortName}</div>
+                    <div class="node-stars" id="stars-act2-${idx}">☆☆☆</div>
+                `;
+                node.addEventListener("click", () => {
+                    if (idx < this.unlockedAct2Levels) {
+                        this.isAct2Mode = true;
+                        this.selectedAct2Level = idx;
+                        this._pendingResumeAfterVictoryMode = "";
+                        this.selectedAct2WorldFilter = Math.floor(idx / 10);
+                        if (this.selectedWorldFilter >= 0 && this.selectedWorldFilter < 10) {
+                            this.selectedWorldFilter = 10 + this.selectedAct2WorldFilter;
+                        }
+                        window.sfx.coin();
+                        this.saveProgress(false);
+                        this.buildWorldFilterTabs();
+                        this.updateMapUI();
+                    }
+                });
+                container.appendChild(node);
+            });
+        }
     }
 
     buildTrollTierFilterTabs() {
@@ -4048,6 +4174,14 @@ class Game {
                     try {
                         localStorage.setItem("marinext_dev_mode", newDev);
                     } catch (e) {}
+                    const tDev = (k) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k) : "");
+                    this.showQuickToast(
+                        newDev === "1"
+                            ? (tDev("devMenuOpened") || "🔓 Geliştirici Test Menüsü AÇILDI")
+                            : (tDev("devMenuHidden") || "🔒 Geliştirici Test Menüsü GİZLENDİ"),
+                        newDev === "1" ? "#06d6a0" : "#ffd166",
+                        2800
+                    );
                     this.reinitAdMobForCurrentTrack();
                     this.updateSettingsUI();
                 }
@@ -4077,24 +4211,83 @@ class Game {
         if (btnTestAct2) {
             btnTestAct2.addEventListener("click", () => {
                 window.sfx.emerald();
-                this._devAct2Override = !this._devAct2Override;
-                if (this._devAct2Override) {
+                const nextOn = !this._devAct2Override;
+                const tAct = (k) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k) : "");
+                if (nextOn) {
+                    try {
+                        if (!localStorage.getItem("marinext_dev_act2_backup_v1")) {
+                            localStorage.setItem("marinext_dev_act2_backup_v1", JSON.stringify({
+                                unlockedLevels: this.unlockedLevels || 1,
+                                unlockedAct2Levels: this.unlockedAct2Levels || 1,
+                                act2Unlocked: Boolean(this.act2Unlocked),
+                                stars99: Number(this.starsPerLevel && this.starsPerLevel[99]) || 0,
+                                act2UnlockedAbilities: { ...(this.act2UnlockedAbilities || {}) },
+                                isAct2Mode: Boolean(this.isAct2Mode),
+                                selectedLevel: Number(this.selectedLevel) || 0,
+                                selectedAct2Level: Number(this.selectedAct2Level) || 0
+                            }));
+                        }
+                        localStorage.setItem("marinext_dev_act2_test", "1");
+                    } catch (e) {}
+                    this._devAct2Override = true;
                     this.act2Unlocked = true;
                     this.unlockedLevels = Math.max(this.unlockedLevels || 1, 100);
                     this.starsPerLevel[99] = Math.max(this.starsPerLevel[99] || 0, 1);
                     this.unlockedAct2Levels = 50;
                     this.act2UnlockedAbilities = { dash: true, slam: true, timeSlow: true, companionDrone: true };
                     this.isAct2Mode = true;
+                    this.selectedAct2WorldFilter = Math.min(4, Math.floor((this.selectedAct2Level || 0) / 10));
+                    this.selectedWorldFilter = 10 + this.selectedAct2WorldFilter;
                     this.saveProgress();
                     this.buildMapNodes();
                     this.updateMapUI();
-                    document.getElementById("screen-settings").classList.add("hidden");
-                    this.showQuickToast("🌌 Geliştirici Testi: Öte Evren (101-150) & 4 Yetenek Açıldı!", "#00f2fe", 4200);
+                    this.updateSettingsUI();
+                    this.showQuickToast(
+                        `${tAct("devTestAct2Label") || "🌌 ÖTE EVREN TEST:"} ${tAct("devTestStateOn") || "AÇIK ✓"} (101–150)`,
+                        "#00f2fe",
+                        3800
+                    );
                 } else {
-                    this.isAct2Mode = false;
+                    this._devAct2Override = false;
+                    try {
+                        localStorage.setItem("marinext_dev_act2_test", "0");
+                        const rawBk = localStorage.getItem("marinext_dev_act2_backup_v1");
+                        if (rawBk) {
+                            const bk = JSON.parse(rawBk);
+                            if (bk && typeof bk === "object") {
+                                this.unlockedLevels = Math.max(1, Math.min(100, Number(bk.unlockedLevels) || 1));
+                                this.unlockedAct2Levels = Math.max(1, Math.min(50, Number(bk.unlockedAct2Levels) || 1));
+                                if (Array.isArray(this.starsPerLevel)) {
+                                    this.starsPerLevel[99] = Number(bk.stars99) || 0;
+                                }
+                                this.act2Unlocked = Boolean(bk.act2Unlocked);
+                                this.act2UnlockedAbilities = (bk.act2UnlockedAbilities && typeof bk.act2UnlockedAbilities === "object")
+                                    ? { ...bk.act2UnlockedAbilities }
+                                    : { dash: false, slam: false, timeSlow: false, companionDrone: false };
+                                this.selectedLevel = Math.max(0, Math.min(this.unlockedLevels - 1, Number(bk.selectedLevel) || 0));
+                                this.selectedAct2Level = Math.max(0, Math.min(this.unlockedAct2Levels - 1, Number(bk.selectedAct2Level) || 0));
+                                this.isAct2Mode = Boolean(this.act2Unlocked && bk.isAct2Mode);
+                            }
+                            localStorage.removeItem("marinext_dev_act2_backup_v1");
+                        } else {
+                            this.syncAct2Milestones();
+                            if (!this.act2Unlocked) this.isAct2Mode = false;
+                        }
+                    } catch (e) {}
+                    this.syncAct2Milestones();
+                    this.selectedAct2WorldFilter = Math.min(4, Math.floor((this.selectedAct2Level || 0) / 10));
+                    this.selectedWorldFilter = this.isAct2Mode
+                        ? (10 + this.selectedAct2WorldFilter)
+                        : Math.min(9, Math.floor((this.selectedLevel || 0) / 10));
+                    this.saveProgress();
                     this.buildMapNodes();
                     this.updateMapUI();
-                    this.showQuickToast("🔒 Geliştirici Öte Evren Test Modu Kapatıldı", "#ffd166", 3000);
+                    this.updateSettingsUI();
+                    this.showQuickToast(
+                        `${tAct("devTestAct2Label") || "🌌 ÖTE EVREN TEST:"} ${tAct("devTestStateOff") || "KAPALI"}`,
+                        "#ffd166",
+                        3000
+                    );
                 }
             });
         }
@@ -4923,6 +5116,14 @@ class Game {
                 }
                 this.isTrollMode = false;
                 this.isAct2Mode = !this.isAct2Mode;
+                this._pendingResumeAfterVictoryMode = "";
+                if (this.isAct2Mode) {
+                    this.selectedAct2WorldFilter = Math.min(4, Math.floor(this.selectedAct2Level / 10));
+                    this.selectedWorldFilter = 10 + this.selectedAct2WorldFilter;
+                } else {
+                    this.selectedWorldFilter = Math.min(9, Math.floor(this.selectedLevel / 10));
+                }
+                this.saveProgress(false);
                 this.buildMapNodes();
                 this.updateMapUI();
                 if (this.isAct2Mode && !this.act2CelebrationClaimed) {
@@ -4974,13 +5175,17 @@ class Game {
             grantAct2FirstTimeGift(true);
             this._pendingLevel100VictoryModal = false;
             this._celFromLevel100Victory = false;
+            this._pendingResumeAfterVictoryMode = "";
             this.isTrollMode = false;
             this.isAct2Mode = true;
-            this.selectedAct2Level = 0;
-            this.selectedAct2WorldFilter = 0;
+            const maxA2Idx = Math.max(0, Math.min(49, (this.unlockedAct2Levels || 1) - 1));
+            const targetAct2Idx = Math.max(0, Math.min(maxA2Idx, Number(this.selectedAct2Level) || maxA2Idx));
+            this.selectedAct2Level = targetAct2Idx;
+            this.selectedAct2WorldFilter = Math.min(4, Math.floor(targetAct2Idx / 10));
+            this.selectedWorldFilter = 10 + this.selectedAct2WorldFilter;
             document.getElementById("screen-modal").classList.add("hidden");
             const tUi = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
-            this.startLevel(0, false, true);
+            this.startLevel(targetAct2Idx, false, true);
             this.showQuickToast(
                 tUi("act2EnterToast") || "🌌 ÖTE EVREN AKTİF! 50 Yeni Bölüm & ⚡ Faz Atılması Başladı!",
                 "#00f2fe",
@@ -5032,9 +5237,11 @@ class Game {
             } else if (this.selectedLevel === 99 && this.act2Unlocked) {
                 this.isTrollMode = false;
                 this.isAct2Mode = true;
-                this.selectedAct2Level = 0;
-                this.selectedAct2WorldFilter = 0;
-                this.startLevel(0, false, true);
+                const targetAct2Idx = Math.max(0, Math.min(49, (this.unlockedAct2Levels || 1) - 1));
+                this.selectedAct2Level = targetAct2Idx;
+                this.selectedAct2WorldFilter = Math.min(4, Math.floor(targetAct2Idx / 10));
+                this.selectedWorldFilter = 10 + this.selectedAct2WorldFilter;
+                this.startLevel(targetAct2Idx, false, true);
             } else {
                 const next = Math.min(99, this.selectedLevel + 1);
                 this.selectedLevel = next;
@@ -5437,8 +5644,8 @@ class Game {
         this.buildWorldFilterTabs();
         this.buildTrollTierFilterTabs();
 
-        const activeIdx = this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel;
-        const activeLoc = this.getLocalizedLevelInfo(activeIdx, this.isTrollMode);
+        const activeIdx = this.isAct2Mode ? this.selectedAct2Level : (this.isTrollMode ? this.selectedTrollLevel : this.selectedLevel);
+        const activeLoc = this.getLocalizedLevelInfo(activeIdx, this.isTrollMode, this.isAct2Mode);
         setTxt("hud-level-name", activeLoc.name);
 
         this._lastHudKey = null;
@@ -5695,23 +5902,50 @@ class Game {
         const btnToggleChannel = document.getElementById("btn-toggle-channel");
         const btnTestAd = document.getElementById("btn-test-ad");
         const btnTestAct2 = document.getElementById("btn-settings-test-act2");
-        const isDev = localStorage.getItem("marinext_dev_mode") === "1" || localStorage.getItem("marinext_test_track") === "internal";
+        const diagEl = document.getElementById("settings-analytics-diag");
+        const isDev = localStorage.getItem("marinext_dev_mode") === "1";
         if (btnToggleChannel) {
-            if (isDev) {
-                btnToggleChannel.classList.remove("hidden");
-            } else {
-                btnToggleChannel.classList.add("hidden");
-            }
+            btnToggleChannel.classList.toggle("hidden", !isDev);
         }
         if (btnTestAd) {
-            if (isDev) {
-                btnTestAd.classList.remove("hidden");
-            } else {
-                btnTestAd.classList.add("hidden");
-            }
+            btnTestAd.classList.toggle("hidden", !isDev);
         }
         if (btnTestAct2) {
             btnTestAct2.classList.toggle("hidden", !isDev);
+            const act2On = Boolean(this._devAct2Override);
+            const lblEl = document.getElementById("settings-test-act2-label");
+            const badgeEl = document.getElementById("settings-test-act2-badge");
+            if (lblEl) lblEl.textContent = t("devTestAct2Label") || "🌌 ÖTE EVREN TEST:";
+            if (badgeEl) {
+                badgeEl.textContent = act2On ? (t("devTestStateOn") || "AÇIK ✓") : (t("devTestStateOff") || "KAPALI");
+                badgeEl.style.background = act2On ? "rgba(6, 214, 160, 0.24)" : "rgba(148, 163, 184, 0.18)";
+                badgeEl.style.color = act2On ? "#6ee7b7" : "#cbd5e1";
+                badgeEl.style.borderColor = act2On ? "#06d6a0" : "rgba(148, 163, 184, 0.5)";
+            } else {
+                btnTestAct2.textContent = `${t("devTestAct2Label") || "🌌 ÖTE EVREN TEST:"} ${act2On ? (t("devTestStateOn") || "AÇIK ✓") : (t("devTestStateOff") || "KAPALI")}`;
+            }
+            btnTestAct2.style.borderColor = act2On ? "rgba(6, 214, 160, 0.85)" : "";
+        }
+        if (diagEl) {
+            diagEl.classList.toggle("hidden", !isDev);
+            if (isDev) {
+                let diagText = "📊 GA4: Web/MP";
+                let diagColor = "#93c5fd";
+                if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAnalyticsDiagnosticInfo === "function") {
+                    try {
+                        const dInfo = JSON.parse(window.MarinextCloudBridge.getAnalyticsDiagnosticInfo());
+                        if (dInfo && dInfo.hasInstanceId) {
+                            diagText = `📊 GA4: Aktif (ID: ${dInfo.instanceIdPrefix || "?"}…)`;
+                            diagColor = "#6ee7b7";
+                        } else {
+                            diagText = `📊 GA4: Kısıtlı/Beklemede${dInfo && dInfo.error ? " (" + dInfo.error + ")" : " (Family/GMS)"}`;
+                            diagColor = "#fcd34d";
+                        }
+                    } catch (e) {}
+                }
+                diagEl.textContent = diagText;
+                diagEl.style.color = diagColor;
+            }
         }
         try {
             const capAdMob = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.AdMob;
@@ -6559,7 +6793,8 @@ class Game {
 
     updateMapUI() {
         this.syncAct2Milestones();
-        if (!this.act2Unlocked && !this._devAct2Override && this.isAct2Mode) {
+        const isUnlocked = Boolean(this.act2Unlocked || this._devAct2Override);
+        if (!isUnlocked && this.isAct2Mode) {
             this.isAct2Mode = false;
         }
         if (this.selectedLevel >= this.unlockedLevels) {
@@ -6567,6 +6802,13 @@ class Game {
         }
         if (this.selectedAct2Level >= this.unlockedAct2Levels) {
             this.selectedAct2Level = Math.max(0, this.unlockedAct2Levels - 1);
+        }
+        if (!isUnlocked && this.selectedWorldFilter >= 10) {
+            this.selectedWorldFilter = Math.min(9, Math.floor(this.selectedLevel / 10));
+        }
+        const hasAct2Nodes = Boolean(document.querySelector('#level-nodes-container .map-node[data-mode="act2"]'));
+        if (hasAct2Nodes !== isUnlocked) {
+            this.buildMapNodes();
         }
         document.getElementById("map-wallet-coins").textContent = this.walletCoins;
         document.getElementById("map-wallet-emeralds").textContent = this.walletEmeralds;
@@ -6579,7 +6821,6 @@ class Game {
         const act2Icon = document.getElementById("act2-btn-icon");
         const act2Text = document.getElementById("act2-btn-text");
         if (act2Btn) {
-            const isUnlocked = Boolean(this.act2Unlocked || this._devAct2Override);
             act2Btn.classList.toggle("locked", !isUnlocked);
             act2Btn.classList.toggle("unlocked", isUnlocked);
             act2Btn.classList.toggle("active-mode", Boolean(isUnlocked && this.isAct2Mode));
@@ -6605,49 +6846,13 @@ class Game {
         }
 
         let selectedNodeEl = null;
-        if (this.isAct2Mode) {
-            document.querySelectorAll("#level-nodes-container .map-node").forEach((node, idx) => {
-                const worldIdx = Math.floor(idx / 10);
-                const visibleInFilter = this.selectedAct2WorldFilter === -1 || this.selectedAct2WorldFilter === worldIdx;
-                node.style.display = visibleInFilter ? "" : "none";
-                node.classList.toggle("unlocked", idx < this.unlockedAct2Levels);
-                const isSel = idx === this.selectedAct2Level;
-                node.classList.toggle("selected", isSel);
-                if (isSel && visibleInFilter) selectedNodeEl = node;
-                const labelEl = node.querySelector(".node-label");
-                if (labelEl) {
-                    labelEl.textContent = this.getLocalizedLevelInfo(idx, false, true).shortName;
-                }
-                const stars = (this.starsPerAct2Level && this.starsPerAct2Level[idx]) || 0;
-                const starEl = document.getElementById(`stars-act2-${idx}`);
-                if (starEl) {
-                    starEl.textContent = "★".repeat(stars) + "☆".repeat(3 - stars);
-                }
-            });
-            if (selectedNodeEl && typeof selectedNodeEl.scrollIntoView === "function") {
-                try {
-                    selectedNodeEl.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-                } catch (e) {}
-            }
-            const info = this.getLocalizedLevelInfo(this.selectedAct2Level, false, true);
-            document.getElementById("preview-world").textContent = info.world;
-            document.getElementById("preview-title").textContent = info.name;
-            document.getElementById("preview-desc").textContent = info.desc;
-            const playBtn = document.getElementById("btn-play-level");
-            if (playBtn) {
-                const dispN = info.displayNumber || (101 + this.selectedAct2Level);
-                playBtn.textContent = `${d.levelWord ? d.levelWord.toUpperCase() + " " + dispN + " • " : ""}${d.btnPlayLevel || "BÖLÜME BAŞLA ▶"}`;
-                playBtn.classList.add("play-btn-guiding");
-            }
-            return;
-        }
-
-        document.querySelectorAll("#level-nodes-container .map-node").forEach((node, idx) => {
+        document.querySelectorAll('#level-nodes-container .map-node[data-mode="campaign"]').forEach((node) => {
+            const idx = Number(node.getAttribute("data-level")) || 0;
             const worldIdx = Math.floor(idx / 10);
             const visibleInFilter = this.selectedWorldFilter === -1 || this.selectedWorldFilter === worldIdx;
             node.style.display = visibleInFilter ? "" : "none";
             node.classList.toggle("unlocked", idx < this.unlockedLevels);
-            const isSel = idx === this.selectedLevel;
+            const isSel = !this.isAct2Mode && idx === this.selectedLevel;
             node.classList.toggle("selected", isSel);
             if (isSel && visibleInFilter) selectedNodeEl = node;
             const labelEl = node.querySelector(".node-label");
@@ -6661,10 +6866,46 @@ class Game {
             }
         });
 
+        document.querySelectorAll('#level-nodes-container .map-node[data-mode="act2"]').forEach((node) => {
+            const idx = Number(node.getAttribute("data-act2-level")) || 0;
+            const worldIdx = 10 + Math.floor(idx / 10);
+            const visibleInFilter = isUnlocked && (this.selectedWorldFilter === -1 || this.selectedWorldFilter === worldIdx);
+            node.style.display = visibleInFilter ? "" : "none";
+            node.classList.toggle("unlocked", idx < this.unlockedAct2Levels);
+            const isSel = this.isAct2Mode && idx === this.selectedAct2Level;
+            node.classList.toggle("selected", isSel);
+            if (isSel && visibleInFilter) selectedNodeEl = node;
+            const labelEl = node.querySelector(".node-label");
+            if (labelEl) {
+                labelEl.textContent = this.getLocalizedLevelInfo(idx, false, true).shortName;
+            }
+            const stars = (this.starsPerAct2Level && this.starsPerAct2Level[idx]) || 0;
+            const starEl = document.getElementById(`stars-act2-${idx}`);
+            if (starEl) {
+                starEl.textContent = "★".repeat(stars) + "☆".repeat(3 - stars);
+            }
+        });
+
         if (selectedNodeEl && typeof selectedNodeEl.scrollIntoView === "function") {
-            try {
-                selectedNodeEl.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-            } catch (e) {}
+            requestAnimationFrame(() => {
+                try {
+                    selectedNodeEl.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+                } catch (e) {}
+            });
+        }
+
+        if (this.isAct2Mode) {
+            const info = this.getLocalizedLevelInfo(this.selectedAct2Level, false, true);
+            document.getElementById("preview-world").textContent = info.world;
+            document.getElementById("preview-title").textContent = info.name;
+            document.getElementById("preview-desc").textContent = info.desc;
+            const playBtn = document.getElementById("btn-play-level");
+            if (playBtn) {
+                const dispN = info.displayNumber || (101 + this.selectedAct2Level);
+                playBtn.textContent = `${d.levelWord ? d.levelWord.toUpperCase() + " " + dispN + " • " : ""}${d.btnPlayLevel || "BÖLÜME BAŞLA ▶"}`;
+                playBtn.classList.add("play-btn-guiding");
+            }
+            return;
         }
 
         const info = this.getLocalizedLevelInfo(this.selectedLevel, false);
@@ -6682,6 +6923,7 @@ class Game {
     startLevel(levelIdx, isTroll = this.isTrollMode, isAct2 = this.isAct2Mode) {
         this.clearAdPauseState();
         this.resizeCanvas();
+        this._pendingResumeAfterVictoryMode = "";
         this.isTrollMode = Boolean(isTroll);
         this.isAct2Mode = !this.isTrollMode && Boolean(isAct2);
         this._lastFailReason = "hazard_or_enemy";
@@ -6692,11 +6934,16 @@ class Game {
             data = window.createTrollLevelData(levelIdx);
         } else if (this.isAct2Mode && typeof window.createAct2LevelData === "function") {
             this.selectedAct2Level = levelIdx;
+            this.selectedAct2WorldFilter = Math.min(4, Math.floor(levelIdx / 10));
+            this.selectedWorldFilter = 10 + this.selectedAct2WorldFilter;
             data = window.createAct2LevelData(levelIdx);
+            this.saveProgress(false);
         } else {
             this.isAct2Mode = false;
             this.selectedLevel = levelIdx;
+            this.selectedWorldFilter = Math.min(9, Math.floor(levelIdx / 10));
             data = window.createLevelData(levelIdx);
+            this.saveProgress(false);
         }
         this.level = data;
         this.levelInfo = data.info;
@@ -7611,6 +7858,24 @@ class Game {
         document.getElementById("touch-controls").classList.add("hidden");
         document.getElementById("screen-modal").classList.add("hidden");
         document.getElementById("screen-map").classList.remove("hidden");
+        if (!this.isTrollMode) {
+            if (this._pendingResumeAfterVictoryMode === "act2" && Number.isFinite(this._pendingResumeAct2Level)) {
+                this.isAct2Mode = true;
+                this.selectedAct2Level = this._pendingResumeAct2Level;
+            } else if (this._pendingResumeAfterVictoryMode === "campaign" && Number.isFinite(this._pendingResumeCampLevel)) {
+                this.isAct2Mode = false;
+                this.selectedLevel = this._pendingResumeCampLevel;
+            }
+            this._pendingResumeAfterVictoryMode = "";
+            if (this.selectedWorldFilter !== -1) {
+                this.selectedWorldFilter = this.isAct2Mode
+                    ? (10 + Math.floor((this.selectedAct2Level || 0) / 10))
+                    : Math.floor((this.selectedLevel || 0) / 10);
+                this.selectedAct2WorldFilter = Math.floor((this.selectedAct2Level || 0) / 10);
+            }
+            this.saveProgress(false);
+        }
+        this.buildWorldFilterTabs();
         this.updateMapUI();
 
         // Check First-Run Privacy & Terms Consent
@@ -7910,6 +8175,8 @@ class Game {
             if (aIdx + 1 >= this.unlockedAct2Levels && this.unlockedAct2Levels < 50) {
                 this.unlockedAct2Levels = aIdx + 2;
             }
+            this._pendingResumeAfterVictoryMode = "act2";
+            this._pendingResumeAct2Level = Math.min(49, aIdx + 1);
             if (!this.act2UnlockedAbilities) this.act2UnlockedAbilities = {};
             if (aIdx === 9 && !this.act2UnlockedAbilities.slam) {
                 this.act2UnlockedAbilities.slam = true;
@@ -7939,11 +8206,16 @@ class Game {
                 this.act2Unlocked = true;
                 if (!this.act2UnlockedAbilities) this.act2UnlockedAbilities = {};
                 this.act2UnlockedAbilities.dash = true;
+                this._pendingResumeAfterVictoryMode = "act2";
+                this._pendingResumeAct2Level = Math.max(0, Math.min(49, (this.unlockedAct2Levels || 1) - 1));
                 if (firstTimeAct2 && window.MarinextAnalytics) {
                     window.MarinextAnalytics.logEvent("act2_unlocked", { level: 100 });
                     window.MarinextAnalytics.logEvent("ability_unlocked", { ability_id: "dash", level: 100 });
                 }
                 triggerAct2CelebrationNow = true;
+            } else {
+                this._pendingResumeAfterVictoryMode = "campaign";
+                this._pendingResumeCampLevel = Math.min(99, this.selectedLevel + 1);
             }
         }
         this.savedCheckpoint = null;
@@ -8447,8 +8719,8 @@ class Game {
         const stars = this.feedbackStars || 5;
         const cat = this.feedbackCategory || "Öneri & Yeni Fikir";
 
-        let appVerName = "1.5.2";
-        let appVerCode = 53;
+        let appVerName = "1.5.3";
+        let appVerCode = 54;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
                 const info = JSON.parse(window.MarinextCloudBridge.getAppVersionInfo());
@@ -8459,14 +8731,24 @@ class Game {
             } catch (e) {}
         }
 
+        const feedbackStageNum = this.isAct2Mode
+            ? (101 + (Number(this.selectedAct2Level) || 0))
+            : (this.isTrollMode ? ((Number(this.selectedTrollLevel) || 0) + 1) : ((Number(this.selectedLevel) || 0) + 1));
+        const feedbackStageLabel = this.isAct2Mode
+            ? `Beyondverse ${feedbackStageNum}/150`
+            : (this.isTrollMode ? `Troll ${feedbackStageNum}/50` : `Stage ${feedbackStageNum}/100`);
+
         const reportPayload = {
             app: "Marinext 2100",
             version: `${appVerName} (code ${appVerCode})`,
             stars,
             category: cat,
             message: rawText || "(Yıldız puanı gönderildi)",
-            level: this.selectedLevel + 1,
+            level: feedbackStageNum,
+            isAct2: Boolean(this.isAct2Mode),
+            isTroll: Boolean(this.isTrollMode),
             unlockedLevels: this.unlockedLevels,
+            unlockedAct2Levels: this.unlockedAct2Levels || 1,
             fpsMode: this.targetFps,
             timestamp: new Date().toISOString()
         };
@@ -8478,7 +8760,7 @@ class Game {
         } catch (e) {}
 
         const trTxt = (msg) => (typeof window.translateMarinextGameText === "function" ? window.translateMarinextGameText(msg, this.lang) : msg);
-        const summaryText = `[Marinext 2100 v${appVerName} • ${cat} • ${"★".repeat(stars)} • Stage ${this.selectedLevel + 1}/100] ${rawText}`;
+        const summaryText = `[Marinext 2100 v${appVerName} • ${cat} • ${"★".repeat(stars)} • ${feedbackStageLabel}] ${rawText}`;
 
         if (openPlayStore) {
             if (window.MarinextAnalytics) {
@@ -12419,7 +12701,10 @@ class Game {
             ctx.fillStyle = "rgba(233, 213, 255, 0.72)";
             ctx.font = "bold 12px sans-serif";
             ctx.textAlign = "center";
-            ctx.fillText("🙃 TERS YERÇEKİMİ ▲▲", rz.x + rz.w / 2, rz.y + 22);
+            const revGravTxt = typeof window.translateMarinextGameText === "function"
+                ? window.translateMarinextGameText("🙃 TERS YERÇEKİMİ ▲▲", this.lang)
+                : "🙃 TERS YERÇEKİMİ ▲▲";
+            ctx.fillText(revGravTxt, rz.x + rz.w / 2, rz.y + 22);
             ctx.restore();
         }
         for (const pb of (this.phaseBlocks || [])) {
@@ -12487,7 +12772,10 @@ class Game {
             ctx.font = "bold 13px sans-serif";
             ctx.textAlign = "center";
             ctx.fillStyle = sc.active ? "#d8f3dc" : "#e9d5ff";
-            ctx.fillText(sc.active ? "🍄 ZEHİRLİ SPOR!" : "🍄 ...", sc.x + sc.w / 2, sc.y + 20);
+            const sporeTxt = sc.active
+                ? (typeof window.translateMarinextGameText === "function" ? window.translateMarinextGameText("🍄 ZEHİRLİ SPOR!", this.lang) : "🍄 ZEHİRLİ SPOR!")
+                : "🍄 ...";
+            ctx.fillText(sporeTxt, sc.x + sc.w / 2, sc.y + 20);
             ctx.restore();
         }
         for (const sp of (this.shieldPads || [])) {
