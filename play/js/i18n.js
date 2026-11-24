@@ -6805,6 +6805,9 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
         itemEmerald: "{n} Antik Zümrüt (❖)",
         itemCrystal: "{n} Kristal (◆)",
         itemGold: "{n} Altın Coin (✪)",
+        itemKey: "{n} Mühür Anahtarı (🔑)",
+        itemEnemy: "{n} Düşman Temizle (⚔️)",
+        itemRelic: "{n} Gizli Sandık (💎)",
         conjunction: ", ",
         hudOpen: "🌀 KAPI AÇIK ✓",
         toastUnlocked: "🌀 BİTİRME KAPISI AÇILDI! GEÇEBİLİRSİN!",
@@ -6816,6 +6819,9 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
         itemEmerald: "{n} Ancient Emeralds (❖)",
         itemCrystal: "{n} Crystals (◆)",
         itemGold: "{n} Gold Coins (✪)",
+        itemKey: "{n} Seal Key (🔑)",
+        itemEnemy: "{n} Enemy Defeat (⚔️)",
+        itemRelic: "{n} Relic Chest (💎)",
         conjunction: ", ",
         hudOpen: "🌀 GATE OPEN ✓",
         toastUnlocked: "🌀 EXIT GATE UNLOCKED! ENTER NOW!",
@@ -6827,6 +6833,9 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
         itemEmerald: "고대 에메랄드(❖) {n}개",
         itemCrystal: "크리스탈(◆) {n}개",
         itemGold: "골드 코인(✪) {n}개",
+        itemKey: "봉인 열쇠(🔑) {n}개",
+        itemEnemy: "적 처치(⚔️) {n}명",
+        itemRelic: "유물 상자(💎) {n}개",
         conjunction: ", ",
         hudOpen: "🌀 게이트 열림 ✓",
         toastUnlocked: "🌀 출구 게이트가 열렸습니다! 통과하세요!",
@@ -6838,6 +6847,9 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
         itemEmerald: "古代エメラルド(❖) {n}個",
         itemCrystal: "クリスタル(◆) {n}個",
         itemGold: "ゴールドコイン(✪) {n}個",
+        itemKey: "封印の鍵(🔑) {n}個",
+        itemEnemy: "敵撃破(⚔️) {n}体",
+        itemRelic: "秘宝チェスト(💎) {n}個",
         conjunction: "・",
         hudOpen: "🌀 ゲート開放 ✓",
         toastUnlocked: "🌀 出口ゲート解放！さあクリアしよう！",
@@ -6849,6 +6861,9 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
         itemEmerald: "{n} 颗远古翡翠(❖)",
         itemCrystal: "{n} 个晶核(◆)",
         itemGold: "{n} 枚金币(✪)",
+        itemKey: "{n} 把封印钥匙(🔑)",
+        itemEnemy: "击败 {n} 名敌人(⚔️)",
+        itemRelic: "{n} 个秘宝宝箱(💎)",
         conjunction: "、",
         hudOpen: "🌀 大门已开启 ✓",
         toastUnlocked: "🌀 终点传送门已解锁！现在可以通关！",
@@ -6860,6 +6875,9 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
         itemEmerald: "{n} Древн. Изумрудов (❖)",
         itemCrystal: "{n} Кристаллов (◆)",
         itemGold: "{n} Монет (✪)",
+        itemKey: "{n} Ключ печати (🔑)",
+        itemEnemy: "Победить врагов: {n} (⚔️)",
+        itemRelic: "{n} Сундук реликвий (💎)",
         conjunction: ", ",
         hudOpen: "🌀 ВРАТА ОТКРЫТЫ ✓",
         toastUnlocked: "🌀 ВЫХОД ОТКРЫТ! ПРОХОДИ!",
@@ -6871,6 +6889,9 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
         itemEmerald: "{n} Smeraldi Antichi (❖)",
         itemCrystal: "{n} Cristalli (◆)",
         itemGold: "{n} Monete d'Oro (✪)",
+        itemKey: "{n} Chiave Sigillo (🔑)",
+        itemEnemy: "{n} Nemici da Battere (⚔️)",
+        itemRelic: "{n} Scrigno Reliquia (💎)",
         conjunction: ", ",
         hudOpen: "🌀 PORTALE APERTO ✓",
         toastUnlocked: "🌀 PORTALE APERTO! ENTRA ORA!",
@@ -6882,6 +6903,9 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
         itemEmerald: "{n} Esmeraldas Antiguas (❖)",
         itemCrystal: "{n} Cristales (◆)",
         itemGold: "{n} Monedas de Oro (✪)",
+        itemKey: "{n} Llave de Sello (🔑)",
+        itemEnemy: "Derrotar {n} Enemigos (⚔️)",
+        itemRelic: "{n} Cofre Reliquia (💎)",
         conjunction: ", ",
         hudOpen: "🌀 PORTAL ABIERTO ✓",
         toastUnlocked: "🌀 ¡PORTAL ABIERTO! ¡PUEDES PASAR!",
@@ -6893,6 +6917,9 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
         itemEmerald: "{n} Émeraudes Antiques (❖)",
         itemCrystal: "{n} Cristaux (◆)",
         itemGold: "{n} Pièces d'Or (✪)",
+        itemKey: "{n} Clé de Sceau (🔑)",
+        itemEnemy: "{n} Ennemis à Vaincre (⚔️)",
+        itemRelic: "{n} Coffre Relique (💎)",
         conjunction: ", ",
         hudOpen: "🌀 PORTAIL OUVERT ✓",
         toastUnlocked: "🌀 PORTAIL DÉVERROUILLÉ ! ENTREZ !",
@@ -6900,123 +6927,123 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.5.0" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.5.2" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🌌 v1.5.1 Öte Evren Kutlaması & Akıllı Kamera Güncellemesi",
-        "subtitle": "100. bölüm zaferinden hemen sonra açılan hareketli kutlama sahnesi, Bölüm 101'e doğrudan geçiş ve alt platform kamera iyileştirmeleri yayında!",
+        "title": "🛡️ v1.5.2 Öte Evren Denge, Mühür & Kapı Güncellemesi",
+        "subtitle": "Dünya 11–15'te gerçek mücadele! Uçarak bölüm atlama kapatıldı; Mühür Anahtarları, düşman temizleme ve Yadigar Sandıkları olmadan kapı artık açılmıyor!",
         "btnOk": "🚀 HARİKA, MACERAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            { "icon": "🎆", "title": "100. Bölüm Animasyonlu Kutlama & Yeni Evren Çağrısı", "desc": "100. bölümü bitirir bitirmez önce görkemli siber havai fişek kutlaması açılır; 50 bölümlük Öte Evren'in aktif olduğu müjdelenir!" },
-            { "icon": "🚀", "title": "Tek Tıkla Bölüm 101'e Kesintisiz Geçiş", "desc": "Kutlama ekranından ya da zafer özetindeki parlak çağrı butonundan doğrudan Öte Evren'in ilk macerası Bölüm 101'e atlayın." },
-            { "icon": "📷", "title": "Alt & Üst Platformlarda HUD-Güvenli Akıllı Kamera", "desc": "Alt asansör odalarında ve yüksek zıplamalarda kamera artık karakterinizi her an takip eder; kahramanınız üst bar ve butonların içine girmez." },
-            { "icon": "⚡", "title": "5 Yeni Öte Evren Dünyası (101–150) & 4 Özel Yetenek", "desc": "Faz Atılması, Zemin Darbesi, Krono-Fren, Mini-Drone Yoldaş ve gizli Yadigar Sandıkları ile maceraya devam edin!" },
-            { "icon": "🏆", "title": "Çoklu Cihaz Liderlik Tablosu & Tam Kayıt Koruması", "desc": "Google Family ve tüm telefon/tabletlerinizde puanlarınız ve gerçek bölüm ilerlemeniz anlık eşitlenir." }
+            { "icon": "🌊", "title": "Atlantis Dengeli Yüzüş & Mercan Mağara Tavanı", "desc": "Bölüm 101–110'da gökyüzünde sınırsız zıplayıp engelleri aşma kapatıldı; resif tavanı ve hava kabarcıklarıyla su altı parkurları gerçek oyuna kavuştu." },
+            { "icon": "🔒", "title": "Aşamalı Kilitlenen Öte Evren Çıkış Kapıları (101–150)", "desc": "Dünya 11'den 15'e ilerledikçe gereken Antik Zümrüt, Kristal, Altın Coin, düşman temizleme ve Mühür Anahtarı şartları giderek ağırlaşıyor!" },
+            { "icon": "🗝️", "title": "4 Mühürlü Kilitler & Gizli Yadigar Sandığı Şartı", "desc": "İleri dünyalarda 4 adede kadar Mühür Anahtarı ve gizli Yadigar Sandığı zorunluluğu devreye giriyor; tüm görevler bitmeden boyut kapısı açılmıyor." },
+            { "icon": "📊", "title": "Canlı Görev Çubuğu & Türkçe Kapı İpuçları", "desc": "Ekranın üstündeki sayaçta ve kilitli kapının üzerindeki konuşma balonunda kalan tüm anahtar, düşman, hazine ve sandık eksikleri anlık görünür." },
+            { "icon": "🎆", "title": "100. Bölüm Kutlaması & Akıllı Dikey Kamera", "desc": "100. bölümü bitirdiğinizde açılan animasyonlu kutlama ve alt odalarda üst bara girmeyen kamera takibiyle keyifli oyun deneyimi devam ediyor!" }
         ]
     },
     "en": {
-        "title": "🌌 v1.5.1 Beyondverse Awakening & Smart Camera Update",
-        "subtitle": "Animated Level 100 celebration before the victory popup, direct jump to Level 101, and HUD-safe vertical camera tracking everywhere!",
+        "title": "🛡️ v1.5.2 Beyondverse Gate Quotas & Atlantis Balance",
+        "subtitle": "Real challenge across Worlds 11–15! Flying straight over stages is blocked, and exit gates now unlock only after completing escalating stage objectives!",
         "btnOk": "🚀 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            { "icon": "🎆", "title": "Animated Level 100 Celebration Before Victory Popup", "desc": "Clearing Level 100 now triggers a neon portal & cyber fireworks celebration first, unveiling the newly opened 50-stage Beyondverse!" },
-            { "icon": "🚀", "title": "Seamless 1-Tap Entry Into Stage 101", "desc": "Jump straight from the celebration or the glowing victory callout into Beyondverse Level 101 with Phase Dash unlocked!" },
-            { "icon": "📷", "title": "Universal HUD-Safe Vertical Camera Tracking", "desc": "Camera now smoothly follows high jumps and upper steps inside underground elevator sub-chambers as well as main worlds — never behind the top HUD." },
-            { "icon": "⚡", "title": "5 Beyondverse Worlds (101–150) & 4 Special Powers", "desc": "Conquer 50 new stages, 8 new enemies, 5 multi-phase bosses, and secret Relic Chests with Phase Dash, Slam, Chrono-Brake & Mini-Drone!" },
-            { "icon": "🏆", "title": "Real-Time Family/Device Sync & Full Save Safety", "desc": "All scores, stars, heroes, and true completed levels synchronize cleanly across devices without losing any progress." }
+            { "icon": "🌊", "title": "Balanced Atlantis Swimming & Reef Cavern Ceiling", "desc": "Unlimited sky-jumping in World 11 (Stages 101–110) has been fixed with controlled swim kicks, Bubble Stations, and an underwater reef roof." },
+            { "icon": "🔒", "title": "Progressively Escalating Beyondverse Portal Locks (101–150)", "desc": "Moving from World 11 to 15 requires steadily larger shares of Ancient Emeralds, Crystals, Gold Coins, Seal Keys, and enemy clears." },
+            { "icon": "🗝️", "title": "Up to 4 Seal Keys & Mandatory Relic Chests", "desc": "Higher Beyondverse worlds require up to 4 Seal Keys and opening secret Relic Chests before the barred exit portal unlocks." },
+            { "icon": "📊", "title": "Live Requirement Tracker & Locked Portal Balloon", "desc": "Always see your remaining Keys, Emeralds, Crystals, Gold, Enemies, and Relic Chests right in the top HUD bar and portal balloon." },
+            { "icon": "🎆", "title": "Level 100 Celebration & HUD-Safe Smart Camera", "desc": "Includes animated Level 100 Beyondverse fireworks awakening and universal camera tracking across sub-chambers and high jumps." }
         ]
     },
     "ko": {
-        "title": "🌌 v1.5.1 비욘드버스 축하 연출 & 스마트 카메라 업데이트",
-        "subtitle": "100레벨 클리어 직후 펼쳐지는 애니메이션 축하 화면과 지하·상단 점프 시 HUD 침범 없는 카메라 추적이 적용되었습니다!",
+        "title": "🛡️ v1.5.2 비욘드버스 관문 조건 & 아틀란티스 밸런스",
+        "subtitle": "월드 11~15의 진짜 도전! 공중 비행 스킵이 차단되었으며, 열쇠·적 처치·유물 상자를 완수해야 출구 게이트가 열립니다!",
         "btnOk": "🚀 좋아요, 모험 시작!",
         "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            { "icon": "🎆", "title": "100레벨 클리어 전용 애니메이션 축하 화면", "desc": "승리 요약 팝업 전에 사이버 폭죽과 차원 포털 축하 화면이 먼저 열리며 50개 스테이지의 비욘드버스 개방을 알립니다!" },
-            { "icon": "🚀", "title": "원터치 101레벨 바로 시작", "desc": "축하 화면 또는 빛나는 승리 배너에서 곧장 비욘드버스 101레벨로 진입할 수 있습니다." },
-            { "icon": "📷", "title": "전 구간 & 지하 플랫폼 스마트 수직 카메라", "desc": "지하 엘리베이터 구역과 높은 점프에서도 카메라가 캐릭터를 추적하여 상단 UI 버튼과 겹치지 않습니다." },
-            { "icon": "⚡", "title": "신규 5대 월드 (101–150) & 4대 특수 능력", "desc": "페이즈 대시, 그라운드 슬램, 크로노 감속, 미니 드론 및 유물 상자를 탐험하세요." },
-            { "icon": "🏆", "title": "실시간 기기 간 순위표 & 저장 데이터 100% 보호", "desc": "가족 계정 및 여러 기기 간 점수와 클리어 스테이지가 정확하게 동기화됩니다." }
+            { "icon": "🌊", "title": "아틀란티스 균형 수영 & 산호 동굴 천장", "desc": "101~110스테이지의 무한 공중 도약을 제한하고 산호 천장과 거품 충전소를 통해 정통 수중 액션을 구현했습니다." },
+            { "icon": "🔒", "title": "월드 11→15 단계별 출구 게이트 잠금 강화", "desc": "월드가 진행될수록 고대 에메랄드, 크리스탈, 골드 코인, 봉인 열쇠, 적 처치 요구량이 점점 높아집니다." },
+            { "icon": "🗝️", "title": "최대 4개의 봉인 열쇠 & 필수 유물 상자", "desc": "후반 월드에서는 최대 4개의 봉인 열쇠와 숨겨진 유물 상자를 열어야 잠긴 포털이 개방됩니다." },
+            { "icon": "📊", "title": "실시간 관문 진행도 HUD & 다국어 안내", "desc": "상단 상태 바와 포털 말풍선에서 남은 열쇠, 보물, 적 처치, 상자 조건을 한눈에 확인할 수 있습니다." },
+            { "icon": "🎆", "title": "100레벨 축하 연출 & 스마트 카메라 포함", "desc": "100레벨 클리어 애니메이션 축하 및 지하 구역 HUD 보호 카메라가 함께 제공됩니다." }
         ]
     },
     "ja": {
-        "title": "🌌 v1.5.1 ビヨンドバース祝福演出＆スマートカメラ更新",
-        "subtitle": "レベル100クリア直後の動く祝福画面と、地下・高所ジャンプ時もHUDに被らないカメラ追従を実装しました！",
+        "title": "🛡️ v1.5.2 ビヨンドバース関門解放＆深海バランス調整",
+        "subtitle": "ワールド11〜15が本格攻略仕様に！空飛ぶスキップを封じ、鍵・敵撃破・秘宝チェストを達成してゴールを開放しよう！",
         "btnOk": "🚀 さあ、冒険へ！",
         "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            { "icon": "🎆", "title": "レベル100突破 アニメーション祝福演出", "desc": "リザルト画面の前にサイバー花火＆ポータル回転演出が先に開き、全50ステージの新次元ビヨンドバース解放を盛大にお知らせ！" },
-            { "icon": "🚀", "title": "ワンタップでレベル101へシームレス突入", "desc": "祝福画面や勝利バナーの専用ボタンから、そのまま新次元レベル101に挑戦できます。" },
-            { "icon": "📷", "title": "地下・高所ジャンプ対応 HUD保護スマートカメラ", "desc": "地下エレベーターエリアでも主ステージ同様にカメラが上方向へ追従し、キャラが上部バーやボタンに重なりません。" },
-            { "icon": "⚡", "title": "5つの新ワールド（101〜150）＆4大新能力", "desc": "フェーズダッシュ、グラウンドスラム、クロノ減速、ミニドローンと秘宝チェストが待ち受けます。" },
-            { "icon": "🏆", "title": "マルチ端末ランキング同期＆セーブ完全保護", "desc": "スマホ・タブレット間でスコアや進行度が常に正確に同期されます。" }
+            { "icon": "🌊", "title": "アトランティス泳法調整＆サンゴ洞窟の天井", "desc": "101〜110面の無限空中浮遊を修正し、回数制限付き泳ぎ・気泡ステーション・海底天井でコース攻略が楽しめます。" },
+            { "icon": "🔒", "title": "ワールド11→15へ段階的に増えるゴール条件", "desc": "進むにつれて必要な古代エメラルド・クリスタル・コイン・封印の鍵・敵撃破数が段階的にアップ！" },
+            { "icon": "🗝️", "title": "最大4本の封印の鍵＆必須秘宝チェスト", "desc": "後半ワールドでは最大4本の鍵と隠し秘宝チェストの開放もゴール解放条件に加わります。" },
+            { "icon": "📊", "title": "リアルタイム条件トラッカー＆案内吹き出し", "desc": "上部HUDバーと鎖付きゴールの吹き出しで、残り条件をいつでも正確に確認できます。" },
+            { "icon": "🎆", "title": "レベル100祝福演出＆スマートカメラ搭載", "desc": "レベル100突破時のアニメ祝福と地下室でもHUDに被らないカメラ追従も継続搭載。" }
         ]
     },
     "zh": {
-        "title": "🌌 v1.5.1 超维宇宙动画庆典 & 智能镜头追踪更新",
-        "subtitle": "第100关胜利后先展示动态次元庆典，全面优化地下室与高处跳跃镜头，再也不用担心角色进入顶部按钮栏！",
+        "title": "🛡️ v1.5.2 超维世界关卡通关条件 & 亚特兰蒂斯平衡",
+        "subtitle": "第11–15世界迎来真正挑战！高空飞跃跳关已被封印，集齐钥匙、击败敌人与开启秘宝宝箱方可开启传送门！",
         "btnOk": "🚀 太棒了，出发冒险！",
         "btnWeb": "🌐 查看完整更新日志 ↗",
         "items": [
-            { "icon": "🎆", "title": "第100关动态次元门与赛博烟花庆典", "desc": "通关第100关后，结算弹窗前将率先播放绚丽动画庆典，提示50关超维宇宙现已激活！" },
-            { "icon": "🚀", "title": "一键直达第101关超维新冒险", "desc": "可从庆典页或胜利摘要中的高亮横幅直接进入超维宇宙第101关。" },
-            { "icon": "📷", "title": "全场景HUD防遮挡智能纵向镜头", "desc": "地下电梯子空间与高台跳跃同样启用纵向镜头跟随，彻底避免角色遮挡顶部状态栏与按钮。" },
-            { "icon": "⚡", "title": "5大超维世界（101–150）与4项超能力", "desc": "携相位冲刺、重力震地、时空减速与迷你无人机伙伴征服50道新关卡与隐藏遗迹宝箱！" },
-            { "icon": "🏆", "title": "跨设备实时排行榜 & 存档100%安全", "desc": "手机、平板与家庭账号间的分数与真实通关进度精准同步。" }
+            { "icon": "🌊", "title": "亚特兰蒂斯平衡游泳与珊瑚洞窟顶部屏障", "desc": "修复101–110关无限空中飞越问题，新增海底岩顶与受控换气机制，重塑完整水下关卡体验。" },
+            { "icon": "🔒", "title": "第11至15世界逐级加码的传送门解锁条件", "desc": "随着世界推进，翡翠、晶核、金币、封印钥匙与清敌要求比例逐步提升！" },
+            { "icon": "🗝️", "title": "多达4把封印钥匙与必开秘宝宝箱", "desc": "高阶世界需要找齐最多4把封印钥匙并开启隐藏秘宝宝箱，方能解除终点传送门锁定。" },
+            { "icon": "📊", "title": "顶部HUD实时任务进度与门前缺项提示", "desc": "界面顶部与锁定传送门气泡实时显示剩余钥匙、宝物、敌人与宝箱数量。" },
+            { "icon": "🎆", "title": "第100关庆典动画 & 防遮挡智能镜头", "desc": "完整保留第100关霓虹烟花庆典与地下室防HUD遮挡智能纵向镜头。" }
         ]
     },
     "ru": {
-        "title": "🌌 v1.5.1 Праздник Запределья и умная камера",
-        "subtitle": "Анимированное празднование после 100 уровня, быстрый переход на 101 уровень и следящая камера на всех высотах и подземных этапах!",
+        "title": "🛡️ v1.5.2 Баланс Атлантиды и замки портала Запределья",
+        "subtitle": "Настоящее испытание в мирах 11–15! Перелёт через весь уровень закрыт, а портал требует ключей, побед и сундуков!",
         "btnOk": "🚀 ОТЛИЧНО, ВПЕРЁД!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
-            { "icon": "🎆", "title": "Анимационный праздник после победы на 100 уровне", "desc": "Перед экраном итогов запускается салют и портал с уведомлением об открытии новой вселенной из 50 уровней!" },
-            { "icon": "🚀", "title": "Мгновенный старт 101 уровня в один тап", "desc": "Переходите прямо в Запределье с экрана праздника или с яркого баннера в окне победы." },
-            { "icon": "📷", "title": "Умная вертикальная камера с защитой верхней панели", "desc": "Камера теперь плавно следует за персонажем даже в подземных отсеках и при высоких прыжках, не давая герою заходить под кнопки HUD." },
-            { "icon": "⚡", "title": "5 миров Запределья (101–150) и 4 способности", "desc": "Фазовый рывок, Удар о землю, Замедление времени, Мини-дрон и тайные сундуки реликвий!" },
-            { "icon": "🏆", "title": "Точная синхронизация рейтинга и защита сохранений", "desc": "Очки и прогресс всегда совпадают на всех устройствах." }
+            { "icon": "🌊", "title": "Сбалансированное плавание и свод пещеры в Атлантиде", "desc": "На этапах 101–110 убран бесконечный полёт по небу и добавлен рифовый потолок с контролем гребков." },
+            { "icon": "🔒", "title": "Возрастающие требования портала (Миры 11–15)", "desc": "С каждым новым миром растёт доля нужных изумрудов, кристаллов, монет, ключей и побеждённых врагов!" },
+            { "icon": "🗝️", "title": "До 4 ключей печати и обязательные сундуки реликвий", "desc": "В поздних мирах портал остаётся под решёткой, пока вы не соберёте до 4 ключей и не откроете тайный сундук." },
+            { "icon": "📊", "title": "Живой счётчик целей на панели и у врат", "desc": "Верхняя панель и подсказка у запертого портала сразу показывают, сколько ключей, врагов или сокровищ осталось." },
+            { "icon": "🎆", "title": "Салют 100 уровня и умная камера без перекрытия HUD", "desc": "Сохранены анимационный праздник после 100 уровня и плавная камера во всех подземных зонах." }
         ]
     },
     "it": {
-        "title": "🌌 v1.5.1 Festa Oltremondo & Telecamera Intelligente",
-        "subtitle": "Animazione celebrativa dopo il livello 100 prima del riepilogo vittoria, ingresso diretto al livello 101 e telecamera sicura ovunque!",
+        "title": "🛡️ v1.5.2 Equilibrio Atlantide & Sigilli Oltremondo",
+        "subtitle": "Vera sfida nei Mondi 11–15! Niente più scorciatoie in volo: i portali si aprono solo completando tutti gli obiettivi!",
         "btnOk": "🚀 FANTASTICO, GIOCHIAMO!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
-            { "icon": "🎆", "title": "Festa Animata Livello 100 Prima del Riepilogo", "desc": "Completando il livello 100 parte subito un portale animato con fuochi cyber che annuncia i 50 nuovi livelli di Oltremondo!" },
-            { "icon": "🚀", "title": "Passaggio Diretto al Livello 101 in 1 Tocco", "desc": "Avvia subito l'Oltremondo dalla schermata celebrativa o dal banner luminoso del popup vittoria." },
-            { "icon": "📷", "title": "Telecamera Verticale Ovunque (Sottolivelli Inclusi)", "desc": "Nei salti alti e nelle piattaforme sotterranee la telecamera segue l'eroe senza farlo mai entrare nella barra HUD superiore." },
-            { "icon": "⚡", "title": "5 Mondi Oltremondo (101–150) & 4 Nuovi Poteri", "desc": "Scatto Fasico, Schianto a Terra, Freno Temporale, Mini-Drone e Scrigni Reliquia!" },
-            { "icon": "🏆", "title": "Classifica Live Sincronizzata & Salvataggi Protetti", "desc": "Punteggi e livelli completati coincidono esattamente su ogni dispositivo." }
+            { "icon": "🌊", "title": "Nuoto Bilanciato ad Atlantide & Volta Corallina", "desc": "Bloccato il volo infinito sopra gli scenari 101–110 con tetto sottomarino naturale e nuoto controllato." },
+            { "icon": "🔒", "title": "Requisiti del Portale Crescenti dal Mondo 11 al 15", "desc": "Avanzando nei mondi aumentano Smeraldi, Cristalli, Monete, Chiavi Sigillo e nemici da sconfiggere!" },
+            { "icon": "🗝️", "title": "Fino a 4 Chiavi Sigillo & Scrigni Reliquia Obbligatori", "desc": "Nei mondi avanzati servono fino a 4 chiavi e l'apertura degli Scrigni Reliquia per sbloccare il portale." },
+            { "icon": "📊", "title": "Indicatore Obiettivi Live su HUD & Fumetto Portale", "desc": "Controlla subito nella barra superiore e vicino al portale sbarrato cosa manca per aprire il passaggio." },
+            { "icon": "🎆", "title": "Festa Animata Livello 100 & Telecamera Intelligente", "desc": "Include la celebrazione di fine livello 100 e la telecamera verticale protetta dal HUD ovunque." }
         ]
     },
     "es": {
-        "title": "🌌 v1.5.1 Celebración Más Allá y Cámara Inteligente",
-        "subtitle": "¡Animación épica tras completar el nivel 100 antes del resumen de victoria, salto directo al nivel 101 y seguimiento vertical total!",
+        "title": "🛡️ v1.5.2 Equilibrio en Atlántida y Sellos del Más Allá",
+        "subtitle": "¡Desafío real en los Mundos 11–15! Ya no se puede volar por encima: el portal se abre solo al cumplir las metas crecientes!",
         "btnOk": "🚀 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
-            { "icon": "🎆", "title": "Celebración Animada del Nivel 100 Antes del Resumen", "desc": "Al superar el nivel 100 aparece primero una escena animada con fuegos cibernéticos anunciando los 50 nuevos niveles del Más Allá." },
-            { "icon": "🚀", "title": "Salto Directo en 1 Toque al Nivel 101", "desc": "Empieza el Nivel 101 desde la celebración o desde el aviso luminoso del resumen de victoria." },
-            { "icon": "📷", "title": "Cámara Vertical Segura Bajo la Barra Superior", "desc": "La cámara sigue al personaje también en sub-plataformas y saltos elevados sin que el héroe se meta detrás de los botones superiores." },
-            { "icon": "⚡", "title": "5 Mundos del Más Allá (101–150) y 4 Poderes", "desc": "¡Impulso de Fase, Golpe Sísmico, Freno Temporal, Mini-Dron y Cofres Reliquia!" },
-            { "icon": "🏆", "title": "Clasificación Sincronizada y Progreso Protegido", "desc": "Puntuaciones y niveles reales coinciden en todos tus dispositivos." }
+            { "icon": "🌊", "title": "Nado Equilibrado en Atlántida y Techo de Arrecife", "desc": "Se eliminó el vuelo infinito sobre las fases 101–110 con techo submarino visible y saltos acuáticos medidos." },
+            { "icon": "🔒", "title": "Requisitos de Portal Crecientes del Mundo 11 al 15", "desc": "¡Al avanzar entre mundos suben las metas de Esmeraldas, Cristales, Monedas, Llaves y enemigos derrotados!" },
+            { "icon": "🗝️", "title": "Hasta 4 Llaves de Sello y Cofres Reliquia Obligatorios", "desc": "En los últimos mundos necesitarás hasta 4 llaves y abrir Cofres Reliquia para desbloquear el portal." },
+            { "icon": "📊", "title": "Rastreador en Vivo en la Barra Superior y Portal", "desc": "Visualiza en tiempo real cuántas llaves, enemigos, cofres o tesoros faltan junto a la meta y en pantalla." },
+            { "icon": "🎆", "title": "Celebración Nivel 100 y Cámara Segura Bajo el HUD", "desc": "Mantiene la escena animada del nivel 100 y el seguimiento vertical limpio en zonas subterráneas." }
         ]
     },
     "fr": {
-        "title": "🌌 v1.5.1 Célébration Au-Delà & Caméra Intelligente",
-        "subtitle": "Animation festive dès le niveau 100 terminé avant le bilan, entrée directe au niveau 101 et suivi vertical complet sous le HUD !",
+        "title": "🛡️ v1.5.2 Équilibre Atlantide & Portails de l'Au-Delà",
+        "subtitle": "Un vrai défi dans les Mondes 11–15 ! Plus de survol direct jusqu'à la sortie : accomplissez chaque objectif croissant !",
         "btnOk": "🚀 SUPER, C'EST PARTI !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
-            { "icon": "🎆", "title": "Célébration Animée Niveau 100 Avant le Bilan", "desc": "En terminant le niveau 100, un portail cyber animé et des feux d'artifice célèbrent l'ouverture des 50 nouveaux niveaux !" },
-            { "icon": "🚀", "title": "Accès Direct en 1 Touche au Niveau 101", "desc": "Lancez immédiatement le Niveau 101 depuis la célébration ou depuis la bannière lumineuse de victoire." },
-            { "icon": "📷", "title": "Suivi Vertical Universel Hors Zone HUD", "desc": "La caméra suit le héros même dans les sous-plateformes et les grands sauts sans jamais passer sous les boutons du haut." },
-            { "icon": "⚡", "title": "5 Nouveaux Mondes (101–150) & 4 Pouvoirs", "desc": "Dash de Phase, Frappe Sismique, Chrono-Frein, Mini-Drone et Coffres Reliques !" },
-            { "icon": "🏆", "title": "Classement Synchronisé & Sauvegarde Protégée", "desc": "Scores et progression réelle synchronisés avec précision sur tous vos appareils." }
+            { "icon": "🌊", "title": "Nage Équilibrée à Atlantide & Voûte Corallienne", "desc": "Le vol infini au-dessus des niveaux 101–110 est corrigé grâce à une voûte sous-marine et une nage maîtrisée." },
+            { "icon": "🔒", "title": "Exigences Progressives des Portails (Mondes 11 à 15)", "desc": "Plus vous progressez, plus il faut d'Émeraudes, Cristaux, Pièces, Clés et d'ennemis vaincus pour ouvrir la sortie !" },
+            { "icon": "🗝️", "title": "Jusqu'à 4 Clés de Sceau & Coffres Reliques Requis", "desc": "Les mondes avancés exigent jusqu'à 4 Clés de Sceau et l'ouverture des Coffres Reliques cachés." },
+            { "icon": "📊", "title": "Suivi en Direct dans le HUD & Bulle du Portail", "desc": "Voyez instantanément les clés, ennemis, coffres et trésors restants en haut de l'écran et devant la porte." },
+            { "icon": "🎆", "title": "Célébration Niveau 100 & Caméra Hors Zone HUD", "desc": "Conserve la célébration animée du niveau 100 et le suivi vertical fluide dans les sous-niveaux." }
         ]
     }
 };
