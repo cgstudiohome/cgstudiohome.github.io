@@ -2562,7 +2562,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 57;
+        const CURRENT_VERSION_CODE = 58;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2589,8 +2589,8 @@ class Game {
         try {
             // Multi-tier synchronized endpoint check (cgstudiohome -> cevatturk fallback)
             const versionEndpoints = [
-                "https://cgstudiohome.github.io/marinext2100/version.json?t=" + Date.now(),
-                "https://cgstudiohome.github.io/version.json?t=" + Date.now(),
+                "https://cgstudiohome.com/marinext2100/version.json?t=" + Date.now(),
+                "https://cgstudiohome.com/version.json?t=" + Date.now(),
                 "https://raw.githubusercontent.com/cgstudiohome/cgstudiohome.github.io/main/marinext2100/version.json?t=" + Date.now(),
                 "https://raw.githubusercontent.com/cevatturk/cevatturk.github.io/main/marinext2100/version.json?t=" + Date.now(),
                 "https://cevatturk.github.io/marinext2100/version.json?t=" + Date.now(),
@@ -2640,7 +2640,7 @@ class Game {
                     linkChangelog.onclick = (e) => {
                         e.preventDefault();
                         if (window.sfx && typeof window.sfx.coin === "function") window.sfx.coin();
-                        window.open("https://cgstudiohome.github.io/marinext2100/release-notes.html", "_blank", "noopener");
+                        window.open("https://cgstudiohome.com/marinext2100/release-notes.html", "_blank", "noopener");
                     };
                 }
                 if (btnDoUpdate) {
@@ -2698,7 +2698,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "57");
+                localStorage.setItem("marinext2100_last_seen_version", "58");
             } catch (e) {}
         };
 
@@ -2716,7 +2716,7 @@ class Game {
         if (btnWeb) {
             btnWeb.onclick = () => {
                 window.sfx.coin();
-                window.open("https://cgstudiohome.github.io/marinext2100/release-notes.html", "_blank", "noopener");
+                window.open("https://cgstudiohome.com/marinext2100/release-notes.html", "_blank", "noopener");
             };
         }
 
@@ -2727,7 +2727,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "57") {
+            if (hasConsent && lastSeenVer !== "58") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -4646,7 +4646,7 @@ class Game {
         if (btnVipTerms) {
             btnVipTerms.addEventListener("click", () => {
                 window.sfx.coin();
-                window.open("https://cgstudiohome.github.io/marinext2100/terms.html", "_blank", "noopener");
+                window.open("https://cgstudiohome.com/marinext2100/terms.html", "_blank", "noopener");
             });
         }
 
@@ -4678,7 +4678,7 @@ class Game {
                 window.sfx.powerUpSpawn();
                 try {
                     localStorage.setItem("marinext_privacy_consent_v1", String(Date.now()));
-                    localStorage.setItem("marinext2100_last_seen_version", "57");
+                    localStorage.setItem("marinext2100_last_seen_version", "58");
                 } catch (e) {}
                 const fcModal = document.getElementById("screen-first-consent");
                 if (fcModal) fcModal.classList.add("hidden");
@@ -9442,12 +9442,12 @@ class Game {
                 emptyFriendsBox.style.cssText = "background:rgba(0,242,254,0.08); border:1.5px dashed rgba(0,242,254,0.4); border-radius:12px; padding:18px 16px; text-align:center; color:#cbd5e1; margin:8px 0;";
                 emptyFriendsBox.innerHTML = `
                     <div style="font-size:32px; margin-bottom:6px;">👥</div>
-                    <div style="font-size:14px; font-weight:800; color:#ffd166; margin-bottom:4px;">Google Play Games Arkadaş Sıralaması</div>
+                    <div style="font-size:14px; font-weight:800; color:#ffd166; margin-bottom:4px;">${t("lbFriendsEmptyTitle") || "Google Play Games Arkadaş Sıralaması"}</div>
                     <div style="font-size:12px; line-height:1.5; color:#94a3b8; max-width:440px; margin:0 auto 12px auto;">
-                        Sıralamada henüz Marinext 2100 oynayan bir Play Games arkadaşınız görünmüyor. Google Play Games üzerinden arkadaşlarınızı ekleyerek anlık skorlarınızı karşılaştırabilir ve zirve için yarışabilirsiniz!
+                        ${t("lbFriendsEmptyDesc") || "Sıralamada henüz Marinext 2100 oynayan bir Play Games arkadaşınız görünmüyor. Google Play Games üzerinden arkadaşlarınızı ekleyerek anlık skorlarınızı karşılaştırabilir ve zirve için yarışabilirsiniz!"}
                     </div>
                     <button type="button" id="btn-empty-friends-action" class="secondary-btn" style="padding:8px 16px; font-size:12.5px; font-weight:800; border-color:#06d6a0; color:#06d6a0; background:rgba(6,214,160,0.12); cursor:pointer;">
-                        🎮 Play Games Resmi Sıralama Ekranını Aç
+                        ${t("lbFriendsEmptyBtn") || "🎮 Play Games Resmi Sıralama Ekranını Aç"}
                     </button>
                 `;
                 rowsContainer.appendChild(emptyFriendsBox);
