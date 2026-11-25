@@ -6936,120 +6936,120 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
 // Full 9-Language "What's New in v1.5.5" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "⚖️ v1.5.5 Adil Liderlik İzolasyonu & En İleri Bölümden Devam",
-        "subtitle": "Dahili test skorları genel sıralamadan ayrıldı, tüm cihazlarda puanlar eşitlendi ve oyun açılışta daima ulaştığınız en ileri bölümden açılıyor!",
+        "title": "🏅 v1.5.6 Resmi Play Games Başarımları & Öte Evren",
+        "subtitle": "11 resmi Google Play Games Başarımı (1.000 XP), Öte Evren & Yadigar Sandığı kupaları ve %100 seçili dilinizde oyun içi uyarılar oyuna eklendi!",
         "btnOk": "🚀 HARİKA, MACERAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            { "icon": "⚖️", "title": "Dahili Test ve Genel Sıralama Tam Ayrıldı", "desc": "Test kanalındaki deneme skorları ve başarımlar artık yalnızca dahili test listesinde görünür; genel oyuncu sıralamasının adaleti %100 korunur." },
-            { "icon": "🏆", "title": "Tüm Cihazlarda Eşit ve Güncel Puanlar", "desc": "Telefon ve tabletlerde eski yüksek puan kayıtlarının güncel tabloyu ezmesi ve boş yer tutucu hesapların listelenmesi tamamen engellendi." },
-            { "icon": "🧭", "title": "Daima Ulaştığınız En İleri Bölümden Açılış", "desc": "Öte Evren'e geçmiş olsanız da olmasanız da, daha önce eski bir bölümü tekrar oynadıktan sonra oyunu kapatıp açsanız bile daima açık en son bölümünüz hazır gelir." },
-            { "icon": "🧪", "title": "Öte Evren Testi Açıkken Kesintisiz İlerleme", "desc": "Öte Evren'i hak eden oyuncular test anahtarı açıkken gerçek bölümlerini oynamaya ve kendi sıralamalarını güvenle ilerletmeye devam edebilir." },
-            { "icon": "🌍", "title": "15 Dünya Şeridi & 9 Dilde Akıcı 120 FPS", "desc": "Dünya 1–15 arası sürüklenebilir yatay harita, evren geçişleri ve 9 dil desteği kararlı biçimde geliştirildi." }
+            { "icon": "🏅", "title": "11 Resmi Google Play Games Başarımı (1.000 XP)", "desc": "İlk Zafer'den Evrenin Hükümdarı'na kadar tüm ana sefer kupaları artık resmi Google Play Games profilinize XP olarak işleniyor." },
+            { "icon": "🌌", "title": "3 Yeni Öte Evren ve Yadigar Başarımı", "desc": "Öte Evren Kaşifi (100 XP), Yadigar Avcısı (100 XP) ve Öte Evren Fatihi (150 XP) başarımlarıyla 101–150. bölüm ustalığınızı taçlandırın." },
+            { "icon": "💬", "title": "Seçili Dilinizde Akıcı Oyun İçi Bildirimler", "desc": "Eksik Mühür kapısı uyarıları, Yadigar Sandığı ganimet bildirimleri ve başarı rozetleri artık 9 dilde eksiksiz görüntülenir." },
+            { "icon": "🎮", "title": "Tek Dokunuşla Play Games Kupa Vitrini", "desc": "Ayarlar menüsünden resmi Play Games Başarımlar ekranını anında açıp kazanılan kupaları ve XP ilerlemenizi takip edin." },
+            { "icon": "⚖️", "title": "Adil Sıralama Koruması & 120 FPS Akıcılık", "desc": "Dahili test izolasyonu ve tüm cihazlarda eşitlenen skorlar korunurken 200 bölümlük evrende akıcı performans güçlendirildi." }
         ]
     },
     "en": {
-        "title": "⚖️ v1.5.5 Fair Leaderboard Isolation & Frontier Resume",
-        "subtitle": "Internal test rankings are now completely separated from public leaderboards, scores match across every device, and launches always open at your furthest stage!",
+        "title": "🏅 v1.5.6 Official Play Games Achievements & Beyondverse",
+        "subtitle": "11 official Google Play Games Achievements (1,000 XP), Beyondverse & Relic Hunter trophies, and full 9-language in-game alerts have arrived!",
         "btnOk": "🚀 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            { "icon": "⚖️", "title": "Complete Internal Test Leaderboard Isolation", "desc": "Test accounts on the internal channel now compete in an isolated test board and never push test scores or achievements to public Play Games rankings." },
-            { "icon": "🏆", "title": "Consistent Scores & Cleared Stages Across Every Device", "desc": "Stale high-water scores can no longer overwrite updated leaderboard rankings on phones or tablets, and zero-progress placeholders are filtered out." },
-            { "icon": "🧭", "title": "Always Open at Your Highest Unlocked Frontier", "desc": "Whether you are in Campaign (1–100) or Beyondverse (101–150), reopening the app after replaying an earlier stage always brings you straight to your latest unlocked stage." },
-            { "icon": "🧪", "title": "Safe Testing Alongside Real Beyondverse Progression", "desc": "Players who genuinely unlocked Beyondverse can keep playing real stages smoothly without losing their active frontier or leaderboard accuracy." },
-            { "icon": "🌍", "title": "Unified 15-World Strip & Smooth 120 FPS", "desc": "Scroll freely between Worlds 1–15, switch any stage afterward, and enjoy full 9-language clarity." }
+            { "icon": "🏅", "title": "11 Official Google Play Games Achievements (1,000 XP)", "desc": "Every milestone from First Blood to Ruler of the Universe now syncs straight to your Google Play Games profile with 1,000 total XP." },
+            { "icon": "🌌", "title": "3 New Beyondverse & Relic Hunter Achievements", "desc": "Unlock Beyondverse Explorer (100 XP), Relic Hunter (100 XP), and Beyondverse Conqueror (150 XP) across Stages 101–150." },
+            { "icon": "💬", "title": "100% Localized In-Game Floating Alerts", "desc": "Missing Seal Portal warnings, Relic Chest reward popups, and achievement banners now display cleanly in your chosen language." },
+            { "icon": "🎮", "title": "Instant Play Games Trophy Showcase", "desc": "Open your official Play Games Achievements drawer right from Settings to track unlocked badges and profile XP." },
+            { "icon": "⚖️", "title": "Protected Fair Rankings & Crisp 120 FPS", "desc": "Public leaderboard fairness stays isolated from internal tests while the 200-stage campaign & Beyondverse run smoother than ever." }
         ]
     },
     "ko": {
-        "title": "⚖️ v1.5.5 공정한 순위표 분리 & 최신 스테이지 즉시 복귀",
-        "subtitle": "내부 테스트 순위가 공개 리더보드와 완전히 분리되었고, 모든 기기에서 동일한 최신 점수와 최고 해금 스테이지로 바로 이어집니다!",
+        "title": "🏅 v1.5.6 공식 Play Games 업적 & 비욘드버스",
+        "subtitle": "총 1,000 XP를 제공하는 공식 Google Play Games 업적 11종과 비욘드버스·유물 트로피, 9개 언어 실시간 알림이 추가되었습니다!",
         "btnOk": "🚀 좋아요, 모험 시작!",
         "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            { "icon": "⚖️", "title": "내부 테스트와 공개 리더보드 완전 분리", "desc": "내부 테스트 채널의 테스트 기록은 전용 테스트 보드에만 표시되어 공개 Play Games 랭킹의 공정성을 100% 보호합니다." },
-            { "icon": "🏆", "title": "모든 기기에서 일치하는 최신 점수 및 진행도", "desc": "과거 최고 점수가 최신 순위표를 덮어쓰는 현상을 막고, 진행도 없는 빈 계정 표시를 모두 제거했습니다." },
-            { "icon": "🧭", "title": "언제나 최고 해금 스테이지로 바로 시작", "desc": "이전 스테이지를 다시 플레이하고 앱을 닫아도 재실행 시 항상 가장 멀리 진행한 최신 스테이지가 열립니다." },
-            { "icon": "🧪", "title": "비욘드버스 테스트와 실제 진행의 완벽한 양립", "desc": "비욘드버스를 해금한 플레이어는 테스트 스위치가 켜져 있어도 실제 스테이지 진행이 안전하게 반영됩니다." },
-            { "icon": "🌍", "title": "15월드 통합 스크롤 & 120 FPS 안정화", "desc": "월드 1–15 탐색, 9개 언어 지원 및 부드러운 프레임이 더욱 안정적으로 동작합니다." }
+            { "icon": "🏅", "title": "공식 Google Play Games 업적 11종 (1,000 XP)", "desc": "첫 승리부터 우주의 지배자까지 모든 도전 과제가 이제 Google Play Games 프로필에 공식 XP로 바로 기록됩니다." },
+            { "icon": "🌌", "title": "새로운 비욘드버스 & 유물 사냥꾼 업적 3종", "desc": "101~150 스테이지에서 비욘드버스 탐험가(100 XP), 유물 사냥꾼(100 XP), 비욘드버스 정복자(150 XP)를 달성해 보세요." },
+            { "icon": "💬", "title": "모든 게임 내 알림 9개 언어 완벽 현지화", "desc": "부족한 봉인 열쇠 안내, 유물 상자 보상 문구, 업적 배너가 선택한 언어로 선명하게 표시됩니다." },
+            { "icon": "🎮", "title": "설정에서 바로 여는 공식 업적 트로피함", "desc": "설정 메뉴에서 공식 Play Games 업적 창을 즉시 열어 획득한 트로피와 XP를 확인할 수 있습니다." },
+            { "icon": "⚖️", "title": "공정한 공개 순위 보호 & 120 FPS 최적화", "desc": "내부 테스트 격리와 기기 간 정확한 점수 동기화가 유지되며 200개 스테이지 전체가 더욱 쾌적해졌습니다." }
         ]
     },
     "ja": {
-        "title": "⚖️ v1.5.5 公平な順位分離＆到達最前線からの再開",
-        "subtitle": "社内テスト用の順位表を公開ランキングから完全分離！全端末で同じ最新スコアが表示され、起動時は常に最前線ステージから始まります！",
+        "title": "🏅 v1.5.6 公式Play Games実績＆ビヨンドバース",
+        "subtitle": "合計1,000 XPのGoogle Play Games公式実績11種、ビヨンドバース＆遺物ハンター実績、全9言語のゲーム内通知を実装！",
         "btnOk": "🚀 さあ、冒険へ！",
         "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            { "icon": "⚖️", "title": "内部テスト順位と公開ランキングの完全分離", "desc": "内部テストのスコアや実績はテスト専用リストに隔離され、一般プレイヤー向けランキングの公平性が守られます。" },
-            { "icon": "🏆", "title": "全端末で一致する正確なスコアとクリア数", "desc": "過去の固定スコアが最新データを上書きする問題を解消し、進行ゼロの仮アカウントも非表示にしました。" },
-            { "icon": "🧭", "title": "起動時は常に最高解放ステージへ直行", "desc": "1〜100面でもビヨンドバース101〜150面でも、前の面を遊んだ後に再起動すれば必ず最前線の未クリア面が開きます。" },
-            { "icon": "🧪", "title": "ビヨンドバース試遊中も本編進行を安全保護", "desc": "ビヨンドバース解放済みのプレイヤーはテスト表示中でも正規ステージを快適に進められます。" },
-            { "icon": "🌍", "title": "15ワールド帯＆全9言語 120 FPS 対応", "desc": "横スクロール可能な全15ワールドと9言語の通知ラベルがさらに洗練されました。" }
+            { "icon": "🏅", "title": "Google Play Games公式実績 11種（合計1,000 XP）", "desc": "ファーストブラッドから宇宙の支配者まで、達成した実績がGoogle Play Gamesプロフィールに公式XPとして同期されます。" },
+            { "icon": "🌌", "title": "新ビヨンドバース＆遺物ハンター実績 3種追加", "desc": "101〜150面で「ビヨンドバース探検家 (100 XP)」「遺物ハンター (100 XP)」「ビヨンドバース征服者 (150 XP)」に挑戦しよう！" },
+            { "icon": "💬", "title": "ゲーム内ポップアップを全9言語に完全対応", "desc": "封印鍵不足の警告や遺物チェスト獲得メッセージが、選択中の言語で自然に即時表示されます。" },
+            { "icon": "🎮", "title": "公式Play Games実績一覧へワンタップ移動", "desc": "設定画面からPlay Games実績ドロワーを直接開き、獲得トロフィーとXP進捗をいつでも確認できます。" },
+            { "icon": "⚖️", "title": "公平なランキング保護＆120 FPSの快適動作", "desc": "公開ランキングとテスト環境の完全分離を維持しつつ、全200ステージの描画と操作感をさらに磨きました。" }
         ]
     },
     "zh": {
-        "title": "⚖️ v1.5.5 公平排行榜隔离与最高进度直达",
-        "subtitle": "内部测试榜已与公开排行榜彻底隔离，所有设备同步显示真实一致的分数，且每次启动必直达已解锁的最新关卡！",
+        "title": "🏅 v1.5.6 官方 Play Games 成就与超维宇宙",
+        "subtitle": "11项官方 Google Play Games 成就（共 1,000 XP）、超维与遗物宝箱奖杯以及 9 种语言完整游戏内提示正式上线！",
         "btnOk": "🚀 太棒了，出发冒险！",
         "btnWeb": "🌐 查看完整更新日志 ↗",
         "items": [
-            { "icon": "⚖️", "title": "内部测试榜与公开排行榜完全隔离", "desc": "内部测试频道的试玩成绩仅在独立测试榜内显示，不再提交至公开排行榜，确保所有真实玩家排名绝对公平。" },
-            { "icon": "🏆", "title": "手机与平板显示完全一致的分数与关卡", "desc": "防止旧历史最高分覆盖已修复的实时排行榜，同时彻底过滤零进度的空账户记录。" },
-            { "icon": "🧭", "title": "每次重启始终直达最高已解锁关卡", "desc": "重玩前期关卡或切换宇宙后退出游戏，再次打开都会直接停留在你推进到的最远主线或超维关卡。" },
-            { "icon": "🧪", "title": "超维测试开关与真实推图互不干扰", "desc": "已解锁超维宇宙的玩家在测试模式下仍可安全推进真实关卡并保护历史星级。" },
-            { "icon": "🌍", "title": "15大世界导航条与 120 FPS 丝滑体验", "desc": "1–15世界顺畅横向切换与9种语言提示信息进一步完善。" }
+            { "icon": "🏅", "title": "11项官方 Google Play Games 成就（1,000 XP）", "desc": "从“首次胜利”到“宇宙主宰”，所有里程碑成就现已直接同步至你的 Google Play Games 个人资料并累计 XP。" },
+            { "icon": "🌌", "title": "新增3项超维宇宙与遗物猎人成就", "desc": "在 101–150 关解锁“超维探索者 (100 XP)”、“遗物猎人 (100 XP)”和“超维征服者 (150 XP)”。" },
+            { "icon": "💬", "title": "100% 匹配所选语言的游戏内提示", "desc": "封印钥匙不足警告、遗物宝箱奖励飘字和成就横幅现已全面适配 9 种语言。" },
+            { "icon": "🎮", "title": "一键查看官方 Play Games 奖杯柜", "desc": "在设置菜单即可直接打开官方 Play Games 成就界面，随时查看已获徽章与 XP 进度。" },
+            { "icon": "⚖️", "title": "公平榜单隔离保护与 120 FPS 丝滑体验", "desc": "在确保内部测试成绩绝不干扰公开榜单的同时，进一步提升 200 关卡全流程的流畅度。" }
         ]
     },
     "ru": {
-        "title": "⚖️ v1.5.5 Изоляция тест-рейтинга и старт с рубежа прогресса",
-        "subtitle": "Рейтинг внутреннего теста полностью отделён от общего, очки совпадают на всех устройствах, а игра всегда открывает ваш самый дальний этап!",
+        "title": "🏅 v1.5.6 Официальные достижения Play Games и Запределье",
+        "subtitle": "11 официальных достижений Google Play Games (1000 XP), трофеи Запределья и реликвий, а также уведомления на 9 языках!",
         "btnOk": "🚀 ОТЛИЧНО, ВПЕРЁД!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
-            { "icon": "⚖️", "title": "Полная изоляция внутреннего теста от общего рейтинга", "desc": "Тестовые очки и достижения больше не попадают в публичную таблицу Play Games, сохраняя 100% честную конкуренцию." },
-            { "icon": "🏆", "title": "Одинаковый точный счёт и прогресс на всех устройствах", "desc": "Старые рекорды Play Games больше не перезаписывают актуальные облачные данные, а пустые профили полностью скрыты." },
-            { "icon": "🧭", "title": "Всегда запуск с самого дальнего открытого уровня", "desc": "Даже если вы переигрывали старые этапы, после перезапуска игра откроет ваш актуальный рубеж в Кампании или Запределье." },
-            { "icon": "🧪", "title": "Защита реального прогресса при тесте Запределья", "desc": "Игроки, открывшие Запределье, сохраняют точный прогресс и чистую синхронизацию без сбоев." },
-            { "icon": "🌍", "title": "Лента 15 миров и плавные 120 FPS на 9 языках", "desc": "Удобный выбор любого мира из 1–15 и полная локализация всех уведомлений." }
+            { "icon": "🏅", "title": "11 официальных достижений Play Games (1000 XP)", "desc": "Все награды от «Первой победы» до «Повелителя Вселенной» теперь официально синхронизируются с профилем Google Play Games." },
+            { "icon": "🌌", "title": "3 новых достижения Запределья и Реликвий", "desc": "Откройте «Исследователь Запределья» (100 XP), «Охотник за реликвиями» (100 XP) и «Покоритель Запределья» (150 XP) на этапах 101–150." },
+            { "icon": "💬", "title": "100% перевод всплывающих подсказок в игре", "desc": "Предупреждения о нехватке печатей и сообщения о сундуках реликвий теперь отображаются строго на выбранном языке." },
+            { "icon": "🎮", "title": "Быстрый доступ к витрине достижений Play Games", "desc": "Открывайте официальный экран достижений Play Games прямо из настроек, чтобы отслеживать трофеи и очки XP." },
+            { "icon": "⚖️", "title": "Честный рейтинг и плавные 120 FPS", "desc": "Полная изоляция тестов от публичной таблицы сохранена, а производительность во всех 200 этапах стала ещё стабильнее." }
         ]
     },
     "it": {
-        "title": "⚖️ v1.5.5 Classifica Test Isolata e Ripartenza dal Livello Più Avanzato",
-        "subtitle": "I punteggi dei test interni sono ora separati dalla classifica pubblica, i dati coincidono su tutti i dispositivi e l'avvio apre sempre l'ultimo traguardo sbloccato!",
+        "title": "🏅 v1.5.6 Obiettivi Ufficiali Play Games e Oltremondo",
+        "subtitle": "Sono arrivati 11 Obiettivi ufficiali Google Play Games (1.000 XP), trofei dell'Oltremondo e notifiche in gioco al 100% nella tua lingua!",
         "btnOk": "🚀 FANTASTICO, GIOCHIAMO!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
-            { "icon": "⚖️", "title": "Isolamento Totale dei Test Interni dalla Classifica Pubblica", "desc": "I punteggi e gli obiettivi del canale test restano confinati nella classifica interna per garantire massima equità ai giocatori pubblici." },
-            { "icon": "🏆", "title": "Punteggi Coerenti su Telefono e Tablet", "desc": "I vecchi record storici non sovrascrivono più i dati cloud aggiornati e i profili a zero progressi vengono filtrati." },
-            { "icon": "🧭", "title": "Avvio Sempre dal Livello Sbloccato Più Avanzato", "desc": "Anche rigiocando livelli precedenti prima di chiudere l'app, alla riapertura ritrovi subito il tuo traguardo più recente nella Campagna o nell'Oltremondo." },
-            { "icon": "🧪", "title": "Avanzamento Reale Protetto Durante il Test Oltremondo", "desc": "Chi ha sbloccato l'Oltremondo può giocare i propri livelli reali senza alterare il salvataggio principale." },
-            { "icon": "🌍", "title": "Barra 15 Mondi & Fluidità a 120 FPS in 9 Lingue", "desc": "Navigazione fluida tra tutti i 15 Mondi e messaggi localizzati ancora più chiari." }
+            { "icon": "🏅", "title": "11 Obiettivi Ufficiali Google Play Games (1.000 XP)", "desc": "Ogni traguardo da Primo Sangue a Dominatore dell'Universo ora si sincronizza direttamente con il tuo profilo Play Games." },
+            { "icon": "🌌", "title": "3 Nuovi Trofei Oltremondo e Cacciatore di Reliquie", "desc": "Sblocca Esploratore dell'Oltremondo (100 XP), Cacciatore di Reliquie (100 XP) e Conquistatore dell'Oltremondo (150 XP) tra i livelli 101–150." },
+            { "icon": "💬", "title": "Avvisi in Gioco Localizzati in Tutte le 9 Lingue", "desc": "Gli avvisi dei sigilli mancanti e i premi degli scrigni reliquia appaiono sempre nella lingua selezionata." },
+            { "icon": "🎮", "title": "Accesso Rapido alla Bacheca Trofei Play Games", "desc": "Apri subito la schermata ufficiale degli Obiettivi Play Games dalle Impostazioni per seguire badge e punti XP." },
+            { "icon": "⚖️", "title": "Classifiche Protette e Fluidità a 120 FPS", "desc": "La separazione dei test dalla classifica pubblica resta invariata mentre i 200 livelli girano ancora più fluidi." }
         ]
     },
     "es": {
-        "title": "⚖️ v1.5.5 Aislamiento de Pruebas y Reanudación en tu Último Logro",
-        "subtitle": "¡Las puntuaciones de prueba ya están separadas del ranking público, los datos coinciden en todos los dispositivos y siempre empiezas en tu nivel desbloqueado más alto!",
+        "title": "🏅 v1.5.6 Logros Oficiales de Play Games y Más Allá",
+        "subtitle": "¡Ya están aquí 11 Logros oficiales de Google Play Games (1.000 XP), trofeos del Más Allá y avisos del juego 100% en tu idioma!",
         "btnOk": "🚀 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
-            { "icon": "⚖️", "title": "Ranking de Pruebas Internas Totalmente Aislado", "desc": "Las puntuaciones y logros de cuentas en canal interno solo se muestran en la lista de pruebas y nunca alteran la clasificación pública." },
-            { "icon": "🏆", "title": "Puntuaciones Iguales en Todos tus Dispositivos", "desc": "Los registros antiguos ya no sobrescriben las puntuaciones reales actualizadas y se ocultan las cuentas sin progreso." },
-            { "icon": "🧭", "title": "Inicio Siempre en tu Nivel Desbloqueado Más Avanzado", "desc": "Aunque vuelvas a jugar etapas anteriores de la Campaña o el Más Allá, al reabrir siempre aparecerás listo para continuar tu nivel más lejano." },
-            { "icon": "🧪", "title": "Progreso Seguro con el Modo Prueba del Más Allá", "desc": "Los jugadores del Más Allá mantienen sus niveles reales intactos y sincronizados en la nube de pruebas." },
-            { "icon": "🌍", "title": "Franja de 15 Mundos y 120 FPS en 9 Idiomas", "desc": "Navega suavemente entre los Mundos 1–15 con etiquetas claras en todos los idiomas." }
+            { "icon": "🏅", "title": "11 Logros Oficiales de Google Play Games (1.000 XP)", "desc": "Cada hito desde Primera Sangre hasta Gobernante del Universo ahora se sincroniza con tu perfil oficial de Play Games." },
+            { "icon": "🌌", "title": "3 Nuevos Logros del Más Allá y Reliquias", "desc": "Desbloquea Explorador del Más Allá (100 XP), Cazador de Reliquias (100 XP) y Conquistador del Más Allá (150 XP) en los niveles 101–150." },
+            { "icon": "💬", "title": "Textos y Alertas de Partida en 9 Idiomas", "desc": "Los avisos de sellos faltantes, recompensas de cofres de reliquia y estandartes de logros muestran siempre tu idioma elegido." },
+            { "icon": "🎮", "title": "Vitrina de Logros Play Games en un Toque", "desc": "Abre la ventana oficial de Logros de Play Games desde Ajustes para revisar tus trofeos y puntos XP acumulados." },
+            { "icon": "⚖️", "title": "Justicia en Rankings y Fluidez de 120 FPS", "desc": "Se mantiene el aislamiento total frente a pruebas internas mientras los 200 niveles ofrecen una respuesta impecable." }
         ]
     },
     "fr": {
-        "title": "⚖️ v1.5.5 Classement Test Isolé & Reprise au Niveau le Plus Avancé",
-        "subtitle": "Les scores de test interne sont séparés du classement public, vos appareils affichent enfin les mêmes valeurs et le jeu s'ouvre toujours sur votre dernier palier débloqué !",
+        "title": "🏅 v1.5.6 Succès Officiels Play Games & Au-Delà",
+        "subtitle": "11 Succès officiels Google Play Games (1 000 XP), trophées de l'Au-Delà et alertes en jeu 100 % dans votre langue sont arrivés !",
         "btnOk": "🚀 SUPER, C'EST PARTI !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
-            { "icon": "⚖️", "title": "Isolation Complète du Canal Test et du Classement Public", "desc": "Les scores et succès du canal de test interne restent dans un tableau isolé et ne faussent jamais le classement Play Games public." },
-            { "icon": "🏆", "title": "Scores Cohérents sur Téléphone et Tablette", "desc": "Les anciens records Play Games ne peuvent plus écraser les données actualisées et les profils sans progression sont masqués." },
-            { "icon": "🧭", "title": "Ouverture Toujours sur Votre Dernier Niveau Débloqué", "desc": "Même après avoir rejoué un ancien niveau de la Campagne ou de l'Au-Delà, vous reprenez automatiquement au niveau le plus avancé atteint." },
-            { "icon": "🧪", "title": "Progression Préservée avec le Test Au-Delà", "desc": "Les joueurs ayant débloqué l'Au-Delà continuent d'avancer normalement sans perturber leurs vraies étoiles." },
-            { "icon": "🌍", "title": "Bande des 15 Mondes & 120 FPS en 9 Langues", "desc": "Profitez de la bande glissable des 15 Mondes et de libellés parfaitement localisés." }
+            { "icon": "🏅", "title": "11 Succès Officiels Google Play Games (1 000 XP)", "desc": "De Premier Sang à Maître de l'Univers, tous vos exploits sont désormais synchronisés avec votre profil Google Play Games." },
+            { "icon": "🌌", "title": "3 Nouveaux Succès Au-Delà & Chasseur de Reliques", "desc": "Débloquez Explorateur de l'Au-Delà (100 XP), Chasseur de Reliques (100 XP) et Conquérant de l'Au-Delà (150 XP) sur les niveaux 101–150." },
+            { "icon": "💬", "title": "Alertes en Jeu Traduites en 9 Langues", "desc": "Les alertes de sceaux manquants et récompenses de coffres reliques s'affichent toujours dans la langue choisie." },
+            { "icon": "🎮", "title": "Vitrine des Trophées Play Games Instantanée", "desc": "Ouvrez directement l'écran officiel des Succès Play Games depuis les Paramètres pour suivre vos trophées et XP." },
+            { "icon": "⚖️", "title": "Classements Équitables & Fluidité 120 FPS", "desc": "L'isolation des tests internes reste stricte tandis que l'aventure de 200 niveaux gagne en netteté." }
         ]
     }
 };
