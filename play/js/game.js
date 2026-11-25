@@ -1914,8 +1914,9 @@ class Game {
 
             try {
                 localStorage.removeItem("marinext2100_lb_cache_v5");
+                localStorage.removeItem("marinext2100_lb_cache_v6");
             } catch (e) {}
-            const cachedLb = localStorage.getItem("marinext2100_lb_cache_v6");
+            const cachedLb = localStorage.getItem(this.getLeaderboardCacheKey());
             if (cachedLb) {
                 try {
                     const parsedLb = JSON.parse(cachedLb);
@@ -2063,7 +2064,7 @@ class Game {
         return healed;
     }
 
-    applySaveDataObject(data) {
+    applySaveDataObject(data, opts = {}) {
         if (!data || typeof data !== "object" || Number(data.schemaVersion) !== 5) return;
         const didHeal = this.sanitizeProgressIntegrity(data);
         if (didHeal) {
@@ -2138,28 +2139,25 @@ class Game {
         } catch (e) {}
         this.syncAct2Milestones();
 
-        const maxCampIdx = Math.max(0, Math.min(99, (this.unlockedLevels || 1) - 1));
-        this.selectedLevel = Number.isFinite(Number(data.lastSelectedLevel))
-            ? Math.max(0, Math.min(maxCampIdx, Number(data.lastSelectedLevel)))
-            : maxCampIdx;
-
-        const maxAct2Idx = Math.max(0, Math.min(49, (this.unlockedAct2Levels || 1) - 1));
-        this.selectedAct2Level = Number.isFinite(Number(data.lastSelectedAct2Level))
-            ? Math.max(0, Math.min(maxAct2Idx, Number(data.lastSelectedAct2Level)))
-            : maxAct2Idx;
-
-        const canAct2 = Boolean(this.act2Unlocked || this._devAct2Override);
-        if (canAct2) {
-            this.isAct2Mode = data.lastActiveMode === "campaign"
-                ? false
-                : (data.lastActiveMode === "act2" || (this.unlockedAct2Levels || 1) > 1 || this.act2CelebrationClaimed || this.unlockedLevels >= 100 || this._devAct2Override);
+        const frontierCampIdx = Math.max(0, Math.min(99, (this.unlockedLevels || 1) - 1));
+        const frontierAct2Idx = Math.max(0, Math.min(49, (this.unlockedAct2Levels || 1) - 1));
+        if (!opts || !opts.preserveActiveSelection) {
+            // Startup / map restore ALWAYS lands on the genuine highest unlocked frontier stage (Point #5)
+            this.selectedLevel = frontierCampIdx;
+            this.selectedAct2Level = frontierAct2Idx;
+            if (this.act2Unlocked) {
+                this.isAct2Mode = true;
+                this.selectedAct2WorldFilter = Math.min(4, Math.floor(this.selectedAct2Level / 10));
+                this.selectedWorldFilter = 10 + this.selectedAct2WorldFilter;
+            } else {
+                this.isAct2Mode = false;
+                this.selectedAct2WorldFilter = 0;
+                this.selectedWorldFilter = Math.min(9, Math.floor(this.selectedLevel / 10));
+            }
         } else {
-            this.isAct2Mode = false;
+            this.selectedLevel = Math.max(0, Math.min(frontierCampIdx, Number(this.selectedLevel) || 0));
+            this.selectedAct2Level = Math.max(0, Math.min(frontierAct2Idx, Number(this.selectedAct2Level) || 0));
         }
-        this.selectedAct2WorldFilter = Math.min(4, Math.floor(this.selectedAct2Level / 10));
-        this.selectedWorldFilter = this.isAct2Mode
-            ? (10 + this.selectedAct2WorldFilter)
-            : Math.min(9, Math.floor(this.selectedLevel / 10));
         this.syncAnalyticsUserProperties();
     }
 
@@ -2400,7 +2398,7 @@ class Game {
                 const currentData = this.buildSavePayloadObject();
                 const merged = this.mergeCloudSaveObjects(currentData, cloudData);
                 if (merged) {
-                    this.applySaveDataObject(merged);
+                    this.applySaveDataObject(merged, { preserveActiveSelection: this.state === "playing" });
                     const mergedStr = JSON.stringify(merged);
                     localStorage.setItem("marinext2100_save_v5_season1", mergedStr);
                     if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.saveLocalBackup === "function") {
@@ -2511,7 +2509,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 55;
+        const CURRENT_VERSION_CODE = 56;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2647,7 +2645,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "55");
+                localStorage.setItem("marinext2100_last_seen_version", "56");
             } catch (e) {}
         };
 
@@ -2676,7 +2674,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "55") {
+            if (hasConsent && lastSeenVer !== "56") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -4283,6 +4281,9 @@ class Game {
 
                 this.reinitAdMobForCurrentTrack();
                 this.updateSettingsUI();
+                this.cloudLeaderboardEntries = [];
+                this.fetchLiveCloudLeaderboard();
+                this.syncLeaderboardToPlayGames();
                 this.checkAppUpdateOnStartup();
             });
         }
@@ -4624,7 +4625,7 @@ class Game {
                 window.sfx.powerUpSpawn();
                 try {
                     localStorage.setItem("marinext_privacy_consent_v1", String(Date.now()));
-                    localStorage.setItem("marinext2100_last_seen_version", "55");
+                    localStorage.setItem("marinext2100_last_seen_version", "56");
                 } catch (e) {}
                 const fcModal = document.getElementById("screen-first-consent");
                 if (fcModal) fcModal.classList.add("hidden");
@@ -8131,8 +8132,8 @@ class Game {
         const ach = ACHIEVEMENTS_CATALOG.find((a) => a.id === achId);
         if (!ach) return;
 
-        // 1. Android / Google Play Games Native API
-        if (window.AndroidBridge && typeof window.AndroidBridge.unlockPlayGamesAchievement === "function") {
+        // 1. Android / Google Play Games Native API (isolated from internal test track & test override)
+        if (!this.isInternalLeaderboardMode() && !this._devAct2Override && window.AndroidBridge && typeof window.AndroidBridge.unlockPlayGamesAchievement === "function") {
             try {
                 window.AndroidBridge.unlockPlayGamesAchievement(ach.pgId || ach.id);
             } catch (e) {}
@@ -8665,6 +8666,16 @@ class Game {
         return nativeTrack || (localStorage.getItem("marinext_test_track") || "production");
     }
 
+    isInternalLeaderboardMode() {
+        return this.getCurrentBuildTrack() === "internal";
+    }
+
+    getLeaderboardCacheKey() {
+        return this.isInternalLeaderboardMode()
+            ? "marinext2100_lb_cache_v7_internal"
+            : "marinext2100_lb_cache_v7_public";
+    }
+
     isAdTestingActive() {
         const track = this.getCurrentBuildTrack();
         const isDev = localStorage.getItem("marinext_dev_mode") === "1";
@@ -8831,8 +8842,8 @@ class Game {
         const stars = this.feedbackStars || 5;
         const cat = this.feedbackCategory || "Öneri & Yeni Fikir";
 
-        let appVerName = "1.5.4";
-        let appVerCode = 55;
+        let appVerName = "1.5.5";
+        let appVerCode = 56;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
                 const info = JSON.parse(window.MarinextCloudBridge.getAppVersionInfo());
@@ -8978,20 +8989,25 @@ class Game {
     }
 
     getFirebaseRtdbLeaderboardUrl() {
-        return "https://marinext-2100-default-rtdb.europe-west1.firebasedatabase.app/leaderboard";
+        return this.isInternalLeaderboardMode()
+            ? "https://marinext-2100-default-rtdb.europe-west1.firebasedatabase.app/leaderboard/_internal_sandbox"
+            : "https://marinext-2100-default-rtdb.europe-west1.firebasedatabase.app/leaderboard";
     }
 
     normalizeRtdbLeaderboardMap(rawObj) {
         if (!rawObj || typeof rawObj !== "object") return [];
+        const isInternal = this.isInternalLeaderboardMode();
         const rows = [];
         for (const [key, val] of Object.entries(rawObj)) {
+            if (!key || key.startsWith("_")) continue;
             if (!val || typeof val !== "object" || !val.name) continue;
+            const rowTrack = String(val.track || "production");
+            if (!isInternal && rowTrack === "internal") continue;
             const pid = String(val.playerId || key || "").trim();
             const cleanName = String(val.name || "Oyuncu").trim().slice(0, 32);
             const cleanScore = Math.max(0, Number(val.score) || 0);
             const cleanProgress = Math.max(0, Math.min(200, Number(val.progress) || 0));
-            const isDefaultGhost = cleanProgress <= 0 && cleanScore <= 10000 && (cleanName === "Shadow Knight" || cleanName === "Gölge Şövalye");
-            if (isDefaultGhost) continue;
+            if (cleanProgress <= 0 && cleanScore <= 10000) continue;
             rows.push({
                 playerId: pid,
                 name: cleanName,
@@ -9004,7 +9020,9 @@ class Game {
                 emerald: Math.max(0, Number(val.emerald) || 0),
                 speedrun: Math.max(4000, Number(val.speedrun) || 999999),
                 act2Unlocked: Boolean(val.act2Unlocked || cleanProgress > 100),
-                updatedAt: Number(val.updatedAt) || 0
+                updatedAt: Number(val.updatedAt) || 0,
+                track: rowTrack,
+                fromRtdb: true
             });
         }
         return rows.sort((a, b) => (b.score - a.score) || (b.progress - a.progress));
@@ -9019,7 +9037,7 @@ class Game {
             const list = this.normalizeRtdbLeaderboardMap(parsed);
             this.cloudLeaderboardEntries = list;
             try {
-                localStorage.setItem("marinext2100_lb_cache_v6", JSON.stringify(list));
+                localStorage.setItem(this.getLeaderboardCacheKey(), JSON.stringify(list));
             } catch (e) {}
             const lbScreen = document.getElementById("screen-leaderboard");
             if (lbScreen && !lbScreen.classList.contains("hidden")) {
@@ -9029,7 +9047,7 @@ class Game {
     }
 
     async syncLiveCloudLeaderboard() {
-        if (this._devAct2Override === true) return;
+        if (this._devAct2Override === true && !this.isInternalLeaderboardMode()) return;
         const baseUrl = this.getFirebaseRtdbLeaderboardUrl();
         const myUid = this.getOrCreateCloudPlayerUid();
         const myMetrics = this.getPlayerLeaderboardMetrics();
@@ -9054,6 +9072,7 @@ class Game {
             emerald: Math.max(0, Math.round(Number(myMetrics.emerald) || 0)),
             speedrun: Math.max(4000, Math.round(Number(myMetrics.speedrun) || 999999)),
             act2Unlocked: Boolean(this.act2Unlocked || (Number(myMetrics.progress) || 0) > 100),
+            track: this.isInternalLeaderboardMode() ? "internal" : "production",
             updatedAt: Date.now()
         };
 
@@ -9135,6 +9154,7 @@ class Game {
 
             const item = {
                 isMe: false,
+                fromRtdb: true,
                 playerId: pid,
                 name: String(r.name).slice(0, 32),
                 avatar: r.avatar || "🎮",
@@ -9152,46 +9172,42 @@ class Game {
             entriesByKey.set("name:" + normName, item);
         }
 
-        // 2. Merge Play Games entries (match existing RTDB rows cleanly & never allow -1)
-        const pgList = Array.isArray(this.realPlayGamesLeaderboardEntries) ? this.realPlayGamesLeaderboardEntries : [];
-        for (const pg of pgList) {
-            if (!pg || !pg.name || isMeEntry(pg)) continue;
-            const rawPid = String(pg.playerId || "").trim();
-            const pgKey = rawPid ? ("pg_" + rawPid.replace(/[^a-zA-Z0-9_-]/g, "_")) : "";
-            const normName = String(pg.name).trim().toLowerCase();
-            const existing = (pgKey && entriesByKey.get(pgKey)) || (rawPid && entriesByKey.get(rawPid)) || entriesByKey.get("name:" + normName);
-            if (existing) {
-                if (pg.isFriend) existing.isFriend = true;
-                if (Number(pg.score) > existing.score) existing.score = Number(pg.score);
-                if (Number(pg.progress) >= 0 && Number(pg.progress) > existing.progress) {
-                    existing.progress = Math.min(200, Number(pg.progress));
+        // 2. Merge Play Games entries ONLY in non-internal modes (match existing RTDB rows without letting stale monotonic PG scores overwrite healed RTDB values)
+        if (!this.isInternalLeaderboardMode()) {
+            const pgList = Array.isArray(this.realPlayGamesLeaderboardEntries) ? this.realPlayGamesLeaderboardEntries : [];
+            for (const pg of pgList) {
+                if (!pg || !pg.name || isMeEntry(pg)) continue;
+                const rawPid = String(pg.playerId || "").trim();
+                const pgKey = rawPid ? ("pg_" + rawPid.replace(/[^a-zA-Z0-9_-]/g, "_")) : "";
+                const normName = String(pg.name).trim().toLowerCase();
+                const existing = (pgKey && entriesByKey.get(pgKey)) || (rawPid && entriesByKey.get(rawPid)) || entriesByKey.get("name:" + normName);
+                if (existing) {
+                    if (pg.isFriend) existing.isFriend = true;
+                    continue;
                 }
-                if (Number(pg.emerald) >= 0 && Number(pg.emerald) > existing.emerald) {
-                    existing.emerald = Number(pg.emerald);
-                }
-                if (Number(pg.speedrun) >= 4000 && Number(pg.speedrun) < existing.speedrun) {
-                    existing.speedrun = Number(pg.speedrun);
-                }
-                continue;
+                const pgProg = Number(pg.progress) >= 0 ? Math.min(200, Number(pg.progress)) : 0;
+                const pgScore = Math.max(0, Number(pg.score) || 0);
+                if (pgProg <= 0 && pgScore <= 10000) continue;
+                const dedupKey = pgKey || ("name:" + normName);
+                const item = {
+                    isMe: false,
+                    fromRtdb: false,
+                    playerId: pgKey || rawPid,
+                    name: String(pg.name).slice(0, 32),
+                    avatar: pg.avatar || "🎮",
+                    heroTitle: localizeLbHeroTitle(pg.heroTitle || "Google Play Games Oyuncusu"),
+                    country: pg.country || "🇹🇷",
+                    weeklyActive: true,
+                    isFriend: Boolean(pg.isFriend),
+                    score: pgScore,
+                    progress: pgProg,
+                    emerald: Number(pg.emerald) >= 0 ? Number(pg.emerald) : 0,
+                    speedrun: Math.max(4000, Number(pg.speedrun) || 999999)
+                };
+                entries.push(item);
+                entriesByKey.set(dedupKey, item);
+                entriesByKey.set("name:" + normName, item);
             }
-            const dedupKey = pgKey || ("name:" + normName);
-            const item = {
-                isMe: false,
-                playerId: pgKey || rawPid,
-                name: String(pg.name).slice(0, 32),
-                avatar: pg.avatar || "🎮",
-                heroTitle: localizeLbHeroTitle(pg.heroTitle || "Google Play Games Oyuncusu"),
-                country: pg.country || "🇹🇷",
-                weeklyActive: true,
-                isFriend: Boolean(pg.isFriend),
-                score: Math.max(0, Number(pg.score) || 0),
-                progress: Number(pg.progress) >= 0 ? Math.min(200, Number(pg.progress)) : 0,
-                emerald: Number(pg.emerald) >= 0 ? Number(pg.emerald) : 0,
-                speedrun: Math.max(4000, Number(pg.speedrun) || 999999)
-            };
-            entries.push(item);
-            entriesByKey.set(dedupKey, item);
-            entriesByKey.set("name:" + normName, item);
         }
 
         // Apply scope filter AFTER deduplicating/merging
@@ -9266,7 +9282,7 @@ class Game {
     openLeaderboardModal() {
         this.fetchLiveCloudLeaderboard();
         this.syncLeaderboardToPlayGames();
-        if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.refreshPlayGamesLeaderboards === "function") {
+        if (!this.isInternalLeaderboardMode() && window.MarinextCloudBridge && typeof window.MarinextCloudBridge.refreshPlayGamesLeaderboards === "function") {
             try {
                 window.MarinextCloudBridge.refreshPlayGamesLeaderboards();
             } catch (e) {}
@@ -9296,12 +9312,18 @@ class Game {
                 : (scope === "friends" ? (t("lbScopeFriends") || "👥 Arkadaşlar") : (t("lbScopeGlobal") || "🌍 Küresel")));
         const syncEl = document.getElementById("lb-sync-status");
         if (syncEl) {
-            syncEl.style.color = "#06d6a0";
-            syncEl.textContent = this.playGamesAuthed
-                ? (t("lbSyncConnected", { scope: scopeLabel, count: list.length, name: this.playGamesPlayerName || this.playerName }) ||
-                    `● ${scopeLabel} • Canlı Çok-Oyunculu Sıralama (${list.length} Gerçek Oyuncu) • Play Games Bağlı (${this.playGamesPlayerName || this.playerName})`)
-                : (t("lbSyncActive", { scope: scopeLabel, count: list.length }) ||
-                    `● ${scopeLabel} • Canlı Çok-Oyunculu Sıralama (${list.length} Gerçek Oyuncu • Anlık Bulut Senkronu Aktif)`);
+            if (this.isInternalLeaderboardMode()) {
+                syncEl.style.color = "#ffd166";
+                syncEl.textContent = t("lbSyncInternal", { scope: scopeLabel, count: list.length })
+                    || `🧪 DAHİLİ TEST TABLOSU (İzole) • ${scopeLabel} • ${list.length} Test Oyuncusu (Genel Sıralamadan Bağımsız)`;
+            } else {
+                syncEl.style.color = "#06d6a0";
+                syncEl.textContent = this.playGamesAuthed
+                    ? (t("lbSyncConnected", { scope: scopeLabel, count: list.length, name: this.playGamesPlayerName || this.playerName }) ||
+                        `● ${scopeLabel} • Canlı Çok-Oyunculu Sıralama (${list.length} Gerçek Oyuncu) • Play Games Bağlı (${this.playGamesPlayerName || this.playerName})`)
+                    : (t("lbSyncActive", { scope: scopeLabel, count: list.length }) ||
+                        `● ${scopeLabel} • Canlı Çok-Oyunculu Sıralama (${list.length} Gerçek Oyuncu • Anlık Bulut Senkronu Aktif)`);
+            }
         }
 
         const youBadge = t("lbYouBadge") || "SEN";
@@ -9498,6 +9520,7 @@ class Game {
 
     syncLeaderboardToPlayGames() {
         this.syncLiveCloudLeaderboard();
+        if (this.isInternalLeaderboardMode() || this._devAct2Override) return;
         if (!window.MarinextCloudBridge || typeof window.MarinextCloudBridge.submitLeaderboardScores !== "function") return;
         try {
             const m = this.getPlayerLeaderboardMetrics();
@@ -9513,6 +9536,16 @@ class Game {
     openOfficialPlayGamesLeaderboard() {
         const syncEl = document.getElementById("lb-sync-status");
         const trTxt = (msg) => (typeof window.translateMarinextGameText === "function" ? window.translateMarinextGameText(msg, this.lang) : msg);
+        if (this.isInternalLeaderboardMode()) {
+            this.syncLiveCloudLeaderboard();
+            const msg = trTxt("🧪 Dahili Test (internal) kanalındaki skorlar adalet için genel Google Play Games tablosundan izole edilmiştir; tüm test skorları yukarıdaki izole listede görünür.");
+            if (syncEl) {
+                syncEl.style.color = "#ffd166";
+                syncEl.textContent = msg;
+            }
+            this.showQuickToast(msg, "#ffd166", 4200);
+            return;
+        }
         this.syncLeaderboardToPlayGames();
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.showPlayGamesLeaderboards === "function") {
             try {
