@@ -9,7 +9,7 @@
     const STORAGE_KEY_EVENTS = 'marinext2100_analytics_events';
     const STORAGE_KEY_STATS = 'marinext2100_analytics_stats';
     const STORAGE_KEY_CLIENT_ID = 'marinext2100_ga4_client_id';
-    const REMOTE_CONFIG_URL = 'https://cgstudiohome.github.io/marinext2100/version.json';
+    const REMOTE_CONFIG_URL = 'https://cgstudiohome.com/marinext2100/version.json';
     const FALLBACK_CONFIG_URL = 'https://cevatturk.github.io/marinext2100/version.json';
     const DEFAULT_GA4_MEASUREMENT_ID = 'G-7ER5HLQSNZ';
     const DEFAULT_GA4_API_SECRET = 'TEfBtYYTQO6_Xd1N25r9hw';
