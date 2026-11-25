@@ -73,6 +73,10 @@
             lbHeroPrefix: "Kahraman:",
             lbLiveInfoBanner: "🎮 <strong>Canlı Çok-Oyunculu Sıralama:</strong> Bölüm, kayıt noktası (checkpoint) ve puan geçildikçe tüm gerçek oyuncuların skorları anlık olarak bulut tablosuna ve Google Play Games'e senkronize edilir.",
             lbSyncConnected: "● {scope} • Canlı Çok-Oyunculu Sıralama ({count} Oyuncu) • Play Games Bağlı ({name})",
+            lbSyncInternal: "🧪 DAHİLİ TEST TABLOSU (İzole) • {scope} • {count} Test Oyuncusu (Genel Sıralamadan Bağımsız)",
+            lbFriendsEmptyTitle: "Google Play Games Arkadaş Sıralaması",
+            lbFriendsEmptyDesc: "Sıralamada henüz Marinext 2100 oynayan bir Play Games arkadaşınız görünmüyor. Google Play Games üzerinden arkadaşlarınızı ekleyerek anlık skorlarınızı karşılaştırabilir ve zirve için yarışabilirsiniz!",
+            lbFriendsEmptyBtn: "🎮 Play Games Resmi Sıralama Ekranını Aç",
             lbSyncCloud: "● {scope} • Canlı Çok-Oyunculu Sıralama ({count} Oyuncu • Anlık Bulut Senkronu Aktif)",
             lbMetricProgress: "Bölüm {prog}/100 • {bosses} Boss",
             lbMetricEmerald: "{val} ❖ Hazine Puanı",
@@ -285,6 +289,10 @@
             lbHeroPrefix: "Hero:",
             lbLiveInfoBanner: "🎮 <strong>Live Multiplayer Leaderboard:</strong> Every level clear, checkpoint, and score gain is automatically synced to the live cloud leaderboard and Google Play Games.",
             lbSyncConnected: "● {scope} • Live Multiplayer Ranking ({count} Players) • Play Games Connected ({name})",
+            lbSyncInternal: "🧪 INTERNAL TEST BOARD (Isolated) • {scope} • {count} Test Players (Separate from Public)",
+            lbFriendsEmptyTitle: "Google Play Games Friends Ranking",
+            lbFriendsEmptyDesc: "No Play Games friends playing Marinext 2100 appear here yet. Add friends via Google Play Games to compare live scores and race for the top spot!",
+            lbFriendsEmptyBtn: "🎮 Open Official Play Games Leaderboard",
             lbSyncCloud: "● {scope} • Live Multiplayer Ranking ({count} Players • Cloud Sync Active)",
             lbMetricProgress: "Level {prog}/100 • {bosses} Bosses",
             lbMetricEmerald: "{val} ❖ Treasure Pts",
@@ -491,6 +499,10 @@
             lbHeroPrefix: "Герой:",
             lbLiveInfoBanner: "🎮 <strong>Живой Мультиплеерный Рейтинг:</strong> Все рекорды, уровни и чекпоинты мгновенно синхронизируются с облаком и Google Play Games.",
             lbSyncConnected: "● {scope} • Живой Рейтинг ({count} Игроков) • Play Games ({name})",
+            lbSyncInternal: "🧪 ВНУТРЕННИЙ ТЕСТ (Изолирован) • {scope} • {count} Тестеров (Отдельно от общего)",
+            lbFriendsEmptyTitle: "Рейтинг друзей Google Play Games",
+            lbFriendsEmptyDesc: "Среди друзей пока нет игроков Marinext 2100. Добавьте друзей в Google Play Games, чтобы сравнивать результаты и бороться за первое место!",
+            lbFriendsEmptyBtn: "🎮 Открыть официальную таблицу Play Games",
             lbSyncCloud: "● {scope} • Живой Рейтинг ({count} Игроков • Облако активно)",
             lbMetricProgress: "Уровень {prog}/100 • {bosses} Боссов",
             lbMetricEmerald: "{val} ❖ Очков Сокровищ",
@@ -697,6 +709,10 @@
             lbHeroPrefix: "Eroe:",
             lbLiveInfoBanner: "🎮 <strong>Classifica Multiplayer Live:</strong> Ogni livello, checkpoint e punteggio viene sincronizzato in tempo reale con il cloud e Google Play Games.",
             lbSyncConnected: "● {scope} • Classifica Live ({count} Giocatori) • Play Games ({name})",
+            lbSyncInternal: "🧪 CLASSIFICA TEST INTERNO (Isolata) • {scope} • {count} Tester (Separata dalla pubblica)",
+            lbFriendsEmptyTitle: "Classifica Amici Google Play Games",
+            lbFriendsEmptyDesc: "Nessun amico di Play Games che gioca a Marinext 2100 è ancora visibile. Aggiungi amici su Google Play Games per confrontare i punteggi in diretta e sfidarti per la vetta!",
+            lbFriendsEmptyBtn: "🎮 Apri Classifica Ufficiale Play Games",
             lbSyncCloud: "● {scope} • Classifica Live ({count} Giocatori • Cloud Attivo)",
             lbMetricProgress: "Livello {prog}/100 • {bosses} Boss",
             lbMetricEmerald: "{val} ❖ Punti Tesoro",
@@ -903,6 +919,10 @@
             lbHeroPrefix: "Héroe:",
             lbLiveInfoBanner: "🎮 <strong>Clasificación Multijugador en Vivo:</strong> Cada nivel, punto de control y puntuación se sincroniza al instante con la nube y Google Play Games.",
             lbSyncConnected: "● {scope} • Clasificación en Vivo ({count} Jugadores) • Play Games ({name})",
+            lbSyncInternal: "🧪 TABLA TEST INTERNA (Aislada) • {scope} • {count} Evaluadores (Separada del público)",
+            lbFriendsEmptyTitle: "Clasificación de Amigos en Google Play Games",
+            lbFriendsEmptyDesc: "Aún no aparecen amigos de Play Games que jueguen a Marinext 2100. ¡Agrega amigos en Google Play Games para comparar puntuaciones en vivo y competir por la cima!",
+            lbFriendsEmptyBtn: "🎮 Abrir Clasificación Oficial de Play Games",
             lbSyncCloud: "● {scope} • Clasificación en Vivo ({count} Jugadores • Nube Activa)",
             lbMetricProgress: "Nivel {prog}/100 • {bosses} Jefes",
             lbMetricEmerald: "{val} ❖ Pts de Tesoro",
@@ -1109,6 +1129,10 @@
             lbHeroPrefix: "Héros :",
             lbLiveInfoBanner: "🎮 <strong>Classement Multijoueur en Direct :</strong> Chaque niveau, checkpoint et score est synchronisé instantanément avec le cloud et Google Play Games.",
             lbSyncConnected: "● {scope} • Classement en Direct ({count} Joueurs) • Play Games ({name})",
+            lbSyncInternal: "🧪 CLASSEMENT TEST INTERNE (Isolé) • {scope} • {count} Testeurs (Séparé du public)",
+            lbFriendsEmptyTitle: "Classement Amis Google Play Games",
+            lbFriendsEmptyDesc: "Aucun ami Play Games jouant à Marinext 2100 n'apparaît encore. Ajoutez des amis via Google Play Games pour comparer vos scores en direct et viser le sommet !",
+            lbFriendsEmptyBtn: "🎮 Ouvrir le Classement Officiel Play Games",
             lbSyncCloud: "● {scope} • Classement en Direct ({count} Joueurs • Cloud Actif)",
             lbMetricProgress: "Niveau {prog}/100 • {bosses} Boss",
             lbMetricEmerald: "{val} ❖ Pts Trésor",
@@ -1315,6 +1339,10 @@
             lbHeroPrefix: "영웅:",
             lbLiveInfoBanner: "🎮 <strong>실시간 멀티플레이어 랭킹:</strong> 스테이지 클리어, 체크포인트, 점수 획득 시 실시간으로 클라우드 및 Google Play Games와 동기화됩니다.",
             lbSyncConnected: "● {scope} • 실시간 랭킹 ({count}명) • Play Games 연결됨 ({name})",
+            lbSyncInternal: "🧪 내부 테스트 보드(분리됨) • {scope} • 테스터 {count}명 (공개 순위와 분리)",
+            lbFriendsEmptyTitle: "Google Play Games 친구 랭킹",
+            lbFriendsEmptyDesc: "아직 Marinext 2100을 플레이하는 Play Games 친구가 보이지 않습니다. Google Play Games에서 친구를 추가해 실시간 점수를 비교하고 1위를 겨뤄보세요!",
+            lbFriendsEmptyBtn: "🎮 공식 Play Games 순위표 열기",
             lbSyncCloud: "● {scope} • 실시간 랭킹 ({count}명 • 클라우드 동기화 활성)",
             lbMetricProgress: "스테이지 {prog}/100 • 보스 {bosses}",
             lbMetricEmerald: "{val} ❖ 보물 점수",
@@ -1521,6 +1549,10 @@
             lbHeroPrefix: "英雄:",
             lbLiveInfoBanner: "🎮 <strong>实时多人排行榜：</strong> 每当通关、激活存档点或获得分数，所有真实玩家数据将实时同步至云端与 Google Play Games。",
             lbSyncConnected: "● {scope} • 实时多人排行 ({count} 名玩家) • 已连接 Play Games ({name})",
+            lbSyncInternal: "🧪 内部测试榜单（隔离）• {scope} • {count} 名测试玩家（与公开榜分离）",
+            lbFriendsEmptyTitle: "Google Play Games 好友排行榜",
+            lbFriendsEmptyDesc: "暂未发现正在游玩 Marinext 2100 的 Play Games 好友。在 Google Play Games 中添加好友，即可实时比拼分数并争夺榜首！",
+            lbFriendsEmptyBtn: "🎮 打开官方 Play Games 排行榜",
             lbSyncCloud: "● {scope} • 实时多人排行 ({count} 名玩家 • 云同步已启用)",
             lbMetricProgress: "关卡 {prog}/100 • {bosses} 首领",
             lbMetricEmerald: "{val} ❖ 宝藏积分",
@@ -1727,6 +1759,10 @@
             lbHeroPrefix: "ヒーロー:",
             lbLiveInfoBanner: "🎮 <strong>リアルタイム・マルチランキング：</strong> ステージクリア、チェックポイント、スコア獲得時にクラウドと Google Play Games へ自動同期されます。",
             lbSyncConnected: "● {scope} • ライブランキング ({count}人) • Play Games 接続中 ({name})",
+            lbSyncInternal: "🧪 社内テスト順位表（分離）• {scope} • テスター {count}人（公開ランキングと分離）",
+            lbFriendsEmptyTitle: "Google Play Games フレンドランキング",
+            lbFriendsEmptyDesc: "Marinext 2100 をプレイ中の Play Games フレンドはまだ表示されていません。Google Play Games でフレンドを追加してライブスコアで競い合いましょう！",
+            lbFriendsEmptyBtn: "🎮 公式 Play Games ランキングを開く",
             lbSyncCloud: "● {scope} • ライブランキング ({count}人 • クラウド同期有効)",
             lbMetricProgress: "ステージ {prog}/100 • ボス {bosses}",
             lbMetricEmerald: "{val} ❖ トレジャーPt",
@@ -6241,6 +6277,16 @@ window.MARINEXT_TUTORIAL_DATA = {
             zh: "ℹ️ 您已领取过该联赛段位奖励！提升排名可解锁更高奖励。",
             ja: "ℹ️ このリーグ報酬は受取済みです！ランクを上げて次の報酬を解放しよう。"
         },
+        "🧪 Dahili Test (internal) kanalındaki skorlar adalet için genel Google Play Games tablosundan izole edilmiştir; tüm test skorları yukarıdaki izole listede görünür.": {
+            en: "🧪 Internal Test scores are isolated from public Google Play Games leaderboards for fairness; all test scores appear in the isolated list above.",
+            ru: "🧪 Очки внутреннего теста (internal) изолированы от общего рейтинга Google Play Games для честности и показаны в тестовом списке выше.",
+            it: "🧪 I punteggi del canale Test Interno sono isolati dalla classifica pubblica di Google Play Games per equità e compaiono nella lista sopra.",
+            es: "🧪 Las puntuaciones del canal Interno están aisladas de la tabla pública de Google Play Games por equidad y aparecen en la lista de arriba.",
+            fr: "🧪 Les scores du canal Test interne sont isolés du classement public Google Play Games par équité et figurent dans la liste ci-dessus.",
+            ko: "🧪 내부 테스트(internal) 채널의 점수는 공정성을 위해 공개 Google Play Games 순위에서 분리되어 위 전용 목록에 표시됩니다.",
+            zh: "🧪 为确保公平，内部测试（internal）频道的分数已与公开 Google Play Games 排行榜隔离，所有测试成绩均显示在上方独立列表中。",
+            ja: "🧪 公平性のため社内テスト（internal）のスコアは公開 Google Play Games ランキングから分離され、上の専用リストに表示されます。"
+        },
         "🎮 Google Play Games Resmi Sıralama Tablosu açılıyor ve skorlarınız senkronize ediliyor...": {
             en: "🎮 Opening official Google Play Games Leaderboard & syncing scores...",
             ru: "🎮 Открытие официальной таблицы Google Play Games и синхронизация...",
@@ -6936,120 +6982,120 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
 // Full 9-Language "What's New in v1.5.5" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🏅 v1.5.6 Resmi Play Games Başarımları & Öte Evren",
-        "subtitle": "11 resmi Google Play Games Başarımı (1.000 XP), Öte Evren & Yadigar Sandığı kupaları ve %100 seçili dilinizde oyun içi uyarılar oyuna eklendi!",
+        "title": "🌌 v1.5.7 Büyük Öte Evren & 11 Başarım Sürümü",
+        "subtitle": "200 bölümlük tam macera, 11 resmi Google Play Games Başarımı (1.000 XP), %100 9 dilde eksiksiz metinler ve adil sıralama koruması yayında!",
         "btnOk": "🚀 HARİKA, MACERAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            { "icon": "🏅", "title": "11 Resmi Google Play Games Başarımı (1.000 XP)", "desc": "İlk Zafer'den Evrenin Hükümdarı'na kadar tüm ana sefer kupaları artık resmi Google Play Games profilinize XP olarak işleniyor." },
-            { "icon": "🌌", "title": "3 Yeni Öte Evren ve Yadigar Başarımı", "desc": "Öte Evren Kaşifi (100 XP), Yadigar Avcısı (100 XP) ve Öte Evren Fatihi (150 XP) başarımlarıyla 101–150. bölüm ustalığınızı taçlandırın." },
-            { "icon": "💬", "title": "Seçili Dilinizde Akıcı Oyun İçi Bildirimler", "desc": "Eksik Mühür kapısı uyarıları, Yadigar Sandığı ganimet bildirimleri ve başarı rozetleri artık 9 dilde eksiksiz görüntülenir." },
-            { "icon": "🎮", "title": "Tek Dokunuşla Play Games Kupa Vitrini", "desc": "Ayarlar menüsünden resmi Play Games Başarımlar ekranını anında açıp kazanılan kupaları ve XP ilerlemenizi takip edin." },
-            { "icon": "⚖️", "title": "Adil Sıralama Koruması & 120 FPS Akıcılık", "desc": "Dahili test izolasyonu ve tüm cihazlarda eşitlenen skorlar korunurken 200 bölümlük evrende akıcı performans güçlendirildi." }
+            { "icon": "🏅", "title": "11 Resmi Google Play Games Başarımı (1.000 XP)", "desc": "Ana seferden 150. bölüm Ayna Katedrali'ne ve Yadigar Sandıklarına kadar tüm başarımlarınız resmi Google Play Games XP olarak hesabınıza işlenir." },
+            { "icon": "🌌", "title": "200 Bölüm: Sefer, Öte Evren (101–150) & Trol Modu", "desc": "Atlantis, Biyo-Orman, Saat Kulesi, Asit Rafinerisi ve Ayna Katedrali dünyalarında Mühür Anahtarları toplayın, gizli sandıkları açın!" },
+            { "icon": "💬", "title": "9 Dilde %100 Eksiksiz Arayüz ve Arkadaş Sıralaması", "desc": "Arkadaş sıralaması ekranı, dahili test bilgilendirmeleri, Mühür uyarıları ve başarım kutlamaları dahil her metin artık seçili dilinizdedir." },
+            { "icon": "⚖️", "title": "Adil Sıralama & Tüm Cihazlarda Eşit Puanlar", "desc": "Telefon ve tabletlerde güncel puanlar eşitlendi; her açılışta daima ulaştığınız en ileri bölümden devam edersiniz." },
+            { "icon": "⚡", "title": "120 FPS Akıcılık & İnternetsiz Tam Oynanış", "desc": "19 kahraman, 4 özel yetenek ve Mini-Drone yoldaşınızla tüm 200 bölümde üst düzey performans ve akıcılık sağlanır." }
         ]
     },
     "en": {
-        "title": "🏅 v1.5.6 Official Play Games Achievements & Beyondverse",
-        "subtitle": "11 official Google Play Games Achievements (1,000 XP), Beyondverse & Relic Hunter trophies, and full 9-language in-game alerts have arrived!",
+        "title": "🌌 v1.5.7 Complete 200-Stage Beyondverse & Achievements",
+        "subtitle": "200 full stages, 11 official Google Play Games Achievements (1,000 XP), 100% 9-language localization, and fair cross-device rankings are here!",
         "btnOk": "🚀 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            { "icon": "🏅", "title": "11 Official Google Play Games Achievements (1,000 XP)", "desc": "Every milestone from First Blood to Ruler of the Universe now syncs straight to your Google Play Games profile with 1,000 total XP." },
-            { "icon": "🌌", "title": "3 New Beyondverse & Relic Hunter Achievements", "desc": "Unlock Beyondverse Explorer (100 XP), Relic Hunter (100 XP), and Beyondverse Conqueror (150 XP) across Stages 101–150." },
-            { "icon": "💬", "title": "100% Localized In-Game Floating Alerts", "desc": "Missing Seal Portal warnings, Relic Chest reward popups, and achievement banners now display cleanly in your chosen language." },
-            { "icon": "🎮", "title": "Instant Play Games Trophy Showcase", "desc": "Open your official Play Games Achievements drawer right from Settings to track unlocked badges and profile XP." },
-            { "icon": "⚖️", "title": "Protected Fair Rankings & Crisp 120 FPS", "desc": "Public leaderboard fairness stays isolated from internal tests while the 200-stage campaign & Beyondverse run smoother than ever." }
+            { "icon": "🏅", "title": "11 Official Google Play Games Achievements (1,000 XP)", "desc": "Every milestone from First Blood to Beyondverse Conqueror and Relic Hunter syncs directly with your official Play Games profile XP." },
+            { "icon": "🌌", "title": "200 Stages: Story, Beyondverse (101–150) & Troll Mode", "desc": "Collect Seal Keys, unlock hidden Relic Chests, and battle multi-phase bosses across Sunken Atlantis to Mirror Cathedral!" },
+            { "icon": "💬", "title": "100% 9-Language UI, Friends Ranking & Alerts", "desc": "Every Friends Leaderboard panel, sealed portal warning, chest reward banner, and trophy notice now matches your active language." },
+            { "icon": "⚖️", "title": "Fair Rankings & Consistent Cross-Device Progress", "desc": "Phone and tablet leaderboards stay synchronized while every launch opens right at your highest unlocked frontier." },
+            { "icon": "⚡", "title": "Crisp 120 FPS & Full Offline Adventure", "desc": "Enjoy 19 heroes, 4 special powers, and your Cyber Mini-Drone at ultra-smooth 120 FPS anywhere." }
         ]
     },
     "ko": {
-        "title": "🏅 v1.5.6 공식 Play Games 업적 & 비욘드버스",
-        "subtitle": "총 1,000 XP를 제공하는 공식 Google Play Games 업적 11종과 비욘드버스·유물 트로피, 9개 언어 실시간 알림이 추가되었습니다!",
+        "title": "🌌 v1.5.7 200스테이지 비욘드버스 & 공식 업적 에디션",
+        "subtitle": "200개 전체 스테이지, 11종 Google Play Games 공식 업적(1,000 XP), 9개 언어 100% 현지화 및 공정한 순위 시스템이 준비되었습니다!",
         "btnOk": "🚀 좋아요, 모험 시작!",
         "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            { "icon": "🏅", "title": "공식 Google Play Games 업적 11종 (1,000 XP)", "desc": "첫 승리부터 우주의 지배자까지 모든 도전 과제가 이제 Google Play Games 프로필에 공식 XP로 바로 기록됩니다." },
-            { "icon": "🌌", "title": "새로운 비욘드버스 & 유물 사냥꾼 업적 3종", "desc": "101~150 스테이지에서 비욘드버스 탐험가(100 XP), 유물 사냥꾼(100 XP), 비욘드버스 정복자(150 XP)를 달성해 보세요." },
-            { "icon": "💬", "title": "모든 게임 내 알림 9개 언어 완벽 현지화", "desc": "부족한 봉인 열쇠 안내, 유물 상자 보상 문구, 업적 배너가 선택한 언어로 선명하게 표시됩니다." },
-            { "icon": "🎮", "title": "설정에서 바로 여는 공식 업적 트로피함", "desc": "설정 메뉴에서 공식 Play Games 업적 창을 즉시 열어 획득한 트로피와 XP를 확인할 수 있습니다." },
-            { "icon": "⚖️", "title": "공정한 공개 순위 보호 & 120 FPS 최적화", "desc": "내부 테스트 격리와 기기 간 정확한 점수 동기화가 유지되며 200개 스테이지 전체가 더욱 쾌적해졌습니다." }
+            { "icon": "🏅", "title": "Google Play Games 공식 업적 11종 (1,000 XP)", "desc": "첫 승리부터 150스테이지 비욘드버스 정복자, 유물 사냥꾼까지 모든 도전 과제가 공식 Play Games 프로필 XP로 기록됩니다." },
+            { "icon": "🌌", "title": "200스테이지: 본편·비욘드버스(101–150)·트롤 모드", "desc": "아틀란티스부터 거울 성당까지 봉인 열쇠를 모으고 숨겨진 유물 상자와 다중 페이즈 보스를 정복하세요!" },
+            { "icon": "💬", "title": "친구 랭킹 포함 모든 화면 9개 언어 100% 완성", "desc": "Play Games 친구 순위 안내, 테스트 격리 메시지, 봉인 열쇠 경고, 유물 보상 문구까지 모두 선택한 언어로 표시됩니다." },
+            { "icon": "⚖️", "title": "공정한 순위표 & 모든 기기 동일한 최신 기록", "desc": "휴대폰과 태블릿 간 점수가 정확히 일치하며, 앱 실행 시 항상 도달한 최고 스테이지에서 바로 시작합니다." },
+            { "icon": "⚡", "title": "120 FPS 초고속 엔진 & 오프라인 완벽 지원", "desc": "19명의 영웅과 4대 특수 능력, 미니 드론 동료와 함께 어디서나 쾌적하게 플레이하세요." }
         ]
     },
     "ja": {
-        "title": "🏅 v1.5.6 公式Play Games実績＆ビヨンドバース",
-        "subtitle": "合計1,000 XPのGoogle Play Games公式実績11種、ビヨンドバース＆遺物ハンター実績、全9言語のゲーム内通知を実装！",
+        "title": "🌌 v1.5.7 全200面ビヨンドバース＆公式実績完成版",
+        "subtitle": "全200ステージ、Google Play Games公式実績11種（1,000 XP）、全9言語の完全対応、公平なマルチランキングが登場！",
         "btnOk": "🚀 さあ、冒険へ！",
         "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            { "icon": "🏅", "title": "Google Play Games公式実績 11種（合計1,000 XP）", "desc": "ファーストブラッドから宇宙の支配者まで、達成した実績がGoogle Play Gamesプロフィールに公式XPとして同期されます。" },
-            { "icon": "🌌", "title": "新ビヨンドバース＆遺物ハンター実績 3種追加", "desc": "101〜150面で「ビヨンドバース探検家 (100 XP)」「遺物ハンター (100 XP)」「ビヨンドバース征服者 (150 XP)」に挑戦しよう！" },
-            { "icon": "💬", "title": "ゲーム内ポップアップを全9言語に完全対応", "desc": "封印鍵不足の警告や遺物チェスト獲得メッセージが、選択中の言語で自然に即時表示されます。" },
-            { "icon": "🎮", "title": "公式Play Games実績一覧へワンタップ移動", "desc": "設定画面からPlay Games実績ドロワーを直接開き、獲得トロフィーとXP進捗をいつでも確認できます。" },
-            { "icon": "⚖️", "title": "公平なランキング保護＆120 FPSの快適動作", "desc": "公開ランキングとテスト環境の完全分離を維持しつつ、全200ステージの描画と操作感をさらに磨きました。" }
+            { "icon": "🏅", "title": "Google Play Games公式実績 11種（1,000 XP）", "desc": "最初の勝利から150面のビヨンドバース征服者、秘宝ハンターまで全ての実績が公式XPとしてプロフィールに同期されます。" },
+            { "icon": "🌌", "title": "全200面：本編・ビヨンドバース(101〜150)・トロール", "desc": "アトランティスや鏡面大聖堂で封印の鍵を集め、隠し秘宝チェストと多段階ボスに挑もう！" },
+            { "icon": "💬", "title": "フレンド順位表を含め全9言語を100%翻訳", "desc": "フレンドランキング案内、社内テスト隔離メッセージ、封印鍵の警告やチェスト報酬通知まで選択言語で表示されます。" },
+            { "icon": "⚖️", "title": "公平なランキング＆全端末で一致するスコア", "desc": "スマホとタブレットで常に正確な最新スコアが反映され、起動時は常に最前線ステージから再開できます。" },
+            { "icon": "⚡", "title": "120 FPS の滑らか動作＆完全オフライン対応", "desc": "19人の英雄と4つの特殊能力、ミニドローンと共にいつでも快適に楽しめます。" }
         ]
     },
     "zh": {
-        "title": "🏅 v1.5.6 官方 Play Games 成就与超维宇宙",
-        "subtitle": "11项官方 Google Play Games 成就（共 1,000 XP）、超维与遗物宝箱奖杯以及 9 种语言完整游戏内提示正式上线！",
+        "title": "🌌 v1.5.7 全200关超维宇宙与官方成就正式版",
+        "subtitle": "完整200道关卡、11项官方 Google Play Games 成就（1,000 XP）、9种语言100%界面本地化及跨设备公平排行全面上线！",
         "btnOk": "🚀 太棒了，出发冒险！",
         "btnWeb": "🌐 查看完整更新日志 ↗",
         "items": [
-            { "icon": "🏅", "title": "11项官方 Google Play Games 成就（1,000 XP）", "desc": "从“首次胜利”到“宇宙主宰”，所有里程碑成就现已直接同步至你的 Google Play Games 个人资料并累计 XP。" },
-            { "icon": "🌌", "title": "新增3项超维宇宙与遗物猎人成就", "desc": "在 101–150 关解锁“超维探索者 (100 XP)”、“遗物猎人 (100 XP)”和“超维征服者 (150 XP)”。" },
-            { "icon": "💬", "title": "100% 匹配所选语言的游戏内提示", "desc": "封印钥匙不足警告、遗物宝箱奖励飘字和成就横幅现已全面适配 9 种语言。" },
-            { "icon": "🎮", "title": "一键查看官方 Play Games 奖杯柜", "desc": "在设置菜单即可直接打开官方 Play Games 成就界面，随时查看已获徽章与 XP 进度。" },
-            { "icon": "⚖️", "title": "公平榜单隔离保护与 120 FPS 丝滑体验", "desc": "在确保内部测试成绩绝不干扰公开榜单的同时，进一步提升 200 关卡全流程的流畅度。" }
+            { "icon": "🏅", "title": "11项官方 Google Play Games 成就（1,000 XP）", "desc": "从首战告捷到150关超维征服者及遗迹猎人，每一项成就都将直接同步为你的 Play Games 官方经验值。" },
+            { "icon": "🌌", "title": "200关史诗：主线、超维宇宙(101–150)与恶搞模式", "desc": "从亚特兰蒂斯到镜面大教堂，收集封印钥匙，开启隐藏遗迹宝箱，挑战多阶段首领！" },
+            { "icon": "💬", "title": "9种语言 100% 全界面与好友榜单翻译", "desc": "Play Games 好友排行提示、测试隔离说明、封印警报和宝箱飘字现已全面匹配您所选的语言。" },
+            { "icon": "⚖️", "title": "公平榜单隔离与全设备精准同步", "desc": "手机与平板分数完全一致，且每次启动必直达您已解锁的最远关卡。" },
+            { "icon": "⚡", "title": "120 FPS 丝滑帧率与纯离线畅玩", "desc": "携带19位英雄、4大超能力与赛博迷你无人机，随时随地享受极致手感。" }
         ]
     },
     "ru": {
-        "title": "🏅 v1.5.6 Официальные достижения Play Games и Запределье",
-        "subtitle": "11 официальных достижений Google Play Games (1000 XP), трофеи Запределья и реликвий, а также уведомления на 9 языках!",
+        "title": "🌌 v1.5.7 Запределье (200 этапов) и Официальные достижения",
+        "subtitle": "Все 200 этапов, 11 официальных достижений Google Play Games (1000 XP), полный перевод на 9 языков и честный кросс-девайс рейтинг!",
         "btnOk": "🚀 ОТЛИЧНО, ВПЕРЁД!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
-            { "icon": "🏅", "title": "11 официальных достижений Play Games (1000 XP)", "desc": "Все награды от «Первой победы» до «Повелителя Вселенной» теперь официально синхронизируются с профилем Google Play Games." },
-            { "icon": "🌌", "title": "3 новых достижения Запределья и Реликвий", "desc": "Откройте «Исследователь Запределья» (100 XP), «Охотник за реликвиями» (100 XP) и «Покоритель Запределья» (150 XP) на этапах 101–150." },
-            { "icon": "💬", "title": "100% перевод всплывающих подсказок в игре", "desc": "Предупреждения о нехватке печатей и сообщения о сундуках реликвий теперь отображаются строго на выбранном языке." },
-            { "icon": "🎮", "title": "Быстрый доступ к витрине достижений Play Games", "desc": "Открывайте официальный экран достижений Play Games прямо из настроек, чтобы отслеживать трофеи и очки XP." },
-            { "icon": "⚖️", "title": "Честный рейтинг и плавные 120 FPS", "desc": "Полная изоляция тестов от публичной таблицы сохранена, а производительность во всех 200 этапах стала ещё стабильнее." }
+            { "icon": "🏅", "title": "11 официальных достижений Play Games (1000 XP)", "desc": "Все награды от Первой победы до Покорителя Запределья на 150 этапе и Охотника за реликвиями теперь начисляют официальный XP." },
+            { "icon": "🌌", "title": "200 этапов: Кампания, Запределье (101–150) и Тролл-режим", "desc": "Собирайте ключи печатей, находите сундуки реликвий и побеждайте многофазных боссов от Атлантиды до Зеркального собора!" },
+            { "icon": "💬", "title": "100% локализация на 9 языках включая рейтинг друзей", "desc": "Экран рейтинга друзей Play Games, уведомления о тестах, печати и награды отображаются строго на выбранном языке." },
+            { "icon": "⚖️", "title": "Честная таблица лидеров и синхронизация на всех устройствах", "desc": "Очки на телефоне и планшете всегда совпадают, а игра открывается на вашем самом дальнем открытом этапе." },
+            { "icon": "⚡", "title": "Плавные 120 FPS и полноценный оффлайн-режим", "desc": "19 героев, 4 спецспособности и боевой Мини-дрон работают максимально плавно в любой точке мира." }
         ]
     },
     "it": {
-        "title": "🏅 v1.5.6 Obiettivi Ufficiali Play Games e Oltremondo",
-        "subtitle": "Sono arrivati 11 Obiettivi ufficiali Google Play Games (1.000 XP), trofei dell'Oltremondo e notifiche in gioco al 100% nella tua lingua!",
+        "title": "🌌 v1.5.7 Oltremondo 200 Livelli e Obiettivi Ufficiali",
+        "subtitle": "200 livelli completi, 11 Obiettivi ufficiali Google Play Games (1.000 XP), traduzione completa al 100% in 9 lingue e classifiche eque!",
         "btnOk": "🚀 FANTASTICO, GIOCHIAMO!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
-            { "icon": "🏅", "title": "11 Obiettivi Ufficiali Google Play Games (1.000 XP)", "desc": "Ogni traguardo da Primo Sangue a Dominatore dell'Universo ora si sincronizza direttamente con il tuo profilo Play Games." },
-            { "icon": "🌌", "title": "3 Nuovi Trofei Oltremondo e Cacciatore di Reliquie", "desc": "Sblocca Esploratore dell'Oltremondo (100 XP), Cacciatore di Reliquie (100 XP) e Conquistatore dell'Oltremondo (150 XP) tra i livelli 101–150." },
-            { "icon": "💬", "title": "Avvisi in Gioco Localizzati in Tutte le 9 Lingue", "desc": "Gli avvisi dei sigilli mancanti e i premi degli scrigni reliquia appaiono sempre nella lingua selezionata." },
-            { "icon": "🎮", "title": "Accesso Rapido alla Bacheca Trofei Play Games", "desc": "Apri subito la schermata ufficiale degli Obiettivi Play Games dalle Impostazioni per seguire badge e punti XP." },
-            { "icon": "⚖️", "title": "Classifiche Protette e Fluidità a 120 FPS", "desc": "La separazione dei test dalla classifica pubblica resta invariata mentre i 200 livelli girano ancora più fluidi." }
+            { "icon": "🏅", "title": "11 Obiettivi Ufficiali Google Play Games (1.000 XP)", "desc": "Ogni impresa, da Prima Vittoria fino a Conquistatore dell'Oltremondo al livello 150 e Cacciatore di Reliquie, sincronizza subito gli XP ufficiali." },
+            { "icon": "🌌", "title": "200 Livelli: Storia, Oltremondo (101–150) e Modalità Troll", "desc": "Raccogli le Chiavi dei Sigilli, apri gli Scrigni Reliquia e sfida boss multifase da Atlantide alla Cattedrale Specchio!" },
+            { "icon": "💬", "title": "Traduzione al 100% in 9 Lingue incluse Classifiche Amici", "desc": "La sezione Amici Play Games, gli avvisi test, i sigilli e gli scrigni usano sempre la tua lingua scelta." },
+            { "icon": "⚖️", "title": "Classifiche Protette e Dati Coerenti Ovunque", "desc": "Telefono e tablet mostrano gli stessi punteggi reali e l'avvio riparte sempre dal livello più avanzato sbloccato." },
+            { "icon": "⚡", "title": "120 FPS Ultra-Fluidi e Gioco 100% Offline", "desc": "19 eroi, 4 poteri speciali e il tuo Mini-Drone pronti all'azione senza connessione." }
         ]
     },
     "es": {
-        "title": "🏅 v1.5.6 Logros Oficiales de Play Games y Más Allá",
-        "subtitle": "¡Ya están aquí 11 Logros oficiales de Google Play Games (1.000 XP), trofeos del Más Allá y avisos del juego 100% en tu idioma!",
+        "title": "🌌 v1.5.7 Más Allá (200 Niveles) y Logros Oficiales",
+        "subtitle": "¡200 niveles completos, 11 Logros oficiales de Google Play Games (1.000 XP), 9 idiomas al 100% y clasificaciones justas entre dispositivos!",
         "btnOk": "🚀 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
-            { "icon": "🏅", "title": "11 Logros Oficiales de Google Play Games (1.000 XP)", "desc": "Cada hito desde Primera Sangre hasta Gobernante del Universo ahora se sincroniza con tu perfil oficial de Play Games." },
-            { "icon": "🌌", "title": "3 Nuevos Logros del Más Allá y Reliquias", "desc": "Desbloquea Explorador del Más Allá (100 XP), Cazador de Reliquias (100 XP) y Conquistador del Más Allá (150 XP) en los niveles 101–150." },
-            { "icon": "💬", "title": "Textos y Alertas de Partida en 9 Idiomas", "desc": "Los avisos de sellos faltantes, recompensas de cofres de reliquia y estandartes de logros muestran siempre tu idioma elegido." },
-            { "icon": "🎮", "title": "Vitrina de Logros Play Games en un Toque", "desc": "Abre la ventana oficial de Logros de Play Games desde Ajustes para revisar tus trofeos y puntos XP acumulados." },
-            { "icon": "⚖️", "title": "Justicia en Rankings y Fluidez de 120 FPS", "desc": "Se mantiene el aislamiento total frente a pruebas internas mientras los 200 niveles ofrecen una respuesta impecable." }
+            { "icon": "🏅", "title": "11 Logros Oficiales de Google Play Games (1.000 XP)", "desc": "Cada hito desde Primera Victoria hasta Conquistador del Más Allá en el nivel 150 y Cazador de Reliquias suma XP oficial a tu perfil." },
+            { "icon": "🌌", "title": "200 Niveles: Historia, Más Allá (101–150) y Modo Troll", "desc": "¡Reúne Llaves de Sello, abre Cofres de Reliquias ocultos y derrota a jefes multifase desde Atlántida hasta la Catedral Espejo!" },
+            { "icon": "💬", "title": "100% Localizado en 9 Idiomas con Ranking de Amigos", "desc": "Los avisos de Amigos en Play Games, mensajes de canal, sellos y recompensas respetan siempre tu idioma seleccionado." },
+            { "icon": "⚖️", "title": "Rankings Justos y Puntuaciones Iguales en Todos tus Dispositivos", "desc": "Tu teléfono y tablet muestran exactamente los mismos récords y siempre reanudas en tu etapa más avanzada." },
+            { "icon": "⚡", "title": "120 FPS Súper Fluidos y Aventura 100% Offline", "desc": "Disfruta de 19 héroes, 4 poderes especiales y tu Mini-Dron aliado en cualquier lugar." }
         ]
     },
     "fr": {
-        "title": "🏅 v1.5.6 Succès Officiels Play Games & Au-Delà",
-        "subtitle": "11 Succès officiels Google Play Games (1 000 XP), trophées de l'Au-Delà et alertes en jeu 100 % dans votre langue sont arrivés !",
+        "title": "🌌 v1.5.7 Au-Delà (200 Niveaux) & Succès Officiels",
+        "subtitle": "200 niveaux complets, 11 Succès officiels Google Play Games (1 000 XP), traduction intégrale en 9 langues et classements équitables !",
         "btnOk": "🚀 SUPER, C'EST PARTI !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
-            { "icon": "🏅", "title": "11 Succès Officiels Google Play Games (1 000 XP)", "desc": "De Premier Sang à Maître de l'Univers, tous vos exploits sont désormais synchronisés avec votre profil Google Play Games." },
-            { "icon": "🌌", "title": "3 Nouveaux Succès Au-Delà & Chasseur de Reliques", "desc": "Débloquez Explorateur de l'Au-Delà (100 XP), Chasseur de Reliques (100 XP) et Conquérant de l'Au-Delà (150 XP) sur les niveaux 101–150." },
-            { "icon": "💬", "title": "Alertes en Jeu Traduites en 9 Langues", "desc": "Les alertes de sceaux manquants et récompenses de coffres reliques s'affichent toujours dans la langue choisie." },
-            { "icon": "🎮", "title": "Vitrine des Trophées Play Games Instantanée", "desc": "Ouvrez directement l'écran officiel des Succès Play Games depuis les Paramètres pour suivre vos trophées et XP." },
-            { "icon": "⚖️", "title": "Classements Équitables & Fluidité 120 FPS", "desc": "L'isolation des tests internes reste stricte tandis que l'aventure de 200 niveaux gagne en netteté." }
+            { "icon": "🏅", "title": "11 Succès Officiels Google Play Games (1 000 XP)", "desc": "Chaque exploit de Premier Sang jusqu'à Conquérant de l'Au-Delà au niveau 150 et Chasseur de Reliques ajoute directement des XP à votre profil." },
+            { "icon": "🌌", "title": "200 Niveaux : Histoire, Au-Delà (101–150) & Mode Troll", "desc": "Récoltez les Clés de Sceau, ouvrez les Coffres de Reliques et affrontez des boss multi-phases de l'Atlantide à la Cathédrale Miroir !" },
+            { "icon": "💬", "title": "100 % Traduit en 9 Langues dont le Classement Amis", "desc": "La vue Amis Play Games, les alertes de sceaux, récompenses de coffres et notifications s'affichent toujours dans votre langue." },
+            { "icon": "⚖️", "title": "Classements Équitables & Scores Synchronisés Partout", "desc": "Téléphone et tablette affichent exactement les mêmes scores et le jeu s'ouvre toujours sur votre palier le plus avancé." },
+            { "icon": "⚡", "title": "Fluidité 120 FPS & Aventure 100 % Hors-Ligne", "desc": "Retrouvez 19 héros, 4 pouvoirs spéciaux et votre Mini-Drone cyber partout, même sans connexion." }
         ]
     }
 };
