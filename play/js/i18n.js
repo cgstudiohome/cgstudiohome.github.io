@@ -6933,123 +6933,123 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.5.4" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.5.5" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🛡️ v1.5.4 İlerleme Koruması & Gerçek Liderlik Tablosu",
-        "subtitle": "Gerçek ilerlemenize göre açılan başlangıç bölümü, adil liderlik sıralaması, izole Öte Evren deneme modu ve otomatik bulut onarımı yayında!",
+        "title": "⚖️ v1.5.5 Adil Liderlik İzolasyonu & En İleri Bölümden Devam",
+        "subtitle": "Dahili test skorları genel sıralamadan ayrıldı, tüm cihazlarda puanlar eşitlendi ve oyun açılışta daima ulaştığınız en ileri bölümden açılıyor!",
         "btnOk": "🚀 HARİKA, MACERAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            { "icon": "🛡️", "title": "Tam Kaldığın Gerçek Bölümden Açılış Koruması", "desc": "Oyunu açtığınızda yalnızca gerçekten tamamladığınız bölümlerin ardından gelen son bölümünüz (ör. 18. veya 106. bölüm) açılır; hatalı 150. bölüm açılışları otomatik onarılır!" },
-            { "icon": "🏆", "title": "Yıldız Odaklı Adil ve Tutarlı Liderlik Tablosu", "desc": "Liderlik tablosu artık tüm cihazlarda yalnızca gerçekten yıldız kazanılan bölümleri sayar; mükerrer veya boş kayıtlar temizlenir." },
-            { "icon": "🧪", "title": "Tam İzole Öte Evren Deneme Modu", "desc": "Öte Evren Test anahtarı artık yalnızca güvenli bir deneme alanında çalışır; gerçek yıldızlarınızı, kayıt dosyanızı ve liderlik puanınızı asla değiştirmez." },
-            { "icon": "☁️", "title": "Otomatik Bulut & Play Games İyileştirmesi", "desc": "Eski bulut kayıtları ve Play Games profil eşleşmeleri açılışta otomatik olarak temizlenir ve tüm cihazlarda uyumlu hale getirilir." },
-            { "icon": "🌍", "title": "15 Dünya Şeridi & Akıcı 120 FPS Deneyimi", "desc": "Dünya 1–15 arası sürüklenebilir yatay harita, kaldığınız bölümden devam etme ve 9 dil desteği kararlı biçimde devam eder." }
+            { "icon": "⚖️", "title": "Dahili Test ve Genel Sıralama Tam Ayrıldı", "desc": "Test kanalındaki deneme skorları ve başarımlar artık yalnızca dahili test listesinde görünür; genel oyuncu sıralamasının adaleti %100 korunur." },
+            { "icon": "🏆", "title": "Tüm Cihazlarda Eşit ve Güncel Puanlar", "desc": "Telefon ve tabletlerde eski yüksek puan kayıtlarının güncel tabloyu ezmesi ve boş yer tutucu hesapların listelenmesi tamamen engellendi." },
+            { "icon": "🧭", "title": "Daima Ulaştığınız En İleri Bölümden Açılış", "desc": "Öte Evren'e geçmiş olsanız da olmasanız da, daha önce eski bir bölümü tekrar oynadıktan sonra oyunu kapatıp açsanız bile daima açık en son bölümünüz hazır gelir." },
+            { "icon": "🧪", "title": "Öte Evren Testi Açıkken Kesintisiz İlerleme", "desc": "Öte Evren'i hak eden oyuncular test anahtarı açıkken gerçek bölümlerini oynamaya ve kendi sıralamalarını güvenle ilerletmeye devam edebilir." },
+            { "icon": "🌍", "title": "15 Dünya Şeridi & 9 Dilde Akıcı 120 FPS", "desc": "Dünya 1–15 arası sürüklenebilir yatay harita, evren geçişleri ve 9 dil desteği kararlı biçimde geliştirildi." }
         ]
     },
     "en": {
-        "title": "🛡️ v1.5.4 Progress Integrity & Accurate Leaderboards",
-        "subtitle": "Automatic save restoration to your true stage, verified star-based global rankings, and a completely isolated Beyondverse sandbox mode!",
+        "title": "⚖️ v1.5.5 Fair Leaderboard Isolation & Frontier Resume",
+        "subtitle": "Internal test rankings are now completely separated from public leaderboards, scores match across every device, and launches always open at your furthest stage!",
         "btnOk": "🚀 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            { "icon": "🛡️", "title": "Auto-Healed True Progress & Resume Stage", "desc": "Launching the game now restores your exact earned campaign or Beyondverse stage (e.g. Level 18 or 106) and repairs erroneous Level 150 jumps automatically!" },
-            { "icon": "🏆", "title": "Fair Star-Verified Global Leaderboards", "desc": "Rankings across every device now count strictly completed starred stages, eliminating duplicate guest entries and inflated progress numbers." },
-            { "icon": "🧪", "title": "Fully Sandboxed Beyondverse Test Switch", "desc": "Toggling Beyondverse Test runs in an isolated sandbox that never overwrites your real progress, stars, save data, or leaderboard score." },
-            { "icon": "☁️", "title": "Seamless Cloud & Play Games Auto-Sync Healing", "desc": "Poisoned test snapshots and stale guest records are automatically cleaned upon startup while verified Play Games profiles stay synchronized." },
-            { "icon": "🌍", "title": "Unified 15-World Strip & Smooth 120 FPS Play", "desc": "Enjoy the horizontally scrollable World 1–15 strip, exact level resume, and complete 9-language localization across Android and Web." }
+            { "icon": "⚖️", "title": "Complete Internal Test Leaderboard Isolation", "desc": "Test accounts on the internal channel now compete in an isolated test board and never push test scores or achievements to public Play Games rankings." },
+            { "icon": "🏆", "title": "Consistent Scores & Cleared Stages Across Every Device", "desc": "Stale high-water scores can no longer overwrite updated leaderboard rankings on phones or tablets, and zero-progress placeholders are filtered out." },
+            { "icon": "🧭", "title": "Always Open at Your Highest Unlocked Frontier", "desc": "Whether you are in Campaign (1–100) or Beyondverse (101–150), reopening the app after replaying an earlier stage always brings you straight to your latest unlocked stage." },
+            { "icon": "🧪", "title": "Safe Testing Alongside Real Beyondverse Progression", "desc": "Players who genuinely unlocked Beyondverse can keep playing real stages smoothly without losing their active frontier or leaderboard accuracy." },
+            { "icon": "🌍", "title": "Unified 15-World Strip & Smooth 120 FPS", "desc": "Scroll freely between Worlds 1–15, switch any stage afterward, and enjoy full 9-language clarity." }
         ]
     },
     "ko": {
-        "title": "🛡️ v1.5.4 진행도 자동 복구 & 공정한 리더보드",
-        "subtitle": "실제 클리어한 스테이지로 정확히 복원되고, 별 기반의 공정한 순위표와 완전히 격리된 비욘드버스 테스트 모드가 적용되었습니다!",
+        "title": "⚖️ v1.5.5 공정한 순위표 분리 & 최신 스테이지 즉시 복귀",
+        "subtitle": "내부 테스트 순위가 공개 리더보드와 완전히 분리되었고, 모든 기기에서 동일한 최신 점수와 최고 해금 스테이지로 바로 이어집니다!",
         "btnOk": "🚀 좋아요, 모험 시작!",
         "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            { "icon": "🛡️", "title": "실제 진행 스테이지 자동 복구 및 보호", "desc": "게임을 열면 150레벨로 잘못 이동하지 않고 실제로 도달한 스테이지(예: 18 또는 106레벨)로 자동 복원됩니다!" },
-            { "icon": "🏆", "title": "별 획득 기반의 투명한 글로벌 리더보드", "desc": "모든 기기에서 별을 획득해 완료한 스테이지만 순위에 반영되며 중복·유령 기록이 깔끔히 정리됩니다." },
-            { "icon": "🧪", "title": "완전 격리된 비욘드버스 체험 테스트 스위치", "desc": "비욘드버스 테스트를 켜고 플레이해도 실제 저장 데이터, 별, 리더보드 점수가 절대 변경되지 않습니다." },
-            { "icon": "☁️", "title": "클라우드 및 Play Games 자동 정리 동기화", "desc": "실행 시 기존 테스트로 손상된 클라우드 기록과 게스트 중복을 자동으로 정리해 가족 기기 간에도 정확히 일치합니다." },
-            { "icon": "🌍", "title": "15월드 가로 스크롤 & 120 FPS 안정성", "desc": "월드 1–15 통합 바, 마지막 스테이지 이어하기, 9개 언어 지원이 더욱 안정적으로 제공됩니다." }
+            { "icon": "⚖️", "title": "내부 테스트와 공개 리더보드 완전 분리", "desc": "내부 테스트 채널의 테스트 기록은 전용 테스트 보드에만 표시되어 공개 Play Games 랭킹의 공정성을 100% 보호합니다." },
+            { "icon": "🏆", "title": "모든 기기에서 일치하는 최신 점수 및 진행도", "desc": "과거 최고 점수가 최신 순위표를 덮어쓰는 현상을 막고, 진행도 없는 빈 계정 표시를 모두 제거했습니다." },
+            { "icon": "🧭", "title": "언제나 최고 해금 스테이지로 바로 시작", "desc": "이전 스테이지를 다시 플레이하고 앱을 닫아도 재실행 시 항상 가장 멀리 진행한 최신 스테이지가 열립니다." },
+            { "icon": "🧪", "title": "비욘드버스 테스트와 실제 진행의 완벽한 양립", "desc": "비욘드버스를 해금한 플레이어는 테스트 스위치가 켜져 있어도 실제 스테이지 진행이 안전하게 반영됩니다." },
+            { "icon": "🌍", "title": "15월드 통합 스크롤 & 120 FPS 안정화", "desc": "월드 1–15 탐색, 9개 언어 지원 및 부드러운 프레임이 더욱 안정적으로 동작합니다." }
         ]
     },
     "ja": {
-        "title": "🛡️ v1.5.4 進行データ保護＆正確なランキング修正",
-        "subtitle": "実際の到達ステージへの自動修復、スター基準の公平なランキング、完全分離されたビヨンドバース試遊モードを公開！",
+        "title": "⚖️ v1.5.5 公平な順位分離＆到達最前線からの再開",
+        "subtitle": "社内テスト用の順位表を公開ランキングから完全分離！全端末で同じ最新スコアが表示され、起動時は常に最前線ステージから始まります！",
         "btnOk": "🚀 さあ、冒険へ！",
         "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            { "icon": "🛡️", "title": "本来の到達ステージへ自動修復して再開", "desc": "誤って150面が開く不具合を自動修復し、実際にクリアした正規ステージ（例：18面や106面）から正確に再開できます！" },
-            { "icon": "🏆", "title": "スター獲得数に基づく公平なリーダーボード", "desc": "全端末の順位表で実際にクリアしてスターを獲得した面のみを集計し、重複や空白のレコードを自動除外します。" },
-            { "icon": "🧪", "title": "完全サンドボックス化のビヨンドバース試遊", "desc": "試遊スイッチをONにしても、本編の進行状況・スター・クラウド保存・ランキングスコアは一切書き換わりません。" },
-            { "icon": "☁️", "title": "クラウド＆Play Games 自動クリーン同期", "desc": "起動時にテスト由来の古いクラウドデータや重複IDを自動修復し、すべての端末で正しい記録を共有します。" },
-            { "icon": "🌍", "title": "15ワールド横スクロール帯＆120 FPS快適動作", "desc": "ワールド1〜15の統合マップや続きからの自動再開、全9言語対応を引き続き快適にお楽しみいただけます。" }
+            { "icon": "⚖️", "title": "内部テスト順位と公開ランキングの完全分離", "desc": "内部テストのスコアや実績はテスト専用リストに隔離され、一般プレイヤー向けランキングの公平性が守られます。" },
+            { "icon": "🏆", "title": "全端末で一致する正確なスコアとクリア数", "desc": "過去の固定スコアが最新データを上書きする問題を解消し、進行ゼロの仮アカウントも非表示にしました。" },
+            { "icon": "🧭", "title": "起動時は常に最高解放ステージへ直行", "desc": "1〜100面でもビヨンドバース101〜150面でも、前の面を遊んだ後に再起動すれば必ず最前線の未クリア面が開きます。" },
+            { "icon": "🧪", "title": "ビヨンドバース試遊中も本編進行を安全保護", "desc": "ビヨンドバース解放済みのプレイヤーはテスト表示中でも正規ステージを快適に進められます。" },
+            { "icon": "🌍", "title": "15ワールド帯＆全9言語 120 FPS 対応", "desc": "横スクロール可能な全15ワールドと9言語の通知ラベルがさらに洗練されました。" }
         ]
     },
     "zh": {
-        "title": "🛡️ v1.5.4 进度自动修复与公平排行榜",
-        "subtitle": "启动自动校准真实进度、基于实得星数的准确排行榜，以及完全隔离的超维试玩沙盒模式现已上线！",
+        "title": "⚖️ v1.5.5 公平排行榜隔离与最高进度直达",
+        "subtitle": "内部测试榜已与公开排行榜彻底隔离，所有设备同步显示真实一致的分数，且每次启动必直达已解锁的最新关卡！",
         "btnOk": "🚀 太棒了，出发冒险！",
         "btnWeb": "🌐 查看完整更新日志 ↗",
         "items": [
-            { "icon": "🛡️", "title": "自动修复并回到真实当前关卡", "desc": "修复误跳第150关的异常，打开游戏后自动还原至您实际解锁的关卡（如第18关或第106关）！" },
-            { "icon": "🏆", "title": "严格按通关星数统计的全球排行榜", "desc": "所有设备上的排行榜均只统计真正获得星星的已通关关卡，并自动清理重复游客或零进度幽灵条目。" },
-            { "icon": "🧪", "title": "完全沙盒隔离的超维测试开关", "desc": "开启超维测试试玩时仅在临时沙盒中运行，绝不覆盖您的真实存档、星级、进度或排行榜成绩。" },
-            { "icon": "☁️", "title": "云端存档与 Play Games 自动校准同步", "desc": "启动时自动清理早期测试残留的云端异常数据与重复设备节点，保证多设备显示完全一致。" },
-            { "icon": "🌍", "title": "15大世界卷轴与 120 FPS 丝滑体验", "desc": "继续畅享可拖拽的1–15世界导航栏、精确断点续玩与完整的9种语言界面。" }
+            { "icon": "⚖️", "title": "内部测试榜与公开排行榜完全隔离", "desc": "内部测试频道的试玩成绩仅在独立测试榜内显示，不再提交至公开排行榜，确保所有真实玩家排名绝对公平。" },
+            { "icon": "🏆", "title": "手机与平板显示完全一致的分数与关卡", "desc": "防止旧历史最高分覆盖已修复的实时排行榜，同时彻底过滤零进度的空账户记录。" },
+            { "icon": "🧭", "title": "每次重启始终直达最高已解锁关卡", "desc": "重玩前期关卡或切换宇宙后退出游戏，再次打开都会直接停留在你推进到的最远主线或超维关卡。" },
+            { "icon": "🧪", "title": "超维测试开关与真实推图互不干扰", "desc": "已解锁超维宇宙的玩家在测试模式下仍可安全推进真实关卡并保护历史星级。" },
+            { "icon": "🌍", "title": "15大世界导航条与 120 FPS 丝滑体验", "desc": "1–15世界顺畅横向切换与9种语言提示信息进一步完善。" }
         ]
     },
     "ru": {
-        "title": "🛡️ v1.5.4 Защита прогресса и честная таблица лидеров",
-        "subtitle": "Автоисправление стартового уровня по реальному прогрессу, точный рейтинг по звёздам и полностью изолированный тест-режим!",
+        "title": "⚖️ v1.5.5 Изоляция тест-рейтинга и старт с рубежа прогресса",
+        "subtitle": "Рейтинг внутреннего теста полностью отделён от общего, очки совпадают на всех устройствах, а игра всегда открывает ваш самый дальний этап!",
         "btnOk": "🚀 ОТЛИЧНО, ВПЕРЁД!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
-            { "icon": "🛡️", "title": "Автовосстановление вашего реального уровня", "desc": "Игра автоматически исправляет ошибочный запуск на 150-м уровне и открывает именно ваш реальный этап (например, 18 или 106)!" },
-            { "icon": "🏆", "title": "Точный рейтинг строго по пройденным уровням", "desc": "Таблица лидеров на всех устройствах теперь учитывает только уровни со звёздами и убирает пустые или дублирующиеся записи." },
-            { "icon": "🧪", "title": "Изолированная песочница теста Запределья", "desc": "Переключатель теста Запределья больше никогда не затрагивает ваш реальный прогресс, звёзды, облако и место в рейтинге." },
-            { "icon": "☁️", "title": "Умная очистка облака и Play Games при запуске", "desc": "Повреждённые тестовые сохранения и старые гостевые узлы автоматически очищаются после входа, выравнивая данные на всех устройствах." },
-            { "icon": "🌍", "title": "Единая лента 15 миров и плавные 120 FPS", "desc": "Прокручиваемая лента миров 1–15, точное продолжение и полная локализация на 9 языков работают стабильно." }
+            { "icon": "⚖️", "title": "Полная изоляция внутреннего теста от общего рейтинга", "desc": "Тестовые очки и достижения больше не попадают в публичную таблицу Play Games, сохраняя 100% честную конкуренцию." },
+            { "icon": "🏆", "title": "Одинаковый точный счёт и прогресс на всех устройствах", "desc": "Старые рекорды Play Games больше не перезаписывают актуальные облачные данные, а пустые профили полностью скрыты." },
+            { "icon": "🧭", "title": "Всегда запуск с самого дальнего открытого уровня", "desc": "Даже если вы переигрывали старые этапы, после перезапуска игра откроет ваш актуальный рубеж в Кампании или Запределье." },
+            { "icon": "🧪", "title": "Защита реального прогресса при тесте Запределья", "desc": "Игроки, открывшие Запределье, сохраняют точный прогресс и чистую синхронизацию без сбоев." },
+            { "icon": "🌍", "title": "Лента 15 миров и плавные 120 FPS на 9 языках", "desc": "Удобный выбор любого мира из 1–15 и полная локализация всех уведомлений." }
         ]
     },
     "it": {
-        "title": "🛡️ v1.5.4 Integrità Progressi e Classifiche Accurate",
-        "subtitle": "Ripristino automatico del livello reale all'avvio, classifiche basate sulle stelle vinte e modalità test Oltremondo isolata!",
+        "title": "⚖️ v1.5.5 Classifica Test Isolata e Ripartenza dal Livello Più Avanzato",
+        "subtitle": "I punteggi dei test interni sono ora separati dalla classifica pubblica, i dati coincidono su tutti i dispositivi e l'avvio apre sempre l'ultimo traguardo sbloccato!",
         "btnOk": "🚀 FANTASTICO, GIOCHIAMO!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
-            { "icon": "🛡️", "title": "Ripristino Automatico del Vero Livello Attivo", "desc": "All'avvio i salti errati al Livello 150 vengono riparati automaticamente, riportandoti esattamente al tuo vero stage (es. 18 o 106)!" },
-            { "icon": "🏆", "title": "Classifica Globale Equa Basata sulle Stelle", "desc": "Su ogni dispositivo la classifica conta solo i livelli effettivamente superati con stelle ed elimina duplicati e profili vuoti." },
-            { "icon": "🧪", "title": "Test Oltremondo in Sandbox Completamente Isolata", "desc": "Attivando il Test Oltremondo giochi in una sandbox temporanea che non altera mai salvataggi reali, stelle o punteggio." },
-            { "icon": "☁️", "title": "Pulizia Cloud & Play Games Automatica all'Avvio", "desc": "I vecchi salvataggi cloud alterati dai test precedenti e i nodi ospite duplicati vengono ripuliti e risincronizzati automaticamente." },
-            { "icon": "🌍", "title": "Barra 15 Mondi Unita & Fluidità a 120 FPS", "desc": "Continua a esplorare la barra scorrevole dei Mondi 1–15 con ripresa esatta e localizzazione completa in 9 lingue." }
+            { "icon": "⚖️", "title": "Isolamento Totale dei Test Interni dalla Classifica Pubblica", "desc": "I punteggi e gli obiettivi del canale test restano confinati nella classifica interna per garantire massima equità ai giocatori pubblici." },
+            { "icon": "🏆", "title": "Punteggi Coerenti su Telefono e Tablet", "desc": "I vecchi record storici non sovrascrivono più i dati cloud aggiornati e i profili a zero progressi vengono filtrati." },
+            { "icon": "🧭", "title": "Avvio Sempre dal Livello Sbloccato Più Avanzato", "desc": "Anche rigiocando livelli precedenti prima di chiudere l'app, alla riapertura ritrovi subito il tuo traguardo più recente nella Campagna o nell'Oltremondo." },
+            { "icon": "🧪", "title": "Avanzamento Reale Protetto Durante il Test Oltremondo", "desc": "Chi ha sbloccato l'Oltremondo può giocare i propri livelli reali senza alterare il salvataggio principale." },
+            { "icon": "🌍", "title": "Barra 15 Mondi & Fluidità a 120 FPS in 9 Lingue", "desc": "Navigazione fluida tra tutti i 15 Mondi e messaggi localizzati ancora più chiari." }
         ]
     },
     "es": {
-        "title": "🛡️ v1.5.4 Protección de Progreso y Ranking Preciso",
-        "subtitle": "Corrección automática a tu nivel real al abrir el juego, clasificación justa por estrellas y modo prueba del Más Allá aislado!",
+        "title": "⚖️ v1.5.5 Aislamiento de Pruebas y Reanudación en tu Último Logro",
+        "subtitle": "¡Las puntuaciones de prueba ya están separadas del ranking público, los datos coinciden en todos los dispositivos y siempre empiezas en tu nivel desbloqueado más alto!",
         "btnOk": "🚀 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
-            { "icon": "🛡️", "title": "Reparación Automática de Tu Nivel Real", "desc": "Si un ajuste previo abría el Nivel 150 por error, el juego restaura de inmediato tu etapa real ganada (p. ej. Nivel 18 o 106)." },
-            { "icon": "🏆", "title": "Tabla de Líderes Basada en Estrellas Reales", "desc": "El ranking en todos los dispositivos cuenta solo los niveles superados con estrellas y filtra duplicados o registros vacíos." },
-            { "icon": "🧪", "title": "Modo Prueba del Más Allá en Entorno Aislado", "desc": "Probar el Más Allá desde Ajustes ya no modifica nunca tu progreso real, estrellas, partida guardada ni puntuación en línea." },
-            { "icon": "☁️", "title": "Limpieza y Sincronización Automática en la Nube", "desc": "Las copias afectadas de versiones de prueba anteriores y los perfiles invitados duplicados se depuran y sincronizan solos al iniciar." },
-            { "icon": "🌍", "title": "Franja de 15 Mundos y Fluidez a 120 FPS", "desc": "Disfruta de la barra deslizable de los Mundos 1–15, reanudación exacta e interfaz completa en 9 idiomas." }
+            { "icon": "⚖️", "title": "Ranking de Pruebas Internas Totalmente Aislado", "desc": "Las puntuaciones y logros de cuentas en canal interno solo se muestran en la lista de pruebas y nunca alteran la clasificación pública." },
+            { "icon": "🏆", "title": "Puntuaciones Iguales en Todos tus Dispositivos", "desc": "Los registros antiguos ya no sobrescriben las puntuaciones reales actualizadas y se ocultan las cuentas sin progreso." },
+            { "icon": "🧭", "title": "Inicio Siempre en tu Nivel Desbloqueado Más Avanzado", "desc": "Aunque vuelvas a jugar etapas anteriores de la Campaña o el Más Allá, al reabrir siempre aparecerás listo para continuar tu nivel más lejano." },
+            { "icon": "🧪", "title": "Progreso Seguro con el Modo Prueba del Más Allá", "desc": "Los jugadores del Más Allá mantienen sus niveles reales intactos y sincronizados en la nube de pruebas." },
+            { "icon": "🌍", "title": "Franja de 15 Mundos y 120 FPS en 9 Idiomas", "desc": "Navega suavemente entre los Mundos 1–15 con etiquetas claras en todos los idiomas." }
         ]
     },
     "fr": {
-        "title": "🛡️ v1.5.4 Intégrité de Progression & Classement Fiable",
-        "subtitle": "Restauration automatique de votre vrai niveau au lancement, classement basé sur les étoiles et mode test Au-Delà isolé !",
+        "title": "⚖️ v1.5.5 Classement Test Isolé & Reprise au Niveau le Plus Avancé",
+        "subtitle": "Les scores de test interne sont séparés du classement public, vos appareils affichent enfin les mêmes valeurs et le jeu s'ouvre toujours sur votre dernier palier débloqué !",
         "btnOk": "🚀 SUPER, C'EST PARTI !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
-            { "icon": "🛡️", "title": "Réparation Automatique du Véritable Niveau Actif", "desc": "Les ouvertures erronées au Niveau 150 sont corrigées dès le lancement pour vous ramener exactement à votre vrai palier (ex. Niveau 18 ou 106) !" },
-            { "icon": "🏆", "title": "Classement Mondial Équitable Basé sur les Étoiles", "desc": "Sur chaque appareil, le classement ne compte plus que les niveaux réellement terminés avec étoiles et supprime les doublons ou profils vides." },
-            { "icon": "🧪", "title": "Mode Test Au-Delà 100 % Isolé en Bac à Sable", "desc": "Activer le Test Au-Delà ne touche plus jamais à vos vrais niveaux débloqués, étoiles, sauvegarde cloud ni score du classement." },
-            { "icon": "☁️", "title": "Assainissement Automatique Cloud & Play Games", "desc": "Les anciennes sauvegardes affectées et les identifiants invités en double sont automatiquement nettoyés et resynchronisés au démarrage." },
-            { "icon": "🌍", "title": "Bande des 15 Mondes & Fluidité 120 FPS", "desc": "Profitez de la bande glissable des Mondes 1–15, de la reprise exacte et des 9 langues toujours à jour." }
+            { "icon": "⚖️", "title": "Isolation Complète du Canal Test et du Classement Public", "desc": "Les scores et succès du canal de test interne restent dans un tableau isolé et ne faussent jamais le classement Play Games public." },
+            { "icon": "🏆", "title": "Scores Cohérents sur Téléphone et Tablette", "desc": "Les anciens records Play Games ne peuvent plus écraser les données actualisées et les profils sans progression sont masqués." },
+            { "icon": "🧭", "title": "Ouverture Toujours sur Votre Dernier Niveau Débloqué", "desc": "Même après avoir rejoué un ancien niveau de la Campagne ou de l'Au-Delà, vous reprenez automatiquement au niveau le plus avancé atteint." },
+            { "icon": "🧪", "title": "Progression Préservée avec le Test Au-Delà", "desc": "Les joueurs ayant débloqué l'Au-Delà continuent d'avancer normalement sans perturber leurs vraies étoiles." },
+            { "icon": "🌍", "title": "Bande des 15 Mondes & 120 FPS en 9 Langues", "desc": "Profitez de la bande glissable des 15 Mondes et de libellés parfaitement localisés." }
         ]
     }
 };
