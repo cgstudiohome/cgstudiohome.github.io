@@ -1313,7 +1313,7 @@ if (typeof window !== "undefined" && typeof window.ensureFullLangDict === "funct
 const ACHIEVEMENTS_CATALOG = [
     {
         id: "ach_first_blood",
-        pgId: "CgkIs7CE4MoREAIQBQ",
+        pgId: "CgkIs7CE4MoREAIQBg",
         xp: 500,
         rewardEmeralds: 5,
         rewardCoins: 50,
@@ -1330,7 +1330,7 @@ const ACHIEVEMENTS_CATALOG = [
     },
     {
         id: "ach_world_1",
-        pgId: "CgkIs7CE4MoREAIQBg",
+        pgId: "CgkIs7CE4MoREAIQBw",
         xp: 1000,
         rewardEmeralds: 10,
         rewardCoins: 100,
@@ -1347,7 +1347,7 @@ const ACHIEVEMENTS_CATALOG = [
     },
     {
         id: "ach_world_2",
-        pgId: "CgkIs7CE4MoREAIQBw",
+        pgId: "CgkIs7CE4MoREAIQCA",
         xp: 1500,
         rewardEmeralds: 15,
         rewardCoins: 150,
@@ -1364,7 +1364,7 @@ const ACHIEVEMENTS_CATALOG = [
     },
     {
         id: "ach_sub_master",
-        pgId: "CgkIs7CE4MoREAIQCA",
+        pgId: "CgkIs7CE4MoREAIQCQ",
         xp: 800,
         rewardEmeralds: 8,
         rewardCoins: 80,
@@ -1381,7 +1381,7 @@ const ACHIEVEMENTS_CATALOG = [
     },
     {
         id: "ach_speedrunner",
-        pgId: "CgkIs7CE4MoREAIQCQ",
+        pgId: "CgkIs7CE4MoREAIQCg",
         xp: 1200,
         rewardEmeralds: 10,
         rewardCoins: 100,
@@ -1398,7 +1398,7 @@ const ACHIEVEMENTS_CATALOG = [
     },
     {
         id: "ach_flawless",
-        pgId: "CgkIs7CE4MoREAIQCg",
+        pgId: "CgkIs7CE4MoREAIQCw",
         xp: 1000,
         rewardEmeralds: 10,
         rewardCoins: 100,
@@ -1415,7 +1415,7 @@ const ACHIEVEMENTS_CATALOG = [
     },
     {
         id: "ach_world_5",
-        pgId: "CgkIs7CE4MoREAIQCw",
+        pgId: "CgkIs7CE4MoREAIQDA",
         xp: 2500,
         rewardEmeralds: 20,
         rewardCoins: 200,
@@ -1432,7 +1432,7 @@ const ACHIEVEMENTS_CATALOG = [
     },
     {
         id: "ach_campaign_completed",
-        pgId: "CgkIs7CE4MoREAIQDA",
+        pgId: "CgkIs7CE4MoREAIQDQ",
         xp: 5000,
         rewardEmeralds: 50,
         rewardCoins: 500,
@@ -1446,6 +1446,57 @@ const ACHIEVEMENTS_CATALOG = [
         es: { title: "Soberano del Universo", desc: "¡Supera el Nivel 100 y conquista el Trono Imperial!" },
         fr: { title: "Maître de l'Univers", desc: "Terminez le Niveau 100 et conquérez le Trône Impérial !" },
         it: { title: "Sovrano dell'Universo", desc: "Completa il Livello 100 e conquista il Trono Imperiale!" }
+    },
+    {
+        id: "ach_beyondverse_explorer",
+        pgId: "CgkIs7CE4MoREAIQDg",
+        xp: 2000,
+        rewardEmeralds: 25,
+        rewardCoins: 250,
+        icon: "🌊",
+        tr: { title: "Öte Evren Kaşifi", desc: "Öte Evren'de (Bölüm 101+) ilk bölümü tamamla!" },
+        en: { title: "Beyondverse Explorer", desc: "Clear your first stage in the Beyondverse (Level 101+)!" },
+        ko: { title: "비욘드버스 탐험가", desc: "비욘드버스(101스테이지+)에서 첫 스테이지를 클리어하세요!" },
+        ja: { title: "ビヨンドバース探検家", desc: "ビヨンドバース（ステージ101+）の最初の面をクリア！" },
+        zh: { title: "超维探险家", desc: "在超维宇宙（第101关+）通过你的首个关卡！" },
+        ru: { title: "Исследователь Запределья", desc: "Пройдите свой первый уровень в Запределье (101+)!" },
+        es: { title: "Explorador del Más Allá", desc: "¡Supera tu primera etapa en el Más Allá (Nivel 101+)!" },
+        fr: { title: "Explorateur de l'Au-Delà", desc: "Terminez votre premier niveau dans l'Au-Delà (Niveau 101+) !" },
+        it: { title: "Esploratore dell'Oltremondo", desc: "Completa il tuo primo livello nell'Oltremondo (Livello 101+)!" }
+    },
+    {
+        id: "ach_relic_hunter",
+        pgId: "CgkIs7CE4MoREAIQDw",
+        xp: 2000,
+        rewardEmeralds: 25,
+        rewardCoins: 250,
+        icon: "💎",
+        tr: { title: "Yadigar Avcısı", desc: "Öte Evren'de gizli bir Yadigar Sandığı aç!" },
+        en: { title: "Relic Hunter", desc: "Open a hidden Relic Chest in the Beyondverse!" },
+        ko: { title: "유물 사냥꾼", desc: "비욘드버스에서 숨겨진 유물 상자를 여세요!" },
+        ja: { title: "秘宝ハンター", desc: "ビヨンドバースの隠し秘宝チェストを開けよう！" },
+        zh: { title: "遗迹猎人", desc: "在超维宇宙中开启一个隐藏遗迹宝箱！" },
+        ru: { title: "Охотник за Реликвиями", desc: "Откройте скрытый сундук с реликвиями в Запределье!" },
+        es: { title: "Cazador de Reliquias", desc: "¡Abre un Cofre de Reliquias oculto en el Más Allá!" },
+        fr: { title: "Chasseur de Reliques", desc: "Ouvrez un coffre de reliques caché dans l'Au-Delà !" },
+        it: { title: "Cacciatore di Reliquie", desc: "Apri un Forziere di Reliquie nascosto nell'Oltremondo!" }
+    },
+    {
+        id: "ach_beyondverse_conqueror",
+        pgId: "CgkIs7CE4MoREAIQEA",
+        xp: 5000,
+        rewardEmeralds: 75,
+        rewardCoins: 750,
+        icon: "🪞",
+        tr: { title: "Öte Evren Fatihi", desc: "150. Bölümü geç ve Ayna Katedrali'ni fethet!" },
+        en: { title: "Beyondverse Conqueror", desc: "Clear Level 150 and conquer the Mirror Cathedral!" },
+        ko: { title: "비욘드버스 정복자", desc: "150스테이지를 클리어하고 거울 성당을 정복하세요!" },
+        ja: { title: "ビヨンドバースの征服者", desc: "ステージ150をクリアして鏡面大聖堂を制覇せよ！" },
+        zh: { title: "超维征服者", desc: "通过第150关并征服镜面大教堂！" },
+        ru: { title: "Покоритель Запределья", desc: "Пройдите 150 уровень и покорите Зеркальный Собор!" },
+        es: { title: "Conquistador del Más Allá", desc: "¡Supera el Nivel 150 y conquista la Catedral Espejo!" },
+        fr: { title: "Conquérant de l'Au-Delà", desc: "Terminez le Niveau 150 et conquérez la Cathédrale Miroir !" },
+        it: { title: "Conquistatore dell'Oltremondo", desc: "Completa il Livello 150 e conquista la Cattedrale Specchio!" }
     }
 ];
 
@@ -2172,7 +2223,9 @@ class Game {
             max_troll_level: String(this.unlockedTrollLevels || 1),
             max_act2_level: String(this.unlockedAct2Levels || 1),
             active_hero: String(this.equippedHeroChar || "default"),
-            vip_tier: String(vipTier)
+            vip_tier: String(vipTier),
+            release_track: String(this.getCurrentBuildTrack() || "production"),
+            app_lang: String(this.lang || "tr")
         });
     }
 
@@ -2509,7 +2562,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 56;
+        const CURRENT_VERSION_CODE = 57;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2645,7 +2698,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "56");
+                localStorage.setItem("marinext2100_last_seen_version", "57");
             } catch (e) {}
         };
 
@@ -2674,7 +2727,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "56") {
+            if (hasConsent && lastSeenVer !== "57") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -4625,7 +4678,7 @@ class Game {
                 window.sfx.powerUpSpawn();
                 try {
                     localStorage.setItem("marinext_privacy_consent_v1", String(Date.now()));
-                    localStorage.setItem("marinext2100_last_seen_version", "56");
+                    localStorage.setItem("marinext2100_last_seen_version", "57");
                 } catch (e) {}
                 const fcModal = document.getElementById("screen-first-consent");
                 if (fcModal) fcModal.classList.add("hidden");
@@ -8133,10 +8186,18 @@ class Game {
         if (!ach) return;
 
         // 1. Android / Google Play Games Native API (isolated from internal test track & test override)
-        if (!this.isInternalLeaderboardMode() && !this._devAct2Override && window.AndroidBridge && typeof window.AndroidBridge.unlockPlayGamesAchievement === "function") {
+        if (!this.isInternalLeaderboardMode() && !this._devAct2Override && window.MarinextCloudBridge && typeof window.MarinextCloudBridge.unlockPlayGamesAchievement === "function") {
             try {
-                window.AndroidBridge.unlockPlayGamesAchievement(ach.pgId || ach.id);
+                window.MarinextCloudBridge.unlockPlayGamesAchievement(ach.pgId || ach.id);
             } catch (e) {}
+        }
+
+        // 1b. GA4 Analytics tracking
+        if (window.MarinextAnalytics) {
+            window.MarinextAnalytics.logEvent("achievement_unlocked", {
+                achievement_id: ach.id,
+                is_act2: Boolean(this.isAct2Mode)
+            });
         }
 
         // 2. In-game Currency Rewards
@@ -8214,16 +8275,23 @@ class Game {
             this.unlockAchievement("ach_speedrunner");
         }
 
-        const currentLvl = (this.selectedLevel || 0) + 1;
-        if (currentLvl >= 10) this.unlockAchievement("ach_world_1");
-        if (currentLvl >= 20) this.unlockAchievement("ach_world_2");
-        if (currentLvl >= 50) this.unlockAchievement("ach_world_5");
-        if (currentLvl >= 100) this.unlockAchievement("ach_campaign_completed");
+        if (!this.isTrollMode && !this.isAct2Mode) {
+            const currentLvl = (this.selectedLevel || 0) + 1;
+            if (currentLvl >= 10) this.unlockAchievement("ach_world_1");
+            if (currentLvl >= 20) this.unlockAchievement("ach_world_2");
+            if (currentLvl >= 50) this.unlockAchievement("ach_world_5");
+            if (currentLvl >= 100) this.unlockAchievement("ach_campaign_completed");
+        } else if (!this.isTrollMode && this.isAct2Mode) {
+            this.unlockAchievement("ach_beyondverse_explorer");
+            if ((this.selectedAct2Level || 0) >= 49) {
+                this.unlockAchievement("ach_beyondverse_conqueror");
+            }
+        }
     }
 
     openOfficialPlayGamesAchievements() {
-        if (window.AndroidBridge && typeof window.AndroidBridge.showPlayGamesAchievements === "function") {
-            window.AndroidBridge.showPlayGamesAchievements();
+        if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.showPlayGamesAchievements === "function") {
+            window.MarinextCloudBridge.showPlayGamesAchievements();
         } else {
             const count = this.unlockedAchievements ? this.unlockedAchievements.size : 0;
             const alertMap = {
@@ -11105,7 +11173,8 @@ class Game {
                         this._lastPortalLockSfxTick = this.levelTick;
                         window.sfx.blockHit();
                         this.spawnParticles(this.portal.x + 28, this.portal.y + 43, 14, "#ffd166", 3.6);
-                        this.floatingTexts.push(new window.FloatingText(this.portal.x, this.portal.y - 14, `🔑 MÜHÜR EKSİK! (${gotKeysFallback}/${this.portal.requiredKeys})`, "#ffd166"));
+                        const missingSealMsg = window.translateMarinextGameText ? window.translateMarinextGameText(`🔑 MÜHÜR EKSİK! (${gotKeysFallback}/${this.portal.requiredKeys})`, this.lang) : `🔑 MÜHÜR EKSİK! (${gotKeysFallback}/${this.portal.requiredKeys})`;
+                        this.floatingTexts.push(new window.FloatingText(this.portal.x, this.portal.y - 14, missingSealMsg, "#ffd166"));
                     }
                 } else {
                     this.triggerVictory();
@@ -12801,7 +12870,10 @@ class Game {
                     if (window.sfx && typeof window.sfx.chestOpen === "function") window.sfx.chestOpen();
                     else window.sfx.victory();
                     this.spawnParticles(rc.x, rc.y, 28, "#ffd166", 5.5);
-                    this.floatingTexts.push(new window.FloatingText(rc.x, rc.y - 24, `💎 YADİGAR SANDIĞI: ${rc.rewardName || "+250 ✪ +40 ❖"}`, "#ffd166"));
+                    const relicRawMsg = `💎 YADİGAR SANDIĞI: ${rc.rewardName || "+250 ✪ +40 ❖"}`;
+                    const relicMsg = window.translateMarinextGameText ? window.translateMarinextGameText(relicRawMsg, this.lang) : relicRawMsg;
+                    this.floatingTexts.push(new window.FloatingText(rc.x, rc.y - 24, relicMsg, "#ffd166"));
+                    this.unlockAchievement("ach_relic_hunter");
                     if (window.MarinextAnalytics) {
                         window.MarinextAnalytics.logEvent("relic_chest_opened", {
                             chest_id: rc.chestId || "",
