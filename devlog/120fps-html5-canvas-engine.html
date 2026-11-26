@@ -96,16 +96,37 @@
                 <span class="hero-kicker">Engineering Deep Dive • November 2026</span>
                 <h1 style="font-size:32px; color:#fff; margin-bottom:14px;">Building a 120 FPS Platformer Engine on HTML5 Canvas for Web &amp; Mobile</h1>
                 <p>
-                    Rather than shipping multi-dozen-megabyte third-party runtime wrappers, Marinext 2100 runs directly on a custom <strong>HTML5 2D Canvas engine packaged with Capacitor for Android</strong>. That single architectural choice keeps our web playable version instant to load while keeping our Android AAB compact and responsive.
+                    When building a 2D action platformer, choosing the right foundation comes first. Instead of shipping heavy third-party runtimes for Marinext 2100, we built directly on <strong>HTML5 2D Canvas + Capacitor Android</strong> for three decisive reasons: instant zero-install browser playability, lightweight Android AAB packages, and total pixel-level control over frame timing.
                 </p>
-                <h2>Consistent Physics Across 60 Hz, 90 Hz &amp; 120 Hz Screens</h2>
+
+                <h2>1. Solving the "Speed Trap" Between 60 Hz &amp; 120 Hz Displays</h2>
                 <p>
-                    A naive <code>requestAnimationFrame</code> loop runs twice as fast on 120 Hz mobile OLED panels as on 60 Hz laptops, breaking jump arcs and boss timing. Our fixed-timestep physics accumulator decouples simulation ticks from display refresh rates so every jump, laser window, and Krono-Fren (<code>0.45x</code> time slow) feels identical across devices while rendering smoothly at up to 120 FPS.
+                    One of the most frequent bugs in browser platformers is advancing player coordinates by fixed pixels inside each <code>requestAnimationFrame</code> callback. An engine tuned at 60 Hz immediately runs at <strong>double speed</strong> when opened on a 120 Hz mobile OLED phone—breaking jump arcs, platform gaps, and boss timings.
                 </p>
-                <h2>True Multi-Touch Pointer Tracking</h2>
                 <p>
-                    Our mobile HUD assigns an independent map keyed by <code>touch.identifier</code>, allowing players to hold Left/Right directional inputs continuously while triggering Double/Triple Jump, Plasma Fireballs, Dash, Ground Slam, and Time Slow simultaneously without losing directional state.
+                    To solve this permanently, we engineered a <strong>fixed-timestep accumulator</strong> loop. Whether the display refreshes at 60 Hz, 90 Hz, or 120 Hz, simulation ticks always advance in identical time steps. The Canvas render pass interpolates smoothly at full native refresh rates, keeping jump heights and reaction windows 100% deterministic across every phone and browser.
                 </p>
+
+                <h2>2. Fixing Mobile Multi-Touch Button Interference</h2>
+                <p>
+                    Early on, mobile playtesting exposed an annoying quirk: tapping Jump with the right thumb could sometimes cancel a held Run button under the left thumb when standard single-pointer browser handlers overlapped.
+                </p>
+                <p>
+                    We rebuilt our touch HUD around an independent <strong><code>touch.identifier</code> tracking map</strong>. Every finger contact keeps its own tracked pointer ID, allowing players to hold directional movement continuously while chaining Double/Triple Jumps, Fireballs, Phase Dash, Ground Slam, and Krono-Fren without losing movement state.
+                </p>
+
+                <h2>3. Krono-Fren (Time Slow) &amp; Zero-Jitter Effect Budgeting</h2>
+                <p>
+                    Once unlocked in World 12, activating Krono-Fren slows enemy patrols, moving saws, and hazards to a <code>0.45x</code> time multiplier while preserving crisp player control responsiveness. Combined with camera viewport culling and bounded particle lifetimes, large levels run smoothly without garbage-collection hiccups.
+                </p>
+
+                <h2>4. One Core Codebase for Browser &amp; Android API 36</h2>
+                <p>
+                    Both the live web player at <code>cgstudiohome.com/play/</code> and the Google Play release run on the exact same core Canvas simulation. Only the platform bridge swaps seamlessly between native AdMob, Play Billing, and Play Games on Android and lightweight keyboard/touch storage on the web.
+                </p>
+                <div class="callout">
+                    <strong>Try the Engine Live:</strong> Test the 120 FPS responsiveness right inside your browser with zero download on the <a href="/play/" target="_blank" rel="noopener">Marinext 2100 Web Player</a>, or inspect every move in our <a href="/marinext2100/">Official Game Guide</a>.
+                </div>
             </article>
         </div>
     </main>
