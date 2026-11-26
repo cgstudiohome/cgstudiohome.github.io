@@ -110,15 +110,51 @@
                 <span class="hero-kicker">Level Design Case Study • November 2026</span>
                 <h1 style="font-size:32px; color:#fff; margin-bottom:14px;">Designing 50 Troll Levels: Mischievous Mechanics That Make Players Smile</h1>
                 <p>
-                    The secret to a memorable troll platformer is fairness masked as mischief. If traps feel completely random, frustration wins; if every surprise teaches a recognizable pattern that rewards quick learning, every fail gets a laugh. When Yavuz Selim initially pitched our 15-level Troll Mode, response was so enthusiastic that we expanded it into a full 50-stage challenge campaign.
+                    There is a delicate craft to designing a troll platformer mode: if traps are purely random and unreadable, frustration wins; if every prank follows a clear internal rule players can outsmart on their second run, every fail sparks a laugh. What started in Marinext 2100 as a 15-stage experiment grew from enthusiastic player feedback into a full 50-stage <strong>Troll Mode</strong> challenge.
                 </p>
-                <h2>Core Principles Behind Our 50 Troll Stages</h2>
-                <ul>
-                    <li><strong>Gradual Trap Onboarding:</strong> Tier 1 (Levels 1–10) introduces collapsing floors, uranium <code>[?]</code> mystery boxes, and dodging finish portals one mechanic at a time before combining them alongside parachute ambushes and sudden wind gusts in higher tiers.</li>
-                    <li><strong>Fair Treasure Magnet Logic:</strong> During playtesting, we updated our Treasure Magnet upgrade to intentionally ignore teleporting fake emeralds (<code>isTrollTeleport</code>) so players' earned power-ups never betray them unfairly.</li>
-                    <li><strong>Extended Finish Runways:</strong> Stages with dodging finish portals extend the final runway geometry so players always have fair footing to chase down the laughing goal without clipping offscreen.</li>
-                    <li><strong>Five Difficulty Tiers &amp; 10 Troll Bosses:</strong> Every 5th troll level mixes boss attack patterns with arena trap tiles and decoy collectibles, keeping each duel fresh and replayable.</li>
-                </ul>
+
+                <h2>1. Gradual Onboarding: Teaching the Language of Pranks</h2>
+                <p>
+                    The opening 10 levels (<em>Tier 1: Warm-Up Troll</em>) introduce the mode’s trick rules one mechanic at a time. Troll Stage 1 ("Innocent Path") focuses on crumbling stone bridges; Stage 2 ("Uranium Box Trap") shows why one of the three <code>[?]</code> blocks hides a falling uranium hazard; and Stage 3 ("Dodging Portal") lets players experience a laughing finish gate leaping forward. When later tiers blend those tricks together, players already know what to watch for.
+                </p>
+
+                <h2>2. Fair Magnet Logic &amp; Teleport Emerald Nuance</h2>
+                <p>
+                    Home playtesting uncovered a subtle fairness edge case: the shop’s <em>Ancient Emerald Magnet</em> pulls nearby gems automatically toward the hero. If that magnet had also pulled Troll Mode’s decoy teleporting emeralds (<code>isTrollTeleport</code>) straight into the player, an earned upgrade would have punished players unfairly!
+                </p>
+                <p>
+                    We updated our magnet logic to <strong>intentionally ignore decoy teleport emeralds</strong>. That keeps upgrades trustworthy while preserving all the comedy when players dive at shiny traps on their own accord.
+                </p>
+
+                <h2>3. Dodging Finish Portals &amp; Extended Runways</h2>
+                <p>
+                    When engineering the dodging finish portal, physical level boundaries mattered just as much as surprise timing. Because the gate hops forward 1 to 3 times as you close in, we extended final runway geometry on dodging-portal stages so the chase never clips inside walls or drops out of reach.
+                </p>
+
+                <h2>4. Five-Tier Progression Across All 50 Troll Levels</h2>
+                <p>
+                    To keep every batch feeling distinct instead of repetitive, the 50 Troll stages are organized into five escalating tiers, each layer introducing a fresh twist:
+                </p>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead><tr><th>Tier</th><th>Stages</th><th>Signature Traps &amp; Surprises</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Tier 1: Warm-Up Troll</strong></td><td>1 – 10</td><td>Collapsing floors, Uranium <code>[?]</code> boxes, dodging portals, parachute ambushes &amp; first two Troll Bosses.</td></tr>
+                            <tr><td><strong>Tier 2: Wind &amp; Bounce Pranks</strong></td><td>11 – 20</td><td>Sudden mid-air crosswinds, hidden launch pads &amp; twin dodging exit portal sequences.</td></tr>
+                            <tr><td><strong>Tier 3: Fake Safeties &amp; Decoys</strong></td><td>21 – 30</td><td>Resetting fake emerald decoys, misleading safety markers &amp; tight mid-air directional reversals.</td></tr>
+                            <tr><td><strong>Tier 4: Combo Gauntlets</strong></td><td>31 – 40</td><td>Oscillating saws over crumbling bridges, multi-block uranium drops &amp; razor-thin laser gates.</td></tr>
+                            <tr><td><strong>Tier 5: Grand Troll Finale</strong></td><td>41 – 50</td><td>High-tempo mastery courses combining every trick before the Stage 50 Final Troll Boss showdown.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>5. Boss Arena Pranks on Every 5th Stage</h2>
+                <p>
+                    Across the 10 Boss battles on Troll stages 5, 10, 15... 50, surviving boss bullet patterns is only half the fun: a collapsing center tile, a suspicious corner emerald, or airborne parachute reinforcements keep arenas unpredictable and turns every encounter into high-energy comedy.
+                </p>
+                <p>
+                    Ready to test your reflexes? Tap the 😡 <strong>TROLL</strong> mode button on the map in <a href="/play/" target="_blank" rel="noopener">Play on Web</a>, or read our full <a href="/marinext2100/worlds/">15 Worlds &amp; Troll Guide</a>.
+                </p>
             </article>
         </div>
     </main>
