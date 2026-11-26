@@ -1769,9 +1769,39 @@
                         desc: { tr: "Süper trambolinler, solucan delikleri ve dinamik lazer kapılarıyla donatılmış fütüristik evren.", en: "Futuristic worlds packed with super trampolines, wormholes, and dynamic laser gates." }
                     },
                     {
+                        src: { tr: "assets/screenshots/marinext-2-tr.png", en: "assets/screenshots/marinext-2-en.png" },
+                        title: { tr: "19 Tarihi & Fütüristik Kahraman", en: "19 Historical Sultans & Cyber Heroes" },
+                        desc: { tr: "Fatih Sultan Mehmet, Yavuz Sultan Selim, Mete Han ve siber savaşçılar benzersiz pasif güçlerle.", en: "Sultan Mehmed II, Selim I, Mete Han, and cyber warriors with distinct passive perks." }
+                    },
+                    {
                         src: { tr: "assets/screenshots/marinext-3-tr.png", en: "assets/screenshots/marinext-3-en.png" },
                         title: { tr: "Destansı Boss Savaşları & Karakter Stüdyosu", en: "Colossal Boss Battles & Character Studio" },
                         desc: { tr: "Antik zümrütlerle kanatlar, parıltılı auralar ve zırhlar kuşanarak güçlenin.", en: "Equip gliders, glowing auras, and shields to forge your ultimate warrior." }
+                    },
+                    {
+                        src: { tr: "assets/screenshots/marinext-4-tr.png", en: "assets/screenshots/marinext-4-en.png" },
+                        title: { tr: "50 Bölümlük Trol Modu & 9 Dil Desteği", en: "50-Stage Troll Mode & 9 Languages" },
+                        desc: { tr: "Çöken köprüler, kaçan portallar, şaka kutuları ve 9 dilde küresel oyun deneyimi.", en: "Collapsing bridges, dodging portals, uranium boxes, and seamless 9-language localization." }
+                    },
+                    {
+                        src: { tr: "assets/store/screenshots/enhanced-tr/5-atlantis-beyondverse.png", en: "assets/store/screenshots/enhanced-en/5-atlantis-beyondverse.png" },
+                        title: { tr: "Öte Evren — Biyolüminesans Atlantis (Dünya 11)", en: "The Beyondverse — Bioluminescent Atlantis (World 11)" },
+                        desc: { tr: "100. Bölüm sonrası açılan yepyeni sualtı fiziği, antik kalıntılar ve Meka-Leviathan Boss savaşı.", en: "Unlocked after Stage 100 with underwater buoyancy physics, sunken ruins, and Mecha-Leviathan." }
+                    },
+                    {
+                        src: { tr: "assets/store/screenshots/enhanced-tr/6-level100-celebration.png", en: "assets/store/screenshots/enhanced-en/6-level100-celebration.png" },
+                        title: { tr: "100. Bölüm Büyük Final Kutlaması & Faz Atılması", en: "Stage 100 Grand Finale Celebration & Phase Dash" },
+                        desc: { tr: "Evrenin Hükümdarı başarımı, havai fişek kutlaması ve Öte Evren'e açılan kozmik kapı.", en: "Ruler of the Universe celebration unlocking the cosmic Beyondverse gate and Phase Dash." }
+                    },
+                    {
+                        src: { tr: "assets/store/screenshots/enhanced-tr/7-key-vault-portal.png", en: "assets/store/screenshots/enhanced-en/7-key-vault-portal.png" },
+                        title: { tr: "Mühür Anahtarı Avı & Kota Kilitli Portallar", en: "Sealed Key Vault & Quota-Gated Portals" },
+                        desc: { tr: "3 gizli mühür anahtarını toplayıp bitiş kapısındaki kilit mührünü açın.", en: "Track missing Seal Keys, Emeralds, or Relics live to unlock sealed dimensional portals." }
+                    },
+                    {
+                        src: { tr: "assets/store/screenshots/enhanced-tr/8-beyondverse-map-15worlds.png", en: "assets/store/screenshots/enhanced-en/8-beyondverse-map-15worlds.png" },
+                        title: { tr: "15 Dünyalık Tam Evren Haritası (v1.5.7)", en: "Complete 15-World Universe Atlas (v1.5.7)" },
+                        desc: { tr: "100 Ana Kampanya ve 50 Öte Evren bölümüne tek haritadan kesintisiz erişim.", en: "Unified world selector spanning all 100 Main Campaign and 50 Beyondverse stages." }
                     }
                 ]
             },
@@ -2427,15 +2457,28 @@
             const famInfogWrap = document.getElementById('family-infographic-wrap');
             if (famInfogWrap && dict.familyInfographicTitle) famInfogWrap.setAttribute('title', dict.familyInfographicTitle);
 
-            // Switch dynamic images
+            // Switch dynamic images & localized alt texts
+            const isEnLang = (currentLang === 'en');
             const promoImg = document.getElementById('hero-promo-img');
             if (promoImg) {
-                promoImg.src = (currentLang === 'en') ? 'assets/promo/marinext-promo-en.jpg' : 'assets/promo/marinext-promo-tr.png';
+                promoImg.src = isEnLang ? 'assets/promo/marinext-promo-en.jpg' : 'assets/promo/marinext-promo-tr.png';
+                promoImg.alt = isEnLang ? 'Marinext 2100 Official English Promotional Banner' : 'Marinext 2100 Resmi Türkçe Tanıtım Afişi';
             }
             const infogImg = document.getElementById('family-team-infographic');
             if (infogImg) {
-                infogImg.src = (currentLang === 'en') ? 'assets/family/family-team-en.jpg' : 'assets/family/family-team-tr.png';
+                infogImg.src = isEnLang ? 'assets/family/family-team-en.jpg' : 'assets/family/family-team-tr.png';
+                infogImg.alt = isEnLang ? 'CG Studio Home Family Team Structure Infographic' : 'CG Studio Home Aile Ekibi İnfografiği';
             }
+            const featPhoto = document.getElementById('family-featured-photo');
+            if (featPhoto) {
+                featPhoto.alt = isEnLang ? 'CG Studio Home & Labs Core Family Team in Studio' : 'CG Studio Home & Labs Çekirdek Aile Ekibi Stüdyoda';
+            }
+            const thumbAlts = isEnLang
+                ? ['CG Studio Home & Labs Family Studio Team', 'Playtesting Session 1', 'Playtesting Session 2', 'Playtesting Session 3']
+                : ['CG Studio Home / Labs Aile Stüdyo Ekibi', 'Test Anı 1', 'Test Anı 2', 'Test Anı 3'];
+            document.querySelectorAll('.family-thumb-item img').forEach((img, idx) => {
+                if (thumbAlts[idx]) img.alt = thumbAlts[idx];
+            });
 
             // Update open album if currently open
             if (document.getElementById('album-modal').classList.contains('open')) {
@@ -2453,6 +2496,13 @@
         //    - If language starts with 'tr' (Turkish), use Turkish.
         //    - IF ANYTHING ELSE (English, French, German, Spanish, etc.), AUTOMATICALLY DEFAULT TO ENGLISH!
         (function initLanguage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const qLang = (urlParams.get('lang') || '').toLowerCase();
+            if (qLang === 'tr' || qLang === 'en') {
+                switchLang(qLang, false);
+                return;
+            }
+
             let saved = null;
             try { saved = localStorage.getItem('cg_lang'); } catch (e) {}
 
