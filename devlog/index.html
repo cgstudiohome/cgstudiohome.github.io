@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="tr" data-portal-lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-tr="Geliştirici Günlüğü (Devlog) &amp; Stüdyo Yazıları | CG Studio Home &amp; Labs" data-en="Developer Log (Devlog) &amp; Studio Engineering Stories | CG Studio Home &amp; Labs">Geliştirici Günlüğü (Devlog) &amp; Stüdyo Yazıları | CG Studio Home &amp; Labs</title>
+    <meta id="meta-description" name="description" data-tr="CG Studio Home aile geliştirici günlüğü: 10 yaşındaki bir çocuğun hayalinden Google Play'e uzanan yolculuk, 120 FPS HTML5 Canvas motoru, 50 Trol Etabı tasarımı ve 9 dilli küresel mimari." data-en="CG Studio Home developer blog: how a 10-year-old's game idea shipped to Google Play, building a 120 FPS HTML5 Canvas engine, designing 50 Troll levels, and 9-language localization architecture." content="CG Studio Home aile geliştirici günlüğü: 10 yaşındaki bir çocuğun hayalinden Google Play'e uzanan yolculuk, 120 FPS HTML5 Canvas motoru, 50 Trol Etabı tasarımı ve 9 dilli küresel mimari.">
+    <meta name="google-adsense-account" content="ca-pub-1366538011855586">
+    <link rel="canonical" href="https://cgstudiohome.com/devlog/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CG Studio Home &amp; Labs">
+    <meta property="og:title" content="CG Studio Home &amp; Labs — Geliştirici Günlüğü (Devlog)">
+    <meta property="og:url" content="https://cgstudiohome.com/devlog/">
+    <meta property="og:image" content="https://cgstudiohome.com/assets/family/cg-studio-family-team.jpg">
+    <link rel="icon" type="image/png" href="/assets/icon-192.png">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1366538011855586" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7ER5HLQSNZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-7ER5HLQSNZ', { send_page_view: true });
+    </script>
+    <link rel="stylesheet" href="/assets/portal.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="brand">
+                <div class="brand-logo"><img src="/assets/icon-192.png" alt="CG Studio Home Logo"></div>
+                <div class="brand-text">
+                    <span class="brand-title">CG STUDIO HOME</span>
+                    <span class="brand-sub" data-tr="AİLE OYUN &amp; TEKNOLOJİ STÜDYOSU" data-en="FAMILY GAME &amp; TECH STUDIO">AİLE OYUN &amp; TEKNOLOJİ STÜDYOSU</span>
+                </div>
+            </a>
+            <div class="nav-links">
+                <a href="/" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+                <a href="/marinext2100/" data-tr="Oyun Rehberi" data-en="Game Guide">Oyun Rehberi</a>
+                <a href="/marinext2100/worlds/" data-tr="15 Dünya" data-en="15 Worlds">15 Dünya</a>
+                <a href="/marinext2100/heroes/" data-tr="19 Kahraman" data-en="19 Heroes">19 Kahraman</a>
+                <a href="/devlog/" class="active" data-tr="Geliştirici Günlüğü" data-en="Devlog">Geliştirici Günlüğü</a>
+                <a href="/faq/" data-tr="SSS" data-en="FAQ">SSS</a>
+                <a href="/about/" data-tr="Hakkımızda" data-en="About">Hakkımızda</a>
+                <a href="/contact/" data-tr="İletişim" data-en="Contact">İletişim</a>
+                <div class="lang-switch">
+                    <button id="lang-tr" class="lang-btn active" onclick="setPortalLang('tr', true)">TR</button>
+                    <button id="lang-en" class="lang-btn" onclick="setPortalLang('en', true)">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="portal-shell">
+        <div class="breadcrumbs">
+            <a href="/" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a> <span>›</span>
+            <span data-tr="Geliştirici Günlüğü (Devlog)" data-en="Developer Log (Devlog)">Geliştirici Günlüğü (Devlog)</span>
+        </div>
+
+        <div data-lang-view="tr">
+            <section class="page-hero">
+                <span class="hero-kicker">Mühendislik Notları &amp; Sahne Arkası</span>
+                <h1>CG Studio Home — Geliştirici Günlüğü (Devlog)</h1>
+                <p class="lead">
+                    Marinext 2100'ü sıfırdan 200 bölümlük çok platformlu bir yapıma dönüştürürken öğrendiğimiz mühendislik derslerini, bölüm tasarımı deneylerimizi, aile içi test süreçlerimizi ve yerelleştirme mimarimizi bu bölümde ayrıntılı yazılarla paylaşıyoruz.
+                </p>
+            </section>
+
+            <section class="content-card">
+                <h2>Yayınlanan Geliştirici Makaleleri</h2>
+                <div class="card-grid">
+                    <article class="sub-card">
+                        <span class="badge live">Aile Hikayesi • 6 dk okuma</span>
+                        <h3><a href="/devlog/family-game-studio-story.html">10 Yaşındaki Bir Çocuğun Hayalinden Google Play'e: Aile Stüdyosu Hikayemiz</a></h3>
+                        <p>Oğlumuz Yavuz Selim'in kağıda çizdiği zindan fikirlerinin, 6 yaşındaki kızımız İsranur'un ergonomi testleriyle ve ebeveynlerin teknik liderliğiyle gerçek bir küresel oyuna nasıl dönüştüğünün perde arkası.</p>
+                        <a href="/devlog/family-game-studio-story.html" class="btn btn-outline" style="margin-top:auto;">Yazıyı Oku →</a>
+                    </article>
+
+                    <article class="sub-card">
+                        <span class="badge">Oyun Motoru &amp; Performans • 7 dk okuma</span>
+                        <h3><a href="/devlog/120fps-html5-canvas-engine.html">HTML5 Canvas ile Web ve Mobilde 120 FPS Platform Motoru Nasıl Geliştirdik?</a></h3>
+                        <p>Harici ağır oyun motorları yerine saf HTML5 Canvas ve Capacitor WebView üzerinde 60 Hz, 90 Hz ve 120 Hz ekranlarda özdeş fizik hızını korumanın, çoklu dokunmatik takip mekanizmasının ve bellek temizliğinin teknik detayları.</p>
+                        <a href="/devlog/120fps-html5-canvas-engine.html" class="btn btn-outline" style="margin-top:auto;">Yazıyı Oku →</a>
+                    </article>
+
+                    <article class="sub-card">
+                        <span class="badge vip">Bölüm Tasarımı • 6 dk okuma</span>
+                        <h3><a href="/devlog/designing-50-troll-levels.html">50 Trol Etabı Tasarımı: Oyuncuyu Kızdırmadan Eğlendiren Mekanikler</a></h3>
+                        <p>Çöken taş köprüler, uranyum şaka kutuları, son anda ileri zıplayan bitiş portalları ve sahte zümrütler… Oyuncuyu adil olmayan bir şekilde engellemek yerine gülümseten ters köşe bölüm tasarımı ilkeleri.</p>
+                        <a href="/devlog/designing-50-troll-levels.html" class="btn btn-outline" style="margin-top:auto;">Yazıyı Oku →</a>
+                    </article>
+
+                    <article class="sub-card">
+                        <span class="badge live">Küresel Mimari • 7 dk okuma</span>
+                        <h3><a href="/devlog/global-localization-and-play-games.html">9 Dilde Yerelleştirme, Bulut Kayıt ve Küresel Liderlik Mimarisi</a></h3>
+                        <p>Türkçeden Japoncaya ve Koreceye kadar 9 dilde sıfır arayüz taşmasıyla çalışan dinamik çeviri yapısı, Google Play Games 11 başarım entegrasyonu ve çevrimdışı-öncelikli güvenli bulut kayıt tasarımı.</p>
+                        <a href="/devlog/global-localization-and-play-games.html" class="btn btn-outline" style="margin-top:auto;">Yazıyı Oku →</a>
+                    </article>
+                </div>
+            </section>
+
+            <section class="content-card">
+                <h2>Neden Geliştirici Günlüğü Tutuyoruz?</h2>
+                <p>
+                    Bağımsız geliştiricilik yalnızca mağazaya bir paket yüklemekten ibaret değildir. Oyunu doğrudan test eden aile bireylerinin geri bildirimlerini, performans optimizasyonu sırasında karşılaştığımız ilginç hataları (örneğin 120 Hz cihazlarda oyunun iki kat hızlanması problemi veya dokunmatik ekranda aynı anda koşup zıplama engeli gibi) belgelemek hem kendi geliştirme disiplinimizi koruyor hem de benzer projeler üreten ebeveyn ve genç geliştiricilere yol gösteriyor.
+                </p>
+                <h3>Okuma Rehberi: Nereden Başlamalısınız?</h3>
+                <ul>
+                    <li><strong>Aile Girişimciliğini Merak Ediyorsanız:</strong> <a href="/devlog/family-game-studio-story.html">Aile Stüdyosu Hikayemiz</a> ile fikrin nasıl ortaya çıktığını ve 4 kişilik ekibin günlük test rutinini okuyun.</li>
+                    <li><strong>Web &amp; Mobil Performans İlgilileri İçin:</strong> <a href="/devlog/120fps-html5-canvas-engine.html">120 FPS HTML5 Canvas Motoru</a> yazımızda fizik adım ayrıştırmasını ve multi-touch çözümümüzü inceleyin.</li>
+                    <li><strong>Oyun Tasarımı Severler İçin:</strong> <a href="/devlog/designing-50-troll-levels.html">50 Trol Etabı Tasarımı</a> yazımızda adil sürpriz kurgulamanın inceliklerini görün.</li>
+                    <li><strong>Küresel Yayın Süreçleri İçin:</strong> <a href="/devlog/global-localization-and-play-games.html">9 Dil, Bulut Kayıt ve Play Games</a> yazımızdan bulut mimarisi notlarımızı okuyun.</li>
+                </ul>
+                <p>
+                    Güncel sürüm notlarını incelemek isterseniz <a href="/release-notes.html">Resmi Sürüm Notları</a> sayfasına, oyun içi tüm sistemleri görmek için ise <a href="/marinext2100/">Marinext 2100 Oyun Rehberi</a> bölümüne göz atabilirsiniz.
+                </p>
+            </section>
+        </div>
+
+        <div data-lang-view="en">
+            <section class="page-hero">
+                <span class="hero-kicker">Engineering Notes &amp; Behind the Scenes</span>
+                <h1>CG Studio Home — Developer Log (Devlog)</h1>
+                <p class="lead">
+                    In-depth engineering articles, level-design postmortems, family playtesting stories, and architecture lessons learned while building Marinext 2100 from a child's notebook sketch into a 200-stage cross-platform release.
+                </p>
+            </section>
+
+            <section class="content-card">
+                <h2>Featured Articles</h2>
+                <div class="card-grid">
+                    <article class="sub-card">
+                        <span class="badge live">Family Venture • 6 min read</span>
+                        <h3><a href="/devlog/family-game-studio-story.html">From a 10-Year-Old's Dream to Google Play: Our Family Studio Story</a></h3>
+                        <p>How Yavuz Selim's dungeon ideas, 6-year-old İsranur's hands-on playtesting, and parents' software leadership turned into a real shipped studio release.</p>
+                        <a href="/devlog/family-game-studio-story.html" class="btn btn-outline" style="margin-top:auto;">Read Article →</a>
+                    </article>
+
+                    <article class="sub-card">
+                        <span class="badge">Engine &amp; Performance • 7 min read</span>
+                        <h3><a href="/devlog/120fps-html5-canvas-engine.html">Building a 120 FPS Platformer Engine on HTML5 Canvas for Web &amp; Mobile</a></h3>
+                        <p>Maintaining identical physics velocity across 60 Hz, 90 Hz, and 120 Hz screens, implementing multi-touch pointer ID tracking, and optimizing zero-GC frame loops.</p>
+                        <a href="/devlog/120fps-html5-canvas-engine.html" class="btn btn-outline" style="margin-top:auto;">Read Article →</a>
+                    </article>
+
+                    <article class="sub-card">
+                        <span class="badge vip">Level Design • 6 min read</span>
+                        <h3><a href="/devlog/designing-50-troll-levels.html">Designing 50 Troll Levels: Mischievous Mechanics That Make Players Laugh</a></h3>
+                        <p>Collapsing bridges, uranium mystery blocks, dodging exit portals, and fake teleport emeralds — balancing trickery with fair memorability.</p>
+                        <a href="/devlog/designing-50-troll-levels.html" class="btn btn-outline" style="margin-top:auto;">Read Article →</a>
+                    </article>
+
+                    <article class="sub-card">
+                        <span class="badge live">Architecture • 7 min read</span>
+                        <h3><a href="/devlog/global-localization-and-play-games.html">9-Language Localization, Cloud Saves &amp; Global Leaderboard Architecture</a></h3>
+                        <p>Supporting 9 scripts cleanly, integrating 11 Play Games achievements, offline-first local persistence, and cross-device score synchronization.</p>
+                        <a href="/devlog/global-localization-and-play-games.html" class="btn btn-outline" style="margin-top:auto;">Read Article →</a>
+                    </article>
+                </div>
+            </section>
+
+            <section class="content-card">
+                <h2>Why We Document Every Engineering Milestone</h2>
+                <p>
+                    Indie game development is far more than pushing a final binary to an app store. Recording genuine family playtesting sessions, tricky bugs discovered on 120 Hz mobile displays, and architectural trade-offs helps keep our studio disciplined while sharing practical, real-world insights with fellow parents, hobbyists, and web-game engineers.
+                </p>
+                <p>
+                    Looking for patch-by-patch release details? Visit our <a href="/release-notes.html">Official Changelog</a>, or explore controls and achievements in the <a href="/marinext2100/">Marinext 2100 Game Hub</a>.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div><strong style="color:#fff;">CG Studio Home &amp; Labs</strong><p style="color:var(--text-muted); font-size:13px; margin-top:4px;">© 2026 CG Studio Home &amp; Labs • <a href="mailto:info@erpdanisman.com">info@erpdanisman.com</a></p></div>
+            <div class="footer-links">
+                <a href="/" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+                <a href="/marinext2100/" data-tr="Oyun Rehberi" data-en="Game Guide">Oyun Rehberi</a>
+                <a href="/devlog/" data-tr="Geliştirici Günlüğü" data-en="Devlog">Geliştirici Günlüğü</a>
+                <a href="/faq/" data-tr="SSS" data-en="FAQ">SSS</a>
+                <a href="/about/" data-tr="Hakkımızda" data-en="About">Hakkımızda</a>
+                <a href="/contact/" data-tr="İletişim" data-en="Contact">İletişim</a>
+                <a href="/privacy-policy.html" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Gizlilik Politikası</a>
+                <a href="/terms.html" data-tr="Hizmet Şartları" data-en="Terms of Service">Hizmet Şartları</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/portal.js"></script>
+</body>
+</html>
