@@ -194,8 +194,8 @@
     <div class="header">
         <h1>📜 CG Studio Home &amp; Labs — Terms of Service</h1>
         <div class="lang-switch">
-            <button id="btn-lang-en" class="lang-btn active" onclick="switchLang('en', this)">🇬🇧 English</button>
-            <button id="btn-lang-tr" class="lang-btn" onclick="switchLang('tr', this)">🇹🇷 Türkçe</button>
+            <button id="btn-lang-en" class="lang-btn active" onclick="switchLang('en', this, true)">🇬🇧 English</button>
+            <button id="btn-lang-tr" class="lang-btn" onclick="switchLang('tr', this, true)">🇹🇷 Türkçe</button>
         </div>
     </div>
 
@@ -212,12 +212,12 @@
             <h3>📁 App-Specific Terms of Service</h3>
             <p style="margin:0;">These Master Terms apply across the CG Studio Home web portal and all games and apps we publish. Individual titles also maintain dedicated subfolder pages for project-specific details:</p>
             <div class="app-link-pills">
-                <a class="app-pill" href="./">🏠 Stüdyo Portalı (Home)</a>
-                <a class="app-pill" href="marinext2100/">🎮 Marinext 2100 Rehberi</a>
+                <a class="app-pill" href="./">🏠 Studio Portal</a>
+                <a class="app-pill" href="marinext2100/">🎮 Marinext 2100 Guide</a>
                 <a class="app-pill" href="marinext2100/terms.html">🚀 Marinext 2100 Terms</a>
                 <a class="app-pill" href="privacy-policy.html">🛡️ Privacy Policy</a>
-                <a class="app-pill" href="about/">👨‍👩‍👧‍👦 Hakkımızda / About</a>
-                <a class="app-pill" href="contact/">✉️ İletişim / Contact</a>
+                <a class="app-pill" href="about/">👨‍👩‍👧‍👦 About Us</a>
+                <a class="app-pill" href="contact/">✉️ Contact</a>
             </div>
             <p style="margin:10px 0 0; font-size:0.86rem; color:var(--text-muted);">Upcoming CG Studio Home games and projects will each publish dedicated pages under their own project subfolder.</p>
         </div>
@@ -312,7 +312,7 @@
 </div>
 
 <script>
-    function switchLang(lang, btn) {
+    function switchLang(lang, btn, persist) {
         const targetLang = (lang === 'tr') ? 'tr' : 'en';
         document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.lang-btn').forEach(el => el.classList.remove('active'));
@@ -321,17 +321,27 @@
         const activeBtn = btn || document.getElementById('btn-lang-' + targetLang);
         if (activeBtn) activeBtn.classList.add('active');
         document.documentElement.lang = targetLang;
+        if (persist) {
+            try { localStorage.setItem('cg_lang', targetLang); } catch (e) {}
+        }
     }
 
     (function initLang() {
         const urlParams = new URLSearchParams(window.location.search);
         const pLang = (urlParams.get('lang') || '').toLowerCase();
         if (pLang === 'tr' || pLang === 'en') {
-            switchLang(pLang);
+            switchLang(pLang, null, false);
             return;
         }
+        try {
+            const saved = localStorage.getItem('cg_lang');
+            if (saved === 'tr' || saved === 'en') {
+                switchLang(saved, null, false);
+                return;
+            }
+        } catch (e) {}
         const navLang = (navigator.language || (navigator.languages && navigator.languages[0]) || 'en').toLowerCase();
-        switchLang(navLang.startsWith('tr') ? 'tr' : 'en');
+        switchLang(navLang.startsWith('tr') ? 'tr' : 'en', null, false);
     })();
 </script>
 
