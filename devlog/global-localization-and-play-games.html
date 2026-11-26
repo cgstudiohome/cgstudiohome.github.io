@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr" data-portal-lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-tr="9 Dilde Yerelleştirme, Bulut Kayıt ve Küresel Liderlik Mimarisi | Devlog" data-en="9-Language Localization, Cloud Saves &amp; Leaderboard Architecture | Devlog">9 Dilde Yerelleştirme, Bulut Kayıt ve Küresel Liderlik Mimarisi | Devlog</title>
+    <meta id="meta-description" name="description" data-tr="Marinext 2100'de 9 dil desteği, sürüm yenilikleri diyalogu, Google Play Games 11 başarım (1.000 XP) ve çoklu cihaz liderlik tablosu mimarisi nasıl kuruldu?" data-en="How Marinext 2100 supports 9 languages seamlessly alongside Google Drive cloud saves, 11 Google Play Games achievements (1,000 XP), and cross-device leaderboards." content="Marinext 2100'de 9 dil desteği, sürüm yenilikleri diyalogu, Google Play Games 11 başarım (1.000 XP) ve çoklu cihaz liderlik tablosu mimarisi nasıl kuruldu?">
+    <meta name="google-adsense-account" content="ca-pub-1366538011855586">
+    <link rel="canonical" href="https://cgstudiohome.com/devlog/global-localization-and-play-games.html">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://cgstudiohome.com/assets/screenshots/marinext-4-tr.png">
+    <link rel="icon" type="image/png" href="/assets/icon-192.png">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1366538011855586" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7ER5HLQSNZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-7ER5HLQSNZ', { send_page_view: true });
+    </script>
+    <link rel="stylesheet" href="/assets/portal.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="brand">
+                <div class="brand-logo"><img src="/assets/icon-192.png" alt="CG Studio Home Logo"></div>
+                <div class="brand-text">
+                    <span class="brand-title">CG STUDIO HOME</span>
+                    <span class="brand-sub" data-tr="AİLE OYUN &amp; TEKNOLOJİ STÜDYOSU" data-en="FAMILY GAME &amp; TECH STUDIO">AİLE OYUN &amp; TEKNOLOJİ STÜDYOSU</span>
+                </div>
+            </a>
+            <div class="nav-links">
+                <a href="/" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+                <a href="/marinext2100/" data-tr="Oyun Rehberi" data-en="Game Guide">Oyun Rehberi</a>
+                <a href="/devlog/" class="active" data-tr="Geliştirici Günlüğü" data-en="Devlog">Geliştirici Günlüğü</a>
+                <a href="/faq/" data-tr="SSS" data-en="FAQ">SSS</a>
+                <a href="/about/" data-tr="Hakkımızda" data-en="About">Hakkımızda</a>
+                <a href="/contact/" data-tr="İletişim" data-en="Contact">İletişim</a>
+                <div class="lang-switch">
+                    <button id="lang-tr" class="lang-btn active" onclick="setPortalLang('tr', true)">TR</button>
+                    <button id="lang-en" class="lang-btn" onclick="setPortalLang('en', true)">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="portal-shell">
+        <div class="breadcrumbs">
+            <a href="/" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a> <span>›</span>
+            <a href="/devlog/" data-tr="Devlog" data-en="Devlog">Devlog</a> <span>›</span>
+            <span data-tr="Küresel Yerelleştirme &amp; Play Games" data-en="Global Localization &amp; Play Games">Küresel Yerelleştirme &amp; Play Games</span>
+        </div>
+
+        <div data-lang-view="tr">
+            <article class="content-card">
+                <span class="hero-kicker">Ürün &amp; Bulut Mimarisi • Kasım 2026</span>
+                <h1 style="font-size:32px; color:#fff; margin-bottom:14px;">9 Dilde Yerelleştirme, Bulut Kayıt ve Küresel Liderlik Mimarisi</h1>
+                <p>
+                    Küçük bir aile stüdyosu olsak da hedefimiz en başından beri Marinext 2100'ün dünya genelindeki oyunculara kendi dillerinde, akıcı ve eksiksiz bir deneyim sunmasıydı. Bugün oyunumuz Türkçe ve İngilizcenin yanı sıra Korece, Japonca, Çince, Rusça, İspanyolca, Fransızca ve İtalyanca olmak üzere <strong>9 dili %100 yerelleştirilmiş</strong> biçimde destekliyor.
+                </p>
+
+                <h2>1. Sadece Menüleri Değil, Hikaye Balonlarını ve Bildirimleri Çevirmek</h2>
+                <p>
+                    Pek çok bağımsız oyunda yalnızca ana menü butonları çevrilir, oyun içi ipuçları veya yeni açılan özellik bildirimleri tek dilde kalır. Biz bu kopukluğu önlemek için katı bir ilke koyduk: 1. Bölümdeki rehber konuşma balonları, Öte Evren kapı uyarıları, Atölye ekipman açıklamaları ve her yeni güncellemedeki <em>Sürüm Yenilikleri</em> penceresi dahil tüm metinler oyuncunun seçili aktif dilinde render edilir.
+                </p>
+
+                <h2>2. Çevrimdışı Öncelikli (Offline-First) Güvenli Kayıt</h2>
+                <p>
+                    Oyuncularımızın seyahatte veya internet bağlantısının zayıf olduğu ortamlarda kesintisiz oynayabilmesi önceliğimizdir. Tüm bölüm yıldızları, kazanılan kristaller ve açılan kostümler cihazda anlık yerel kayda yazılır; internet bağlantısı ve Google Play Games oturumu mevcut olduğunda ise ilerleme Google Drive AppData ve Play Games bulutuna eşitlenir. Cihaz değiştirildiğinde en yüksek ilerlemeyi koruyan birleştirme mantığı sayesinde emekler kaybolmaz.
+                </p>
+
+                <h2>3. 11 Play Games Başarımı ve Adil Liderlik İzolasyonu</h2>
+                <p>
+                    Google Play Games tarafında toplam <strong>1.000 XP</strong> dağılımına sahip 11 başarım ve 4 resmi liderlik tablosu (Skor, İlerleme, Zümrüt, Hız Koşusu) aktiftir. Topluluk sıralamasının adil kalması bizim için kritiktir; bu nedenle stüdyo içi test kanallarında yapılan deneme skorları asla genel oyuncu tablolarına yazılmaz ve ayrı bir test alanında izole edilir.
+                </p>
+
+                <h2>4. Çoklu Dil Arayüz Ergonomisi ve Yazı Tipi Testleri</h2>
+                <p>
+                    Dokuz farklı alfabeyi aynı oyun arayüzüne sığdırmak beklenmedik tasarım sınavları doğurdu:
+                </p>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead><tr><th>Dil Grubu</th><th>Diller</th><th>Tasarım &amp; Arayüz Önlemi</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Latin &amp; Genişletilmiş Latin</strong></td><td>Türkçe, English, Español, Français, Italiano</td><td>Türkçe <code>İ/ı/ş/ğ</code> karakterlerinin büyük/küçük harf dönüşümü için dile duyarlı metin biçimlendirme.</td></tr>
+                            <tr><td><strong>Kiril Alfabesi</strong></td><td>Русский (Rusça)</td><td>Uzun kelimelerin butonlardan taşmasını önlemek için dinamik satır sığdırma ve uyarlanabilir dolgu.</td></tr>
+                            <tr><td><strong>Doğu Asya (CJK)</strong></td><td>한국어 (Korece), 日本語 (Japonca), 中文 (Çince)</td><td>HUD etiketlerinin ve Öte Evren kapı kotası balonlarının kısa ve net sığması için özel kompakt başlık kuralları.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    Ayrıca her yeni sürümde oyun içi <em>Sürüm Yenilikleri</em> penceresini de tam 9 dilde yayınlıyoruz; böylece güncellemeyi indiren bir Japon, Koreli, İspanyol veya Türk oyuncu nelerin değiştiğini anında kendi ana dilinde okuyabiliyor.
+                </p>
+                <p>
+                    Tüm başarımların listesini <a href="/marinext2100/#basarimlar">Oyun Rehberi</a> sayfamızda görebilir, gizlilik ve bulut veri silme detayları için <a href="/privacy-policy.html">Gizlilik Politikamızı</a> veya <a href="/faq/">SSS</a> sayfamızı inceleyebilirsiniz.
+                </p>
+            </article>
+        </div>
+
+        <div data-lang-view="en">
+            <article class="content-card">
+                <span class="hero-kicker">Architecture &amp; Global Readiness • November 2026</span>
+                <h1 style="font-size:32px; color:#fff; margin-bottom:14px;">9-Language Localization, Cloud Saves &amp; Global Leaderboard Architecture</h1>
+                <p>
+                    Even as a small family studio, we designed Marinext 2100 for global players from day one. Every menu, Stage 1 speech-bubble tutorial, Beyondverse portal quota notice, workshop item description, and What's New dialog renders dynamically across <strong>9 languages</strong> (TR, EN, KO, JA, ZH, RU, ES, FR, IT).
+                </p>
+                <h2>Offline-First Persistence &amp; Fair Leaderboards</h2>
+                <p>
+                    To keep gameplay 100% playable offline while protecting player progress across phone upgrades, local storage acts as the instant source of truth and synchronizes progress with Google Drive and Google Play Games whenever online. Non-destructive merge rules ensure your highest unlocked chapter, stars, emeralds, and hero outfits are preserved when switching devices.
+                </p>
+                <p>
+                    On Google Play Games, 11 achievements (totaling 1,000 XP) and four official leaderboards (Score, Progress, Emeralds, and Speedrun) reward progression, while internal QA test channels are strictly sandboxed so test runs never pollute public rankings.
+                </p>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div><strong style="color:#fff;">CG Studio Home &amp; Labs</strong><p style="color:var(--text-muted); font-size:13px; margin-top:4px;">© 2026 CG Studio Home &amp; Labs • <a href="mailto:info@erpdanisman.com">info@erpdanisman.com</a></p></div>
+            <div class="footer-links">
+                <a href="/" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+                <a href="/devlog/" data-tr="Geliştirici Günlüğü" data-en="Devlog">Geliştirici Günlüğü</a>
+                <a href="/marinext2100/" data-tr="Oyun Rehberi" data-en="Game Guide">Oyun Rehberi</a>
+                <a href="/faq/" data-tr="SSS" data-en="FAQ">SSS</a>
+                <a href="/about/" data-tr="Hakkımızda" data-en="About">Hakkımızda</a>
+                <a href="/contact/" data-tr="İletişim" data-en="Contact">İletişim</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/portal.js"></script>
+</body>
+</html>
