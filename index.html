@@ -14,7 +14,9 @@
     <meta property="og:image" content="https://cgstudiohome.com/assets/family/cg-studio-family-team.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://cgstudiohome.com/assets/family/cg-studio-family-team.jpg">
+    <meta name="google-adsense-account" content="ca-pub-1366538011855586">
     <title id="page-title" data-i18n="pageTitle">CG Studio Home &amp; Labs | Aile Yapımı Oyunlar &amp; Teknoloji Portalı</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1366538011855586" crossorigin="anonymous"></script>
     <!-- Google tag (gtag.js) - GA4 Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7ER5HLQSNZ"></script>
     <script>
@@ -1175,13 +1177,14 @@
             </a>
 
             <div class="nav-links">
-                <a href="#flagship" data-i18n="navFlagship">Marinext 2100</a>
-                <a href="#family" data-i18n="navFamily">👨‍👩‍👧‍👦 Aile Hikayemiz &amp; Ekip</a>
-                <a href="#catalog" data-i18n="navCatalog">Oyun Kataloğu</a>
-                <a href="#tech" data-i18n="navTech">Teknoloji</a>
+                <a href="marinext2100/" data-i18n="navFlagship">Marinext 2100</a>
+                <a href="marinext2100/worlds/" data-i18n="navWorlds">Dünyalar</a>
+                <a href="marinext2100/heroes/" data-i18n="navHeroes">Kahramanlar</a>
+                <a href="devlog/" data-i18n="navDevlog">Geliştirici Günlüğü</a>
+                <a href="faq/" data-i18n="navFaq">SSS</a>
+                <a href="about/" data-i18n="navAbout">Hakkımızda</a>
+                <a href="contact/" data-i18n="navContact">İletişim</a>
                 <a href="release-notes.html" data-i18n="navChangelog">Sürüm Notları</a>
-                <a href="privacy-policy.html" data-i18n="navPrivacy">Gizlilik Politikası</a>
-                <a href="app-ads.txt" target="_blank">app-ads.txt</a>
                 <div class="lang-switch">
                     <button id="lang-tr" class="lang-btn active" onclick="switchLang('tr', true)">TR</button>
                     <button id="lang-en" class="lang-btn" onclick="switchLang('en', true)">EN</button>
@@ -1372,32 +1375,25 @@
         </div>
     </section>
 
-    <!-- Multi-Genre Game Catalog -->
+    <!-- Resmi Yayın, Oyun Rehberleri & CG Labs Yol Haritası -->
     <section id="catalog" class="section">
         <div class="section-header">
             <div>
-                <h2 class="section-title" data-i18n="catalogTitle">🎮 Stüdyo Oyun Kataloğumuz</h2>
-                <p class="section-sub" data-i18n="catalogSub">Aksiyon, tarihi strateji, fütüristik yarış, zindan RPG ve zeka kategorilerindeki oyun portföyümüz.</p>
-            </div>
-            <div class="filter-bar">
-                <button class="filter-btn active" onclick="filterGames('all', this)" data-i18n="filterAll">Tümü (6)</button>
-                <button class="filter-btn" onclick="filterGames('action', this)" data-i18n="filterAction">Aksiyon &amp; Platform</button>
-                <button class="filter-btn" onclick="filterGames('strategy', this)" data-i18n="filterStrategy">Strateji &amp; Tarih</button>
-                <button class="filter-btn" onclick="filterGames('racing', this)" data-i18n="filterRacing">Yarış &amp; Arcade</button>
-                <button class="filter-btn" onclick="filterGames('puzzle', this)" data-i18n="filterPuzzle">Bulmaca &amp; RPG</button>
+                <h2 class="section-title" data-i18n="catalogTitle">🎮 Resmi Oyunumuz, Rehber Hub &amp; CG Labs</h2>
+                <p class="section-sub" data-i18n="catalogSub">Yayındaki amiral gemimiz Marinext 2100, kapsamlı oynanış ansiklopedimiz, geliştirici günlüğümüz ve CG Labs Ar-Ge kavramları.</p>
             </div>
         </div>
 
-        <div class="games-grid" id="games-grid">
-            <!-- Game 1: Marinext 2100 (FLAGSHIP LIVE) -->
-            <div class="game-card featured" data-genre="action">
-                <div class="game-banner" style="background: linear-gradient(135deg, #090d26, #1e1b4b);" onclick="openAlbum('marinext')">
-                    <img src="assets/icon-192.png" alt="Marinext 2100" style="width: 110px; height: 110px; border-radius: 22px; box-shadow: 0 8px 25px rgba(0,0,0,0.6);" onerror="this.src='assets/icon-512.png'">
+        <!-- 1. Flagship Live Release: Marinext 2100 -->
+        <div class="game-card featured" style="margin-bottom: 34px;">
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); align-items: stretch;">
+                <div class="game-banner" style="height:auto; min-height:230px; background: linear-gradient(135deg, #090d26, #1e1b4b); padding: 24px;" onclick="openAlbum('marinext')">
+                    <img src="assets/icon-192.png" alt="Marinext 2100" style="width: 124px; height: 124px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.65);" onerror="this.src='assets/icon-512.png'">
                     <span class="status-tag status-live" data-i18n="tagLive">🟢 YAYINDA • OYNANABİLİR</span>
                     <span class="genre-tag" data-i18n="genreAction">Aksiyon / 2D Platform</span>
                 </div>
                 <div class="game-body">
-                    <h3 class="game-title">Marinext 2100</h3>
+                    <h3 class="game-title" style="font-size: 25px;">Marinext 2100 <span style="font-size:14px; color:var(--gold); font-weight:700;">(v1.5.7)</span></h3>
                     <p class="game-desc" data-i18n="g1Desc">
                         100 bölüm ana sefer + 50 Öte Evren bölümü, 50 bölüm Trol Modu, 15 aksiyon dünyası, 4 özel yetenek, 11 resmi Google Play Games Başarımı (1.000 XP), canlı çoklu cihaz Liderlik Tablosu ve 19 yetenekli kahraman!
                     </p>
@@ -1405,126 +1401,167 @@
                         <span class="meta-chip">📱 Android &amp; Web</span>
                         <span class="meta-chip">⚡ 120 FPS</span>
                         <span class="meta-chip">🌍 9 Dil</span>
+                        <span class="meta-chip">🏆 11 Play Games Başarımı</span>
                     </div>
                     <div class="game-actions">
-                        <button class="btn btn-primary" onclick="openGameModal()"><span data-i18n="btnPlayNow">🎮 Hemen Oyna</span></button>
+                        <button class="btn btn-primary" onclick="openGameModal()"><span data-i18n="btnPlayNow">🎮 Sayfa İçinde Oyna</span></button>
+                        <a href="play/" target="_blank" class="btn btn-gold"><span data-i18n="btnCardFull">🚀 Tam Ekran Oyna</span></a>
+                        <a href="marinext2100/" class="btn btn-outline"><span data-i18n="btnGuideHub">📘 Oyun Rehberi</span></a>
                         <button class="btn btn-outline" onclick="openAlbum('marinext')"><span data-i18n="btnCardAlbum">🖼️ Albüm</span></button>
-                        <button class="btn btn-crimson" onclick="openVideoModal('marinext')"><span data-i18n="btnCardVideo">🎬 Video İzle</span></button>
+                        <button class="btn btn-crimson" onclick="openVideoModal('marinext')"><span data-i18n="btnCardVideo">🎬 Fragman İzle</span></button>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Game 2: Ottoman Conquest 1517 -->
+        <!-- 2. Marinext 2100 Bilgi, Rehber & Geliştirici Günlüğü -->
+        <div class="section-header" style="margin-top: 12px; margin-bottom: 18px;">
+            <div>
+                <h2 class="section-title" style="font-size: 24px;" data-i18n="guidesTitle">📘 Marinext 2100 Bilgi Merkezi &amp; Geliştirici Günlüğü</h2>
+                <p class="section-sub" data-i18n="guidesSub">Yeni başlayanlar ve ustalaşmak isteyenler için kontroller, dünyalar, kahramanlar, mühendislik yazıları ve yardım merkezi.</p>
+            </div>
+        </div>
+
+        <div class="features-grid" style="margin-bottom: 42px;">
+            <a href="marinext2100/" class="feature-box" style="text-decoration:none; display:block; border-color: rgba(0,242,254,0.28);">
+                <div class="feature-icon">🎮</div>
+                <h3 data-i18n="gd1Title">Resmi Oynanış Rehberi &amp; Kontroller</h3>
+                <p data-i18n="gd1Desc">Klavye ve dokunmatik kontroller, 4 özel Öte Evren yeteneği, ekonomi sistemi ve 11 Play Games başarımı (1.000 XP) rehberi.</p>
+            </a>
+            <a href="marinext2100/worlds/" class="feature-box" style="text-decoration:none; display:block; border-color: rgba(6,214,160,0.28);">
+                <div class="feature-icon">🗺️</div>
+                <h3 data-i18n="gd2Title">15 Dünya, 25 Boss &amp; 50 Trol Modu</h3>
+                <p data-i18n="gd2Desc">Kristal Mağaralar'dan Omega Galaksi'ye 10 Kampanya Dünyası, Biyolüminesans Atlantis dahil 5 Öte Evren diyarı ve Trol hayatta kalma taktikleri.</p>
+            </a>
+            <a href="marinext2100/heroes/" class="feature-box" style="text-decoration:none; display:block; border-color: rgba(255,209,102,0.28);">
+                <div class="feature-icon">👑</div>
+                <h3 data-i18n="gd3Title">19 Kahraman &amp; Atölye Ansiklopedisi</h3>
+                <p data-i18n="gd3Desc">Fatih Sultan Mehmet, Yavuz Sultan Selim, Mete Han, 15 ana kahraman, 4 VIP efsane ve 66+ ekipmanın detaylı pasif bonusları.</p>
+            </a>
+            <a href="devlog/" class="feature-box" style="text-decoration:none; display:block; border-color: rgba(168,85,247,0.3);">
+                <div class="feature-icon">📝</div>
+                <h3 data-i18n="gd4Title">Geliştirici Günlüğü (Devlog)</h3>
+                <p data-i18n="gd4Desc">120 FPS HTML5 Canvas motoru, 50 Trol Etabı seviye tasarımı ve 4 kişilik aile stüdyosu hikayemiz üzerine derin teknik makaleler.</p>
+            </a>
+            <a href="faq/" class="feature-box" style="text-decoration:none; display:block; border-color: rgba(0,242,254,0.22);">
+                <div class="feature-icon">❓</div>
+                <h3 data-i18n="gd5Title">Sık Sorulan Sorular (SSS)</h3>
+                <p data-i18n="gd5Desc">Çevrimdışı oynama, Google Drive bulut kayıt transferi, portal kilidi çözümü, performans ve oyuncu dostu reklam politikamız.</p>
+            </a>
+            <a href="release-notes.html" class="feature-box" style="text-decoration:none; display:block; border-color: rgba(255,42,133,0.28);">
+                <div class="feature-icon">📋</div>
+                <h3 data-i18n="gd6Title">Resmi Sürüm Notları (Changelog)</h3>
+                <p data-i18n="gd6Desc">v1.0 lansmanından v1.5.7 Büyük Öte Evren finaline kadar tüm güncellemelerin eksiksiz oyuncu odaklı kronolojisi.</p>
+            </a>
+        </div>
+
+        <!-- 3. CG Labs — Ar-Ge & Gelecek Yol Haritası -->
+        <div class="section-header" style="margin-bottom: 20px;">
+            <div>
+                <h2 class="section-title" style="font-size: 24px;" data-i18n="labsTitle">🧪 CG Labs — Ar-Ge &amp; Gelecek Konsept Yol Haritası</h2>
+                <p class="section-sub" data-i18n="labsSub">Stüdyomuzda fikir ve erken prototip aşamasında değerlendirilen yeni tür deneyimleri (henüz indirmeye açık değildir).</p>
+            </div>
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filterGames('all', this)" data-i18n="filterAll">Tümü (5)</button>
+                <button class="filter-btn" onclick="filterGames('strategy', this)" data-i18n="filterStrategy">Strateji &amp; Tarih</button>
+                <button class="filter-btn" onclick="filterGames('racing', this)" data-i18n="filterRacing">Yarış &amp; Arcade</button>
+                <button class="filter-btn" onclick="filterGames('puzzle', this)" data-i18n="filterPuzzle">Bulmaca &amp; RPG</button>
+                <button class="filter-btn" onclick="filterGames('action', this)" data-i18n="filterSpaceCat">Uzay &amp; Aksiyon</button>
+            </div>
+        </div>
+
+        <div class="games-grid" id="games-grid">
+            <!-- R&D 1: Ottoman Conquest 1517 -->
             <div class="game-card" data-genre="strategy">
-                <div class="game-banner" style="background: linear-gradient(135deg, #2a0a18, #451a03);" onclick="openAlbum('ottoman')">
+                <div class="game-banner" style="height: 150px; cursor: default; background: linear-gradient(135deg, #2a0a18, #451a03);">
                     <div class="game-banner-icon">⚔️</div>
-                    <span class="status-tag status-dev" data-i18n="tagSoon">🚀 GELİŞTİRİLİYOR</span>
+                    <span class="status-tag status-dev" data-i18n="tagSoon">🧪 AR-GE / KONSEPT</span>
                     <span class="genre-tag" data-i18n="genreStrategy">Tarihi Strateji / RTS</span>
                 </div>
                 <div class="game-body">
                     <h3 class="game-title">Ottoman Conquest: 1517</h3>
                     <p class="game-desc" data-i18n="g2Desc">
-                        Yavuz Sultan Selim Han ve Osmanlı ordularıyla Ridaniye ve Mercidabık meydan muharebelerini yönettiğiniz gerçek zamanlı taktik ve kuşatma strateji oyunu.
+                        Yavuz Sultan Selim Han ve Osmanlı ordularıyla Ridaniye ve Mercidabık meydan muharebelerini yönettiğiniz gerçek zamanlı taktik ve kuşatma strateji konsepti.
                     </p>
                     <div class="game-meta" data-i18n="g2Chips">
-                        <span class="meta-chip">📱 Android</span>
+                        <span class="meta-chip">🧪 Konsept Tasarımı</span>
                         <span class="meta-chip">🏰 Taktik &amp; Ordu Yönetimi</span>
-                    </div>
-                    <div class="game-actions">
-                        <button class="btn btn-outline" onclick="openAlbum('ottoman')"><span data-i18n="btnCardAlbum">🖼️ Albüm</span></button>
-                        <button class="btn btn-crimson" onclick="openVideoModal('ottoman')"><span data-i18n="btnCardVideo">🎬 Video İzle</span></button>
                     </div>
                 </div>
             </div>
 
-            <!-- Game 3: Neon Drift 2100 -->
+            <!-- R&D 2: Neon Drift 2100 -->
             <div class="game-card" data-genre="racing">
-                <div class="game-banner" style="background: linear-gradient(135deg, #042f2e, #0f172a);" onclick="openAlbum('neondrift')">
+                <div class="game-banner" style="height: 150px; cursor: default; background: linear-gradient(135deg, #042f2e, #0f172a);">
                     <div class="game-banner-icon">🏎️</div>
-                    <span class="status-tag status-dev" data-i18n="tagSoon">🚀 GELİŞTİRİLİYOR</span>
+                    <span class="status-tag status-dev" data-i18n="tagSoon">🧪 AR-GE / KONSEPT</span>
                     <span class="genre-tag" data-i18n="genreRacing">Siber Yarış / Arcade</span>
                 </div>
                 <div class="game-body">
                     <h3 class="game-title">Neon Drift 2100: Cyber Horizon</h3>
                     <p class="game-desc" data-i18n="g3Desc">
-                        2100 yılının neon otoyollarında yerçekimine meydan okuyan siber araçlarla yüksek hızlı drift, araç modifiye stüdyosu ve zamana karşı yarış deneyimi.
+                        2100 yılının neon otoyollarında yerçekimine meydan okuyan siber araçlarla yüksek hızlı drift ve zamana karşı yarış deneyimi hedefleyen Ar-Ge projesi.
                     </p>
                     <div class="game-meta" data-i18n="g3Chips">
-                        <span class="meta-chip">📱 Android &amp; Web</span>
-                        <span class="meta-chip">⚡ 120 FPS Fizik Motoru</span>
-                    </div>
-                    <div class="game-actions">
-                        <button class="btn btn-outline" onclick="openAlbum('neondrift')"><span data-i18n="btnCardAlbum">🖼️ Albüm</span></button>
-                        <button class="btn btn-crimson" onclick="openVideoModal('neondrift')"><span data-i18n="btnCardVideo">🎬 Video İzle</span></button>
+                        <span class="meta-chip">🧪 Fizik Prototipi</span>
+                        <span class="meta-chip">⚡ 120 FPS Hedefi</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Game 4: Shadow Dungeon: Emerald Relics -->
+            <!-- R&D 3: Shadow Dungeon -->
             <div class="game-card" data-genre="puzzle">
-                <div class="game-banner" style="background: linear-gradient(135deg, #064e3b, #1e1b4b);" onclick="openAlbum('shadowdungeon')">
+                <div class="game-banner" style="height: 150px; cursor: default; background: linear-gradient(135deg, #064e3b, #1e1b4b);">
                     <div class="game-banner-icon">❖</div>
-                    <span class="status-tag status-dev" data-i18n="tagSoon">🚀 GELİŞTİRİLİYOR</span>
+                    <span class="status-tag status-dev" data-i18n="tagSoon">🧪 AR-GE / KONSEPT</span>
                     <span class="genre-tag" data-i18n="genreDungeon">Zindan RPG / Roguelike</span>
                 </div>
                 <div class="game-body">
                     <h3 class="game-title">Shadow Dungeon: Emerald Relics</h3>
                     <p class="game-desc" data-i18n="g4Desc">
-                        Antik Zümrüt kalıntılarını korumak için prosedürel olarak üretilen karanlık zindanlarda Boss muhafızlarına karşı verilen aksiyon-RPG mücadelesi.
+                        Antik Zümrüt kalıntılarını korumak için prosedürel olarak üretilen karanlık zindanlarda Boss muhafızlarına karşı verilen aksiyon-RPG fikir çalışması.
                     </p>
                     <div class="game-meta" data-i18n="g4Chips">
-                        <span class="meta-chip">📱 Android</span>
-                        <span class="meta-chip">🗡️ Boss Savaşları &amp; Ekipman</span>
-                    </div>
-                    <div class="game-actions">
-                        <button class="btn btn-outline" onclick="openAlbum('shadowdungeon')"><span data-i18n="btnCardAlbum">🖼️ Albüm</span></button>
-                        <button class="btn btn-crimson" onclick="openVideoModal('shadowdungeon')"><span data-i18n="btnCardVideo">🎬 Video İzle</span></button>
+                        <span class="meta-chip">🧪 Erken Tasarım</span>
+                        <span class="meta-chip">🗡️ Zindan &amp; Boss Mekanikleri</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Game 5: Quantum Blocks: AI Puzzle -->
+            <!-- R&D 4: Quantum Blocks -->
             <div class="game-card" data-genre="puzzle">
-                <div class="game-banner" style="background: linear-gradient(135deg, #311042, #0f172a);" onclick="openAlbum('quantum')">
+                <div class="game-banner" style="height: 150px; cursor: default; background: linear-gradient(135deg, #311042, #0f172a);">
                     <div class="game-banner-icon">🧩</div>
-                    <span class="status-tag status-dev" data-i18n="tagSoon">🚀 GELİŞTİRİLİYOR</span>
+                    <span class="status-tag status-dev" data-i18n="tagSoon">🧪 AR-GE / KONSEPT</span>
                     <span class="genre-tag" data-i18n="genrePuzzle">Zeka &amp; Fizik Bulmacası</span>
                 </div>
                 <div class="game-body">
                     <h3 class="game-title">Quantum Blocks: Gravity Lab</h3>
                     <p class="game-desc" data-i18n="g5Desc">
-                        Solucan delikleri, lazer kırılmaları ve yerçekimi anahtarlarını kullanarak 100'den fazla kuantum laboratuvarı bulmacasını çözün.
+                        Solucan delikleri, lazer kırılmaları ve yerçekimi anahtarlarını kullanan aile dostu zeka ve mantık bulmacası konsepti.
                     </p>
                     <div class="game-meta" data-i18n="g5Chips">
-                        <span class="meta-chip">📱 Android &amp; Tablet</span>
-                        <span class="meta-chip">🧠 100+ Bölüm</span>
-                    </div>
-                    <div class="game-actions">
-                        <button class="btn btn-outline" onclick="openAlbum('quantum')"><span data-i18n="btnCardAlbum">🖼️ Albüm</span></button>
-                        <button class="btn btn-crimson" onclick="openVideoModal('quantum')"><span data-i18n="btnCardVideo">🎬 Video İzle</span></button>
+                        <span class="meta-chip">🧪 Bulmaca Mekanikleri</span>
+                        <span class="meta-chip">🧠 Aile &amp; Çocuk Odaklı</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Game 6: Galactic Armada -->
+            <!-- R&D 5: Galactic Armada -->
             <div class="game-card" data-genre="action">
-                <div class="game-banner" style="background: linear-gradient(135deg, #172554, #090d16);" onclick="openAlbum('armada')">
+                <div class="game-banner" style="height: 150px; cursor: default; background: linear-gradient(135deg, #172554, #090d16);">
                     <div class="game-banner-icon">🛸</div>
-                    <span class="status-tag status-dev" data-i18n="tagSoon">🚀 GELİŞTİRİLİYOR</span>
+                    <span class="status-tag status-dev" data-i18n="tagSoon">🧪 AR-GE / KONSEPT</span>
                     <span class="genre-tag" data-i18n="genreSpace">Uzay Aksiyon / Shoot 'em up</span>
                 </div>
                 <div class="game-body">
                     <h3 class="game-title">Galactic Armada: Star Defender</h3>
                     <p class="game-desc" data-i18n="g6Desc">
-                        Yıldızlararası filonuzu yükseltin, plazma kalkanlarınızı kuşanın ve galaktik istilacıların dev ana gemilerine karşı uzay cephesini savunun.
+                        Yıldızlararası filoyu yükselterek galaktik istilacıların dev ana gemilerine karşı uzay cephesini savunma üzerine klasik arcade konsepti.
                     </p>
                     <div class="game-meta" data-i18n="g6Chips">
-                        <span class="meta-chip">📱 Android</span>
-                        <span class="meta-chip">🔥 Sonsuz Dalga Modu</span>
-                    </div>
-                    <div class="game-actions">
-                        <button class="btn btn-outline" onclick="openAlbum('armada')"><span data-i18n="btnCardAlbum">🖼️ Albüm</span></button>
-                        <button class="btn btn-crimson" onclick="openVideoModal('armada')"><span data-i18n="btnCardVideo">🎬 Video İzle</span></button>
+                        <span class="meta-chip">🧪 Konsept Tasarımı</span>
+                        <span class="meta-chip">🔥 Dalga Savunma Fikri</span>
                     </div>
                 </div>
             </div>
@@ -1638,13 +1675,20 @@
                 </p>
             </div>
             <div class="footer-links">
-                <a href="#family" data-i18n="footFamily">Aile Hikayemiz</a>
+                <a href="marinext2100/" data-i18n="footGuide">Oyun Rehberi</a>
+                <a href="marinext2100/worlds/" data-i18n="footWorlds">15 Dünya</a>
+                <a href="marinext2100/heroes/" data-i18n="footHeroes">19 Kahraman</a>
+                <a href="devlog/" data-i18n="footDevlog">Geliştirici Günlüğü</a>
+                <a href="faq/" data-i18n="footFaq">SSS</a>
+                <a href="about/" data-i18n="footAbout">Hakkımızda</a>
+                <a href="contact/" data-i18n="footContact">İletişim</a>
                 <a href="https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100" target="_blank" rel="noopener" data-i18n="footPlayStore">Google Play Store</a>
                 <a href="https://www.youtube.com/@CGStudioHome" target="_blank" rel="noopener">YouTube</a>
                 <a href="play/" data-i18n="footPlay">Web'de Oyna</a>
-                <a href="release-notes.html" data-i18n="footChangelog">Sürüm Notları (Changelog)</a>
-                <a href="privacy-policy.html" data-i18n="footPrivacy">Gizlilik Politikası (Privacy Policy)</a>
-                <a href="terms.html" data-i18n="footTerms">Hizmet Şartları (Terms of Service)</a>
+                <a href="release-notes.html" data-i18n="footChangelog">Sürüm Notları</a>
+                <a href="privacy-policy.html" data-i18n="footPrivacy">Gizlilik Politikası</a>
+                <a href="terms.html" data-i18n="footTerms">Hizmet Şartları</a>
+                <a href="ads.txt" target="_blank">ads.txt</a>
                 <a href="app-ads.txt" target="_blank">app-ads.txt</a>
             </div>
         </div>
@@ -2000,7 +2044,7 @@
         function filterGames(genre, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            document.querySelectorAll('.game-card').forEach(card => {
+            document.querySelectorAll('#games-grid .game-card').forEach(card => {
                 if (genre === 'all' || card.getAttribute('data-genre') === genre) {
                     card.style.display = 'flex';
                 } else {
@@ -2018,11 +2062,13 @@
                 metaDesc: "CG Studio Home & Labs — Aile yapımı bağımsız oyunlar ve yeni nesil mobil/web projeleri geliştirici portalı.",
                 studioSub: "AİLE OYUN & TEKNOLOJİ STÜDYOSU",
                 navFlagship: "Marinext 2100",
-                navFamily: "👨‍👩‍👧‍👦 Aile Hikayemiz & Ekip",
-                navCatalog: "Oyun Kataloğu",
-                navTech: "Teknoloji",
+                navWorlds: "Dünyalar",
+                navHeroes: "Kahramanlar",
+                navDevlog: "Geliştirici Günlüğü",
+                navFaq: "SSS",
+                navAbout: "Hakkımızda",
+                navContact: "İletişim",
                 navChangelog: "Sürüm Notları",
-                navPrivacy: "Gizlilik Politikası",
 
                 // Flagship Hero
                 heroBadge: "🔥 RESMİ GOOGLE PLAY LANSMANI • 10 YAŞINDAKİ OĞLUMUZUN HAYALİYLE BAŞLADI",
@@ -2078,39 +2124,57 @@
                 descIsranur: "Küçük yaş grubu oynanabilirlik testleri, sezgisel dokunmatik kontroller, zorluk dengelemesi ve doğal çocuk tepkileri.",
                 familyInfographicTitle: "Aile İnfografiğini Tam Boyutta İncelemek İçin Tıklayın",
 
-                // Catalog Section
-                catalogTitle: "🎮 Stüdyo Oyun Kataloğumuz",
-                catalogSub: "Aksiyon, tarihi strateji, fütüristik yarış, zindan RPG ve zeka kategorilerindeki oyun portföyümüz.",
-                filterAll: "Tümü (6)",
-                filterAction: "Aksiyon & Platform",
+                // Catalog, Guides & R&D Labs Section
+                catalogTitle: "🎮 Resmi Oyunumuz, Rehber Hub & CG Labs",
+                catalogSub: "Yayındaki amiral gemimiz Marinext 2100, kapsamlı oynanış ansiklopedimiz, geliştirici günlüğümüz ve CG Labs Ar-Ge kavramları.",
+                guidesTitle: "📘 Marinext 2100 Bilgi Merkezi & Geliştirici Günlüğü",
+                guidesSub: "Yeni başlayanlar ve ustalaşmak isteyenler için kontroller, dünyalar, kahramanlar, mühendislik yazıları ve yardım merkezi.",
+                gd1Title: "Resmi Oynanış Rehberi & Kontroller",
+                gd1Desc: "Klavye ve dokunmatik kontroller, 4 özel Öte Evren yeteneği, ekonomi sistemi ve 11 Play Games başarımı (1.000 XP) rehberi.",
+                gd2Title: "15 Dünya, 25 Boss & 50 Trol Modu",
+                gd2Desc: "Kristal Mağaralar'dan Omega Galaksi'ye 10 Kampanya Dünyası, Biyolüminesans Atlantis dahil 5 Öte Evren diyarı ve Trol hayatta kalma taktikleri.",
+                gd3Title: "19 Kahraman & Atölye Ansiklopedisi",
+                gd3Desc: "Fatih Sultan Mehmet, Yavuz Sultan Selim, Mete Han, 15 ana kahraman, 4 VIP efsane ve 66+ ekipmanın detaylı pasif bonusları.",
+                gd4Title: "Geliştirici Günlüğü (Devlog)",
+                gd4Desc: "120 FPS HTML5 Canvas motoru, 50 Trol Etabı seviye tasarımı ve 4 kişilik aile stüdyosu hikayemiz üzerine derin teknik makaleler.",
+                gd5Title: "Sık Sorulan Sorular (SSS)",
+                gd5Desc: "Çevrimdışı oynama, Google Drive bulut kayıt transferi, portal kilidi çözümü, performans ve oyuncu dostu reklam politikamız.",
+                gd6Title: "Resmi Sürüm Notları (Changelog)",
+                gd6Desc: "v1.0 lansmanından v1.5.7 Büyük Öte Evren finaline kadar tüm güncellemelerin eksiksiz oyuncu odaklı kronolojisi.",
+                labsTitle: "🧪 CG Labs — Ar-Ge & Gelecek Konsept Yol Haritası",
+                labsSub: "Stüdyomuzda fikir ve erken prototip aşamasında değerlendirilen yeni tür deneyimleri (henüz indirmeye açık değildir).",
+                filterAll: "Tümü (5)",
                 filterStrategy: "Strateji & Tarih",
                 filterRacing: "Yarış & Arcade",
                 filterPuzzle: "Bulmaca & RPG",
+                filterSpaceCat: "Uzay & Aksiyon",
                 tagLive: "🟢 YAYINDA • OYNANABİLİR",
-                tagSoon: "🚀 GELİŞTİRİLİYOR",
+                tagSoon: "🧪 AR-GE / KONSEPT",
                 genreAction: "Aksiyon / 2D Platform",
                 genreStrategy: "Tarihi Strateji / RTS",
                 genreRacing: "Siber Yarış / Arcade",
                 genreDungeon: "Zindan RPG / Roguelike",
                 genrePuzzle: "Zeka & Fizik Bulmacası",
                 genreSpace: "Uzay Aksiyon / Shoot 'em up",
-                btnPlayNow: "🎮 Hemen Oyna",
+                btnPlayNow: "🎮 Sayfa İçinde Oyna",
+                btnCardFull: "🚀 Tam Ekran Oyna",
+                btnGuideHub: "📘 Oyun Rehberi",
                 btnCardAlbum: "🖼️ Albüm",
-                btnCardVideo: "🎬 Video İzle",
+                btnCardVideo: "🎬 Fragman İzle",
 
                 // Games
                 g1Desc: "100 bölüm ana sefer + 50 Öte Evren bölümü, 50 bölüm Trol Modu, 15 aksiyon dünyası, 4 özel yetenek, 11 resmi Google Play Games Başarımı (1.000 XP), canlı çoklu cihaz Liderlik Tablosu ve 19 yetenekli kahraman!",
-                g1Chips: '<span class="meta-chip">📱 Android &amp; Web</span><span class="meta-chip">⚡ 120 FPS</span><span class="meta-chip">🌍 9 Dil</span>',
-                g2Desc: "Yavuz Sultan Selim Han ve Osmanlı ordularıyla Ridaniye ve Mercidabık meydan muharebelerini yönettiğiniz gerçek zamanlı taktik ve kuşatma strateji oyunu.",
-                g2Chips: '<span class="meta-chip">📱 Android</span><span class="meta-chip">🏰 Taktik &amp; Ordu Yönetimi</span>',
-                g3Desc: "2100 yılının neon otoyollarında yerçekimine meydan okuyan siber araçlarla yüksek hızlı drift, araç modifiye stüdyosu ve zamana karşı yarış deneyimi.",
-                g3Chips: '<span class="meta-chip">📱 Android &amp; Web</span><span class="meta-chip">⚡ 120 FPS Fizik Motoru</span>',
-                g4Desc: "Antik Zümrüt kalıntılarını korumak için prosedürel olarak üretilen karanlık zindanlarda Boss muhafızlarına karşı verilen aksiyon-RPG mücadelesi.",
-                g4Chips: '<span class="meta-chip">📱 Android</span><span class="meta-chip">🗡️ Boss Savaşları &amp; Ekipman</span>',
-                g5Desc: "Solucan delikleri, lazer kırılmaları ve yerçekimi anahtarlarını kullanarak 100'den fazla kuantum laboratuvarı bulmacasını çözün.",
-                g5Chips: '<span class="meta-chip">📱 Android &amp; Tablet</span><span class="meta-chip">🧠 100+ Bölüm</span>',
-                g6Desc: "Yıldızlararası filonuzu yükseltin, plazma kalkanlarınızı kuşanın ve galaktik istilacıların dev ana gemilerine karşı uzay cephesini savunun.",
-                g6Chips: '<span class="meta-chip">📱 Android</span><span class="meta-chip">🔥 Sonsuz Dalga Modu</span>',
+                g1Chips: '<span class="meta-chip">📱 Android &amp; Web</span><span class="meta-chip">⚡ 120 FPS</span><span class="meta-chip">🌍 9 Dil</span><span class="meta-chip">🏆 11 Play Games Başarımı</span>',
+                g2Desc: "Yavuz Sultan Selim Han ve Osmanlı ordularıyla Ridaniye ve Mercidabık meydan muharebelerini yönettiğiniz gerçek zamanlı taktik ve kuşatma strateji konsepti.",
+                g2Chips: '<span class="meta-chip">🧪 Konsept Tasarımı</span><span class="meta-chip">🏰 Taktik &amp; Ordu Yönetimi</span>',
+                g3Desc: "2100 yılının neon otoyollarında yerçekimine meydan okuyan siber araçlarla yüksek hızlı drift ve zamana karşı yarış deneyimi hedefleyen Ar-Ge projesi.",
+                g3Chips: '<span class="meta-chip">🧪 Fizik Prototipi</span><span class="meta-chip">⚡ 120 FPS Hedefi</span>',
+                g4Desc: "Antik Zümrüt kalıntılarını korumak için prosedürel olarak üretilen karanlık zindanlarda Boss muhafızlarına karşı verilen aksiyon-RPG fikir çalışması.",
+                g4Chips: '<span class="meta-chip">🧪 Erken Tasarım</span><span class="meta-chip">🗡️ Zindan &amp; Boss Mekanikleri</span>',
+                g5Desc: "Solucan delikleri, lazer kırılmaları ve yerçekimi anahtarlarını kullanan aile dostu zeka ve mantık bulmacası konsepti.",
+                g5Chips: '<span class="meta-chip">🧪 Bulmaca Mekanikleri</span><span class="meta-chip">🧠 Aile &amp; Çocuk Odaklı</span>',
+                g6Desc: "Yıldızlararası filoyu yükselterek galaktik istilacıların dev ana gemilerine karşı uzay cephesini savunma üzerine klasik arcade konsepti.",
+                g6Chips: '<span class="meta-chip">🧪 Konsept Tasarımı</span><span class="meta-chip">🔥 Dalga Savunma Fikri</span>',
 
                 // Tech Section
                 techTitle: "⚡ Stüdyo Teknolojimiz ve Yaklaşımımız",
@@ -2133,23 +2197,31 @@
                 videoModalTitle: "🎬 Tanıtım & Oynanış Videosu",
                 btnOpenYoutube: "YouTube'da Aç ↗",
                 footerRights: "© 2026 CG Studio Home & Labs. Tüm hakları saklıdır. Bir Aile İçi Teknoloji ve Girişimcilik Projesidir. | İletişim:",
-                footFamily: "Aile Hikayemiz",
+                footGuide: "Oyun Rehberi",
+                footWorlds: "15 Dünya",
+                footHeroes: "19 Kahraman",
+                footDevlog: "Geliştirici Günlüğü",
+                footFaq: "SSS",
+                footAbout: "Hakkımızda",
+                footContact: "İletişim",
                 footPlayStore: "Google Play Store",
                 footPlay: "Web'de Oyna",
-                footChangelog: "Sürüm Notları (Changelog)",
-                footPrivacy: "Gizlilik Politikası (Privacy Policy)",
-                footTerms: "Hizmet Şartları (Terms of Service)"
+                footChangelog: "Sürüm Notları",
+                footPrivacy: "Gizlilik Politikası",
+                footTerms: "Hizmet Şartları"
             },
             en: {
                 pageTitle: "CG Studio Home & Labs | Family-Crafted Games & Tech Portal",
                 metaDesc: "CG Studio Home & Labs — Family-crafted indie games and next-generation mobile & web development portal.",
                 studioSub: "FAMILY GAME & TECH STUDIO",
                 navFlagship: "Marinext 2100",
-                navFamily: "👨‍👩‍👧‍👦 Our Family Story & Team",
-                navCatalog: "Game Catalog",
-                navTech: "Technology",
+                navWorlds: "Worlds",
+                navHeroes: "Heroes",
+                navDevlog: "Devlog",
+                navFaq: "FAQ",
+                navAbout: "About",
+                navContact: "Contact",
                 navChangelog: "Changelog",
-                navPrivacy: "Privacy Policy",
 
                 // Flagship Hero
                 heroBadge: "🔥 OFFICIAL GOOGLE PLAY LAUNCH • INSPIRED BY OUR 10-YEAR-OLD SON",
@@ -2205,39 +2277,57 @@
                 descIsranur: "Early-age usability validation, intuitive touch controls, difficulty tuning, sound effects, and genuine child feedback.",
                 familyInfographicTitle: "Click to inspect the full team infographic",
 
-                // Catalog Section
-                catalogTitle: "🎮 Our Studio Game Catalog",
-                catalogSub: "Our game portfolio spanning action platformer, historical strategy, futuristic racing, dungeon RPG, and puzzle genres.",
-                filterAll: "All (6)",
-                filterAction: "Action & Platform",
+                // Catalog, Guides & R&D Labs Section
+                catalogTitle: "🎮 Flagship Game, Guide Hub & CG Labs",
+                catalogSub: "Our flagship live release Marinext 2100, comprehensive player guides, engineering devlog, and CG Labs R&D concepts.",
+                guidesTitle: "📘 Marinext 2100 Knowledge Base & Devlog",
+                guidesSub: "Controls, all 15 worlds & boss guides, 19-hero encyclopedia, engineering devlog articles, and help center.",
+                gd1Title: "Official Gameplay Guide & Controls",
+                gd1Desc: "Keyboard & touch controls, 4 Beyondverse special powers, economy items, and all 11 Play Games Achievements (1,000 XP).",
+                gd2Title: "15 Worlds, 25 Bosses & 50 Troll Levels",
+                gd2Desc: "From Crystal Caverns to Omega Galaxy, all 5 Beyondverse worlds including Atlantis, and Troll Mode survival tips.",
+                gd3Title: "19 Heroes & Workshop Encyclopedia",
+                gd3Desc: "Full stats and passive perks for Sultan Mehmed II, Sultan Selim I, Mete Han, 15 roster heroes, 4 VIP legends, and 66+ items.",
+                gd4Title: "Developer Log (Devlog)",
+                gd4Desc: "Deep-dive stories on our 120 FPS HTML5 Canvas engine, 50 Troll level design rules, and building games together as a family.",
+                gd5Title: "Frequently Asked Questions (FAQ)",
+                gd5Desc: "Offline playability, Google Drive cloud save migration, portal quota locks, 120 Hz physics, and our player-first ad promise.",
+                gd6Title: "Official Release Notes (Changelog)",
+                gd6Desc: "Complete player-focused update chronicle from v1.0 launch to v1.5.7 Beyondverse Finale.",
+                labsTitle: "🧪 CG Labs — R&D & Future Concept Roadmap",
+                labsSub: "Early genre experiments and prototypes explored inside our lab (concept-stage only, not yet open for download).",
+                filterAll: "All (5)",
                 filterStrategy: "Strategy & History",
                 filterRacing: "Racing & Arcade",
                 filterPuzzle: "Puzzle & RPG",
+                filterSpaceCat: "Space & Action",
                 tagLive: "🟢 LIVE • PLAYABLE",
-                tagSoon: "🚀 IN DEVELOPMENT",
+                tagSoon: "🧪 R&D CONCEPT",
                 genreAction: "Action / 2D Platform",
                 genreStrategy: "Historical Strategy / RTS",
                 genreRacing: "Cyber Racing / Arcade",
                 genreDungeon: "Dungeon RPG / Roguelike",
                 genrePuzzle: "Physics & Puzzle",
                 genreSpace: "Space Action / Shmup",
-                btnPlayNow: "🎮 Play Now",
+                btnPlayNow: "🎮 Play Inline",
+                btnCardFull: "🚀 Play Fullscreen",
+                btnGuideHub: "📘 Game Guide",
                 btnCardAlbum: "🖼️ Album",
-                btnCardVideo: "🎬 Watch Video",
+                btnCardVideo: "🎬 Watch Trailer",
 
                 // Games
                 g1Desc: "100 campaign stages + 50 Beyondverse levels, 50 Troll Mode levels, 15 action worlds, 4 special powers, 11 official Google Play Games Achievements (1,000 XP), live cross-device Leaderboards, and 19 heroes with unique perks!",
-                g1Chips: '<span class="meta-chip">📱 Android &amp; Web</span><span class="meta-chip">⚡ 120 FPS</span><span class="meta-chip">🌍 9 Languages</span>',
-                g2Desc: "Command Sultan Selim I and the Ottoman armies in historic battles with real-time siege tactics and unit formations.",
-                g2Chips: '<span class="meta-chip">📱 Android</span><span class="meta-chip">🏰 Tactical Army Command</span>',
-                g3Desc: "High-speed cyber drift racing on futuristic neon highways with full vehicle customization and 120 FPS physics.",
-                g3Chips: '<span class="meta-chip">📱 Android &amp; Web</span><span class="meta-chip">⚡ 120 FPS Physics Engine</span>',
-                g4Desc: "Battle dark dungeon guardians across procedurally generated caverns to protect the Ancient Emerald relics.",
-                g4Chips: '<span class="meta-chip">📱 Android</span><span class="meta-chip">🗡️ Boss Fights &amp; Gear</span>',
-                g5Desc: "Master wormhole teleporters, laser optics, and gravity switches across 100+ brain-teasing quantum lab puzzles.",
-                g5Chips: '<span class="meta-chip">📱 Android &amp; Tablet</span><span class="meta-chip">🧠 100+ Puzzles</span>',
-                g6Desc: "Upgrade your interstellar fleet, equip plasma shields, and defend the galaxy against colossal boss motherships.",
-                g6Chips: '<span class="meta-chip">📱 Android</span><span class="meta-chip">🔥 Endless Waves Mode</span>',
+                g1Chips: '<span class="meta-chip">📱 Android &amp; Web</span><span class="meta-chip">⚡ 120 FPS</span><span class="meta-chip">🌍 9 Languages</span><span class="meta-chip">🏆 11 Play Games Achievements</span>',
+                g2Desc: "Early tactical siege strategy concept exploring real-time historical battlefield formations under Sultan Selim I.",
+                g2Chips: '<span class="meta-chip">🧪 Concept Design</span><span class="meta-chip">🏰 Tactical Formations</span>',
+                g3Desc: "Experimental R&D racing prototype exploring zero-gravity cyber drifting and 120 FPS arcade physics.",
+                g3Chips: '<span class="meta-chip">🧪 Physics Prototype</span><span class="meta-chip">⚡ 120 FPS Target</span>',
+                g4Desc: "Early roguelike cavern dungeon-crawler concept centered around procedural traps and emerald guardian encounters.",
+                g4Chips: '<span class="meta-chip">🧪 Early Design</span><span class="meta-chip">🗡️ Dungeon &amp; Boss Ideas</span>',
+                g5Desc: "Family-friendly physics puzzle concept featuring wormhole portals, laser refraction, and gravity switches.",
+                g5Chips: '<span class="meta-chip">🧪 Puzzle Mechanics</span><span class="meta-chip">🧠 Family &amp; Kids Focus</span>',
+                g6Desc: "Classic arcade space-defense concept pitting upgradable fleet shields against interstellar wave bosses.",
+                g6Chips: '<span class="meta-chip">🧪 Concept Design</span><span class="meta-chip">🔥 Wave Defense Idea</span>',
 
                 // Tech Section
                 techTitle: "⚡ Studio Technology & Philosophy",
@@ -2260,10 +2350,16 @@
                 videoModalTitle: "🎬 Gameplay & Trailer Video",
                 btnOpenYoutube: "Open in YouTube ↗",
                 footerRights: "© 2026 CG Studio Home & Labs. All rights reserved. A Family Technology & Indie Venture. | Contact:",
-                footFamily: "Our Family Story",
+                footGuide: "Game Guide",
+                footWorlds: "15 Worlds",
+                footHeroes: "19 Heroes",
+                footDevlog: "Devlog",
+                footFaq: "FAQ",
+                footAbout: "About Us",
+                footContact: "Contact",
                 footPlayStore: "Google Play Store",
                 footPlay: "Play on Web",
-                footChangelog: "Changelog & Notes",
+                footChangelog: "Changelog",
                 footPrivacy: "Privacy Policy",
                 footTerms: "Terms of Service"
             }
