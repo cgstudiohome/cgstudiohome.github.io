@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr" data-portal-lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-tr="50 Trol Etabı Tasarımı: Oyuncuyu Kızdırmadan Eğlendiren Mekanikler | Devlog" data-en="Designing 50 Troll Levels: Mischievous Mechanics That Keep Players Smiling | Devlog">50 Trol Etabı Tasarımı: Oyuncuyu Kızdırmadan Eğlendiren Mekanikler | Devlog</title>
+    <meta id="meta-description" name="description" data-tr="Marinext 2100'deki 50 Bölümlük Trol Modu nasıl tasarlandı? Çöken köprüler, uranyum şaka kutuları, kaçan portallar ve sahte zümrütlerin tasarım dengesi." data-en="Level design case study of Marinext 2100's 50-stage Troll Mode: collapsing floors, uranium mystery boxes, dodging portals, and fair memorability." content="Marinext 2100'deki 50 Bölümlük Trol Modu nasıl tasarlandı? Çöken köprüler, uranyum şaka kutuları, kaçan portallar ve sahte zümrütlerin tasarım dengesi.">
+    <meta name="google-adsense-account" content="ca-pub-1366538011855586">
+    <link rel="canonical" href="https://cgstudiohome.com/devlog/designing-50-troll-levels.html">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://cgstudiohome.com/assets/screenshots/marinext-4-tr.png">
+    <link rel="icon" type="image/png" href="/assets/icon-192.png">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1366538011855586" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7ER5HLQSNZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-7ER5HLQSNZ', { send_page_view: true });
+    </script>
+    <link rel="stylesheet" href="/assets/portal.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="brand">
+                <div class="brand-logo"><img src="/assets/icon-192.png" alt="CG Studio Home Logo"></div>
+                <div class="brand-text">
+                    <span class="brand-title">CG STUDIO HOME</span>
+                    <span class="brand-sub" data-tr="AİLE OYUN &amp; TEKNOLOJİ STÜDYOSU" data-en="FAMILY GAME &amp; TECH STUDIO">AİLE OYUN &amp; TEKNOLOJİ STÜDYOSU</span>
+                </div>
+            </a>
+            <div class="nav-links">
+                <a href="/" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+                <a href="/marinext2100/" data-tr="Oyun Rehberi" data-en="Game Guide">Oyun Rehberi</a>
+                <a href="/devlog/" class="active" data-tr="Geliştirici Günlüğü" data-en="Devlog">Geliştirici Günlüğü</a>
+                <a href="/faq/" data-tr="SSS" data-en="FAQ">SSS</a>
+                <a href="/about/" data-tr="Hakkımızda" data-en="About">Hakkımızda</a>
+                <a href="/contact/" data-tr="İletişim" data-en="Contact">İletişim</a>
+                <div class="lang-switch">
+                    <button id="lang-tr" class="lang-btn active" onclick="setPortalLang('tr', true)">TR</button>
+                    <button id="lang-en" class="lang-btn" onclick="setPortalLang('en', true)">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="portal-shell">
+        <div class="breadcrumbs">
+            <a href="/" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a> <span>›</span>
+            <a href="/devlog/" data-tr="Devlog" data-en="Devlog">Devlog</a> <span>›</span>
+            <span data-tr="50 Trol Etabı Tasarımı" data-en="Designing 50 Troll Levels">50 Trol Etabı Tasarımı</span>
+        </div>
+
+        <div data-lang-view="tr">
+            <article class="content-card">
+                <span class="hero-kicker">Bölüm Tasarımı Vaka Çalışması • Kasım 2026</span>
+                <h1 style="font-size:32px; color:#fff; margin-bottom:14px;">50 Trol Etabı Tasarımı: Oyuncuyu Kızdırmadan Eğlendiren Mekanikler</h1>
+                <p>
+                    Bir "trol" platform modu tasarlarken ince bir çizgi vardır: Tuzaklar tamamen rastgele ve çözülemez olursa oyuncu öfkelenip oyunu kapatır; ancak her şaka tutarlı bir kurala dayanır ve ikinci denemede çözülebilirse her tuzak bir kahkahaya dönüşür. Marinext 2100'de 15 bölümlük ilk deney olarak başlayan ve gördüğü ilgiyle 50 bölüme genişletilen <strong>Trol Modu</strong>'nu tam da bu denge üzerine kurduk.
+                </p>
+
+                <h2>1. Kademeli Öğrenme: Şaka Dilini Tanıtmak</h2>
+                <p>
+                    İlk 10 bölüm (<em>Kademe 1: Isınma Trolü</em>), oyuncuya modun kurallarını tek tek öğretir. Trol Bölüm 1 ("Masum Görünen Yol") önce sadece çöken taş zeminleri tanıtır; Bölüm 2 ("Uranyum Kutusu Tuzağı") üç <code>[?]</code> kutusundan birinin kafaya uranyum bombası düşürebileceğini gösterir; Bölüm 3 ("Kaçan Portal") ise bitiş çizgisindeki portalın neden kahkaha atıp ileri sıçradığını deneyimletir. İleriki bölümlerde bu tuzaklar birleştiğinde oyuncu artık neyle karşılaşacağını bilerek refleks geliştirir.
+                </p>
+
+                <h2>2. Mıknatıs ve Sahte Zümrüt İnceliği</h2>
+                <p>
+                    Aile içi testlerde harika bir kenar durum yakaladık: Oyuncunun Mağaza'dan aldığı <em>Antik Zümrüt Mıknatısı</em>, normalde yakındaki tüm taşları çeker. Ancak Trol Modu'nda dokunulduğunda oyuncuyu en başa ışınlayan <code>isTrollTeleport</code> sahte zümrütleri de mıknatıs çekseydi, oyuncunun aldığı pahalı yükseltme onun aleyhine çalışıp haksızlık yaratırdı!
+                </p>
+                <p>
+                    Bu yüzden mıknatıs algoritmamızı sahte zümrütleri <strong>bilinçli olarak görmezden gelecek</strong> şekilde güncelledik. Böylece bir yandan emeğinize saygı duyulurken diğer yandan kendi kararınızla sahte tuzağa atlama komedisi korunmuş oldu.
+                </p>
+
+                <h2>3. Kaçan Bitiş Portalı &amp; Uzun Son Düzlükler</h2>
+                <p>
+                    Kaçan portal mekaniğini tasarlarken dikkat ettiğimiz bir diğer nokta harita sonunun fiziksel alanıdır. Bitiş portalı yaklaştığınızda 1 ila 3 kez ileri zıplayacağı için, son düzlükleri ekstra uzun ve açık görüşlü tasarladık; böylece kaçan portal duvarın içine veya çıkışsız bir boşluğa düşmeden kovalamaca eğlenceli biçimde tamamlanır.
+                </p>
+
+                <h2>4. 50 Trol Bölümünün 5 Kademeli Zorluk Eğrisi</h2>
+                <p>
+                    Oyuncunun tekdüze tuzaklardan sıkılmaması için 50 bölümü 5 belirgin kademeye ayırdık. Her 10 bölümlük kademe yeni bir aldatmaca katmanı ekler:
+                </p>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead><tr><th>Kademe</th><th>Bölümler</th><th>Öne Çıkan Tuzaklar ve Sürprizler</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>Kademe 1: Isınma Trolü</strong></td><td>1 – 10</td><td>Çöken zeminler, Uranyum <code>[?]</code> kutuları, kaçan portal, paraşütlü pusu ve ilk iki Trol Boss'u.</td></tr>
+                            <tr><td><strong>Kademe 2: Hız &amp; Rüzgar Şakaları</strong></td><td>11 – 20</td><td>Zıplama anında yön değiştiren rüzgar esintileri, gizli sıçrama yayları ve ikili kaçan portal kombinasyonları.</td></tr>
+                            <tr><td><strong>Kademe 3: Sahte Kayıt &amp; İkiz Tuzaklar</strong></td><td>21 – 30</td><td>Başa saran sahte zümrüt tuzakları, tuzak bayraklar ve dar havada yön değiştirme sınavları.</td></tr>
+                            <tr><td><strong>Kademe 4: Kombo Parkurlar</strong></td><td>31 – 40</td><td>Çöken taş köprüler üzerinde hareketli testereler, çoklu uranyum kutusu blokları ve dar lazer geçitleri.</td></tr>
+                            <tr><td><strong>Kademe 5: Büyük Trol Finali</strong></td><td>41 – 50</td><td>Tüm trol mekaniklerinin yüksek tempoyla birleştiği uzman parkurlar ve 50. Bölüm Final Trol Boss'u.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>5. Her 5. Bölümde Boss Arenası Şakaları</h2>
+                <p>
+                    5, 10, 15... 50. Trol bölümlerindeki 10 Boss savaşında yalnızca boss desenlerinden kaçmazsınız; arenanın tam ortasında çökebilen bir tuzak blok, kenarda saklanan bir sahte zümrüt veya gökten inen paraşütlü pusu askerleri savaşı dinamik tutar. Bu sayede her Boss karşılaşması tekdüze ateş etme rutini olmaktan çıkıp canlı bir hayatta kalma komedisine dönüşür.
+                </p>
+                <p>
+                    Trol Modu'nun tüm mekaniklerini denemek için <a href="/play/" target="_blank" rel="noopener">Web'de Oyna</a> üzerinden ana haritadaki 😡 <strong>TROL</strong> butonuna tıklayabilir veya <a href="/marinext2100/worlds/">15 Dünya &amp; Trol Rehberi</a> sayfamızı okuyabilirsiniz.
+                </p>
+            </article>
+        </div>
+
+        <div data-lang-view="en">
+            <article class="content-card">
+                <span class="hero-kicker">Level Design Case Study • November 2026</span>
+                <h1 style="font-size:32px; color:#fff; margin-bottom:14px;">Designing 50 Troll Levels: Mischievous Mechanics That Make Players Smile</h1>
+                <p>
+                    The secret to a memorable troll platformer is fairness masked as mischief. If traps feel completely random, frustration wins; if every surprise teaches a recognizable pattern that rewards quick learning, every fail gets a laugh. When Yavuz Selim initially pitched our 15-level Troll Mode, response was so enthusiastic that we expanded it into a full 50-stage challenge campaign.
+                </p>
+                <h2>Core Principles Behind Our 50 Troll Stages</h2>
+                <ul>
+                    <li><strong>Gradual Trap Onboarding:</strong> Tier 1 (Levels 1–10) introduces collapsing floors, uranium <code>[?]</code> mystery boxes, and dodging finish portals one mechanic at a time before combining them alongside parachute ambushes and sudden wind gusts in higher tiers.</li>
+                    <li><strong>Fair Treasure Magnet Logic:</strong> During playtesting, we updated our Treasure Magnet upgrade to intentionally ignore teleporting fake emeralds (<code>isTrollTeleport</code>) so players' earned power-ups never betray them unfairly.</li>
+                    <li><strong>Extended Finish Runways:</strong> Stages with dodging finish portals extend the final runway geometry so players always have fair footing to chase down the laughing goal without clipping offscreen.</li>
+                    <li><strong>Five Difficulty Tiers &amp; 10 Troll Bosses:</strong> Every 5th troll level mixes boss attack patterns with arena trap tiles and decoy collectibles, keeping each duel fresh and replayable.</li>
+                </ul>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div><strong style="color:#fff;">CG Studio Home &amp; Labs</strong><p style="color:var(--text-muted); font-size:13px; margin-top:4px;">© 2026 CG Studio Home &amp; Labs • <a href="mailto:info@erpdanisman.com">info@erpdanisman.com</a></p></div>
+            <div class="footer-links">
+                <a href="/" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+                <a href="/devlog/" data-tr="Geliştirici Günlüğü" data-en="Devlog">Geliştirici Günlüğü</a>
+                <a href="/marinext2100/" data-tr="Oyun Rehberi" data-en="Game Guide">Oyun Rehberi</a>
+                <a href="/faq/" data-tr="SSS" data-en="FAQ">SSS</a>
+                <a href="/about/" data-tr="Hakkımızda" data-en="About">Hakkımızda</a>
+                <a href="/contact/" data-tr="İletişim" data-en="Contact">İletişim</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/portal.js"></script>
+</body>
+</html>
