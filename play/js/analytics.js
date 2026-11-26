@@ -73,6 +73,27 @@
             } catch (e) {}
         },
 
+        getDeviceFormFactor() {
+            if (window.MarinextTV && typeof window.MarinextTV.getFormFactor === 'function') {
+                return window.MarinextTV.getFormFactor();
+            }
+            if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getDeviceFormFactor === 'function') {
+                try { return window.MarinextCloudBridge.getDeviceFormFactor(); } catch (e) {}
+            }
+            if (window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform()) {
+                return 'mobile';
+            }
+            return 'web';
+        },
+
+        getInputMode() {
+            if (window.MarinextTV && window.MarinextTV.inputMode) {
+                return window.MarinextTV.inputMode;
+            }
+            const hasTouch = ('ontouchstart' in window) || ((navigator && navigator.maxTouchPoints) > 0);
+            return hasTouch ? 'touch' : 'keyboard';
+        },
+
         trackSessionStart() {
             this.stats.totalSessions = (this.stats.totalSessions || 0) + 1;
             const todayStr = new Date().toISOString().slice(0, 10);
@@ -82,6 +103,8 @@
             this.saveStats();
 
             const installAgeDays = Math.floor((Date.now() - (this.stats.firstInstallTime || Date.now())) / (1000 * 60 * 60 * 24));
+            const formFactor = this.getDeviceFormFactor();
+            const inputMode = this.getInputMode();
 
             this.logEvent('session_start', {
                 session_id: this.sessionId,
@@ -90,8 +113,19 @@
                 retention_day: this.stats.daysActive.length,
                 screen_width: window.innerWidth,
                 screen_height: window.innerHeight,
-                pixel_ratio: window.devicePixelRatio || 1
+                pixel_ratio: window.devicePixelRatio || 1,
+                device_form_factor: formFactor,
+                tv_input_mode: inputMode
             });
+
+            if (formFactor === 'android_tv') {
+                this.logEvent('tv_session_start', {
+                    device_form_factor: 'android_tv',
+                    tv_input_mode: inputMode,
+                    screen_width: window.innerWidth,
+                    screen_height: window.innerHeight
+                });
+            }
         },
 
         trackSessionEnd() {
@@ -107,12 +141,20 @@
         },
 
         logEvent(eventName, params = {}) {
+            const enrichedParams = {
+                ...params,
+                device_form_factor: (params && params.device_form_factor) || this.getDeviceFormFactor()
+            };
+            if (enrichedParams.device_form_factor === 'android_tv' && !enrichedParams.tv_input_mode) {
+                enrichedParams.tv_input_mode = this.getInputMode();
+            }
+
             const eventPayload = {
                 event: eventName,
                 timestamp: Date.now(),
                 iso_time: new Date().toISOString(),
                 params: {
-                    ...params,
+                    ...enrichedParams,
                     session_id: this.sessionId
                 }
             };
@@ -161,7 +203,7 @@
                     try {
                         window.MarinextCloudBridge.logAnalyticsEvent(
                             ga4EventName,
-                            JSON.stringify({ ...params })
+                            JSON.stringify({ ...enrichedParams })
                         );
                     } catch (e) {}
                 }
@@ -172,7 +214,7 @@
 
                 if (typeof window.gtag === 'function') {
                     try {
-                        window.gtag('event', ga4EventName, { ...params });
+                        window.gtag('event', ga4EventName, { ...enrichedParams });
                     } catch (e) {}
                 } else if (measurementId && apiSecret) {
                     try {
@@ -185,7 +227,7 @@
                                 events: [{
                                     name: ga4EventName,
                                     params: {
-                                        ...params,
+                                        ...enrichedParams,
                                         session_id: this.numericSessionId,
                                         engagement_time_msec: 100
                                     }
