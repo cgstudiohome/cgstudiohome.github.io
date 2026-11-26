@@ -6979,123 +6979,123 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.5.5" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.6.0" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🌌 v1.5.7 Büyük Öte Evren & 11 Başarım Sürümü",
-        "subtitle": "200 bölümlük tam macera, 11 resmi Google Play Games Başarımı (1.000 XP), %100 9 dilde eksiksiz metinler ve adil sıralama koruması yayında!",
-        "btnOk": "🚀 HARİKA, MACERAYA BAŞLA!",
+        "title": "📺 v1.6.0 Android TV & Oyun Kumandası Sürümü",
+        "subtitle": "Marinext 2100 artık televizyonunuzda! Bluetooth Gamepad, TV kumandası uyumu, 15 bölüm ücretsiz TV denemesi ve telefondan TV'ye ortak VIP yayında!",
+        "btnOk": "🎮 HARİKA, OYNAMAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            { "icon": "🏅", "title": "11 Resmi Google Play Games Başarımı (1.000 XP)", "desc": "Ana seferden 150. bölüm Ayna Katedrali'ne ve Yadigar Sandıklarına kadar tüm başarımlarınız resmi Google Play Games XP olarak hesabınıza işlenir." },
-            { "icon": "🌌", "title": "200 Bölüm: Sefer, Öte Evren (101–150) & Trol Modu", "desc": "Atlantis, Biyo-Orman, Saat Kulesi, Asit Rafinerisi ve Ayna Katedrali dünyalarında Mühür Anahtarları toplayın, gizli sandıkları açın!" },
-            { "icon": "💬", "title": "9 Dilde %100 Eksiksiz Arayüz ve Arkadaş Sıralaması", "desc": "Arkadaş sıralaması ekranı, dahili test bilgilendirmeleri, Mühür uyarıları ve başarım kutlamaları dahil her metin artık seçili dilinizdedir." },
-            { "icon": "⚖️", "title": "Adil Sıralama & Tüm Cihazlarda Eşit Puanlar", "desc": "Telefon ve tabletlerde güncel puanlar eşitlendi; her açılışta daima ulaştığınız en ileri bölümden devam edersiniz." },
-            { "icon": "⚡", "title": "120 FPS Akıcılık & İnternetsiz Tam Oynanış", "desc": "19 kahraman, 4 özel yetenek ve Mini-Drone yoldaşınızla tüm 200 bölümde üst düzey performans ve akıcılık sağlanır." }
+            { "icon": "📺", "title": "Tam Android TV & Mi Box (Android 9+) Desteği", "desc": "Oturma odanızda dev ekrana özel kenar boşlukları, parlak odak halkası ve akıcı 60 FPS performans ile televizyonda oynama keyfi." },
+            { "icon": "🎮", "title": "Bluetooth / USB Gamepad ve TV Kumandası Kontrolü", "desc": "Xbox, PlayStation ve standart oyun kollarının yanı sıra TV'nizin kendi D-Pad kumandasıyla da tüm 25 menüyü gezip oynayabilirsiniz." },
+            { "icon": "🎁", "title": "TV'de İlk 15 Bölüm Ücretsiz + Tek Seferlik Tam Sürüm", "desc": "İlk 15 bölümü televizyonda reklamsız ve ücretsiz deneyin; dilediğinizde tek seferlik TV Tam Sürüm kilidiyle tüm 200 bölümü açın." },
+            { "icon": "👑", "title": "Telefon + TV Ortak VIP & Ömür Boyu VIP Paketi", "desc": "Aynı Google hesabıyla aldığınız VIP Pass (veya yeni Ömür Boyu VIP paketi) hem telefonunuzda hem Android TV'nizde otomatik geçerlidir." },
+            { "icon": "🛡️", "title": "Akıllı TV Deneyimi & Bulut Kayıt Senkronizasyonu", "desc": "Televizyonda kesintisiz reklamsız akış, yüksek kontrast arayüz ve Google Play Games ile tüm cihazlarda kesintisiz ilerleme kaydı." }
         ]
     },
     "en": {
-        "title": "🌌 v1.5.7 Complete 200-Stage Beyondverse & Achievements",
-        "subtitle": "200 full stages, 11 official Google Play Games Achievements (1,000 XP), 100% 9-language localization, and fair cross-device rankings are here!",
-        "btnOk": "🚀 AWESOME, LET'S PLAY!",
+        "title": "📺 v1.6.0 Android TV & Gamepad Edition",
+        "subtitle": "Marinext 2100 arrives on the big screen! Full Bluetooth Gamepad & TV Remote navigation, 15-level free TV trial, and cross-device VIP are here!",
+        "btnOk": "🎮 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            { "icon": "🏅", "title": "11 Official Google Play Games Achievements (1,000 XP)", "desc": "Every milestone from First Blood to Beyondverse Conqueror and Relic Hunter syncs directly with your official Play Games profile XP." },
-            { "icon": "🌌", "title": "200 Stages: Story, Beyondverse (101–150) & Troll Mode", "desc": "Collect Seal Keys, unlock hidden Relic Chests, and battle multi-phase bosses across Sunken Atlantis to Mirror Cathedral!" },
-            { "icon": "💬", "title": "100% 9-Language UI, Friends Ranking & Alerts", "desc": "Every Friends Leaderboard panel, sealed portal warning, chest reward banner, and trophy notice now matches your active language." },
-            { "icon": "⚖️", "title": "Fair Rankings & Consistent Cross-Device Progress", "desc": "Phone and tablet leaderboards stay synchronized while every launch opens right at your highest unlocked frontier." },
-            { "icon": "⚡", "title": "Crisp 120 FPS & Full Offline Adventure", "desc": "Enjoy 19 heroes, 4 special powers, and your Cyber Mini-Drone at ultra-smooth 120 FPS anywhere." }
+            { "icon": "📺", "title": "Native Android TV & Google TV Support (Android 9+)", "desc": "Designed for living-room screens with overscan-safe margins, crisp focus highlights, and smooth Mi Box & TV box performance." },
+            { "icon": "🎮", "title": "Bluetooth / USB Gamepad & Standard TV Remote", "desc": "Navigate every menu and play seamlessly with Xbox, PlayStation, USB/BT controllers, or your TV's standard D-Pad remote." },
+            { "icon": "🎁", "title": "First 15 Levels Free on TV + One-Time Full Unlock", "desc": "Play stages 1–15 free and ad-free on TV, then unlock all 200 Campaign, Beyondverse & Troll stages permanently with one click." },
+            { "icon": "👑", "title": "Cross-Device Mobile + TV VIP & Lifetime VIP", "desc": "Your Google Play VIP Pass or new Lifetime VIP Bundle unlocks automatically across both your smartphone and Android TV." },
+            { "icon": "🛡️", "title": "Distraction-Free Living Room Play & Cloud Sync", "desc": "Enjoy clean 10-foot UI without intrusive mobile overlays and automatic progress sync across all your screens." }
         ]
     },
     "ko": {
-        "title": "🌌 v1.5.7 200스테이지 비욘드버스 & 공식 업적 에디션",
-        "subtitle": "200개 전체 스테이지, 11종 Google Play Games 공식 업적(1,000 XP), 9개 언어 100% 현지화 및 공정한 순위 시스템이 준비되었습니다!",
-        "btnOk": "🚀 좋아요, 모험 시작!",
+        "title": "📺 v1.6.0 Android TV & 게임패드 에디션",
+        "subtitle": "이제 거실 대형 TV에서도 Marinext 2100을 즐기세요! 블루투스 게임패드·TV 리모컨 지원, 첫 15스테이지 무료 체험 및 교차 기기 VIP 출시!",
+        "btnOk": "🎮 좋아요, 플레이 시작!",
         "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            { "icon": "🏅", "title": "Google Play Games 공식 업적 11종 (1,000 XP)", "desc": "첫 승리부터 150스테이지 비욘드버스 정복자, 유물 사냥꾼까지 모든 도전 과제가 공식 Play Games 프로필 XP로 기록됩니다." },
-            { "icon": "🌌", "title": "200스테이지: 본편·비욘드버스(101–150)·트롤 모드", "desc": "아틀란티스부터 거울 성당까지 봉인 열쇠를 모으고 숨겨진 유물 상자와 다중 페이즈 보스를 정복하세요!" },
-            { "icon": "💬", "title": "친구 랭킹 포함 모든 화면 9개 언어 100% 완성", "desc": "Play Games 친구 순위 안내, 테스트 격리 메시지, 봉인 열쇠 경고, 유물 보상 문구까지 모두 선택한 언어로 표시됩니다." },
-            { "icon": "⚖️", "title": "공정한 순위표 & 모든 기기 동일한 최신 기록", "desc": "휴대폰과 태블릿 간 점수가 정확히 일치하며, 앱 실행 시 항상 도달한 최고 스테이지에서 바로 시작합니다." },
-            { "icon": "⚡", "title": "120 FPS 초고속 엔진 & 오프라인 완벽 지원", "desc": "19명의 영웅과 4대 특수 능력, 미니 드론 동료와 함께 어디서나 쾌적하게 플레이하세요." }
+            { "icon": "📺", "title": "Android TV & Google TV 완벽 지원 (Android 9+)", "desc": "거실 TV 화면에 맞춘 안전 여백, 선명한 포커스 표시 및 Mi Box 호환 60 FPS 최적화 UI가 적용되었습니다." },
+            { "icon": "🎮", "title": "블루투스/USB 게임패드 & TV 리모컨 지원", "desc": "Xbox, PlayStation 컨트롤러뿐만 아니라 일반 TV 리모컨 방향키만으로도 모든 메뉴와 액션을 조작할 수 있습니다." },
+            { "icon": "🎁", "title": "TV 첫 15스테이지 무료 + 정식 버전 일회성 해금", "desc": "1–15 스테이지를 무료·무광고로 즐긴 뒤 원클릭으로 200개 전체 캠페인·비욘드버스·트롤 스테이지를 영구 잠금 해제하세요." },
+            { "icon": "👑", "title": "모바일 + TV 교차 VIP & 평생 VIP 패키지", "desc": "동일한 Google 계정으로 구매한 VIP Pass 및 평생 VIP 혜택이 스마트폰과 TV 양쪽에 자동 연동됩니다." },
+            { "icon": "🛡️", "title": "대화면 맞춤 인터페이스 & 클라우드 동기화", "desc": "모바일용 터치 버튼과 방해 요소 없이 깔끔한 TV 화면에서 언제든 이어서 플레이하세요." }
         ]
     },
     "ja": {
-        "title": "🌌 v1.5.7 全200面ビヨンドバース＆公式実績完成版",
-        "subtitle": "全200ステージ、Google Play Games公式実績11種（1,000 XP）、全9言語の完全対応、公平なマルチランキングが登場！",
-        "btnOk": "🚀 さあ、冒険へ！",
+        "title": "📺 v1.6.0 Android TV ＆ ゲームパッド対応版",
+        "subtitle": "Marinext 2100が大画面テレビに登場！Bluetoothゲームパッド＆TVリモコン操作、最初の15面無料体験、クロスデバイスVIPに対応！",
+        "btnOk": "🎮 さあ、プレイしよう！",
         "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            { "icon": "🏅", "title": "Google Play Games公式実績 11種（1,000 XP）", "desc": "最初の勝利から150面のビヨンドバース征服者、秘宝ハンターまで全ての実績が公式XPとしてプロフィールに同期されます。" },
-            { "icon": "🌌", "title": "全200面：本編・ビヨンドバース(101〜150)・トロール", "desc": "アトランティスや鏡面大聖堂で封印の鍵を集め、隠し秘宝チェストと多段階ボスに挑もう！" },
-            { "icon": "💬", "title": "フレンド順位表を含め全9言語を100%翻訳", "desc": "フレンドランキング案内、社内テスト隔離メッセージ、封印鍵の警告やチェスト報酬通知まで選択言語で表示されます。" },
-            { "icon": "⚖️", "title": "公平なランキング＆全端末で一致するスコア", "desc": "スマホとタブレットで常に正確な最新スコアが反映され、起動時は常に最前線ステージから再開できます。" },
-            { "icon": "⚡", "title": "120 FPS の滑らか動作＆完全オフライン対応", "desc": "19人の英雄と4つの特殊能力、ミニドローンと共にいつでも快適に楽しめます。" }
+            { "icon": "📺", "title": "Android TV / Google TV 公式対応（Android 9以上）", "desc": "大画面向けの安全余白、視認性の高いフォーカス枠、Mi BoxなどTV端末に最適化された滑らかな60 FPS動作を実現。" },
+            { "icon": "🎮", "title": "Bluetooth / USBゲームパッド＆TVリモコン操作", "desc": "Xbox・PlayStationコントローラーに加え、標準TVリモコンの十字キーだけでも全メニューとゲームを遊べます。" },
+            { "icon": "🎁", "title": "TV版 最初の15面無料 ＋ 買い切り完全版アンロック", "desc": "1〜15面を無料で体験し、ワンタイム購入で全200ステージ（本編・ビヨンドバース・トロール）を永久解放できます。" },
+            { "icon": "👑", "title": "スマホ＋TV共有VIP＆永久VIPバンドル", "desc": "同じGoogleアカウントのVIP Passや新登場の永久VIPは、テレビとスマホの両方で自動的に有効化されます。" },
+            { "icon": "🛡️", "title": "リビング向けクリーンUI＆クラウドセーブ同期", "desc": "画面を遮るモバイル用ボタンや広告を排除し、すべての端末間で進行状況を安全に同期します。" }
         ]
     },
     "zh": {
-        "title": "🌌 v1.5.7 全200关超维宇宙与官方成就正式版",
-        "subtitle": "完整200道关卡、11项官方 Google Play Games 成就（1,000 XP）、9种语言100%界面本地化及跨设备公平排行全面上线！",
-        "btnOk": "🚀 太棒了，出发冒险！",
+        "title": "📺 v1.6.0 Android TV 与手柄正式版",
+        "subtitle": "Marinext 2100 震撼登陆客厅大屏！全面支持蓝牙手柄与电视遥控器导航、前15关免费试玩及电视手机跨端VIP同步！",
+        "btnOk": "🎮 太棒了，立即开始！",
         "btnWeb": "🌐 查看完整更新日志 ↗",
         "items": [
-            { "icon": "🏅", "title": "11项官方 Google Play Games 成就（1,000 XP）", "desc": "从首战告捷到150关超维征服者及遗迹猎人，每一项成就都将直接同步为你的 Play Games 官方经验值。" },
-            { "icon": "🌌", "title": "200关史诗：主线、超维宇宙(101–150)与恶搞模式", "desc": "从亚特兰蒂斯到镜面大教堂，收集封印钥匙，开启隐藏遗迹宝箱，挑战多阶段首领！" },
-            { "icon": "💬", "title": "9种语言 100% 全界面与好友榜单翻译", "desc": "Play Games 好友排行提示、测试隔离说明、封印警报和宝箱飘字现已全面匹配您所选的语言。" },
-            { "icon": "⚖️", "title": "公平榜单隔离与全设备精准同步", "desc": "手机与平板分数完全一致，且每次启动必直达您已解锁的最远关卡。" },
-            { "icon": "⚡", "title": "120 FPS 丝滑帧率与纯离线畅玩", "desc": "携带19位英雄、4大超能力与赛博迷你无人机，随时随地享受极致手感。" }
+            { "icon": "📺", "title": "原生适配 Android TV 与 Google TV（Android 9+）", "desc": "专为大屏打造的防裁切安全边距、高对比度高亮焦点框及小米盒子流畅 60 FPS 体验。" },
+            { "icon": "🎮", "title": "蓝牙 / USB 手柄与标准电视遥控器操控", "desc": "兼容 Xbox、PlayStation 等游戏手柄，仅用普通电视遥控器方向键也能轻松畅玩全 25 个菜单与关卡。" },
+            { "icon": "🎁", "title": "TV 前 15 关免费 + 买断完整版解锁", "desc": "免费无广告体验前 15 关，随时可一次性买断解锁全部 200 道主线、超维宇宙及整蛊关卡。" },
+            { "icon": "👑", "title": "电视 + 手机跨设备 VIP 与终身 VIP 礼包", "desc": "同一 Google 账号购买的 VIP 通行证或终身 VIP 权益可在电视与手机之间自动共享。" },
+            { "icon": "🛡️", "title": "纯净客厅大屏体验与云端进度同步", "desc": "自动隐藏触控按键与干扰弹窗，通过 Google Play Games 实现跨设备无缝续关。" }
         ]
     },
     "ru": {
-        "title": "🌌 v1.5.7 Запределье (200 этапов) и Официальные достижения",
-        "subtitle": "Все 200 этапов, 11 официальных достижений Google Play Games (1000 XP), полный перевод на 9 языков и честный кросс-девайс рейтинг!",
-        "btnOk": "🚀 ОТЛИЧНО, ВПЕРЁД!",
+        "title": "📺 v1.6.0 Версия для Android TV и Геймпадов",
+        "subtitle": "Marinext 2100 выходит на большой экран! Поддержка Bluetooth-геймпадов и пульта ДУ, 15 уровней бесплатно на TV и общий VIP с телефоном!",
+        "btnOk": "🎮 ОТЛИЧНО, ИГРАЕМ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
-            { "icon": "🏅", "title": "11 официальных достижений Play Games (1000 XP)", "desc": "Все награды от Первой победы до Покорителя Запределья на 150 этапе и Охотника за реликвиями теперь начисляют официальный XP." },
-            { "icon": "🌌", "title": "200 этапов: Кампания, Запределье (101–150) и Тролл-режим", "desc": "Собирайте ключи печатей, находите сундуки реликвий и побеждайте многофазных боссов от Атлантиды до Зеркального собора!" },
-            { "icon": "💬", "title": "100% локализация на 9 языках включая рейтинг друзей", "desc": "Экран рейтинга друзей Play Games, уведомления о тестах, печати и награды отображаются строго на выбранном языке." },
-            { "icon": "⚖️", "title": "Честная таблица лидеров и синхронизация на всех устройствах", "desc": "Очки на телефоне и планшете всегда совпадают, а игра открывается на вашем самом дальнем открытом этапе." },
-            { "icon": "⚡", "title": "Плавные 120 FPS и полноценный оффлайн-режим", "desc": "19 героев, 4 спецспособности и боевой Мини-дрон работают максимально плавно в любой точке мира." }
+            { "icon": "📺", "title": "Полная поддержка Android TV и приставок (Android 9+)", "desc": "Безопасные отступы для ТВ-экранов, яркая рамка фокуса и плавные 60 FPS на Mi Box и смарт-телевизорах." },
+            { "icon": "🎮", "title": "Bluetooth / USB геймпады и обычный пульт TV", "desc": "Играйте и управляйте всеми 25 меню через геймпады Xbox, PlayStation или обычный пульт с крестовиной D-Pad." },
+            { "icon": "🎁", "title": "15 этапов бесплатно на TV + Разовая полная разблокировка", "desc": "Пройдите первые 15 уровней бесплатно и без рекламы, а затем откройте все 200 этапов навсегда одной покупкой." },
+            { "icon": "👑", "title": "Единый VIP для телефона и TV + Пожизненный VIP", "desc": "Ваш VIP Pass или новый пожизненный пакет с одного Google-аккаунта работает сразу на телевизоре и смартфоне." },
+            { "icon": "🛡️", "title": "Чистый интерфейс для гостиной и облачные сохранения", "desc": "Экранные кнопки скрываются автоматически, а прогресс и рекорды синхронизируются между всеми устройствами." }
         ]
     },
     "it": {
-        "title": "🌌 v1.5.7 Oltremondo 200 Livelli e Obiettivi Ufficiali",
-        "subtitle": "200 livelli completi, 11 Obiettivi ufficiali Google Play Games (1.000 XP), traduzione completa al 100% in 9 lingue e classifiche eque!",
-        "btnOk": "🚀 FANTASTICO, GIOCHIAMO!",
+        "title": "📺 v1.6.0 Edizione Android TV e Gamepad",
+        "subtitle": "Marinext 2100 arriva sul grande schermo! Controlli con Gamepad Bluetooth e telecomando TV, 15 livelli gratis su TV e VIP condiviso!",
+        "btnOk": "🎮 FANTASTICO, GIOCHIAMO!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
-            { "icon": "🏅", "title": "11 Obiettivi Ufficiali Google Play Games (1.000 XP)", "desc": "Ogni impresa, da Prima Vittoria fino a Conquistatore dell'Oltremondo al livello 150 e Cacciatore di Reliquie, sincronizza subito gli XP ufficiali." },
-            { "icon": "🌌", "title": "200 Livelli: Storia, Oltremondo (101–150) e Modalità Troll", "desc": "Raccogli le Chiavi dei Sigilli, apri gli Scrigni Reliquia e sfida boss multifase da Atlantide alla Cattedrale Specchio!" },
-            { "icon": "💬", "title": "Traduzione al 100% in 9 Lingue incluse Classifiche Amici", "desc": "La sezione Amici Play Games, gli avvisi test, i sigilli e gli scrigni usano sempre la tua lingua scelta." },
-            { "icon": "⚖️", "title": "Classifiche Protette e Dati Coerenti Ovunque", "desc": "Telefono e tablet mostrano gli stessi punteggi reali e l'avvio riparte sempre dal livello più avanzato sbloccato." },
-            { "icon": "⚡", "title": "120 FPS Ultra-Fluidi e Gioco 100% Offline", "desc": "19 eroi, 4 poteri speciali e il tuo Mini-Drone pronti all'azione senza connessione." }
+            { "icon": "📺", "title": "Supporto nativo Android TV e Google TV (Android 9+)", "desc": "Margini sicuri per TV, evidenziatore di selezione ad alto contrasto e prestazioni fluide a 60 FPS su Mi Box e Smart TV." },
+            { "icon": "🎮", "title": "Gamepad Bluetooth / USB e Telecomando TV", "desc": "Naviga tutti i menu e gioca comodamente con controller Xbox, PlayStation o il semplice telecomando D-Pad." },
+            { "icon": "🎁", "title": "Primi 15 Livelli Gratis su TV + Sblocco Completo", "desc": "Prova gratis i livelli 1–15 senza pubblicità, poi sblocca per sempre tutti i 200 livelli Campagna, Oltremondo e Troll." },
+            { "icon": "👑", "title": "VIP Condiviso Mobile + TV & VIP A Vita", "desc": "Con lo stesso account Google, il VIP Pass o il pacchetto VIP A Vita si attiva automaticamente su TV e telefono." },
+            { "icon": "🛡️", "title": "Esperienza da Salotto Pulita & Salvataggio Cloud", "desc": "Pulsanti touch nascosti in automatico su TV e sincronizzazione immediata con Google Play Games." }
         ]
     },
     "es": {
-        "title": "🌌 v1.5.7 Más Allá (200 Niveles) y Logros Oficiales",
-        "subtitle": "¡200 niveles completos, 11 Logros oficiales de Google Play Games (1.000 XP), 9 idiomas al 100% y clasificaciones justas entre dispositivos!",
-        "btnOk": "🚀 ¡GENIAL, A JUGAR!",
+        "title": "📺 v1.6.0 Edición Android TV y Gamepad",
+        "subtitle": "¡Marinext 2100 llega al televisor! Compatible con mandos Bluetooth, control remoto de TV, 15 niveles gratis en TV y VIP multi-dispositivo.",
+        "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
-            { "icon": "🏅", "title": "11 Logros Oficiales de Google Play Games (1.000 XP)", "desc": "Cada hito desde Primera Victoria hasta Conquistador del Más Allá en el nivel 150 y Cazador de Reliquias suma XP oficial a tu perfil." },
-            { "icon": "🌌", "title": "200 Niveles: Historia, Más Allá (101–150) y Modo Troll", "desc": "¡Reúne Llaves de Sello, abre Cofres de Reliquias ocultos y derrota a jefes multifase desde Atlántida hasta la Catedral Espejo!" },
-            { "icon": "💬", "title": "100% Localizado en 9 Idiomas con Ranking de Amigos", "desc": "Los avisos de Amigos en Play Games, mensajes de canal, sellos y recompensas respetan siempre tu idioma seleccionado." },
-            { "icon": "⚖️", "title": "Rankings Justos y Puntuaciones Iguales en Todos tus Dispositivos", "desc": "Tu teléfono y tablet muestran exactamente los mismos récords y siempre reanudas en tu etapa más avanzada." },
-            { "icon": "⚡", "title": "120 FPS Súper Fluidos y Aventura 100% Offline", "desc": "Disfruta de 19 héroes, 4 poderes especiales y tu Mini-Dron aliado en cualquier lugar." }
+            { "icon": "📺", "title": "Soporte Nativo Android TV y Google TV (Android 9+)", "desc": "Márgenes seguros para televisores, enfoque luminoso de alto contraste y fluidez a 60 FPS optimizada para Mi Box y Smart TV." },
+            { "icon": "🎮", "title": "Mandos Bluetooth / USB y Control Remoto D-Pad", "desc": "Controla los 25 menús y juega usando mandos Xbox, PlayStation o el control remoto estándar de tu televisor." },
+            { "icon": "🎁", "title": "Primeros 15 Niveles Gratis en TV + Juego Completo", "desc": "Disfruta del 1 al 15 gratis y sin anuncios en TV; desbloquea para siempre los 200 niveles con una sola compra o VIP." },
+            { "icon": "👑", "title": "VIP Compartido Móvil + TV y Paquete VIP Vitalicio", "desc": "Tu Pase VIP o el nuevo VIP Vitalicio de una cuenta de Google funciona automáticamente tanto en TV como en tu teléfono." },
+            { "icon": "🛡️", "title": "Experiencia de Sala Limpia y Guardado en la Nube", "desc": "Controles táctiles ocultos en modo TV y progreso sincronizado al instante entre todos tus dispositivos." }
         ]
     },
     "fr": {
-        "title": "🌌 v1.5.7 Au-Delà (200 Niveaux) & Succès Officiels",
-        "subtitle": "200 niveaux complets, 11 Succès officiels Google Play Games (1 000 XP), traduction intégrale en 9 langues et classements équitables !",
-        "btnOk": "🚀 SUPER, C'EST PARTI !",
+        "title": "📺 v1.6.0 Édition Android TV & Manette",
+        "subtitle": "Marinext 2100 arrive sur grand écran ! Manettes Bluetooth, télécommande TV, 15 niveaux gratuits sur TV et VIP multi-appareils.",
+        "btnOk": "🎮 SUPER, C'EST PARTI !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
-            { "icon": "🏅", "title": "11 Succès Officiels Google Play Games (1 000 XP)", "desc": "Chaque exploit de Premier Sang jusqu'à Conquérant de l'Au-Delà au niveau 150 et Chasseur de Reliques ajoute directement des XP à votre profil." },
-            { "icon": "🌌", "title": "200 Niveaux : Histoire, Au-Delà (101–150) & Mode Troll", "desc": "Récoltez les Clés de Sceau, ouvrez les Coffres de Reliques et affrontez des boss multi-phases de l'Atlantide à la Cathédrale Miroir !" },
-            { "icon": "💬", "title": "100 % Traduit en 9 Langues dont le Classement Amis", "desc": "La vue Amis Play Games, les alertes de sceaux, récompenses de coffres et notifications s'affichent toujours dans votre langue." },
-            { "icon": "⚖️", "title": "Classements Équitables & Scores Synchronisés Partout", "desc": "Téléphone et tablette affichent exactement les mêmes scores et le jeu s'ouvre toujours sur votre palier le plus avancé." },
-            { "icon": "⚡", "title": "Fluidité 120 FPS & Aventure 100 % Hors-Ligne", "desc": "Retrouvez 19 héros, 4 pouvoirs spéciaux et votre Mini-Drone cyber partout, même sans connexion." }
+            { "icon": "📺", "title": "Compatibilité Native Android TV & Google TV (Android 9+)", "desc": "Marges TV anti-rogne, contour de sélection haute visibilité et fluidité 60 FPS optimisée pour Mi Box et Smart TV." },
+            { "icon": "🎮", "title": "Manettes Bluetooth / USB & Télécommande Standard", "desc": "Parcourez tous les menus et jouez avec une manette Xbox, PlayStation ou simplement la croix de votre télécommande." },
+            { "icon": "🎁", "title": "15 Niveaux Gratuits sur TV + Déblocage Définitif", "desc": "Essayez gratuitement les niveaux 1–15 sans pub sur TV, puis débloquez à vie les 200 niveaux en un achat ou via VIP." },
+            { "icon": "👑", "title": "VIP Partagé Mobile + TV & Pack VIP À Vie", "desc": "Avec le même compte Google, votre Pass VIP ou VIP À Vie s'active automatiquement sur votre téléphone et votre TV." },
+            { "icon": "🛡️", "title": "Interface Salon Épurée & Sauvegarde Cloud", "desc": "Boutons tactiles automatiquement masqués sur TV et progression synchronisée sur tous vos écrans." }
         ]
     }
 };
