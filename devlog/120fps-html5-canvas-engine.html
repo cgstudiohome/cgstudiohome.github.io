@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="tr" data-portal-lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-tr="HTML5 Canvas ile Web ve Mobilde 120 FPS Platform Motoru | Devlog" data-en="Building a 120 FPS Platformer Engine on HTML5 Canvas for Web &amp; Mobile | Devlog">HTML5 Canvas ile Web ve Mobilde 120 FPS Platform Motoru | Devlog</title>
+    <meta id="meta-description" name="description" data-tr="Marinext 2100'de 60 Hz ve 120 Hz ekranlarda sabit fizik hızı, multi-touch bağımsız tuş takibi ve HTML5 Canvas performans optimizasyonu teknik incelemesi." data-en="Technical deep dive into Marinext 2100's 120 FPS fixed-step HTML5 Canvas engine, multi-touch pointer ID tracking, and consistent physics across 60 Hz and 120 Hz displays." content="Marinext 2100'de 60 Hz ve 120 Hz ekranlarda sabit fizik hızı, multi-touch bağımsız tuş takibi ve HTML5 Canvas performans optimizasyonu teknik incelemesi.">
+    <meta name="google-adsense-account" content="ca-pub-1366538011855586">
+    <link rel="canonical" href="https://cgstudiohome.com/devlog/120fps-html5-canvas-engine.html">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://cgstudiohome.com/assets/screenshots/marinext-1-tr.png">
+    <link rel="icon" type="image/png" href="/assets/icon-192.png">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1366538011855586" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7ER5HLQSNZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-7ER5HLQSNZ', { send_page_view: true });
+    </script>
+    <link rel="stylesheet" href="/assets/portal.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="brand">
+                <div class="brand-logo"><img src="/assets/icon-192.png" alt="CG Studio Home Logo"></div>
+                <div class="brand-text">
+                    <span class="brand-title">CG STUDIO HOME</span>
+                    <span class="brand-sub" data-tr="AİLE OYUN &amp; TEKNOLOJİ STÜDYOSU" data-en="FAMILY GAME &amp; TECH STUDIO">AİLE OYUN &amp; TEKNOLOJİ STÜDYOSU</span>
+                </div>
+            </a>
+            <div class="nav-links">
+                <a href="/" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+                <a href="/marinext2100/" data-tr="Oyun Rehberi" data-en="Game Guide">Oyun Rehberi</a>
+                <a href="/devlog/" class="active" data-tr="Geliştirici Günlüğü" data-en="Devlog">Geliştirici Günlüğü</a>
+                <a href="/faq/" data-tr="SSS" data-en="FAQ">SSS</a>
+                <a href="/about/" data-tr="Hakkımızda" data-en="About">Hakkımızda</a>
+                <a href="/contact/" data-tr="İletişim" data-en="Contact">İletişim</a>
+                <div class="lang-switch">
+                    <button id="lang-tr" class="lang-btn active" onclick="setPortalLang('tr', true)">TR</button>
+                    <button id="lang-en" class="lang-btn" onclick="setPortalLang('en', true)">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="portal-shell">
+        <div class="breadcrumbs">
+            <a href="/" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a> <span>›</span>
+            <a href="/devlog/" data-tr="Devlog" data-en="Devlog">Devlog</a> <span>›</span>
+            <span data-tr="120 FPS HTML5 Canvas Motoru" data-en="120 FPS HTML5 Canvas Engine">120 FPS HTML5 Canvas Motoru</span>
+        </div>
+
+        <div data-lang-view="tr">
+            <article class="content-card">
+                <span class="hero-kicker">Mühendislik Vaka Analizi • Kasım 2026</span>
+                <h1 style="font-size:32px; color:#fff; margin-bottom:14px;">HTML5 Canvas ile Web ve Mobilde 120 FPS Platform Motoru Nasıl Geliştirdik?</h1>
+                <p>
+                    Bir 2D platform oyunu geliştirirken akla gelen ilk soru hangi oyun motorunun seçileceğidir. Marinext 2100 için ağır üçüncü parti motorlar yerine doğrudan standart <strong>HTML5 2D Canvas + Capacitor Android</strong> mimarisini seçtik. Bunun arkasında üç net neden vardı: anında açılan web sürümüyle tam uyumluluk, Android paket boyutunu düşük tutmak ve her pikselin çalışma zamanı davranışına doğrudan hakim olmak.
+                </p>
+
+                <h2>1. 60 Hz ve 120 Hz Ekranlar Arasındaki "Hız Tuzağı"</h2>
+                <p>
+                    Klasik tarayıcı oyunlarında yapılan en yaygın hata, her <code>requestAnimationFrame</code> çağrısında oyuncunun konumunu sabit bir piksel değeriyle ilerletmektir. 60 Hz bir bilgisayarda kusursuz çalışan bu mantık, 120 Hz yenileme hızına sahip modern bir Android telefonda açıldığında oyunun tam <strong>iki kat hızlanmasına</strong>, düşmanların yetişilemez hale gelmesine ve zıplama mesafelerinin bozulmasına yol açar.
+                </p>
+                <p>
+                    Bu sorunu kökten çözmek için motorumuzda zaman biriktiricili <strong>sabit adımlı fizik döngüsü (fixed-timestep accumulator)</strong> kurduk. Ekran ister 60 FPS, ister 90 FPS, ister 120 FPS yenilensin; fizik hesaplamaları daima tutarlı zaman dilimleriyle güncellenir. Render katmanı ise mevcut ara konumu akıcı biçimde çizerek 120 Hz ekranlarda ipeksi bir görsel akıcılık sunarken zıplama yüksekliğini ve zamanlama pencerelerini her cihazda %100 aynı tutar.
+                </p>
+
+                <h2>2. Mobilde Çoklu Dokunmatik (Multi-Touch) Sorununu Çözmek</h2>
+                <p>
+                    Eski testlerimizde oyuncularımızın en sık yaşadığı sıkıntı şuydu: Sağ parmağınızla zıplama tuşuna dokunduğunuz anda sol başparmağınızdaki koşma tuşu kesintiye uğrayabiliyordu. Tarayıcıların varsayılan tekil tıklama olayları platform oyunları için yeterli değildir.
+                </p>
+                <p>
+                    Çözüm olarak dokunmatik kontrolcümüzü <strong>bağımsız <code>touch.identifier</code> takip haritası</strong> ile baştan yazdık. Her parmak teması kendine ait benzersiz dokunma kimliğiyle takip edilir. Böylece sağ yön butonuna basılı tutarken aynı anda havada çift/üçlü zıplama yapabilir, ateş topu fırlatabilir veya Faz Atılması tuşuna dokunabilirsiniz — parmakların hiçbiri diğerinin basılı kalma durumunu iptal etmez.
+                </p>
+
+                <h2>3. Krono-Fren (Zaman Yavaşlatma) ve Görsel Efekt Optimizasyonu</h2>
+                <p>
+                    Dünya 12 sonrasında açılan Krono-Fren yeteneği etkinleştiğinde düşman hareketleri, testereler ve enerji mermileri <code>0.45x</code> dünya hız çarpanına geçer; ancak oyuncunun kaçış tepkisi keskin kalır. Ayrıca her karede yeni nesne tahsis etmek yerine parçacık efektlerini ve kamera görünüm alanı kırpmasını (viewport culling) sınırlayarak 200 bölümlük büyük haritalarda bile çöp toplama (GC) takılmalarının önüne geçtik.
+                </p>
+
+                <h2>4. Aynı Kodla Hem Web Tarayıcısı Hem Android API 36</h2>
+                <p>
+                    <code>cgstudiohome.com/play/</code> adresindeki web sürümü ile Google Play'deki Android sürümü aynı çekirdek Canvas motorunu paylaşır. Tek fark, Android ortamında köprü katmanının Google AdMob, Google Play Faturalandırma ve Play Games başarımlarına yerel olarak bağlanması; web tarayıcısında ise hafif yerel depolama ve klavye/dokunmatik desteğinin otomatik devreye girmesidir.
+                </p>
+                <div class="callout">
+                    <strong>Motoru Canlı Deneyin:</strong> Tarayıcınızdan hiç kurulum yapmadan <a href="/play/" target="_blank" rel="noopener">Marinext 2100 Web Oynatıcısı</a> üzerinden 120 FPS akıcılığını test edebilir veya <a href="/marinext2100/">Oyun Rehberi</a>'nden tüm kontrolleri inceleyebilirsiniz.
+                </div>
+            </article>
+        </div>
+
+        <div data-lang-view="en">
+            <article class="content-card">
+                <span class="hero-kicker">Engineering Deep Dive • November 2026</span>
+                <h1 style="font-size:32px; color:#fff; margin-bottom:14px;">Building a 120 FPS Platformer Engine on HTML5 Canvas for Web &amp; Mobile</h1>
+                <p>
+                    Rather than shipping multi-dozen-megabyte third-party runtime wrappers, Marinext 2100 runs directly on a custom <strong>HTML5 2D Canvas engine packaged with Capacitor for Android</strong>. That single architectural choice keeps our web playable version instant to load while keeping our Android AAB compact and responsive.
+                </p>
+                <h2>Consistent Physics Across 60 Hz, 90 Hz &amp; 120 Hz Screens</h2>
+                <p>
+                    A naive <code>requestAnimationFrame</code> loop runs twice as fast on 120 Hz mobile OLED panels as on 60 Hz laptops, breaking jump arcs and boss timing. Our fixed-timestep physics accumulator decouples simulation ticks from display refresh rates so every jump, laser window, and Krono-Fren (<code>0.45x</code> time slow) feels identical across devices while rendering smoothly at up to 120 FPS.
+                </p>
+                <h2>True Multi-Touch Pointer Tracking</h2>
+                <p>
+                    Our mobile HUD assigns an independent map keyed by <code>touch.identifier</code>, allowing players to hold Left/Right directional inputs continuously while triggering Double/Triple Jump, Plasma Fireballs, Dash, Ground Slam, and Time Slow simultaneously without losing directional state.
+                </p>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div><strong style="color:#fff;">CG Studio Home &amp; Labs</strong><p style="color:var(--text-muted); font-size:13px; margin-top:4px;">© 2026 CG Studio Home &amp; Labs • <a href="mailto:info@erpdanisman.com">info@erpdanisman.com</a></p></div>
+            <div class="footer-links">
+                <a href="/" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+                <a href="/devlog/" data-tr="Geliştirici Günlüğü" data-en="Devlog">Geliştirici Günlüğü</a>
+                <a href="/marinext2100/" data-tr="Oyun Rehberi" data-en="Game Guide">Oyun Rehberi</a>
+                <a href="/faq/" data-tr="SSS" data-en="FAQ">SSS</a>
+                <a href="/about/" data-tr="Hakkımızda" data-en="About">Hakkımızda</a>
+                <a href="/contact/" data-tr="İletişim" data-en="Contact">İletişim</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/portal.js"></script>
+</body>
+</html>
