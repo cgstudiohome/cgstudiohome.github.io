@@ -3996,3 +3996,166 @@ html, body {
         font-size: 28px;
     }
 }
+
+/* ============================================================================
+   ANDROID TV (10-FOOT UI, OVERSCAN SAFE AREA, D-PAD & GAMEPAD FOCUS STYLES)
+   Isolated under body.tv-mode & .tv-focused so Mobile Layout stays 100% intact
+   ============================================================================ */
+.tv-focused {
+    outline: 3px solid #38bdf8 !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.42), 0 0 24px rgba(0, 242, 254, 0.78) !important;
+    transform: translateY(-2px) scale(1.03);
+    position: relative;
+    z-index: 15 !important;
+}
+
+.map-node.tv-focused {
+    border-color: #ffd166 !important;
+    outline: 3px solid #ffd166 !important;
+    box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.45), 0 0 26px rgba(255, 209, 102, 0.85) !important;
+    transform: scale(1.08);
+    z-index: 16 !important;
+}
+
+body.tv-mode #touch-controls {
+    display: none !important;
+    pointer-events: none !important;
+}
+
+body.tv-mode .tv-hide-ad-btn {
+    display: none !important;
+}
+
+body.tv-mode .overlay-screen {
+    padding: 27px 48px !important;
+}
+
+body.tv-mode #hud {
+    top: 22px;
+    left: 44px;
+    right: 44px;
+}
+
+body.tv-mode .map-container,
+body.tv-mode .modal-card,
+body.tv-mode .vip-modal-card,
+body.tv-mode .troll-modal-card {
+    max-height: calc(100vh - 54px);
+    max-height: calc(100dvh - 54px);
+    overflow-y: auto;
+}
+
+body.tv-mode .vip-modal-card {
+    max-width: min(1240px, calc(100vw - 96px));
+}
+
+body.tv-mode .vip-plans-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (min-width: 1180px) {
+    body.tv-mode .vip-plans-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
+.vip-plan-card.plan-tv-full {
+    background: linear-gradient(165deg, rgba(14, 48, 86, 0.92), rgba(15, 23, 42, 0.96));
+    border-color: rgba(56, 189, 248, 0.85);
+    box-shadow: 0 0 22px rgba(56, 189, 248, 0.2);
+}
+
+.vip-plan-card.plan-tv-full .vip-plan-tag {
+    background: rgba(56, 189, 248, 0.22);
+    color: #bae6fd;
+    border-color: rgba(56, 189, 248, 0.65);
+}
+
+.vip-plan-card.plan-tv-full .vip-plan-price {
+    color: #38bdf8;
+}
+
+.vip-plan-card.plan-tv-full .vip-plan-cta {
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    color: #031524;
+}
+
+.vip-plan-card.plan-tv-vip-life {
+    background: linear-gradient(165deg, rgba(59, 17, 94, 0.9), rgba(15, 23, 42, 0.96));
+    border-color: rgba(244, 114, 182, 0.82);
+    box-shadow: 0 0 24px rgba(192, 132, 252, 0.24);
+}
+
+.vip-plan-card.plan-tv-vip-life .vip-plan-tag {
+    background: rgba(192, 132, 252, 0.22);
+    color: #f3e8ff;
+    border-color: rgba(192, 132, 252, 0.65);
+}
+
+.vip-plan-card.plan-tv-vip-life .vip-plan-price {
+    color: #f472b6;
+}
+
+.vip-plan-card.plan-tv-vip-life .vip-plan-cta {
+    background: linear-gradient(135deg, #f472b6, #a855f7);
+    color: #ffffff;
+}
+
+body.tv-mode .map-node.tv-demo-locked {
+    border-color: rgba(168, 85, 247, 0.58) !important;
+    background: linear-gradient(165deg, rgba(30, 18, 56, 0.9), rgba(12, 16, 36, 0.92)) !important;
+    opacity: 0.92;
+}
+
+body.tv-mode .map-node.tv-demo-locked .node-circle {
+    border-color: rgba(244, 114, 182, 0.72) !important;
+    color: #f5d0fe !important;
+}
+
+body.tv-mode .tv-gate-notice {
+    margin: 0 0 10px 0;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.24), rgba(14, 165, 233, 0.16));
+    border: 1.5px solid rgba(192, 132, 252, 0.65);
+    color: #f3e8ff;
+    font-size: 13px;
+    font-weight: 800;
+    text-align: center;
+}
+
+@media (max-height: 620px) {
+    body.tv-mode .vip-modal-card {
+        padding: 14px 18px;
+    }
+    body.tv-mode .vip-modal-header {
+        margin-bottom: 6px;
+        padding-right: 44px;
+    }
+    body.tv-mode .vip-modal-header h2 {
+        font-size: 18px;
+    }
+    body.tv-mode .vip-modal-sub {
+        font-size: 12px;
+    }
+    body.tv-mode .tv-gate-notice {
+        margin-bottom: 7px;
+        padding: 7px 11px;
+        font-size: 12px;
+    }
+    body.tv-mode .vip-perks-row {
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+    body.tv-mode .vip-perk-chip {
+        padding: 6px 9px;
+    }
+    body.tv-mode .vip-plan-card {
+        padding: 9px 10px;
+    }
+    body.tv-mode .vip-plan-desc {
+        font-size: 11px;
+        margin-bottom: 8px;
+    }
+}
