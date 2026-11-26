@@ -275,7 +275,7 @@
                         items: [
                             "<strong>Local Storage &amp; Progress:</strong> Stages cleared, virtual items, preferences, and saves remain in your device's local storage.",
                             "<strong>Google Play Games &amp; Google Drive Cloud Save:</strong> High scores, achievements, and optional backups sync securely via your Google account.",
-                            "<strong>Cross-Device Leaderboard Sync (Firebase Realtime Database):</strong> Global and family/cross-device leaderboard sync (<code>leaderboard/{uid}</code>) stores only pseudonymous player display name/nickname, avatar icon, hero title, country flag, score, stage progress, emeralds, speedrun time, and Öte Evren unlock state — never email, phone numbers, or real identities.",
+                            "<strong>Cross-Device Leaderboard Sync (Firebase Realtime Database):</strong> Global and family/cross-device leaderboard sync (<code>leaderboard/{uid}</code>) stores only pseudonymous player display name/nickname, avatar icon, hero title, country flag, score, stage progress, emeralds, speedrun time, and Beyondverse unlock state — never email, phone numbers, or real identities.",
                             "<strong>Ad &amp; Consent Identifiers:</strong> Free titles using Google AdMob and Google UMP/GDPR consent dialogs may process advertising IDs (AAID), coarse location, and crash/performance telemetry.",
                             "<strong>Analytics (GA4):</strong> Aggregated, anonymous usage events help us improve game balance, localization, and portal stability.",
                             "<strong>In-App Purchases &amp; Subscriptions (Google Play Billing):</strong> If you choose an optional VIP Pass subscription or one-time Lifetime Remove Ads purchase, all payment details are handled exclusively by Google Play; our apps receive only entitlement status to unlock your perks."
@@ -487,6 +487,12 @@
             if (pLang && PRIVACY_DATA[pLang.toLowerCase()]) {
                 return pLang.toLowerCase();
             }
+            try {
+                const saved = localStorage.getItem('cg_lang');
+                if (saved && PRIVACY_DATA[saved]) {
+                    return saved;
+                }
+            } catch (e) {}
             const navLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
             if (navLang.startsWith('tr')) return 'tr';
             if (navLang.startsWith('ko')) return 'ko';
@@ -536,6 +542,9 @@
                 const lang = btn.getAttribute('data-lang');
                 if (lang) {
                     renderPolicy(lang);
+                    if (lang === 'tr' || lang === 'en') {
+                        try { localStorage.setItem('cg_lang', lang); } catch (err) {}
+                    }
                     const url = new URL(window.location);
                     url.searchParams.set('lang', lang);
                     window.history.replaceState({}, '', url);
