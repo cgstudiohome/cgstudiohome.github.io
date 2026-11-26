@@ -1579,9 +1579,11 @@ class Game {
         this._rewardedPreloadPromise = null;
         this._lastUmpStatus = "none";
 
-        // Google Play Billing v7 (Hybrid VIP Pass Subscriptions + Lifetime Remove Ads)
+        // Google Play Billing v8 (Hybrid VIP Pass Subscriptions + Lifetime Remove Ads + Android TV Unlocks)
         this.billingEntitlements = {
             removeAdsLifetime: false,
+            tvFullUnlock: false,
+            tvVipLifetime: false,
             vipPassActive: false,
             autoRenewing: false,
             activeProductId: "",
@@ -1684,7 +1686,7 @@ class Game {
             phase: Math.random() * Math.PI * 2
         }));
 
-        let savedFps = 120;
+        let savedFps = this.isAndroidTvMode() ? 60 : 120;
         try {
             const rawFps = Number(localStorage.getItem("marinext_target_fps"));
             if (rawFps === 30 || rawFps === 60 || rawFps === 120) savedFps = rawFps;
@@ -2215,9 +2217,18 @@ class Game {
     syncAnalyticsUserProperties() {
         if (!window.MarinextAnalytics || typeof window.MarinextAnalytics.setUserProperties !== "function") return;
         const ent = this.billingEntitlements || {};
-        const vipTier = ent.vipPassActive
-            ? (ent.activeBasePlanId || "vip_pass")
-            : (ent.removeAdsLifetime ? "lifetime" : "free");
+        const vipTier = ent.tvVipLifetime
+            ? "tv_vip_lifetime"
+            : (ent.vipPassActive
+                ? (ent.activeBasePlanId || "vip_pass")
+                : (ent.removeAdsLifetime
+                    ? "lifetime"
+                    : (ent.tvFullUnlock ? "tv_full_unlock" : "free")));
+        const formFactor = this.isAndroidTvMode()
+            ? "android_tv"
+            : (this.isNativeAndroid() ? "mobile" : "web");
+        const inputMode = (window.MarinextTV && window.MarinextTV.inputMode)
+            || (this.isAndroidTvMode() ? "tv_remote" : "touch");
         window.MarinextAnalytics.setUserProperties({
             max_unlocked_level: String(this.unlockedLevels || 1),
             max_troll_level: String(this.unlockedTrollLevels || 1),
@@ -2225,7 +2236,9 @@ class Game {
             active_hero: String(this.equippedHeroChar || "default"),
             vip_tier: String(vipTier),
             release_track: String(this.getCurrentBuildTrack() || "production"),
-            app_lang: String(this.lang || "tr")
+            app_lang: String(this.lang || "tr"),
+            device_form_factor: String(formFactor),
+            tv_input_mode: String(inputMode)
         });
     }
 
@@ -2562,7 +2575,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 58;
+        const CURRENT_VERSION_CODE = 59;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2640,7 +2653,7 @@ class Game {
                     linkChangelog.onclick = (e) => {
                         e.preventDefault();
                         if (window.sfx && typeof window.sfx.coin === "function") window.sfx.coin();
-                        window.open("https://cgstudiohome.com/marinext2100/release-notes.html", "_blank", "noopener");
+                        this.openExternalUrlSafe("https://cgstudiohome.com/marinext2100/release-notes.html");
                     };
                 }
                 if (btnDoUpdate) {
@@ -2651,7 +2664,7 @@ class Game {
                                 return;
                             } catch (e) {}
                         }
-                        window.open((remote && remote.storeUrl) || storeUrlFallback, "_blank", "noopener");
+                        this.openExternalUrlSafe((remote && remote.storeUrl) || storeUrlFallback);
                     };
                 }
                 if (updateScreen) {
@@ -2698,7 +2711,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "58");
+                localStorage.setItem("marinext2100_last_seen_version", "59");
             } catch (e) {}
         };
 
@@ -2716,7 +2729,7 @@ class Game {
         if (btnWeb) {
             btnWeb.onclick = () => {
                 window.sfx.coin();
-                window.open("https://cgstudiohome.com/marinext2100/release-notes.html", "_blank", "noopener");
+                this.openExternalUrlSafe("https://cgstudiohome.com/marinext2100/release-notes.html");
             };
         }
 
@@ -2727,7 +2740,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "58") {
+            if (hasConsent && lastSeenVer !== "59") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -3394,6 +3407,14 @@ class Game {
                 <div class="node-stars" id="stars-${idx}">☆☆☆</div>
             `;
             node.addEventListener("click", () => {
+                if (this.isLevelLockedByTvDemo(idx, false, false)) {
+                    window.sfx.coin();
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent("tv_paywall_shown", { level: idx + 1, source: "map_node" });
+                    }
+                    this.openVipStore("tv_level_gate");
+                    return;
+                }
                 if (idx < this.getEffectiveUnlockedLevels()) {
                     this.isAct2Mode = false;
                     this.selectedLevel = idx;
@@ -3425,6 +3446,14 @@ class Game {
                     <div class="node-stars" id="stars-act2-${idx}">☆☆☆</div>
                 `;
                 node.addEventListener("click", () => {
+                    if (this.isLevelLockedByTvDemo(idx, false, true)) {
+                        window.sfx.coin();
+                        if (window.MarinextAnalytics) {
+                            window.MarinextAnalytics.logEvent("tv_paywall_shown", { level: 101 + idx, source: "act2_node" });
+                        }
+                        this.openVipStore("tv_level_gate");
+                        return;
+                    }
                     if (idx < this.getEffectiveUnlockedAct2Levels()) {
                         this.isAct2Mode = true;
                         this.selectedAct2Level = idx;
@@ -3749,6 +3778,34 @@ class Game {
             if (closeBtn) closeBtn.click();
             return true;
         }
+        const whatsNewScreen = document.getElementById("screen-whats-new");
+        if (whatsNewScreen && !whatsNewScreen.classList.contains("hidden")) {
+            const closeBtn = document.getElementById("btn-close-whats-new-x");
+            if (closeBtn) closeBtn.click();
+            else whatsNewScreen.classList.add("hidden");
+            return true;
+        }
+        const updateScreen = document.getElementById("screen-update");
+        if (updateScreen && !updateScreen.classList.contains("hidden")) {
+            const closeBtn = document.getElementById("btn-close-update-x");
+            if (closeBtn) closeBtn.click();
+            else updateScreen.classList.add("hidden");
+            return true;
+        }
+        const tutorialScreen = document.getElementById("screen-tutorial");
+        if (tutorialScreen && !tutorialScreen.classList.contains("hidden")) {
+            const closeBtn = document.getElementById("btn-close-tutorial-x");
+            if (closeBtn) closeBtn.click();
+            else tutorialScreen.classList.add("hidden");
+            return true;
+        }
+        const rateScreen = document.getElementById("screen-rate-app");
+        if (rateScreen && !rateScreen.classList.contains("hidden")) {
+            const closeBtn = document.getElementById("btn-close-rate-x");
+            if (closeBtn) closeBtn.click();
+            else rateScreen.classList.add("hidden");
+            return true;
+        }
         if (this.state === "playing") {
             this.pauseGame();
             return true;
@@ -3763,6 +3820,7 @@ class Game {
     setupInputs() {
         this.activeTouches = new Map();
         this.keysHeld = { left: false, right: false, jump: false };
+        this.externalHeld = { left: false, right: false, jump: false };
         this.activeMouseBtn = null;
 
         window.addEventListener("blur", () => {
@@ -3824,9 +3882,9 @@ class Game {
             else if (this.activeMouseBtn === "jump") touchJump = true;
             else if (this.activeMouseBtn === "fire") touchFire = true;
 
-            this.input.left = Boolean(touchLeft || this.keysHeld.left);
-            this.input.right = Boolean(touchRight || this.keysHeld.right);
-            this.input.jumpHeld = Boolean(touchJump || this.keysHeld.jump);
+            this.input.left = Boolean(touchLeft || this.keysHeld.left || (this.externalHeld && this.externalHeld.left));
+            this.input.right = Boolean(touchRight || this.keysHeld.right || (this.externalHeld && this.externalHeld.right));
+            this.input.jumpHeld = Boolean(touchJump || this.keysHeld.jump || (this.externalHeld && this.externalHeld.jump));
 
             const leftBtn = document.getElementById("touch-left");
             const rightBtn = document.getElementById("touch-right");
@@ -3839,6 +3897,18 @@ class Game {
             if (fireBtn) {
                 const canFire = Boolean(this.player && this.player.hasFire);
                 fireBtn.classList.toggle("pressed", Boolean(touchFire && canFire));
+            }
+        };
+
+        this.setExternalControllerHeld = (left, right, jump) => {
+            const nl = Boolean(left);
+            const nr = Boolean(right);
+            const nj = Boolean(jump);
+            if (this.externalHeld.left !== nl || this.externalHeld.right !== nr || this.externalHeld.jump !== nj) {
+                this.externalHeld.left = nl;
+                this.externalHeld.right = nr;
+                this.externalHeld.jump = nj;
+                syncInputState();
             }
         };
 
@@ -4039,8 +4109,22 @@ class Game {
             window.sfx.init();
             this.isTrollMode = false;
             if (this.isAct2Mode) {
+                if (this.isLevelLockedByTvDemo(this.selectedAct2Level, false, true)) {
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent("tv_paywall_shown", { level: 101 + this.selectedAct2Level, source: "play_btn" });
+                    }
+                    this.openVipStore("tv_level_gate");
+                    return;
+                }
                 this.startLevel(this.selectedAct2Level, false, true);
             } else {
+                if (this.isLevelLockedByTvDemo(this.selectedLevel, false, false)) {
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent("tv_paywall_shown", { level: this.selectedLevel + 1, source: "play_btn" });
+                    }
+                    this.openVipStore("tv_level_gate");
+                    return;
+                }
                 this.startLevel(this.selectedLevel, false, false);
             }
         });
@@ -4646,7 +4730,7 @@ class Game {
         if (btnVipTerms) {
             btnVipTerms.addEventListener("click", () => {
                 window.sfx.coin();
-                window.open("https://cgstudiohome.com/marinext2100/terms.html", "_blank", "noopener");
+                this.openExternalUrlSafe("https://cgstudiohome.com/marinext2100/terms.html");
             });
         }
 
@@ -5202,6 +5286,14 @@ class Game {
         // 😡 Round Angry Man Button -> 50-Level Troll Mode Modal
         const openTrollHandler = () => {
             this.resetInputs();
+            if (this.isLevelLockedByTvDemo(0, true, false)) {
+                window.sfx.coin();
+                if (window.MarinextAnalytics) {
+                    window.MarinextAnalytics.logEvent("tv_paywall_shown", { level: 0, is_troll: true, source: "troll_btn" });
+                }
+                this.openVipStore("tv_troll_gate");
+                return;
+            }
             window.sfx.hurt();
             this.isTrollMode = true;
             if (this.state === "playing") {
@@ -5380,22 +5472,50 @@ class Game {
         document.getElementById("btn-next-level").addEventListener("click", () => {
             if (this.isAct2Mode) {
                 const next = Math.min(49, this.selectedAct2Level + 1);
+                if (this.isLevelLockedByTvDemo(next, false, true)) {
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent("tv_paywall_shown", { level: 101 + next, source: "next_level" });
+                    }
+                    this.openVipStore("tv_level_gate");
+                    return;
+                }
                 this.selectedAct2Level = next;
                 this.startLevel(next, false, true);
             } else if (this.isTrollMode) {
                 const next = Math.min(49, this.selectedTrollLevel + 1);
+                if (this.isLevelLockedByTvDemo(next, true, false)) {
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent("tv_paywall_shown", { level: next + 1, is_troll: true, source: "next_level" });
+                    }
+                    this.openVipStore("tv_troll_gate");
+                    return;
+                }
                 this.selectedTrollLevel = next;
                 this.startLevel(next, true, false);
             } else if (this.selectedLevel === 99 && this.act2Unlocked) {
                 this.isTrollMode = false;
                 this.isAct2Mode = true;
                 const targetAct2Idx = Math.max(0, Math.min(49, (this.unlockedAct2Levels || 1) - 1));
+                if (this.isLevelLockedByTvDemo(targetAct2Idx, false, true)) {
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent("tv_paywall_shown", { level: 101 + targetAct2Idx, source: "next_level" });
+                    }
+                    this.openVipStore("tv_level_gate");
+                    return;
+                }
                 this.selectedAct2Level = targetAct2Idx;
                 this.selectedAct2WorldFilter = Math.min(4, Math.floor(targetAct2Idx / 10));
                 this.selectedWorldFilter = 10 + this.selectedAct2WorldFilter;
                 this.startLevel(targetAct2Idx, false, true);
             } else {
                 const next = Math.min(99, this.selectedLevel + 1);
+                if (this.isLevelLockedByTvDemo(next, false, false)) {
+                    if (window.MarinextAnalytics) {
+                        window.MarinextAnalytics.logEvent("tv_paywall_shown", { level: next + 1, source: "next_level" });
+                    }
+                    this.openVipStore("tv_level_gate");
+                    return;
+                }
                 this.selectedLevel = next;
                 this.startLevel(next, false, false);
             }
@@ -5698,7 +5818,10 @@ class Game {
         setTxt("btn-play-level", d.btnPlayLevel);
         setTxt("btn-customize-main", d.btnCustomizeMain);
         setTxt("btn-unlock-all", d.btnUnlockAll);
-        setHtml("map-controls-hint", d.controlsHint);
+        const tvHint = this.isAndroidTvMode() && window.getMarinextBillingText
+            ? window.getMarinextBillingText(this.lang, "tvControlsHint")
+            : "";
+        setHtml("map-controls-hint", tvHint || d.controlsHint);
         if (d.previewFeatures) {
             setHtml("preview-features", d.previewFeatures);
         }
@@ -6060,7 +6183,12 @@ class Game {
             btnToggleChannel.classList.toggle("hidden", !isDev);
         }
         if (btnTestAd) {
-            btnTestAd.classList.toggle("hidden", !isDev);
+            btnTestAd.classList.toggle("hidden", !isDev || this.isAndroidTvMode());
+            btnTestAd.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode());
+        }
+        const btnAdConsent = document.getElementById("btn-settings-ad-consent");
+        if (btnAdConsent) {
+            btnAdConsent.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode());
         }
         if (btnTestAct2) {
             btnTestAct2.classList.toggle("hidden", !isDev);
@@ -6140,6 +6268,7 @@ class Game {
             if (watchBtn) {
                 watchBtn.disabled = false;
                 watchBtn.style.opacity = "1";
+                watchBtn.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode() && !vipInstantReady);
                 watchBtn.textContent = vipInstantReady
                     ? ((t("insuffEmeraldBtn") || "🎬 Reklam İzle & +10 ❖ Zümrüt Hediye Al").replace(/^🎬\s*/, "⚡ ") + vipSuffix)
                     : (t("insuffEmeraldBtn") || "🎬 Reklam İzle & +10 ❖ Zümrüt Hediye Al");
@@ -6170,6 +6299,7 @@ class Game {
             if (watchBtn) {
                 watchBtn.disabled = false;
                 watchBtn.style.opacity = "1";
+                watchBtn.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode() && !vipInstantReady);
                 watchBtn.textContent = vipInstantReady
                     ? ((t("insuffCrystalBtn") || "🎬 Reklam İzle & +80 ◆ Kristal Hediye Al").replace(/^🎬\s*/, "⚡ ") + vipSuffix)
                     : (t("insuffCrystalBtn") || "🎬 Reklam İzle & +80 ◆ Kristal Hediye Al");
@@ -6203,6 +6333,7 @@ class Game {
             if (watchBtn) {
                 watchBtn.disabled = false;
                 watchBtn.style.opacity = "1";
+                watchBtn.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode() && !vipInstantReady);
                 watchBtn.textContent = vipInstantReady
                     ? ((t("insuffGoldBtn") || "🎬 Reklam İzle & +50 ✪ Coin Hediye Al").replace(/^🎬\s*/, "⚡ ") + vipSuffix)
                     : (t("insuffGoldBtn") || "🎬 Reklam İzle & +50 ✪ Coin Hediye Al");
@@ -6991,8 +7122,12 @@ class Game {
         }
 
         const badgeEl = document.getElementById("map-season-badge");
+        const tvLockedDemo = this.isAndroidTvMode() && !this.hasTvFullAccess();
         if (badgeEl) {
-            if (this.isAct2Mode) {
+            if (tvLockedDemo) {
+                const bt = (k) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k) : "");
+                badgeEl.textContent = bt("tvMapDemoBanner") || "📺 ANDROID TV • 1–15 ÜCRETSİZ | 16–200 TAM SÜRÜM / VIP";
+            } else if (this.isAct2Mode) {
                 badgeEl.textContent = t("act2SeasonBadge") || "🌌 ÖTE EVREN • DÜNYA 11–15 (BÖLÜM 101–150)";
             } else {
                 badgeEl.textContent = d.mapSeasonBadge || "100 BÖLÜM • 10 DÜNYA TAM SÜRÜM";
@@ -7005,10 +7140,16 @@ class Game {
             const worldIdx = Math.floor(idx / 10);
             const visibleInFilter = this.selectedWorldFilter === -1 || this.selectedWorldFilter === worldIdx;
             node.style.display = visibleInFilter ? "" : "none";
-            node.classList.toggle("unlocked", idx < effCampUnlocked);
+            const isTvGateLocked = tvLockedDemo && idx >= 15;
+            node.classList.toggle("unlocked", !isTvGateLocked && idx < effCampUnlocked);
+            node.classList.toggle("tv-demo-locked", isTvGateLocked);
             const isSel = !this.isAct2Mode && idx === this.selectedLevel;
             node.classList.toggle("selected", isSel);
             if (isSel && visibleInFilter) selectedNodeEl = node;
+            const circleEl = node.querySelector(".node-circle");
+            if (circleEl && window.LEVEL_INFO && window.LEVEL_INFO[idx]) {
+                circleEl.textContent = isTvGateLocked ? "🔒" : (window.LEVEL_INFO[idx].isBossLevel ? "☠" : String(idx + 1));
+            }
             const labelEl = node.querySelector(".node-label");
             if (labelEl) {
                 labelEl.textContent = this.getLocalizedLevelInfo(idx, false).shortName;
@@ -7025,7 +7166,8 @@ class Game {
             const worldIdx = 10 + Math.floor(idx / 10);
             const visibleInFilter = isUnlocked && (this.selectedWorldFilter === -1 || this.selectedWorldFilter === worldIdx);
             node.style.display = visibleInFilter ? "" : "none";
-            node.classList.toggle("unlocked", idx < effAct2Unlocked);
+            node.classList.toggle("unlocked", !tvLockedDemo && idx < effAct2Unlocked);
+            node.classList.toggle("tv-demo-locked", tvLockedDemo);
             const isSel = this.isAct2Mode && idx === this.selectedAct2Level;
             node.classList.toggle("selected", isSel);
             if (isSel && visibleInFilter) selectedNodeEl = node;
@@ -7075,6 +7217,20 @@ class Game {
     }
 
     startLevel(levelIdx, isTroll = this.isTrollMode, isAct2 = this.isAct2Mode) {
+        const effTroll = Boolean(isTroll);
+        const effAct2 = !effTroll && Boolean(isAct2);
+        if (this.isLevelLockedByTvDemo(levelIdx, effTroll, effAct2)) {
+            if (window.MarinextAnalytics) {
+                window.MarinextAnalytics.logEvent("tv_paywall_shown", {
+                    level: effAct2 ? (101 + levelIdx) : (levelIdx + 1),
+                    is_troll: effTroll,
+                    is_act2: effAct2,
+                    source: "start_level"
+                });
+            }
+            this.openVipStore(effTroll ? "tv_troll_gate" : "tv_level_gate");
+            return;
+        }
         this.clearAdPauseState();
         this.resizeCanvas();
         this._pendingResumeAfterVictoryMode = "";
@@ -7351,7 +7507,10 @@ class Game {
         if (nextBtnReset) nextBtnReset.classList.remove("btn-next-act2-cta");
         this.preloadRewardedAd();
         document.getElementById("hud").classList.remove("hidden");
-        document.getElementById("touch-controls").classList.remove("hidden");
+        const touchControlsEl = document.getElementById("touch-controls");
+        if (touchControlsEl) {
+            touchControlsEl.classList.toggle("hidden", this.isAndroidTvMode());
+        }
         if (this.activeCheckpoint) {
             document.getElementById("hud-checkpoint").classList.remove("hidden");
         } else {
@@ -8147,7 +8306,7 @@ class Game {
             if (curRevives < maxRevives) {
                 if (this.hasVipPass() && !this.vipReviveUsedInLevel) {
                     revBtn.textContent = bt("btnVipInstantRevive") || "⚡ VIP ANINDA CANLAN (REKLAMSIZ • +3 ♥ + 🛡)";
-                    revBtn.classList.remove("hidden");
+                    revBtn.classList.remove("hidden", "tv-hide-ad-btn");
                 } else {
                     const btnKey = curRevives === 0 ? "btnReviveAd1" : "btnReviveAd2";
                     const fallbackText = curRevives === 0
@@ -8155,6 +8314,7 @@ class Game {
                         : "🎬 Reklam İzle & Son Şans Canlan (2/2) (+3 ♥ + 🛡)";
                     revBtn.textContent = t(btnKey, { cur: curRevives + 1, max: maxRevives }) || fallbackText;
                     revBtn.classList.remove("hidden");
+                    revBtn.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode());
                     this.preloadRewardedAd();
                 }
             } else {
@@ -8428,11 +8588,13 @@ class Game {
                         left: this.getRemainingVipAdSkips(),
                         max: maxQuota
                     })) || `⚡ VIP ANINDA 2x ÖDÜL AL (REKLAMSIZ • ${this.getRemainingVipAdSkips()}/${maxQuota})`;
+                    dblBtn.classList.remove("hidden", "tv-hide-ad-btn");
                 } else {
                     const tUi = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
                     dblBtn.textContent = tUi("btnDoubleAd") || "🎬 REKLAM İZLE & BÖLÜM ÖDÜLLERİNİ 2'YE KATLA (2x ✪❖◆)";
+                    dblBtn.classList.remove("hidden");
+                    dblBtn.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode());
                 }
-                dblBtn.classList.remove("hidden");
             } else {
                 dblBtn.classList.add("hidden");
             }
@@ -8812,6 +8974,7 @@ class Game {
     }
 
     async initAdMob() {
+        if (this.isAndroidTvMode()) return;
         if (this._adMobInitPromise) return this._adMobInitPromise;
         this._adMobInitPromise = (async () => {
             try {
@@ -8978,7 +9141,7 @@ class Game {
                     return;
                 } catch (e) {}
             }
-            window.open("https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100", "_blank", "noopener");
+            this.openExternalUrlSafe("https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100");
         } else {
             if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.submitDirectFeedback === "function") {
                 try {
@@ -8991,6 +9154,17 @@ class Game {
                     if (msgInput) msgInput.value = "";
                     return;
                 } catch (e) {}
+            }
+            if (this.isAndroidTvMode()) {
+                if (typeof window.onMarinextTvExternalFallback === "function") {
+                    window.onMarinextTvExternalFallback("email_feedback");
+                }
+                if (statusEl) {
+                    statusEl.classList.remove("hidden");
+                    statusEl.style.color = "#38bdf8";
+                    statusEl.textContent = "info@erpdanisman.com";
+                }
+                return;
             }
             const subject = encodeURIComponent(`Marinext 2100 Feedback (${cat} - ${stars}★)`);
             const body = encodeURIComponent(`${summaryText}\n\nFPS: ${this.targetFps} FPS\nStage: ${this.unlockedLevels}/100`);
@@ -9640,6 +9814,7 @@ class Game {
     }
 
     async preloadRewardedAd() {
+        if (this.isAndroidTvMode()) return;
         if (this._rewardedAdPreloaded) return;
         if (this._rewardedAdPreloading && this._rewardedPreloadPromise) return this._rewardedPreloadPromise;
         const capAdMob = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.AdMob;
@@ -9665,6 +9840,7 @@ class Game {
     }
 
     async showRewardedAd(adTitle, adRewardDesc, onRewardGranted) {
+        if (this.isAndroidTvMode()) return;
         if (this._adRequestInFlight) return;
         this._adRequestInFlight = true;
         this._adActivityShowing = true;
@@ -9918,6 +10094,7 @@ class Game {
     }
 
     async checkSmartInterstitialOnVictory() {
+        if (this.isAndroidTvMode()) return;
         if (this.hasNoForcedAds()) return;
         const now = performance.now();
         const isTesting = this.isAdTestingActive();
@@ -13446,6 +13623,8 @@ class Game {
                 const ent = typeof jsonStr === "string" ? JSON.parse(jsonStr) : (jsonStr || {});
                 this.billingEntitlements = {
                     removeAdsLifetime: Boolean(ent.removeAdsLifetime),
+                    tvFullUnlock: Boolean(ent.tvFullUnlock),
+                    tvVipLifetime: Boolean(ent.tvVipLifetime),
                     vipPassActive: Boolean(ent.vipPassActive),
                     autoRenewing: Boolean(ent.autoRenewing),
                     activeProductId: ent.activeProductId || "",
@@ -13460,6 +13639,7 @@ class Game {
                 this.checkAndGrantEntitlementBonuses();
                 this.enforceVipEquipmentAccess();
                 this.updateVipEntryButtonsUI();
+                this.updateMapUI();
                 this.syncAnalyticsUserProperties();
                 const vipScreen = document.getElementById("screen-vip-store");
                 if (vipScreen && !vipScreen.classList.contains("hidden")) {
@@ -13507,16 +13687,25 @@ class Game {
                     }
                 }
                 if (ent.userRestore) {
-                    const msgKey = this.hasNoForcedAds() ? "toastRestoreSuccess" : "toastRestoreNone";
-                    const msgColor = this.hasNoForcedAds() ? "#06d6a0" : "#ffd166";
-                    const fallback = this.hasNoForcedAds()
+                    const hasAnyRestored = this.hasNoForcedAds() || (this.isAndroidTvMode() && this.hasTvFullAccess());
+                    const msgKey = hasAnyRestored ? "toastRestoreSuccess" : "toastRestoreNone";
+                    const msgColor = hasAnyRestored ? "#06d6a0" : "#ffd166";
+                    const fallback = hasAnyRestored
                         ? "✅ Satın alımların Google Play hesabından başarıyla senkronlandı!"
-                        : "ℹ️ Bu Google hesabında aktif VIP veya Ömür Boyu Reklamsız paket bulunamadı.";
+                        : "ℹ️ Bu Google hesabında aktif VIP veya Ömür Boyu paket bulunamadı.";
                     this.showQuickToast(
                         (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, msgKey)) || fallback,
                         msgColor
                     );
                 }
+            } catch (e) {}
+        };
+
+        window.onMarinextTvExternalFallback = () => {
+            try {
+                const msg = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "tvBrowserUnavailable"))
+                    || "ℹ️ Destek & Sürüm Notları: https://cgstudiohome.com/marinext2100/ • E-posta: info@erpdanisman.com";
+                this.showQuickToast(msg, "#38bdf8", 4800);
             } catch (e) {}
         };
 
@@ -13528,11 +13717,16 @@ class Game {
                     if (window.sfx && typeof window.sfx.buy === "function") window.sfx.buy();
                     this.showQuickToast(bt("toastPurchaseSuccess") || "🎉 İşlem tamamlandı! Ayrıcalıkların hesabına tanımlandı.", "#06d6a0");
                     if (window.MarinextAnalytics) {
+                        const apid = this.billingEntitlements.activeProductId || "vip_or_lifetime";
+                        const abase = this.billingEntitlements.activeBasePlanId
+                            || ((this.billingEntitlements.tvVipLifetime || this.billingEntitlements.removeAdsLifetime || this.billingEntitlements.tvFullUnlock) ? "lifetime" : "unknown");
                         window.MarinextAnalytics.logEvent("purchase_completed", {
-                            product_id: this.billingEntitlements.activeProductId || "vip_or_lifetime",
-                            base_plan: this.billingEntitlements.activeBasePlanId || (this.billingEntitlements.removeAdsLifetime ? "lifetime" : "unknown")
+                            product_id: apid,
+                            base_plan: abase
                         });
                     }
+                    this.updateMapUI();
+                    this.updateVipEntryButtonsUI();
                     this.syncAnalyticsUserProperties();
                 } else if (res.status === "pending") {
                     this.showQuickToast(bt("toastPurchasePending") || "⏳ Ödeme Google Play tarafından onaylanıyor.", "#ffd166");
@@ -13569,15 +13763,54 @@ class Game {
         }
     }
 
+    isAndroidTvMode() {
+        return Boolean(window.MarinextTV && window.MarinextTV.isTvMode);
+    }
+
+    hasTvFullAccess() {
+        if (!this.isAndroidTvMode()) return true;
+        const ent = this.billingEntitlements || {};
+        return Boolean(
+            this.hasVipPass() ||
+            ent.tvFullUnlock ||
+            ent.removeAdsLifetime ||
+            this._devAct2Override
+        );
+    }
+
+    isLevelLockedByTvDemo(levelIdx, isTroll = false, isAct2 = false) {
+        if (!this.isAndroidTvMode()) return false;
+        if (this.hasTvFullAccess()) return false;
+        if (isTroll || isAct2) return true;
+        const limit = (window.MARINEXT_BILLING_CONFIG && window.MARINEXT_BILLING_CONFIG.tvFreeLevelLimit) || 15;
+        return Number(levelIdx) >= limit;
+    }
+
+    openExternalUrlSafe(url) {
+        if (!url) return;
+        if (this.isAndroidTvMode() && this.isNativeAndroid()) {
+            const msg = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "tvBrowserUnavailable"))
+                || "ℹ️ Destek & Sürüm Notları: https://cgstudiohome.com/marinext2100/ • E-posta: info@erpdanisman.com";
+            this.showQuickToast(msg, "#38bdf8", 4800);
+            return;
+        }
+        try {
+            window.open(url, "_blank", "noopener");
+        } catch (e) {}
+    }
+
     hasNoForcedAds() {
         return Boolean(
-            this.billingEntitlements &&
-            (this.billingEntitlements.removeAdsLifetime || this.billingEntitlements.vipPassActive)
+            this.hasVipPass() ||
+            (this.billingEntitlements && this.billingEntitlements.removeAdsLifetime)
         );
     }
 
     hasVipPass() {
-        return Boolean(this.billingEntitlements && this.billingEntitlements.vipPassActive);
+        return Boolean(
+            this.billingEntitlements &&
+            (this.billingEntitlements.vipPassActive || this.billingEntitlements.tvVipLifetime)
+        );
     }
 
     enforceVipEquipmentAccess() {
@@ -13768,7 +14001,9 @@ class Game {
                     ? (bt("btnMapVipCanceling") || "👑 VIP (SÜRE SONUNA DEK)")
                     : (bt("btnMapVipActive") || "👑 VIP AKTİF");
                 btnMapVip.classList.add("vip-state-vip");
-            } else if (this.hasNoForcedAds()) {
+            } else if (this.isAndroidTvMode() && !this.hasTvFullAccess()) {
+                btnMapVip.textContent = bt("tvBtnMapUnlock") || "👑 TAM SÜRÜM / VIP";
+            } else if (this.hasNoForcedAds() || (this.isAndroidTvMode() && this.hasTvFullAccess())) {
                 btnMapVip.textContent = bt("btnMapNoAdsActive") || "🛡️ REKLAMSIZ";
                 btnMapVip.classList.add("vip-state-lifetime");
             } else {
@@ -13778,7 +14013,7 @@ class Game {
 
         const btnSettingsVip = document.getElementById("btn-settings-vip");
         if (btnSettingsVip) {
-            btnSettingsVip.textContent = this.hasNoForcedAds()
+            btnSettingsVip.textContent = (this.hasNoForcedAds() || (this.isAndroidTvMode() && this.hasTvFullAccess()))
                 ? (bt("btnSettingsVipActive") || "👑 VIP / Reklamsız Durumu (Aktif ✓)")
                 : (bt("btnSettingsVip") || "👑 VIP Pass & Reklamları Kaldır");
         }
@@ -13796,19 +14031,33 @@ class Game {
 
         const btnChestChar = document.getElementById("btn-ad-chest-char");
         const btnChestCust = document.getElementById("btn-ad-chest-cust");
-        if (this.hasVipPass() && left > 0) {
+        const vipChestActive = this.hasVipPass() && left > 0;
+        if (vipChestActive) {
             const chestTxt = bt("btnVipInstantChest", { left, max: maxQuota }) || `⚡ VIP Hazine Sandığı (${left}/${maxQuota} Reklamsız)`;
-            if (btnChestChar) btnChestChar.textContent = chestTxt;
-            if (btnChestCust) btnChestCust.textContent = chestTxt;
+            if (btnChestChar) {
+                btnChestChar.textContent = chestTxt;
+                btnChestChar.classList.remove("tv-hide-ad-btn");
+            }
+            if (btnChestCust) {
+                btnChestCust.textContent = chestTxt;
+                btnChestCust.classList.remove("tv-hide-ad-btn");
+            }
         } else {
             const defaultChar = (window.getMarinextUiText && window.getMarinextUiText(this.lang, "btnAdChestChar")) || "🎬 Reklam İzle (+50 ✪ Coin)";
             const defaultCust = (window.getMarinextUiText && window.getMarinextUiText(this.lang, "btnAdChestCust")) || "🎬 Reklam İzle (+10 ❖ Zümrüt & +50 ✪ Coin)";
-            if (btnChestChar) btnChestChar.textContent = defaultChar;
-            if (btnChestCust) btnChestCust.textContent = defaultCust;
+            if (btnChestChar) {
+                btnChestChar.textContent = defaultChar;
+                btnChestChar.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode());
+            }
+            if (btnChestCust) {
+                btnChestCust.textContent = defaultCust;
+                btnChestCust.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode());
+            }
         }
     }
 
     openVipStore(source = "map") {
+        this._vipStoreSource = source || "map";
         if (window.MarinextAnalytics) {
             window.MarinextAnalytics.logEvent("vip_store_opened", { source });
         }
@@ -13836,20 +14085,40 @@ class Game {
         const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
         const maxQuota = (window.MARINEXT_BILLING_CONFIG && window.MARINEXT_BILLING_CONFIG.dailySkipQuota) || 5;
         const left = this.getRemainingVipAdSkips();
+        const isTv = this.isAndroidTvMode();
 
         const titleEl = document.getElementById("vip-modal-title");
         const subEl = document.getElementById("vip-modal-sub");
-        if (titleEl) titleEl.textContent = bt("modalTitle") || "👑 REKLAMSIZ DENEYİM & VIP PASS";
-        if (subEl) subEl.textContent = bt("modalSub") || "";
+        if (titleEl) {
+            titleEl.textContent = (isTv ? bt("tvModalTitle") : bt("modalTitle")) || "👑 REKLAMSIZ DENEYİM & VIP PASS";
+        }
+        if (subEl) {
+            subEl.textContent = (isTv ? bt("tvModalSub") : bt("modalSub")) || "";
+        }
+
+        const gateNoticeEl = document.getElementById("vip-tv-gate-notice");
+        if (gateNoticeEl) {
+            const fromGate = isTv && !this.hasTvFullAccess() && (this._vipStoreSource === "tv_level_gate" || this._vipStoreSource === "tv_troll_gate");
+            gateNoticeEl.classList.toggle("hidden", !fromGate);
+            if (fromGate) {
+                gateNoticeEl.textContent = bt("tvGateNotice") || "";
+            }
+        }
 
         const activeBanner = document.getElementById("vip-active-banner");
         const activeBannerTxt = document.getElementById("vip-active-banner-text");
         if (activeBanner && activeBannerTxt) {
-            if (this.hasVipPass()) {
+            if (isTv && this.billingEntitlements.tvVipLifetime) {
+                activeBannerTxt.textContent = bt("tvActiveBannerVipLifetime") || "💎 Ömür Boyu VIP & Tam Sürüm Aktif";
+                activeBanner.classList.remove("hidden");
+            } else if (this.hasVipPass()) {
                 const renewSuffix = this.billingEntitlements.autoRenewing
                     ? (bt("activeBannerRenewOn") || "Otomatik yenileme açık")
                     : (bt("activeBannerRenewOff") || "Dönem sonunda yenilenmeyecek");
                 activeBannerTxt.textContent = `${bt("activeBannerVip", { left, max: maxQuota })} (${renewSuffix})`;
+                activeBanner.classList.remove("hidden");
+            } else if (isTv && (this.billingEntitlements.tvFullUnlock || this.billingEntitlements.removeAdsLifetime)) {
+                activeBannerTxt.textContent = bt("tvActiveBannerFull") || "🎮 Android TV Tam Sürüm Aktif • Tüm 150 Kampanya & 50 Trol Bölümü açık!";
                 activeBanner.classList.remove("hidden");
             } else if (this.billingEntitlements.removeAdsLifetime) {
                 activeBannerTxt.textContent = bt("activeBannerLifetime") || "🛡️ Ömür Boyu Reklamsız Paket Aktif";
@@ -13861,11 +14130,17 @@ class Game {
 
         const perksRow = document.getElementById("vip-perks-row");
         if (perksRow) {
-            const perks = [
-                { icon: "🚫", title: bt("perkNoAdsTitle"), desc: bt("perkNoAdsDesc") },
-                { icon: "⚡", title: bt("perkVipInstantTitle"), desc: bt("perkVipInstantDesc") },
-                { icon: "🛡️", title: bt("perkLifetimeTitle"), desc: bt("perkLifetimeDesc") }
-            ];
+            const perks = isTv
+                ? [
+                    { icon: "🎮", title: bt("tvPerkAllLevelsTitle"), desc: bt("tvPerkAllLevelsDesc") },
+                    { icon: "⚡", title: bt("perkVipInstantTitle"), desc: bt("perkVipInstantDesc") },
+                    { icon: "📺", title: bt("tvPerkCrossDeviceTitle"), desc: bt("tvPerkCrossDeviceDesc") }
+                ]
+                : [
+                    { icon: "🚫", title: bt("perkNoAdsTitle"), desc: bt("perkNoAdsDesc") },
+                    { icon: "⚡", title: bt("perkVipInstantTitle"), desc: bt("perkVipInstantDesc") },
+                    { icon: "🛡️", title: bt("perkLifetimeTitle"), desc: bt("perkLifetimeDesc") }
+                ];
             perksRow.innerHTML = perks.map((p) => `
                 <div class="vip-perk-chip">
                     <span class="vip-perk-icon">${p.icon}</span>
@@ -13882,8 +14157,10 @@ class Game {
             const vipActive = this.hasVipPass();
             const activeBase = this.billingEntitlements.activeBasePlanId || "";
             const lifetimeOwned = Boolean(this.billingEntitlements.removeAdsLifetime);
+            const tvFullOwned = this.hasTvFullAccess();
+            const tvVipLifeOwned = Boolean(this.billingEntitlements.tvVipLifetime);
 
-            const plans = [
+            const commonVipPlans = [
                 {
                     key: "vip-monthly-1m",
                     productId: "marinext_vip_pass",
@@ -13894,9 +14171,9 @@ class Game {
                     title: bt("planMonthlyTitle"),
                     period: bt("planMonthlyPeriod"),
                     desc: bt("planMonthlyDesc"),
-                    owned: vipActive && activeBase === "vip-monthly-1m",
-                    disabled: vipActive && activeBase === "vip-monthly-1m",
-                    cta: (vipActive && activeBase === "vip-monthly-1m") ? bt("btnActivePlan") : bt("btnSubscribe")
+                    owned: (vipActive && activeBase === "vip-monthly-1m") || tvVipLifeOwned,
+                    disabled: (vipActive && activeBase === "vip-monthly-1m") || tvVipLifeOwned,
+                    cta: ((vipActive && activeBase === "vip-monthly-1m") || tvVipLifeOwned) ? bt("btnActivePlan") : bt("btnSubscribe")
                 },
                 {
                     key: "vip-quarterly-3m",
@@ -13908,9 +14185,9 @@ class Game {
                     title: bt("planQuarterlyTitle"),
                     period: bt("planQuarterlyPeriod"),
                     desc: bt("planQuarterlyDesc"),
-                    owned: vipActive && activeBase === "vip-quarterly-3m",
-                    disabled: vipActive && activeBase === "vip-quarterly-3m",
-                    cta: (vipActive && activeBase === "vip-quarterly-3m") ? bt("btnActivePlan") : bt("btnSubscribe")
+                    owned: (vipActive && activeBase === "vip-quarterly-3m") || tvVipLifeOwned,
+                    disabled: (vipActive && activeBase === "vip-quarterly-3m") || tvVipLifeOwned,
+                    cta: ((vipActive && activeBase === "vip-quarterly-3m") || tvVipLifeOwned) ? bt("btnActivePlan") : bt("btnSubscribe")
                 },
                 {
                     key: "vip-yearly-12m",
@@ -13922,25 +14199,61 @@ class Game {
                     title: bt("planYearlyTitle"),
                     period: bt("planYearlyPeriod"),
                     desc: bt("planYearlyDesc"),
-                    owned: vipActive && activeBase === "vip-yearly-12m",
-                    disabled: vipActive && activeBase === "vip-yearly-12m",
-                    cta: (vipActive && activeBase === "vip-yearly-12m") ? bt("btnActivePlan") : bt("btnSubscribe")
-                },
-                {
-                    key: "marinext_remove_ads_lifetime",
-                    productId: "marinext_remove_ads_lifetime",
-                    productType: "inapp",
-                    basePlanId: "",
-                    cls: "plan-lifetime",
-                    tag: bt("tagNoSub"),
-                    title: bt("planLifetimeTitle"),
-                    period: bt("planLifetimePeriod"),
-                    desc: bt("planLifetimeDesc"),
-                    owned: lifetimeOwned,
-                    disabled: lifetimeOwned,
-                    cta: lifetimeOwned ? bt("btnOwned") : bt("btnBuyOnce")
+                    owned: (vipActive && activeBase === "vip-yearly-12m") || tvVipLifeOwned,
+                    disabled: (vipActive && activeBase === "vip-yearly-12m") || tvVipLifeOwned,
+                    cta: ((vipActive && activeBase === "vip-yearly-12m") || tvVipLifeOwned) ? bt("btnActivePlan") : bt("btnSubscribe")
                 }
             ];
+
+            const plans = isTv
+                ? [
+                    {
+                        key: "marinext_tv_full_unlock",
+                        productId: "marinext_tv_full_unlock",
+                        productType: "inapp",
+                        basePlanId: "",
+                        cls: "plan-tv-full",
+                        tag: bt("tvTagFullUnlock"),
+                        title: bt("tvPlanFullTitle"),
+                        period: bt("tvPlanFullPeriod"),
+                        desc: bt("tvPlanFullDesc"),
+                        owned: tvFullOwned,
+                        disabled: tvFullOwned,
+                        cta: tvFullOwned ? bt("btnOwned") : bt("btnBuyOnce")
+                    },
+                    ...commonVipPlans,
+                    {
+                        key: "marinext_tv_vip_lifetime",
+                        productId: "marinext_tv_vip_lifetime",
+                        productType: "inapp",
+                        basePlanId: "",
+                        cls: "plan-tv-vip-life",
+                        tag: bt("tvTagVipLifetime"),
+                        title: bt("tvPlanVipLifetimeTitle"),
+                        period: bt("tvPlanVipLifetimePeriod"),
+                        desc: bt("tvPlanVipLifetimeDesc"),
+                        owned: tvVipLifeOwned,
+                        disabled: tvVipLifeOwned,
+                        cta: tvVipLifeOwned ? bt("btnOwned") : bt("btnBuyOnce")
+                    }
+                ]
+                : [
+                    ...commonVipPlans,
+                    {
+                        key: "marinext_remove_ads_lifetime",
+                        productId: "marinext_remove_ads_lifetime",
+                        productType: "inapp",
+                        basePlanId: "",
+                        cls: "plan-lifetime",
+                        tag: bt("tagNoSub"),
+                        title: bt("planLifetimeTitle"),
+                        period: bt("planLifetimePeriod"),
+                        desc: bt("planLifetimeDesc"),
+                        owned: lifetimeOwned,
+                        disabled: lifetimeOwned,
+                        cta: lifetimeOwned ? bt("btnOwned") : bt("btnBuyOnce")
+                    }
+                ];
 
             grid.innerHTML = "";
             plans.forEach((plan) => {
@@ -13970,7 +14283,7 @@ class Game {
         }
 
         const legalEl = document.getElementById("vip-legal-note");
-        if (legalEl) legalEl.textContent = bt("legalNoticeSubs") || "";
+        if (legalEl) legalEl.textContent = (isTv ? bt("tvLegalNotice") : bt("legalNoticeSubs")) || "";
 
         const setElTxt = (id, txt) => {
             const el = document.getElementById(id);
@@ -13984,6 +14297,9 @@ class Game {
         const manageBtn = document.getElementById("btn-vip-manage-sub");
         if (manageBtn) {
             manageBtn.style.display = this.hasVipPass() || this.isNativeAndroid() ? "inline-flex" : "none";
+        }
+        if (window.MarinextTV && typeof window.MarinextTV.scheduleFocusSync === "function") {
+            window.MarinextTV.scheduleFocusSync(60);
         }
     }
 
@@ -14027,7 +14343,7 @@ class Game {
                 return;
             } catch (e) {}
         }
-        window.open("https://play.google.com/store/account/subscriptions?package=com.cgstudiohome.marinext2100", "_blank", "noopener");
+        this.openExternalUrlSafe("https://play.google.com/store/account/subscriptions?package=com.cgstudiohome.marinext2100");
     }
 
     start120HzEngine() {
