@@ -59,14 +59,15 @@
                 <div class="hud-stat checkpoint-badge hidden" id="hud-timeslow-badge" style="border-color: rgba(0, 242, 254, 0.85); color: #00f2fe;">
                     ⏱️ KRONO
                 </div>
-                <div class="hud-stat" id="hud-fps" style="border-color: rgba(6, 214, 160, 0.5); color: #06d6a0; font-weight: 700; font-size: 12px;">
-                    ⚡ 120 FPS
+                <div class="hud-stat" id="hud-fps" title="Canlı Kare Hızı (FPS)">
+                    ⚡ 60 FPS
                 </div>
             </div>
 
             <div class="hud-center">
                 <div class="hud-level-title" id="hud-level-name">Bölüm 1: Kristal Mağaralar</div>
                 <div id="hud-portal-quota" class="hud-portal-quota hidden">🔒 ❖ 0/0 • ◆ 0/0</div>
+                <button id="btn-toggle-guide" class="hud-guide-toggle hidden" type="button" title="Başlangıç rehber balonlarını aç/kapat">💡 Rehberi Kapat ✕</button>
                 <!-- Boss Health Bar -->
                 <div id="boss-hud" class="hidden">
                     <div class="boss-name" id="boss-hud-name">KARANLIK MUHAFIZ (BOSS)</div>
@@ -159,6 +160,7 @@
                         <div class="wallet-pill" id="map-hearts-pill" title="Oyuncu Başlangıç Can Hakkı" style="border-color: rgba(255, 42, 133, 0.55); color: #ff2a85; font-weight: 800;">
                             <span id="map-hearts-text">♥ ♥ ♥ 3 CAN</span>
                         </div>
+                        <div class="wallet-pill map-fps-pill" id="map-fps" title="Canlı Kare Hızı (FPS)">⚡ 60 FPS</div>
                     </div>
 
                     <div class="title-header">
@@ -444,6 +446,7 @@
         <!-- Settings Menu Modal (Gear Button ⚙️) — Responsive 2-Column Mobile Landscape Fit -->
         <div id="screen-settings" class="overlay-screen hidden">
             <div class="settings-modal-card">
+                <span id="settings-version-badge" class="settings-version-badge" title="Yüklü Sürüm & Profil">v1.6.2 (61)</span>
                 <button id="btn-close-settings-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
                 <div class="settings-modal-header">
                     <h2 id="settings-modal-title">⚙️ OYUN AYARLARI</h2>
