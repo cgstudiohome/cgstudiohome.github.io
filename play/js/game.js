@@ -15067,7 +15067,10 @@ class Game {
 
             this.fpsFrames++;
             const elapsed = now - this.fpsLastCheck;
-            if (elapsed >= 500) {
+            if (elapsed > 1500 && this.fpsFrames <= 3) {
+                this.fpsFrames = 0;
+                this.fpsLastCheck = now;
+            } else if (elapsed >= 500) {
                 const measured = Math.max(1, Math.min(240, Math.round((this.fpsFrames * 1000) / elapsed)));
                 this.currentFps = measured;
                 this._measuredFps = measured;
