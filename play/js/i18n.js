@@ -122,9 +122,12 @@
             avatarPickerSub: "Profilinde ve Liderlik Tablosunda görünecek kahraman amblemini seç:",
             btnConfirmAvatar: "SEÇİMİ ONAYLA ✓",
             // Settings & Modals
+            fpsAuto: "OTOMATİK (CİHAZA UYGUN) ⚡",
             fps120: "120 FPS (ULTRA AKICI) ⚡",
             fps60: "60 FPS (DENGELİ) ⚙️",
             fps30: "30 FPS (GÜÇ TASARRUFU) 🔋",
+            guideCloseBtn: "💡 Rehberi Kapat ✕",
+            guideOpenBtn: "💡 Rehberi Aç",
             btnSettingsFeedback: "💬 Uygulama Hakkında Geri Bildirim & Hata Bildir",
             btnSettingsCloud: "🎮 Google Play Games & Google Drive Bulut Kayıt",
             btnSettingsPrivacy: "🛡️ Gizlilik Politikası",
@@ -336,9 +339,12 @@
             attrMagnet: "🧲 Emerald Magnet",
             avatarPickerSub: "Select your hero emblem for your profile and the Leaderboard:",
             btnConfirmAvatar: "CONFIRM SELECTION ✓",
+            fpsAuto: "AUTO (RECOMMENDED) ⚡",
             fps120: "120 FPS (ULTRA SMOOTH) ⚡",
             fps60: "60 FPS (BALANCED) ⚙️",
             fps30: "30 FPS (BATTERY SAVER) 🔋",
+            guideCloseBtn: "💡 Hide Guide ✕",
+            guideOpenBtn: "💡 Show Guide",
             btnSettingsFeedback: "💬 Send Feedback & Bug Report",
             btnSettingsCloud: "🎮 Google Play Games & Google Drive Cloud Save",
             btnSettingsPrivacy: "🛡️ Privacy Policy",
@@ -546,9 +552,12 @@
             attrMagnet: "🧲 Магнит Изумрудов",
             avatarPickerSub: "Выберите эмблему героя для профиля и таблицы лидеров:",
             btnConfirmAvatar: "ПОДТВЕРДИТЬ ВЫБОР ✓",
+            fpsAuto: "АВТО (ОПТИМАЛЬНО) ⚡",
             fps120: "120 FPS (УЛЬТРА ПЛАВНО) ⚡",
             fps60: "60 FPS (БАЛАНС) ⚙️",
             fps30: "30 FPS (ЭКОНОМИЯ БАТАРЕИ) 🔋",
+            guideCloseBtn: "💡 Скрыть советы ✕",
+            guideOpenBtn: "💡 Советы",
             btnSettingsFeedback: "💬 Отправить отзыв и сообщить об ошибке",
             btnSettingsCloud: "🎮 Облачное сохранение Play Games и Google Drive",
             btnSettingsPrivacy: "🛡️ Политика конфиденциальности",
@@ -756,9 +765,12 @@
             attrMagnet: "🧲 Magnete Smeraldi",
             avatarPickerSub: "Scegli l'emblema per il tuo profilo e la Classifica:",
             btnConfirmAvatar: "CONFERMA SELEZIONE ✓",
+            fpsAuto: "AUTO (CONSIGLIATO) ⚡",
             fps120: "120 FPS (ULTRA FLUIDO) ⚡",
             fps60: "60 FPS (BILANCIATO) ⚙️",
             fps30: "30 FPS (RISPARMIO ENERGIA) 🔋",
+            guideCloseBtn: "💡 Chiudi Guida ✕",
+            guideOpenBtn: "💡 Guida",
             btnSettingsFeedback: "💬 Invia Feedback e Segnala Problemi",
             btnSettingsCloud: "🎮 Salvataggio Cloud Play Games & Google Drive",
             btnSettingsPrivacy: "🛡️ Informativa sulla Privacy",
@@ -966,9 +978,12 @@
             attrMagnet: "🧲 Imán de Esmeraldas",
             avatarPickerSub: "Selecciona el emblema para tu perfil y la Clasificación:",
             btnConfirmAvatar: "CONFIRMAR SELECCIÓN ✓",
+            fpsAuto: "AUTOMÁTICO (RECOMENDADO) ⚡",
             fps120: "120 FPS (ULTRA FLUIDO) ⚡",
             fps60: "60 FPS (EQUILIBRADO) ⚙️",
             fps30: "30 FPS (AHORRO DE BATERÍA) 🔋",
+            guideCloseBtn: "💡 Ocultar Guía ✕",
+            guideOpenBtn: "💡 Guía",
             btnSettingsFeedback: "💬 Enviar Comentarios y Reportar Errores",
             btnSettingsCloud: "🎮 Guardado en la Nube Play Games y Google Drive",
             btnSettingsPrivacy: "🛡️ Política de Privacidad",
@@ -1176,9 +1191,12 @@
             attrMagnet: "🧲 Aimant Émeraudes",
             avatarPickerSub: "Choisis ton emblème pour ton profil et le Classement :",
             btnConfirmAvatar: "CONFIRMER LE CHOIX ✓",
+            fpsAuto: "AUTO (RECOMMANDÉ) ⚡",
             fps120: "120 FPS (ULTRA FLUIDE) ⚡",
             fps60: "60 FPS (ÉQUILIBRÉ) ⚙️",
             fps30: "30 FPS (ÉCONOMIE D'ÉNERGIE) 🔋",
+            guideCloseBtn: "💡 Masquer le Guide ✕",
+            guideOpenBtn: "💡 Guide",
             btnSettingsFeedback: "💬 Envoyer un Avis ou Signaler un Bug",
             btnSettingsCloud: "🎮 Sauvegarde Cloud Play Games & Google Drive",
             btnSettingsPrivacy: "🛡️ Politique de Confidentialité",
@@ -1386,9 +1404,12 @@
             attrMagnet: "🧲 에메랄드 자석",
             avatarPickerSub: "프로필과 리더보드에 표시될 영웅 엠블럼을 선택하세요:",
             btnConfirmAvatar: "선택 완료 ✓",
+            fpsAuto: "자동 (기기 최적화) ⚡",
             fps120: "120 FPS (초고속 부드러움) ⚡",
             fps60: "60 FPS (균형 모드) ⚙️",
             fps30: "30 FPS (배터리 절약) 🔋",
+            guideCloseBtn: "💡 가이드 닫기 ✕",
+            guideOpenBtn: "💡 가이드",
             btnSettingsFeedback: "💬 피드백 및 버그 제보",
             btnSettingsCloud: "🎮 Google Play Games & Google Drive 클라우드",
             btnSettingsPrivacy: "🛡️ 개인정보 처리방침",
@@ -1596,9 +1617,12 @@
             attrMagnet: "🧲 翡翠磁铁",
             avatarPickerSub: "选择在个人资料和排行榜中显示的英雄徽章：",
             btnConfirmAvatar: "确认选择 ✓",
+            fpsAuto: "自动 (智能适配) ⚡",
             fps120: "120 FPS (极致流畅) ⚡",
             fps60: "60 FPS (均衡模式) ⚙️",
             fps30: "30 FPS (省电模式) 🔋",
+            guideCloseBtn: "💡 关闭指南 ✕",
+            guideOpenBtn: "💡 显示指南",
             btnSettingsFeedback: "💬 提交反馈与问题报告",
             btnSettingsCloud: "🎮 Google Play Games 与 Google Drive 云存档",
             btnSettingsPrivacy: "🛡️ 隐私政策",
@@ -1806,9 +1830,12 @@
             attrMagnet: "🧲 エメラルド磁石",
             avatarPickerSub: "プロフィールとランキングに表示するエンブレムを選択：",
             btnConfirmAvatar: "選択を確定 ✓",
+            fpsAuto: "自動 (推奨設定) ⚡",
             fps120: "120 FPS (超なめらか) ⚡",
             fps60: "60 FPS (バランス) ⚙️",
             fps30: "30 FPS (省エネモード) 🔋",
+            guideCloseBtn: "💡 ガイドを閉じる ✕",
+            guideOpenBtn: "💡 ガイド",
             btnSettingsFeedback: "💬 フィードバック＆バグ報告",
             btnSettingsCloud: "🎮 Google Play Games & Google Drive クラウド保存",
             btnSettingsPrivacy: "🛡️ プライバシーポリシー",
@@ -7071,123 +7098,123 @@ window.MARINEXT_QUALITY_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.6.1" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.6.2" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "⚡ v1.6.1 Akıllı Performans & 4K TV Netlik Sürümü",
-        "subtitle": "Android TV Box, Smart TV, tablet ve telefonlara özel otomatik donanım optimizasyonu, daha keskin büyük ekran görselleri ve gerçek canlı FPS göstergesi yayında!",
-        "btnOk": "🚀 HARİKA, OYNAMAYA BAŞLA!",
+        "title": "🚀 v1.6.2 Akıcı Hız Kurtarma, Sıfır Gecikmeli Kumanda & Rehber Sürümü",
+        "subtitle": "Android TV kutularında ve orta seviye telefonlarda dev performans sıçraması, anında tepki veren kumanda, OK ile ateş etme, canlı harita FPS rozeti ve kapatılabilir rehber yayında!",
+        "btnOk": "🎮 HARİKA, OYNAMAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            { "icon": "🎛️", "title": "Otomatik Cihaz & Donanım Optimizasyonu", "desc": "Oyun açıldığında cihazınızın RAM, işlemci ve ekran özelliklerini otomatik algılar; 1.5–2 GB TV kutularında akıcı performans, güçlü cihazlarda yüksek netlik sunar." },
-            { "icon": "📺", "title": "75 inç & 4K TV İçin Dinamik Netlik Motoru", "desc": "Otomatik çözünürlük ölçekleme teknolojisi sayesinde büyük televizyon ekranlarında karakterler ve platformlar çok daha keskin görünür, kamera takılmadan akar." },
-            { "icon": "⚡", "title": "Gerçek Canlı FPS Göstergesi & Grafik Modu", "desc": "Haritada ve oyun ekranında artık anlık ölçülen gerçek FPS değerini görebilir, Ayarlar'dan Otomatik / Performans / Dengeli / Yüksek modunu seçebilirsiniz." },
-            { "icon": "✨", "title": "Yağ Gibi Akıcı Harita & Menü Tepkileri", "desc": "Menü ve harita ekranındaki buton odak efektleri GPU hızlandırmalı hale getirildi; kumanda ve oyun kolu tepkileri çok daha hızlı yanıt veriyor." },
-            { "icon": "🔄", "title": "TV Mağaza Güncelleme & Bluetooth Gamepad Uyumu", "desc": "Yeni sürüm çıktığında TV'de Güncelle butonu doğrudan Play Store'a yönlendirir; ilk 15 bölüm TV'de ücretsiz ve reklamsız deneyime devam eder." }
+            { "icon": "⚡", "title": "Android TV ve Telefonlarda Dev Akıcılık Artışı", "desc": "Çizim motoru ve otomatik çözünürlük dengesi tamamen yenilendi; özellikle 2 GB TV kutuları ve orta segment telefonlarda akıcılık katlandı, otomatik VSync FPS modu eklendi." },
+            { "icon": "🎯", "title": "Sıfır Gecikmeli TV Kumandası & OK ile Ateş Etme", "desc": "Kumanda komutlarının arkada sıraya binip sonradan veya yeniden doğuşta çalışması tamamen engellendi! Artık ▲ tuşu zıplar, OK tuşu ise 🔥 Ateş Topu / Atılma yapar." },
+            { "icon": "⭐", "title": "Puanla Penceresi Odak Koruması & Reklamsız TV Arayüzü", "desc": "Puanlama penceresi açıldığında arka plan otomatik bekler ve kumanda doğrudan butonlara odaklanır; TV ekranlarından gereksiz reklam ifadeleri kaldırıldı." },
+            { "icon": "💡", "title": "Kapatılabilir Rehber Balonları & Doğru Görev İpuçları", "desc": "1. Bölümde artık rehberi istediğin zaman tek dokunuşla kapatıp açabilirsin! Yeraltı görevine indiğinde asansör uyarısı da artık hatalı görünmez." },
+            { "icon": "📊", "title": "Harita FPS Rozeti & Ayarlarda Sürüm Bilgisi", "desc": "Harita ve oyun ekranında canlı FPS sayacını kolayca takip et; Ayarlar menüsünün sol üstünde yüklü sürüm numaranı her zaman gör." }
         ]
     },
     "en": {
-        "title": "⚡ v1.6.1 Adaptive TV Performance & 4K Crispness",
-        "subtitle": "Smart hardware auto-tuning for Android TV Boxes, Smart TVs, tablets, and phones—bringing sharper big-screen visuals, silky scrolling, and a real live FPS counter!",
-        "btnOk": "🚀 AWESOME, LET'S PLAY!",
+        "title": "🚀 v1.6.2 Smooth Speed Rescue, Instant Remote & Guide Update",
+        "subtitle": "Massive smoothness boost for Android TV boxes and mid-range phones, zero-queue instant remote controls, OK button Fireballs, live map FPS badge, and toggleable guide!",
+        "btnOk": "🎮 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            { "icon": "🎛️", "title": "Automatic Device & Hardware Optimization", "desc": "Automatically adapts visual load to your TV box or phone hardware—keeping 2 GB devices silky smooth while boosting sharpness on high-end screens." },
-            { "icon": "📺", "title": "Sharper Dynamic Resolution on Large 4K TVs", "desc": "Dynamic internal render scaling makes heroes and platforms noticeably crisper on 55–75\" TVs with fluid, stutter-free camera tracking." },
-            { "icon": "⚡", "title": "Real Measured Live FPS & Graphics Mode Setting", "desc": "Track your device's true real-time FPS on the map and HUD, and switch between Auto, Performance, Balanced, or High quality anytime in Settings." },
-            { "icon": "✨", "title": "Zero-Stutter Menus & Instant Remote Navigation", "desc": "Menu highlights and glowing focus rings now run smoothly on hardware acceleration, eliminating lag on Android TV remotes and gamepads." },
-            { "icon": "🔄", "title": "Direct TV Play Store Update Link & Cross-Device VIP", "desc": "Update prompts jump straight to Google Play on TV; your first 15 TV stages stay free & ad-free, with shared Mobile + TV VIP support." }
+            { "icon": "⚡", "title": "Major Smoothness Boost Across Android TV & Phones", "desc": "Upgraded render pipeline, smart pixel budget caps, and faster Auto scaling deliver silky frame rates on 2 GB TV boxes and mid-tier phones plus an Auto FPS option." },
+            { "icon": "🎯", "title": "Zero-Lag Remote & OK Button Fires Fireballs", "desc": "Eliminated queued remote input delays and ghost moves after checkpoint respawns! Now ▲ Up Jumps and OK unleashes 🔥 Fireball / Dash." },
+            { "icon": "⭐", "title": "Popup Focus Trap & Clean TV Store Wording", "desc": "Rating prompts pause the action cleanly and snap remote focus right onto the buttons, while TV Victory & Game Over screens stay 100% ad-free." },
+            { "icon": "💡", "title": "Toggleable Tutorial Balloons & Underground Fix", "desc": "Hide or reopen Level 1 guide balloons anytime with a dedicated HUD toggle! Fixed the elevator hint appearing while already inside the underground zone." },
+            { "icon": "📊", "title": "Live Map FPS Pill & Settings Version Badge", "desc": "Monitor real-time FPS right on the map bar and HUD, and check your installed version code anytime in Settings." }
         ]
     },
     "ko": {
-        "title": "⚡ v1.6.1 스마트 성능 최적화 & 4K TV 선명도 업데이트",
-        "subtitle": "Android TV 박스, 스마트 TV, 스마트폰을 위한 자동 하드웨어 최적화, 더 선명한 대화면 그래픽, 실시간 FPS 표시가 추가되었습니다!",
-        "btnOk": "🚀 좋아요, 플레이 시작!",
+        "title": "🚀 v1.6.2 초고속 프레임 복구 & 즉각 리모컨 업데이트",
+        "subtitle": "Android TV 박스 및 스마트폰 프레임 대폭 개선, 지연 없는 리모컨, 확인(OK) 키 파이어볼, 지도 실시간 FPS 및 끄고 켤 수 있는 가이드 출시!",
+        "btnOk": "🎮 좋아요, 바로 시작!",
         "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            { "icon": "🎛️", "title": "기기 맞춤형 자동 성능 최적화", "desc": "기기의 메모리와 화면 성능을 자동 감지해 2GB TV 박스에서도 끊김 없이 부드럽게 동작하도록 그래픽 부하를 지능적으로 조절합니다." },
-            { "icon": "📺", "title": "4K 대형 TV용 동적 해상도 스케일링", "desc": "대형 TV 화면에서도 캐릭터와 스테이지가 훨씬 선명하게 표현되며 카메라 이동이 매끄럽게 이어집니다." },
-            { "icon": "⚡", "title": "실제 실시간 FPS 표시 & 그래픽 모드 선택", "desc": "화면 상단에 실제 측정 FPS가 표시되며, 설정에서 자동 / 성능 / 균형 / 고화질 모드를 자유롭게 변경할 수 있습니다." },
-            { "icon": "✨", "title": "부드러운 메뉴 애니메이션 & 즉각적인 리모컨 반응", "desc": "지도와 메뉴 화면의 포커스 효과가 GPU 가속으로 최적화되어 TV 리모컨과 게임패드 반응이 더욱 빨라졌습니다." },
-            { "icon": "🔄", "title": "TV Play 스토어 바로 업데이트 & 교차 VIP 연동", "desc": "업데이트 알림 시 Play 스토어로 바로 이동하며, TV 첫 15스테이지 무료 체험과 모바일-TV 통합 VIP가 지원됩니다." }
+            { "icon": "⚡", "title": "Android TV & 스마트폰 부드러움 대폭 향상", "desc": "자동 해상도 제한 및 고속 그래픽 최적화로 2GB TV 박스와 중급형 스마트폰에서도 부드러운 프레임을 유지하며 자동 FPS 옵션을 제공합니다." },
+            { "icon": "🎯", "title": "입력 대기열 제거 & OK 버튼 파이어볼 공격", "desc": "빠른 입력이 밀리거나 부활 후 오작동하던 현상을 해결했습니다! ▲ 방향키로 점프하고 확인(OK) 키로 🔥 파이어볼/대시를 발사합니다." },
+            { "icon": "⭐", "title": "평점 팝업 포커스 보호 & TV 전용 깔끔한 문구", "desc": "평점 팝업이 열리면 배경 게임이 멈추고 버튼이 즉시 선택되며, TV 화면에서 불필요한 광고 문구를 제거했습니다." },
+            { "icon": "💡", "title": "닫기 가능한 가이드 말풍선 & 지하 힌트 수정", "desc": "1스테이지 가이드 말풍선을 언제든 켜고 끌 수 있으며, 지하 미션 내부에서 엘리베이터 안내가 중복 표시되던 문제를 고쳤습니다." },
+            { "icon": "📊", "title": "지도 실시간 FPS 배지 & 설정 버전 표시", "desc": "지도와 플레이 화면에서 실시간 FPS를 확인하고 설정 메뉴 상단에서 현재 설치된 버전을 한눈에 확인할 수 있습니다." }
         ]
     },
     "ja": {
-        "title": "⚡ v1.6.1 自動最適化＆4K TV高精細アップデート",
-        "subtitle": "Android TV端末やスマホの性能に合わせた自動最適化、大画面向けの鮮明な描画エンジン、そしてリアルタイム実測FPS表示が登場！",
-        "btnOk": "🚀 さあ、プレイしよう！",
+        "title": "🚀 v1.6.2 超快適フレーム改善＆即時リモコン操作アップデート",
+        "subtitle": "Android TV端末やスマホでの大幅な滑らかさ向上、遅延ゼロのリモコン応答、決定(OK)キーでファイア攻撃、マップFPSバッジ、閉じられるガイドが登場！",
+        "btnOk": "🎮 最高！プレイ開始",
         "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            { "icon": "🎛️", "title": "端末スペック別・自動パフォーマンス調整", "desc": "RAM容量や画面仕様を起動時に自動判定し、2GBメモリ端末では安定動作を優先、高性能端末では美しい高精細表示を自動適用します。" },
-            { "icon": "📺", "title": "大型4Kテレビ向け動的解像度スケーリング", "desc": "大画面テレビでもキャラクターや地形の輪郭がくっきり表示され、カメラ移動のカクつきを抑えた滑らかなスクロールを実現しました。" },
-            { "icon": "⚡", "title": "実測ライブFPS表示＆グラフィックモード設定", "desc": "現在の実測FPSをマップやプレイ画面で確認でき、設定画面から「自動 / パフォーマンス / バランス / 高画質」を手動でも選べます。" },
-            { "icon": "✨", "title": "軽量・高速なメニュー＆リモコンフォーカス操作", "desc": "マップボタンのアニメーションをGPU最適化し、TVリモコンやゲームパッドでの操作レスポンスが格段に向上しました。" },
-            { "icon": "🔄", "title": "TV版ストア直接アップデート＆スマホ＋TV共有VIP", "desc": "更新通知からGoogle Playへスムーズに移動可能。TV版15ステージ無料体験とクロスデバイスVIPもそのままご利用いただけます。" }
+            { "icon": "⚡", "title": "Android TV＆スマホの動作速度を大幅改善", "desc": "描画負荷と解像度の上限をスマートに最適化し、2GB TVボックスやミドルレンジ端末でも快適に動作。自動FPS設定も追加しました。" },
+            { "icon": "🎯", "title": "操作遅延ゼロ＆決定(OK)キーでファイアボール", "desc": "連続入力の蓄積や復活直後の誤動作を解消！▲キーでジャンプ、決定(OK)キーで🔥ファイア攻撃やダッシュが即発動します。" },
+            { "icon": "⭐", "title": "評価ポップアップ修正＆TV向けクリーン表記", "desc": "評価画面が出ると背景が一時停止しリモコンで即操作可能に。TV版の終了・勝利画面から広告表記を一掃しました。" },
+            { "icon": "💡", "title": "ON/OFFできるガイド＆地下ミッション判定修正", "desc": "ステージ1のガイド吹き出しをボタンひとつで非表示に可能！地下進入中にエレベーター案内が出る不具合も修正しました。" },
+            { "icon": "📊", "title": "マップライブFPS表示＆設定にバージョンバッジ", "desc": "マップとHUDで実測FPSをいつでも確認でき、設定画面の左上に現在のバージョンとビルド番号が表示されます。" }
         ]
     },
     "zh": {
-        "title": "⚡ v1.6.1 智能性能优化与 4K 大屏超清版",
-        "subtitle": "专为 Android TV 盒子、智能电视及手机打造的自动硬件调优引擎、更锐利的大屏画质与真实实时 FPS 监测现已上线！",
-        "btnOk": "🚀 太棒了，立即开始！",
+        "title": "🚀 v1.6.2 流畅性能拯救、零延迟遥控与可关闭指南版",
+        "subtitle": "大幅提升电视盒子与中端手机帧率、消除遥控器指令排队、确认键发射火球、新增地图实时 FPS 与可关闭新手气泡！",
+        "btnOk": "🎮 太棒了，立即开始！",
         "btnWeb": "🌐 查看完整更新日志 ↗",
         "items": [
-            { "icon": "🎛️", "title": "设备硬件智能识别与自动优化", "desc": "开机自动检测电视盒子或手机的内存与图形性能，在 1.5–2GB 电视上保障流畅不卡顿，在高性能设备上呈现更精细画面。" },
-            { "icon": "📺", "title": "专为 75 寸及 4K 大屏打造的动态分辨率引擎", "desc": "全新动态渲染缩放技术让大电视上的角色与平台边缘更清晰，镜头横移顺滑跟手不掉帧。" },
-            { "icon": "⚡", "title": "真实实时 FPS 帧率显示与画面模式设置", "desc": "在地图与关卡界面查看真实测量的实时 FPS，并可在设置中自由切换 自动 / 性能 / 均衡 / 高画质 模式。" },
-            { "icon": "✨", "title": "零卡顿菜单动效与极速遥控器响应", "desc": "优化大屏焦点框与按钮脉冲动画至硬件加速层，大幅提升电视遥控器与蓝牙手柄操作流畅度。" },
-            { "icon": "🔄", "title": "TV 版直达商店更新与跨设备 VIP", "desc": "收到更新提示时可一键直达 Play 商店；TV 前 15 关继续免费无广告，手机与电视账号 VIP 权益自动同步。" }
+            { "icon": "⚡", "title": "Android TV 与手机渲染性能大跃升", "desc": "全新像素预算控制与快速动态分辨率让 2GB 电视盒子与中端手机彻底告别低帧卡顿，并新增自动 FPS 档位。" },
+            { "icon": "🎯", "title": "遥控器零延迟响应 & 确认(OK)键发射火球", "desc": "彻底解决连续按键排队与复活后自动乱跑问题！现在 ▲ 方向键跳跃，OK 确认键即可释放 🔥 火球与冲刺。" },
+            { "icon": "⭐", "title": "评分弹窗焦点锁定 & 纯净 TV 无广告文案", "desc": "弹出评分窗口时游戏自动暂停且焦点直达按钮；电视端过关与失败弹窗移除所有手机广告相关文字。" },
+            { "icon": "💡", "title": "可随时关闭的新手引导 & 地下电梯提示修复", "desc": "第一关新增呼吸闪烁开关按钮可随时隐藏气泡；修复已进入地下关卡仍错误提示乘坐电梯的问题。" },
+            { "icon": "📊", "title": "地图实时 FPS 徽章 & 设置界面版本号标识", "desc": "在地图顶栏与游戏界面随时查看真实 FPS，并在设置菜单左上角清晰展示当前版本与内部构建号。" }
         ]
     },
     "ru": {
-        "title": "⚡ v1.6.1 Умная оптимизация TV и чёткость 4K",
-        "subtitle": "Автоматическая настройка под мощность Android TV-приставок и смартфонов, чёткая картинка на больших 4K-экранах и реальный счётчик FPS!",
-        "btnOk": "🚀 ОТЛИЧНО, ИГРАЕМ!",
+        "title": "🚀 v1.6.2 Ускорение FPS, Мгновенный Пульт и Гид",
+        "subtitle": "Мощный прирост плавности на Android TV и телефонах, ноль задержек пульта, огонь на кнопку OK, значок FPS на карте и отключаемый гид!",
+        "btnOk": "🎮 ОТЛИЧНО, ПОЕХАЛИ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
-            { "icon": "🎛️", "title": "Автооптимизация под железо устройства", "desc": "Игра сама определяет объём ОЗУ и экран устройства: обеспечивает плавность на приставках с 2 ГБ ОЗУ и повышенную чёткость на мощных TV." },
-            { "icon": "📺", "title": "Динамическое разрешение для больших 4K-экранов", "desc": "Персонажи и платформы стали заметно чётче на экранах 55–75 дюймов, а движение камеры — плавным и без рывков." },
-            { "icon": "⚡", "title": "Реальный живой FPS и выбор режима графики", "desc": "Индикатор теперь показывает реальный FPS, а в Настройках можно выбрать режим: Авто, Скорость, Баланс или Высокое качество." },
-            { "icon": "✨", "title": "Быстрые меню без тормозов на карте", "desc": "Подсветка кнопок и анимации фокуса переведены на аппаратное ускорение — пульт и геймпад реагируют мгновенно." },
-            { "icon": "🔄", "title": "Прямое обновление в Play на TV и единый VIP", "desc": "Уведомление об обновлении ведёт прямо в Google Play на ТВ; первые 15 уровней бесплатны на TV, а VIP общий с телефоном." }
+            { "icon": "⚡", "title": "Большой скачок плавности на TV и смартфонах", "desc": "Умный лимит пикселей и быстрое авто-масштабирование избавили приставки с 2 ГБ ОЗУ и телефоны от просадок; добавлен режим Авто FPS." },
+            { "icon": "🎯", "title": "Пульт без очереди команд и Огонь на OK", "desc": "Убрана буферизация нажатий и ложные движения после возрождения! ▲ Вверх — прыжок, а кнопка OK запускает 🔥 Огненный шар / Рывок." },
+            { "icon": "⭐", "title": "Фокус окна оценки и чистый TV-интерфейс", "desc": "Окно оценки ставит игру на паузу и сразу выделяет кнопки для пульта, а на экранах TV убраны упоминания рекламы." },
+            { "icon": "💡", "title": "Скрываемые советы и фикс подземной миссии", "desc": "На 1-м уровне можно в любой момент скрыть и вернуть подсказки; исправлена лишняя подсказка лифта внутри подземной зоны." },
+            { "icon": "📊", "title": "Значок FPS на карте и версия в Настройках", "desc": "Отслеживайте реальный FPS прямо на карте и в игре, а в Настройках всегда виден точный номер установленной версии." }
         ]
     },
     "it": {
-        "title": "⚡ v1.6.1 Ottimizzazione Intelligente TV e Nitidezza 4K",
-        "subtitle": "Motore adattivo per Android TV Box, Smart TV e smartphone: grafica più nitida sui grandi schermi, scorrimento fluido e FPS reali in tempo reale!",
-        "btnOk": "🎮 FANTASTICO, GIOCHIAMO!",
+        "title": "🚀 v1.6.2 Ripristino Fluidità, Telecomando Rapido & Guida",
+        "subtitle": "Grande salto di fluidità su Android TV Box e smartphone, zero ritardi dei tasti, Palla di fuoco con OK, FPS sulla mappa e guida disattivabile!",
+        "btnOk": "🎮 FANTASTICO, GIOCIAMO!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
-            { "icon": "🎛️", "title": "Ottimizzazione Automatica per Ogni Dispositivo", "desc": "Rileva automaticamente RAM e schermo del dispositivo, garantendo massima fluidità sui TV Box da 2 GB e alta definizione sui TV potenti." },
-            { "icon": "📺", "title": "Risoluzione Dinamica Nitida su Grandi TV 4K", "desc": "Lo scaling dinamico rende eroi e scenari più nitidi su schermi fino a 75 pollici con telecamera fluida e senza scatti." },
-            { "icon": "⚡", "title": "Contatore FPS Reali & Modalità Grafica", "desc": "Visualizza gli FPS reali misurati dal vivo su mappa e HUD e scegli tra Auto, Prestazioni, Bilanciato o Alto nelle Impostazioni." },
-            { "icon": "✨", "title": "Menu Istantanei e Zero Scatti sul Telecomando", "desc": "Animazioni e cornici di selezione accelerate via GPU per risposte immediate con telecomando TV e gamepad Bluetooth." },
-            { "icon": "🔄", "title": "Aggiornamento Diretto Play Store TV & VIP Condiviso", "desc": "Il pulsante Aggiorna apre subito il Play Store sulla TV; 15 livelli gratis senza pubblicità e VIP condiviso tra telefono e TV." }
+            { "icon": "⚡", "title": "Grande Aumento di Fluidità su TV e Telefoni", "desc": "Ottimizzazione del rendering, controllo dinamico rapido dei pixel e nuova opzione Auto FPS per eliminare i rallentamenti su TV Box da 2 GB e telefoni." },
+            { "icon": "🎯", "title": "Telecomando Senza Coda & Tasto OK = Fuoco", "desc": "Eliminati i ritardi e i movimenti fantasma dopo la rinascita! ▲ Su salta e OK lancia 🔥 Palla di fuoco / Scatto." },
+            { "icon": "⭐", "title": "Focus Popup Valutazione & Testi TV Puliti", "desc": "La finestra di valutazione mette in pausa il gioco e seleziona subito i pulsanti; rimossi i riferimenti pubblicitari sulle schermate TV." },
+            { "icon": "💡", "title": "Fumetti Guida Chiudibili & Fix Sottosuolo", "desc": "Nel Livello 1 puoi nascondere o riaprire i suggerimenti con un tocco; risolto l'avviso dell'ascensore dentro la zona sotterranea." },
+            { "icon": "📊", "title": "Badge FPS sulla Mappa & Versione nelle Impostazioni", "desc": "Controlla gli FPS live anche dalla mappa e verifica sempre la versione esatta installata nelle Impostazioni." }
         ]
     },
     "es": {
-        "title": "⚡ v1.6.1 Optimización Inteligente TV y Nitidez 4K",
-        "subtitle": "Ajuste automático de rendimiento para Android TV Box, Smart TV y teléfonos: gráficos más nítidos en pantallas grandes, cámara fluida y FPS reales en vivo.",
-        "btnOk": "🚀 ¡GENIAL, A JUGAR!",
+        "title": "🚀 v1.6.2 Rescate de Fluidez, Mando Instantáneo y Guía",
+        "subtitle": "Gran mejora de FPS en Android TV y teléfonos, control sin retrasos, Bola de fuego con el botón OK, FPS en el mapa y guía ocultable.",
+        "btnOk": "🎮 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
-            { "icon": "🎛️", "title": "Optimización Automática de Hardware", "desc": "Detecta la memoria y capacidad de tu dispositivo para ofrecer máxima fluidez en TV Box de 2 GB y alta nitidez en pantallas 4K potentes." },
-            { "icon": "📺", "title": "Resolución Dinámica Más Nítida en TVs Grandes", "desc": "Escalado de imagen optimizado para televisores de 55 a 75 pulgadas con desplazamiento de cámara suave y sin tirones." },
-            { "icon": "⚡", "title": "FPS Reales en Vivo y Selector de Gráficos", "desc": "Consulta los FPS reales en el mapa y durante el juego, y elige entre Automático, Rendimiento, Equilibrado o Alto en Ajustes." },
-            { "icon": "✨", "title": "Menús Sin Saltos y Respuesta Rápida", "desc": "Efectos de enfoque acelerados por hardware para una navegación ágil con el control remoto del televisor o mando Bluetooth." },
-            { "icon": "🔄", "title": "Actualización Directa en TV y VIP Multi-Dispositivo", "desc": "El aviso de actualización abre Play Store en tu TV; los primeros 15 niveles siguen gratis y tu VIP funciona en móvil y TV." }
+            { "icon": "⚡", "title": "Gran Salto de Fluidez en TV Box y Teléfonos", "desc": "Nuevo presupuesto de píxeles, escalado rápido y modo Auto FPS para mantener fluidez real en TV de 2 GB y teléfonos de gama media." },
+            { "icon": "🎯", "title": "Control Remoto Sin Cola y Botón OK = Fuego", "desc": "¡Sin comandos acumulados ni movimientos automáticos tras reaparecer! ▲ Arriba salta y OK dispara 🔥 Bola de fuego / Impulso." },
+            { "icon": "⭐", "title": "Foco en Ventana de Valoración y Textos TV Limpios", "desc": "Al abrirse la valoración, el juego se pausa y enfoca los botones al instante; se eliminaron menciones de anuncios en TV." },
+            { "icon": "💡", "title": "Guía Ocultable y Corrección Subterránea", "desc": "Oculta o muestra los globos de ayuda en el Nivel 1 cuando quieras y disfruta del aviso correcto dentro de la zona subterránea." },
+            { "icon": "📊", "title": "FPS en el Mapa y Versión Visible en Ajustes", "desc": "Consulta los FPS reales desde la barra del mapa y verifica siempre el número de versión exacto en Ajustes." }
         ]
     },
     "fr": {
-        "title": "⚡ v1.6.1 Optimisation Intelligente TV & Netteté 4K",
-        "subtitle": "Moteur adaptatif pour Android TV Box, Smart TV et mobiles : image plus nette sur grand écran, caméra ultra-fluide et véritable compteur d'IPS en direct !",
-        "btnOk": "🚀 SUPER, C'EST PARTI !",
+        "title": "🚀 v1.6.2 Fluidité Boostée, Télécommande Instantanée & Guide",
+        "subtitle": "Gain majeur d'IPS sur Android TV Box et smartphones, zéros commandes en retard, Boule de feu sur OK, badge FPS sur carte et guide masquable !",
+        "btnOk": "🎮 SUPER, C'EST PARTI !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
-            { "icon": "🎛️", "title": "Optimisation Matérielle Automatique", "desc": "Détecte automatiquement la RAM et l'écran de votre appareil pour garder les TV Box 2 Go ultra-fluides et sublimer les téléviseurs 4K puissants." },
-            { "icon": "📺", "title": "Résolution Dynamique Plus Nette sur Grands TV 4K", "desc": "Le rendu adaptatif offre des contours plus nets sur écrans jusqu'à 75 pouces avec un défilement de caméra sans saccades." },
-            { "icon": "⚡", "title": "Véritable Compteur FPS & Mode Graphique", "desc": "Affiche les IPS réels mesurés sur la carte et en jeu, avec sélection Auto, Performance, Équilibré ou Élevé dans les Paramètres." },
-            { "icon": "✨", "title": "Menus Fluides & Réactivité Accrue sur Télécommande", "desc": "Animations d'interface optimisées sur GPU pour une navigation instantanée à la télécommande TV et à la manette Bluetooth." },
-            { "icon": "🔄", "title": "Mise à Jour Directe Play Store TV & VIP Partagé", "desc": "Le bouton Mettre à jour ouvre directement le Play Store TV ; 15 niveaux gratuits sans pub et VIP partagé mobile + TV." }
+            { "icon": "⚡", "title": "Net Gain de Fluidité sur TV & Smartphones", "desc": "Nouveau moteur de rendu allégé, adaptation dynamique rapide et mode Auto FPS pour garder les TV Box 2 Go et mobiles parfaitement fluides." },
+            { "icon": "🎯", "title": "Télécommande Réactive & Touche OK = Tir", "desc": "Fini les commandes en file d'attente ou les pas fantômes après réapparition ! ▲ Haut saute et OK lance 🔥 Boule de feu / Dash." },
+            { "icon": "⭐", "title": "Focus sur l'Avis & Textes TV Sans Publicité", "desc": "La fenêtre de notation met le jeu en pause et sélectionne directement les boutons ; mentions publicitaires retirées sur TV." },
+            { "icon": "💡", "title": "Bulles d'Aide Masquables & Correctif Souterrain", "desc": "Masquez ou affichez le guide du Niveau 1 en un clic ; l'indication d'ascenseur disparaît correctement sous terre." },
+            { "icon": "📊", "title": "Compteur FPS sur la Carte & Version en Paramètres", "desc": "Suivez vos IPS réels directement sur la carte et vérifiez le numéro de version exact à tout moment dans les Paramètres." }
         ]
     }
 };
