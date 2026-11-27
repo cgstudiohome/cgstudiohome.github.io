@@ -31,6 +31,9 @@
         _remoteMomentumDir: 0, // -1 left, 1 right, 0 none
         _remoteMomentumUntil: 0,
         _remoteDirAtUp: 0,
+        _remoteDirDownAt: 0,
+        _inputIgnoreUntil: 0,
+        _lastReportedGameplay: null,
 
         // Native Android Key/Axis state (for Mi Box remotes & Android gamepads)
         _nativeKeys: Object.create(null),
@@ -226,8 +229,8 @@
                 "screen-troll": [".troll-node.unlocked", "#troll-nodes-container .map-node", "#btn-close-troll"],
                 "screen-leaderboard": [".lb-tab-btn.active", ".lb-tab-btn", "#btn-close-leaderboard-x"],
                 "screen-insufficient-balance": ["#btn-insuff-vip:not(.hidden)", "#btn-insuff-watch-ad:not(.hidden)", "#btn-insuff-cancel"],
-                "screen-rate-app": ["#btn-rate-now", "#btn-rate-later"],
-                "screen-update": ["#btn-update-now", "#btn-update-later"]
+                "screen-rate-app": ["#btn-action-rate-now", "#btn-action-rate-feedback", "#btn-action-rate-later", "#btn-close-rate-x"],
+                "screen-update": ["#btn-do-update", "#btn-later-update", "#btn-close-update-x"]
             };
 
             const prefs = preferredSelectors[cid] || [];
@@ -256,15 +259,45 @@
             el.classList.add("tv-focused");
             if (shouldScroll !== false && typeof el.scrollIntoView === "function") {
                 try {
-                    el.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+                    el.scrollIntoView({ behavior: this.isTvMode ? "auto" : "smooth", block: "nearest", inline: "nearest" });
                 } catch (e) {
                     try { el.scrollIntoView(false); } catch (e2) {}
                 }
             }
         },
 
+        syncGameplayBridgeFlag(active) {
+            const flag = Boolean(active);
+            if (this._lastReportedGameplay === flag) return;
+            this._lastReportedGameplay = flag;
+            try {
+                if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.setGameplayActive === "function") {
+                    window.MarinextCloudBridge.setGameplayActive(flag);
+                }
+            } catch (e) {}
+        },
+
+        isGameplayActive() {
+            return Boolean(window.game && window.game.state === "playing" && !this.getActiveScreenContainer());
+        },
+
+        clearRuntimeInputs(graceMs) {
+            this._nativeKeys = Object.create(null);
+            this._nativeAxisX = 0;
+            this._nativeAxisY = 0;
+            this._remoteMomentumDir = 0;
+            this._remoteMomentumUntil = 0;
+            this._remoteDirAtUp = 0;
+            this._remoteDirDownAt = 0;
+            this._inputIgnoreUntil = Date.now() + (Number(graceMs) || 240);
+            if (window.game && typeof window.game.setExternalControllerHeld === "function") {
+                window.game.setExternalControllerHeld(false, false, false);
+            }
+        },
+
         syncFocusToActiveScreen(forceReset) {
-            const gamePlaying = window.game && window.game.state === "playing";
+            const gamePlaying = this.isGameplayActive();
+            this.syncGameplayBridgeFlag(gamePlaying);
             const container = this.getActiveScreenContainer();
 
             if (!container || gamePlaying) {
@@ -366,7 +399,7 @@
             if (!bestEl && (dir === "down" || dir === "up")) {
                 const scroller = this.focusedEl.closest(".modal-card, .vip-modal-card, .troll-modal-card, .map-container, .world-map-grid, .shop-grid") || container;
                 if (scroller && scroller.scrollHeight > scroller.clientHeight + 8) {
-                    scroller.scrollBy({ top: dir === "down" ? 160 : -160, behavior: "smooth" });
+                    scroller.scrollBy({ top: dir === "down" ? 160 : -160, behavior: this.isTvMode ? "auto" : "smooth" });
                 }
             }
 
@@ -463,8 +496,13 @@
 
         setupFocusObserver() {
             const onDomChange = () => {
-                if (window.game && window.game.state === "playing") return;
-                this.scheduleFocusSync(60);
+                if (this.isGameplayActive()) {
+                    this.syncGameplayBridgeFlag(true);
+                    this.clearFocus();
+                    return;
+                }
+                this.syncGameplayBridgeFlag(false);
+                this.scheduleFocusSync(35);
             };
             const attachObserver = () => {
                 if (!document.body || typeof MutationObserver !== "function") return;
@@ -496,23 +534,38 @@
                 this.setInputMode("tv_remote");
             }
 
+            const game = window.game;
+            const isPlaying = this.isGameplayActive();
+            this.syncGameplayBridgeFlag(isPlaying);
+
+            if (isPlaying && Date.now() < this._inputIgnoreUntil) {
+                if (!isDown) {
+                    delete this._nativeKeys[keyName];
+                }
+                return;
+            }
+
             if (isDown) {
                 this._nativeKeys[keyName] = true;
             } else {
                 delete this._nativeKeys[keyName];
             }
 
-            const game = window.game;
-            const isPlaying = Boolean(game && game.state === "playing");
-
-            // Handle TV Remote smart jump momentum when Left/Right was held right before jumping
+            // Handle TV Remote smart jump momentum only when Left/Right was intentionally held (>= 140ms) right before jumping
             if (this.inputMode === "tv_remote" && isPlaying) {
-                if (!isDown && (keyName === "DPAD_LEFT" || keyName === "DPAD_RIGHT")) {
-                    this._remoteDirAtUp = keyName === "DPAD_LEFT" ? -1 : 1;
-                    this._remoteMomentumUntil = Date.now() + 260;
-                }
-                if (isDown && (keyName === "DPAD_LEFT" || keyName === "DPAD_RIGHT")) {
+                if (isDown && !isRepeat && (keyName === "DPAD_LEFT" || keyName === "DPAD_RIGHT")) {
+                    this._remoteDirDownAt = Date.now();
                     this._remoteMomentumDir = 0;
+                }
+                if (!isDown && (keyName === "DPAD_LEFT" || keyName === "DPAD_RIGHT")) {
+                    const heldMs = Date.now() - (this._remoteDirDownAt || 0);
+                    if (heldMs >= 140) {
+                        this._remoteDirAtUp = keyName === "DPAD_LEFT" ? -1 : 1;
+                        this._remoteMomentumUntil = Date.now() + 220;
+                    } else {
+                        this._remoteDirAtUp = 0;
+                        this._remoteMomentumDir = 0;
+                    }
                 }
             }
 
@@ -520,9 +573,9 @@
             if (isDown && !isRepeat) {
                 if (keyName === "BUTTON_START" || keyName === "MEDIA_PLAY_PAUSE" || keyName === "MENU") {
                     if (game) {
-                        if (game.state === "playing") game.pauseGame();
+                        if (isPlaying) game.pauseGame();
                         else if (game.state === "paused") game.resumeGame();
-                        this.scheduleFocusSync(80);
+                        this.scheduleFocusSync(60);
                     }
                     return;
                 }
@@ -561,14 +614,20 @@
             // Gameplay instant edge-triggered actions from Native Keys
             if (isDown && !isRepeat && game) {
                 this.ensurePollActive();
-                if (keyName === "DPAD_UP" || keyName === "BUTTON_A" || (this.inputMode === "tv_remote" && (keyName === "DPAD_CENTER" || keyName === "ENTER"))) {
+                if (keyName === "DPAD_UP" || keyName === "BUTTON_A") {
                     game.input.jumpPressed = true;
-                    // TV remote momentum assist: preserve direction for a jump arc on single-key remotes
                     if (this.inputMode === "tv_remote" && !this._nativeKeys.DPAD_LEFT && !this._nativeKeys.DPAD_RIGHT) {
                         if (Date.now() <= this._remoteMomentumUntil && this._remoteDirAtUp !== 0) {
                             this._remoteMomentumDir = this._remoteDirAtUp;
-                            this._remoteMomentumUntil = Date.now() + 340;
+                            this._remoteMomentumUntil = Date.now() + 240;
                         }
+                    }
+                }
+                if (this.inputMode === "tv_remote" && (keyName === "DPAD_CENTER" || keyName === "ENTER")) {
+                    if (game.player && game.player.hasFire) {
+                        game.input.firePressed = true;
+                    } else if (game.player && typeof game.isAbilityUnlocked === "function" && game.isAbilityUnlocked("dash")) {
+                        game.player.tryDash(game);
                     }
                 }
                 if (keyName === "BUTTON_X") {
@@ -644,10 +703,14 @@
                 }
 
                 const game = window.game;
-                const isPlaying = Boolean(game && game.state === "playing");
+                const isPlaying = this.isGameplayActive();
                 if (isPlaying) {
-                    if (this.isTvMode && e.code === "ArrowUp" && this.inputMode === "tv_remote") {
-                        // In desktop simulation (?tv=1), also support remote momentum
+                    if (this.isTvMode && !e.repeat && (e.code === "Enter" || e.code === "NumpadEnter") && game) {
+                        if (game.player && game.player.hasFire) {
+                            game.input.firePressed = true;
+                        } else if (game.player && typeof game.isAbilityUnlocked === "function" && game.isAbilityUnlocked("dash")) {
+                            game.player.tryDash(game);
+                        }
                     }
                     return;
                 }
@@ -657,21 +720,27 @@
 
                 if (e.code === "ArrowUp") {
                     e.preventDefault();
+                    e.stopPropagation();
                     this.moveFocus("up");
                 } else if (e.code === "ArrowDown") {
                     e.preventDefault();
+                    e.stopPropagation();
                     this.moveFocus("down");
                 } else if (e.code === "ArrowLeft") {
                     e.preventDefault();
+                    e.stopPropagation();
                     this.moveFocus("left");
                 } else if (e.code === "ArrowRight") {
                     e.preventDefault();
+                    e.stopPropagation();
                     this.moveFocus("right");
                 } else if (e.code === "Enter" || e.code === "NumpadEnter" || e.code === "Space") {
                     e.preventDefault();
+                    e.stopPropagation();
                     this.activateFocused();
                 } else if (e.code === "Escape" || e.code === "Backspace") {
                     e.preventDefault();
+                    e.stopPropagation();
                     this.triggerBack();
                 }
             }, true);
@@ -719,7 +788,7 @@
         },
 
         isMenuActive() {
-            return !(window.game && window.game.state === "playing");
+            return !this.isGameplayActive();
         },
 
         pollFrame() {
@@ -731,7 +800,8 @@
                 this.setInputMode("gamepad");
             }
 
-            const isPlaying = game.state === "playing";
+            const isPlaying = this.isGameplayActive();
+            this.syncGameplayBridgeFlag(isPlaying);
             const now = Date.now();
 
             if (!isPlaying) {
@@ -789,12 +859,17 @@
             }
 
             // Gameplay continuous input merge (Native Keys + Native Axes + HTML5 Gamepad + Remote Momentum)
+            if (now < this._inputIgnoreUntil) {
+                if (typeof game.setExternalControllerHeld === "function") {
+                    game.setExternalControllerHeld(false, false, false);
+                }
+                return;
+            }
             let heldLeft = Boolean(this._nativeKeys.DPAD_LEFT || this._nativeAxisX < 0 || (gp && gp.left));
             let heldRight = Boolean(this._nativeKeys.DPAD_RIGHT || this._nativeAxisX > 0 || (gp && gp.right));
             let heldJump = Boolean(
                 this._nativeKeys.DPAD_UP ||
                 this._nativeKeys.BUTTON_A ||
-                (this.inputMode === "tv_remote" && (this._nativeKeys.DPAD_CENTER || this._nativeKeys.ENTER)) ||
                 (gp && gp.jump)
             );
 
@@ -858,8 +933,7 @@
         },
 
         shouldPollRaf() {
-            const game = window.game;
-            const isPlaying = Boolean(game && game.state === "playing");
+            const isPlaying = this.isGameplayActive();
             return Boolean(this._hasHtml5Gamepad || this._nativeAxisX !== 0 || this._nativeAxisY !== 0 || isPlaying);
         },
 
