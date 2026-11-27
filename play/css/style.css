@@ -4006,6 +4006,7 @@ html, body {
     outline-offset: 2px !important;
     box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.42), 0 0 24px rgba(0, 242, 254, 0.78) !important;
     transform: translateY(-2px) scale(1.03);
+    will-change: transform;
     position: relative;
     z-index: 15 !important;
 }
@@ -4015,7 +4016,64 @@ html, body {
     outline: 3px solid #ffd166 !important;
     box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.45), 0 0 26px rgba(255, 209, 102, 0.85) !important;
     transform: scale(1.08);
+    will-change: transform;
     z-index: 16 !important;
+}
+
+@keyframes guidingPlayPulseGpu {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.94;
+    }
+    50% {
+        transform: scale(1.045);
+        opacity: 1;
+    }
+}
+
+body.tv-mode .overlay-screen,
+body.perf-lite .overlay-screen,
+body.tv-mode .hud-stat,
+body.perf-lite .hud-stat,
+body.tv-mode .touch-btn,
+body.perf-lite .touch-btn,
+body.tv-mode #hud,
+body.perf-lite #hud,
+body.tv-mode .modal-card,
+body.perf-lite .modal-card,
+body.tv-mode .vip-modal-card,
+body.perf-lite .vip-modal-card,
+body.tv-mode .settings-modal-card,
+body.perf-lite .settings-modal-card,
+body.tv-mode .troll-modal-card,
+body.perf-lite .troll-modal-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+body.tv-mode .overlay-screen,
+body.perf-lite .overlay-screen {
+    background: radial-gradient(circle at center, rgba(10, 14, 34, 0.96) 0%, rgba(4, 6, 15, 0.985) 100%) !important;
+}
+
+body.tv-mode .play-btn-guiding,
+body.perf-lite .play-btn-guiding {
+    animation: guidingPlayPulseGpu 1.4s infinite ease-in-out !important;
+    will-change: transform, opacity;
+    box-shadow: 0 0 18px rgba(6, 214, 160, 0.58) !important;
+}
+
+body.tv-mode .act2-surprise-btn.locked,
+body.perf-lite .act2-surprise-btn.locked,
+body.tv-mode .act2-cel-cta-btn,
+body.perf-lite .act2-cel-cta-btn,
+body.tv-mode .modal-act2-banner,
+body.perf-lite .modal-act2-banner,
+body.tv-mode .btn-next-act2-cta,
+body.perf-lite .btn-next-act2-cta,
+body.tv-mode .act2-surprise-btn.act2-new-highlight,
+body.perf-lite .act2-surprise-btn.act2-new-highlight {
+    animation: none !important;
 }
 
 body.tv-mode #touch-controls {
