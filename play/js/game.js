@@ -15,6 +15,9 @@ const ADMOB_CONFIG = {
 };
 window.ADMOB_CONFIG = ADMOB_CONFIG;
 
+const MARINEXT_APP_VERSION_CODE = 61;
+const MARINEXT_APP_VERSION_NAME = "1.6.2";
+
 const HERO_CHARACTERS_CATALOG = [
     {
         id: "default",
@@ -1503,21 +1506,25 @@ const ACHIEVEMENTS_CATALOG = [
 class Game {
     constructor() {
         this.canvas = document.getElementById("gameCanvas");
-        this.ctx = this.canvas.getContext("2d");
+        this.ctx = this.canvas.getContext("2d", { alpha: false, desynchronized: true }) || this.canvas.getContext("2d");
         this.viewW = 1280;
         this.viewH = 720;
         this.renderScale = 1;
+        this._effectiveRenderScale = 1;
         this.qualityMode = "auto";
         this.autoPerfTier = "balanced";
         this.perfConfig = {
             tier: "balanced",
-            baseScale: 1.5,
-            minScale: 1.15,
-            maxScale: 1.5,
+            baseScale: 1.0,
+            minScale: 0.75,
+            maxScale: 1.25,
+            maxPixels: 1250000,
             allowShadowBlur: false,
             shadowCap: 0,
-            maxParticles: 48,
-            bgSporesCount: 28
+            fastTiles: true,
+            fastGradients: true,
+            maxParticles: 40,
+            bgSporesCount: 22
         };
         this._hwProfile = null;
         this._cachedSafeTopThreshold = null;
@@ -1716,21 +1723,33 @@ class Game {
             phase: Math.random() * Math.PI * 2
         }));
 
-        let savedFps = this.isAndroidTvMode() ? 60 : 120;
+        let savedFps = "auto";
         try {
-            const rawFps = Number(localStorage.getItem("marinext_target_fps"));
-            if (rawFps === 30 || rawFps === 60 || rawFps === 120) savedFps = rawFps;
+            const rawFpsStr = localStorage.getItem("marinext_target_fps");
+            if (rawFpsStr === "auto") {
+                savedFps = "auto";
+            } else {
+                const rawFps = Number(rawFpsStr);
+                if (rawFps === 30 || rawFps === 60 || rawFps === 120) savedFps = rawFps;
+            }
             this.personalizedAds = localStorage.getItem("marinext_personalized_ads") !== "0";
         } catch (e) {}
         this.targetFps = savedFps;
-        this.frameInterval = 1000 / this.targetFps;
+        const initNumFps = this.getNumericTargetFps();
+        this.frameInterval = 1000 / initNumFps;
         this.physicsStep = 1000 / 60;    // 16.666ms fixed physics step
         this.accumulator = 0;
         this.lastTime = performance.now();
         this.fpsFrames = 0;
         this.fpsLastCheck = performance.now();
-        this.currentFps = this.targetFps;
-        this._measuredFps = this.targetFps;
+        this.currentFps = initNumFps;
+        this._measuredFps = initNumFps;
+        this.guideHidden = false;
+        try {
+            this.guideHidden = localStorage.getItem("marinext_guide_hidden") === "1";
+        } catch (e) {}
+        this._ratePromptTimer = null;
+        this._pausedByRateModal = false;
 
         this.buildMapNodes();
         this.buildTrollMapNodes();
@@ -1837,9 +1856,13 @@ class Game {
 
         this.viewW = targetW;
         this.viewH = targetH;
-        const rs = this.renderScale || 1;
-        const pxW = Math.max(640, Math.round(targetW * rs));
-        const pxH = Math.max(360, Math.round(targetH * rs));
+        const maxPx = (this.perfConfig && this.perfConfig.maxPixels) || 1250000;
+        const rawRs = this.renderScale || 1;
+        const budgetRs = Math.sqrt(maxPx / Math.max(1, targetW * targetH));
+        const effRs = Math.max(0.65, Math.min(rawRs, budgetRs));
+        this._effectiveRenderScale = effRs;
+        const pxW = Math.max(640, Math.round(targetW * effRs));
+        const pxH = Math.max(360, Math.round(targetH * effRs));
 
         if (this.canvas.width !== pxW || this.canvas.height !== pxH) {
             this.canvas.width = pxW;
@@ -1905,11 +1928,13 @@ class Game {
         const ram = Number(hw.totalRamMb) || 0;
         const cores = Number(hw.cpuCores) || 4;
         const isTv = Boolean(hw.isTv || this.isAndroidTvMode());
+        const isNative = this.isNativeAndroid();
         const lowGpuRe = /mali-4\d\d|mali-t7|mali-g31|powervr\s*ge8|adreno\s*(3|4|50\d)/i;
+        const midGpuRe = /mali-g71|mali-g72|mali-g5[12]|mali-t8|adreno\s*5[1-4]\d|adreno\s*61\d|powervr/i;
 
         if ((ram > 0 && ram <= 2400) || hw.isLowRam || lowGpuRe.test(hw.gpuRenderer) || (isTv && cores <= 4 && ram > 0 && ram <= 2600)) {
             this.autoPerfTier = "lite";
-        } else if ((ram > 0 && ram < 3900) || isTv) {
+        } else if (midGpuRe.test(hw.gpuRenderer) || (ram > 0 && ram < 5500) || isTv || (isNative && ram === 0)) {
             this.autoPerfTier = "balanced";
         } else {
             this.autoPerfTier = "ultra";
@@ -1938,21 +1963,66 @@ class Game {
         };
     }
 
+    getNumericTargetFps() {
+        if (this.targetFps === 30 || this.targetFps === 60 || this.targetFps === 120) {
+            return this.targetFps;
+        }
+        const hz = (this._hwProfile && Number(this._hwProfile.refreshRateHz)) || 60;
+        return Math.min(120, Math.max(60, Math.round(hz)));
+    }
+
     applyPerformanceProfile(resetScale = true) {
         const mode = (this.qualityMode === "lite" || this.qualityMode === "balanced" || this.qualityMode === "ultra")
             ? this.qualityMode
             : "auto";
         const eff = mode === "auto" ? (this.autoPerfTier || "balanced") : mode;
         const isTv = this.isAndroidTvMode();
+        const isNative = this.isNativeAndroid();
 
         let cfg;
         if (eff === "lite") {
-            cfg = { tier: "lite", baseScale: 1.25, minScale: 1.0, maxScale: 1.35, allowShadowBlur: false, shadowCap: 0, maxParticles: 32, bgSporesCount: 16 };
+            cfg = {
+                tier: "lite",
+                baseScale: isTv ? 0.9 : 0.95,
+                minScale: 0.72,
+                maxScale: 1.1,
+                maxPixels: 960000,
+                allowShadowBlur: false,
+                shadowCap: 0,
+                fastTiles: true,
+                fastGradients: true,
+                maxParticles: 24,
+                bgSporesCount: 12
+            };
         } else if (eff === "balanced") {
-            cfg = { tier: "balanced", baseScale: 1.5, minScale: 1.15, maxScale: 1.5, allowShadowBlur: !isTv, shadowCap: isTv ? 0 : 6, maxParticles: 48, bgSporesCount: 28 };
+            cfg = {
+                tier: "balanced",
+                baseScale: isTv ? 1.1 : 1.0,
+                minScale: 0.75,
+                maxScale: 1.25,
+                maxPixels: 1250000,
+                allowShadowBlur: false,
+                shadowCap: 0,
+                fastTiles: true,
+                fastGradients: true,
+                maxParticles: 40,
+                bgSporesCount: 22
+            };
         } else {
             const dpr = (typeof window !== "undefined" && Number(window.devicePixelRatio)) || 1;
-            cfg = { tier: "ultra", baseScale: Math.min(2.0, Math.max(1.5, dpr)), minScale: 1.25, maxScale: 2.0, allowShadowBlur: true, shadowCap: 0, maxParticles: 90, bgSporesCount: 45 };
+            cfg = {
+                tier: "ultra",
+                baseScale: isNative ? 1.35 : Math.min(1.6, Math.max(1.25, dpr)),
+                minScale: 0.95,
+                maxScale: isNative ? 1.5 : 1.75,
+                maxPixels: isNative ? 2080000 : 3000000,
+                allowShadowBlur: true,
+                shadowCap: isNative ? 8 : 0,
+                fastTiles: false,
+                fastGradients: false,
+                maxParticles: 72,
+                bgSporesCount: 38
+            };
         }
         this.perfConfig = cfg;
 
@@ -2792,7 +2862,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 60;
+        const CURRENT_VERSION_CODE = MARINEXT_APP_VERSION_CODE;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2928,7 +2998,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "60");
+                localStorage.setItem("marinext2100_last_seen_version", String(MARINEXT_APP_VERSION_CODE));
             } catch (e) {}
         };
 
@@ -2957,7 +3027,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "60") {
+            if (hasConsent && lastSeenVer !== String(MARINEXT_APP_VERSION_CODE)) {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -3810,6 +3880,13 @@ class Game {
         }
     }
 
+    cancelRatePromptTimer() {
+        if (this._ratePromptTimer) {
+            clearTimeout(this._ratePromptTimer);
+            this._ratePromptTimer = null;
+        }
+    }
+
     resetInputs() {
         this.input.left = false;
         this.input.right = false;
@@ -3821,6 +3898,14 @@ class Game {
             this.keysHeld.left = false;
             this.keysHeld.right = false;
             this.keysHeld.jump = false;
+        }
+        if (this.externalHeld) {
+            this.externalHeld.left = false;
+            this.externalHeld.right = false;
+            this.externalHeld.jump = false;
+        }
+        if (window.MarinextTV && typeof window.MarinextTV.clearRuntimeInputs === "function") {
+            window.MarinextTV.clearRuntimeInputs(250);
         }
         this.activeMouseBtn = null;
         ["touch-left", "touch-right", "touch-jump", "touch-fire"].forEach((id) => {
@@ -4136,7 +4221,8 @@ class Game {
             if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].includes(e.code)) {
                 e.preventDefault();
             }
-            if (this.state === "playing") {
+            const gameplayFocused = this.state === "playing" && (!window.MarinextTV || typeof window.MarinextTV.isGameplayActive !== "function" || window.MarinextTV.isGameplayActive());
+            if (gameplayFocused) {
                 if (e.code === "KeyA" || e.code === "ArrowLeft") {
                     this.keysHeld.left = true;
                     syncInputState();
@@ -4556,6 +4642,21 @@ class Game {
             if (this.state === "playing") this.pauseGame();
         });
 
+        const btnToggleGuide = document.getElementById("btn-toggle-guide");
+        if (btnToggleGuide) {
+            btnToggleGuide.addEventListener("click", (e) => {
+                window.sfx.coin();
+                this.guideHidden = !this.guideHidden;
+                try {
+                    localStorage.setItem("marinext_guide_hidden", this.guideHidden ? "1" : "0");
+                } catch (err) {}
+                this.updateGuideToggleUI();
+                if (e && e.currentTarget && typeof e.currentTarget.blur === "function") {
+                    e.currentTarget.blur();
+                }
+            });
+        }
+
         document.getElementById("btn-mute").addEventListener("click", (e) => {
             const muted = window.sfx.toggleMute();
             e.currentTarget.textContent = muted ? "🔇" : "🔊";
@@ -4591,11 +4692,13 @@ class Game {
         if (btnToggleFps) {
             btnToggleFps.addEventListener("click", () => {
                 window.sfx.coin();
-                if (this.targetFps === 120) this.targetFps = 60;
+                if (this.targetFps === "auto") this.targetFps = 120;
+                else if (this.targetFps === 120) this.targetFps = 60;
                 else if (this.targetFps === 60) this.targetFps = 30;
-                else this.targetFps = 120;
-                this.frameInterval = 1000 / this.targetFps;
-                this.currentFps = this.targetFps;
+                else this.targetFps = "auto";
+                const numFps = this.getNumericTargetFps();
+                this.frameInterval = 1000 / numFps;
+                this.currentFps = numFps;
                 try {
                     localStorage.setItem("marinext_target_fps", String(this.targetFps));
                 } catch (e) {}
@@ -4995,7 +5098,7 @@ class Game {
                 window.sfx.powerUpSpawn();
                 try {
                     localStorage.setItem("marinext_privacy_consent_v1", String(Date.now()));
-                    localStorage.setItem("marinext2100_last_seen_version", "58");
+                    localStorage.setItem("marinext2100_last_seen_version", String(MARINEXT_APP_VERSION_CODE));
                 } catch (e) {}
                 const fcModal = document.getElementById("screen-first-consent");
                 if (fcModal) fcModal.classList.add("hidden");
@@ -5245,13 +5348,21 @@ class Game {
                 window.open("https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100", "_blank");
             }
         };
+        const closeRateModalAndResume = () => {
+            this.cancelRatePromptTimer();
+            const rateModal = document.getElementById("screen-rate-app");
+            if (rateModal) rateModal.classList.add("hidden");
+            if (this._pausedByRateModal) {
+                this._pausedByRateModal = false;
+                if (this.state === "paused") this.resumeGame();
+            }
+        };
         const btnActionRateNow = document.getElementById("btn-action-rate-now");
         if (btnActionRateNow) {
             btnActionRateNow.addEventListener("click", () => {
                 window.sfx.emerald();
                 localStorage.setItem("marinext_rate_v1", "done");
-                const rateModal = document.getElementById("screen-rate-app");
-                if (rateModal) rateModal.classList.add("hidden");
+                closeRateModalAndResume();
                 openDirectPlayStoreRating("rate_modal");
             });
         }
@@ -5260,6 +5371,8 @@ class Game {
             btnActionRateFeedback.addEventListener("click", () => {
                 window.sfx.coin();
                 localStorage.setItem("marinext_rate_v1", "feedback");
+                this.cancelRatePromptTimer();
+                this._pausedByRateModal = false;
                 const rateModal = document.getElementById("screen-rate-app");
                 if (rateModal) rateModal.classList.add("hidden");
                 this.openFeedbackModal();
@@ -5269,16 +5382,14 @@ class Game {
         if (btnActionRateLater) {
             btnActionRateLater.addEventListener("click", () => {
                 window.sfx.coin();
-                const rateModal = document.getElementById("screen-rate-app");
-                if (rateModal) rateModal.classList.add("hidden");
+                closeRateModalAndResume();
             });
         }
         const btnCloseRateX = document.getElementById("btn-close-rate-x");
         if (btnCloseRateX) {
             btnCloseRateX.addEventListener("click", () => {
                 window.sfx.coin();
-                const rateModal = document.getElementById("screen-rate-app");
-                if (rateModal) rateModal.classList.add("hidden");
+                closeRateModalAndResume();
             });
         }
 
@@ -6188,6 +6299,21 @@ class Game {
         if (this.player) {
             this.updateHUD();
         }
+        this.updateGuideToggleUI();
+    }
+
+    updateGuideToggleUI() {
+        const btn = document.getElementById("btn-toggle-guide");
+        if (!btn) return;
+        const showBtn = !this.isTrollMode && !this.isAct2Mode && this.selectedLevel === 0 && this.state === "playing";
+        btn.classList.toggle("hidden", !showBtn);
+        if (!showBtn) return;
+        const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
+        const hidden = Boolean(this.guideHidden);
+        btn.classList.toggle("guide-collapsed", hidden);
+        btn.textContent = hidden
+            ? (t("guideOpenBtn") || "💡 Rehberi Aç")
+            : (t("guideCloseBtn") || "💡 Rehberi Kapat ✕");
     }
 
     applyRateModalLanguage() {
@@ -6363,7 +6489,10 @@ class Game {
         }
         const fpsText = document.getElementById("settings-fps-text");
         if (fpsText) {
-            if (this.targetFps === 120) {
+            if (this.targetFps === "auto") {
+                fpsText.textContent = t("fpsAuto") || "OTOMATİK (ÖNERİLEN) ⚡";
+                fpsText.style.color = "#06d6a0";
+            } else if (this.targetFps === 120) {
                 fpsText.textContent = t("fps120") || "120 FPS (ULTRA AKICI) ⚡";
                 fpsText.style.color = "#00f2fe";
             } else if (this.targetFps === 60) {
@@ -6389,11 +6518,27 @@ class Game {
             const qTier = (this.perfConfig && this.perfConfig.tier) || "balanced";
             qualityText.style.color = qTier === "ultra" ? "#00f2fe" : (qTier === "lite" ? "#06d6a0" : "#ffd166");
         }
-        const displayFps = this._measuredFps || this.targetFps || 60;
+        const displayFps = this._measuredFps || this.getNumericTargetFps() || 60;
         const fpsEl = document.getElementById("hud-fps");
         if (fpsEl) fpsEl.textContent = `⚡ ${displayFps} FPS`;
         const mapFpsEl = document.getElementById("map-fps");
         if (mapFpsEl) mapFpsEl.textContent = `⚡ ${displayFps} FPS`;
+        const versionBadgeEl = document.getElementById("settings-version-badge");
+        if (versionBadgeEl) {
+            let vName = MARINEXT_APP_VERSION_NAME;
+            let vCode = MARINEXT_APP_VERSION_CODE;
+            if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
+                try {
+                    const vInfo = JSON.parse(window.MarinextCloudBridge.getAppVersionInfo());
+                    if (vInfo) {
+                        if (vInfo.versionName) vName = String(vInfo.versionName);
+                        if (Number.isFinite(Number(vInfo.versionCode))) vCode = Number(vInfo.versionCode);
+                    }
+                } catch (e) {}
+            }
+            const tierTag = ((this.perfConfig && this.perfConfig.tier) || "balanced").toUpperCase();
+            versionBadgeEl.textContent = `v${vName} (${vCode}) • ${tierTag}`;
+        }
         const muteBtn = document.getElementById("btn-mute");
         if (muteBtn) {
             muteBtn.textContent = (window.sfx.sfxMuted && window.sfx.musicMuted) ? "🔇" : "🔊";
@@ -7480,7 +7625,10 @@ class Game {
             this.openVipStore(effTroll ? "tv_troll_gate" : "tv_level_gate");
             return;
         }
+        this.cancelRatePromptTimer();
+        this._pausedByRateModal = false;
         this.clearAdPauseState();
+        this.resetInputs();
         this.resizeCanvas();
         this._pendingResumeAfterVictoryMode = "";
         this.isTrollMode = Boolean(isTroll);
@@ -7789,6 +7937,7 @@ class Game {
 
         this.state = "playing";
         this._lastFrozenDrawKey = "";
+        this.updateGuideToggleUI();
         if (window.MarinextTV && typeof window.MarinextTV.ensurePollActive === "function") {
             window.MarinextTV.ensurePollActive();
         }
@@ -8408,6 +8557,8 @@ class Game {
     }
 
     showMapScreen() {
+        this.cancelRatePromptTimer();
+        this._pausedByRateModal = false;
         this.clearAdPauseState();
         this.resetInputs();
         if (this.state === "paused" || this.state === "playing") {
@@ -8433,6 +8584,12 @@ class Game {
         if (act2BannerMap) act2BannerMap.classList.add("hidden");
         document.getElementById("hud").classList.add("hidden");
         document.getElementById("touch-controls").classList.add("hidden");
+        this.updateGuideToggleUI();
+        const mapFpsEl = document.getElementById("map-fps");
+        if (mapFpsEl) {
+            const displayFps = this._measuredFps || this.getNumericTargetFps() || 60;
+            mapFpsEl.textContent = `⚡ ${displayFps} FPS`;
+        }
         document.getElementById("screen-modal").classList.add("hidden");
         document.getElementById("screen-map").classList.remove("hidden");
         if (!this.isTrollMode) {
@@ -8570,13 +8727,16 @@ class Game {
         const maxRevives = this.isTrollMode ? 1 : 2;
         const curRevives = Number(this.reviveCountInLevel) || 0;
         const revBtn = document.getElementById("btn-ad-revive");
+        const isTv = this.isAndroidTvMode();
         if (revBtn) {
             revBtn.disabled = false;
             revBtn.style.opacity = "1";
             const t = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
             if (curRevives < maxRevives) {
                 if (this.hasVipPass() && !this.vipReviveUsedInLevel) {
-                    revBtn.textContent = bt("btnVipInstantRevive") || "⚡ VIP ANINDA CANLAN (REKLAMSIZ • +3 ♥ + 🛡)";
+                    revBtn.textContent = isTv
+                        ? (bt("tvBtnVipInstantRevive") || "⚡ VIP ANINDA CANLAN (+3 ♥ + 🛡)")
+                        : (bt("btnVipInstantRevive") || "⚡ VIP ANINDA CANLAN (REKLAMSIZ • +3 ♥ + 🛡)");
                     revBtn.classList.remove("hidden", "tv-hide-ad-btn");
                 } else {
                     const btnKey = curRevives === 0 ? "btnReviveAd1" : "btnReviveAd2";
@@ -8585,7 +8745,7 @@ class Game {
                         : "🎬 Reklam İzle & Son Şans Canlan (2/2) (+3 ♥ + 🛡)";
                     revBtn.textContent = t(btnKey, { cur: curRevives + 1, max: maxRevives }) || fallbackText;
                     revBtn.classList.remove("hidden");
-                    revBtn.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode());
+                    revBtn.classList.toggle("tv-hide-ad-btn", isTv);
                     this.preloadRewardedAd();
                 }
             } else {
@@ -8594,13 +8754,17 @@ class Game {
         }
         const vipRevBtn = document.getElementById("btn-gameover-vip-revive");
         if (vipRevBtn) {
-            vipRevBtn.textContent = bt("btnGameOverVipRevive") || "👑 VIP OL • REKLAMSIZ ANINDA CANLAN (+4 KAHRAMAN & MK-II)";
+            vipRevBtn.textContent = isTv
+                ? (bt("tvBtnGameOverVipRevive") || "👑 TV + MOBİL VIP OL • ANINDA CANLAN (+4 KAHRAMAN & MK-II)")
+                : (bt("btnGameOverVipRevive") || "👑 VIP OL • REKLAMSIZ ANINDA CANLAN (+4 KAHRAMAN & MK-II)");
             vipRevBtn.classList.toggle("hidden", this.hasVipPass() || curRevives >= maxRevives);
         }
         const vipNudge = document.getElementById("btn-modal-vip-nudge");
         if (vipNudge) {
-            vipNudge.textContent = bt("modalVipNudge") || "🛡️ Reklamsız oyna • VIP ve Ömür Boyu seçenekler";
-            vipNudge.classList.toggle("hidden", this.hasNoForcedAds());
+            vipNudge.textContent = isTv
+                ? (bt("tvModalVipNudge") || "📺 TV Tam Sürüm & TV + Mobil Ömür Boyu VIP Seçenekleri")
+                : (bt("modalVipNudge") || "🛡️ Reklamsız oyna • VIP ve Ömür Boyu seçenekler");
+            vipNudge.classList.toggle("hidden", isTv ? this.hasVipPass() : this.hasNoForcedAds());
         }
 
         modal.classList.remove("hidden");
@@ -8851,20 +9015,22 @@ class Game {
         const vipRevBtn = document.getElementById("btn-gameover-vip-revive");
         if (vipRevBtn) vipRevBtn.classList.add("hidden");
         const dblBtn = document.getElementById("btn-ad-double");
+        const isTvVictory = this.isAndroidTvMode();
         if (dblBtn) {
             if (!this.doubleRewardUsedInLevel) {
                 if (this.hasVipPass() && this.getRemainingVipAdSkips() > 0) {
                     const maxQuota = (window.MARINEXT_BILLING_CONFIG && window.MARINEXT_BILLING_CONFIG.dailySkipQuota) || 5;
-                    dblBtn.textContent = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "btnVipInstantDouble", {
+                    const dblKey = isTvVictory ? "tvBtnVipInstantDouble" : "btnVipInstantDouble";
+                    dblBtn.textContent = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, dblKey, {
                         left: this.getRemainingVipAdSkips(),
                         max: maxQuota
-                    })) || `⚡ VIP ANINDA 2x ÖDÜL AL (REKLAMSIZ • ${this.getRemainingVipAdSkips()}/${maxQuota})`;
+                    })) || `⚡ VIP ANINDA 2x ÖDÜL AL (${this.getRemainingVipAdSkips()}/${maxQuota})`;
                     dblBtn.classList.remove("hidden", "tv-hide-ad-btn");
                 } else {
                     const tUi = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
                     dblBtn.textContent = tUi("btnDoubleAd") || "🎬 REKLAM İZLE & BÖLÜM ÖDÜLLERİNİ 2'YE KATLA (2x ✪❖◆)";
                     dblBtn.classList.remove("hidden");
-                    dblBtn.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode());
+                    dblBtn.classList.toggle("tv-hide-ad-btn", isTvVictory);
                 }
             } else {
                 dblBtn.classList.add("hidden");
@@ -8873,15 +9039,19 @@ class Game {
         const vipDblBtn = document.getElementById("btn-victory-vip-double");
         if (vipDblBtn) {
             const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
-            vipDblBtn.textContent = bt("btnVictoryVipDouble") || "👑 VIP OL • HER ZAFERDE REKLAMSIZ ANINDA 2x ÖDÜL";
+            vipDblBtn.textContent = isTvVictory
+                ? (bt("tvBtnVictoryVipDouble") || "👑 TV + MOBİL VIP OL • HER ZAFERDE ANINDA 2x ÖDÜL")
+                : (bt("btnVictoryVipDouble") || "👑 VIP OL • HER ZAFERDE REKLAMSIZ ANINDA 2x ÖDÜL");
             vipDblBtn.classList.toggle("hidden", this.hasVipPass() || Boolean(this.doubleRewardUsedInLevel));
         }
 
         const vipNudge = document.getElementById("btn-modal-vip-nudge");
         if (vipNudge) {
-            vipNudge.textContent = (window.getMarinextBillingText && window.getMarinextBillingText(this.lang, "modalVipNudge"))
-                || "🛡️ Reklamsız oyna • VIP ve Ömür Boyu seçenekler";
-            vipNudge.classList.toggle("hidden", this.hasNoForcedAds());
+            const btNudge = (k) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k) : "");
+            vipNudge.textContent = isTvVictory
+                ? (btNudge("tvModalVipNudge") || "📺 TV Tam Sürüm & TV + Mobil Ömür Boyu VIP Seçenekleri")
+                : (btNudge("modalVipNudge") || "🛡️ Reklamsız oyna • VIP ve Ömür Boyu seçenekler");
+            vipNudge.classList.toggle("hidden", isTvVictory ? this.hasVipPass() : this.hasNoForcedAds());
         }
 
         const tUiModal = (k, v) => (window.getMarinextUiText ? window.getMarinextUiText(this.lang, k, v) : "");
@@ -8934,12 +9104,20 @@ class Game {
 
         // Smart Milestone In-App Rating prompt:
         // Prompts at the end of Level 1 (selectedLevel === 0), and continues reminding on subsequent victories if "Later" was chosen until rated!
+        this.cancelRatePromptTimer();
         const hasRated = localStorage.getItem("marinext_rate_v1") === "done" || localStorage.getItem("marinext_rate_v1") === "feedback";
         if (!this.isTrollMode && !this.isAct2Mode && this.selectedLevel >= 0 && !hasRated) {
-            setTimeout(() => {
+            this._ratePromptTimer = setTimeout(() => {
+                this._ratePromptTimer = null;
+                if (this.state === "playing") return;
                 this.applyRateModalLanguage();
                 const rateModal = document.getElementById("screen-rate-app");
-                if (rateModal) rateModal.classList.remove("hidden");
+                if (rateModal) {
+                    rateModal.classList.remove("hidden");
+                    if (window.MarinextTV && typeof window.MarinextTV.scheduleFocusSync === "function") {
+                        window.MarinextTV.scheduleFocusSync(40);
+                    }
+                }
             }, 1200);
         }
     }
@@ -9344,8 +9522,8 @@ class Game {
         const stars = this.feedbackStars || 5;
         const cat = this.feedbackCategory || "Öneri & Yeni Fikir";
 
-        let appVerName = "1.5.5";
-        let appVerCode = 56;
+        let appVerName = MARINEXT_APP_VERSION_NAME;
+        let appVerCode = MARINEXT_APP_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
                 const info = JSON.parse(window.MarinextCloudBridge.getAppVersionInfo());
@@ -9438,7 +9616,7 @@ class Game {
                 return;
             }
             const subject = encodeURIComponent(`Marinext 2100 Feedback (${cat} - ${stars}★)`);
-            const body = encodeURIComponent(`${summaryText}\n\nFPS: ${this.targetFps} FPS\nStage: ${this.unlockedLevels}/100`);
+            const body = encodeURIComponent(`${summaryText}\n\nFPS: ${this.targetFps === "auto" ? "AUTO" : this.targetFps + " FPS"}\nStage: ${this.unlockedLevels}/100`);
             window.open(`mailto:info@erpdanisman.com?subject=${subject}&body=${body}`, "_self");
             if (statusEl) {
                 statusEl.classList.remove("hidden");
@@ -11954,27 +12132,35 @@ class Game {
 
     drawHazardZone(ctx, hz) {
         const t = performance.now() * 0.004 + (hz.animSeed || 0);
+        const fastGrad = Boolean(this.perfConfig && this.perfConfig.fastGradients);
         ctx.save();
 
         if (hz.hazardKind === "electric") {
             // =========================================================================
             // ⚡ HIGH-VOLTAGE ELECTRIC SHOCK PIT (Yüksek Voltaj Elektrik Çarpması Geçidi)
             // =========================================================================
-            const glowGrad = ctx.createLinearGradient(0, hz.y - 26, 0, hz.y + hz.h);
-            glowGrad.addColorStop(0, "rgba(0, 242, 254, 0)");
-            glowGrad.addColorStop(0.28, "rgba(0, 242, 254, 0.22)");
-            glowGrad.addColorStop(0.55, "rgba(58, 12, 163, 0.78)");
-            glowGrad.addColorStop(1, "#050716");
-            ctx.fillStyle = glowGrad;
-            ctx.fillRect(hz.x, hz.y - 24, hz.w, hz.h + 24);
+            if (fastGrad) {
+                ctx.fillStyle = "rgba(58, 12, 163, 0.55)";
+                ctx.fillRect(hz.x, hz.y - 16, hz.w, hz.h + 16);
+                ctx.fillStyle = "#091e3a";
+                ctx.fillRect(hz.x, hz.y + 4, hz.w, hz.h - 4);
+            } else {
+                const glowGrad = ctx.createLinearGradient(0, hz.y - 26, 0, hz.y + hz.h);
+                glowGrad.addColorStop(0, "rgba(0, 242, 254, 0)");
+                glowGrad.addColorStop(0.28, "rgba(0, 242, 254, 0.22)");
+                glowGrad.addColorStop(0.55, "rgba(58, 12, 163, 0.78)");
+                glowGrad.addColorStop(1, "#050716");
+                ctx.fillStyle = glowGrad;
+                ctx.fillRect(hz.x, hz.y - 24, hz.w, hz.h + 24);
 
-            // Deep Plasma Trench Base
-            const baseGrad = ctx.createLinearGradient(0, hz.y, 0, hz.y + hz.h);
-            baseGrad.addColorStop(0, "#091e3a");
-            baseGrad.addColorStop(0.45, "#10002b");
-            baseGrad.addColorStop(1, "#03040c");
-            ctx.fillStyle = baseGrad;
-            ctx.fillRect(hz.x, hz.y + 4, hz.w, hz.h - 4);
+                // Deep Plasma Trench Base
+                const baseGrad = ctx.createLinearGradient(0, hz.y, 0, hz.y + hz.h);
+                baseGrad.addColorStop(0, "#091e3a");
+                baseGrad.addColorStop(0.45, "#10002b");
+                baseGrad.addColorStop(1, "#03040c");
+                ctx.fillStyle = baseGrad;
+                ctx.fillRect(hz.x, hz.y + 4, hz.w, hz.h - 4);
+            }
 
             // Pulsing Horizontal Energy Grid Bars inside Trench
             ctx.strokeStyle = "rgba(0, 242, 254, 0.28)";
@@ -12066,12 +12252,17 @@ class Game {
             // 🔥 REALISTIC BOILING FIERY MOLTEN LAVA (Gerçekçi Ateşli Kaynayan Lav)
             // =========================================================================
             // 1. Ambient Rising Heat & Fire Glow Above Lava Surface
-            const heatGrad = ctx.createLinearGradient(0, hz.y - 28, 0, hz.y + 12);
-            heatGrad.addColorStop(0, "rgba(255, 84, 0, 0)");
-            heatGrad.addColorStop(0.6, "rgba(255, 109, 0, 0.24)");
-            heatGrad.addColorStop(1, "rgba(255, 190, 11, 0.55)");
-            ctx.fillStyle = heatGrad;
-            ctx.fillRect(hz.x, hz.y - 26, hz.w, 38);
+            if (fastGrad) {
+                ctx.fillStyle = "rgba(255, 109, 0, 0.26)";
+                ctx.fillRect(hz.x, hz.y - 20, hz.w, 30);
+            } else {
+                const heatGrad = ctx.createLinearGradient(0, hz.y - 28, 0, hz.y + 12);
+                heatGrad.addColorStop(0, "rgba(255, 84, 0, 0)");
+                heatGrad.addColorStop(0.6, "rgba(255, 109, 0, 0.24)");
+                heatGrad.addColorStop(1, "rgba(255, 190, 11, 0.55)");
+                ctx.fillStyle = heatGrad;
+                ctx.fillRect(hz.x, hz.y - 26, hz.w, 38);
+            }
 
             // 2. Animated Leaping Flame Tongues Along Lava Surface
             const flameStep = 22;
@@ -12100,14 +12291,17 @@ class Game {
             }
 
             // 3. Undulating Molten Magma Pool Body
-            const lavaGrad = ctx.createLinearGradient(0, hz.y - 4, 0, hz.y + hz.h);
-            lavaGrad.addColorStop(0, "#fff3b0");
-            lavaGrad.addColorStop(0.12, "#ffbe0b");
-            lavaGrad.addColorStop(0.32, "#ff5400");
-            lavaGrad.addColorStop(0.68, "#d00000");
-            lavaGrad.addColorStop(1, "#2b0307");
-
-            ctx.fillStyle = lavaGrad;
+            if (fastGrad) {
+                ctx.fillStyle = "#e63900";
+            } else {
+                const lavaGrad = ctx.createLinearGradient(0, hz.y - 4, 0, hz.y + hz.h);
+                lavaGrad.addColorStop(0, "#fff3b0");
+                lavaGrad.addColorStop(0.12, "#ffbe0b");
+                lavaGrad.addColorStop(0.32, "#ff5400");
+                lavaGrad.addColorStop(0.68, "#d00000");
+                lavaGrad.addColorStop(1, "#2b0307");
+                ctx.fillStyle = lavaGrad;
+            }
             ctx.beginPath();
             ctx.moveTo(hz.x, hz.y + hz.h);
             ctx.lineTo(hz.x, hz.y + 2);
@@ -12171,11 +12365,16 @@ class Game {
         ctx.fillRect(sc.x - 420, sc.y - 420, sc.w + 840, sc.h + 620);
 
         // 1. Deep Subterranean Cyber-Brick Cavern Backdrop (Level-Specific Biome Theme!)
-        const bgGrad = ctx.createLinearGradient(0, sc.y, 0, sc.y + sc.h);
-        bgGrad.addColorStop(0, sc.themeBg0 || "#030b14");
-        bgGrad.addColorStop(0.5, sc.themeBg1 || "#061826");
-        bgGrad.addColorStop(1, sc.themeBg2 || "#040d18");
-        ctx.fillStyle = bgGrad;
+        const subGradKey = `${sc.y}_${sc.h}_${sc.themeBg0 || ""}_${sc.themeBg1 || ""}_${sc.themeBg2 || ""}`;
+        if (!sc._cachedBgGrad || sc._cachedBgGradKey !== subGradKey) {
+            const bgGrad = ctx.createLinearGradient(0, sc.y, 0, sc.y + sc.h);
+            bgGrad.addColorStop(0, sc.themeBg0 || "#030b14");
+            bgGrad.addColorStop(0.5, sc.themeBg1 || "#061826");
+            bgGrad.addColorStop(1, sc.themeBg2 || "#040d18");
+            sc._cachedBgGrad = bgGrad;
+            sc._cachedBgGradKey = subGradKey;
+        }
+        ctx.fillStyle = sc._cachedBgGrad;
         ctx.fillRect(sc.x, sc.y, sc.w, sc.h);
 
         // 2. Classic Mario Underground Brick Grid Pattern (Biome-Tinted)
@@ -12481,7 +12680,7 @@ class Game {
 
     draw(alpha = 1) {
         const ctx = this.ctx;
-        const rs = this.renderScale || 1;
+        const rs = this._effectiveRenderScale || this.renderScale || 1;
         if (this.state !== "playing") {
             const frozenKey = `${this.state}_${this.selectedWorldFilter}_${this.isAct2Mode}_${this.isTrollMode}_${this.canvas.width}_${this.canvas.height}`;
             if (!this._mapBgDirty && this._lastFrozenDrawKey === frozenKey) {
@@ -12493,10 +12692,15 @@ class Game {
             this._lastFrozenDrawKey = "";
         }
 
-        ctx.setTransform(rs, 0, 0, rs, 0, 0);
+        const sx = this.viewW ? (this.canvas.width / this.viewW) : rs;
+        const sy = this.viewH ? (this.canvas.height / this.viewH) : rs;
+        ctx.setTransform(sx, 0, 0, sy, 0, 0);
         this.drawBackground(ctx);
 
         if (this.state === "map") return;
+
+        const fastTiles = Boolean(this.perfConfig && this.perfConfig.fastTiles);
+        const fastGradients = Boolean(this.perfConfig && this.perfConfig.fastGradients);
 
         ctx.save();
         const shakeX = (Math.random() - 0.5) * this.camera.shake;
@@ -12576,18 +12780,22 @@ class Game {
                 const isHorizontalPrimary = wz.fanSide === "left" || wz.fanSide === "right" || (Math.abs(fx) >= 0.28 && Math.abs(fy) < 0.25);
 
                 // 1. Glowing Directional Wind Tunnel Background
-                let wGrad;
-                if (isHorizontalPrimary) {
-                    wGrad = fx >= 0
-                        ? ctx.createLinearGradient(wz.x, 0, wz.x + wz.w, 0)
-                        : ctx.createLinearGradient(wz.x + wz.w, 0, wz.x, 0);
+                if (fastGradients) {
+                    ctx.fillStyle = "rgba(0, 242, 254, 0.16)";
                 } else {
-                    wGrad = ctx.createLinearGradient(0, wz.y + wz.h, 0, wz.y);
+                    let wGrad;
+                    if (isHorizontalPrimary) {
+                        wGrad = fx >= 0
+                            ? ctx.createLinearGradient(wz.x, 0, wz.x + wz.w, 0)
+                            : ctx.createLinearGradient(wz.x + wz.w, 0, wz.x, 0);
+                    } else {
+                        wGrad = ctx.createLinearGradient(0, wz.y + wz.h, 0, wz.y);
+                    }
+                    wGrad.addColorStop(0, "rgba(0, 242, 254, 0.36)");
+                    wGrad.addColorStop(0.55, "rgba(56, 189, 248, 0.18)");
+                    wGrad.addColorStop(1, "rgba(0, 242, 254, 0.04)");
+                    ctx.fillStyle = wGrad;
                 }
-                wGrad.addColorStop(0, "rgba(0, 242, 254, 0.36)");
-                wGrad.addColorStop(0.55, "rgba(56, 189, 248, 0.18)");
-                wGrad.addColorStop(1, "rgba(0, 242, 254, 0.04)");
-                ctx.fillStyle = wGrad;
                 ctx.fillRect(wz.x, wz.y, wz.w, wz.h);
 
                 ctx.strokeStyle = "rgba(0, 242, 254, 0.45)";
@@ -12714,25 +12922,33 @@ class Game {
             }
         }
 
-        for (const sg of this.signs) {
-            if (sg.x + 260 < viewMinX || sg.x - 260 > viewMaxX) continue;
-            const signTxt = this.getLocalizedSignText(sg);
-            ctx.save();
-            ctx.fillStyle = "rgba(10, 14, 30, 0.82)";
-            ctx.strokeStyle = "rgba(0, 242, 254, 0.4)";
-            ctx.lineWidth = 1.5;
+        if (this.signs && this.signs.length > 0) {
             ctx.font = "600 14px 'Segoe UI', sans-serif";
-            const tw = ctx.measureText(signTxt).width + 26;
-            ctx.beginPath();
-            ctx.roundRect(sg.x - tw / 2, sg.y - 18, tw, 34, 8);
-            ctx.fill();
-            ctx.stroke();
-
-            ctx.fillStyle = "#d9f8ff";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText(signTxt, sg.x, sg.y - 1);
-            ctx.restore();
+            ctx.lineWidth = 1.5;
+            for (const sg of this.signs) {
+                if (sg.x + 260 < viewMinX || sg.x - 260 > viewMaxX) continue;
+                const signTxt = this.getLocalizedSignText(sg);
+                if (!sg._cachedW || sg._cachedTxt !== signTxt) {
+                    sg._cachedW = ctx.measureText(signTxt).width + 26;
+                    sg._cachedTxt = signTxt;
+                }
+                const tw = sg._cachedW;
+                ctx.fillStyle = "rgba(10, 14, 30, 0.82)";
+                ctx.strokeStyle = "rgba(0, 242, 254, 0.4)";
+                if (fastTiles) {
+                    ctx.fillRect(sg.x - tw / 2, sg.y - 18, tw, 34);
+                    ctx.strokeRect(sg.x - tw / 2, sg.y - 18, tw, 34);
+                } else {
+                    ctx.beginPath();
+                    ctx.roundRect(sg.x - tw / 2, sg.y - 18, tw, 34, 8);
+                    ctx.fill();
+                    ctx.stroke();
+                }
+                ctx.fillStyle = "#d9f8ff";
+                ctx.fillText(signTxt, sg.x, sg.y - 1);
+            }
         }
 
         for (const hz of this.hazards) {
@@ -12741,33 +12957,62 @@ class Game {
         }
 
         const themeColor = this.levelInfo ? this.levelInfo.themeColor : "#00f2fe";
-        for (const s of this.solids) {
-            if (s.x + s.w < viewMinX || s.x > viewMaxX) continue;
-            ctx.save();
-            const isIce = s.surfaceType === "ice";
-            const isBoost = s.surfaceType === "boost";
-            ctx.fillStyle = isIce ? "#0a2239" : (isBoost ? "#191528" : "#0b0e1f");
-            ctx.strokeStyle = s.type === "wall" ? "#b537f2" : (isIce ? "#90e0ef" : (isBoost ? "#ffd166" : themeColor));
+        if (fastTiles) {
             ctx.lineWidth = 2.5;
-            ctx.beginPath();
-            ctx.roundRect(s.x, s.y, s.w, s.h, 6);
-            ctx.fill();
-            ctx.stroke();
+            ctx.font = "bold 11px sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "alphabetic";
+            for (const s of this.solids) {
+                if (s.x + s.w < viewMinX || s.x > viewMaxX) continue;
+                const isIce = s.surfaceType === "ice";
+                const isBoost = s.surfaceType === "boost";
+                const strokeCol = s.type === "wall" ? "#b537f2" : (isIce ? "#90e0ef" : (isBoost ? "#ffd166" : themeColor));
+                ctx.fillStyle = isIce ? "#0a2239" : (isBoost ? "#191528" : "#0b0e1f");
+                ctx.strokeStyle = strokeCol;
+                ctx.fillRect(s.x, s.y, s.w, s.h);
+                ctx.strokeRect(s.x, s.y, s.w, s.h);
 
-            ctx.fillStyle = ctx.strokeStyle;
-            ctx.fillRect(s.x + 2, s.y, s.w - 4, isIce || isBoost ? 6 : 4);
-            if (isIce) {
-                ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
-                ctx.fillRect(s.x + 8, s.y + 1, Math.max(12, s.w - 16), 2);
-            } else if (isBoost) {
-                ctx.fillStyle = "#06d6a0";
-                ctx.font = "bold 11px sans-serif";
-                ctx.textAlign = "center";
-                for (let bx = s.x + 28; bx < s.x + s.w - 20; bx += 56) {
-                    ctx.fillText("»»»", bx, s.y + 16);
+                ctx.fillStyle = strokeCol;
+                ctx.fillRect(s.x + 2, s.y, s.w - 4, isIce || isBoost ? 6 : 4);
+                if (isIce) {
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
+                    ctx.fillRect(s.x + 8, s.y + 1, Math.max(12, s.w - 16), 2);
+                } else if (isBoost) {
+                    ctx.fillStyle = "#06d6a0";
+                    for (let bx = s.x + 28; bx < s.x + s.w - 20; bx += 56) {
+                        ctx.fillText("»»»", bx, s.y + 16);
+                    }
                 }
             }
-            ctx.restore();
+        } else {
+            for (const s of this.solids) {
+                if (s.x + s.w < viewMinX || s.x > viewMaxX) continue;
+                ctx.save();
+                const isIce = s.surfaceType === "ice";
+                const isBoost = s.surfaceType === "boost";
+                ctx.fillStyle = isIce ? "#0a2239" : (isBoost ? "#191528" : "#0b0e1f");
+                ctx.strokeStyle = s.type === "wall" ? "#b537f2" : (isIce ? "#90e0ef" : (isBoost ? "#ffd166" : themeColor));
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                ctx.roundRect(s.x, s.y, s.w, s.h, 6);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.fillStyle = ctx.strokeStyle;
+                ctx.fillRect(s.x + 2, s.y, s.w - 4, isIce || isBoost ? 6 : 4);
+                if (isIce) {
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
+                    ctx.fillRect(s.x + 8, s.y + 1, Math.max(12, s.w - 16), 2);
+                } else if (isBoost) {
+                    ctx.fillStyle = "#06d6a0";
+                    ctx.font = "bold 11px sans-serif";
+                    ctx.textAlign = "center";
+                    for (let bx = s.x + 28; bx < s.x + s.w - 20; bx += 56) {
+                        ctx.fillText("»»»", bx, s.y + 16);
+                    }
+                }
+                ctx.restore();
+            }
         }
 
         this.drawAct2BeforePlayer(ctx, viewMinX, viewMaxX);
@@ -12817,17 +13062,26 @@ class Game {
                 }
 
                 // 3. Curved Neon-Emerald & Gold Bounce Cushion
-                const padGrad = ctx.createLinearGradient(jp.x, topPlateY, jp.x + padW, topPlateY);
-                padGrad.addColorStop(0, "#059669");
-                padGrad.addColorStop(0.5, "#06d6a0");
-                padGrad.addColorStop(1, "#059669");
-                ctx.fillStyle = padGrad;
+                if (fastGradients) {
+                    ctx.fillStyle = "#06d6a0";
+                } else {
+                    const padGrad = ctx.createLinearGradient(jp.x, topPlateY, jp.x + padW, topPlateY);
+                    padGrad.addColorStop(0, "#059669");
+                    padGrad.addColorStop(0.5, "#06d6a0");
+                    padGrad.addColorStop(1, "#059669");
+                    ctx.fillStyle = padGrad;
+                }
                 ctx.strokeStyle = jp.anim > 0 ? "#ffffff" : "#ffd166";
                 ctx.lineWidth = 2.5;
-                ctx.beginPath();
-                ctx.roundRect(jp.x - 2, topPlateY, padW + 4, 10, 5);
-                ctx.fill();
-                ctx.stroke();
+                if (fastTiles) {
+                    ctx.fillRect(jp.x - 2, topPlateY, padW + 4, 10);
+                    ctx.strokeRect(jp.x - 2, topPlateY, padW + 4, 10);
+                } else {
+                    ctx.beginPath();
+                    ctx.roundRect(jp.x - 2, topPlateY, padW + 4, 10, 5);
+                    ctx.fill();
+                    ctx.stroke();
+                }
 
                 // Energy core stripe & upward launch chevron
                 ctx.fillStyle = "#ffd166";
@@ -12891,31 +13145,50 @@ class Game {
             }
         }
 
-        for (const mp of this.movingPlatforms) {
-            if (mp.x + mp.w < viewMinX || mp.x > viewMaxX) continue;
-            ctx.save();
-            ctx.fillStyle = "#171c3a";
-            ctx.strokeStyle = "#06d6a0";
+        if (fastTiles) {
             ctx.lineWidth = 2.5;
-            ctx.beginPath();
-            ctx.roundRect(mp.x, mp.y, mp.w, mp.h, 8);
-            ctx.fill();
-            ctx.stroke();
-            ctx.restore();
-        }
+            for (const mp of this.movingPlatforms) {
+                if (mp.x + mp.w < viewMinX || mp.x > viewMaxX) continue;
+                ctx.fillStyle = "#171c3a";
+                ctx.strokeStyle = "#06d6a0";
+                ctx.fillRect(mp.x, mp.y, mp.w, mp.h);
+                ctx.strokeRect(mp.x, mp.y, mp.w, mp.h);
+            }
+            for (const cp of this.crumblePlatforms) {
+                if (cp.state === "gone" || cp.x + cp.w < viewMinX || cp.x > viewMaxX) continue;
+                const jitterX = cp.state === "shaking" ? (Math.random() - 0.5) * 6 : 0;
+                ctx.fillStyle = "#2b1d28";
+                ctx.strokeStyle = cp.state === "shaking" ? "#ff2a85" : "#ffd166";
+                ctx.fillRect(cp.x + jitterX, cp.y, cp.w, cp.h);
+                ctx.strokeRect(cp.x + jitterX, cp.y, cp.w, cp.h);
+            }
+        } else {
+            for (const mp of this.movingPlatforms) {
+                if (mp.x + mp.w < viewMinX || mp.x > viewMaxX) continue;
+                ctx.save();
+                ctx.fillStyle = "#171c3a";
+                ctx.strokeStyle = "#06d6a0";
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                ctx.roundRect(mp.x, mp.y, mp.w, mp.h, 8);
+                ctx.fill();
+                ctx.stroke();
+                ctx.restore();
+            }
 
-        for (const cp of this.crumblePlatforms) {
-            if (cp.state === "gone" || cp.x + cp.w < viewMinX || cp.x > viewMaxX) continue;
-            ctx.save();
-            const jitterX = cp.state === "shaking" ? (Math.random() - 0.5) * 6 : 0;
-            ctx.fillStyle = "#2b1d28";
-            ctx.strokeStyle = cp.state === "shaking" ? "#ff2a85" : "#ffd166";
-            ctx.lineWidth = 2.5;
-            ctx.beginPath();
-            ctx.roundRect(cp.x + jitterX, cp.y, cp.w, cp.h, 6);
-            ctx.fill();
-            ctx.stroke();
-            ctx.restore();
+            for (const cp of this.crumblePlatforms) {
+                if (cp.state === "gone" || cp.x + cp.w < viewMinX || cp.x > viewMaxX) continue;
+                ctx.save();
+                const jitterX = cp.state === "shaking" ? (Math.random() - 0.5) * 6 : 0;
+                ctx.fillStyle = "#2b1d28";
+                ctx.strokeStyle = cp.state === "shaking" ? "#ff2a85" : "#ffd166";
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                ctx.roundRect(cp.x + jitterX, cp.y, cp.w, cp.h, 6);
+                ctx.fill();
+                ctx.stroke();
+                ctx.restore();
+            }
         }
 
         for (const st of this.stalactites) {
@@ -13034,25 +13307,43 @@ class Game {
             });
         }
 
-        for (const mb of this.mysteryBlocks) {
-            if (mb.x + mb.w < viewMinX || mb.x > viewMaxX) continue;
-            ctx.save();
-            const isHitUranium = mb.hit && mb.content === "troll_uranium";
-            const color = isHitUranium ? "#70e000" : (mb.hit ? "#3b4266" : "#ffd166");
-            ctx.fillStyle = isHitUranium ? "#12260d" : (mb.hit ? "#16192b" : "#291e3a");
-            ctx.strokeStyle = color;
+        if (fastTiles) {
             ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.roundRect(mb.x + 2, mb.y + 2, mb.w - 4, mb.h - 4, 8);
-            ctx.fill();
-            ctx.stroke();
-
-            ctx.fillStyle = color;
             ctx.font = "bold 22px sans-serif";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            ctx.fillText(isHitUranium ? "☢" : (mb.hit ? "•" : "?"), mb.x + mb.w / 2, mb.y + mb.h / 2 + 1);
-            ctx.restore();
+            for (const mb of this.mysteryBlocks) {
+                if (mb.x + mb.w < viewMinX || mb.x > viewMaxX) continue;
+                const isHitUranium = mb.hit && mb.content === "troll_uranium";
+                const color = isHitUranium ? "#70e000" : (mb.hit ? "#3b4266" : "#ffd166");
+                ctx.fillStyle = isHitUranium ? "#12260d" : (mb.hit ? "#16192b" : "#291e3a");
+                ctx.strokeStyle = color;
+                ctx.fillRect(mb.x + 2, mb.y + 2, mb.w - 4, mb.h - 4);
+                ctx.strokeRect(mb.x + 2, mb.y + 2, mb.w - 4, mb.h - 4);
+                ctx.fillStyle = color;
+                ctx.fillText(isHitUranium ? "☢" : (mb.hit ? "•" : "?"), mb.x + mb.w / 2, mb.y + mb.h / 2 + 1);
+            }
+        } else {
+            for (const mb of this.mysteryBlocks) {
+                if (mb.x + mb.w < viewMinX || mb.x > viewMaxX) continue;
+                ctx.save();
+                const isHitUranium = mb.hit && mb.content === "troll_uranium";
+                const color = isHitUranium ? "#70e000" : (mb.hit ? "#3b4266" : "#ffd166");
+                ctx.fillStyle = isHitUranium ? "#12260d" : (mb.hit ? "#16192b" : "#291e3a");
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.roundRect(mb.x + 2, mb.y + 2, mb.w - 4, mb.h - 4, 8);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.fillStyle = color;
+                ctx.font = "bold 22px sans-serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(isHitUranium ? "☢" : (mb.hit ? "•" : "?"), mb.x + mb.w / 2, mb.y + mb.h / 2 + 1);
+                ctx.restore();
+            }
         }
 
         // Draw Coins & Faceted Ancient Emeralds (❖)
@@ -13766,7 +14057,8 @@ class Game {
     }
 
     drawLevel1TutorialBalloon(ctx, viewMinX, viewMaxX) {
-        if (this.isTrollMode || this.selectedLevel !== 0 || !this.player || this.state !== "playing") return;
+        if (this.guideHidden || this.isTrollMode || this.isAct2Mode || this.selectedLevel !== 0 || !this.player || this.state !== "playing") return;
+        if (this.inSubChamber || (this.subChamber && this.subChamber.rideState !== "idle")) return;
 
         const px = this.player.x;
         let hintKey = null;
@@ -13778,7 +14070,9 @@ class Game {
         } else if (px >= 660 && px < 1050) {
             hintKey = "enemy";
         } else if (px >= 1050 && px < 1650) {
-            hintKey = "elevator";
+            if (!this.subChamber || !this.subChamber.completed) {
+                hintKey = "elevator";
+            }
         } else if (px >= 1650 && px < 2250) {
             hintKey = "jumpPad";
         } else if (px >= 2250 && px < 2750) {
@@ -13882,7 +14176,68 @@ class Game {
             }
         };
 
-        const langData = LEVEL1_BALLOON_GUIDES[this.lang] || LEVEL1_BALLOON_GUIDES.en;
+        const LEVEL1_BALLOON_GUIDES_TV = {
+            tr: {
+                move: "Kumandadan ◀ Sol ve ▶ Sağ ok tuşlarıyla koş!",
+                blocks: "▲ Yukarı okla zıpla ve [?] kutularına alttan vur!",
+                enemy: "Düşman! OK tuşuyla 🔥 Ateş Topu at veya kafasına zıpla!",
+                jumpPad: "⚡ Tramboline bas! 🚩 Bayrak kayıt noktasıdır.",
+                wallJump: "🧗‍♂️ Duvara değince tekrar ▲ Yukarı okla duvardan sek!"
+            },
+            en: {
+                move: "Use ◀ Left & ▶ Right D-Pad arrows to run!",
+                blocks: "Press ▲ Up to jump & hit [?] boxes from below!",
+                enemy: "Enemy ahead! Press OK for 🔥 Fireball or stomp head!",
+                jumpPad: "Step on ⚡ Trampoline! 🚩 Flag is your Checkpoint.",
+                wallJump: "🧗‍♂️ Touch the wall & press ▲ Up again to Wall-Bounce!"
+            },
+            ko: {
+                move: "리모컨 ◀ 왼쪽 / ▶ 오른쪽 방향키로 달리세요!",
+                blocks: "▲ 위쪽 키로 점프해 [?] 상자를 아래에서 치세요!",
+                enemy: "적 출현! 확인(OK) 키로 🔥 파이어볼 공격 또는 밟기!",
+                wallJump: "🧗‍♂️ 벽에 닿으면 ▲ 위쪽 키를 다시 눌러 벽 점프!"
+            },
+            ja: {
+                move: "リモコンの ◀ 左・▶ 右キーで走ろう！",
+                blocks: "▲ 上キーでジャンプして [?] ボックスを叩こう！",
+                enemy: "敵だ！決定(OK)キーで 🔥 ファイア攻撃か踏みつけ！",
+                wallJump: "🧗‍♂️ 壁に触れたら ▲ 上キーで壁キック！"
+            },
+            zh: {
+                move: "使用遥控器 ◀ 左 / ▶ 右方向键奔跑！",
+                blocks: "按 ▲ 上方向键跳跃并从下方撞击 [?] 宝箱！",
+                enemy: "前方敌人！按确认(OK)键发射 🔥 火球或踩击头部！",
+                wallJump: "🧗‍♂️ 碰墙时再按 ▲ 上键即可蹬墙跳！"
+            },
+            ru: {
+                move: "Нажимайте стрелки ◀ Влево и ▶ Вправо на пульте для бега!",
+                blocks: "Прыгните ▲ вверх и ударьте снизу по блоку [?]!",
+                enemy: "Враг! Нажмите OK для 🔥 Огненного шара или прыгните сверху!",
+                wallJump: "🧗‍♂️ Коснитесь стены и снова нажмите ▲ Вверх для отскока!"
+            },
+            es: {
+                move: "¡Usa las flechas ◀ Izquierda y ▶ Derecha para correr!",
+                blocks: "¡Pulsa ▲ Arriba para saltar y golpear bloques [?]!",
+                enemy: "¡Enemigo! ¡Pulsa OK para lanzar 🔥 Bola de fuego o salta encima!",
+                wallJump: "🧗‍♂️ ¡Toca la pared y pulsa ▲ Arriba para rebotar!"
+            },
+            fr: {
+                move: "Utilisez les flèches ◀ Gauche et ▶ Droite pour courir !",
+                blocks: "Appuyez sur ▲ Haut pour sauter et frapper les blocs [?] !",
+                enemy: "Ennemi ! Appuyez sur OK pour 🔥 Boule de feu ou sautez dessus !",
+                wallJump: "🧗‍♂️ Touchez le mur et appuyez sur ▲ Haut pour rebondir !"
+            },
+            it: {
+                move: "Usa le frecce ◀ Sinistra e ▶ Destra del telecomando per correre!",
+                blocks: "Premi ▲ Su per saltare e colpire i blocchi [?] dal basso!",
+                enemy: "Nemico! Premi OK per 🔥 Palla di fuoco o schiaccialo!",
+                wallJump: "🧗‍♂️ Tocca il muro e premi ancora ▲ Su per rimbalzare!"
+            }
+        };
+
+        const baseLangData = LEVEL1_BALLOON_GUIDES[this.lang] || LEVEL1_BALLOON_GUIDES.en;
+        const tvOverride = this.isAndroidTvMode() ? (LEVEL1_BALLOON_GUIDES_TV[this.lang] || LEVEL1_BALLOON_GUIDES_TV.en) : null;
+        const langData = tvOverride ? { ...baseLangData, ...tvOverride } : baseLangData;
         const text = langData[hintKey];
         if (!text) return;
         if (hintKey === "portal" && !this.getPortalQuotaStatus().unlocked) return;
@@ -14301,6 +14656,7 @@ class Game {
         const bt = (k, v) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k, v) : "");
         const maxQuota = (window.MARINEXT_BILLING_CONFIG && window.MARINEXT_BILLING_CONFIG.dailySkipQuota) || 5;
         const left = this.getRemainingVipAdSkips();
+        const isTv = this.isAndroidTvMode();
 
         const btnMapVip = document.getElementById("btn-map-vip");
         if (btnMapVip) {
@@ -14311,9 +14667,12 @@ class Game {
                     ? (bt("btnMapVipCanceling") || "👑 VIP (SÜRE SONUNA DEK)")
                     : (bt("btnMapVipActive") || "👑 VIP AKTİF");
                 btnMapVip.classList.add("vip-state-vip");
-            } else if (this.isAndroidTvMode() && !this.hasTvFullAccess()) {
+            } else if (isTv && !this.hasTvFullAccess()) {
                 btnMapVip.textContent = bt("tvBtnMapUnlock") || "👑 TAM SÜRÜM / VIP";
-            } else if (this.hasNoForcedAds() || (this.isAndroidTvMode() && this.hasTvFullAccess())) {
+            } else if (isTv && this.hasTvFullAccess()) {
+                btnMapVip.textContent = bt("tvBtnMapFullActive") || "📺 TV TAM SÜRÜM ✓";
+                btnMapVip.classList.add("vip-state-lifetime");
+            } else if (this.hasNoForcedAds()) {
                 btnMapVip.textContent = bt("btnMapNoAdsActive") || "🛡️ REKLAMSIZ";
                 btnMapVip.classList.add("vip-state-lifetime");
             } else {
@@ -14323,9 +14682,15 @@ class Game {
 
         const btnSettingsVip = document.getElementById("btn-settings-vip");
         if (btnSettingsVip) {
-            btnSettingsVip.textContent = (this.hasNoForcedAds() || (this.isAndroidTvMode() && this.hasTvFullAccess()))
-                ? (bt("btnSettingsVipActive") || "👑 VIP / Reklamsız Durumu (Aktif ✓)")
-                : (bt("btnSettingsVip") || "👑 VIP Pass & Reklamları Kaldır");
+            if (isTv) {
+                btnSettingsVip.textContent = (this.hasVipPass() || this.hasTvFullAccess())
+                    ? (bt("tvBtnSettingsVipActive") || "👑 TV Tam Sürüm / VIP Durumu (Aktif ✓)")
+                    : (bt("tvBtnSettingsVip") || "👑 TV Tam Sürüm & TV + Mobil VIP");
+            } else {
+                btnSettingsVip.textContent = this.hasNoForcedAds()
+                    ? (bt("btnSettingsVipActive") || "👑 VIP / Reklamsız Durumu (Aktif ✓)")
+                    : (bt("btnSettingsVip") || "👑 VIP Pass & Reklamları Kaldır");
+            }
         }
 
         const shopBanner = document.getElementById("shop-vip-banner");
@@ -14334,8 +14699,16 @@ class Game {
             const bTitle = document.getElementById("shop-vip-banner-title");
             const bDesc = document.getElementById("shop-vip-banner-desc");
             const bBtn = document.getElementById("btn-shop-vip");
-            if (bTitle) bTitle.textContent = bt("shopVipBannerTitle") || "🛡️ Kesintisiz Reklamsız Oynanış & VIP Ayrıcalıklar";
-            if (bDesc) bDesc.textContent = bt("shopVipBannerDesc") || "";
+            if (bTitle) {
+                bTitle.textContent = isTv
+                    ? (bt("tvShopVipBannerTitle") || "👑 TV Tam Sürüm & TV + Mobil Ortak VIP Ayrıcalıkları")
+                    : (bt("shopVipBannerTitle") || "🛡️ Kesintisiz Reklamsız Oynanış & VIP Ayrıcalıklar");
+            }
+            if (bDesc) {
+                bDesc.textContent = isTv
+                    ? (bt("tvShopVipBannerDesc") || "")
+                    : (bt("shopVipBannerDesc") || "");
+            }
             if (bBtn) bBtn.textContent = bt("shopVipBannerBtn") || "Seçenekleri Gör";
         }
 
@@ -14343,7 +14716,8 @@ class Game {
         const btnChestCust = document.getElementById("btn-ad-chest-cust");
         const vipChestActive = this.hasVipPass() && left > 0;
         if (vipChestActive) {
-            const chestTxt = bt("btnVipInstantChest", { left, max: maxQuota }) || `⚡ VIP Hazine Sandığı (${left}/${maxQuota} Reklamsız)`;
+            const chestKey = isTv ? "tvBtnVipInstantChest" : "btnVipInstantChest";
+            const chestTxt = bt(chestKey, { left, max: maxQuota }) || `⚡ VIP Hazine Sandığı (${left}/${maxQuota})`;
             if (btnChestChar) {
                 btnChestChar.textContent = chestTxt;
                 btnChestChar.classList.remove("tv-hide-ad-btn");
@@ -14357,11 +14731,11 @@ class Game {
             const defaultCust = (window.getMarinextUiText && window.getMarinextUiText(this.lang, "btnAdChestCust")) || "🎬 Reklam İzle (+10 ❖ Zümrüt & +50 ✪ Coin)";
             if (btnChestChar) {
                 btnChestChar.textContent = defaultChar;
-                btnChestChar.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode());
+                btnChestChar.classList.toggle("tv-hide-ad-btn", isTv);
             }
             if (btnChestCust) {
                 btnChestCust.textContent = defaultCust;
-                btnChestCust.classList.toggle("tv-hide-ad-btn", this.isAndroidTvMode());
+                btnChestCust.classList.toggle("tv-hide-ad-btn", isTv);
             }
         }
     }
@@ -14674,12 +15048,14 @@ class Game {
 
             let dt = now - this.lastTime;
             this.lastTime = now;
-            if (dt > 65) dt = this.physicsStep * 2;
+            const isLiteOrTv = this.isAndroidTvMode() || Boolean(this.perfConfig && this.perfConfig.tier === "lite");
+            const maxDt = isLiteOrTv ? 36 : 55;
+            if (dt > maxDt) dt = this.physicsStep;
             if (dt < 0) dt = 0;
 
             this.accumulator += dt;
             let steps = 0;
-            const maxSteps = this.targetFps === 30 ? 4 : 3;
+            const maxSteps = this.targetFps === 30 ? 3 : (isLiteOrTv ? 2 : 3);
             while (this.accumulator >= this.physicsStep && steps < maxSteps) {
                 this.update();
                 this.accumulator -= this.physicsStep;
@@ -14708,11 +15084,12 @@ class Game {
                 }
 
                 if (this.qualityMode === "auto" && this.perfConfig) {
-                    const drsSteps = [2.0, 1.75, 1.5, 1.35, 1.25, 1.15, 1.0];
-                    if (measured < 50) {
+                    const drsSteps = [1.5, 1.35, 1.25, 1.1, 1.0, 0.9, 0.8, 0.72];
+                    if (measured < 46) {
                         this._perfLowSamples = (this._perfLowSamples || 0) + 1;
                         this._perfHighSamples = 0;
-                        if (this._perfLowSamples >= 6 && this.renderScale > this.perfConfig.minScale + 0.01) {
+                        const neededLow = measured < 25 ? 2 : 3;
+                        if (this._perfLowSamples >= neededLow && this.renderScale > this.perfConfig.minScale + 0.01) {
                             const nextDown = drsSteps.find((s) => s < this.renderScale - 0.01) || this.perfConfig.minScale;
                             this.renderScale = Math.max(this.perfConfig.minScale, nextDown);
                             this._perfLowSamples = 0;
@@ -14721,13 +15098,14 @@ class Game {
                     } else if (measured >= 57) {
                         this._perfHighSamples = (this._perfHighSamples || 0) + 1;
                         this._perfLowSamples = 0;
-                        if (this._perfHighSamples >= 12 && this.renderScale < this.perfConfig.maxScale - 0.01) {
-                            this.renderScale = Math.min(this.perfConfig.maxScale, Number((this.renderScale + 0.15).toFixed(2)));
+                        if (this._perfHighSamples >= 14 && this.renderScale < this.perfConfig.maxScale - 0.01) {
+                            this.renderScale = Math.min(this.perfConfig.maxScale, Number((this.renderScale + 0.1).toFixed(2)));
                             this._perfHighSamples = 0;
                             this.resizeCanvas();
                         }
                     } else {
                         this._perfLowSamples = 0;
+                        this._perfHighSamples = 0;
                     }
                 }
             }
@@ -14747,9 +15125,9 @@ class Game {
                 return;
             }
 
-            const target = this.targetFps || 120;
+            const target = this.targetFps || "auto";
             const is60HzNative = this.isNativeAndroid() && this._hwProfile && this._hwProfile.refreshRateHz > 0 && this._hwProfile.refreshRateHz <= 65;
-            const allowMidFrame = (target === 120) && !this.isAndroidTvMode() && !(this.perfConfig && this.perfConfig.tier === "lite") && !is60HzNative;
+            const allowMidFrame = (target === 120) && !this.isAndroidTvMode() && Boolean(this.perfConfig && this.perfConfig.tier === "ultra") && !is60HzNative;
 
             if (target === 30) {
                 if (now - lastRenderTime >= 31) {
