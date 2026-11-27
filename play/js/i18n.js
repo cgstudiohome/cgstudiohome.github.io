@@ -5444,6 +5444,13 @@ window.MARINEXT_TUTORIAL_DATA = {
         setAttr("btn-mute", "title", tp.muteBtn);
         setAttr("btn-pause", "title", tp.pauseBtn);
         setAttr("btn-toggle-fps", "title", tp.fpsBtn);
+        if (window.MARINEXT_QUALITY_I18N) {
+            const qCat = window.MARINEXT_QUALITY_I18N[lang] || window.MARINEXT_QUALITY_I18N.en;
+            if (qCat) {
+                setTxt("settings-quality-label", qCat.label);
+                setAttr("btn-toggle-quality", "title", qCat.tooltip);
+            }
+        }
         setAttr("btn-toggle-channel", "title", tp.channelBtn);
         setAttr("btn-test-ad", "title", tp.testAdBtn);
         setAttr("profile-hero-avatar", "title", tp.avatarEdit);
@@ -6979,123 +6986,208 @@ window.MARINEXT_PORTAL_QUOTA_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.6.0" (Sürüm Yenilikleri) Catalog
+// Full 9-Language Graphics & Performance Mode Catalog (v1.6.1+)
+window.MARINEXT_QUALITY_I18N = {
+    tr: {
+        label: "🎛️ Grafik & Performans",
+        tooltip: "Otomatik / Performans / Dengeli / Yüksek modları arasında geçiş yap",
+        autoTag: "OTOMATİK",
+        lite: "PERFORMANS 🚀",
+        balanced: "DENGELİ ✨",
+        ultra: "YÜKSEK 💎",
+        short: { lite: "Performans", balanced: "Dengeli", ultra: "Yüksek" }
+    },
+    en: {
+        label: "🎛️ Graphics & Performance",
+        tooltip: "Switch between Auto / Performance / Balanced / High modes",
+        autoTag: "AUTO",
+        lite: "PERFORMANCE 🚀",
+        balanced: "BALANCED ✨",
+        ultra: "HIGH 💎",
+        short: { lite: "Perf", balanced: "Balanced", ultra: "High" }
+    },
+    ko: {
+        label: "🎛️ 그래픽 및 성능",
+        tooltip: "자동 / 성능 / 균형 / 고화질 모드 전환",
+        autoTag: "자동",
+        lite: "성능 우선 🚀",
+        balanced: "균형 ✨",
+        ultra: "고화질 💎",
+        short: { lite: "성능", balanced: "균형", ultra: "고화질" }
+    },
+    ja: {
+        label: "🎛️ グラフィック＆パフォーマンス",
+        tooltip: "自動 / パフォーマンス / バランス / 高画質 を切替",
+        autoTag: "自動",
+        lite: "パフォーマンス 🚀",
+        balanced: "バランス ✨",
+        ultra: "高画質 💎",
+        short: { lite: "軽量", balanced: "標準", ultra: "高画質" }
+    },
+    zh: {
+        label: "🎛️ 画面与性能模式",
+        tooltip: "切换 自动 / 性能 / 均衡 / 高画质 模式",
+        autoTag: "自动",
+        lite: "性能优先 🚀",
+        balanced: "均衡 ✨",
+        ultra: "高画质 💎",
+        short: { lite: "性能", balanced: "均衡", ultra: "高画质" }
+    },
+    ru: {
+        label: "🎛️ Графика и Производительность",
+        tooltip: "Переключить режим: Авто / Производительность / Баланс / Высокое",
+        autoTag: "АВТО",
+        lite: "СКОРОСТЬ 🚀",
+        balanced: "БАЛАНС ✨",
+        ultra: "ВЫСОКОЕ 💎",
+        short: { lite: "Скорость", balanced: "Баланс", ultra: "Высокое" }
+    },
+    it: {
+        label: "🎛️ Grafica e Prestazioni",
+        tooltip: "Cambia tra Auto / Prestazioni / Bilanciato / Alto",
+        autoTag: "AUTO",
+        lite: "PRESTAZIONI 🚀",
+        balanced: "BILANCIATO ✨",
+        ultra: "ALTO 💎",
+        short: { lite: "Vel.", balanced: "Bilanc.", ultra: "Alto" }
+    },
+    es: {
+        label: "🎛️ Gráficos y Rendimiento",
+        tooltip: "Cambiar entre Automático / Rendimiento / Equilibrado / Alto",
+        autoTag: "AUTO",
+        lite: "RENDIMIENTO 🚀",
+        balanced: "EQUILIBRADO ✨",
+        ultra: "ALTO 💎",
+        short: { lite: "Rend.", balanced: "Equil.", ultra: "Alto" }
+    },
+    fr: {
+        label: "🎛️ Graphismes et Performances",
+        tooltip: "Basculer entre Auto / Performance / Équilibré / Élevé",
+        autoTag: "AUTO",
+        lite: "PERFORMANCE 🚀",
+        balanced: "ÉQUILIBRÉ ✨",
+        ultra: "ÉLEVÉ 💎",
+        short: { lite: "Perf", balanced: "Équil.", ultra: "Élevé" }
+    }
+};
+
+// Full 9-Language "What's New in v1.6.1" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "📺 v1.6.0 Android TV & Oyun Kumandası Sürümü",
-        "subtitle": "Marinext 2100 artık televizyonunuzda! Bluetooth Gamepad, TV kumandası uyumu, 15 bölüm ücretsiz TV denemesi ve telefondan TV'ye ortak VIP yayında!",
-        "btnOk": "🎮 HARİKA, OYNAMAYA BAŞLA!",
+        "title": "⚡ v1.6.1 Akıllı Performans & 4K TV Netlik Sürümü",
+        "subtitle": "Android TV Box, Smart TV, tablet ve telefonlara özel otomatik donanım optimizasyonu, daha keskin büyük ekran görselleri ve gerçek canlı FPS göstergesi yayında!",
+        "btnOk": "🚀 HARİKA, OYNAMAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            { "icon": "📺", "title": "Tam Android TV & Mi Box (Android 9+) Desteği", "desc": "Oturma odanızda dev ekrana özel kenar boşlukları, parlak odak halkası ve akıcı 60 FPS performans ile televizyonda oynama keyfi." },
-            { "icon": "🎮", "title": "Bluetooth / USB Gamepad ve TV Kumandası Kontrolü", "desc": "Xbox, PlayStation ve standart oyun kollarının yanı sıra TV'nizin kendi D-Pad kumandasıyla da tüm 25 menüyü gezip oynayabilirsiniz." },
-            { "icon": "🎁", "title": "TV'de İlk 15 Bölüm Ücretsiz + Tek Seferlik Tam Sürüm", "desc": "İlk 15 bölümü televizyonda reklamsız ve ücretsiz deneyin; dilediğinizde tek seferlik TV Tam Sürüm kilidiyle tüm 200 bölümü açın." },
-            { "icon": "👑", "title": "Telefon + TV Ortak VIP & Ömür Boyu VIP Paketi", "desc": "Aynı Google hesabıyla aldığınız VIP Pass (veya yeni Ömür Boyu VIP paketi) hem telefonunuzda hem Android TV'nizde otomatik geçerlidir." },
-            { "icon": "🛡️", "title": "Akıllı TV Deneyimi & Bulut Kayıt Senkronizasyonu", "desc": "Televizyonda kesintisiz reklamsız akış, yüksek kontrast arayüz ve Google Play Games ile tüm cihazlarda kesintisiz ilerleme kaydı." }
+            { "icon": "🎛️", "title": "Otomatik Cihaz & Donanım Optimizasyonu", "desc": "Oyun açıldığında cihazınızın RAM, işlemci ve ekran özelliklerini otomatik algılar; 1.5–2 GB TV kutularında akıcı performans, güçlü cihazlarda yüksek netlik sunar." },
+            { "icon": "📺", "title": "75 inç & 4K TV İçin Dinamik Netlik Motoru", "desc": "Otomatik çözünürlük ölçekleme teknolojisi sayesinde büyük televizyon ekranlarında karakterler ve platformlar çok daha keskin görünür, kamera takılmadan akar." },
+            { "icon": "⚡", "title": "Gerçek Canlı FPS Göstergesi & Grafik Modu", "desc": "Haritada ve oyun ekranında artık anlık ölçülen gerçek FPS değerini görebilir, Ayarlar'dan Otomatik / Performans / Dengeli / Yüksek modunu seçebilirsiniz." },
+            { "icon": "✨", "title": "Yağ Gibi Akıcı Harita & Menü Tepkileri", "desc": "Menü ve harita ekranındaki buton odak efektleri GPU hızlandırmalı hale getirildi; kumanda ve oyun kolu tepkileri çok daha hızlı yanıt veriyor." },
+            { "icon": "🔄", "title": "TV Mağaza Güncelleme & Bluetooth Gamepad Uyumu", "desc": "Yeni sürüm çıktığında TV'de Güncelle butonu doğrudan Play Store'a yönlendirir; ilk 15 bölüm TV'de ücretsiz ve reklamsız deneyime devam eder." }
         ]
     },
     "en": {
-        "title": "📺 v1.6.0 Android TV & Gamepad Edition",
-        "subtitle": "Marinext 2100 arrives on the big screen! Full Bluetooth Gamepad & TV Remote navigation, 15-level free TV trial, and cross-device VIP are here!",
-        "btnOk": "🎮 AWESOME, LET'S PLAY!",
+        "title": "⚡ v1.6.1 Adaptive TV Performance & 4K Crispness",
+        "subtitle": "Smart hardware auto-tuning for Android TV Boxes, Smart TVs, tablets, and phones—bringing sharper big-screen visuals, silky scrolling, and a real live FPS counter!",
+        "btnOk": "🚀 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            { "icon": "📺", "title": "Native Android TV & Google TV Support (Android 9+)", "desc": "Designed for living-room screens with overscan-safe margins, crisp focus highlights, and smooth Mi Box & TV box performance." },
-            { "icon": "🎮", "title": "Bluetooth / USB Gamepad & Standard TV Remote", "desc": "Navigate every menu and play seamlessly with Xbox, PlayStation, USB/BT controllers, or your TV's standard D-Pad remote." },
-            { "icon": "🎁", "title": "First 15 Levels Free on TV + One-Time Full Unlock", "desc": "Play stages 1–15 free and ad-free on TV, then unlock all 200 Campaign, Beyondverse & Troll stages permanently with one click." },
-            { "icon": "👑", "title": "Cross-Device Mobile + TV VIP & Lifetime VIP", "desc": "Your Google Play VIP Pass or new Lifetime VIP Bundle unlocks automatically across both your smartphone and Android TV." },
-            { "icon": "🛡️", "title": "Distraction-Free Living Room Play & Cloud Sync", "desc": "Enjoy clean 10-foot UI without intrusive mobile overlays and automatic progress sync across all your screens." }
+            { "icon": "🎛️", "title": "Automatic Device & Hardware Optimization", "desc": "Automatically adapts visual load to your TV box or phone hardware—keeping 2 GB devices silky smooth while boosting sharpness on high-end screens." },
+            { "icon": "📺", "title": "Sharper Dynamic Resolution on Large 4K TVs", "desc": "Dynamic internal render scaling makes heroes and platforms noticeably crisper on 55–75\" TVs with fluid, stutter-free camera tracking." },
+            { "icon": "⚡", "title": "Real Measured Live FPS & Graphics Mode Setting", "desc": "Track your device's true real-time FPS on the map and HUD, and switch between Auto, Performance, Balanced, or High quality anytime in Settings." },
+            { "icon": "✨", "title": "Zero-Stutter Menus & Instant Remote Navigation", "desc": "Menu highlights and glowing focus rings now run smoothly on hardware acceleration, eliminating lag on Android TV remotes and gamepads." },
+            { "icon": "🔄", "title": "Direct TV Play Store Update Link & Cross-Device VIP", "desc": "Update prompts jump straight to Google Play on TV; your first 15 TV stages stay free & ad-free, with shared Mobile + TV VIP support." }
         ]
     },
     "ko": {
-        "title": "📺 v1.6.0 Android TV & 게임패드 에디션",
-        "subtitle": "이제 거실 대형 TV에서도 Marinext 2100을 즐기세요! 블루투스 게임패드·TV 리모컨 지원, 첫 15스테이지 무료 체험 및 교차 기기 VIP 출시!",
-        "btnOk": "🎮 좋아요, 플레이 시작!",
+        "title": "⚡ v1.6.1 스마트 성능 최적화 & 4K TV 선명도 업데이트",
+        "subtitle": "Android TV 박스, 스마트 TV, 스마트폰을 위한 자동 하드웨어 최적화, 더 선명한 대화면 그래픽, 실시간 FPS 표시가 추가되었습니다!",
+        "btnOk": "🚀 좋아요, 플레이 시작!",
         "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            { "icon": "📺", "title": "Android TV & Google TV 완벽 지원 (Android 9+)", "desc": "거실 TV 화면에 맞춘 안전 여백, 선명한 포커스 표시 및 Mi Box 호환 60 FPS 최적화 UI가 적용되었습니다." },
-            { "icon": "🎮", "title": "블루투스/USB 게임패드 & TV 리모컨 지원", "desc": "Xbox, PlayStation 컨트롤러뿐만 아니라 일반 TV 리모컨 방향키만으로도 모든 메뉴와 액션을 조작할 수 있습니다." },
-            { "icon": "🎁", "title": "TV 첫 15스테이지 무료 + 정식 버전 일회성 해금", "desc": "1–15 스테이지를 무료·무광고로 즐긴 뒤 원클릭으로 200개 전체 캠페인·비욘드버스·트롤 스테이지를 영구 잠금 해제하세요." },
-            { "icon": "👑", "title": "모바일 + TV 교차 VIP & 평생 VIP 패키지", "desc": "동일한 Google 계정으로 구매한 VIP Pass 및 평생 VIP 혜택이 스마트폰과 TV 양쪽에 자동 연동됩니다." },
-            { "icon": "🛡️", "title": "대화면 맞춤 인터페이스 & 클라우드 동기화", "desc": "모바일용 터치 버튼과 방해 요소 없이 깔끔한 TV 화면에서 언제든 이어서 플레이하세요." }
+            { "icon": "🎛️", "title": "기기 맞춤형 자동 성능 최적화", "desc": "기기의 메모리와 화면 성능을 자동 감지해 2GB TV 박스에서도 끊김 없이 부드럽게 동작하도록 그래픽 부하를 지능적으로 조절합니다." },
+            { "icon": "📺", "title": "4K 대형 TV용 동적 해상도 스케일링", "desc": "대형 TV 화면에서도 캐릭터와 스테이지가 훨씬 선명하게 표현되며 카메라 이동이 매끄럽게 이어집니다." },
+            { "icon": "⚡", "title": "실제 실시간 FPS 표시 & 그래픽 모드 선택", "desc": "화면 상단에 실제 측정 FPS가 표시되며, 설정에서 자동 / 성능 / 균형 / 고화질 모드를 자유롭게 변경할 수 있습니다." },
+            { "icon": "✨", "title": "부드러운 메뉴 애니메이션 & 즉각적인 리모컨 반응", "desc": "지도와 메뉴 화면의 포커스 효과가 GPU 가속으로 최적화되어 TV 리모컨과 게임패드 반응이 더욱 빨라졌습니다." },
+            { "icon": "🔄", "title": "TV Play 스토어 바로 업데이트 & 교차 VIP 연동", "desc": "업데이트 알림 시 Play 스토어로 바로 이동하며, TV 첫 15스테이지 무료 체험과 모바일-TV 통합 VIP가 지원됩니다." }
         ]
     },
     "ja": {
-        "title": "📺 v1.6.0 Android TV ＆ ゲームパッド対応版",
-        "subtitle": "Marinext 2100が大画面テレビに登場！Bluetoothゲームパッド＆TVリモコン操作、最初の15面無料体験、クロスデバイスVIPに対応！",
-        "btnOk": "🎮 さあ、プレイしよう！",
+        "title": "⚡ v1.6.1 自動最適化＆4K TV高精細アップデート",
+        "subtitle": "Android TV端末やスマホの性能に合わせた自動最適化、大画面向けの鮮明な描画エンジン、そしてリアルタイム実測FPS表示が登場！",
+        "btnOk": "🚀 さあ、プレイしよう！",
         "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            { "icon": "📺", "title": "Android TV / Google TV 公式対応（Android 9以上）", "desc": "大画面向けの安全余白、視認性の高いフォーカス枠、Mi BoxなどTV端末に最適化された滑らかな60 FPS動作を実現。" },
-            { "icon": "🎮", "title": "Bluetooth / USBゲームパッド＆TVリモコン操作", "desc": "Xbox・PlayStationコントローラーに加え、標準TVリモコンの十字キーだけでも全メニューとゲームを遊べます。" },
-            { "icon": "🎁", "title": "TV版 最初の15面無料 ＋ 買い切り完全版アンロック", "desc": "1〜15面を無料で体験し、ワンタイム購入で全200ステージ（本編・ビヨンドバース・トロール）を永久解放できます。" },
-            { "icon": "👑", "title": "スマホ＋TV共有VIP＆永久VIPバンドル", "desc": "同じGoogleアカウントのVIP Passや新登場の永久VIPは、テレビとスマホの両方で自動的に有効化されます。" },
-            { "icon": "🛡️", "title": "リビング向けクリーンUI＆クラウドセーブ同期", "desc": "画面を遮るモバイル用ボタンや広告を排除し、すべての端末間で進行状況を安全に同期します。" }
+            { "icon": "🎛️", "title": "端末スペック別・自動パフォーマンス調整", "desc": "RAM容量や画面仕様を起動時に自動判定し、2GBメモリ端末では安定動作を優先、高性能端末では美しい高精細表示を自動適用します。" },
+            { "icon": "📺", "title": "大型4Kテレビ向け動的解像度スケーリング", "desc": "大画面テレビでもキャラクターや地形の輪郭がくっきり表示され、カメラ移動のカクつきを抑えた滑らかなスクロールを実現しました。" },
+            { "icon": "⚡", "title": "実測ライブFPS表示＆グラフィックモード設定", "desc": "現在の実測FPSをマップやプレイ画面で確認でき、設定画面から「自動 / パフォーマンス / バランス / 高画質」を手動でも選べます。" },
+            { "icon": "✨", "title": "軽量・高速なメニュー＆リモコンフォーカス操作", "desc": "マップボタンのアニメーションをGPU最適化し、TVリモコンやゲームパッドでの操作レスポンスが格段に向上しました。" },
+            { "icon": "🔄", "title": "TV版ストア直接アップデート＆スマホ＋TV共有VIP", "desc": "更新通知からGoogle Playへスムーズに移動可能。TV版15ステージ無料体験とクロスデバイスVIPもそのままご利用いただけます。" }
         ]
     },
     "zh": {
-        "title": "📺 v1.6.0 Android TV 与手柄正式版",
-        "subtitle": "Marinext 2100 震撼登陆客厅大屏！全面支持蓝牙手柄与电视遥控器导航、前15关免费试玩及电视手机跨端VIP同步！",
-        "btnOk": "🎮 太棒了，立即开始！",
+        "title": "⚡ v1.6.1 智能性能优化与 4K 大屏超清版",
+        "subtitle": "专为 Android TV 盒子、智能电视及手机打造的自动硬件调优引擎、更锐利的大屏画质与真实实时 FPS 监测现已上线！",
+        "btnOk": "🚀 太棒了，立即开始！",
         "btnWeb": "🌐 查看完整更新日志 ↗",
         "items": [
-            { "icon": "📺", "title": "原生适配 Android TV 与 Google TV（Android 9+）", "desc": "专为大屏打造的防裁切安全边距、高对比度高亮焦点框及小米盒子流畅 60 FPS 体验。" },
-            { "icon": "🎮", "title": "蓝牙 / USB 手柄与标准电视遥控器操控", "desc": "兼容 Xbox、PlayStation 等游戏手柄，仅用普通电视遥控器方向键也能轻松畅玩全 25 个菜单与关卡。" },
-            { "icon": "🎁", "title": "TV 前 15 关免费 + 买断完整版解锁", "desc": "免费无广告体验前 15 关，随时可一次性买断解锁全部 200 道主线、超维宇宙及整蛊关卡。" },
-            { "icon": "👑", "title": "电视 + 手机跨设备 VIP 与终身 VIP 礼包", "desc": "同一 Google 账号购买的 VIP 通行证或终身 VIP 权益可在电视与手机之间自动共享。" },
-            { "icon": "🛡️", "title": "纯净客厅大屏体验与云端进度同步", "desc": "自动隐藏触控按键与干扰弹窗，通过 Google Play Games 实现跨设备无缝续关。" }
+            { "icon": "🎛️", "title": "设备硬件智能识别与自动优化", "desc": "开机自动检测电视盒子或手机的内存与图形性能，在 1.5–2GB 电视上保障流畅不卡顿，在高性能设备上呈现更精细画面。" },
+            { "icon": "📺", "title": "专为 75 寸及 4K 大屏打造的动态分辨率引擎", "desc": "全新动态渲染缩放技术让大电视上的角色与平台边缘更清晰，镜头横移顺滑跟手不掉帧。" },
+            { "icon": "⚡", "title": "真实实时 FPS 帧率显示与画面模式设置", "desc": "在地图与关卡界面查看真实测量的实时 FPS，并可在设置中自由切换 自动 / 性能 / 均衡 / 高画质 模式。" },
+            { "icon": "✨", "title": "零卡顿菜单动效与极速遥控器响应", "desc": "优化大屏焦点框与按钮脉冲动画至硬件加速层，大幅提升电视遥控器与蓝牙手柄操作流畅度。" },
+            { "icon": "🔄", "title": "TV 版直达商店更新与跨设备 VIP", "desc": "收到更新提示时可一键直达 Play 商店；TV 前 15 关继续免费无广告，手机与电视账号 VIP 权益自动同步。" }
         ]
     },
     "ru": {
-        "title": "📺 v1.6.0 Версия для Android TV и Геймпадов",
-        "subtitle": "Marinext 2100 выходит на большой экран! Поддержка Bluetooth-геймпадов и пульта ДУ, 15 уровней бесплатно на TV и общий VIP с телефоном!",
-        "btnOk": "🎮 ОТЛИЧНО, ИГРАЕМ!",
+        "title": "⚡ v1.6.1 Умная оптимизация TV и чёткость 4K",
+        "subtitle": "Автоматическая настройка под мощность Android TV-приставок и смартфонов, чёткая картинка на больших 4K-экранах и реальный счётчик FPS!",
+        "btnOk": "🚀 ОТЛИЧНО, ИГРАЕМ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
-            { "icon": "📺", "title": "Полная поддержка Android TV и приставок (Android 9+)", "desc": "Безопасные отступы для ТВ-экранов, яркая рамка фокуса и плавные 60 FPS на Mi Box и смарт-телевизорах." },
-            { "icon": "🎮", "title": "Bluetooth / USB геймпады и обычный пульт TV", "desc": "Играйте и управляйте всеми 25 меню через геймпады Xbox, PlayStation или обычный пульт с крестовиной D-Pad." },
-            { "icon": "🎁", "title": "15 этапов бесплатно на TV + Разовая полная разблокировка", "desc": "Пройдите первые 15 уровней бесплатно и без рекламы, а затем откройте все 200 этапов навсегда одной покупкой." },
-            { "icon": "👑", "title": "Единый VIP для телефона и TV + Пожизненный VIP", "desc": "Ваш VIP Pass или новый пожизненный пакет с одного Google-аккаунта работает сразу на телевизоре и смартфоне." },
-            { "icon": "🛡️", "title": "Чистый интерфейс для гостиной и облачные сохранения", "desc": "Экранные кнопки скрываются автоматически, а прогресс и рекорды синхронизируются между всеми устройствами." }
+            { "icon": "🎛️", "title": "Автооптимизация под железо устройства", "desc": "Игра сама определяет объём ОЗУ и экран устройства: обеспечивает плавность на приставках с 2 ГБ ОЗУ и повышенную чёткость на мощных TV." },
+            { "icon": "📺", "title": "Динамическое разрешение для больших 4K-экранов", "desc": "Персонажи и платформы стали заметно чётче на экранах 55–75 дюймов, а движение камеры — плавным и без рывков." },
+            { "icon": "⚡", "title": "Реальный живой FPS и выбор режима графики", "desc": "Индикатор теперь показывает реальный FPS, а в Настройках можно выбрать режим: Авто, Скорость, Баланс или Высокое качество." },
+            { "icon": "✨", "title": "Быстрые меню без тормозов на карте", "desc": "Подсветка кнопок и анимации фокуса переведены на аппаратное ускорение — пульт и геймпад реагируют мгновенно." },
+            { "icon": "🔄", "title": "Прямое обновление в Play на TV и единый VIP", "desc": "Уведомление об обновлении ведёт прямо в Google Play на ТВ; первые 15 уровней бесплатны на TV, а VIP общий с телефоном." }
         ]
     },
     "it": {
-        "title": "📺 v1.6.0 Edizione Android TV e Gamepad",
-        "subtitle": "Marinext 2100 arriva sul grande schermo! Controlli con Gamepad Bluetooth e telecomando TV, 15 livelli gratis su TV e VIP condiviso!",
+        "title": "⚡ v1.6.1 Ottimizzazione Intelligente TV e Nitidezza 4K",
+        "subtitle": "Motore adattivo per Android TV Box, Smart TV e smartphone: grafica più nitida sui grandi schermi, scorrimento fluido e FPS reali in tempo reale!",
         "btnOk": "🎮 FANTASTICO, GIOCHIAMO!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
-            { "icon": "📺", "title": "Supporto nativo Android TV e Google TV (Android 9+)", "desc": "Margini sicuri per TV, evidenziatore di selezione ad alto contrasto e prestazioni fluide a 60 FPS su Mi Box e Smart TV." },
-            { "icon": "🎮", "title": "Gamepad Bluetooth / USB e Telecomando TV", "desc": "Naviga tutti i menu e gioca comodamente con controller Xbox, PlayStation o il semplice telecomando D-Pad." },
-            { "icon": "🎁", "title": "Primi 15 Livelli Gratis su TV + Sblocco Completo", "desc": "Prova gratis i livelli 1–15 senza pubblicità, poi sblocca per sempre tutti i 200 livelli Campagna, Oltremondo e Troll." },
-            { "icon": "👑", "title": "VIP Condiviso Mobile + TV & VIP A Vita", "desc": "Con lo stesso account Google, il VIP Pass o il pacchetto VIP A Vita si attiva automaticamente su TV e telefono." },
-            { "icon": "🛡️", "title": "Esperienza da Salotto Pulita & Salvataggio Cloud", "desc": "Pulsanti touch nascosti in automatico su TV e sincronizzazione immediata con Google Play Games." }
+            { "icon": "🎛️", "title": "Ottimizzazione Automatica per Ogni Dispositivo", "desc": "Rileva automaticamente RAM e schermo del dispositivo, garantendo massima fluidità sui TV Box da 2 GB e alta definizione sui TV potenti." },
+            { "icon": "📺", "title": "Risoluzione Dinamica Nitida su Grandi TV 4K", "desc": "Lo scaling dinamico rende eroi e scenari più nitidi su schermi fino a 75 pollici con telecamera fluida e senza scatti." },
+            { "icon": "⚡", "title": "Contatore FPS Reali & Modalità Grafica", "desc": "Visualizza gli FPS reali misurati dal vivo su mappa e HUD e scegli tra Auto, Prestazioni, Bilanciato o Alto nelle Impostazioni." },
+            { "icon": "✨", "title": "Menu Istantanei e Zero Scatti sul Telecomando", "desc": "Animazioni e cornici di selezione accelerate via GPU per risposte immediate con telecomando TV e gamepad Bluetooth." },
+            { "icon": "🔄", "title": "Aggiornamento Diretto Play Store TV & VIP Condiviso", "desc": "Il pulsante Aggiorna apre subito il Play Store sulla TV; 15 livelli gratis senza pubblicità e VIP condiviso tra telefono e TV." }
         ]
     },
     "es": {
-        "title": "📺 v1.6.0 Edición Android TV y Gamepad",
-        "subtitle": "¡Marinext 2100 llega al televisor! Compatible con mandos Bluetooth, control remoto de TV, 15 niveles gratis en TV y VIP multi-dispositivo.",
-        "btnOk": "🎮 ¡GENIAL, A JUGAR!",
+        "title": "⚡ v1.6.1 Optimización Inteligente TV y Nitidez 4K",
+        "subtitle": "Ajuste automático de rendimiento para Android TV Box, Smart TV y teléfonos: gráficos más nítidos en pantallas grandes, cámara fluida y FPS reales en vivo.",
+        "btnOk": "🚀 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
-            { "icon": "📺", "title": "Soporte Nativo Android TV y Google TV (Android 9+)", "desc": "Márgenes seguros para televisores, enfoque luminoso de alto contraste y fluidez a 60 FPS optimizada para Mi Box y Smart TV." },
-            { "icon": "🎮", "title": "Mandos Bluetooth / USB y Control Remoto D-Pad", "desc": "Controla los 25 menús y juega usando mandos Xbox, PlayStation o el control remoto estándar de tu televisor." },
-            { "icon": "🎁", "title": "Primeros 15 Niveles Gratis en TV + Juego Completo", "desc": "Disfruta del 1 al 15 gratis y sin anuncios en TV; desbloquea para siempre los 200 niveles con una sola compra o VIP." },
-            { "icon": "👑", "title": "VIP Compartido Móvil + TV y Paquete VIP Vitalicio", "desc": "Tu Pase VIP o el nuevo VIP Vitalicio de una cuenta de Google funciona automáticamente tanto en TV como en tu teléfono." },
-            { "icon": "🛡️", "title": "Experiencia de Sala Limpia y Guardado en la Nube", "desc": "Controles táctiles ocultos en modo TV y progreso sincronizado al instante entre todos tus dispositivos." }
+            { "icon": "🎛️", "title": "Optimización Automática de Hardware", "desc": "Detecta la memoria y capacidad de tu dispositivo para ofrecer máxima fluidez en TV Box de 2 GB y alta nitidez en pantallas 4K potentes." },
+            { "icon": "📺", "title": "Resolución Dinámica Más Nítida en TVs Grandes", "desc": "Escalado de imagen optimizado para televisores de 55 a 75 pulgadas con desplazamiento de cámara suave y sin tirones." },
+            { "icon": "⚡", "title": "FPS Reales en Vivo y Selector de Gráficos", "desc": "Consulta los FPS reales en el mapa y durante el juego, y elige entre Automático, Rendimiento, Equilibrado o Alto en Ajustes." },
+            { "icon": "✨", "title": "Menús Sin Saltos y Respuesta Rápida", "desc": "Efectos de enfoque acelerados por hardware para una navegación ágil con el control remoto del televisor o mando Bluetooth." },
+            { "icon": "🔄", "title": "Actualización Directa en TV y VIP Multi-Dispositivo", "desc": "El aviso de actualización abre Play Store en tu TV; los primeros 15 niveles siguen gratis y tu VIP funciona en móvil y TV." }
         ]
     },
     "fr": {
-        "title": "📺 v1.6.0 Édition Android TV & Manette",
-        "subtitle": "Marinext 2100 arrive sur grand écran ! Manettes Bluetooth, télécommande TV, 15 niveaux gratuits sur TV et VIP multi-appareils.",
-        "btnOk": "🎮 SUPER, C'EST PARTI !",
+        "title": "⚡ v1.6.1 Optimisation Intelligente TV & Netteté 4K",
+        "subtitle": "Moteur adaptatif pour Android TV Box, Smart TV et mobiles : image plus nette sur grand écran, caméra ultra-fluide et véritable compteur d'IPS en direct !",
+        "btnOk": "🚀 SUPER, C'EST PARTI !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
-            { "icon": "📺", "title": "Compatibilité Native Android TV & Google TV (Android 9+)", "desc": "Marges TV anti-rogne, contour de sélection haute visibilité et fluidité 60 FPS optimisée pour Mi Box et Smart TV." },
-            { "icon": "🎮", "title": "Manettes Bluetooth / USB & Télécommande Standard", "desc": "Parcourez tous les menus et jouez avec une manette Xbox, PlayStation ou simplement la croix de votre télécommande." },
-            { "icon": "🎁", "title": "15 Niveaux Gratuits sur TV + Déblocage Définitif", "desc": "Essayez gratuitement les niveaux 1–15 sans pub sur TV, puis débloquez à vie les 200 niveaux en un achat ou via VIP." },
-            { "icon": "👑", "title": "VIP Partagé Mobile + TV & Pack VIP À Vie", "desc": "Avec le même compte Google, votre Pass VIP ou VIP À Vie s'active automatiquement sur votre téléphone et votre TV." },
-            { "icon": "🛡️", "title": "Interface Salon Épurée & Sauvegarde Cloud", "desc": "Boutons tactiles automatiquement masqués sur TV et progression synchronisée sur tous vos écrans." }
+            { "icon": "🎛️", "title": "Optimisation Matérielle Automatique", "desc": "Détecte automatiquement la RAM et l'écran de votre appareil pour garder les TV Box 2 Go ultra-fluides et sublimer les téléviseurs 4K puissants." },
+            { "icon": "📺", "title": "Résolution Dynamique Plus Nette sur Grands TV 4K", "desc": "Le rendu adaptatif offre des contours plus nets sur écrans jusqu'à 75 pouces avec un défilement de caméra sans saccades." },
+            { "icon": "⚡", "title": "Véritable Compteur FPS & Mode Graphique", "desc": "Affiche les IPS réels mesurés sur la carte et en jeu, avec sélection Auto, Performance, Équilibré ou Élevé dans les Paramètres." },
+            { "icon": "✨", "title": "Menus Fluides & Réactivité Accrue sur Télécommande", "desc": "Animations d'interface optimisées sur GPU pour une navigation instantanée à la télécommande TV et à la manette Bluetooth." },
+            { "icon": "🔄", "title": "Mise à Jour Directe Play Store TV & VIP Partagé", "desc": "Le bouton Mettre à jour ouvre directement le Play Store TV ; 15 niveaux gratuits sans pub et VIP partagé mobile + TV." }
         ]
     }
 };
