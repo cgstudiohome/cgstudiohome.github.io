@@ -1504,6 +1504,34 @@ class Game {
     constructor() {
         this.canvas = document.getElementById("gameCanvas");
         this.ctx = this.canvas.getContext("2d");
+        this.viewW = 1280;
+        this.viewH = 720;
+        this.renderScale = 1;
+        this.qualityMode = "auto";
+        this.autoPerfTier = "balanced";
+        this.perfConfig = {
+            tier: "balanced",
+            baseScale: 1.5,
+            minScale: 1.15,
+            maxScale: 1.5,
+            allowShadowBlur: false,
+            shadowCap: 0,
+            maxParticles: 48,
+            bgSporesCount: 28
+        };
+        this._hwProfile = null;
+        this._cachedSafeTopThreshold = null;
+        this._bgSkyGrad = null;
+        this._bgSkyGradKey = "";
+        this._mapBgDirty = true;
+        this._lastFrozenDrawKey = "";
+        this._lastHudFpsText = "";
+        this._perfLowSamples = 0;
+        this._perfHighSamples = 0;
+        this._measuredFps = 60;
+
+        this.initPerformanceEngine();
+        this.installCanvasPerfInterceptor(this.ctx);
         this.resizeCanvas();
         window.addEventListener("resize", () => this.resizeCanvas());
         if (window.visualViewport) {
@@ -1513,11 +1541,13 @@ class Game {
 
         this.previewCanvas = document.getElementById("customizePreviewCanvas");
         this.previewCtx = this.previewCanvas ? this.previewCanvas.getContext("2d") : null;
+        if (this.previewCtx) this.installCanvasPerfInterceptor(this.previewCtx);
         this.previewDummy = null;
         this.activeCustTab = "helmet";
 
         this.charPreviewCanvas = document.getElementById("charPreviewCanvas");
         this.charPreviewCtx = this.charPreviewCanvas ? this.charPreviewCanvas.getContext("2d") : null;
+        if (this.charPreviewCtx) this.installCanvasPerfInterceptor(this.charPreviewCtx);
         this.charPreviewDummy = null;
         this.activeCharFilter = "all";
         this.rewardedAdLoading = false;
@@ -1700,6 +1730,7 @@ class Game {
         this.fpsFrames = 0;
         this.fpsLastCheck = performance.now();
         this.currentFps = this.targetFps;
+        this._measuredFps = this.targetFps;
 
         this.buildMapNodes();
         this.buildTrollMapNodes();
@@ -1804,20 +1835,201 @@ class Game {
             targetH = Math.max(720, Math.min(960, targetH));
         }
 
-        if (this.canvas.width !== targetW || this.canvas.height !== targetH) {
-            this.canvas.width = targetW;
-            this.canvas.height = targetH;
+        this.viewW = targetW;
+        this.viewH = targetH;
+        const rs = this.renderScale || 1;
+        const pxW = Math.max(640, Math.round(targetW * rs));
+        const pxH = Math.max(360, Math.round(targetH * rs));
+
+        if (this.canvas.width !== pxW || this.canvas.height !== pxH) {
+            this.canvas.width = pxW;
+            this.canvas.height = pxH;
             if (this.bgSpores) {
                 for (const sp of this.bgSpores) {
                     if (sp.x > targetW) sp.x = Math.random() * targetW;
+                    if (sp.y > targetH) sp.y = Math.random() * targetH;
                 }
             }
         }
+        this._cachedSafeTopThreshold = null;
+        this._bgSkyGradKey = "";
+        this._mapBgDirty = true;
+        this._lastFrozenDrawKey = "";
+    }
+
+    initPerformanceEngine() {
+        let hw = {
+            isTv: this.isAndroidTvMode(),
+            totalRamMb: 0,
+            isLowRam: false,
+            cpuCores: (typeof navigator !== "undefined" && navigator.hardwareConcurrency) ? navigator.hardwareConcurrency : 4,
+            screenWidthPx: 1920,
+            screenHeightPx: 1080,
+            refreshRateHz: 60,
+            gpuRenderer: ""
+        };
+        try {
+            if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getDeviceHardwareProfile === "function") {
+                const raw = window.MarinextCloudBridge.getDeviceHardwareProfile();
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (parsed && typeof parsed === "object") {
+                        hw = Object.assign(hw, parsed);
+                    }
+                }
+            } else if (typeof navigator !== "undefined" && navigator.deviceMemory) {
+                hw.totalRamMb = Number(navigator.deviceMemory) * 1024;
+            }
+        } catch (e) {}
+
+        // One-shot WebGL GPU name probe (immediately releases context so zero GPU memory stays allocated)
+        try {
+            const probeCanvas = document.createElement("canvas");
+            probeCanvas.width = 2;
+            probeCanvas.height = 2;
+            const gl = probeCanvas.getContext("webgl") || probeCanvas.getContext("experimental-webgl");
+            if (gl) {
+                const dbg = gl.getExtension("WEBGL_debug_renderer_info");
+                if (dbg) {
+                    hw.gpuRenderer = String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || "");
+                }
+                const loseExt = gl.getExtension("WEBGL_lose_context");
+                if (loseExt && typeof loseExt.loseContext === "function") {
+                    loseExt.loseContext();
+                }
+            }
+        } catch (e) {}
+
+        this._hwProfile = hw;
+
+        const ram = Number(hw.totalRamMb) || 0;
+        const cores = Number(hw.cpuCores) || 4;
+        const isTv = Boolean(hw.isTv || this.isAndroidTvMode());
+        const lowGpuRe = /mali-4\d\d|mali-t7|mali-g31|powervr\s*ge8|adreno\s*(3|4|50\d)/i;
+
+        if ((ram > 0 && ram <= 2400) || hw.isLowRam || lowGpuRe.test(hw.gpuRenderer) || (isTv && cores <= 4 && ram > 0 && ram <= 2600)) {
+            this.autoPerfTier = "lite";
+        } else if ((ram > 0 && ram < 3900) || isTv) {
+            this.autoPerfTier = "balanced";
+        } else {
+            this.autoPerfTier = "ultra";
+        }
+
+        let savedMode = "auto";
+        try {
+            const rawMode = localStorage.getItem("marinext_quality_mode");
+            if (rawMode === "auto" || rawMode === "lite" || rawMode === "balanced" || rawMode === "ultra") {
+                savedMode = rawMode;
+            }
+        } catch (e) {}
+        this.qualityMode = savedMode;
+        this.applyPerformanceProfile(true);
+
+        window.onMarinextLowMemory = () => {
+            try {
+                if (Array.isArray(this.particles) && this.particles.length > 16) {
+                    this.particles.length = 16;
+                }
+                if (this.perfConfig && this.renderScale > this.perfConfig.minScale) {
+                    this.renderScale = this.perfConfig.minScale;
+                    this.resizeCanvas();
+                }
+            } catch (e) {}
+        };
+    }
+
+    applyPerformanceProfile(resetScale = true) {
+        const mode = (this.qualityMode === "lite" || this.qualityMode === "balanced" || this.qualityMode === "ultra")
+            ? this.qualityMode
+            : "auto";
+        const eff = mode === "auto" ? (this.autoPerfTier || "balanced") : mode;
+        const isTv = this.isAndroidTvMode();
+
+        let cfg;
+        if (eff === "lite") {
+            cfg = { tier: "lite", baseScale: 1.25, minScale: 1.0, maxScale: 1.35, allowShadowBlur: false, shadowCap: 0, maxParticles: 32, bgSporesCount: 16 };
+        } else if (eff === "balanced") {
+            cfg = { tier: "balanced", baseScale: 1.5, minScale: 1.15, maxScale: 1.5, allowShadowBlur: !isTv, shadowCap: isTv ? 0 : 6, maxParticles: 48, bgSporesCount: 28 };
+        } else {
+            const dpr = (typeof window !== "undefined" && Number(window.devicePixelRatio)) || 1;
+            cfg = { tier: "ultra", baseScale: Math.min(2.0, Math.max(1.5, dpr)), minScale: 1.25, maxScale: 2.0, allowShadowBlur: true, shadowCap: 0, maxParticles: 90, bgSporesCount: 45 };
+        }
+        this.perfConfig = cfg;
+
+        if (resetScale) {
+            this.renderScale = cfg.baseScale;
+        } else {
+            this.renderScale = Math.max(cfg.minScale, Math.min(cfg.maxScale, this.renderScale || cfg.baseScale));
+        }
+
+        const applyBodyPerfClasses = () => {
+            if (!document.body) return;
+            document.body.classList.toggle("perf-lite", eff === "lite");
+            document.body.classList.toggle("perf-balanced", eff === "balanced");
+            document.body.classList.toggle("perf-ultra", eff === "ultra");
+        };
+        applyBodyPerfClasses();
+        if (!document.body) {
+            document.addEventListener("DOMContentLoaded", applyBodyPerfClasses, { once: true });
+        }
+
+        this._perfLowSamples = 0;
+        this._perfHighSamples = 0;
+        this._bgSkyGradKey = "";
+        this._mapBgDirty = true;
+        this._lastFrozenDrawKey = "";
+    }
+
+    getQualityModeLabel() {
+        const mode = this.qualityMode || "auto";
+        const eff = (this.perfConfig && this.perfConfig.tier) || this.autoPerfTier || "balanced";
+        const cat = (window.MARINEXT_QUALITY_I18N && (window.MARINEXT_QUALITY_I18N[this.lang] || window.MARINEXT_QUALITY_I18N.en))
+            || { autoTag: "OTOMATİK", lite: "PERFORMANS 🚀", balanced: "DENGELİ ✨", ultra: "YÜKSEK 💎", short: { lite: "Performans", balanced: "Dengeli", ultra: "Yüksek" } };
+        if (mode === "auto") {
+            const shortEff = (cat.short && cat.short[eff]) || eff.toUpperCase();
+            return `${cat.autoTag} (${shortEff}) ↻`;
+        }
+        return `${cat[mode] || mode.toUpperCase()} ↻`;
+    }
+
+    installCanvasPerfInterceptor(ctx) {
+        if (!ctx || ctx._marinextShadowWrapped) return;
+        try {
+            const proto = CanvasRenderingContext2D && CanvasRenderingContext2D.prototype;
+            const desc = proto ? Object.getOwnPropertyDescriptor(proto, "shadowBlur") : null;
+            if (!desc || typeof desc.set !== "function" || typeof desc.get !== "function") return;
+            const self = this;
+            Object.defineProperty(ctx, "shadowBlur", {
+                configurable: true,
+                get() {
+                    return desc.get.call(this);
+                },
+                set(val) {
+                    const cfg = self.perfConfig;
+                    if (cfg && !cfg.allowShadowBlur) {
+                        desc.set.call(this, 0);
+                        return;
+                    }
+                    const cap = cfg && cfg.shadowCap > 0 ? cfg.shadowCap : 0;
+                    const v = Number(val) || 0;
+                    desc.set.call(this, cap > 0 && v > cap ? cap : v);
+                }
+            });
+            ctx._marinextShadowWrapped = true;
+        } catch (e) {}
+    }
+
+    invalidateSafeTopCache() {
+        this._cachedSafeTopThreshold = null;
     }
 
     getSafeTopCameraThreshold() {
-        const ch = (this.canvas && this.canvas.height) || 720;
+        if (this._cachedSafeTopThreshold !== null) {
+            return this._cachedSafeTopThreshold;
+        }
+        const ch = this.viewH || 720;
         let hudLogicalH = ch * 0.24;
+        let hudMeasured = false;
         try {
             const hudEl = document.getElementById("hud");
             if (hudEl && !hudEl.classList.contains("hidden") && this.canvas) {
@@ -1831,10 +2043,15 @@ class Game {
                     });
                     const hudPx = Math.max(0, maxHudBottom - cRect.top);
                     hudLogicalH = hudPx * (ch / cRect.height);
+                    hudMeasured = true;
                 }
             }
         } catch (e) {}
-        return Math.min(ch * 0.52, Math.max(ch * 0.40, hudLogicalH + 96));
+        const result = Math.min(ch * 0.52, Math.max(ch * 0.40, hudLogicalH + 96));
+        if (hudMeasured) {
+            this._cachedSafeTopThreshold = result;
+        }
+        return result;
     }
 
     detectDeviceLanguage() {
@@ -2575,7 +2792,7 @@ class Game {
     }
 
     async checkAppUpdateOnStartup() {
-        const CURRENT_VERSION_CODE = 59;
+        const CURRENT_VERSION_CODE = 60;
         let installedCode = CURRENT_VERSION_CODE;
         if (window.MarinextCloudBridge && typeof window.MarinextCloudBridge.getAppVersionInfo === "function") {
             try {
@@ -2711,7 +2928,7 @@ class Game {
         const dismiss = () => {
             modal.classList.add("hidden");
             try {
-                localStorage.setItem("marinext2100_last_seen_version", "59");
+                localStorage.setItem("marinext2100_last_seen_version", "60");
             } catch (e) {}
         };
 
@@ -2740,7 +2957,7 @@ class Game {
         try {
             const hasConsent = localStorage.getItem("marinext_privacy_consent_v1");
             const lastSeenVer = localStorage.getItem("marinext2100_last_seen_version");
-            if (hasConsent && lastSeenVer !== "59") {
+            if (hasConsent && lastSeenVer !== "60") {
                 const updateScreen = document.getElementById("screen-update");
                 const firstConsentScreen = document.getElementById("screen-first-consent");
                 const tutorialScreen = document.getElementById("screen-tutorial");
@@ -4382,6 +4599,22 @@ class Game {
                 try {
                     localStorage.setItem("marinext_target_fps", String(this.targetFps));
                 } catch (e) {}
+                this.updateSettingsUI();
+            });
+        }
+
+        const btnToggleQuality = document.getElementById("btn-toggle-quality");
+        if (btnToggleQuality) {
+            btnToggleQuality.addEventListener("click", () => {
+                window.sfx.coin();
+                const order = ["auto", "lite", "balanced", "ultra"];
+                const idx = order.indexOf(this.qualityMode || "auto");
+                this.qualityMode = order[(idx + 1) % order.length];
+                try {
+                    localStorage.setItem("marinext_quality_mode", this.qualityMode);
+                } catch (e) {}
+                this.applyPerformanceProfile(true);
+                this.resizeCanvas();
                 this.updateSettingsUI();
             });
         }
@@ -6141,10 +6374,26 @@ class Game {
                 fpsText.style.color = "#06d6a0";
             }
         }
+        const qualityLabel = document.getElementById("settings-quality-label");
+        const qualityText = document.getElementById("settings-quality-text");
+        const qualityBtn = document.getElementById("btn-toggle-quality");
+        if (window.MARINEXT_QUALITY_I18N) {
+            const qCat = window.MARINEXT_QUALITY_I18N[this.lang] || window.MARINEXT_QUALITY_I18N.en;
+            if (qCat) {
+                if (qualityLabel) qualityLabel.textContent = qCat.label;
+                if (qualityBtn && qCat.tooltip) qualityBtn.setAttribute("title", qCat.tooltip);
+            }
+        }
+        if (qualityText) {
+            qualityText.textContent = this.getQualityModeLabel();
+            const qTier = (this.perfConfig && this.perfConfig.tier) || "balanced";
+            qualityText.style.color = qTier === "ultra" ? "#00f2fe" : (qTier === "lite" ? "#06d6a0" : "#ffd166");
+        }
+        const displayFps = this._measuredFps || this.targetFps || 60;
         const fpsEl = document.getElementById("hud-fps");
-        if (fpsEl) fpsEl.textContent = `⚡ ${this.targetFps} FPS`;
+        if (fpsEl) fpsEl.textContent = `⚡ ${displayFps} FPS`;
         const mapFpsEl = document.getElementById("map-fps");
-        if (mapFpsEl) mapFpsEl.textContent = `⚡ ${this.targetFps} FPS`;
+        if (mapFpsEl) mapFpsEl.textContent = `⚡ ${displayFps} FPS`;
         const muteBtn = document.getElementById("btn-mute");
         if (muteBtn) {
             muteBtn.textContent = (window.sfx.sfxMuted && window.sfx.musicMuted) ? "🔇" : "🔊";
@@ -7485,13 +7734,20 @@ class Game {
         this.phoenixAutoReviveUsedInLevel = false;
         this.doubleRewardUsedInLevel = false;
         this.score = 0;
-        this.camera.x = Math.max(0, this.player.x - this.canvas.width * 0.35);
+        this.invalidateSafeTopCache();
+        this._bgSkyGradKey = "";
+        this._lastFrozenDrawKey = "";
+        this._mapBgDirty = true;
+        const lvViewW = this.viewW || 1280;
+        this.camera.x = Math.max(0, this.player.x - lvViewW * 0.35);
         this.camera.y = 0;
         this.camera.prevX = this.camera.x;
         this.camera.prevY = 0;
         this.camera.shake = 0;
         this.accumulator = 0;
         this.lastTime = performance.now();
+        this.fpsFrames = 0;
+        this.fpsLastCheck = performance.now();
         this.levelStartTimeMs = performance.now();
 
         this.stopAct2CelebrationAnim();
@@ -7532,8 +7788,13 @@ class Game {
         }
 
         this.state = "playing";
+        this._lastFrozenDrawKey = "";
+        if (window.MarinextTV && typeof window.MarinextTV.ensurePollActive === "function") {
+            window.MarinextTV.ensurePollActive();
+        }
         window.sfx.startBGM(this.levelInfo.isBossLevel);
         this.computeLevelPortalQuota();
+        this.invalidateSafeTopCache();
         this.updateHUD();
     }
 
@@ -8164,6 +8425,9 @@ class Game {
         this.stopAct2CelebrationAnim();
         this._pendingLevel100VictoryModal = false;
         this.state = "map";
+        this._mapBgDirty = true;
+        this._lastFrozenDrawKey = "";
+        this._bgSkyGradKey = "";
         window.sfx.stopBGM();
         const act2BannerMap = document.getElementById("modal-act2-banner");
         if (act2BannerMap) act2BannerMap.classList.add("hidden");
@@ -8247,6 +8511,13 @@ class Game {
         this.clearAdPauseState();
         this.resetInputs();
         this.state = "playing";
+        this._lastFrozenDrawKey = "";
+        this.lastTime = performance.now();
+        this.fpsFrames = 0;
+        this.fpsLastCheck = performance.now();
+        if (window.MarinextTV && typeof window.MarinextTV.ensurePollActive === "function") {
+            window.MarinextTV.ensurePollActive();
+        }
         document.getElementById("screen-modal").classList.add("hidden");
     }
 
@@ -10419,8 +10690,11 @@ class Game {
 
     spawnParticles(x, y, count, color, speed = 3) {
         const isLowPower = this.targetFps === 30;
-        const maxTotalParticles = isLowPower ? 18 : 45;
-        const allowed = isLowPower ? Math.min(Math.ceil(count * 0.45), 6) : Math.min(count, 16);
+        const cfgMax = (this.perfConfig && this.perfConfig.maxParticles) ? this.perfConfig.maxParticles : 48;
+        const maxTotalParticles = isLowPower ? Math.min(18, cfgMax) : cfgMax;
+        const allowed = (isLowPower || (this.perfConfig && this.perfConfig.tier === "lite"))
+            ? Math.min(Math.ceil(count * 0.45), 6)
+            : Math.min(count, 14);
         for (let i = 0; i < allowed; i++) {
             if (this.particles.length >= maxTotalParticles) {
                 this.particles.shift();
@@ -10546,16 +10820,23 @@ class Game {
 
     update() {
         if (this.isAdPaused || (window.sfx && window.sfx.adPlaying)) return;
-        this.drawCustomizePreview();
-        this.drawCharacterPreview();
-
-        for (const sp of this.bgSpores) {
-            sp.y += sp.speedY;
-            sp.phase += 0.025;
-            if (sp.y < 0) sp.y = this.canvas.height;
+        const isLiteOrTv = (this.perfConfig && this.perfConfig.tier === "lite") || this.isAndroidTvMode();
+        this._previewTickToggle = !this._previewTickToggle;
+        if (!isLiteOrTv || this._previewTickToggle) {
+            this.drawCustomizePreview();
+            this.drawCharacterPreview();
         }
 
         if (this.state !== "playing") return;
+
+        const sporeLimit = (this.perfConfig && this.perfConfig.bgSporesCount) || this.bgSpores.length;
+        const sporeWrapH = this.viewH || 720;
+        for (let i = 0; i < sporeLimit && i < this.bgSpores.length; i++) {
+            const sp = this.bgSpores[i];
+            sp.y += sp.speedY;
+            sp.phase += 0.025;
+            if (sp.y < 0) sp.y = sporeWrapH;
+        }
 
         this.levelTick = (this.levelTick || 0) + 1;
         if (this.timeSlowTimer > 0) this.timeSlowTimer--;
@@ -10978,10 +11259,12 @@ class Game {
                     this.player.vy = 0;
                     this.player.inTeleporter = true;
                     this.player.teleportCooldown = 45;
-                    this.camera.x = Math.max(0, this.player.x - this.canvas.width * 0.35);
+                    const tpViewW = this.viewW || 1280;
+                    const tpViewH = this.viewH || 720;
+                    this.camera.x = Math.max(0, this.player.x - tpViewW * 0.35);
                     const safeTopSnap1 = this.getSafeTopCameraThreshold();
                     const baseCap1 = (this.inSubChamber && this.subChamber)
-                        ? Math.min(this.subChamber.y - 68, (this.subChamber.y + this.subChamber.h) - this.canvas.height + 44)
+                        ? Math.min(this.subChamber.y - 68, (this.subChamber.y + this.subChamber.h) - tpViewH + 44)
                         : 0;
                     this.camera.y = Math.min(baseCap1, this.player.y - safeTopSnap1);
                     this.camera.prevX = this.camera.x;
@@ -10999,10 +11282,12 @@ class Game {
                     this.player.vy = 0;
                     this.player.inTeleporter = true;
                     this.player.teleportCooldown = 45;
-                    this.camera.x = Math.max(0, this.player.x - this.canvas.width * 0.35);
+                    const tpViewW2 = this.viewW || 1280;
+                    const tpViewH2 = this.viewH || 720;
+                    this.camera.x = Math.max(0, this.player.x - tpViewW2 * 0.35);
                     const safeTopSnap2 = this.getSafeTopCameraThreshold();
                     const baseCap2 = (this.inSubChamber && this.subChamber)
-                        ? Math.min(this.subChamber.y - 68, (this.subChamber.y + this.subChamber.h) - this.canvas.height + 44)
+                        ? Math.min(this.subChamber.y - 68, (this.subChamber.y + this.subChamber.h) - tpViewH2 + 44)
                         : 0;
                     this.camera.y = Math.min(baseCap2, this.player.y - safeTopSnap2);
                     this.camera.prevX = this.camera.x;
@@ -11372,19 +11657,22 @@ class Game {
         const safeTopThreshold = this.getSafeTopCameraThreshold();
         const hardTopGuard = Math.max(180, safeTopThreshold - 72);
 
+        const camViewW = this.viewW || 1280;
+        const camViewH = this.viewH || 720;
+
         if (isRidingSubElevator && this.subChamber) {
             const sc = this.subChamber;
-            const targetCamX = Math.max(0, sc.cabinX - this.canvas.width * 0.38);
-            const baseSubCamY = Math.min(sc.y - 68, (sc.y + sc.h) - this.canvas.height + 44);
-            const targetCamY = Math.max(0, Math.min(baseSubCamY, sc.cabinY - Math.max(this.canvas.height * 0.44, safeTopThreshold)));
+            const targetCamX = Math.max(0, sc.cabinX - camViewW * 0.38);
+            const baseSubCamY = Math.min(sc.y - 68, (sc.y + sc.h) - camViewH + 44);
+            const targetCamY = Math.max(0, Math.min(baseSubCamY, sc.cabinY - Math.max(camViewH * 0.44, safeTopThreshold)));
             this.camera.x += (targetCamX - this.camera.x) * 0.22;
             this.camera.y = (this.camera.y || 0) + (targetCamY - (this.camera.y || 0)) * 0.24;
         } else if (this.inSubChamber && this.subChamber) {
             const minCamX = this.subChamber.x;
-            const maxCamX = Math.max(minCamX, this.subChamber.x + this.subChamber.w - this.canvas.width);
-            const targetCamX = Math.max(minCamX, Math.min(maxCamX, this.player.x - this.canvas.width * 0.35));
+            const maxCamX = Math.max(minCamX, this.subChamber.x + this.subChamber.w - camViewW);
+            const targetCamX = Math.max(minCamX, Math.min(maxCamX, this.player.x - camViewW * 0.35));
             this.camera.x += (targetCamX - this.camera.x) * 0.14;
-            const baseSubCamY = Math.min(this.subChamber.y - 68, (this.subChamber.y + this.subChamber.h) - this.canvas.height + 44);
+            const baseSubCamY = Math.min(this.subChamber.y - 68, (this.subChamber.y + this.subChamber.h) - camViewH + 44);
             const targetCamY = Math.min(baseSubCamY, this.player.y - safeTopThreshold);
             const curCamY = (this.camera.y !== undefined ? this.camera.y : baseSubCamY);
             const lerpY = targetCamY < curCamY ? 0.22 : 0.14;
@@ -11394,7 +11682,7 @@ class Game {
                 this.camera.y = maxAllowedCamY;
             }
         } else {
-            const targetCamX = Math.max(0, this.player.x - this.canvas.width * 0.35);
+            const targetCamX = Math.max(0, this.player.x - camViewW * 0.35);
             this.camera.x += (targetCamX - this.camera.x) * 0.1;
 
             // Vertical camera tracking across all stages/heights (keeps character comfortably below top HUD)
@@ -11420,8 +11708,8 @@ class Game {
     }
 
     drawBackground(ctx) {
-        const w = this.canvas.width;
-        const h = this.canvas.height;
+        const w = this.viewW || 1280;
+        const h = this.viewH || 720;
         const camYOffset = -(this.camera.y || 0) * 0.22;
 
         const worldIdx = Math.min(9, Math.max(0, Math.floor((this.selectedLevel || 0) / 10)));
@@ -11449,11 +11737,16 @@ class Game {
             ? ["#1c0414", "#2d0722", "#470a32", "rgba(255, 42, 133, 0.42)"]
             : (this.isAct2Mode ? (act2Palettes[act2WorldIdx] || act2Palettes[0]) : (worldPalettes[worldIdx] || worldPalettes[0]));
 
-        const grad = ctx.createLinearGradient(0, 0, 0, h);
-        grad.addColorStop(0, pal[0]);
-        grad.addColorStop(0.6, pal[1]);
-        grad.addColorStop(1, pal[2]);
-        ctx.fillStyle = grad;
+        const skyKey = `${pal[0]}_${pal[1]}_${pal[2]}_${h}`;
+        if (!this._bgSkyGrad || this._bgSkyGradKey !== skyKey) {
+            const grad = ctx.createLinearGradient(0, 0, 0, h);
+            grad.addColorStop(0, pal[0]);
+            grad.addColorStop(0.6, pal[1]);
+            grad.addColorStop(1, pal[2]);
+            this._bgSkyGrad = grad;
+            this._bgSkyGradKey = skyKey;
+        }
+        ctx.fillStyle = this._bgSkyGrad;
         ctx.fillRect(0, 0, w, h);
 
         ctx.fillStyle = "rgba(18, 23, 52, 0.55)";
@@ -11474,10 +11767,12 @@ class Game {
             ctx.strokeRect(x + 60, 120 + camYOffset * 0.8, 140, h - 120);
         }
 
-        for (const sp of this.bgSpores) {
+        ctx.fillStyle = pal[3];
+        const sporeLimit = (this.perfConfig && this.perfConfig.bgSporesCount) || this.bgSpores.length;
+        for (let i = 0; i < sporeLimit && i < this.bgSpores.length; i++) {
+            const sp = this.bgSpores[i];
             const sx = ((sp.x - this.camera.x * 0.45) % w + w) % w;
             const sy = ((sp.y + camYOffset * 1.4) % h + h) % h;
-            ctx.fillStyle = pal[3];
             ctx.beginPath();
             ctx.arc(sx + Math.sin(sp.phase) * 8, sy, sp.r, 0, Math.PI * 2);
             ctx.fill();
@@ -12186,6 +12481,19 @@ class Game {
 
     draw(alpha = 1) {
         const ctx = this.ctx;
+        const rs = this.renderScale || 1;
+        if (this.state !== "playing") {
+            const frozenKey = `${this.state}_${this.selectedWorldFilter}_${this.isAct2Mode}_${this.isTrollMode}_${this.canvas.width}_${this.canvas.height}`;
+            if (!this._mapBgDirty && this._lastFrozenDrawKey === frozenKey) {
+                return;
+            }
+            this._mapBgDirty = false;
+            this._lastFrozenDrawKey = frozenKey;
+        } else {
+            this._lastFrozenDrawKey = "";
+        }
+
+        ctx.setTransform(rs, 0, 0, rs, 0, 0);
         this.drawBackground(ctx);
 
         if (this.state === "map") return;
@@ -12197,10 +12505,10 @@ class Game {
         const prevCamY = this.camera.prevY !== undefined ? this.camera.prevY : (this.camera.y || 0);
         const renderCamX = prevCamX + (this.camera.x - prevCamX) * alpha;
         const renderCamY = prevCamY + ((this.camera.y || 0) - prevCamY) * alpha;
-        ctx.translate(-Math.round(renderCamX) + shakeX, -Math.round(renderCamY) + shakeY);
+        ctx.translate(-Math.round(renderCamX * rs) / rs + shakeX, -Math.round(renderCamY * rs) / rs + shakeY);
 
         const viewMinX = renderCamX - 160;
-        const viewMaxX = renderCamX + this.canvas.width + 160;
+        const viewMaxX = renderCamX + (this.viewW || 1280) + 160;
 
         this.drawSubChamberZone(ctx, viewMinX, viewMaxX, renderCamY);
 
@@ -13279,14 +13587,16 @@ class Game {
             ctx.stroke();
             ctx.restore();
         }
+        const drawViewW = this.viewW || 1280;
+        const drawViewH = this.viewH || 720;
         if (this.risingHazard && (!this.boss || !this.boss.dead)) {
             ctx.save();
             const rh = this.risingHazard;
             const col = rh.type === "acid" ? "rgba(56, 176, 0, 0.65)" : (rh.type === "electric" ? "rgba(0, 242, 254, 0.62)" : "rgba(255, 84, 0, 0.68)");
             ctx.fillStyle = col;
-            ctx.fillRect(renderCamX - 100, rh.y, this.canvas.width + 200, 900);
+            ctx.fillRect(renderCamX - 100, rh.y, drawViewW + 200, 900);
             ctx.fillStyle = "#ffffff";
-            ctx.fillRect(renderCamX - 100, rh.y, this.canvas.width + 200, 4);
+            ctx.fillRect(renderCamX - 100, rh.y, drawViewW + 200, 4);
             ctx.restore();
         }
         if (this.levelInfo && this.levelInfo.darkMode && this.player) {
@@ -13298,14 +13608,14 @@ class Game {
             darkGrad.addColorStop(0.55, "rgba(3, 5, 16, 0.62)");
             darkGrad.addColorStop(1, "rgba(2, 4, 14, 0.95)");
             ctx.fillStyle = darkGrad;
-            ctx.fillRect(renderCamX - 100, renderCamY - 200, this.canvas.width + 200, this.canvas.height + 400);
+            ctx.fillRect(renderCamX - 100, renderCamY - 200, drawViewW + 200, drawViewH + 400);
             ctx.restore();
         }
         if ((this.timeSlowTimer || 0) > 0) {
             ctx.save();
             ctx.strokeStyle = "rgba(0, 242, 254, 0.5)";
             ctx.lineWidth = 10;
-            ctx.strokeRect(renderCamX + 4, renderCamY + 4, this.canvas.width - 8, this.canvas.height - 8);
+            ctx.strokeRect(renderCamX + 4, renderCamY + 4, drawViewW - 8, drawViewH - 8);
             ctx.restore();
         }
     }
@@ -13335,7 +13645,7 @@ class Game {
         const bounceY = Math.sin(now * 0.005) * 3;
         const bubbleX = this.player.x + 16;
         const bubbleY = this.player.y - 74 + bounceY;
-        const maxBubbleW = Math.max(280, (this.canvas ? this.canvas.width : 640) - 24);
+        const maxBubbleW = Math.max(280, (this.canvas ? (this.viewW || 1280) : 640) - 24);
         const maxLineW = maxBubbleW - 40;
 
         ctx.font = "bold 14.5px 'Segoe UI', system-ui, sans-serif";
@@ -13400,7 +13710,7 @@ class Game {
         }
 
         const camMinX = this.camera ? (this.camera.x + 10) : 10;
-        const camMaxX = this.camera ? (this.camera.x + this.canvas.width - boxW - 10) : 500;
+        const camMaxX = this.camera ? (this.camera.x + (this.viewW || 1280) - boxW - 10) : 500;
         boxX = Math.max(camMinX, Math.min(boxX, camMaxX));
         const tailX = Math.max(boxX + 20, Math.min(bubbleX, boxX + boxW - 20));
 
@@ -14352,6 +14662,16 @@ class Game {
 
         const stepEngine = (now) => {
             if (!now) now = performance.now();
+            if (this.state !== "playing") {
+                this.update();
+                this.draw(1);
+                this.fpsFrames = 0;
+                this.fpsLastCheck = now;
+                this.accumulator = 0;
+                this.lastTime = now;
+                return;
+            }
+
             let dt = now - this.lastTime;
             this.lastTime = now;
             if (dt > 65) dt = this.physicsStep * 2;
@@ -14370,15 +14690,46 @@ class Game {
             this.draw(alpha);
 
             this.fpsFrames++;
-            if (now - this.fpsLastCheck >= 500) {
-                const target = this.targetFps || 120;
-                this.currentFps = target;
+            const elapsed = now - this.fpsLastCheck;
+            if (elapsed >= 500) {
+                const measured = Math.max(1, Math.min(240, Math.round((this.fpsFrames * 1000) / elapsed)));
+                this.currentFps = measured;
+                this._measuredFps = measured;
                 this.fpsFrames = 0;
                 this.fpsLastCheck = now;
-                const fpsEl = document.getElementById("hud-fps");
-                if (fpsEl) fpsEl.textContent = `⚡ ${this.currentFps} FPS`;
-                const mapFpsEl = document.getElementById("map-fps");
-                if (mapFpsEl) mapFpsEl.textContent = `⚡ ${this.currentFps} FPS`;
+
+                const fpsLabelText = `⚡ ${measured} FPS`;
+                if (this._lastHudFpsText !== fpsLabelText) {
+                    this._lastHudFpsText = fpsLabelText;
+                    const fpsEl = document.getElementById("hud-fps");
+                    if (fpsEl) fpsEl.textContent = fpsLabelText;
+                    const mapFpsEl = document.getElementById("map-fps");
+                    if (mapFpsEl) mapFpsEl.textContent = fpsLabelText;
+                }
+
+                if (this.qualityMode === "auto" && this.perfConfig) {
+                    const drsSteps = [2.0, 1.75, 1.5, 1.35, 1.25, 1.15, 1.0];
+                    if (measured < 50) {
+                        this._perfLowSamples = (this._perfLowSamples || 0) + 1;
+                        this._perfHighSamples = 0;
+                        if (this._perfLowSamples >= 6 && this.renderScale > this.perfConfig.minScale + 0.01) {
+                            const nextDown = drsSteps.find((s) => s < this.renderScale - 0.01) || this.perfConfig.minScale;
+                            this.renderScale = Math.max(this.perfConfig.minScale, nextDown);
+                            this._perfLowSamples = 0;
+                            this.resizeCanvas();
+                        }
+                    } else if (measured >= 57) {
+                        this._perfHighSamples = (this._perfHighSamples || 0) + 1;
+                        this._perfLowSamples = 0;
+                        if (this._perfHighSamples >= 12 && this.renderScale < this.perfConfig.maxScale - 0.01) {
+                            this.renderScale = Math.min(this.perfConfig.maxScale, Number((this.renderScale + 0.15).toFixed(2)));
+                            this._perfHighSamples = 0;
+                            this.resizeCanvas();
+                        }
+                    } else {
+                        this._perfLowSamples = 0;
+                    }
+                }
             }
         };
 
@@ -14387,13 +14738,25 @@ class Game {
                 clearTimeout(midFrameTimer);
                 midFrameTimer = null;
             }
+            if (this.state !== "playing") {
+                if (now - lastRenderTime >= 33) {
+                    lastRenderTime = now;
+                    stepEngine(now);
+                }
+                requestAnimationFrame(rafLoop);
+                return;
+            }
+
             const target = this.targetFps || 120;
+            const is60HzNative = this.isNativeAndroid() && this._hwProfile && this._hwProfile.refreshRateHz > 0 && this._hwProfile.refreshRateHz <= 65;
+            const allowMidFrame = (target === 120) && !this.isAndroidTvMode() && !(this.perfConfig && this.perfConfig.tier === "lite") && !is60HzNative;
+
             if (target === 30) {
                 if (now - lastRenderTime >= 31) {
                     lastRenderTime = now;
                     stepEngine(now);
                 }
-            } else if (target === 60) {
+            } else if (!allowMidFrame) {
                 lastRenderTime = now;
                 stepEngine(now);
             } else {
@@ -14401,7 +14764,9 @@ class Game {
                 stepEngine(now);
                 midFrameTimer = setTimeout(() => {
                     midFrameTimer = null;
-                    stepEngine(performance.now());
+                    if (this.state === "playing") {
+                        stepEngine(performance.now());
+                    }
                 }, 8);
             }
             requestAnimationFrame(rafLoop);
