@@ -52,6 +52,8 @@
         },
         _nativeRepeatTimer: Object.create(null),
         _rafId: 0,
+        _probeTimer: 0,
+        _hasHtml5Gamepad: false,
         _focusSyncTimer: 0,
 
         detectTvEnvironment() {
@@ -461,6 +463,7 @@
 
         setupFocusObserver() {
             const onDomChange = () => {
+                if (window.game && window.game.state === "playing") return;
                 this.scheduleFocusSync(60);
             };
             const attachObserver = () => {
@@ -557,6 +560,7 @@
 
             // Gameplay instant edge-triggered actions from Native Keys
             if (isDown && !isRepeat && game) {
+                this.ensurePollActive();
                 if (keyName === "DPAD_UP" || keyName === "BUTTON_A" || (this.inputMode === "tv_remote" && (keyName === "DPAD_CENTER" || keyName === "ENTER"))) {
                     game.input.jumpPressed = true;
                     // TV remote momentum assist: preserve direction for a jump arc on single-key remotes
@@ -595,6 +599,7 @@
             this._nativeAxisY = dirY || 0;
             if (this._nativeAxisX !== 0 || this._nativeAxisY !== 0) {
                 this.setInputMode("gamepad");
+                this.ensurePollActive();
             }
         },
 
@@ -607,6 +612,7 @@
             };
 
             window.addEventListener("gamepadconnected", (e) => {
+                this._hasHtml5Gamepad = true;
                 this.setInputMode("gamepad");
                 const gpId = (e && e.gamepad && e.gamepad.id) ? String(e.gamepad.id).slice(0, 64) : "gamepad";
                 if (this._lastGamepadConnLogged !== gpId) {
@@ -618,7 +624,12 @@
                         });
                     }
                 }
+                this.ensurePollActive();
                 this.scheduleFocusSync(50);
+            });
+
+            window.addEventListener("gamepaddisconnected", () => {
+                this._hasHtml5Gamepad = this.hasConnectedHtml5Gamepad();
             });
 
             // Browser / Desktop keyboard menu D-Pad support (especially for ?tv=1 testing & TV USB keyboards)
@@ -834,12 +845,50 @@
             }
         },
 
-        startPollLoop() {
+        hasConnectedHtml5Gamepad() {
+            if (!navigator || typeof navigator.getGamepads !== "function") return false;
+            try {
+                const pads = navigator.getGamepads();
+                if (!pads) return false;
+                for (let i = 0; i < pads.length; i++) {
+                    if (pads[i] && pads[i].connected) return true;
+                }
+            } catch (e) {}
+            return false;
+        },
+
+        shouldPollRaf() {
+            const game = window.game;
+            const isPlaying = Boolean(game && game.state === "playing");
+            return Boolean(this._hasHtml5Gamepad || this._nativeAxisX !== 0 || this._nativeAxisY !== 0 || isPlaying);
+        },
+
+        ensurePollActive() {
+            if (this._rafId) return;
             const step = () => {
                 this.pollFrame();
-                this._rafId = window.requestAnimationFrame(step);
+                if (this.shouldPollRaf()) {
+                    this._rafId = window.requestAnimationFrame(step);
+                } else {
+                    this._rafId = 0;
+                }
             };
             this._rafId = window.requestAnimationFrame(step);
+        },
+
+        startPollLoop() {
+            this._hasHtml5Gamepad = this.hasConnectedHtml5Gamepad();
+            if (this.shouldPollRaf()) {
+                this.ensurePollActive();
+            }
+            if (!this._probeTimer) {
+                this._probeTimer = window.setInterval(() => {
+                    this._hasHtml5Gamepad = this.hasConnectedHtml5Gamepad();
+                    if (this.shouldPollRaf()) {
+                        this.ensurePollActive();
+                    }
+                }, 1500);
+            }
         }
     };
 
