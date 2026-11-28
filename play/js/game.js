@@ -15,8 +15,8 @@ const ADMOB_CONFIG = {
 };
 window.ADMOB_CONFIG = ADMOB_CONFIG;
 
-const MARINEXT_APP_VERSION_CODE = 61;
-const MARINEXT_APP_VERSION_NAME = "1.6.2";
+const MARINEXT_APP_VERSION_CODE = 62;
+const MARINEXT_APP_VERSION_NAME = "1.6.3";
 
 const HERO_CHARACTERS_CATALOG = [
     {
@@ -1506,7 +1506,7 @@ const ACHIEVEMENTS_CATALOG = [
 class Game {
     constructor() {
         this.canvas = document.getElementById("gameCanvas");
-        this.ctx = this.canvas.getContext("2d", { alpha: false, desynchronized: true }) || this.canvas.getContext("2d");
+        this.ctx = this.canvas.getContext("2d", { alpha: false }) || this.canvas.getContext("2d");
         this.viewW = 1280;
         this.viewH = 720;
         this.renderScale = 1;
@@ -2516,6 +2516,10 @@ class Game {
             : (this.isNativeAndroid() ? "mobile" : "web");
         const inputMode = (window.MarinextTV && window.MarinextTV.inputMode)
             || (this.isAndroidTvMode() ? "tv_remote" : "touch");
+        const tvAssistMode = this.isAndroidTvMode()
+            ? ((window.MarinextTV && window.MarinextTV.tvRemoteAssistMode) || "smart_arc")
+            : "touch_native";
+        const perfTier = (this.perfConfig && this.perfConfig.tier) || this.autoPerfTier || "balanced";
         window.MarinextAnalytics.setUserProperties({
             max_unlocked_level: String(this.unlockedLevels || 1),
             max_troll_level: String(this.unlockedTrollLevels || 1),
@@ -2525,7 +2529,10 @@ class Game {
             release_track: String(this.getCurrentBuildTrack() || "production"),
             app_lang: String(this.lang || "tr"),
             device_form_factor: String(formFactor),
-            tv_input_mode: String(inputMode)
+            input_mode: String(inputMode),
+            tv_input_mode: String(inputMode),
+            tv_assist_mode: String(tvAssistMode),
+            perf_tier: String(perfTier)
         });
     }
 
@@ -4108,6 +4115,24 @@ class Game {
             else rateScreen.classList.add("hidden");
             return true;
         }
+        const tvPadScreen = document.getElementById("screen-tv-pad");
+        if (tvPadScreen && !tvPadScreen.classList.contains("hidden")) {
+            if (window.MarinextTvPad && typeof window.MarinextTvPad.closeHostModal === "function") {
+                window.MarinextTvPad.closeHostModal();
+            } else {
+                tvPadScreen.classList.add("hidden");
+            }
+            return true;
+        }
+        const mobilePadScreen = document.getElementById("screen-mobile-pad");
+        if (mobilePadScreen && !mobilePadScreen.classList.contains("hidden")) {
+            if (window.MarinextTvPad && typeof window.MarinextTvPad.closeMobileControllerModal === "function") {
+                window.MarinextTvPad.closeMobileControllerModal();
+            } else {
+                mobilePadScreen.classList.add("hidden");
+            }
+            return true;
+        }
         if (this.state === "playing") {
             this.pauseGame();
             return true;
@@ -4377,6 +4402,7 @@ class Game {
         window.addEventListener("touchmove", handleGlobalTouchMove, { passive: true });
         window.addEventListener("touchend", handleGlobalTouchEnd, { passive: true });
         window.addEventListener("touchcancel", handleGlobalTouchEnd, { passive: true });
+        window.addEventListener("pointercancel", handleGlobalTouchEnd, { passive: true });
 
         window.addEventListener("mouseup", () => {
             if (this.activeMouseBtn !== null) {
@@ -4719,6 +4745,103 @@ class Game {
                 this.applyPerformanceProfile(true);
                 this.resizeCanvas();
                 this.updateSettingsUI();
+            });
+        }
+
+        const btnToggleTvAssist = document.getElementById("btn-toggle-tv-assist");
+        if (btnToggleTvAssist) {
+            btnToggleTvAssist.addEventListener("click", () => {
+                window.sfx.coin();
+                if (window.MarinextTV && typeof window.MarinextTV.cycleTvRemoteAssistMode === "function") {
+                    window.MarinextTV.cycleTvRemoteAssistMode();
+                }
+                this.updateSettingsUI();
+            });
+        }
+
+        const openTvPadModal = () => {
+            window.sfx.coin();
+            const settingsModal = document.getElementById("screen-settings");
+            if (settingsModal && !settingsModal.classList.contains("hidden")) {
+                settingsModal.classList.add("hidden");
+                if (this.state === "settings_in_game") {
+                    this.state = "playing";
+                }
+            }
+            if (window.MarinextTvPad && typeof window.MarinextTvPad.openHostModal === "function") {
+                window.MarinextTvPad.openHostModal();
+            }
+        };
+        const btnMapTvPad = document.getElementById("btn-map-tv-pad");
+        if (btnMapTvPad) btnMapTvPad.addEventListener("click", openTvPadModal);
+        const btnSettingsTvPad = document.getElementById("btn-settings-tv-pad");
+        if (btnSettingsTvPad) btnSettingsTvPad.addEventListener("click", openTvPadModal);
+        const btnCloseTvPadX = document.getElementById("btn-close-tv-pad-x");
+        if (btnCloseTvPadX) {
+            btnCloseTvPadX.addEventListener("click", () => {
+                window.sfx.coin();
+                if (window.MarinextTvPad) window.MarinextTvPad.closeHostModal();
+            });
+        }
+        const btnTvPadNewCode = document.getElementById("btn-tv-pad-newcode");
+        if (btnTvPadNewCode) {
+            btnTvPadNewCode.addEventListener("click", () => {
+                window.sfx.coin();
+                if (window.MarinextTvPad) window.MarinextTvPad.startHostSession();
+            });
+        }
+        const btnTvPadDisconnect = document.getElementById("btn-tv-pad-disconnect");
+        if (btnTvPadDisconnect) {
+            btnTvPadDisconnect.addEventListener("click", () => {
+                window.sfx.coin();
+                if (window.MarinextTvPad) window.MarinextTvPad.stopHostSession(true);
+            });
+        }
+
+        const btnSettingsMobilePad = document.getElementById("btn-settings-mobile-pad");
+        if (btnSettingsMobilePad) {
+            btnSettingsMobilePad.addEventListener("click", () => {
+                window.sfx.coin();
+                const settingsModal = document.getElementById("screen-settings");
+                if (settingsModal && !settingsModal.classList.contains("hidden")) {
+                    settingsModal.classList.add("hidden");
+                    if (this.state === "settings_in_game") this.state = "playing";
+                }
+                if (window.MarinextTvPad) window.MarinextTvPad.openMobileControllerModal();
+            });
+        }
+        const btnCloseMobilePadX = document.getElementById("btn-close-mobile-pad-x");
+        if (btnCloseMobilePadX) {
+            btnCloseMobilePadX.addEventListener("click", () => {
+                window.sfx.coin();
+                if (window.MarinextTvPad) window.MarinextTvPad.closeMobileControllerModal();
+            });
+        }
+        const btnMpadDisconnect = document.getElementById("btn-mpad-disconnect");
+        if (btnMpadDisconnect) {
+            btnMpadDisconnect.addEventListener("click", () => {
+                window.sfx.coin();
+                if (window.MarinextTvPad) window.MarinextTvPad.disconnectMobileClient();
+            });
+        }
+        const btnMpadConnect = document.getElementById("btn-mpad-connect");
+        const mpadPinInput = document.getElementById("mpad-pin-input");
+        if (btnMpadConnect && mpadPinInput) {
+            btnMpadConnect.addEventListener("click", () => {
+                window.sfx.coin();
+                if (window.MarinextTvPad) window.MarinextTvPad.connectMobileClient(mpadPinInput.value);
+            });
+            mpadPinInput.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" && window.MarinextTvPad) {
+                    window.MarinextTvPad.connectMobileClient(mpadPinInput.value);
+                }
+            });
+        }
+        const btnMpadMenuToggle = document.getElementById("btn-mpad-menu-toggle");
+        if (btnMpadMenuToggle) {
+            btnMpadMenuToggle.addEventListener("click", () => {
+                const strip = document.getElementById("mpad-menu-strip");
+                if (strip) strip.classList.toggle("hidden");
             });
         }
 
@@ -6518,6 +6641,37 @@ class Game {
             const qTier = (this.perfConfig && this.perfConfig.tier) || "balanced";
             qualityText.style.color = qTier === "ultra" ? "#00f2fe" : (qTier === "lite" ? "#06d6a0" : "#ffd166");
         }
+        const bt = (k) => (window.getMarinextBillingText ? window.getMarinextBillingText(this.lang, k) : "");
+        const tvAssistLabelEl = document.getElementById("settings-tv-assist-label");
+        const tvAssistTextEl = document.getElementById("settings-tv-assist-text");
+        if (tvAssistLabelEl) tvAssistLabelEl.textContent = bt("settingsTvAssistLabel") || "🎯 TV Kumanda Modu";
+        if (tvAssistTextEl && window.MarinextTV) {
+            const am = window.MarinextTV.tvRemoteAssistMode || "smart_arc";
+            tvAssistTextEl.textContent = am === "auto_run"
+                ? (bt("assistAutoRun") || "OTOMATİK KOŞU ↻")
+                : (am === "classic" ? (bt("assistClassic") || "KLASİK KUMANDA ↻") : (bt("assistSmartArc") || "AKILLI YAYLI ZIPLAMA ↻"));
+            tvAssistTextEl.style.color = am === "auto_run" ? "#ffd166" : (am === "smart_arc" ? "#06d6a0" : "#38bdf8");
+        }
+        const setTxtBt = (id, key) => { const el = document.getElementById(id); const val = bt(key); if (el && val) el.textContent = val; };
+        setTxtBt("btn-map-tv-pad", "btnMapTvPad");
+        setTxtBt("settings-tv-pad-label", "settingsTvPadLabel");
+        setTxtBt("settings-mobile-pad-label", "settingsMobilePadLabel");
+        setTxtBt("tv-pad-modal-title", "tvPadModalTitle");
+        setTxtBt("tv-pad-modal-sub", "tvPadModalSub");
+        setTxtBt("tv-pad-pin-label", "tvPadPinLabel");
+        setTxtBt("tv-pad-url-label", "tvPadUrlLabel");
+        setTxtBt("btn-tv-pad-newcode", "tvPadNewCodeBtn");
+        setTxtBt("btn-tv-pad-disconnect", "tvPadDisconnectBtn");
+        setTxtBt("mobile-pad-title", "mobilePadTitle");
+        setTxtBt("mobile-pad-sub", "mobilePadSub");
+        setTxtBt("btn-mpad-connect", "mobilePadConnectBtn");
+        setTxtBt("btn-mpad-disconnect", "mobilePadDisconnectBtn");
+        setTxtBt("btn-mpad-menu-toggle", "mobilePadMenuBtn");
+        setTxtBt("mpad-pause", "mobilePadPauseBtn");
+        setTxtBt("mpad-nav-back", "mobilePadBackBtn");
+        if (window.MarinextTvPad && typeof window.MarinextTvPad.renderHostModalUI === "function") {
+            window.MarinextTvPad.renderHostModalUI();
+        }
         const displayFps = this._measuredFps || this.getNumericTargetFps() || 60;
         const fpsEl = document.getElementById("hud-fps");
         if (fpsEl) fpsEl.textContent = `⚡ ${displayFps} FPS`;
@@ -7901,7 +8055,7 @@ class Game {
         this.stopAct2CelebrationAnim();
         this._pendingLevel100VictoryModal = false;
         this._celFromLevel100Victory = false;
-        ["screen-map", "screen-shop", "screen-customize", "screen-character", "screen-modal", "screen-settings", "screen-profile", "screen-avatar-picker", "screen-insufficient-balance", "screen-language", "screen-troll", "screen-ad-overlay", "screen-ad-consent", "screen-feedback", "screen-leaderboard", "screen-rate-app", "screen-tutorial", "screen-vip-store", "screen-act2-locked", "screen-act2-celebration"].forEach((id) => {
+        ["screen-map", "screen-shop", "screen-customize", "screen-character", "screen-modal", "screen-settings", "screen-profile", "screen-avatar-picker", "screen-insufficient-balance", "screen-language", "screen-troll", "screen-ad-overlay", "screen-ad-consent", "screen-feedback", "screen-leaderboard", "screen-rate-app", "screen-tutorial", "screen-vip-store", "screen-act2-locked", "screen-act2-celebration", "screen-tv-pad", "screen-mobile-pad"].forEach((id) => {
             const el = document.getElementById(id);
             if (el) el.classList.add("hidden");
         });
@@ -8695,7 +8849,8 @@ class Game {
                 scenario_type: (this.levelInfo && this.levelInfo.scenarioType) || "campaign",
                 score: this.score || 0,
                 fail_reason: this._lastFailReason || "hazard_or_enemy",
-                fail_count: this.levelFailStreak
+                fail_count: this.levelFailStreak,
+                measured_fps: Math.max(1, Math.round(this._measuredFps || this.currentFps || 60))
             });
         }
         window.sfx.hurt();
@@ -8935,7 +9090,8 @@ class Game {
                 scenario_type: (this.levelInfo && this.levelInfo.scenarioType) || "campaign",
                 stars: earnedStars,
                 duration_ms: clearMs,
-                score: this.score || 0
+                score: this.score || 0,
+                measured_fps: Math.max(1, Math.round(this._measuredFps || this.currentFps || 60))
             });
         }
 
