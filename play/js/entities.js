@@ -2722,12 +2722,19 @@ class Player {
 
         const isIce = this.onGround && this.currentSurface === 'ice';
         const isBoost = this.onGround && this.currentSurface === 'boost';
+        const tvRemoteAssist = Boolean(
+            window.MarinextTV &&
+            window.MarinextTV.isTvMode &&
+            window.MarinextTV.inputMode === "tv_remote" &&
+            window.MarinextTV.tvRemoteAssistMode !== "classic"
+        );
+        const coyoteFrames = tvRemoteAssist ? 12 : 7;
         const surfSpeedFactor = isBoost ? 1.48 : (isIce ? 1.18 : 1.0);
         const waterSpeedFactor = this.inUnderwater ? 0.88 : 1.0;
         const maxSpeed = (this.speedTimer > 0 ? 7.0 : 5.2) * this.speedMult * surfSpeedFactor * waterSpeedFactor;
         const airAccelBase = 0.75 + (this.airControlBonus || 0);
         const accel = (this.onGround ? (isIce ? 0.38 : (isBoost ? 1.35 : 0.95)) : airAccelBase) * this.speedMult;
-        const friction = this.onGround ? (isIce ? 0.965 : 0.78) : 0.86;
+        const friction = this.onGround ? (isIce ? 0.965 : 0.78) : (tvRemoteAssist ? 0.94 : 0.86);
 
         if (input.left) {
             this.vx = Math.max(this.vx - accel, -maxSpeed);
@@ -2745,7 +2752,7 @@ class Player {
         }
 
         if (input.jumpPressed) {
-            this.jumpBuffer = 8;
+            this.jumpBuffer = tvRemoteAssist ? 12 : 8;
             input.jumpPressed = false;
         }
 
@@ -2804,7 +2811,7 @@ class Player {
             }
         }
 
-        if (!input.jumpHeld && this.vy * gravDir < -5.0 && (this.springBoostTimer || 0) <= 0) {
+        if (!tvRemoteAssist && !input.jumpHeld && this.vy * gravDir < -5.0 && (this.springBoostTimer || 0) <= 0) {
             this.vy *= 0.75;
         }
 
@@ -2874,7 +2881,7 @@ class Player {
                     if (!this.inReverseGravity) {
                         this.onGround = true;
                         this.currentSurface = s.surfaceType || 'normal';
-                        this.coyoteTimer = 7;
+                        this.coyoteTimer = coyoteFrames;
                         this.jumpsLeft = maxJumpsNow;
                         if (s.currentVx) this.x += s.currentVx;
                         if (s.isCrumble && s.state === 'idle') {
@@ -2897,7 +2904,7 @@ class Player {
                     if (this.inReverseGravity) {
                         this.onGround = true;
                         this.currentSurface = s.surfaceType || 'normal';
-                        this.coyoteTimer = 7;
+                        this.coyoteTimer = coyoteFrames;
                         this.jumpsLeft = maxJumpsNow;
                         if (s.currentVx) this.x += s.currentVx;
                     } else if (s.isMystery) {
