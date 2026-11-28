@@ -4306,3 +4306,215 @@ body.perf-lite .hud-guide-toggle {
         padding: 0 38px;
     }
 }
+
+/* v1.6.3 Strict TV/Mobile Visibility Isolation & Companion Controller UI */
+.tv-only-btn,
+.tv-only-row {
+    display: none !important;
+}
+
+body.tv-mode .tv-only-btn {
+    display: inline-flex !important;
+}
+
+body.tv-mode .tv-only-row {
+    display: flex !important;
+}
+
+body.tv-mode .mobile-only-row {
+    display: none !important;
+}
+
+.tv-pad-card {
+    max-width: 720px;
+    width: 94%;
+    text-align: center;
+}
+
+.tv-pad-sub {
+    color: #cbd5e1;
+    font-size: 13px;
+    margin-bottom: 14px;
+    line-height: 1.45;
+}
+
+.tv-pad-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.tv-pad-qr-box {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 16px;
+    box-shadow: 0 0 26px rgba(0, 242, 254, 0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tv-pad-info-panel {
+    flex: 1;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.tv-pad-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.9px;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.tv-pad-pin-code {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 10px;
+    color: #ffd166;
+    text-shadow: 0 0 18px rgba(255, 209, 102, 0.45);
+    background: rgba(5, 7, 17, 0.72);
+    border: 2px solid rgba(255, 209, 102, 0.5);
+    border-radius: 14px;
+    padding: 6px 18px;
+}
+
+.tv-pad-url-text {
+    font-size: 12px;
+    font-weight: 700;
+    color: #38bdf8;
+    word-break: break-all;
+}
+
+.tv-pad-status {
+    margin-top: 4px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    background: rgba(15, 23, 42, 0.85);
+    color: #7dd3fc;
+}
+
+.tv-pad-status.status-online {
+    border-color: rgba(6, 214, 160, 0.65);
+    color: #6ee7b7;
+    background: rgba(6, 214, 160, 0.14);
+}
+
+.tv-pad-status.status-handshake {
+    border-color: rgba(255, 209, 102, 0.65);
+    color: #fde68a;
+}
+
+.tv-pad-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mobile-pad-setup-card {
+    max-width: 420px;
+    width: 92%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.mpad-pin-input {
+    width: 220px;
+    padding: 10px 14px;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    text-align: center;
+    border-radius: 12px;
+    border: 2px solid rgba(0, 242, 254, 0.55);
+    background: rgba(5, 7, 17, 0.9);
+    color: #ffd166;
+}
+
+.mpad-status-line {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #7dd3fc;
+}
+
+.mobile-pad-deck {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #0e1633 0%, #04060f 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: max(12px, env(safe-area-inset-top)) max(20px, calc(env(safe-area-inset-right) + 12px)) max(18px, calc(env(safe-area-inset-bottom) + 12px)) max(20px, calc(env(safe-area-inset-left) + 12px));
+}
+
+.mpad-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.mpad-top-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.mpad-menu-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.88);
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    flex-wrap: wrap;
+}
+
+.mpad-nav-btn {
+    min-width: 46px;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(56, 189, 248, 0.55);
+    background: rgba(10, 14, 30, 0.9);
+    color: #00f2fe;
+    font-weight: 900;
+    font-size: 15px;
+}
+
+.mpad-nav-btn.ok {
+    background: linear-gradient(135deg, #06d6a0, #10b981);
+    color: #031524;
+    border-color: #6ee7b7;
+}
+
+.mpad-nav-btn.back {
+    border-color: rgba(248, 113, 113, 0.65);
+    color: #fca5a5;
+}
+
+.mpad-controls-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    flex: 1;
+}
