@@ -15,8 +15,8 @@ const ADMOB_CONFIG = {
 };
 window.ADMOB_CONFIG = ADMOB_CONFIG;
 
-const MARINEXT_APP_VERSION_CODE = 62;
-const MARINEXT_APP_VERSION_NAME = "1.6.3";
+const MARINEXT_APP_VERSION_CODE = 63;
+const MARINEXT_APP_VERSION_NAME = "1.6.4";
 
 const HERO_CHARACTERS_CATALOG = [
     {
@@ -2923,7 +2923,18 @@ class Game {
                     nativeTrack = window.MarinextCloudBridge.getBuildTrack();
                 } catch (e) {}
             }
-            const currentTrack = nativeTrack || (localStorage.getItem("marinext_test_track") || "production");
+            let savedTrack = "";
+            try {
+                savedTrack = localStorage.getItem("marinext_test_track") || "";
+            } catch (e) {}
+            let currentTrack = nativeTrack || savedTrack || "production";
+
+            const prodCode = Number(remote && remote.channels && remote.channels.production !== undefined ? remote.channels.production : remote && remote.versionCode);
+            const alphaCode = Number(remote && remote.channels && remote.channels.alpha !== undefined ? remote.channels.alpha : prodCode);
+            // Auto-detect pre-release builds (internal/alpha) when device hasn't manually switched track in Settings
+            if (currentTrack === "production" && Number.isFinite(prodCode) && installedCode > prodCode) {
+                currentTrack = (Number.isFinite(alphaCode) && installedCode > alphaCode) ? "internal" : "alpha";
+            }
 
             let remoteCode = Number(remote && remote.versionCode);
             if (remote && remote.channels && typeof remote.channels === "object") {
@@ -2938,9 +2949,24 @@ class Game {
                 if (typeof window.applyMarinextExtendedUI === "function") {
                     window.applyMarinextExtendedUI(this);
                 }
-                const newVerEl = document.getElementById("update-new-version");
-                if (newVerEl && remote.versionName) {
-                    newVerEl.textContent = "v" + remote.versionName;
+                let newVerEl = document.getElementById("update-new-version");
+                const channelVerName = remote && remote.channelNames && remote.channelNames[currentTrack];
+                const resolvedVerName = channelVerName || (remote && remote.versionName);
+                if (resolvedVerName) {
+                    if (!newVerEl) {
+                        const descEl = document.getElementById("update-modal-desc");
+                        if (descEl) {
+                            newVerEl = document.createElement("strong");
+                            newVerEl.id = "update-new-version";
+                            newVerEl.style.color = "#ffd166";
+                            descEl.appendChild(document.createTextNode(" ("));
+                            descEl.appendChild(newVerEl);
+                            descEl.appendChild(document.createTextNode(")"));
+                        }
+                    }
+                    if (newVerEl) {
+                        newVerEl.textContent = "v" + resolvedVerName;
+                    }
                 }
                 const linkChangelog = document.getElementById("link-update-changelog");
                 if (linkChangelog) {
@@ -2963,6 +2989,9 @@ class Game {
                 }
                 if (updateScreen) {
                     updateScreen.classList.remove("hidden");
+                    if (window.MarinextTV && typeof window.MarinextTV.scheduleFocusSync === "function") {
+                        window.MarinextTV.scheduleFocusSync(80);
+                    }
                 }
             }
         } catch (e) {
@@ -11520,7 +11549,9 @@ class Game {
         }
 
         if (!isRidingSubElevator && !this.inSubChamber) {
-            if (this.player.y > 780 || this.player.y < -180) {
+            const fellBelowPit = this.player.y > 780;
+            const fellAboveReverseSky = Boolean(this.player.inReverseGravity && this.player.y < -260);
+            if (fellBelowPit || fellAboveReverseSky) {
                 this.handlePlayerDeath("fall");
                 return;
             }
