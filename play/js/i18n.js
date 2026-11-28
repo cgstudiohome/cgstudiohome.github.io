@@ -7098,123 +7098,123 @@ window.MARINEXT_QUALITY_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.6.3" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.6.4" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🎮 v1.6.3 Akıllı TV Kumandası, Telefon Oyun Kolu & Mobil Kurtarma",
-        "subtitle": "Telefon ve tabletlerde dokunmatik kontroller sıfır gecikmeyle geri döndü! Android TV kumandası için tek parmakla engelleri aşan Akıllı Yaylı Zıplama, Telefon Oyun Kolu (QR/PIN) ve Pro Gamepad desteği yayında!",
+        "title": "🚀 v1.6.4 Yüksek Zıplama Koruması, TV Güncelleme & Akıllı Kumanda Sürümü",
+        "subtitle": "19. Bölüm ve yüksek trambolinlerde gökyüzü sınırı koruma hatası düzeltildi! Android TV otomatik güncelleme algılama, tek parmakla Akıllı Yaylı Zıplama ve Telefon Oyun Kolu desteği artık sorunsuz yayında!",
         "btnOk": "🚀 HARİKA, OYNAMAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            { "icon": "📱", "title": "Telefon & Tablet Dokunmatik Tuşları Onarıldı", "desc": "Bazı Android telefon ve tabletlerde dokunmatik hareket ve zıplama tuşlarının tepki vermeme sorunu tamamen giderildi; mobil arayüz sade ve hızlı bırakıldı." },
-            { "icon": "🎯", "title": "TV Kumandasıyla Akıllı Yaylı Zıplama & Otomatik Koşu", "desc": "Tek parmakla bile 2. bölüm ve tüm engelleri aş! TV kumandasında koşup zıpladığında yatay hızın havada korunur; ayrıca Ayarlar'dan Çocuklar için Otomatik Koşu seçilebilir." },
-            { "icon": "📲", "title": "Telefon veya Tableti TV Oyun Koluna Çevir (Sıfır Uyarı!)", "desc": "Güvenlik uyarısı olmadan QR kodu okut (cgstudiohome.com/kumanda) veya uygulama içi Ayarlar'dan 4 haneli kodu gir; telefonun saniyeler içinde gecikmesiz LAN P2P oyun koluna dönüşsün." },
-            { "icon": "🕹️", "title": "Xbox, PlayStation & Bluetooth Kollar İçin Pro Destek", "desc": "Çift zıplama hatası, analog çubuk zıplama kazaları ve L2/R2 tetik algısı düzeltildi; oyun ortasında kolun pili biterse oyun otomatik duraklar." },
-            { "icon": "📊", "title": "Detaylı Kontrol & Platform Analizi", "desc": "Hangi kontrol yönteminin (Dokunmatik, Kumanda, Telefon Kolu, Gamepad) nasıl performans verdiği ölçülerek her cihaz için daha iyi denge sunuluyor." }
+            { "icon": "🦘", "title": "19. Bölüm & Yüksek Trambolin Koruması Düzeltildi", "desc": "Süper trambolin ve yüksek zıplama platformlarıyla gökyüzüne fırladığınızda artık yukarı sınır yüzünden haksız yere can kaybetmezsiniz; kamera sizi güvenle takip eder." },
+            { "icon": "📺", "title": "Android TV Otomatik Güncelleme Algılaması", "desc": "Android TV ve erken erişim test cihazlarında da yeni sürümler otomatik olarak algılanır; tek tıkla mağaza güncelleme sayfasına ve kumanda odağına ulaşabilirsiniz." },
+            { "icon": "📱", "title": "Telefon & Tablet Dokunmatik Kontrolleri Akıcı", "desc": "Android telefon ve tabletlerde sol/sağ hareket ve çoklu dokunmatik zıplama tuşları sıfır gecikmeyle ve sade arayüzle çalışır." },
+            { "icon": "🎯", "title": "TV Kumandası Akıllı Yaylı Zıplama & Telefon Oyun Kolu", "desc": "Tek başparmakla engelleri aşan Akıllı Yay ve Otomatik Koşu modlarının yanında, QR koduyla (cgstudiohome.com/kumanda) telefonunuzu anında TV oyun koluna dönüştürebilirsiniz." },
+            { "icon": "🕹️", "title": "Xbox, PlayStation & Harici Kol Güvencesi", "desc": "Analog çubukla kazara zıplama engellendi, L2/R2 tetikleri eklendi ve kol bağlantısı kesildiğinde oyun otomatik duraklatılır." }
         ]
     },
     "en": {
-        "title": "🎮 v1.6.3 Smart TV Remote, Phone Gamepad & Mobile Touch Fix",
-        "subtitle": "Mobile/tablet touch controls are 100% restored, TV D-Pad gets Smart Arc Jump & Auto-Run so anyone can clear Level 2+ effortlessly, plus zero-warning HTTPS Phone Gamepad & Pro Bluetooth Controller support!",
+        "title": "🚀 v1.6.4 High-Jump Sky Fix, Auto TV Update & Smart Remote",
+        "subtitle": "Fixed the high-altitude boundary bug on Level 19 super jump pads! Plus automatic Android TV update detection, single-thumb Smart Arc Jump, zero-warning Phone Gamepad, and restored mobile touch controls!",
         "btnOk": "🚀 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            { "icon": "📱", "title": "Mobile & Tablet Touch Controls Restored", "desc": "Fixed the Android WebView canvas freeze that stopped touch buttons from moving the hero on phones and tablets while keeping mobile UI 100% clean." },
-            { "icon": "🎯", "title": "Smart Arc Jump & Kids Auto-Run on TV Remote", "desc": "Single-thumb TV remotes now preserve forward momentum smoothly over gaps and platforms! Switch between Smart Arc Jump and Auto-Run anytime in TV Settings." },
-            { "icon": "📲", "title": "Turn Any Phone into a TV Gamepad (Zero Security Warnings)", "desc": "Scan the TV QR code (cgstudiohome.com/kumanda) or enter the 4-digit PIN inside mobile Settings for instant LAN P2P gamepad play—no sideloading or browser warnings." },
-            { "icon": "🕹️", "title": "Pro Xbox, PlayStation & Bluetooth Gamepad Hardening", "desc": "Fixed double-jump triggers and accidental analog-stick jumps, added L2/R2 triggers, and added auto-pause safety if a Bluetooth pad disconnects." },
-            { "icon": "📊", "title": "Precision Controller & Frame Rate Telemetry", "desc": "Detailed platform and controller analytics help keep every phone, tablet, and Android TV running smoother than ever." }
+            { "icon": "🦘", "title": "Level 19 & High Jump-Pad Sky Protection Fixed", "desc": "Launching skyward off super trampolines and high bounce pads in Level 19 and beyond will no longer trigger an unfair out-of-bounds defeat—the camera tracks high arcs smoothly." },
+            { "icon": "📺", "title": "Automatic Android TV & Test Channel Update Alerts", "desc": "Pre-release and Android TV devices now detect newer updates automatically on launch and highlight the Update button directly for TV D-Pad remotes." },
+            { "icon": "📱", "title": "Mobile & Tablet Multi-Touch Controls Restored", "desc": "Movement and jump touch buttons on Android phones and tablets respond instantaneously with zero compositor freeze and clean, uncluttered menus." },
+            { "icon": "🎯", "title": "TV Remote Smart Arc & QR Phone Gamepad", "desc": "Clear lava gaps with a single thumb via Smart Arc Jump or Kids Auto-Run, or scan the QR code (cgstudiohome.com/kumanda) to use any phone as a zero-warning LAN gamepad." },
+            { "icon": "🕹️", "title": "Pro Xbox, PlayStation & Bluetooth Gamepad Polish", "desc": "Removed accidental analog-stick jumps and duplicate inputs, added L2/R2 triggers, and added auto-pause safety if your controller disconnects." }
         ]
     },
     "ko": {
-        "title": "🎮 v1.6.3 스마트 TV 리모컨, 폰 게임패드 & 터치 긴급 복구",
-        "subtitle": "스마트폰과 태블릿 터치 조작을 완벽 복구했고, TV 리모컨 스마트 아크 점프·오토런, 무경고 HTTPS 스마트폰 게임패드 및 블루투스 컨트롤러 정밀 지원을 추가했습니다!",
+        "title": "🚀 v1.6.4 고공 점프 보호, TV 자동 업데이트 & 스마트 리모컨",
+        "subtitle": "19스테이지 슈퍼 트램펄린 고공 점프 중 상단 경계로 즉사하던 문제를 해결했습니다! Android TV 자동 업데이트 감지, 리모컨 스마트 아크 점프, 폰 게임패드까지 한 번에 만나보세요!",
         "btnOk": "🚀 좋아요, 바로 시작!",
         "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            { "icon": "📱", "title": "모바일·태블릿 터치 조작 완전 복구", "desc": "일부 안드로이드 폰과 태블릿에서 이동·점프 터치 버튼이 멈추던 문제를 해결하고 모바일 화면을 깔끔하게 유지했습니다." },
-            { "icon": "🎯", "title": "TV 리모컨 스마트 아크 점프 & 자동 달리기", "desc": "한 손가락 리모컨으로도 2스테이지 용암 구간을 손쉽게 건널 수 있도록 공중 추진력과 점프 높이를 보정하고 오토런 모드를 추가했습니다." },
-            { "icon": "📲", "title": "스마트폰·태블릿을 무선 TV 게임패드로 연결", "desc": "보안 경고 없이 QR 코드(cgstudiohome.com/kumanda)를 스캔하거나 4자리 코드를 입력해 초저지연 LAN P2P 게임패드로 플레이하세요." },
-            { "icon": "🕹️", "title": "Xbox · PS · 블루투스 게임패드 완벽 호환", "desc": "중복 점프 및 아날로그 스틱 오작동을 제거하고 L2/R2 트리거와 연결 해제 시 자동 일시정지 기능을 추가했습니다." },
-            { "icon": "📊", "title": "컨트롤러별 상세 FPS & 플레이 분석", "desc": "기기 및 컨트롤러 유형별 프레임과 조작 데이터를 정교화해 플랫폼별 최적화 품질을 높였습니다." }
+            { "icon": "🦘", "title": "19스테이지 & 고공 점프대 사망 오류 수정", "desc": "슈퍼 트램펄린을 타고 높이 도약해도 상단 화면 밖 판정으로 억울하게 죽지 않으며 카메라가 안전하게 추적합니다." },
+            { "icon": "📺", "title": "Android TV & 테스트 채널 자동 업데이트 알림", "desc": "TV와 테스트 기기에서도 새 버전이 출시되면 실행 시 자동으로 감지해 리모컨으로 바로 업데이트할 수 있습니다." },
+            { "icon": "📱", "title": "모바일·태블릿 멀티터치 조작 완벽 유지", "desc": "스마트폰과 태블릿의 좌우 이동 및 점프 버튼이 지연 없이 깔끔하게 동작합니다." },
+            { "icon": "🎯", "title": "TV 리모컨 스마트 아크 점프 & 무선 폰 게임패드", "desc": "한 손가락 점프 보정 및 오토런 모드와 더불어 QR 코드(cgstudiohome.com/kumanda)로 폰을 즉시 무선 게임패드로 연결할 수 있습니다." },
+            { "icon": "🕹️", "title": "Xbox · PS · 블루투스 게임패드 안정성 강화", "desc": "스틱 오작동 및 중복 입력을 제거하고 L2/R2 트리거와 연결 해제 시 자동 일시정지를 지원합니다." }
         ]
     },
     "ja": {
-        "title": "🎮 v1.6.3 スマートTVリモコン＆スマホゲームパッド登場",
-        "subtitle": "スマホ・タブレットのタッチ操作を完全修復し、TVリモコンのスマートジャンプ＆オートラン、警告ゼロのスマホコントローラー機能、外部ゲームパッド強化を搭載！",
+        "title": "🚀 v1.6.4 ハイジャンプ上空保護・TV自動更新＆スマート操作",
+        "subtitle": "ステージ19のハイジャンプ台で上空に飛ぶとミスになる不具合を修正！Android TVでの自動アップデート通知、親指1本のスマートジャンプ、スマホ無線ゲームパッドも搭載！",
         "btnOk": "🚀 最高！プレイ開始",
         "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            { "icon": "📱", "title": "スマホ・タブレットのタッチ操作を修復", "desc": "Android WebViewでタッチ移動・ジャンプが反応しない不具合を解消し、モバイルUIを軽快かつシンプルに保ちました。" },
-            { "icon": "🎯", "title": "TVリモコン用スマートジャンプ＆オートラン", "desc": "十字キーの親指1本でもステージ2の足場を余裕で飛び越えられるよう空中慣性を最適化！設定からキッズ向けオートランにも切替可能です。" },
-            { "icon": "📲", "title": "スマホが警告ゼロのTV無線ゲームパッドに変身", "desc": "QRコード(cgstudiohome.com/kumanda)または4桁PINで即接続！低遅延LAN P2Pでタッチボタン操作をTVへ直接送信できます。" },
-            { "icon": "🕹️", "title": "Xbox・PlayStation・Bluetoothパッド強化", "desc": "二重ジャンプやスティック誤反応を防ぎ、L2/R2トリガー対応および切断時の自動ポーズを追加しました。" },
-            { "icon": "📊", "title": "コントローラー＆FPS詳細分析", "desc": "端末や操作デバイスごとのフレームレートと快適性をより詳細に分析できるようになりました。" }
+            { "icon": "🦘", "title": "ステージ19＆スーパージャンプ台上空ミスの修正", "desc": "高反発トランポリンで大きく上空へ跳ねても画面上部判定で即死しなくなり、カメラが滑らかに追従します。" },
+            { "icon": "📺", "title": "Android TV＆テスト版アップデート自動検出", "desc": "TV端末やテスト配信版でも起動時に最新バージョンを自動検出し、リモコン操作ですぐ更新画面へ進めます。" },
+            { "icon": "📱", "title": "スマホ・タブレットのタッチ操作が軽快＆安定", "desc": "Androidスマホやタブレットでの移動・ジャンプの同時押しがゼロ遅延で快適に反応します。" },
+            { "icon": "🎯", "title": "TVスマートジャンプ＆QRスマホゲームパッド", "desc": "十字キーだけの簡単ジャンプ補正・オートランに加え、QR(cgstudiohome.com/kumanda)でスマホを低遅延ゲームパッドにできます。" },
+            { "icon": "🕹️", "title": "Xbox・PlayStation・Bluetoothパッド最適化", "desc": "スティック誤ジャンプや二重判定を修正し、L2/R2トリガーと切断時の自動ポーズを追加しました。" }
         ]
     },
     "zh": {
-        "title": "🎮 v1.6.3 智能电视遥控、手机手柄与触控修复版",
-        "subtitle": "全面修复手机/平板触控失灵问题，新增电视遥控智能抛物跳跃与自动奔跑、零安全警告的手机无线手柄以及专业蓝牙手柄支持！",
+        "title": "🚀 v1.6.4 高空弹跳保护、TV自动更新与智能遥控版",
+        "subtitle": "全面修复第19关超级跳板飞高后触发顶部出界死亡的问题！同时支持 Android TV 自动更新提醒、单指智能抛物跳跃及零警告手机手柄！",
         "btnOk": "🚀 太棒了，立即开始！",
         "btnWeb": "🌐 查看完整更新日志 ↗",
         "items": [
-            { "icon": "📱", "title": "全面修复手机与平板触控按键", "desc": "解决了部分安卓手机和平板中左右移动与跳跃按键无响应的问题，并保持移动端界面清爽流畅。" },
-            { "icon": "🎯", "title": "电视遥控智能抛物跳与儿童自动奔跑", "desc": "单指按遥控器也能轻松越过第2关障碍！空中自动保留前冲惯性，并在电视设置中可选自动奔跑模式。" },
-            { "icon": "📲", "title": "手机秒变电视手柄（零浏览器警告）", "desc": "扫码访问官方HTTPS页面或输入4位配对码，无需下载即可通过局域网P2P零延迟控制电视！" },
-            { "icon": "🕹️", "title": "Xbox / PS / 蓝牙手柄专业优化", "desc": "消除双击连跳与摇杆误跳，完整支持 L2/R2 扳机并在手柄断连时自动暂停游戏。" },
-            { "icon": "📊", "title": "精细化手柄与帧率体验分析", "desc": "支持区分遥控器、手机手柄、蓝牙手柄及触控设备表现，持续提升全平台操控手感。" }
+            { "icon": "🦘", "title": "修复第19关及超级跳板高空误判死亡", "desc": "踩上独立高台与超级弹簧直冲高空时，不再因超出上方边界而无故扣命，镜头将全程平滑跟随。" },
+            { "icon": "📺", "title": "Android TV 与测试通道自动更新检测", "desc": "电视与内测设备启动时会自动识别新版本并弹出更新提示，遥控器一键直达更新。" },
+            { "icon": "📱", "title": "手机与平板多点触控畅快稳定", "desc": "方向与跳跃触控按钮保持零延迟精准响应，移动端界面简洁纯粹。" },
+            { "icon": "🎯", "title": "电视智能抛物跳与二维码手机手柄", "desc": "单指遥控器可轻松跨越鸿沟并支持儿童自动奔跑；扫码即可把手机变成局域网低延迟手柄。" },
+            { "icon": "🕹️", "title": "Xbox / PS / 蓝牙手柄专业加固", "desc": "消除摇杆误跳与重复触发，完整支持 L2/R2 扳机与断连自动暂停保护。" }
         ]
     },
     "ru": {
-        "title": "🎮 v1.6.3 Умный пульт ТВ, Телефон-геймпад и Фикс сенсора",
-        "subtitle": "Сенсорные кнопки на телефонах и планшетах полностью восстановлены! Добавлены умный прыжок с пульта ТВ, автобег, телефон-геймпад (QR/PIN) без предупреждений и поддержка геймпадов.",
+        "title": "🚀 v1.6.4 Защита высоких прыжков, авто-обновление ТВ и пульт",
+        "subtitle": "Исправлена ошибка на 19-м уровне при высоком прыжке с батута! Также добавлено авто-определение обновлений на Android TV, умный прыжок с пульта и телефон-геймпад без предупреждений!",
         "btnOk": "🚀 ОТЛИЧНО, ПОЕХАЛИ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
-            { "icon": "📱", "title": "Восстановлено сенсорное управление на телефонах и планшетах", "desc": "Устранена проблема зависания холста Android WebView, из-за которой не работали кнопки движения и прыжка на смартфонах." },
-            { "icon": "🎯", "title": "Умный прыжок с пульта ТВ и детский Автобег", "desc": "Прыжки с обычного пульта ТВ сохраняют инерцию вперёд через пропасти 2-го уровня; в настройках ТВ доступен и режим Автобега." },
-            { "icon": "📲", "title": "Телефон как геймпад для ТВ без единого предупреждения", "desc": "Отсканируйте QR-код (cgstudiohome.com/kumanda) или введите 4-значный ПИН-код в приложении для мгновенной игры по LAN P2P." },
-            { "icon": "🕹️", "title": "Прокачанная поддержка Xbox, PlayStation и Bluetooth-падов", "desc": "Убраны двойные прыжки и случайные прыжки стиком, добавлены триггеры L2/R2 и авто-пауза при разрыве связи." },
-            { "icon": "📊", "title": "Детальная аналитика контроллеров и FPS", "desc": "Улучшен учёт типов управления и реального FPS для идеальной балансировки игры на каждом экране." }
+            { "icon": "🦘", "title": "Исправлена гибель вверху экрана на 19-м уровне", "desc": "Высокий взлёт с супер-батута и верхних платформ больше не засчитывается как падение за пределы карты — камера плавно следует вверх." },
+            { "icon": "📺", "title": "Автоматическое уведомление об обновлении на Android TV", "desc": "ТВ-приставки и тестовые каналы теперь автоматически видят свежую версию при запуске с готовым фокусом для пульта." },
+            { "icon": "📱", "title": "Плавный мультитач на телефонах и планшетах", "desc": "Кнопки движения и прыжка работают мгновенно и без сбоев, а интерфейс на мобильных экранах остаётся чистым." },
+            { "icon": "🎯", "title": "Умный прыжок с пульта ТВ и Телефон-геймпад по QR", "desc": "Лёгкое прохождение препятствий одним пальцем, режим автобега и подключение смартфона по QR (cgstudiohome.com/kumanda)." },
+            { "icon": "🕹️", "title": "Надёжная поддержка Xbox, PlayStation и Bluetooth-геймпадов", "desc": "Убраны ложные прыжки стиком и двойные нажатия, добавлены L2/R2 и авто-пауза при отключении геймпада." }
         ]
     },
     "it": {
-        "title": "🎮 v1.6.3 Telecomando Smart TV, Pad Telefono & Fix Touch",
-        "subtitle": "Controlli touch su smartphone e tablet ripristinati al 100%, Salto Smart e Corsa Auto per telecomando TV, Gamepad da telefono senza avvisi HTTPS e supporto pad Xbox/PS!",
+        "title": "🚀 v1.6.4 Fix Salto Alto Liv. 19, Aggiornamento TV & Telecomando",
+        "subtitle": "Risolto il bug del salto verso l'alto sul trampolino del Livello 19! Ora rileva automaticamente gli aggiornamenti su Android TV, con Salto Smart e Gamepad da telefono senza avvisi!",
         "btnOk": "🎮 FANTASTICO, GIOCHIAMO!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
-            { "icon": "📱", "title": "Controlli Touch Mobile & Tablet Ripristinati", "desc": "Risolto il blocco WebView che impediva ai pulsanti direzionali e di salto di muovere l'eroe su telefoni e tablet." },
-            { "icon": "🎯", "title": "Salto Smart & Corsa Automatica con Telecomando TV", "desc": "Supera facilmente gli ostacoli del Livello 2 con un solo pollice! Mantieni lo slancio in aria e attiva la Corsa Auto dalle Impostazioni TV." },
-            { "icon": "📲", "title": "Trasforma il Telefono in Gamepad TV (Zero Avvisi!)", "desc": "Scansiona il QR (cgstudiohome.com/kumanda) o inserisci il PIN a 4 cifre dall'app mobile per giocare subito via LAN P2P." },
-            { "icon": "🕹️", "title": "Supporto Pro Xbox, PlayStation e Controller Bluetooth", "desc": "Eliminati doppi salti accidentali e salti con lo stick analogico; aggiunti grilletti L2/R2 e pausa automatica alla disconnessione." },
-            { "icon": "📊", "title": "Analisi Avanzata Controller e Prestazioni", "desc": "Metriche dettagliate per modalità di controllo e FPS reali su ogni dispositivo Android TV e mobile." }
+            { "icon": "🦘", "title": "Risolta Sconfitta in Quota nel Livello 19", "desc": "Saltando in alto dai super trampolini non si perde più una vita toccando il limite superiore: la visuale segue il salto in totale sicurezza." },
+            { "icon": "📺", "title": "Rilevamento Automatico Aggiornamenti su Android TV", "desc": "I dispositivi Android TV e i canali di test rilevano subito le nuove versioni all'avvio con focus diretto sul pulsante Aggiorna." },
+            { "icon": "📱", "title": "Controlli Touch Mobile & Tablet Fluido-Reattivi", "desc": "Spostamento e salto multi-touch su telefoni e tablet rispondono all'istante senza alcun blocco grafico." },
+            { "icon": "🎯", "title": "Salto Smart con Telecomando & Gamepad QR sul Telefono", "desc": "Supera i baratri con un pollice grazie a Salto Smart e Corsa Auto, oppure usa lo smartphone come controller LAN tramite QR (cgstudiohome.com/kumanda)." },
+            { "icon": "🕹️", "title": "Controller Xbox, PlayStation e Bluetooth Perfezionati", "desc": "Nessun salto involontario con lo stick analogico, grilletti L2/R2 attivi e pausa automatica in caso di disconnessione." }
         ]
     },
     "es": {
-        "title": "🎮 v1.6.3 Mando Smart TV, Móvil como Mando y Fix Táctil",
-        "subtitle": "¡Controles táctiles restaurados al 100% en móviles y tablets! Nuevo Salto Inteligente para mando de TV, Modo Mando en tu móvil sin avisos HTTPS y soporte Pro Bluetooth.",
+        "title": "🚀 v1.6.4 Protección de Salto Alto Niv. 19, Auto-Update TV y Mando",
+        "subtitle": "¡Corregido el fallo mortal al saltar muy alto desde el trampolín del Nivel 19! Añade detección automática de actualizaciones en Android TV, Salto Inteligente y Móvil como Mando.",
         "btnOk": "🚀 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
-            { "icon": "📱", "title": "Controles Táctiles en Móvil y Tablet Reparados", "desc": "Corregido el bloqueo de Android WebView que dejaba sin respuesta los botones de dirección y salto en teléfonos y tablets." },
-            { "icon": "🎯", "title": "Salto Inteligente y Carrera Automática en TV", "desc": "¡Supera el Nivel 2 y los saltos difíciles con un solo pulgar! El impulso horizontal se mantiene al saltar y puedes activar Carrera Auto en Ajustes." },
-            { "icon": "📲", "title": "Usa tu Móvil como Mando de TV (Sin Alertas de Seguridad)", "desc": "Escanea el QR (cgstudiohome.com/kumanda) o escribe el PIN de 4 dígitos para jugar por LAN P2P directa al instante." },
-            { "icon": "🕹️", "title": "Soporte Pro Xbox, PlayStation y Mandos Bluetooth", "desc": "Sin saltos dobles ni saltos accidentales con el joystick, gatillos L2/R2 listos y pausa automática si se desconecta el mando." },
-            { "icon": "📊", "title": "Analítica Detallada de Mandos y FPS", "desc": "Seguimiento preciso por dispositivo y método de control para seguir optimizando la experiencia en TV y móvil." }
+            { "icon": "🦘", "title": "Corregida la Derrota Aérea en el Nivel 19", "desc": "Al impulsarte bien alto con trampolines de salto ya no pierdes una vida por el borde superior: la cámara te sigue con suavidad." },
+            { "icon": "📺", "title": "Detección Automática de Actualizaciones en Android TV", "desc": "Los televisores Android TV y versiones de prueba detectan automáticamente nuevas compilaciones al iniciar con foco listo para el mando." },
+            { "icon": "📱", "title": "Controles Multitáctiles Fluidos en Móvil y Tablet", "desc": "Los botones táctiles de dirección y salto responden al instante manteniendo la interfaz móvil limpia y veloz." },
+            { "icon": "🎯", "title": "Salto Inteligente en TV y Móvil como Mando por QR", "desc": "Supera obstáculos con un solo pulgar usando Salto Inteligente o Carrera Auto, o escanea el QR (cgstudiohome.com/kumanda) para jugar desde el móvil." },
+            { "icon": "🕹️", "title": "Soporte Pro Xbox, PlayStation y Mandos Bluetooth", "desc": "Sin saltos accidentales con el joystick, gatillos L2/R2 listos y pausa automática si se desconecta el mando." }
         ]
     },
     "fr": {
-        "title": "🎮 v1.6.3 Télécommande TV Smart, Manette Mobile & Fix Tactile",
-        "subtitle": "Contrôles tactiles rétablis à 100 % sur mobiles et tablettes ! Saut Intelligent sur télécommande TV, Manette Mobile HTTPS sans alerte et manettes Bluetooth Pro !",
+        "title": "🚀 v1.6.4 Sauts Hauts Niv. 19, MAJ Auto TV & Manette Intelligente",
+        "subtitle": "Correction du bug mortel en haute altitude sur le tremplin du Niveau 19 ! Détection auto des mises à jour sur Android TV, Saut Intelligent, Manette Mobile QR et support tactile parfait.",
         "btnOk": "🚀 SUPER, C'EST PARTI !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
-            { "icon": "📱", "title": "Boutons Tactiles Mobile & Tablette Réparés", "desc": "Correction du gel WebView Android qui bloquait le déplacement et le saut sur téléphones et tablettes tout en gardant l'interface épurée." },
-            { "icon": "🎯", "title": "Saut Intelligent & Course Auto sur Télécommande TV", "desc": "Franchissez le Niveau 2 et chaque fossé avec un seul pouce ! L'élan reste fluide en l'air et l'option Course Auto est disponible dans les Paramètres TV." },
-            { "icon": "📲", "title": "Votre Mobile en Manette TV Sans Alerte de Sécurité", "desc": "Scannez le QR code (cgstudiohome.com/kumanda) ou entrez le code à 4 chiffres pour jouer en LAN P2P ultra-réactif." },
-            { "icon": "🕹️", "title": "Manettes Xbox, PlayStation & Bluetooth Pro", "desc": "Suppression des doubles sauts et des sauts involontaires au stick, gestion L2/R2 et mise en pause auto si la manette se déconnecte." },
-            { "icon": "📊", "title": "Analyse Précise par Contrôleur & FPS", "desc": "Statistiques détaillées selon la manette utilisée et les IPS mesurés pour optimiser encore plus chaque plateforme." }
+            { "icon": "🦘", "title": "Protection Haute Altitude Corrigée (Niveau 19)", "desc": "Sauter très haut sur un super tremplin ne déclenche plus de défaite injuste en haut de l'écran : la caméra suit chaque bond avec fluidité." },
+            { "icon": "📺", "title": "Détection Auto des Mises à Jour sur Android TV", "desc": "Les appareils Android TV et canaux de test détectent automatiquement chaque nouvelle version dès le lancement avec focus prêt pour la télécommande." },
+            { "icon": "📱", "title": "Contrôles Tactiles Mobiles & Tablettes Fluides", "desc": "Les boutons directionnels et le multi-touch de saut répondent sans aucune latence dans une interface mobile épurée." },
+            { "icon": "🎯", "title": "Saut Intelligent TV & Manette Mobile par QR Code", "desc": "Franchissez chaque obstacle d'un seul pouce avec Saut Intelligent ou Course Auto, ou scannez le QR (cgstudiohome.com/kumanda) pour jouer au tactile sur TV." },
+            { "icon": "🕹️", "title": "Manettes Xbox, PlayStation & Bluetooth Pro", "desc": "Plus de sauts accidentels au stick analogique, gâchettes L2/R2 intégrées et pause automatique en cas de déconnexion." }
         ]
     }
 };
