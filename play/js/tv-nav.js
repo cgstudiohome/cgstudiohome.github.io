@@ -22,16 +22,24 @@
 
     const MarinextTV = {
         isTvMode: false,
-        inputMode: "touch", // "touch" | "keyboard" | "tv_remote" | "gamepad"
+        inputMode: "touch", // "touch" | "keyboard" | "tv_remote" | "gamepad" | "phone_pad" | "app_pad"
+        tvRemoteAssistMode: "smart_arc", // "smart_arc" | "auto_run" | "classic"
         focusedEl: null,
         _initialized: false,
         _activeContainerId: "",
         _exitArmTime: 0,
         _lastGamepadConnLogged: "",
-        _remoteMomentumDir: 0, // -1 left, 1 right, 0 none
-        _remoteMomentumUntil: 0,
-        _remoteDirAtUp: 0,
-        _remoteDirDownAt: 0,
+        activeGamepadName: "",
+        _padTransport: "",
+        _lastNativeGamepadAt: 0,
+        _remoteLastDir: 0,
+        _remoteLastDirAt: 0,
+        _remoteAirAssistDir: 0,
+        _remoteAirAssistUntil: 0,
+        _remoteAirAssistStartedAt: 0,
+        _autoRunDir: 0,
+        _phonePadActive: false,
+        _phonePadState: { left: false, right: false, jump: false },
         _inputIgnoreUntil: 0,
         _lastReportedGameplay: null,
 
@@ -79,9 +87,9 @@
 
             try {
                 const ua = (navigator && navigator.userAgent) || "";
-                // Match genuine Android TV / Fire TV / Shield / MiBox devices without matching normal Android phones
+                // Match genuine Android TV / Fire TV / Shield / MiBox devices without matching phones or tablets
                 if (/Android/i.test(ua) && !/\bMobile\b/i.test(ua)) {
-                    if (/(TV|MiBOX|AFT|BRAVIA|SHIELD|GoogleTV|Android TV|SMART-TV|ADT-|Chromecast)/i.test(ua)) {
+                    if (/(\bAndroid TV\b|\bGoogleTV\b|\bMiBOX\w*|\bBRAVIA\b|\bSHIELD\b|\bSMART-TV\b|\bChromecast\b|\bADT-[A-Z0-9]+\b|\bAFT[A-Z0-9]+\b)/i.test(ua)) {
                         return true;
                     }
                 }
@@ -93,6 +101,13 @@
         init() {
             if (this._initialized) return;
             this._initialized = true;
+
+            try {
+                const savedAssist = localStorage.getItem("marinext_tv_remote_assist");
+                if (savedAssist === "smart_arc" || savedAssist === "auto_run" || savedAssist === "classic") {
+                    this.tvRemoteAssistMode = savedAssist;
+                }
+            } catch (e) {}
 
             this.isTvMode = this.detectTvEnvironment();
             if (this.isTvMode) {
@@ -133,11 +148,22 @@
         setInputMode(mode) {
             if (!mode || this.inputMode === mode) return;
             this.inputMode = mode;
+            if (mode === "gamepad" || mode === "tv_remote" || mode === "phone_pad" || mode === "app_pad") {
+                if (typeof this.ensureFocusObserverAttached === "function") {
+                    this.ensureFocusObserverAttached();
+                }
+            }
             if (document.body) {
                 document.body.classList.toggle("tv-gamepad-active", mode === "gamepad");
             }
             if (window.game && typeof window.game.syncAnalyticsUserProperties === "function") {
                 window.game.syncAnalyticsUserProperties();
+            }
+            if (window.MarinextAnalytics && typeof window.MarinextAnalytics.logEvent === "function") {
+                window.MarinextAnalytics.logEvent("tv_input_mode_changed", {
+                    tv_input_mode: mode,
+                    device_form_factor: this.getFormFactor()
+                });
             }
         },
 
@@ -230,7 +256,8 @@
                 "screen-leaderboard": [".lb-tab-btn.active", ".lb-tab-btn", "#btn-close-leaderboard-x"],
                 "screen-insufficient-balance": ["#btn-insuff-vip:not(.hidden)", "#btn-insuff-watch-ad:not(.hidden)", "#btn-insuff-cancel"],
                 "screen-rate-app": ["#btn-action-rate-now", "#btn-action-rate-feedback", "#btn-action-rate-later", "#btn-close-rate-x"],
-                "screen-update": ["#btn-do-update", "#btn-later-update", "#btn-close-update-x"]
+                "screen-update": ["#btn-do-update", "#btn-later-update", "#btn-close-update-x"],
+                "screen-tv-pad": ["#btn-tv-pad-disconnect:not(.hidden)", "#btn-tv-pad-newcode", "#btn-close-tv-pad-x"]
             };
 
             const prefs = preferredSelectors[cid] || [];
@@ -285,14 +312,45 @@
             this._nativeKeys = Object.create(null);
             this._nativeAxisX = 0;
             this._nativeAxisY = 0;
-            this._remoteMomentumDir = 0;
-            this._remoteMomentumUntil = 0;
-            this._remoteDirAtUp = 0;
-            this._remoteDirDownAt = 0;
+            this._remoteLastDir = 0;
+            this._remoteLastDirAt = 0;
+            this._remoteAirAssistDir = 0;
+            this._remoteAirAssistUntil = 0;
+            this._remoteAirAssistStartedAt = 0;
+            this._autoRunDir = 0;
+            this._phonePadState = { left: false, right: false, jump: false };
             this._inputIgnoreUntil = Date.now() + (Number(graceMs) || 240);
             if (window.game && typeof window.game.setExternalControllerHeld === "function") {
                 window.game.setExternalControllerHeld(false, false, false);
             }
+        },
+
+        setTvRemoteAssistMode(mode) {
+            if (mode !== "smart_arc" && mode !== "auto_run" && mode !== "classic") return this.tvRemoteAssistMode;
+            this.tvRemoteAssistMode = mode;
+            this._autoRunDir = 0;
+            this._remoteAirAssistDir = 0;
+            this._remoteAirAssistUntil = 0;
+            try {
+                localStorage.setItem("marinext_tv_remote_assist", mode);
+            } catch (e) {}
+            if (window.game && typeof window.game.syncAnalyticsUserProperties === "function") {
+                window.game.syncAnalyticsUserProperties();
+            }
+            if (window.MarinextAnalytics && typeof window.MarinextAnalytics.logEvent === "function") {
+                window.MarinextAnalytics.logEvent("tv_assist_mode_changed", {
+                    tv_assist_mode: mode,
+                    device_form_factor: this.getFormFactor()
+                });
+            }
+            return mode;
+        },
+
+        cycleTvRemoteAssistMode() {
+            const order = ["smart_arc", "auto_run", "classic"];
+            const idx = order.indexOf(this.tvRemoteAssistMode);
+            const next = order[(idx + 1) % order.length];
+            return this.setTvRemoteAssistMode(next);
         },
 
         syncFocusToActiveScreen(forceReset) {
@@ -494,18 +552,20 @@
             } catch (e) {}
         },
 
-        setupFocusObserver() {
-            const onDomChange = () => {
-                if (this.isGameplayActive()) {
-                    this.syncGameplayBridgeFlag(true);
-                    this.clearFocus();
-                    return;
-                }
-                this.syncGameplayBridgeFlag(false);
-                this.scheduleFocusSync(35);
-            };
+        ensureFocusObserverAttached() {
+            if (this._focusObserverAttached) return;
             const attachObserver = () => {
-                if (!document.body || typeof MutationObserver !== "function") return;
+                if (this._focusObserverAttached || !document.body || typeof MutationObserver !== "function") return;
+                this._focusObserverAttached = true;
+                const onDomChange = () => {
+                    if (this.isGameplayActive()) {
+                        this.syncGameplayBridgeFlag(true);
+                        this.clearFocus();
+                        return;
+                    }
+                    this.syncGameplayBridgeFlag(false);
+                    this.scheduleFocusSync(35);
+                };
                 const obs = new MutationObserver(onDomChange);
                 obs.observe(document.body, {
                     subtree: true,
@@ -517,7 +577,14 @@
             if (document.body) {
                 attachObserver();
             } else {
-                document.addEventListener("DOMContentLoaded", attachObserver);
+                document.addEventListener("DOMContentLoaded", attachObserver, { once: true });
+            }
+        },
+
+        setupFocusObserver() {
+            // Keep phones & tablets 100% free of MutationObserver overhead unless TV mode or a gamepad activates
+            if (this.isTvMode) {
+                this.ensureFocusObserverAttached();
             }
 
             document.addEventListener("focusin", () => this.syncTextInputFlag(), true);
@@ -528,9 +595,11 @@
 
         handleNativeKey(keyName, isDown, isRepeat, sourceType) {
             if (!keyName) return;
+            const now = Date.now();
             if (sourceType === "gamepad") {
+                this._lastNativeGamepadAt = now;
                 this.setInputMode("gamepad");
-            } else if (this.isTvMode && sourceType === "tv_remote" && this.inputMode !== "gamepad") {
+            } else if (this.isTvMode && sourceType === "tv_remote" && this.inputMode !== "gamepad" && this.inputMode !== "phone_pad" && this.inputMode !== "app_pad") {
                 this.setInputMode("tv_remote");
             }
 
@@ -538,7 +607,7 @@
             const isPlaying = this.isGameplayActive();
             this.syncGameplayBridgeFlag(isPlaying);
 
-            if (isPlaying && Date.now() < this._inputIgnoreUntil) {
+            if (isPlaying && now < this._inputIgnoreUntil) {
                 if (!isDown) {
                     delete this._nativeKeys[keyName];
                 }
@@ -551,21 +620,21 @@
                 delete this._nativeKeys[keyName];
             }
 
-            // Handle TV Remote smart jump momentum only when Left/Right was intentionally held (>= 140ms) right before jumping
+            // Track TV Remote direction memory & Auto-Run state (works even for brief single-thumb taps)
             if (this.inputMode === "tv_remote" && isPlaying) {
-                if (isDown && !isRepeat && (keyName === "DPAD_LEFT" || keyName === "DPAD_RIGHT")) {
-                    this._remoteDirDownAt = Date.now();
-                    this._remoteMomentumDir = 0;
-                }
-                if (!isDown && (keyName === "DPAD_LEFT" || keyName === "DPAD_RIGHT")) {
-                    const heldMs = Date.now() - (this._remoteDirDownAt || 0);
-                    if (heldMs >= 140) {
-                        this._remoteDirAtUp = keyName === "DPAD_LEFT" ? -1 : 1;
-                        this._remoteMomentumUntil = Date.now() + 220;
-                    } else {
-                        this._remoteDirAtUp = 0;
-                        this._remoteMomentumDir = 0;
+                if (keyName === "DPAD_LEFT" || keyName === "DPAD_RIGHT") {
+                    const dir = keyName === "DPAD_LEFT" ? -1 : 1;
+                    this._remoteLastDir = dir;
+                    this._remoteLastDirAt = now;
+                    if (isDown && this._remoteAirAssistDir === -dir) {
+                        this._remoteAirAssistDir = 0;
+                        this._remoteAirAssistUntil = 0;
                     }
+                    if (isDown && !isRepeat && this.tvRemoteAssistMode === "auto_run") {
+                        this._autoRunDir = (this._autoRunDir === -dir) ? 0 : dir;
+                    }
+                } else if (isDown && !isRepeat && keyName === "DPAD_DOWN" && this.tvRemoteAssistMode === "auto_run") {
+                    this._autoRunDir = 0;
                 }
             }
 
@@ -616,10 +685,24 @@
                 this.ensurePollActive();
                 if (keyName === "DPAD_UP" || keyName === "BUTTON_A") {
                     game.input.jumpPressed = true;
-                    if (this.inputMode === "tv_remote" && !this._nativeKeys.DPAD_LEFT && !this._nativeKeys.DPAD_RIGHT) {
-                        if (Date.now() <= this._remoteMomentumUntil && this._remoteDirAtUp !== 0) {
-                            this._remoteMomentumDir = this._remoteDirAtUp;
-                            this._remoteMomentumUntil = Date.now() + 240;
+                    if (keyName === "DPAD_UP" && this.inputMode === "tv_remote" && this.tvRemoteAssistMode !== "classic") {
+                        let arcDir = 0;
+                        if (this._nativeKeys.DPAD_RIGHT && !this._nativeKeys.DPAD_LEFT) {
+                            arcDir = 1;
+                        } else if (this._nativeKeys.DPAD_LEFT && !this._nativeKeys.DPAD_RIGHT) {
+                            arcDir = -1;
+                        } else if (this.tvRemoteAssistMode === "auto_run" && this._autoRunDir !== 0) {
+                            arcDir = this._autoRunDir;
+                        } else if (this._remoteLastDir !== 0 && (now - this._remoteLastDirAt) <= 600) {
+                            arcDir = this._remoteLastDir;
+                        } else if (game.player && Math.abs(game.player.vx) > 0.4) {
+                            arcDir = game.player.vx > 0 ? 1 : -1;
+                        }
+                        if (arcDir !== 0) {
+                            this._remoteAirAssistDir = arcDir;
+                            this._remoteAirAssistStartedAt = now;
+                            this._remoteAirAssistUntil = now + 1500;
+                            this._remoteAirAssistLaunched = false;
                         }
                     }
                 }
@@ -657,9 +740,97 @@
             this._nativeAxisX = dirX || 0;
             this._nativeAxisY = dirY || 0;
             if (this._nativeAxisX !== 0 || this._nativeAxisY !== 0) {
+                this._lastNativeGamepadAt = Date.now();
+                if (!this._padTransport) this._padTransport = "bluetooth_usb";
                 this.setInputMode("gamepad");
                 this.ensurePollActive();
             }
+        },
+
+        getGamepadToastText(connected, name) {
+            const lang = (window.game && window.game.lang) || "tr";
+            const bt = (k) => (window.getMarinextBillingText ? window.getMarinextBillingText(lang, k) : "");
+            if (connected) {
+                const tpl = bt("gamepadConnectedToast") || "🎮 Oyun Kolu Bağlandı ({name}): A Zıpla • X Ateş • B/R1 Atılma • L1 Darbe • Y Krono";
+                return tpl.replace("{name}", name || "Gamepad");
+            }
+            return bt("gamepadDisconnectedToast") || "🎮 Oyun kolu bağlantısı kesildi — oyun duraklatıldı.";
+        },
+
+        handleGamepadDeviceChange(connected, deviceName) {
+            const cleanName = String(deviceName || "Gamepad").trim().slice(0, 64) || "Gamepad";
+            if (connected) {
+                this.activeGamepadName = cleanName;
+                this._padTransport = "bluetooth_usb";
+                this.setInputMode("gamepad");
+                this.ensurePollActive();
+                this.scheduleFocusSync(50);
+                if (this._lastGamepadConnLogged !== cleanName) {
+                    this._lastGamepadConnLogged = cleanName;
+                    if (window.MarinextAnalytics && typeof window.MarinextAnalytics.logEvent === "function") {
+                        window.MarinextAnalytics.logEvent("tv_gamepad_connected", {
+                            gamepad_name: cleanName,
+                            pad_transport: "bluetooth_usb",
+                            device_form_factor: this.getFormFactor()
+                        });
+                    }
+                }
+                if (window.game && typeof window.game.showQuickToast === "function") {
+                    window.game.showQuickToast(this.getGamepadToastText(true, cleanName), "#06d6a0", 4200);
+                }
+            } else {
+                const prevName = this.activeGamepadName || cleanName;
+                this.clearRuntimeInputs(220);
+                if (this.isGameplayActive() && window.game && typeof window.game.pauseGame === "function") {
+                    window.game.pauseGame();
+                    this.scheduleFocusSync(60);
+                }
+                if (!this.hasConnectedHtml5Gamepad() && !this._phonePadActive) {
+                    this.activeGamepadName = "";
+                    this._padTransport = "";
+                    this.setInputMode(this.isTvMode ? "tv_remote" : "touch");
+                }
+                if (window.MarinextAnalytics && typeof window.MarinextAnalytics.logEvent === "function") {
+                    window.MarinextAnalytics.logEvent("tv_gamepad_disconnected", {
+                        gamepad_name: prevName,
+                        pad_transport: "bluetooth_usb",
+                        device_form_factor: this.getFormFactor()
+                    });
+                }
+                if (window.game && typeof window.game.showQuickToast === "function") {
+                    window.game.showQuickToast(this.getGamepadToastText(false, prevName), "#fbbf24", 3600);
+                }
+            }
+        },
+
+        setPhonePadConnected(connected, padName, transport, sourceKind) {
+            this._phonePadActive = Boolean(connected);
+            if (connected) {
+                this.activeGamepadName = String(padName || "Phone Gamepad").slice(0, 64);
+                this._padTransport = transport || "webrtc_lan";
+                this.setInputMode(sourceKind === "app_pad" ? "app_pad" : "phone_pad");
+                this.ensurePollActive();
+                this.scheduleFocusSync(50);
+            } else {
+                this._phonePadState = { left: false, right: false, jump: false };
+                if (window.game && typeof window.game.setExternalControllerHeld === "function") {
+                    window.game.setExternalControllerHeld(false, false, false);
+                }
+                if (!this.hasConnectedHtml5Gamepad()) {
+                    this.activeGamepadName = "";
+                    this._padTransport = "";
+                    this.setInputMode(this.isTvMode ? "tv_remote" : "touch");
+                }
+            }
+        },
+
+        setPhonePadState(buttonsObj) {
+            if (!buttonsObj) return;
+            this._phonePadActive = true;
+            this._phonePadState.left = Boolean(buttonsObj.left);
+            this._phonePadState.right = Boolean(buttonsObj.right);
+            this._phonePadState.jump = Boolean(buttonsObj.jump);
+            this.ensurePollActive();
         },
 
         setupInputListeners() {
@@ -669,26 +840,22 @@
             window.onMarinextNativeAxis = (ax, ay) => {
                 this.handleNativeAxis(Number(ax) || 0, Number(ay) || 0);
             };
+            window.onMarinextGamepadDeviceChange = (connected, deviceName) => {
+                this.handleGamepadDeviceChange(Boolean(connected), deviceName || "");
+            };
 
             window.addEventListener("gamepadconnected", (e) => {
                 this._hasHtml5Gamepad = true;
-                this.setInputMode("gamepad");
-                const gpId = (e && e.gamepad && e.gamepad.id) ? String(e.gamepad.id).slice(0, 64) : "gamepad";
-                if (this._lastGamepadConnLogged !== gpId) {
-                    this._lastGamepadConnLogged = gpId;
-                    if (window.MarinextAnalytics && typeof window.MarinextAnalytics.logEvent === "function") {
-                        window.MarinextAnalytics.logEvent("tv_gamepad_connected", {
-                            gamepad_name: gpId,
-                            device_form_factor: this.getFormFactor()
-                        });
-                    }
-                }
-                this.ensurePollActive();
-                this.scheduleFocusSync(50);
+                const gpId = (e && e.gamepad && e.gamepad.id) ? String(e.gamepad.id).slice(0, 64) : "Gamepad";
+                this.handleGamepadDeviceChange(true, gpId);
             });
 
-            window.addEventListener("gamepaddisconnected", () => {
+            window.addEventListener("gamepaddisconnected", (e) => {
                 this._hasHtml5Gamepad = this.hasConnectedHtml5Gamepad();
+                const gpId = (e && e.gamepad && e.gamepad.id) ? String(e.gamepad.id).slice(0, 64) : (this.activeGamepadName || "Gamepad");
+                if (!this._hasHtml5Gamepad) {
+                    this.handleGamepadDeviceChange(false, gpId);
+                }
             });
 
             // Browser / Desktop keyboard menu D-Pad support (especially for ?tv=1 testing & TV USB keyboards)
@@ -763,25 +930,32 @@
                 const ay = gp.axes && gp.axes.length > 1 ? gp.axes[1] : 0;
                 const btn = (idx) => Boolean(gp.buttons && gp.buttons[idx] && (gp.buttons[idx].pressed || gp.buttons[idx].value > 0.45));
 
-                const left = ax < -0.3 || btn(14);
-                const right = ax > 0.3 || btn(15);
-                const up = ay < -0.35 || btn(12);
-                const down = ay > 0.45 || btn(13);
+                const left = ax < -0.26 || btn(14);
+                const right = ax > 0.26 || btn(15);
+                const up = ay < -0.4 || btn(12);
+                const down = ay > 0.65 || btn(13);
+
+                if (!this.activeGamepadName && gp.id) {
+                    this.activeGamepadName = String(gp.id).slice(0, 64);
+                }
+                if (!this._padTransport && (left || right || up || down || btn(0) || btn(1) || btn(2) || btn(3) || btn(4) || btn(5) || btn(6) || btn(7) || btn(9))) {
+                    this._padTransport = "bluetooth_usb";
+                }
 
                 return {
                     left,
                     right,
                     up,
                     down,
-                    jump: btn(0) || (up && !this.isMenuActive()),
+                    jump: btn(0),
                     fire: btn(2),
                     dash: btn(1) || btn(5) || btn(7),
-                    slam: btn(4) || down,
+                    slam: btn(4) || btn(6) || down,
                     slow: btn(3),
                     pause: btn(9),
                     confirm: btn(0),
                     back: btn(1),
-                    hasAny: left || right || up || down || btn(0) || btn(1) || btn(2) || btn(3) || btn(4) || btn(5) || btn(7) || btn(9)
+                    hasAny: left || right || up || down || btn(0) || btn(1) || btn(2) || btn(3) || btn(4) || btn(5) || btn(6) || btn(7) || btn(9)
                 };
             }
             return null;
@@ -800,24 +974,28 @@
                 this.setInputMode("gamepad");
             }
 
+            const hasExternalController = Boolean(this.isTvMode || gp || this._hasHtml5Gamepad || this._nativeAxisX !== 0 || this._nativeAxisY !== 0 || this._phonePadActive);
+            if (!hasExternalController) {
+                return;
+            }
+
             const isPlaying = this.isGameplayActive();
             this.syncGameplayBridgeFlag(isPlaying);
             const now = Date.now();
+            const suppressHtml5Dupes = (now - (this._lastNativeGamepadAt || 0)) < 1500;
 
             if (!isPlaying) {
-                // Menu navigation from HTML5 Gamepad OR Native Joystick Axes
+                // Menu navigation from Native Joystick Axes or (if native bridge inactive) HTML5 Gamepad
                 let dir = "";
-                if (gp) {
+                if (this._nativeAxisY < 0) dir = "up";
+                else if (this._nativeAxisY > 0) dir = "down";
+                else if (this._nativeAxisX < 0) dir = "left";
+                else if (this._nativeAxisX > 0) dir = "right";
+                if (!dir && gp && !suppressHtml5Dupes) {
                     if (gp.up) dir = "up";
                     else if (gp.down) dir = "down";
                     else if (gp.left) dir = "left";
                     else if (gp.right) dir = "right";
-                }
-                if (!dir) {
-                    if (this._nativeAxisY < 0) dir = "up";
-                    else if (this._nativeAxisY > 0) dir = "down";
-                    else if (this._nativeAxisX < 0) dir = "left";
-                    else if (this._nativeAxisX > 0) dir = "right";
                 }
 
                 if (dir) {
@@ -834,19 +1012,19 @@
                 }
 
                 const confirmNow = Boolean(gp && gp.confirm);
-                if (confirmNow && !this._gpPrev.menuConfirm) {
+                if (!suppressHtml5Dupes && confirmNow && !this._gpPrev.menuConfirm) {
                     this.activateFocused();
                 }
                 this._gpPrev.menuConfirm = confirmNow;
 
                 const backNow = Boolean(gp && gp.back);
-                if (backNow && !this._gpPrev.menuBack) {
+                if (!suppressHtml5Dupes && backNow && !this._gpPrev.menuBack) {
                     this.triggerBack();
                 }
                 this._gpPrev.menuBack = backNow;
 
                 const pauseNow = Boolean(gp && gp.pause);
-                if (pauseNow && !this._gpPrev.pause && game.state === "paused") {
+                if (!suppressHtml5Dupes && pauseNow && !this._gpPrev.pause && game.state === "paused") {
                     game.resumeGame();
                     this.scheduleFocusSync(80);
                 }
@@ -865,20 +1043,37 @@
                 }
                 return;
             }
-            let heldLeft = Boolean(this._nativeKeys.DPAD_LEFT || this._nativeAxisX < 0 || (gp && gp.left));
-            let heldRight = Boolean(this._nativeKeys.DPAD_RIGHT || this._nativeAxisX > 0 || (gp && gp.right));
+            let heldLeft = Boolean(this._nativeKeys.DPAD_LEFT || this._nativeAxisX < 0 || (gp && gp.left) || (this._phonePadActive && this._phonePadState.left));
+            let heldRight = Boolean(this._nativeKeys.DPAD_RIGHT || this._nativeAxisX > 0 || (gp && gp.right) || (this._phonePadActive && this._phonePadState.right));
             let heldJump = Boolean(
                 this._nativeKeys.DPAD_UP ||
                 this._nativeKeys.BUTTON_A ||
-                (gp && gp.jump)
+                (gp && gp.jump) ||
+                (this._phonePadActive && this._phonePadState.jump)
             );
 
-            if (this.inputMode === "tv_remote" && !heldLeft && !heldRight && this._remoteMomentumDir !== 0) {
-                if (now <= this._remoteMomentumUntil && heldJump) {
-                    if (this._remoteMomentumDir < 0) heldLeft = true;
+            if (this.inputMode === "tv_remote") {
+                if (this.tvRemoteAssistMode === "auto_run" && this._autoRunDir !== 0 && !heldLeft && !heldRight) {
+                    if (this._autoRunDir < 0) heldLeft = true;
                     else heldRight = true;
-                } else {
-                    this._remoteMomentumDir = 0;
+                }
+                if (this._remoteAirAssistDir !== 0) {
+                    const gravDir = (game.player && game.player.inReverseGravity) ? -1 : 1;
+                    const vySigned = game.player ? (game.player.vy * gravDir) : 0;
+                    if (game.player && !game.player.onGround && vySigned < -6.5) {
+                        this._remoteAirAssistLaunched = true;
+                    }
+                    const reachedArcCutoff = Boolean(this._remoteAirAssistLaunched && game.player && (game.player.onGround || vySigned >= -5.5));
+                    const reversing = (this._remoteAirAssistDir > 0 && heldLeft) || (this._remoteAirAssistDir < 0 && heldRight);
+                    const landedWithoutLaunch = Boolean(!this._remoteAirAssistLaunched && game.player && game.player.onGround && now > this._remoteAirAssistStartedAt + 280);
+                    if (reachedArcCutoff || landedWithoutLaunch || now > this._remoteAirAssistUntil || reversing) {
+                        this._remoteAirAssistDir = 0;
+                        this._remoteAirAssistUntil = 0;
+                        this._remoteAirAssistLaunched = false;
+                    } else if (!heldLeft && !heldRight) {
+                        if (this._remoteAirAssistDir < 0) heldLeft = true;
+                        else heldRight = true;
+                    }
                 }
             }
 
@@ -887,28 +1082,30 @@
             }
 
             if (gp) {
-                if (gp.jump && !this._gpPrev.jump) {
-                    game.input.jumpPressed = true;
-                }
-                if (gp.fire && !this._gpPrev.fire && game.player && game.player.hasFire) {
-                    game.input.firePressed = true;
-                }
-                if (gp.dash && !this._gpPrev.dash) {
-                    if (game.player && typeof game.isAbilityUnlocked === "function" && game.isAbilityUnlocked("dash")) {
-                        game.player.tryDash(game);
-                    } else if (game.player && game.player.hasFire) {
+                if (!suppressHtml5Dupes) {
+                    if (gp.jump && !this._gpPrev.jump) {
+                        game.input.jumpPressed = true;
+                    }
+                    if (gp.fire && !this._gpPrev.fire && game.player && game.player.hasFire) {
                         game.input.firePressed = true;
                     }
-                }
-                if (gp.slam && !this._gpPrev.slam && game.player && typeof game.player.tryGroundSlam === "function") {
-                    game.player.tryGroundSlam(game);
-                }
-                if (gp.slow && !this._gpPrev.slow && typeof game.activateTimeSlow === "function") {
-                    game.activateTimeSlow();
-                }
-                if (gp.pause && !this._gpPrev.pause) {
-                    game.pauseGame();
-                    this.scheduleFocusSync(80);
+                    if (gp.dash && !this._gpPrev.dash) {
+                        if (game.player && typeof game.isAbilityUnlocked === "function" && game.isAbilityUnlocked("dash")) {
+                            game.player.tryDash(game);
+                        } else if (game.player && game.player.hasFire) {
+                            game.input.firePressed = true;
+                        }
+                    }
+                    if (gp.slam && !this._gpPrev.slam && game.player && typeof game.player.tryGroundSlam === "function") {
+                        game.player.tryGroundSlam(game);
+                    }
+                    if (gp.slow && !this._gpPrev.slow && typeof game.activateTimeSlow === "function") {
+                        game.activateTimeSlow();
+                    }
+                    if (gp.pause && !this._gpPrev.pause) {
+                        game.pauseGame();
+                        this.scheduleFocusSync(80);
+                    }
                 }
 
                 this._gpPrev.jump = gp.jump;
@@ -933,12 +1130,15 @@
         },
 
         shouldPollRaf() {
-            const isPlaying = this.isGameplayActive();
-            return Boolean(this._hasHtml5Gamepad || this._nativeAxisX !== 0 || this._nativeAxisY !== 0 || isPlaying);
+            const hasExt = Boolean(this._hasHtml5Gamepad || this._nativeAxisX !== 0 || this._nativeAxisY !== 0 || this._phonePadActive);
+            if (!this.isTvMode) {
+                return hasExt;
+            }
+            return Boolean(hasExt || this.isGameplayActive());
         },
 
         ensurePollActive() {
-            if (this._rafId) return;
+            if (this._rafId || !this.shouldPollRaf()) return;
             const step = () => {
                 this.pollFrame();
                 if (this.shouldPollRaf()) {
