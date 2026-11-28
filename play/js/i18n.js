@@ -7098,123 +7098,123 @@ window.MARINEXT_QUALITY_I18N = {
     }
 };
 
-// Full 9-Language "What's New in v1.6.2" (Sürüm Yenilikleri) Catalog
+// Full 9-Language "What's New in v1.6.3" (Sürüm Yenilikleri) Catalog
 window.MARINEXT_WHATS_NEW_DATA = {
     "tr": {
-        "title": "🚀 v1.6.2 Akıcı Hız Kurtarma, Sıfır Gecikmeli Kumanda & Rehber Sürümü",
-        "subtitle": "Android TV kutularında ve orta seviye telefonlarda dev performans sıçraması, anında tepki veren kumanda, OK ile ateş etme, canlı harita FPS rozeti ve kapatılabilir rehber yayında!",
-        "btnOk": "🎮 HARİKA, OYNAMAYA BAŞLA!",
+        "title": "🎮 v1.6.3 Akıllı TV Kumandası, Telefon Oyun Kolu & Mobil Kurtarma",
+        "subtitle": "Telefon ve tabletlerde dokunmatik kontroller sıfır gecikmeyle geri döndü! Android TV kumandası için tek parmakla engelleri aşan Akıllı Yaylı Zıplama, Telefon Oyun Kolu (QR/PIN) ve Pro Gamepad desteği yayında!",
+        "btnOk": "🚀 HARİKA, OYNAMAYA BAŞLA!",
         "btnWeb": "🌐 Tüm Sürüm Notlarını & Geçmişi İncele ↗",
         "items": [
-            { "icon": "⚡", "title": "Android TV ve Telefonlarda Dev Akıcılık Artışı", "desc": "Çizim motoru ve otomatik çözünürlük dengesi tamamen yenilendi; özellikle 2 GB TV kutuları ve orta segment telefonlarda akıcılık katlandı, otomatik VSync FPS modu eklendi." },
-            { "icon": "🎯", "title": "Sıfır Gecikmeli TV Kumandası & OK ile Ateş Etme", "desc": "Kumanda komutlarının arkada sıraya binip sonradan veya yeniden doğuşta çalışması tamamen engellendi! Artık ▲ tuşu zıplar, OK tuşu ise 🔥 Ateş Topu / Atılma yapar." },
-            { "icon": "⭐", "title": "Puanla Penceresi Odak Koruması & Reklamsız TV Arayüzü", "desc": "Puanlama penceresi açıldığında arka plan otomatik bekler ve kumanda doğrudan butonlara odaklanır; TV ekranlarından gereksiz reklam ifadeleri kaldırıldı." },
-            { "icon": "💡", "title": "Kapatılabilir Rehber Balonları & Doğru Görev İpuçları", "desc": "1. Bölümde artık rehberi istediğin zaman tek dokunuşla kapatıp açabilirsin! Yeraltı görevine indiğinde asansör uyarısı da artık hatalı görünmez." },
-            { "icon": "📊", "title": "Harita FPS Rozeti & Ayarlarda Sürüm Bilgisi", "desc": "Harita ve oyun ekranında canlı FPS sayacını kolayca takip et; Ayarlar menüsünün sol üstünde yüklü sürüm numaranı her zaman gör." }
+            { "icon": "📱", "title": "Telefon & Tablet Dokunmatik Tuşları Onarıldı", "desc": "Bazı Android telefon ve tabletlerde dokunmatik hareket ve zıplama tuşlarının tepki vermeme sorunu tamamen giderildi; mobil arayüz sade ve hızlı bırakıldı." },
+            { "icon": "🎯", "title": "TV Kumandasıyla Akıllı Yaylı Zıplama & Otomatik Koşu", "desc": "Tek parmakla bile 2. bölüm ve tüm engelleri aş! TV kumandasında koşup zıpladığında yatay hızın havada korunur; ayrıca Ayarlar'dan Çocuklar için Otomatik Koşu seçilebilir." },
+            { "icon": "📲", "title": "Telefon veya Tableti TV Oyun Koluna Çevir (Sıfır Uyarı!)", "desc": "Güvenlik uyarısı olmadan QR kodu okut (cgstudiohome.com/kumanda) veya uygulama içi Ayarlar'dan 4 haneli kodu gir; telefonun saniyeler içinde gecikmesiz LAN P2P oyun koluna dönüşsün." },
+            { "icon": "🕹️", "title": "Xbox, PlayStation & Bluetooth Kollar İçin Pro Destek", "desc": "Çift zıplama hatası, analog çubuk zıplama kazaları ve L2/R2 tetik algısı düzeltildi; oyun ortasında kolun pili biterse oyun otomatik duraklar." },
+            { "icon": "📊", "title": "Detaylı Kontrol & Platform Analizi", "desc": "Hangi kontrol yönteminin (Dokunmatik, Kumanda, Telefon Kolu, Gamepad) nasıl performans verdiği ölçülerek her cihaz için daha iyi denge sunuluyor." }
         ]
     },
     "en": {
-        "title": "🚀 v1.6.2 Smooth Speed Rescue, Instant Remote & Guide Update",
-        "subtitle": "Massive smoothness boost for Android TV boxes and mid-range phones, zero-queue instant remote controls, OK button Fireballs, live map FPS badge, and toggleable guide!",
-        "btnOk": "🎮 AWESOME, LET'S PLAY!",
+        "title": "🎮 v1.6.3 Smart TV Remote, Phone Gamepad & Mobile Touch Fix",
+        "subtitle": "Mobile/tablet touch controls are 100% restored, TV D-Pad gets Smart Arc Jump & Auto-Run so anyone can clear Level 2+ effortlessly, plus zero-warning HTTPS Phone Gamepad & Pro Bluetooth Controller support!",
+        "btnOk": "🚀 AWESOME, LET'S PLAY!",
         "btnWeb": "🌐 View Full Release Notes & Changelog ↗",
         "items": [
-            { "icon": "⚡", "title": "Major Smoothness Boost Across Android TV & Phones", "desc": "Upgraded render pipeline, smart pixel budget caps, and faster Auto scaling deliver silky frame rates on 2 GB TV boxes and mid-tier phones plus an Auto FPS option." },
-            { "icon": "🎯", "title": "Zero-Lag Remote & OK Button Fires Fireballs", "desc": "Eliminated queued remote input delays and ghost moves after checkpoint respawns! Now ▲ Up Jumps and OK unleashes 🔥 Fireball / Dash." },
-            { "icon": "⭐", "title": "Popup Focus Trap & Clean TV Store Wording", "desc": "Rating prompts pause the action cleanly and snap remote focus right onto the buttons, while TV Victory & Game Over screens stay 100% ad-free." },
-            { "icon": "💡", "title": "Toggleable Tutorial Balloons & Underground Fix", "desc": "Hide or reopen Level 1 guide balloons anytime with a dedicated HUD toggle! Fixed the elevator hint appearing while already inside the underground zone." },
-            { "icon": "📊", "title": "Live Map FPS Pill & Settings Version Badge", "desc": "Monitor real-time FPS right on the map bar and HUD, and check your installed version code anytime in Settings." }
+            { "icon": "📱", "title": "Mobile & Tablet Touch Controls Restored", "desc": "Fixed the Android WebView canvas freeze that stopped touch buttons from moving the hero on phones and tablets while keeping mobile UI 100% clean." },
+            { "icon": "🎯", "title": "Smart Arc Jump & Kids Auto-Run on TV Remote", "desc": "Single-thumb TV remotes now preserve forward momentum smoothly over gaps and platforms! Switch between Smart Arc Jump and Auto-Run anytime in TV Settings." },
+            { "icon": "📲", "title": "Turn Any Phone into a TV Gamepad (Zero Security Warnings)", "desc": "Scan the TV QR code (cgstudiohome.com/kumanda) or enter the 4-digit PIN inside mobile Settings for instant LAN P2P gamepad play—no sideloading or browser warnings." },
+            { "icon": "🕹️", "title": "Pro Xbox, PlayStation & Bluetooth Gamepad Hardening", "desc": "Fixed double-jump triggers and accidental analog-stick jumps, added L2/R2 triggers, and added auto-pause safety if a Bluetooth pad disconnects." },
+            { "icon": "📊", "title": "Precision Controller & Frame Rate Telemetry", "desc": "Detailed platform and controller analytics help keep every phone, tablet, and Android TV running smoother than ever." }
         ]
     },
     "ko": {
-        "title": "🚀 v1.6.2 초고속 프레임 복구 & 즉각 리모컨 업데이트",
-        "subtitle": "Android TV 박스 및 스마트폰 프레임 대폭 개선, 지연 없는 리모컨, 확인(OK) 키 파이어볼, 지도 실시간 FPS 및 끄고 켤 수 있는 가이드 출시!",
-        "btnOk": "🎮 좋아요, 바로 시작!",
+        "title": "🎮 v1.6.3 스마트 TV 리모컨, 폰 게임패드 & 터치 긴급 복구",
+        "subtitle": "스마트폰과 태블릿 터치 조작을 완벽 복구했고, TV 리모컨 스마트 아크 점프·오토런, 무경고 HTTPS 스마트폰 게임패드 및 블루투스 컨트롤러 정밀 지원을 추가했습니다!",
+        "btnOk": "🚀 좋아요, 바로 시작!",
         "btnWeb": "🌐 전체 패치 노트 보기 ↗",
         "items": [
-            { "icon": "⚡", "title": "Android TV & 스마트폰 부드러움 대폭 향상", "desc": "자동 해상도 제한 및 고속 그래픽 최적화로 2GB TV 박스와 중급형 스마트폰에서도 부드러운 프레임을 유지하며 자동 FPS 옵션을 제공합니다." },
-            { "icon": "🎯", "title": "입력 대기열 제거 & OK 버튼 파이어볼 공격", "desc": "빠른 입력이 밀리거나 부활 후 오작동하던 현상을 해결했습니다! ▲ 방향키로 점프하고 확인(OK) 키로 🔥 파이어볼/대시를 발사합니다." },
-            { "icon": "⭐", "title": "평점 팝업 포커스 보호 & TV 전용 깔끔한 문구", "desc": "평점 팝업이 열리면 배경 게임이 멈추고 버튼이 즉시 선택되며, TV 화면에서 불필요한 광고 문구를 제거했습니다." },
-            { "icon": "💡", "title": "닫기 가능한 가이드 말풍선 & 지하 힌트 수정", "desc": "1스테이지 가이드 말풍선을 언제든 켜고 끌 수 있으며, 지하 미션 내부에서 엘리베이터 안내가 중복 표시되던 문제를 고쳤습니다." },
-            { "icon": "📊", "title": "지도 실시간 FPS 배지 & 설정 버전 표시", "desc": "지도와 플레이 화면에서 실시간 FPS를 확인하고 설정 메뉴 상단에서 현재 설치된 버전을 한눈에 확인할 수 있습니다." }
+            { "icon": "📱", "title": "모바일·태블릿 터치 조작 완전 복구", "desc": "일부 안드로이드 폰과 태블릿에서 이동·점프 터치 버튼이 멈추던 문제를 해결하고 모바일 화면을 깔끔하게 유지했습니다." },
+            { "icon": "🎯", "title": "TV 리모컨 스마트 아크 점프 & 자동 달리기", "desc": "한 손가락 리모컨으로도 2스테이지 용암 구간을 손쉽게 건널 수 있도록 공중 추진력과 점프 높이를 보정하고 오토런 모드를 추가했습니다." },
+            { "icon": "📲", "title": "스마트폰·태블릿을 무선 TV 게임패드로 연결", "desc": "보안 경고 없이 QR 코드(cgstudiohome.com/kumanda)를 스캔하거나 4자리 코드를 입력해 초저지연 LAN P2P 게임패드로 플레이하세요." },
+            { "icon": "🕹️", "title": "Xbox · PS · 블루투스 게임패드 완벽 호환", "desc": "중복 점프 및 아날로그 스틱 오작동을 제거하고 L2/R2 트리거와 연결 해제 시 자동 일시정지 기능을 추가했습니다." },
+            { "icon": "📊", "title": "컨트롤러별 상세 FPS & 플레이 분석", "desc": "기기 및 컨트롤러 유형별 프레임과 조작 데이터를 정교화해 플랫폼별 최적화 품질을 높였습니다." }
         ]
     },
     "ja": {
-        "title": "🚀 v1.6.2 超快適フレーム改善＆即時リモコン操作アップデート",
-        "subtitle": "Android TV端末やスマホでの大幅な滑らかさ向上、遅延ゼロのリモコン応答、決定(OK)キーでファイア攻撃、マップFPSバッジ、閉じられるガイドが登場！",
-        "btnOk": "🎮 最高！プレイ開始",
+        "title": "🎮 v1.6.3 スマートTVリモコン＆スマホゲームパッド登場",
+        "subtitle": "スマホ・タブレットのタッチ操作を完全修復し、TVリモコンのスマートジャンプ＆オートラン、警告ゼロのスマホコントローラー機能、外部ゲームパッド強化を搭載！",
+        "btnOk": "🚀 最高！プレイ開始",
         "btnWeb": "🌐 リリースノート全文を見る ↗",
         "items": [
-            { "icon": "⚡", "title": "Android TV＆スマホの動作速度を大幅改善", "desc": "描画負荷と解像度の上限をスマートに最適化し、2GB TVボックスやミドルレンジ端末でも快適に動作。自動FPS設定も追加しました。" },
-            { "icon": "🎯", "title": "操作遅延ゼロ＆決定(OK)キーでファイアボール", "desc": "連続入力の蓄積や復活直後の誤動作を解消！▲キーでジャンプ、決定(OK)キーで🔥ファイア攻撃やダッシュが即発動します。" },
-            { "icon": "⭐", "title": "評価ポップアップ修正＆TV向けクリーン表記", "desc": "評価画面が出ると背景が一時停止しリモコンで即操作可能に。TV版の終了・勝利画面から広告表記を一掃しました。" },
-            { "icon": "💡", "title": "ON/OFFできるガイド＆地下ミッション判定修正", "desc": "ステージ1のガイド吹き出しをボタンひとつで非表示に可能！地下進入中にエレベーター案内が出る不具合も修正しました。" },
-            { "icon": "📊", "title": "マップライブFPS表示＆設定にバージョンバッジ", "desc": "マップとHUDで実測FPSをいつでも確認でき、設定画面の左上に現在のバージョンとビルド番号が表示されます。" }
+            { "icon": "📱", "title": "スマホ・タブレットのタッチ操作を修復", "desc": "Android WebViewでタッチ移動・ジャンプが反応しない不具合を解消し、モバイルUIを軽快かつシンプルに保ちました。" },
+            { "icon": "🎯", "title": "TVリモコン用スマートジャンプ＆オートラン", "desc": "十字キーの親指1本でもステージ2の足場を余裕で飛び越えられるよう空中慣性を最適化！設定からキッズ向けオートランにも切替可能です。" },
+            { "icon": "📲", "title": "スマホが警告ゼロのTV無線ゲームパッドに変身", "desc": "QRコード(cgstudiohome.com/kumanda)または4桁PINで即接続！低遅延LAN P2Pでタッチボタン操作をTVへ直接送信できます。" },
+            { "icon": "🕹️", "title": "Xbox・PlayStation・Bluetoothパッド強化", "desc": "二重ジャンプやスティック誤反応を防ぎ、L2/R2トリガー対応および切断時の自動ポーズを追加しました。" },
+            { "icon": "📊", "title": "コントローラー＆FPS詳細分析", "desc": "端末や操作デバイスごとのフレームレートと快適性をより詳細に分析できるようになりました。" }
         ]
     },
     "zh": {
-        "title": "🚀 v1.6.2 流畅性能拯救、零延迟遥控与可关闭指南版",
-        "subtitle": "大幅提升电视盒子与中端手机帧率、消除遥控器指令排队、确认键发射火球、新增地图实时 FPS 与可关闭新手气泡！",
-        "btnOk": "🎮 太棒了，立即开始！",
+        "title": "🎮 v1.6.3 智能电视遥控、手机手柄与触控修复版",
+        "subtitle": "全面修复手机/平板触控失灵问题，新增电视遥控智能抛物跳跃与自动奔跑、零安全警告的手机无线手柄以及专业蓝牙手柄支持！",
+        "btnOk": "🚀 太棒了，立即开始！",
         "btnWeb": "🌐 查看完整更新日志 ↗",
         "items": [
-            { "icon": "⚡", "title": "Android TV 与手机渲染性能大跃升", "desc": "全新像素预算控制与快速动态分辨率让 2GB 电视盒子与中端手机彻底告别低帧卡顿，并新增自动 FPS 档位。" },
-            { "icon": "🎯", "title": "遥控器零延迟响应 & 确认(OK)键发射火球", "desc": "彻底解决连续按键排队与复活后自动乱跑问题！现在 ▲ 方向键跳跃，OK 确认键即可释放 🔥 火球与冲刺。" },
-            { "icon": "⭐", "title": "评分弹窗焦点锁定 & 纯净 TV 无广告文案", "desc": "弹出评分窗口时游戏自动暂停且焦点直达按钮；电视端过关与失败弹窗移除所有手机广告相关文字。" },
-            { "icon": "💡", "title": "可随时关闭的新手引导 & 地下电梯提示修复", "desc": "第一关新增呼吸闪烁开关按钮可随时隐藏气泡；修复已进入地下关卡仍错误提示乘坐电梯的问题。" },
-            { "icon": "📊", "title": "地图实时 FPS 徽章 & 设置界面版本号标识", "desc": "在地图顶栏与游戏界面随时查看真实 FPS，并在设置菜单左上角清晰展示当前版本与内部构建号。" }
+            { "icon": "📱", "title": "全面修复手机与平板触控按键", "desc": "解决了部分安卓手机和平板中左右移动与跳跃按键无响应的问题，并保持移动端界面清爽流畅。" },
+            { "icon": "🎯", "title": "电视遥控智能抛物跳与儿童自动奔跑", "desc": "单指按遥控器也能轻松越过第2关障碍！空中自动保留前冲惯性，并在电视设置中可选自动奔跑模式。" },
+            { "icon": "📲", "title": "手机秒变电视手柄（零浏览器警告）", "desc": "扫码访问官方HTTPS页面或输入4位配对码，无需下载即可通过局域网P2P零延迟控制电视！" },
+            { "icon": "🕹️", "title": "Xbox / PS / 蓝牙手柄专业优化", "desc": "消除双击连跳与摇杆误跳，完整支持 L2/R2 扳机并在手柄断连时自动暂停游戏。" },
+            { "icon": "📊", "title": "精细化手柄与帧率体验分析", "desc": "支持区分遥控器、手机手柄、蓝牙手柄及触控设备表现，持续提升全平台操控手感。" }
         ]
     },
     "ru": {
-        "title": "🚀 v1.6.2 Ускорение FPS, Мгновенный Пульт и Гид",
-        "subtitle": "Мощный прирост плавности на Android TV и телефонах, ноль задержек пульта, огонь на кнопку OK, значок FPS на карте и отключаемый гид!",
-        "btnOk": "🎮 ОТЛИЧНО, ПОЕХАЛИ!",
+        "title": "🎮 v1.6.3 Умный пульт ТВ, Телефон-геймпад и Фикс сенсора",
+        "subtitle": "Сенсорные кнопки на телефонах и планшетах полностью восстановлены! Добавлены умный прыжок с пульта ТВ, автобег, телефон-геймпад (QR/PIN) без предупреждений и поддержка геймпадов.",
+        "btnOk": "🚀 ОТЛИЧНО, ПОЕХАЛИ!",
         "btnWeb": "🌐 Полный список изменений ↗",
         "items": [
-            { "icon": "⚡", "title": "Большой скачок плавности на TV и смартфонах", "desc": "Умный лимит пикселей и быстрое авто-масштабирование избавили приставки с 2 ГБ ОЗУ и телефоны от просадок; добавлен режим Авто FPS." },
-            { "icon": "🎯", "title": "Пульт без очереди команд и Огонь на OK", "desc": "Убрана буферизация нажатий и ложные движения после возрождения! ▲ Вверх — прыжок, а кнопка OK запускает 🔥 Огненный шар / Рывок." },
-            { "icon": "⭐", "title": "Фокус окна оценки и чистый TV-интерфейс", "desc": "Окно оценки ставит игру на паузу и сразу выделяет кнопки для пульта, а на экранах TV убраны упоминания рекламы." },
-            { "icon": "💡", "title": "Скрываемые советы и фикс подземной миссии", "desc": "На 1-м уровне можно в любой момент скрыть и вернуть подсказки; исправлена лишняя подсказка лифта внутри подземной зоны." },
-            { "icon": "📊", "title": "Значок FPS на карте и версия в Настройках", "desc": "Отслеживайте реальный FPS прямо на карте и в игре, а в Настройках всегда виден точный номер установленной версии." }
+            { "icon": "📱", "title": "Восстановлено сенсорное управление на телефонах и планшетах", "desc": "Устранена проблема зависания холста Android WebView, из-за которой не работали кнопки движения и прыжка на смартфонах." },
+            { "icon": "🎯", "title": "Умный прыжок с пульта ТВ и детский Автобег", "desc": "Прыжки с обычного пульта ТВ сохраняют инерцию вперёд через пропасти 2-го уровня; в настройках ТВ доступен и режим Автобега." },
+            { "icon": "📲", "title": "Телефон как геймпад для ТВ без единого предупреждения", "desc": "Отсканируйте QR-код (cgstudiohome.com/kumanda) или введите 4-значный ПИН-код в приложении для мгновенной игры по LAN P2P." },
+            { "icon": "🕹️", "title": "Прокачанная поддержка Xbox, PlayStation и Bluetooth-падов", "desc": "Убраны двойные прыжки и случайные прыжки стиком, добавлены триггеры L2/R2 и авто-пауза при разрыве связи." },
+            { "icon": "📊", "title": "Детальная аналитика контроллеров и FPS", "desc": "Улучшен учёт типов управления и реального FPS для идеальной балансировки игры на каждом экране." }
         ]
     },
     "it": {
-        "title": "🚀 v1.6.2 Ripristino Fluidità, Telecomando Rapido & Guida",
-        "subtitle": "Grande salto di fluidità su Android TV Box e smartphone, zero ritardi dei tasti, Palla di fuoco con OK, FPS sulla mappa e guida disattivabile!",
-        "btnOk": "🎮 FANTASTICO, GIOCIAMO!",
+        "title": "🎮 v1.6.3 Telecomando Smart TV, Pad Telefono & Fix Touch",
+        "subtitle": "Controlli touch su smartphone e tablet ripristinati al 100%, Salto Smart e Corsa Auto per telecomando TV, Gamepad da telefono senza avvisi HTTPS e supporto pad Xbox/PS!",
+        "btnOk": "🎮 FANTASTICO, GIOCHIAMO!",
         "btnWeb": "🌐 Note di Rilascio Complete ↗",
         "items": [
-            { "icon": "⚡", "title": "Grande Aumento di Fluidità su TV e Telefoni", "desc": "Ottimizzazione del rendering, controllo dinamico rapido dei pixel e nuova opzione Auto FPS per eliminare i rallentamenti su TV Box da 2 GB e telefoni." },
-            { "icon": "🎯", "title": "Telecomando Senza Coda & Tasto OK = Fuoco", "desc": "Eliminati i ritardi e i movimenti fantasma dopo la rinascita! ▲ Su salta e OK lancia 🔥 Palla di fuoco / Scatto." },
-            { "icon": "⭐", "title": "Focus Popup Valutazione & Testi TV Puliti", "desc": "La finestra di valutazione mette in pausa il gioco e seleziona subito i pulsanti; rimossi i riferimenti pubblicitari sulle schermate TV." },
-            { "icon": "💡", "title": "Fumetti Guida Chiudibili & Fix Sottosuolo", "desc": "Nel Livello 1 puoi nascondere o riaprire i suggerimenti con un tocco; risolto l'avviso dell'ascensore dentro la zona sotterranea." },
-            { "icon": "📊", "title": "Badge FPS sulla Mappa & Versione nelle Impostazioni", "desc": "Controlla gli FPS live anche dalla mappa e verifica sempre la versione esatta installata nelle Impostazioni." }
+            { "icon": "📱", "title": "Controlli Touch Mobile & Tablet Ripristinati", "desc": "Risolto il blocco WebView che impediva ai pulsanti direzionali e di salto di muovere l'eroe su telefoni e tablet." },
+            { "icon": "🎯", "title": "Salto Smart & Corsa Automatica con Telecomando TV", "desc": "Supera facilmente gli ostacoli del Livello 2 con un solo pollice! Mantieni lo slancio in aria e attiva la Corsa Auto dalle Impostazioni TV." },
+            { "icon": "📲", "title": "Trasforma il Telefono in Gamepad TV (Zero Avvisi!)", "desc": "Scansiona il QR (cgstudiohome.com/kumanda) o inserisci il PIN a 4 cifre dall'app mobile per giocare subito via LAN P2P." },
+            { "icon": "🕹️", "title": "Supporto Pro Xbox, PlayStation e Controller Bluetooth", "desc": "Eliminati doppi salti accidentali e salti con lo stick analogico; aggiunti grilletti L2/R2 e pausa automatica alla disconnessione." },
+            { "icon": "📊", "title": "Analisi Avanzata Controller e Prestazioni", "desc": "Metriche dettagliate per modalità di controllo e FPS reali su ogni dispositivo Android TV e mobile." }
         ]
     },
     "es": {
-        "title": "🚀 v1.6.2 Rescate de Fluidez, Mando Instantáneo y Guía",
-        "subtitle": "Gran mejora de FPS en Android TV y teléfonos, control sin retrasos, Bola de fuego con el botón OK, FPS en el mapa y guía ocultable.",
-        "btnOk": "🎮 ¡GENIAL, A JUGAR!",
+        "title": "🎮 v1.6.3 Mando Smart TV, Móvil como Mando y Fix Táctil",
+        "subtitle": "¡Controles táctiles restaurados al 100% en móviles y tablets! Nuevo Salto Inteligente para mando de TV, Modo Mando en tu móvil sin avisos HTTPS y soporte Pro Bluetooth.",
+        "btnOk": "🚀 ¡GENIAL, A JUGAR!",
         "btnWeb": "🌐 Notas de la Versión Completas ↗",
         "items": [
-            { "icon": "⚡", "title": "Gran Salto de Fluidez en TV Box y Teléfonos", "desc": "Nuevo presupuesto de píxeles, escalado rápido y modo Auto FPS para mantener fluidez real en TV de 2 GB y teléfonos de gama media." },
-            { "icon": "🎯", "title": "Control Remoto Sin Cola y Botón OK = Fuego", "desc": "¡Sin comandos acumulados ni movimientos automáticos tras reaparecer! ▲ Arriba salta y OK dispara 🔥 Bola de fuego / Impulso." },
-            { "icon": "⭐", "title": "Foco en Ventana de Valoración y Textos TV Limpios", "desc": "Al abrirse la valoración, el juego se pausa y enfoca los botones al instante; se eliminaron menciones de anuncios en TV." },
-            { "icon": "💡", "title": "Guía Ocultable y Corrección Subterránea", "desc": "Oculta o muestra los globos de ayuda en el Nivel 1 cuando quieras y disfruta del aviso correcto dentro de la zona subterránea." },
-            { "icon": "📊", "title": "FPS en el Mapa y Versión Visible en Ajustes", "desc": "Consulta los FPS reales desde la barra del mapa y verifica siempre el número de versión exacto en Ajustes." }
+            { "icon": "📱", "title": "Controles Táctiles en Móvil y Tablet Reparados", "desc": "Corregido el bloqueo de Android WebView que dejaba sin respuesta los botones de dirección y salto en teléfonos y tablets." },
+            { "icon": "🎯", "title": "Salto Inteligente y Carrera Automática en TV", "desc": "¡Supera el Nivel 2 y los saltos difíciles con un solo pulgar! El impulso horizontal se mantiene al saltar y puedes activar Carrera Auto en Ajustes." },
+            { "icon": "📲", "title": "Usa tu Móvil como Mando de TV (Sin Alertas de Seguridad)", "desc": "Escanea el QR (cgstudiohome.com/kumanda) o escribe el PIN de 4 dígitos para jugar por LAN P2P directa al instante." },
+            { "icon": "🕹️", "title": "Soporte Pro Xbox, PlayStation y Mandos Bluetooth", "desc": "Sin saltos dobles ni saltos accidentales con el joystick, gatillos L2/R2 listos y pausa automática si se desconecta el mando." },
+            { "icon": "📊", "title": "Analítica Detallada de Mandos y FPS", "desc": "Seguimiento preciso por dispositivo y método de control para seguir optimizando la experiencia en TV y móvil." }
         ]
     },
     "fr": {
-        "title": "🚀 v1.6.2 Fluidité Boostée, Télécommande Instantanée & Guide",
-        "subtitle": "Gain majeur d'IPS sur Android TV Box et smartphones, zéros commandes en retard, Boule de feu sur OK, badge FPS sur carte et guide masquable !",
-        "btnOk": "🎮 SUPER, C'EST PARTI !",
+        "title": "🎮 v1.6.3 Télécommande TV Smart, Manette Mobile & Fix Tactile",
+        "subtitle": "Contrôles tactiles rétablis à 100 % sur mobiles et tablettes ! Saut Intelligent sur télécommande TV, Manette Mobile HTTPS sans alerte et manettes Bluetooth Pro !",
+        "btnOk": "🚀 SUPER, C'EST PARTI !",
         "btnWeb": "🌐 Notes de Version Complètes ↗",
         "items": [
-            { "icon": "⚡", "title": "Net Gain de Fluidité sur TV & Smartphones", "desc": "Nouveau moteur de rendu allégé, adaptation dynamique rapide et mode Auto FPS pour garder les TV Box 2 Go et mobiles parfaitement fluides." },
-            { "icon": "🎯", "title": "Télécommande Réactive & Touche OK = Tir", "desc": "Fini les commandes en file d'attente ou les pas fantômes après réapparition ! ▲ Haut saute et OK lance 🔥 Boule de feu / Dash." },
-            { "icon": "⭐", "title": "Focus sur l'Avis & Textes TV Sans Publicité", "desc": "La fenêtre de notation met le jeu en pause et sélectionne directement les boutons ; mentions publicitaires retirées sur TV." },
-            { "icon": "💡", "title": "Bulles d'Aide Masquables & Correctif Souterrain", "desc": "Masquez ou affichez le guide du Niveau 1 en un clic ; l'indication d'ascenseur disparaît correctement sous terre." },
-            { "icon": "📊", "title": "Compteur FPS sur la Carte & Version en Paramètres", "desc": "Suivez vos IPS réels directement sur la carte et vérifiez le numéro de version exact à tout moment dans les Paramètres." }
+            { "icon": "📱", "title": "Boutons Tactiles Mobile & Tablette Réparés", "desc": "Correction du gel WebView Android qui bloquait le déplacement et le saut sur téléphones et tablettes tout en gardant l'interface épurée." },
+            { "icon": "🎯", "title": "Saut Intelligent & Course Auto sur Télécommande TV", "desc": "Franchissez le Niveau 2 et chaque fossé avec un seul pouce ! L'élan reste fluide en l'air et l'option Course Auto est disponible dans les Paramètres TV." },
+            { "icon": "📲", "title": "Votre Mobile en Manette TV Sans Alerte de Sécurité", "desc": "Scannez le QR code (cgstudiohome.com/kumanda) ou entrez le code à 4 chiffres pour jouer en LAN P2P ultra-réactif." },
+            { "icon": "🕹️", "title": "Manettes Xbox, PlayStation & Bluetooth Pro", "desc": "Suppression des doubles sauts et des sauts involontaires au stick, gestion L2/R2 et mise en pause auto si la manette se déconnecte." },
+            { "icon": "📊", "title": "Analyse Précise par Contrôleur & FPS", "desc": "Statistiques détaillées selon la manette utilisée et les IPS mesurés pour optimiser encore plus chaque plateforme." }
         ]
     }
 };
