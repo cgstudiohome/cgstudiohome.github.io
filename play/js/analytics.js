@@ -94,6 +94,28 @@
             return hasTouch ? 'touch' : 'keyboard';
         },
 
+        getControllerContext() {
+            const tv = window.MarinextTV;
+            const g = window.game;
+            const formFactor = this.getDeviceFormFactor();
+            const inputMode = this.getInputMode();
+            const assistMode = (tv && tv.tvRemoteAssistMode) || 'smart_arc';
+            const perfTier = (g && g.perfConfig && g.perfConfig.tier) || (g && g.autoPerfTier) || 'balanced';
+            const ctx = {
+                device_form_factor: formFactor,
+                tv_input_mode: inputMode,
+                tv_assist_mode: formFactor === 'android_tv' ? assistMode : 'touch_native',
+                perf_tier: String(perfTier)
+            };
+            if (tv && tv.activeGamepadName) {
+                ctx.gamepad_name = String(tv.activeGamepadName).slice(0, 64);
+            }
+            if (tv && tv._padTransport) {
+                ctx.pad_transport = String(tv._padTransport).slice(0, 36);
+            }
+            return ctx;
+        },
+
         trackSessionStart() {
             this.stats.totalSessions = (this.stats.totalSessions || 0) + 1;
             const todayStr = new Date().toISOString().slice(0, 10);
@@ -141,13 +163,11 @@
         },
 
         logEvent(eventName, params = {}) {
+            const ctrlCtx = this.getControllerContext();
             const enrichedParams = {
-                ...params,
-                device_form_factor: (params && params.device_form_factor) || this.getDeviceFormFactor()
+                ...ctrlCtx,
+                ...params
             };
-            if (enrichedParams.device_form_factor === 'android_tv' && !enrichedParams.tv_input_mode) {
-                enrichedParams.tv_input_mode = this.getInputMode();
-            }
 
             const eventPayload = {
                 event: eventName,
