@@ -4,7 +4,12 @@
   "channels": {
     "production": 58,
     "alpha": 58,
-    "internal": 62
+    "internal": 63
+  },
+  "channelNames": {
+    "production": "1.5.7",
+    "alpha": "1.5.7",
+    "internal": "1.6.4"
   },
   "storeUrl": "https://play.google.com/store/apps/details?id=com.cgstudiohome.marinext2100",
   "notes": "v1.5.7 Büyük Öte Evren & 11 Başarım Sürümü: 100 Ana + 50 Öte Evren + 50 Trol (200 bölüm), 11 resmi Google Play Games Başarımı (1.000 XP), 9 dilde %100 eksiksiz arayüz ve 120 FPS akıcı oynanış!",
