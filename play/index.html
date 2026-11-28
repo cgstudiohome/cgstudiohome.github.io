@@ -186,6 +186,7 @@
                             <span class="lang-tongue-icon">👅</span>
                             <span class="lang-code-badge" id="map-lang-code">TR</span>
                         </button>
+                        <button id="btn-map-tv-pad" class="customize-btn tv-only-btn" style="background: linear-gradient(135deg, #0ea5e9, #2563eb); border-color: #7dd3fc; color: #fff; font-weight: 900;" type="button" title="Telefon veya Tableti Oyun Kolu Yap">📱 TELEFON KUMANDASI</button>
                         <button id="btn-map-settings" class="icon-btn" style="width:42px;height:42px;font-size:20px;" title="Ayarlar Menüsü">⚙️</button>
                     </div>
                 </div>
@@ -446,7 +447,7 @@
         <!-- Settings Menu Modal (Gear Button ⚙️) — Responsive 2-Column Mobile Landscape Fit -->
         <div id="screen-settings" class="overlay-screen hidden">
             <div class="settings-modal-card">
-                <span id="settings-version-badge" class="settings-version-badge" title="Yüklü Sürüm & Profil">v1.6.2 (61)</span>
+                <span id="settings-version-badge" class="settings-version-badge" title="Yüklü Sürüm & Profil">v1.6.3 (62)</span>
                 <button id="btn-close-settings-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
                 <div class="settings-modal-header">
                     <h2 id="settings-modal-title">⚙️ OYUN AYARLARI</h2>
@@ -472,6 +473,16 @@
                         <button id="btn-toggle-quality" class="settings-row-btn btn-quality-row" type="button" title="Otomatik / Performans / Dengeli / Yüksek">
                             <span id="settings-quality-label">🎛️ Grafik &amp; Performans</span>
                             <strong id="settings-quality-text" class="settings-badge-status status-fps">OTOMATİK ↻</strong>
+                        </button>
+                        <button id="btn-toggle-tv-assist" class="settings-row-btn tv-only-row" type="button" title="Akıllı Yaylı Zıplama / Otomatik Koşu / Klasik">
+                            <span id="settings-tv-assist-label">🎯 TV Kumanda Modu</span>
+                            <strong id="settings-tv-assist-text" class="settings-badge-status status-fps">AKILLI YAYLI ZIPLAMA ↻</strong>
+                        </button>
+                        <button id="btn-settings-tv-pad" class="settings-row-btn tv-only-row" type="button">
+                            <span id="settings-tv-pad-label">📱 Telefonu Oyun Kolu Yap (QR / PIN)</span>
+                        </button>
+                        <button id="btn-settings-mobile-pad" class="settings-row-btn mobile-only-row" type="button">
+                            <span id="settings-mobile-pad-label">📺 TV'ye Oyun Kolu Olarak Bağlan</span>
                         </button>
                         <button id="btn-settings-cloud-sync" class="settings-row-btn btn-cloud-row" type="button">
                             🎮 Google Play Games &amp; Bulut Kayıt
@@ -1159,6 +1170,79 @@
             </div>
         </div>
 
+        <!-- TV Phone Companion Controller Pairing Modal (QR + 4-Digit PIN) -->
+        <div id="screen-tv-pad" class="overlay-screen hidden" style="z-index: 9520;">
+            <div class="modal-card tv-pad-card">
+                <button id="btn-close-tv-pad-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <h2 id="tv-pad-modal-title">📱 TELEFON / TABLETİ TV OYUN KOLU YAP</h2>
+                <p id="tv-pad-modal-sub" class="tv-pad-sub">Güvenlik uyarısı ve kurulum yok! Telefon kamerasıyla QR kodu okut veya cgstudiohome.com/kumanda adresinde 4 haneli kodu gir.</p>
+                <div class="tv-pad-grid">
+                    <div class="tv-pad-qr-panel">
+                        <div id="tv-pad-qr-box" class="tv-pad-qr-box"></div>
+                    </div>
+                    <div class="tv-pad-info-panel">
+                        <div class="tv-pad-label" id="tv-pad-pin-label">EŞLEŞTİRME KODU</div>
+                        <div id="tv-pad-pin-code" class="tv-pad-pin-code">----</div>
+                        <div class="tv-pad-label" id="tv-pad-url-label">RESMİ HTTPS ADRESİ</div>
+                        <div id="tv-pad-url-text" class="tv-pad-url-text">https://cgstudiohome.com/kumanda/</div>
+                        <div id="tv-pad-status-pill" class="tv-pad-status status-waiting">📱 Bağlantı bekleniyor...</div>
+                        <div class="tv-pad-actions">
+                            <button id="btn-tv-pad-newcode" class="secondary-btn" type="button">🔄 Yeni Kod Üret</button>
+                            <button id="btn-tv-pad-disconnect" class="secondary-btn hidden" type="button" style="border-color:#f43f5e;color:#fda4af;">🔌 Bağlantıyı Kes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile In-App Companion Controller Overlay (Mobile/Tablet Only) -->
+        <div id="screen-mobile-pad" class="overlay-screen hidden" style="z-index: 9525;">
+            <div id="mobile-pad-setup" class="modal-card mobile-pad-setup-card">
+                <button id="btn-close-mobile-pad-x" class="modal-close-x" title="Kapat (ESC)">✕</button>
+                <h2 id="mobile-pad-title">📺 TV OYUN KOLU MODU</h2>
+                <p id="mobile-pad-sub" class="tv-pad-sub">Android TV ekranındaki 4 haneli kodu gir. Doğrudan düşük gecikmeli LAN P2P bağlantısıyla TV'yi yönet.</p>
+                <input id="mpad-pin-input" class="mpad-pin-input" type="tel" inputmode="numeric" maxlength="4" placeholder="1234" autocomplete="off">
+                <button id="btn-mpad-connect" class="primary-btn" type="button" style="width:100%;max-width:260px;">🎮 TV'YE BAĞLAN</button>
+                <div id="mobile-pad-status" class="mpad-status-line">TV ekranındaki 4 haneli kodu gir ve bağlan.</div>
+            </div>
+
+            <div id="mobile-pad-deck" class="mobile-pad-deck hidden">
+                <div class="mpad-topbar">
+                    <span id="mobile-pad-status-deck" class="tv-pad-status status-online">🟢 TV Bağlı</span>
+                    <div class="mpad-top-actions">
+                        <button id="btn-mpad-menu-toggle" class="secondary-btn" type="button">🧭 Menü Tuşları</button>
+                        <button id="mpad-pause" class="secondary-btn" type="button">⏸ Duraklat</button>
+                        <button id="btn-mpad-disconnect" class="secondary-btn" type="button" style="border-color:#f43f5e;color:#fda4af;">✕ Bağlantıyı Kes</button>
+                    </div>
+                </div>
+                <div id="mpad-menu-strip" class="mpad-menu-strip hidden">
+                    <button id="mpad-nav-left" class="mpad-nav-btn" type="button">◀</button>
+                    <button id="mpad-nav-up" class="mpad-nav-btn" type="button">▲</button>
+                    <button id="mpad-nav-down" class="mpad-nav-btn" type="button">▼</button>
+                    <button id="mpad-nav-right" class="mpad-nav-btn" type="button">▶</button>
+                    <button id="mpad-nav-ok" class="mpad-nav-btn ok" type="button">OK ✓</button>
+                    <button id="mpad-nav-back" class="mpad-nav-btn back" type="button">↩ Geri</button>
+                </div>
+                <div class="mpad-controls-row">
+                    <div class="dpad-group">
+                        <button id="mpad-left" class="touch-btn" type="button" aria-label="Sol">◀</button>
+                        <button id="mpad-right" class="touch-btn" type="button" aria-label="Sağ">▶</button>
+                    </div>
+                    <div class="right-touch-cluster">
+                        <div class="ability-subrow">
+                            <button id="mpad-dash" class="touch-btn btn-ability btn-dash" type="button" aria-label="Atılma">⚡</button>
+                            <button id="mpad-slam" class="touch-btn btn-ability btn-slam" type="button" aria-label="Zemin Darbesi">💥</button>
+                            <button id="mpad-slow" class="touch-btn btn-ability btn-timeslow" type="button" aria-label="Krono">⏱️</button>
+                        </div>
+                        <div class="action-group">
+                            <button id="mpad-fire" class="touch-btn btn-fire" type="button" aria-label="Ateş Topu">🔥</button>
+                            <button id="mpad-jump" class="touch-btn btn-jump" type="button" aria-label="Zıpla">▲</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Professional Aspect-Ratio-Safe Startup Splash Screen (Item 1: Never Stretches on Any Phone or Tablet) -->
         <div id="screen-splash-intro" class="overlay-screen" style="position: fixed; inset: 0; z-index: 10000; background: radial-gradient(circle at center, #141c42 0%, #070a1c 62%, #03040a 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px;">
             <div class="splash-intro-card">
@@ -1184,6 +1268,7 @@
     <script src="js/i18n.js"></script>
     <script src="js/billing-i18n.js"></script>
     <script src="js/tv-nav.js"></script>
+    <script src="js/tv-pad.js"></script>
     <script src="js/analytics.js"></script>
     <script src="js/game.js"></script>
 </body>
