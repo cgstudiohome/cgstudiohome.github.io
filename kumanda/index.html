@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Marinext 2100 — Resmi Telefon &amp; Tablet TV Oyun Kolu</title>
+    <meta name="description" content="Android TV üzerindeki Marinext 2100 oyununu telefon veya tabletinizle gecikmesiz LAN P2P oyun kolu olarak oynayın. Kurulum yok, güvenlik uyarısı yok.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://cgstudiohome.com/kumanda/">
+    <link rel="icon" type="image/png" href="https://cgstudiohome.com/assets/icon-192.png">
+    <link rel="apple-touch-icon" href="https://cgstudiohome.com/assets/icon-192.png">
+
+    <!-- Unified GA4 Tag (marinext-2100) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7ER5HLQSNZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-7ER5HLQSNZ', { send_page_view: true });
+    </script>
+
+    <style>
+        :root {
+            --bg: #050711;
+            --card: rgba(14, 18, 38, 0.95);
+            --cyan: #00f2fe;
+            --emerald: #06d6a0;
+            --violet: #b537f2;
+            --gold: #ffd166;
+            --orange: #ff6d00;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: radial-gradient(circle at top, #121a3a 0%, var(--bg) 78%);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            touch-action: none;
+        }
+        .hidden { display: none !important; }
+
+        /* Setup / PIN Screen */
+        #setup-screen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            overflow-y: auto;
+        }
+        .setup-card {
+            width: 100%;
+            max-width: 420px;
+            background: var(--card);
+            border: 1.5px solid rgba(0, 242, 254, 0.35);
+            border-radius: 22px;
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.72), 0 0 36px rgba(0, 242, 254, 0.14);
+        }
+        .brand-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+        .ssl-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 11px;
+            border-radius: 999px;
+            background: rgba(6, 214, 160, 0.14);
+            border: 1px solid rgba(6, 214, 160, 0.45);
+            color: var(--emerald);
+            font-size: 11px;
+            font-weight: 800;
+        }
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #fff;
+            border-radius: 999px;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .app-icon {
+            width: 68px;
+            height: 68px;
+            border-radius: 16px;
+            border: 2px solid var(--cyan);
+            margin: 0 auto 10px;
+            display: block;
+            box-shadow: 0 0 22px rgba(0, 242, 254, 0.32);
+        }
+        h1 {
+            font-size: 21px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #fff, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+        .sub {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.45;
+            margin-bottom: 16px;
+        }
+        .pin-input {
+            width: 100%;
+            max-width: 240px;
+            padding: 12px 16px;
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: 10px;
+            text-align: center;
+            border-radius: 14px;
+            border: 2px solid rgba(0, 242, 254, 0.55);
+            background: rgba(5, 7, 17, 0.9);
+            color: var(--gold);
+            outline: none;
+            margin-bottom: 14px;
+            -webkit-user-select: text;
+            user-select: text;
+        }
+        .pin-input:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
+        }
+        .connect-btn {
+            width: 100%;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--emerald), #059669);
+            color: #02131d;
+            font-size: 16px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(6, 214, 160, 0.35);
+        }
+        .connect-btn:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+        .status-text {
+            margin-top: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--cyan);
+            min-height: 20px;
+        }
+
+        /* Fullscreen Touch Gamepad Deck */
+        #deck-screen {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: max(10px, env(safe-area-inset-top)) max(18px, calc(env(safe-area-inset-right) + 12px)) max(18px, calc(env(safe-area-inset-bottom) + 12px)) max(18px, calc(env(safe-area-inset-left) + 12px));
+            background: radial-gradient(circle at center, #0e1633 0%, #04060f 100%);
+        }
+        .deck-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .conn-pill {
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(6, 214, 160, 0.14);
+            border: 1px solid rgba(6, 214, 160, 0.55);
+            color: #6ee7b7;
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .mini-btn {
+            padding: 7px 12px;
+            border-radius: 10px;
+            border: 1.5px solid rgba(56, 189, 248, 0.45);
+            background: rgba(15, 23, 42, 0.85);
+            color: #e2e8f0;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .mini-btn.active {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(255, 209, 102, 0.16);
+        }
+        .mini-btn.danger {
+            border-color: rgba(244, 63, 94, 0.65);
+            color: #fda4af;
+        }
+
+        /* Menu Nav Overlay Strip */
+        #menu-strip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 16px;
+            background: rgba(15, 23, 42, 0.88);
+            border: 1.5px solid rgba(56, 189, 248, 0.4);
+            flex-wrap: wrap;
+        }
+        .nav-key {
+            min-width: 52px;
+            height: 46px;
+            padding: 0 12px;
+            border-radius: 12px;
+            border: 2px solid rgba(56, 189, 248, 0.55);
+            background: rgba(10, 14, 30, 0.9);
+            color: var(--cyan);
+            font-size: 16px;
+            font-weight: 900;
+        }
+        .nav-key.ok {
+            border-color: var(--emerald);
+            color: #02131d;
+            background: linear-gradient(135deg, var(--emerald), #10b981);
+        }
+        .nav-key.back {
+            border-color: rgba(248, 113, 113, 0.65);
+            color: #fca5a5;
+        }
+
+        /* Ergonomic Thumb Clusters matching Marinext 2100 Mobile HUD */
+        .pad-area {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 16px;
+            width: 100%;
+            flex: 1;
+            padding-top: 8px;
+        }
+        .dpad-cluster {
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+        }
+        .right-cluster {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+        .ability-row, .main-action-row {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+        .pad-btn {
+            position: relative;
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            border: 3px solid rgba(0, 242, 254, 0.62);
+            background: rgba(15, 20, 42, 0.78);
+            color: var(--cyan);
+            font-size: 32px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 22px rgba(0, 242, 254, 0.25);
+            touch-action: none;
+        }
+        .pad-btn.sm {
+            width: 60px;
+            height: 60px;
+            font-size: 22px;
+        }
+        .pad-btn.jump {
+            width: 92px;
+            height: 92px;
+            border-color: rgba(181, 55, 242, 0.85);
+            color: #e9d5ff;
+            box-shadow: 0 0 24px rgba(181, 55, 242, 0.35);
+        }
+        .pad-btn.fire {
+            border-color: rgba(255, 109, 0, 0.88);
+            color: #ffb703;
+            background: rgba(45, 16, 12, 0.8);
+            box-shadow: 0 0 22px rgba(255, 109, 0, 0.36);
+        }
+        .pad-btn.dash { border-color: #38bdf8; color: #38bdf8; }
+        .pad-btn.slam { border-color: #f43f5e; color: #fda4af; }
+        .pad-btn.slow { border-color: #a855f7; color: #e9d5ff; }
+        .pad-btn.pressed, .nav-key:active {
+            transform: scale(0.91);
+            background: rgba(0, 242, 254, 0.38) !important;
+            box-shadow: 0 0 32px rgba(0, 242, 254, 0.85) !important;
+        }
+        .pad-btn.jump.pressed {
+            background: rgba(181, 55, 242, 0.42) !important;
+            box-shadow: 0 0 34px rgba(181, 55, 242, 0.9) !important;
+        }
+        .pad-btn.fire.pressed {
+            background: rgba(255, 109, 0, 0.45) !important;
+        }
+        .portrait-tip {
+            text-align: center;
+            font-size: 11px;
+            color: var(--gold);
+            opacity: 0.9;
+        }
+        @media (orientation: landscape) {
+            .portrait-tip { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div id="setup-screen">
+        <div class="setup-card">
+            <div class="brand-row">
+                <span class="ssl-pill">🔒 HTTPS Güvenli • CG Studio Home</span>
+                <button id="btn-toggle-lang" class="lang-btn" type="button">TR / EN</button>
+            </div>
+            <img src="https://cgstudiohome.com/assets/icon-192.png" alt="Marinext 2100" class="app-icon">
+            <h1 id="ui-title">📺 TV Telefon Oyun Kolu</h1>
+            <p id="ui-sub" class="sub">Android TV ekranındaki 4 haneli kodu aşağıya gir veya TV'deki QR kodu okut. Uygulama indirmeden, aynı Wi-Fi üzerinden doğrudan düşük gecikmeli oyun kolu açılır.</p>
+            <input id="pin-input" class="pin-input" type="tel" inputmode="numeric" maxlength="4" placeholder="1234" autocomplete="off">
+            <button id="btn-connect" class="connect-btn" type="button">🎮 TV'YE BAĞLAN</button>
+            <div id="setup-status" class="status-text"></div>
+        </div>
+    </div>
+
+    <div id="deck-screen" class="hidden">
+        <div class="deck-topbar">
+            <span id="deck-conn-pill" class="conn-pill">🟢 Bağlı • LAN P2P</span>
+            <div class="top-actions">
+                <button id="btn-toggle-menu-pad" class="mini-btn" type="button">🧭 Menü Tuşları</button>
+                <button id="pad-pause" class="mini-btn" type="button">⏸ Duraklat</button>
+                <button id="btn-disconnect" class="mini-btn danger" type="button">✕ Kes</button>
+            </div>
+        </div>
+
+        <div id="menu-strip" class="hidden">
+            <button id="pad-nav-left" class="nav-key" type="button">◀</button>
+            <button id="pad-nav-up" class="nav-key" type="button">▲</button>
+            <button id="pad-nav-down" class="nav-key" type="button">▼</button>
+            <button id="pad-nav-right" class="nav-key" type="button">▶</button>
+            <button id="pad-nav-ok" class="nav-key ok" type="button">OK ✓</button>
+            <button id="pad-nav-back" class="nav-key back" type="button">↩ Geri</button>
+        </div>
+
+        <div id="portrait-tip" class="portrait-tip">💡 En rahat kontrol için telefonu yan çevirin</div>
+
+        <div class="pad-area">
+            <div class="dpad-cluster">
+                <button id="pad-left" class="pad-btn" aria-label="Sol">◀</button>
+                <button id="pad-right" class="pad-btn" aria-label="Sağ">▶</button>
+            </div>
+            <div class="right-cluster">
+                <div class="ability-row">
+                    <button id="pad-dash" class="pad-btn sm dash" aria-label="Atılma">⚡</button>
+                    <button id="pad-slam" class="pad-btn sm slam" aria-label="Zemin Darbesi">💥</button>
+                    <button id="pad-slow" class="pad-btn sm slow" aria-label="Krono">⏱️</button>
+                </div>
+                <div class="main-action-row">
+                    <button id="pad-fire" class="pad-btn fire" aria-label="Ateş Topu">🔥</button>
+                    <button id="pad-jump" class="pad-btn jump" aria-label="Zıpla">▲</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        "use strict";
+        const RTDB_BASE = "https://marinext-2100-default-rtdb.europe-west1.firebasedatabase.app/tv_pad_sessions";
+
+        const I18N = {
+            tr: {
+                title: "📺 TV Telefon Oyun Kolu",
+                sub: "Android TV ekranındaki 4 haneli kodu gir. Hiç uygulama indirmeden, aynı Wi-Fi üzerinden doğrudan LAN P2P oyun kolu olarak bağlanır.",
+                connect: "🎮 TV'YE BAĞLAN",
+                connecting: "🔄 TV oturumu bulunuyor...",
+                badCode: "⚠️ Lütfen TV ekranındaki 4 haneli kodu gir.",
+                notFound: "⚠️ Bu kodla aktif TV oturumu bulunamadı. TV ekranını kontrol et.",
+                menuToggle: "🧭 Menü Tuşları",
+                pause: "⏸ Duraklat",
+                disconnect: "✕ Kes",
+                back: "↩ Geri",
+                tip: "💡 En rahat kontrol için telefonu yan çevirin",
+                lan: "🟢 LAN P2P",
+                cloud: "🟡 Bulut Yedek"
+            },
+            en: {
+                title: "📺 TV Phone Gamepad",
+                sub: "Enter the 4-digit code shown on your Android TV. Zero app install required — pairs over encrypted HTTPS with direct LAN P2P low-latency input.",
+                connect: "🎮 CONNECT TO TV",
+                connecting: "🔄 Locating TV session...",
+                badCode: "⚠️ Please enter the 4-digit TV code.",
+                notFound: "⚠️ No active TV session found for that code.",
+                menuToggle: "🧭 Menu Pad",
+                pause: "⏸ Pause",
+                disconnect: "✕ Disconnect",
+                back: "↩ Back",
+                tip: "💡 Rotate phone horizontally for best console feel",
+                lan: "🟢 LAN P2P",
+                cloud: "🟡 Cloud Relay"
+            }
+        };
+
+        let lang = ((navigator.language || "tr").toLowerCase().startsWith("tr")) ? "tr" : "en";
+        let state = "idle"; // idle | connecting | connected
+        let transport = "";
+        let sessionCode = "";
+        let latencyMs = 12;
+        let pc = null;
+        let chPad = null;
+        let chCmd = null;
+        let pingTimer = null;
+        let seq = 0;
+        let eventId = 0;
+        let held = { l: 0, r: 0, j: 0 };
+        const touchMap = new Map();
+        let wakeLock = null;
+        let manualMenuOpen = false;
+
+        const $ = (id) => document.getElementById(id);
+
+        function applyLang() {
+            const d = I18N[lang];
+            $("ui-title").textContent = d.title;
+            $("ui-sub").textContent = d.sub;
+            $("btn-connect").textContent = d.connect;
+            $("btn-toggle-menu-pad").textContent = d.menuToggle;
+            $("pad-pause").textContent = d.pause;
+            $("btn-disconnect").textContent = d.disconnect;
+            $("pad-nav-back").textContent = d.back;
+            $("portrait-tip").textContent = d.tip;
+            updateConnPill();
+        }
+
+        function updateConnPill() {
+            const d = I18N[lang];
+            const label = transport === "webrtc_lan" ? d.lan : d.cloud;
+            $("deck-conn-pill").textContent = `${label} • ${latencyMs} ms`;
+        }
+
+        async function acquireWakeLock() {
+            try {
+                if (navigator.wakeLock && navigator.wakeLock.request) {
+                    wakeLock = await navigator.wakeLock.request("screen");
+                }
+            } catch (e) {}
+        }
+
+        function sendPayload(evAction) {
+            if (state !== "connected") return;
+            const obj = { t: evAction ? "e" : "s", l: held.l, r: held.r, j: held.j, seq: ++seq };
+            if (evAction) {
+                obj.ev = evAction;
+                obj.eid = ++eventId;
+            }
+            const raw = JSON.stringify(obj);
+            if (transport === "webrtc_lan") {
+                const target = evAction ? (chCmd || chPad) : (chPad || chCmd);
+                if (target && target.readyState === "open") {
+                    try { target.send(raw); } catch (e) {}
+                }
+            } else if (sessionCode) {
+                fetch(`${RTDB_BASE}/${sessionCode}.json`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ relay: raw, updatedAt: Date.now() })
+                }).catch(() => {});
+            }
+        }
+
+        function disconnect() {
+            if (pingTimer) { clearInterval(pingTimer); pingTimer = null; }
+            if (chCmd && chCmd.readyState === "open") {
+                try { chCmd.send(JSON.stringify({ t: "bye" })); } catch (e) {}
+            }
+            if (chPad) { try { chPad.close(); } catch (e) {} chPad = null; }
+            if (chCmd) { try { chCmd.close(); } catch (e) {} chCmd = null; }
+            if (pc) { try { pc.close(); } catch (e) {} pc = null; }
+            state = "idle";
+            transport = "";
+            held = { l: 0, r: 0, j: 0 };
+            touchMap.clear();
+            $("deck-screen").classList.add("hidden");
+            $("setup-screen").classList.remove("hidden");
+            $("btn-connect").disabled = false;
+        }
+
+        async function connect(codeRaw) {
+            const code = String(codeRaw || "").replace(/\D/g, "").slice(0, 4);
+            const d = I18N[lang];
+            if (code.length !== 4) {
+                $("setup-status").textContent = d.badCode;
+                return;
+            }
+            disconnect();
+            sessionCode = code;
+            state = "connecting";
+            $("btn-connect").disabled = true;
+            $("setup-status").textContent = d.connecting;
+
+            try {
+                const res = await fetch(`${RTDB_BASE}/${code}.json`, { cache: "no-store" });
+                if (!res.ok) throw new Error("http");
+                const session = await res.json();
+                if (!session || !session.offer) throw new Error("missing");
+
+                let done = false;
+                const finish = (trMode) => {
+                    if (done && transport === "webrtc_lan") return;
+                    done = true;
+                    state = "connected";
+                    transport = trMode;
+                    latencyMs = trMode === "webrtc_lan" ? 10 : 45;
+                    $("setup-screen").classList.add("hidden");
+                    $("deck-screen").classList.remove("hidden");
+                    updateConnPill();
+                    acquireWakeLock();
+                    if (typeof gtag === "function") {
+                        gtag("event", "tv_pad_connected", {
+                            device_form_factor: "web",
+                            tv_input_mode: "phone_pad",
+                            pad_transport: trMode,
+                            pad_latency_ms: latencyMs
+                        });
+                    }
+                    if (!pingTimer) {
+                        pingTimer = setInterval(() => {
+                            if (chCmd && chCmd.readyState === "open") {
+                                try { chCmd.send(JSON.stringify({ t: "ping", ts: Date.now() })); } catch (e) {}
+                            }
+                        }, 1400);
+                    }
+                };
+
+                if (typeof RTCPeerConnection === "function" && session.offer !== "relay-only") {
+                    pc = new RTCPeerConnection({ iceServers: [{ urls: "stun:stun.l.google.com:19302" }] });
+                    const localCand = [];
+                    pc.onicecandidate = (ev) => {
+                        if (ev.candidate) {
+                            localCand.push(ev.candidate.toJSON ? ev.candidate.toJSON() : ev.candidate);
+                            fetch(`${RTDB_BASE}/${code}.json`, {
+                                method: "PATCH",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ padIce: JSON.stringify(localCand).slice(0, 15500), updatedAt: Date.now() })
+                            }).catch(() => {});
+                        }
+                    };
+                    pc.ondatachannel = (ev) => {
+                        const ch = ev.channel;
+                        if (!ch) return;
+                        if (ch.label === "pad") chPad = ch;
+                        else chCmd = ch;
+                        ch.onopen = () => finish("webrtc_lan");
+                        ch.onmessage = (mEv) => {
+                            try {
+                                const msg = JSON.parse(mEv.data);
+                                if (msg.t === "pong" && msg.ts) {
+                                    latencyMs = Math.max(1, Date.now() - Number(msg.ts));
+                                    updateConnPill();
+                                    if (chCmd && chCmd.readyState === "open") {
+                                        chCmd.send(JSON.stringify({ t: "rtt", ms: latencyMs }));
+                                    }
+                                } else if (msg.t === "ctx" && !manualMenuOpen) {
+                                    $("menu-strip").classList.toggle("hidden", msg.mode === "playing");
+                                    $("btn-toggle-menu-pad").classList.toggle("active", msg.mode !== "playing");
+                                }
+                            } catch (e) {}
+                        };
+                    };
+
+                    await pc.setRemoteDescription(new RTCSessionDescription(JSON.parse(session.offer)));
+                    if (session.tvIce) {
+                        try {
+                            const tvIce = JSON.parse(session.tvIce);
+                            if (Array.isArray(tvIce)) {
+                                for (const c of tvIce) await pc.addIceCandidate(new RTCIceCandidate(c));
+                            }
+                        } catch (e) {}
+                    }
+                    const ans = await pc.createAnswer();
+                    await pc.setLocalDescription(ans);
+                    const padDeviceName = /iPhone|iPad/i.test(navigator.userAgent) ? "iPhone Web Pad" : "Android Web Pad";
+                    await fetch(`${RTDB_BASE}/${code}.json`, {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            answer: JSON.stringify(pc.localDescription),
+                            padName: padDeviceName,
+                            state: "handshake",
+                            updatedAt: Date.now()
+                        })
+                    });
+
+                    setTimeout(() => {
+                        if (!done && state === "connecting") {
+                            fetch(`${RTDB_BASE}/${code}.json`, {
+                                method: "PATCH",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ state: "relay", updatedAt: Date.now() })
+                            }).catch(() => {});
+                            finish("firebase_relay");
+                        }
+                    }, 4000);
+                } else {
+                    await fetch(`${RTDB_BASE}/${code}.json`, {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            answer: "relay-only",
+                            padName: "Web Browser Pad",
+                            state: "relay",
+                            updatedAt: Date.now()
+                        })
+                    });
+                    finish("firebase_relay");
+                }
+            } catch (e) {
+                state = "idle";
+                $("btn-connect").disabled = false;
+                $("setup-status").textContent = d.notFound;
+            }
+        }
+
+        function syncTouches() {
+            let l = 0, r = 0, j = 0;
+            for (const role of touchMap.values()) {
+                if (role === "left") l = 1;
+                else if (role === "right") r = 1;
+                else if (role === "jump") j = 1;
+            }
+            $("pad-left").classList.toggle("pressed", Boolean(l));
+            $("pad-right").classList.toggle("pressed", Boolean(r));
+            $("pad-jump").classList.toggle("pressed", Boolean(j));
+
+            const jumpEdge = (j && !held.j);
+            const changed = l !== held.l || r !== held.r || j !== held.j;
+            held = { l, r, j };
+            if (jumpEdge) sendPayload("jump");
+            else if (changed) sendPayload(null);
+        }
+
+        function bindBtn(id, role, edgeAction) {
+            const el = $(id);
+            el.addEventListener("touchstart", (e) => {
+                if (e.cancelable) e.preventDefault();
+                if (navigator.vibrate) try { navigator.vibrate(10); } catch (er) {}
+                if (role) {
+                    for (let i = 0; i < e.changedTouches.length; i++) touchMap.set(e.changedTouches[i].identifier, role);
+                    syncTouches();
+                } else if (edgeAction) {
+                    el.classList.add("pressed");
+                    sendPayload(edgeAction);
+                }
+            }, { passive: false });
+            el.addEventListener("touchend", () => { if (!role) el.classList.remove("pressed"); }, { passive: true });
+            el.addEventListener("mousedown", (e) => {
+                if (e.button !== 0) return;
+                el.classList.add("pressed");
+                if (role === "left") { held.l = 1; sendPayload(null); }
+                else if (role === "right") { held.r = 1; sendPayload(null); }
+                else if (role === "jump") { held.j = 1; sendPayload("jump"); }
+                else if (edgeAction) sendPayload(edgeAction);
+            });
+            el.addEventListener("mouseup", () => {
+                el.classList.remove("pressed");
+                if (role === "left") { held.l = 0; sendPayload(null); }
+                else if (role === "right") { held.r = 0; sendPayload(null); }
+                else if (role === "jump") { held.j = 0; sendPayload(null); }
+            });
+        }
+
+        window.addEventListener("touchmove", (e) => {
+            if (touchMap.size === 0) return;
+            const lr = $("pad-left").getBoundingClientRect();
+            const rr = $("pad-right").getBoundingClientRect();
+            for (let i = 0; i < e.changedTouches.length; i++) {
+                const t = e.changedTouches[i];
+                const cur = touchMap.get(t.identifier);
+                if (cur === "left" || cur === "right") {
+                    if (t.clientX >= lr.left - 12 && t.clientX <= lr.right + 8 && t.clientY >= lr.top - 24 && t.clientY <= lr.bottom + 24) {
+                        touchMap.set(t.identifier, "left");
+                    } else if (t.clientX >= rr.left - 8 && t.clientX <= rr.right + 12 && t.clientY >= rr.top - 24 && t.clientY <= rr.bottom + 24) {
+                        touchMap.set(t.identifier, "right");
+                    }
+                }
+            }
+            syncTouches();
+        }, { passive: true });
+
+        const onTouchEnd = (e) => {
+            if (touchMap.size === 0) return;
+            for (let i = 0; i < e.changedTouches.length; i++) touchMap.delete(e.changedTouches[i].identifier);
+            if (e.touches) {
+                const alive = new Set();
+                for (let i = 0; i < e.touches.length; i++) alive.add(e.touches[i].identifier);
+                for (const key of Array.from(touchMap.keys())) { if (!alive.has(key)) touchMap.delete(key); }
+            }
+            syncTouches();
+        };
+        window.addEventListener("touchend", onTouchEnd, { passive: true });
+        window.addEventListener("touchcancel", onTouchEnd, { passive: true });
+
+        bindBtn("pad-left", "left", null);
+        bindBtn("pad-right", "right", null);
+        bindBtn("pad-jump", "jump", "jump");
+        bindBtn("pad-fire", null, "fire");
+        bindBtn("pad-dash", null, "dash");
+        bindBtn("pad-slam", null, "slam");
+        bindBtn("pad-slow", null, "slow");
+        bindBtn("pad-pause", null, "pause");
+        bindBtn("pad-nav-up", null, "nav_up");
+        bindBtn("pad-nav-down", null, "nav_down");
+        bindBtn("pad-nav-left", null, "nav_left");
+        bindBtn("pad-nav-right", null, "nav_right");
+        bindBtn("pad-nav-ok", null, "ok");
+        bindBtn("pad-nav-back", null, "back");
+
+        $("btn-toggle-lang").addEventListener("click", () => {
+            lang = (lang === "tr") ? "en" : "tr";
+            applyLang();
+        });
+        $("btn-connect").addEventListener("click", () => connect($("pin-input").value));
+        $("btn-disconnect").addEventListener("click", disconnect);
+        $("btn-toggle-menu-pad").addEventListener("click", () => {
+            manualMenuOpen = !$("menu-strip").classList.toggle("hidden");
+            $("btn-toggle-menu-pad").classList.toggle("active", manualMenuOpen);
+        });
+        $("pin-input").addEventListener("keydown", (e) => {
+            if (e.key === "Enter") connect($("pin-input").value);
+        });
+        window.addEventListener("beforeunload", disconnect);
+
+        applyLang();
+        if (typeof gtag === "function") {
+            gtag("event", "tv_pad_page_view", { device_form_factor: "web" });
+        }
+        try {
+            const urlCode = new URLSearchParams(window.location.search).get("code");
+            if (urlCode && /^[0-9]{4}$/.test(urlCode)) {
+                $("pin-input").value = urlCode;
+                connect(urlCode);
+            }
+        } catch (e) {}
+    })();
+    </script>
+</body>
+</html>
